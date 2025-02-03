@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Database\Migrations;
+
+use CodeIgniter\Database\Migration;
+
+class ActivityLogs extends Migration
+{
+    public function up()
+    {
+        $this->forge->addField([
+            'activity_id' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => false,
+                'unique' => true,
+            ],
+            'activity_by' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => true,
+            ],
+            'activity_type' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => true,
+            ],
+            'activity' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => true,
+            ],
+            'ip_address' => [
+                'type' => 'VARCHAR',
+                'constraint' => 45,
+                'null' => true,
+                'after' => 'activity'
+            ],
+            'device' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
+                'after' => 'ip_address'
+            ],
+            'updated_at datetime default current_timestamp on update current_timestamp',
+            'created_at datetime default current_timestamp',
+        ]);
+        $this->forge->addKey('activity_id', true);
+        $this->forge->createTable('activity_logs');
+    }
+
+    public function down()
+    {
+        $this->forge->dropTable('activity_logs');
+    }
+}

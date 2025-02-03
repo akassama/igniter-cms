@@ -1,0 +1,43 @@
+/* Custom toastr style */
+#toast-container > .toast {
+    background-color: rgba(0, 123, 255, 0.8); /* Adjust color and opacity as needed */
+    color: #fff; /* Text color */
+}
+
+#toast-container > .toast-success {
+    background-color: rgba(40, 167, 69, 0.8); /* Success background color with transparency */
+}
+
+#toast-container > .toast-error {
+    background-color: rgba(220, 53, 69, 0.8); /* Error background color with transparency */
+}
+
+#toast-container > .toast-info {
+    background-color: rgba(23, 162, 184, 0.8); /* Info background color with transparency */
+}
+
+#toast-container > .toast-warning {
+    background-color: rgba(255, 193, 7, 0.8); /* Warning background color with transparency */
+}
+
+/* Remove text decoration */
+.td-none{
+ text-decoration: none;
+}
+
+/* Set CodeMirror height */
+.CodeMirror {
+    height: auto;
+}
+
+/* htmx indicator */
+.htmx-indicator{
+    opacity:0;
+    transition: opacity 500ms ease-in;
+}
+.htmx-request .htmx-indicator{
+    opacity:1;
+}
+.htmx-request.htmx-indicator{
+    opacity:1;
+}
