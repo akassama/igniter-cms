@@ -1114,10 +1114,20 @@ class AdminController extends BaseController
 
             // Add the log entries to the log data array
             foreach ($logEntries as $entry) {
-                $logData[] = [
-                    'file' => basename($file),
-                    'entry' => $entry
-                ];
+                // Parse the log entry to extract level, timestamp, and message
+                if (preg_match('/^(.*?) - (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}) --> (.*)$/', $entry, $matches)) {
+                    $level = $matches[1];      // Log level (e.g., INFO, ERROR, CRITICAL)
+                    $timestamp = $matches[2];  // Timestamp (e.g., 2025-02-10 16:36:40)
+                    $message = $matches[3];    // Log message
+
+                    // Add the parsed data to the log data array
+                    $logData[] = [
+                        'file' => basename($file),
+                        'level' => $level,
+                        'timestamp' => $timestamp,
+                        'message' => $message
+                    ];
+                }
             }
         }
 

@@ -31,7 +31,9 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                             <tr>
                                 <th>File</th>
-                                <th>Log Entry</th>
+                                <th>Level</th>
+                                <th>Timestamp</th>
+                                <th>Message</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -39,7 +41,9 @@ echo generateBreadcrumb($breadcrumb_links);
                         <?php foreach ($logData as $log): ?>
                             <tr>
                                 <td><?= esc($log['file']) ?></td>
-                                <td><?= esc($log['entry']) ?></td>
+                                <td><?= esc($log['level']) ?></td>
+                                <td><?= esc($log['timestamp']) ?></td>
+                                <td><?= esc($log['message']) ?></td>
                                 <td>
                                     <div class="row text-center p-1">
                                         <div class="col mb-1">
