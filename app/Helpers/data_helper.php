@@ -3774,10 +3774,10 @@ if(!function_exists('estimateReadTime')){
  * @returns {string} The requested meta information
  */
 if (!function_exists('getPageMetaInfo')) {
-    function getPageMetaInfo($pageUrl, $metaType) 
+    function getPageMetaInfo($pageUrl, $metaType)
     {
         try {
-                    
+
             // Remove index.php from URL if it exists
             $pageUrl = removeIndexPhp($pageUrl);
             $baseUrl = base_url();
@@ -3802,7 +3802,7 @@ if (!function_exists('getPageMetaInfo')) {
             // This section uses an array-based approach for easier maintenance
             $pathMappings = [
                 'blog/' => [
-                    'model' => 'blogs', 
+                    'model' => 'blogs',
                     'metaFields' => [
                         'author' => 'created_by',
                         'title' => 'meta_title',
@@ -3877,18 +3877,18 @@ if (!function_exists('getPageMetaInfo')) {
             if (isset($specialPages[$relativePath])) {
                 $pageConfig = $specialPages[$relativePath];
                 $model = $pageConfig['model'];
-                
+
                 $metaTitle = getConfigData($pageConfig['metaTitleConfig']);
                 $metaDescription = getConfigData($pageConfig['metaDescConfig']);
                 $metaKeywords = getConfigData($pageConfig['metaKeywordsConfig']);
-            } 
+            }
             // Check for dynamic pages with prefixes
             else {
                 foreach ($pathMappings as $prefix => $config) {
                     if (strpos($relativePath, $prefix) !== false) {
                         $model = $config['model'];
                         $slugId = str_replace($prefix, '', $relativePath);
-                        
+
                         // Dynamically fetch meta information
                         $metaAuthor = getActivityBy(
                             getTableData($model, ['slug' => $slugId], $config['metaFields']['author'])
@@ -3900,7 +3900,7 @@ if (!function_exists('getPageMetaInfo')) {
                         break;
                     }
                 }
-                
+
                 // Handle single page without prefix
                 if ($model === 'default' && strpos($relativePath, '/') === false) {
                     $model = "pages";
@@ -3935,21 +3935,21 @@ if (!function_exists('getPageMetaInfo')) {
                  * @type {string}
                  */
                 case 'metadescription':
-                    return $metaDescription;
+                    return $metaDescription ?? getConfigData("MetaDescription");
 
                 /**
                  * Retrieve the page meta keywords
                  * @type {string}
                  */
                 case 'metakeywords':
-                    return $metaKeywords;
+                    return $metaKeywords ?? getConfigData("MetaKeywords");
 
                 /**
                  * Retrieve the page Open Graph image
                  * @type {string}
                  */
                 case 'metaogimage':
-                    return $metaOgImage;
+                    return $metaOgImage ?? getConfigData("MetaOgImage");
 
                 /**
                  * Retrieve the full page URL
@@ -3970,7 +3970,7 @@ if (!function_exists('getPageMetaInfo')) {
         catch(Exception $e) {
             return "NA";
         }
- 
+
     }
 }
 
@@ -3992,5 +3992,28 @@ if (!function_exists('getSubscriberStatusLabel')) {
         else {
             return "<span class='badge bg-danger'>NA</span>";
         }
+    }
+}
+
+/**
+ * Checks if the application is running in a local development environment.
+ *
+ * This function determines if the application is running on a local
+ * development server by checking if the HTTP_HOST contains 'localhost'.
+ *
+ * @return bool True if the environment is local, false otherwise.
+ *
+ * @example
+ * if (isLocalEnvironment()) {
+ *     echo "Running in local development.";
+ * } else {
+ *     echo "Running on a production or staging server.";
+ * }
+ */
+if (! function_exists('isLocalEnvironment')) {
+    function isLocalEnvironment(): bool
+    {
+        // Check if the HTTP_HOST superglobal is set and contains 'localhost'.
+        return (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'localhost') !== false);
     }
 }

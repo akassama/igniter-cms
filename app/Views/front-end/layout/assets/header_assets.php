@@ -11,6 +11,9 @@
 <!--custom css-->
 <link href="<?= base_url('public/front-end/assets/css/style.css')?>" rel="stylesheet" />
 
+<!--remix icon-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css" />
+
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

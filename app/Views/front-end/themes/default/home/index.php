@@ -12,6 +12,7 @@ $metaTitle = getConfigData("MetaTitle");
 $metaDescription = getConfigData("MetaDescription");
 $metaKeywords = getConfigData("MetaKeywords");
 $siteLogoLink = getConfigData("SiteLogoLink");
+$siteLogoTwoLink = getConfigData("SiteLogoTwoLink");
 $siteFaviconLink = getConfigData("SiteFaviconLink");
 $siteFaviconManifestLink = getConfigData("SiteFaviconManifestLink");
 $siteFaviconLink96 = getConfigData("SiteFaviconLink96");

@@ -860,7 +860,22 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for'    => 'SiteLogoLink',
-                'config_value'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/ci-cms-logo.jpg',
+                'config_value'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/ci-cms-logo.png',
+                'group' => 'meta_seo',
+                'data_type' => 'Text',
+                'options' => null,
+                'default_value' => null,
+                'deletable'    => 0,
+                'description' => '',
+                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'updated_by' => null,
+                'icon' => 'ri-image-2-line',
+                'search_terms' => 'logo,site,branding,image'
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for'    => 'SiteLogoTwoLink',
+                'config_value'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/ci-cms-logo-horizontal.jpg',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,

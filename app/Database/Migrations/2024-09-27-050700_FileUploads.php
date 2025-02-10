@@ -405,6 +405,16 @@ class FileUploads extends Migration
             [
                 'file_id' => getGUID(),
                 'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'file_name' => getRandomFileName('ci-cms-logo.png'),
+                'file_type'    => 'png',
+                'file_size'    => '43000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/ci-cms-logo.png',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
                 'file_name' => getRandomFileName('favicon.ico'),
                 'file_type'    => 'ico',
                 'file_size'    => '14000',

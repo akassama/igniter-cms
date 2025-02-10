@@ -16,6 +16,7 @@ $metaKeywords = getPageMetaInfo($currentUrl, "MetaKeywords");
 $metaOgImage = getPageMetaInfo($currentUrl, "MetaOgImage");
 $metaPageUrl =  getPageMetaInfo($currentUrl, "MetaPageUrl");
 $siteLogoLink = getConfigData("SiteLogoLink");
+$siteLogoTwoLink = getConfigData("SiteLogoTwoLink");
 $siteFaviconLink = getConfigData("SiteFaviconLink");
 $siteFaviconManifestLink = getConfigData("SiteFaviconManifestLink");
 $siteFaviconLink96 = getConfigData("SiteFaviconLink96");
