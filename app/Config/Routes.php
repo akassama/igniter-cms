@@ -79,6 +79,8 @@ $routes->group('account', ['filter' => 'authFilter'], function($routes) {
     $routes->get('admin/contact-messages/view-contact/(:any)', 'AdminController::viewContactMessage/$1', ['filter' => 'adminRoleFilter']);
     $routes->get('admin/activity-logs', 'AdminController::activityLogs', ['filter' => 'adminRoleFilter']);
     $routes->get('admin/activity-logs/view-activity/(:any)', 'AdminController::viewActivity/$1');
+    $routes->get('admin/logs', 'AdminController::viewLogFiles', ['filter' => 'adminRoleFilter']);
+    $routes->get('admin/logs/view-log/(:any)', 'AdminController::viewLogData/$1');
     $routes->get('admin/visit-stats', 'AdminController::viewStats', ['filter' => 'adminRoleFilter']);
     $routes->get('admin/visit-stats/view-stat/(:any)', 'AdminController::viewStat/$1');
     $routes->get('admin/configurations', 'AdminController::configurations', ['filter' => 'adminRoleFilter']);

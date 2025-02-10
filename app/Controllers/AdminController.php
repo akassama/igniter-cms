@@ -1083,6 +1083,93 @@ class AdminController extends BaseController
     }
 
     //############################//
+    //            Logs            //
+    //############################//
+    public function viewLogFiles()
+    {
+        // Path to the logs directory
+        $logPath = WRITEPATH . 'logs/';
+
+        // Get all log files
+        $logFiles = glob($logPath . 'log-*.log');
+
+        // Array to hold log data
+        $logData = [];
+
+        // Read each log file in reverse order (newest first)
+        rsort($logFiles);
+
+        // Loop through log files and read entries
+        foreach ($logFiles as $file) {
+            // Read the file content
+            $fileContent = file_get_contents($file);
+
+            // Split the content into individual log entries
+            $logEntries = explode("\n", $fileContent);
+
+            // Filter out empty entries
+            $logEntries = array_filter($logEntries, function($entry) {
+                return !empty(trim($entry));
+            });
+
+            // Add the log entries to the log data array
+            foreach ($logEntries as $entry) {
+                $logData[] = [
+                    'file' => basename($file),
+                    'entry' => $entry
+                ];
+            }
+        }
+
+        // Paginate the log data
+        $pager = \Config\Services::pager();
+        $perPage = 50; // Number of entries per page
+        $currentPage = $this->request->getVar('page') ?? 1; // Get current page from query string
+
+        // Slice the log data for the current page
+        $totalEntries = count($logData);
+        $paginatedData = array_slice($logData, ($currentPage - 1) * $perPage, $perPage);
+
+        // Pass the paginated data and pager to the view
+        $data['logData'] = $paginatedData;
+        $data['pager'] = $pager->makeLinks($currentPage, $perPage, $totalEntries, 'bootstrap'); // Use custom template
+
+        return view('back-end/admin/logs/index', $data);
+    }
+
+    public function viewLogData($filename)
+    {
+        // Path to the logs directory
+        $logPath = WRITEPATH . 'logs/';
+
+        // Full path to the log file
+        $logFile = $logPath . $filename;
+
+        // Check if the file exists
+        if (!file_exists($logFile)) {
+            // If the file doesn't exist, show an error or redirect
+            return redirect()->to('/account/admin/logs')->with('error', 'Log file not found.');
+        }
+
+        // Read the file content
+        $logContent = file_get_contents($logFile);
+
+        // Split the log content into individual entries
+        $logEntries = explode("\n", $logContent);
+
+        // Filter out empty entries
+        $logEntries = array_filter($logEntries, function($entry) {
+            return !empty(trim($entry));
+        });
+
+        // Pass the log data to the view
+        $data['logEntries'] = $logEntries;
+        $data['filename'] = $filename;
+
+        return view('back-end/admin/logs/view-log', $data);
+    }
+
+    //############################//
     //        Site Stats          //
     //############################//
     public function viewStats()
