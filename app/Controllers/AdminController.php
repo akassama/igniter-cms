@@ -1096,10 +1096,7 @@ class AdminController extends BaseController
         // Array to hold log data
         $logData = [];
 
-        // Read each log file in reverse order (newest first)
-        rsort($logFiles);
-
-        // Loop through log files and read entries
+        // Read each log file
         foreach ($logFiles as $file) {
             // Read the file content
             $fileContent = file_get_contents($file);
@@ -1112,9 +1109,8 @@ class AdminController extends BaseController
                 return !empty(trim($entry));
             });
 
-            // Add the log entries to the log data array
+            // Parse and add the log entries to the log data array
             foreach ($logEntries as $entry) {
-                // Parse the log entry to extract level, timestamp, and message
                 if (preg_match('/^(.*?) - (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}) --> (.*)$/', $entry, $matches)) {
                     $level = $matches[1];      // Log level (e.g., INFO, ERROR, CRITICAL)
                     $timestamp = $matches[2];  // Timestamp (e.g., 2025-02-10 16:36:40)
@@ -1130,6 +1126,11 @@ class AdminController extends BaseController
                 }
             }
         }
+
+        // Sort log data by timestamp in descending order (most recent first)
+        usort($logData, function($a, $b) {
+            return strtotime($b['timestamp']) - strtotime($a['timestamp']);
+        });
 
         // Paginate the log data
         $pager = \Config\Services::pager();

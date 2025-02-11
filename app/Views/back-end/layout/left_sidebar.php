@@ -208,6 +208,9 @@ $userRole = getUserRole($sessionEmail);
                             <a class="nav-link <?= (str_contains(current_url(), 'account/admin/activity-logs')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/activity-logs'); ?>">
                                 <i class="ri-arrow-drop-right-fill"></i> Activity Logs
                             </a>
+                            <a class="nav-link <?= (str_contains(current_url(), 'account/admin/logs')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/logs'); ?>">
+                                <i class="ri-arrow-drop-right-fill"></i> Logs
+                            </a>
                             <a class="nav-link <?= (str_contains(current_url(), 'account/admin/visit-stats')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/visit-stats'); ?>">
                                 <i class="ri-arrow-drop-right-fill"></i> Visit Stats
                             </a>
