@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'localhost',
-        'username'     => 'root',
-        'password'     => '',
-        'database'     => 'igniter_db',
+        'hostname'     => ENVIRONMENT === 'production' ? 'prod_hostname' : 'localhost',
+        'username'     => ENVIRONMENT === 'production' ? 'prod_db_username' : 'root',
+        'password'     => ENVIRONMENT === 'production' ? 'prod_db_password' : '',
+        'database'     => ENVIRONMENT === 'production' ? 'prod_db' : 'igniter_db',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,

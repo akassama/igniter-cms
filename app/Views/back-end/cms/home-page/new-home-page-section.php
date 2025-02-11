@@ -96,7 +96,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="section_image" class="form-label">Section Image</label>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="section_image" name="section_image" placeholder="select image" required>
+                    <input type="text" class="form-control" id="section_image" name="section_image" placeholder="select image">
                     <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
                         <i class="ri-image-fill"></i>
                     </button>
@@ -114,7 +114,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="section_image_2" class="form-label">Section Image 2</label>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="section_image_2" name="section_image_2" placeholder="select image" required>
+                    <input type="text" class="form-control" id="section_image_2" name="section_image_2" placeholder="select image">
                     <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
                         <i class="ri-image-fill"></i>
                     </button>
@@ -132,7 +132,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="section_image_3" class="form-label">Section Image 3</label>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="section_image_3" name="section_image_3" placeholder="select image" required>
+                    <input type="text" class="form-control" id="section_image_3" name="section_image_3" placeholder="select image">
                     <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
                         <i class="ri-image-fill"></i>
                     </button>
@@ -150,7 +150,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="section_image_4" class="form-label">Section Image 4</label>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="section_image_4" name="section_image_4" placeholder="select image" required>
+                    <input type="text" class="form-control" id="section_image_4" name="section_image_4" placeholder="select image">
                     <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
                         <i class="ri-image-fill"></i>
                     </button>

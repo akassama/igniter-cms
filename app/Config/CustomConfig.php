@@ -14,17 +14,6 @@ class CustomConfig extends BaseConfig
     public $frontEndFormat = "MVC"; //MVC/API
 
     #--------------------------------------------------------------------
-    # DATABASE
-    #--------------------------------------------------------------------
-    public $hostname = 'localhost';
-    public $database = 'igniter_db';
-    public $username = 'root';
-    public $password = '';
-    public $DBDriver = 'MySQLi';
-    public $DBPrefix = '';
-    public $port = '3306';
-
-    #--------------------------------------------------------------------
     # MESSAGES
     #--------------------------------------------------------------------
     public $wrongCredentialsMsg = 'Sign In Failed. The provided username/email or password is incorrect.';
