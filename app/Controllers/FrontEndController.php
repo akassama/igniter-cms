@@ -565,14 +565,6 @@ class FrontEndController extends BaseController
     //############################//
     public function getSitemaps()
     {
-        // Clear previous output buffer to avoid issues with headers
-        if (ob_get_length()) {
-            ob_end_clean();
-        }
-    
-        // Set XML headers
-        $this->response->setHeader('Content-Type', 'application/xml; charset=utf-8');
-    
         // Models to query
         $models = [
             'blog' => new BlogsModel(),
@@ -582,25 +574,98 @@ class FrontEndController extends BaseController
             'donate' => new DonationCausesModel(),
             'shop' => new ProductsModel()
         ];
-    
+
         // Fetch data from each model
         $sitemapData = [];
         foreach ($models as $key => $model) {
             $sitemapData[$key] = $model->select('slug, updated_at, created_at')
-                ->where('status', '1')
+                ->where('status', '1') // Only active records
                 ->orderBy('created_at', 'DESC')
-                ->limit(50)
+                ->limit(50) // Limit to 50 entries per model
                 ->findAll();
         }
-    
+
         // Log activity for sitemap access
         logActivity(null, ActivityTypes::SITEMAP, 'Sitemap accessed');
-    
-        // Generate the XML content
-        $xmlContent = view('front-end/themes/' . getCurrentTheme() . '/sitemap/index', ['sitemapData' => $sitemapData]);
-    
-        // Output the XML content directly (no return, just echo it)
-        echo $xmlContent;
-        exit; // Ensure no further output
+
+        // Generate the sitemap XML
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"' . PHP_EOL;
+        $xml .= '      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' . PHP_EOL;
+        $xml .= '      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9' . PHP_EOL;
+        $xml .= '            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">' . PHP_EOL;
+        $xml .= '<!-- created with IgniterCMS Sitemap Generator www.github.com/akassama/igniter-cms -->' . PHP_EOL;
+
+        // Add static URLs (homepage and other static pages)
+        $staticUrls = [
+            ['loc' => base_url('/'), 'lastmod' => date('c'), 'priority' => '1.00'],
+            ['loc' => base_url('/home'), 'lastmod' => date('c'), 'priority' => '0.80']
+        ];
+
+        foreach ($staticUrls as $url) {
+            $xml .= $this->generateUrlXml($url['loc'], $url['lastmod'], $url['priority']);
+        }
+
+        // Add dynamic URLs from models
+        foreach ($sitemapData as $type => $items) {
+            foreach ($items as $item) {
+                $url = base_url("/{$type}/{$item['slug']}");
+                $lastmod = !empty($item['updated_at']) ? $item['updated_at'] : $item['created_at'];
+                $priority = $this->calculatePriority($type);
+
+                $xml .= $this->generateUrlXml($url, $lastmod, $priority);
+            }
+        }
+
+        // Close the XML tag
+        $xml .= '</urlset>';
+
+        // Set the response headers
+        $this->response->setContentType('application/xml');
+        return $this->response->setBody($xml);
+    }
+
+    /**
+     * Helper function to generate a single <url> XML block.
+     *
+     * @param string $loc URL of the page
+     * @param string $lastmod Last modified date in ISO 8601 format
+     * @param string $priority Priority of the page
+     * @return string
+     */
+    private function generateUrlXml(string $loc, string $lastmod, string $priority): string
+    {
+        $xml = '<url>' . PHP_EOL;
+        $xml .= '  <loc>' . htmlspecialchars($loc, ENT_XML1, 'UTF-8') . '</loc>' . PHP_EOL;
+        $xml .= '  <lastmod>' . $lastmod . '</lastmod>' . PHP_EOL;
+        $xml .= '  <priority>' . $priority . '</priority>' . PHP_EOL;
+        $xml .= '</url>' . PHP_EOL;
+        return $xml;
+    }
+
+    /**
+     * Helper function to calculate priority based on content type.
+     *
+     * @param string $type Content type (e.g., blog, page, event)
+     * @return string
+     */
+    private function calculatePriority(string $type): string
+    {
+        switch ($type) {
+            case 'blog':
+                return '0.90';
+            case 'page':
+                return '0.80';
+            case 'portfolio':
+                return '0.70';
+            case 'event':
+                return '0.60';
+            case 'donate':
+                return '0.50';
+            case 'shop':
+                return '0.40';
+            default:
+                return '0.50';
+        }
     }
 }
