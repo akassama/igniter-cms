@@ -5,7 +5,6 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-//AUTH
 
 //SIGN-IN
 $routes->group('sign-in', ['filter' => 'guestFilter'], function($routes) {
@@ -33,6 +32,12 @@ $routes->group('password-reset', ['filter' => ['siteStatsFilter','guestFilter']]
     $routes->get('(:segment)', 'PasswordResetController::index/$1');
     $routes->post('/', 'PasswordResetController::resetPassword');
 });
+
+//UNSUBSCRIBE
+$routes->get('services/unsubscribe/(:any)', 'ServicesController::unsubscribe/$1');
+
+//RE-SUBSCRIBE
+$routes->get('services/resubscribe/(:any)', 'ServicesController::resubscribe/$1');
 
 //ACCOUNT
 $routes->get('/account', 'AccountController::index', ['filter' => 'authFilter']);
