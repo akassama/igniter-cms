@@ -1,0 +1,33 @@
+<?php
+// Get current theme impact
+$theme = getCurrentTheme();
+
+?>
+<!-- include theme layout -->
+<?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>
+
+<!-- begin main content -->
+<?= $this->section('content') ?>
+    <section class="py-5" id="portfolio">
+        <div class="container px-5 my-5">
+            <div class="text-center mb-5">
+                <h1 class="fw-bolder">Our Work</h1>
+                <p class="lead fw-normal text-muted mb-0">Company portfolio</p>
+            </div>
+            <div class="row gx-5">
+                <?php if($portfolios): ?>
+                    <?php foreach($portfolios as $portfolio): ?>
+                        <div class="col-lg-6">
+                            <div class="position-relative mb-5">
+                                <img class="img-fluid rounded-3 mb-3" src="<?=getImageUrl($portfolio['featured_image'] ?? getDefaultImagePath())?>" alt="<?= $portfolio['title']; ?>" />
+                                <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="<?= base_url('portfolio/'.$portfolio['slug']) ?>"><?= $portfolio['title']; ?></a>
+                            </div>
+                        </div>
+                    <!-- End Portfolio Item -->
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
+<!-- end main content -->
+<?= $this->endSection() ?>
