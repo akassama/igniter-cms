@@ -276,10 +276,12 @@ if (strtolower($maintenanceMode) === "yes") {
                     <?php endif; ?>
                 </ul>
 
-                <!-- Search Input -->
-                <form action="<?= base_url('search') ?>" method="get" class="d-flex ms-lg-3 mt-3 mt-lg-0" role="search">
-                    <input class="form-control me-2" type="search" id="q" name="q" placeholder="Search for..." aria-label="Search for..." min="2" required>
-                </form>
+                <div class="d-none d-md-block d-lg-none d-xl-block">
+                    <!--Disable on md screens for better rendering-->
+                    <form action="<?= base_url('search') ?>" method="get" class="d-flex ms-xl-3 mt-3 mt-xl-0" role="search">
+                        <input class="form-control me-2" type="search" id="q" name="q" placeholder="Search for..." aria-label="Search for..." min="2" required>
+                    </form>
+                </div>
                 
                 <div id="google_translate_element"></div>
             </div>

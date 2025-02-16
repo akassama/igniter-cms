@@ -85,16 +85,6 @@ class FrontEndController extends BaseController
             'donations' => $donationsModel->orderBy('created_at', 'DESC')->findAll(),
 		];
 
-        //get use captcha config
-        $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
-        if(strtolower($useCaptcha) === "yes"){
-            // Generate captcha
-            $builder = new CaptchaBuilder;
-            $builder->build();
-            session()->set('captcha', $builder->getPhrase());
-            $data['captcha_image'] = $builder->inline();
-        }
-
         //load home view
         return view('front-end/themes/'.getCurrentTheme().'/home/index', $data);
     }
@@ -323,17 +313,7 @@ class FrontEndController extends BaseController
     //############################//
     public function getContactForm()
     {
-        //get use captcha config
-        $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
-        if(strtolower($useCaptcha) === "yes"){
-            // Generate captcha
-            $builder = new CaptchaBuilder;
-            $builder->build();
-            session()->set('captcha', $builder->getPhrase());
-            $data['captcha_image'] = $builder->inline();
-        }
-        
-        return view('front-end/themes/'.getCurrentTheme().'/contact/index', $data);
+        return view('front-end/themes/'.getCurrentTheme().'/contact/index');
     }
 
     //############################//
