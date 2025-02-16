@@ -12,7 +12,7 @@ class SignUpController extends BaseController
 {
     public function index()
     {
-        //get use captch config
+        //get use captcha config
         $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
         if(strtolower($useCaptcha) === "yes"){
             // Generate captcha
@@ -42,7 +42,7 @@ class SignUpController extends BaseController
             return view('front-end/sign-up/index');
         }
 
-        //get use captch config
+        //get use captcha config
         $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
 
         if(strtolower($useCaptcha) === "yes"){

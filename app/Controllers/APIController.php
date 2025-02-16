@@ -1947,6 +1947,18 @@ class APIController extends BaseController
         $companyName = getDefaultConfigData("CompanyName", config('CustomConfig')->companyName);
         $companyAddress = getDefaultConfigData("CompanyAddress", config('CustomConfig')->companyAddress);
 
+        // Validate hCaptcha
+        $captchaValidation = validateHcaptcha();
+        if ($captchaValidation !== true) {
+            // CAPTCHA validation failed
+            $errorMessage = $captchaValidation; // Error message returned by the helper function
+            if (!empty($returnUrl)) {
+                session()->setFlashdata('errorAlert', $errorMessage);
+                return redirect()->to($returnUrl);
+            }
+            return $this->response->setStatusCode(500)->setJSON(['message' => $errorMessage]);
+        }
+
         $templateData = [
             'preheader' => $subject,
             'greeting' => 'New Contact Message',
@@ -2014,6 +2026,18 @@ class APIController extends BaseController
         } else {
             $email = $postData['email'] ?? '';
             $returnUrl = $postData['return_url'] ?? '';
+        }
+
+        // Validate hCaptcha
+        $captchaValidation = validateHcaptcha();
+        if ($captchaValidation !== true) {
+            // CAPTCHA validation failed
+            $errorMessage = $captchaValidation; // Error message returned by the helper function
+            if (!empty($returnUrl)) {
+                session()->setFlashdata('errorAlert', $errorMessage);
+                return redirect()->to($returnUrl);
+            }
+            return $this->response->setStatusCode(500)->setJSON(['message' => $errorMessage]);
         }
 
         // Validate email

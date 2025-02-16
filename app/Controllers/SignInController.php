@@ -12,7 +12,7 @@ class SignInController extends BaseController
 {
     public function index()
     {
-        //get use captch config
+        //get use captcha config
         $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
         if(strtolower($useCaptcha) === "yes"){
             // Generate captcha
@@ -157,7 +157,7 @@ class SignInController extends BaseController
 
     public function loginX()
     {
-        //get use captch config
+        //get use captcha config
         $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
 
         //set validation rules

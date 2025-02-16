@@ -85,7 +85,7 @@ class FrontEndController extends BaseController
             'donations' => $donationsModel->orderBy('created_at', 'DESC')->findAll(),
 		];
 
-        //get use captch config
+        //get use captcha config
         $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
         if(strtolower($useCaptcha) === "yes"){
             // Generate captcha
@@ -323,7 +323,7 @@ class FrontEndController extends BaseController
     //############################//
     public function getContactForm()
     {
-        //get use captch config
+        //get use captcha config
         $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
         if(strtolower($useCaptcha) === "yes"){
             // Generate captcha

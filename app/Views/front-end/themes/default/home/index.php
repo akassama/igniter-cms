@@ -468,7 +468,7 @@ $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
             } elseif ($section === "Subscribe") {
                 ?>
                 <!-- Subscribe Section -->
-				<section class="py-2" id="Subscribe">
+				<section class="py-2" id="subscribe">
 					<div class="container">
 						<aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
 							<div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
@@ -480,7 +480,7 @@ $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
                                     <form action="<?= base_url('/api/add-subscriber') ?>" method="post" class="g-3 needs-validation" id="subscribeForm">
                                         <div class="input-group mb-2">
                                             <div class="col-12">
-                                                <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()."?#Subscribe"?>">
+                                                <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()."?#subscribe"?>">
                                             </div>
                                             <input class="form-control" type="email" name="email" name="email" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" required />
                                             <div class="invalid-feedback">
@@ -488,6 +488,8 @@ $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
                                             </div>
                                             <button class="btn btn-outline-light" id="button-newsletter" type="submit">Subscribe Now</button>
                                         </div>
+                                        <!--hcaptcha validation-->
+                                        <?=renderHcaptcha()?>
                                         <div class="small text-white-50">We care about privacy, and will never share your data.</div>
                                     </form>
 								</div>
@@ -552,8 +554,11 @@ $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
                                             </div>
                                         </div>
 
+                                        <!--hcaptcha validation-->
+                                        <?=renderHcaptcha()?>
+
                                         <div class="col-12">
-                                            <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url('?#Subscribe')?>">
+                                            <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url('?#contact')?>">
                                         </div>
                                         
                                         <!-- Submit Button-->

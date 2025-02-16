@@ -82,6 +82,9 @@ $contactDescription = getHomePageData("Contact", "section_description");
                                 Please provide message
                             </div>
                         </div>
+                        
+                        <!--hcaptcha validation-->
+                        <?=renderHcaptcha()?>
 
                         <div class="col-12">
                             <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()?>">
