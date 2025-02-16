@@ -70,7 +70,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <!-- Chat Input Form -->
                     <input type="hidden" class="form-control me-2" id="chat_id" name="chat_id" value="<?=$chat_id?>">
                     <div id="chat-form" class="d-flex">
-                        <textarea type="text" class="form-control me-2" id="message" name="message" placeholder="Type your question..." required maxlength="500"></textarea>
+                        <textarea type="text" class="form-control me-2 title-text" id="message" name="message" data-show-err="true" maxlength="500" placeholder="Type your question..." required maxlength="500"></textarea>
                         <button type="submit" class="btn btn-dark">
                             <i class="ri-send-plane-2-line"></i>
                         </button>

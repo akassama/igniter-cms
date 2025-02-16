@@ -23,6 +23,32 @@ tippy('.reload-files', {
     content: 'Reload file manger',
     placement: 'top',
 });
+//STATS
+tippy('.edit-site-stat', {
+    content: 'Edit site-stat',
+    placement: 'top',
+});
+tippy('.view-site-stat', {
+    content: 'View site-stat',
+    placement: 'top',
+});
+tippy('.remove-site-stat', {
+    content: 'Remove site-stat',
+    placement: 'top',
+});
+//BLOCKED IP
+tippy('.edit-blocked-ip', {
+    content: 'Edit blocked-ip',
+    placement: 'top',
+});
+tippy('.view-blocked-ip', {
+    content: 'View blocked-ip',
+    placement: 'top',
+});
+tippy('.remove-blocked-ip', {
+    content: 'Remove blocked-ip',
+    placement: 'top',
+});
 //API Keys
 tippy('.edit-api-key', {
     content: 'Edit api-key',

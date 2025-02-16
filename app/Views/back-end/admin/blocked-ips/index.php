@@ -9,7 +9,7 @@
 $breadcrumb_links = array(
     array('title' => 'Dashboard', 'url' => '/account'),
     array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'Visit Stats')
+    array('title' => 'Blocked IP Addresses')
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -17,15 +17,15 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Visit Stats</h3>
+        <h3>Blocked IP Addresses</h3>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Visit Stats
+                    Blocked IP Addresses
                 <span class="badge rounded-pill bg-dark">
-                    <?= $total_stats ?>
+                    <?= $total_blocked_ips ?>
                 </span>
             </div>
             <div class="card-body">
@@ -35,46 +35,33 @@ echo generateBreadcrumb($breadcrumb_links);
                         <tr>
                             <th>#</th>
                             <th>IP</th>
-                            <th>Device</th>
-                            <th>Browser</th>
+                            <th>block_start_time</th>
+                            <th>block_end_time</th>
+                            <th>reason</th>
+                            <th>Notes</th>
                             <th>URL</th>
-                            <th>User</th>
-                            <th>OS</th>
-                            <th>Country</th>
+                            <!-- <th>Country</th> -->
                             <th>Visit Date</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php $rowCount = 1; ?>
-                        <?php if($visit_stats): ?>
-                            <?php foreach($visit_stats as $visit): ?>
+                        <?php if($blocked_ips): ?>
+                            <?php foreach($blocked_ips as $blocked_ip): ?>
                                 <tr>
                                     <td><?= $rowCount; ?></td>
-                                    <td><?= esc($visit['ip_address']) ?></td>
-                                    <td><?= esc($visit['device_type']) ?></td>
-                                    <td><?= esc($visit['browser_type']) ?></td>
-                                    <td><?= esc($visit['page_visited_url']) ?></td>
-                                    <td>
-                                        <span class="text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="User ID: <?= esc($visit['user_id']) ?>">
-                                            <?= getActivityBy(esc($visit['user_id'])) ?>
-                                        </span>
-                                    </td>
-                                    <td><?= esc($visit['operating_system']) ?></td>
-                                    <td>
-                                        <span class="fi fi-<?= strtolower(esc($visit['country'])) ?>"></span>
-                                        <?= esc($visit['country']) ?>
-                                    </td>
-                                    <td><?= esc($visit['created_at']) ?></td>
+                                    <td><?= esc($blocked_ip['ip_address']) ?></td>
+                                    <td><?= esc($blocked_ip['block_start_time']) ?></td>
+                                    <td><?= esc($blocked_ip['block_end_time']) ?></td>
+                                    <td><?= esc($blocked_ip['reason']) ?></td>
+                                    <td><?= esc($blocked_ip['notes']) ?></td>
+                                    <td><?= esc($blocked_ip['page_visited_url']) ?></td>
+                                    <td><?= esc($blocked_ip['created_at']) ?></td>
                                     <td>
                                         <div class="row text-center p-1">
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 mb-1 view-stat" href="<?=base_url('account/admin/visit-stats/view-stat/'.esc($visit['site_stat_id']))?>">
-                                                    <i class="h5 ri-eye-line"></i>
-                                                </a>
-                                            </div>
-                                            <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 remove-stat" href="javascript:void(0)" onclick="deleteRecord('site_stats', 'site_stat_id', '<?=$visit['site_stat_id'];?>', '', 'account/admin/visit-stats')">
+                                                <a class="text-dark td-none mr-1 remove-blocked-ip" href="javascript:void(0)" onclick="deleteRecord('blocked_ips', 'blocked_ip_id', '<?=$blocked_ip['blocked_ip_id'];?>', '', 'account/admin/blocked-ips')">
                                                     <i class="h5 ri-close-circle-fill"></i>
                                                 </a>
                                             </div>
@@ -91,7 +78,7 @@ echo generateBreadcrumb($breadcrumb_links);
         </div>
     </div>
     <?php
-        if($total_stats > 1000){
+        if($total_blocked_ips > 100){
             ?>
                 <!--Show pagination if more than 100 records-->
                 <div class="col-12 text-start">

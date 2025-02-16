@@ -304,6 +304,21 @@ class ActivityTypes
     const FAILED_SUBSCRIPTION_UPDATE = 'failed_subscription_update';
     const SUBSCRIPTION_DELETION = 'subscription_delete';
 
+    // BLOCKED IP REASONS
+    const BLOCKED_IP_TOO_MANY_FAILED_LOGINS = 'too_many_failed_logins';
+    const BLOCKED_IP_SUSPICIOUS_ACTIVITY = 'suspicious_activity';
+    const BLOCKED_IP_MALICIOUS_TRAFFIC = 'malicious_traffic';
+    const BLOCKED_IP_DENIAL_OF_SERVICE = 'denial_of_service';
+    const BLOCKED_IP_BRUTE_FORCE_ATTACK = 'brute_force_attack';
+    const BLOCKED_IP_SPAMMING = 'spamming';
+    const BLOCKED_IP_KNOWN_ATTACKER = 'known_attacker';
+    const BLOCKED_IP_MANUAL_BLOCK = 'manual_block';
+    const BLOCKED_IP_INVALID_REQUEST = 'invalid_request';
+    const BLOCKED_IP_SQL_INJECTION_ATTEMPT = 'sql_injection_attempt';
+    const BLOCKED_IP_DIRECTORY_TRAVERSAL = 'directory_traversal';
+    const BLOCKED_IP_EXPLOIT_ATTEMPT = 'exploit_attempt';
+
+
     // Add more activity types as needed
 
     /**
@@ -601,6 +616,20 @@ class ActivityTypes
             self::SUBSCRIPTION_UPDATE => 'Subscription Updated',
             self::FAILED_SUBSCRIPTION_UPDATE => 'Subscription Update Failed',
             self::SUBSCRIPTION_CREATION => 'Subscription Deletion',
+
+            // BLOCKED IP REASONS
+            self::BLOCKED_IP_TOO_MANY_FAILED_LOGINS => 'Too Many Failed Logins',
+            self::BLOCKED_IP_SUSPICIOUS_ACTIVITY => 'Suspicious Activity Detected',
+            self::BLOCKED_IP_MALICIOUS_TRAFFIC => 'Malicious Traffic Identified',
+            self::BLOCKED_IP_DENIAL_OF_SERVICE => 'Potential Denial-of-Service Attack',
+            self::BLOCKED_IP_BRUTE_FORCE_ATTACK => 'Brute-Force Attack Detected',
+            self::BLOCKED_IP_SPAMMING => 'Spamming or Abuse',
+            self::BLOCKED_IP_KNOWN_ATTACKER => 'Known Malicious IP Address',
+            self::BLOCKED_IP_MANUAL_BLOCK => 'Manually Blocked by Administrator',
+            self::BLOCKED_IP_INVALID_REQUEST => 'Invalid or Malformed Request',
+            self::BLOCKED_IP_SQL_INJECTION_ATTEMPT => 'Potential SQL Injection Attempt',
+            self::BLOCKED_IP_DIRECTORY_TRAVERSAL => 'Directory Traversal Attempt',
+            self::BLOCKED_IP_EXPLOIT_ATTEMPT => 'Exploit Attempt',
 
             // Add more descriptions as needed
         ];

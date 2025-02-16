@@ -7,7 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 //SIGN-IN
-$routes->group('sign-in', ['filter' => 'guestFilter'], function($routes) {
+$routes->group('sign-in', ['filter' => ['siteStatsFilter','guestFilter']], function($routes) {
     $routes->get('/', 'SignInController::index');
     $routes->post('/', 'SignInController::login');
 });
@@ -88,6 +88,7 @@ $routes->group('account', ['filter' => 'authFilter'], function($routes) {
     $routes->get('admin/logs/view-log/(:any)', 'AdminController::viewLogData/$1');
     $routes->get('admin/visit-stats', 'AdminController::viewStats', ['filter' => 'adminRoleFilter']);
     $routes->get('admin/visit-stats/view-stat/(:any)', 'AdminController::viewStat/$1');
+    $routes->get('admin/blocked-ips', 'AdminController::blockedIps', ['filter' => 'adminRoleFilter']);
     $routes->get('admin/configurations', 'AdminController::configurations', ['filter' => 'adminRoleFilter']);
     $routes->get('admin/configurations/new-config', 'AdminController::newConfiguration', ['filter' => 'adminRoleFilter']);
     $routes->post('admin/configurations/new-config', 'AdminController::addConfiguration');

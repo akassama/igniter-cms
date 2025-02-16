@@ -3247,6 +3247,174 @@ function shouldLogVisit($currentUrl) {
 
 
 /**
+ * Checks if any of the blocked paths exist in the given URL.
+ *
+ * This function normalizes the URL path, converts both the URL path and the
+ * blocked paths to lowercase, and then uses `strpos()` for a case-insensitive
+ * search.  It returns `true` if any of the blocked paths are found in the URL,
+ * and `false` otherwise.
+ *
+ * @param string $url The URL to check.
+ * @return bool True if the URL contains a blocked path, false otherwise.
+ */
+if(!function_exists('isBlockedRoute'))
+{
+    function isBlockedRoute(string $url): bool
+    {
+        /**
+         * Array of paths that are considered suspicious or blocked.
+         * These paths might indicate an attempt to access sensitive files,
+         * exploit vulnerabilities, or gain unauthorized access.
+         *
+         * @var array<string>
+         */
+        $black_lested_paths = array(
+            "wp-settings.php", "wp-login.php", "setup-config.php", "wp-admin/", "wordpress/", //Wordpress files
+            "ads.txt", "humans.txt", "security.txt",  // Text files
+            ".env", ".git/", ".svn/",  // Sensitive directories/files
+            "config.php", "configuration.php", "db.php", "database.php", // Common config files
+            "admin/", "administrator/", "cpanel/", "login/", "signin/",  // Common admin/login paths
+            "shell/", "r57shell/", "cmd.php", "backdoor.php", // Known backdoor/shell scripts
+            "phpinfo.php",  // Information disclosure risk
+            "eval()", "assert()", "base64_decode(", // Attempted code injection (can be part of URL)
+            "../../", "..\\",  // Directory traversal attempts
+            "etc/passwd", "/etc/passwd",  // Access to system files
+            "proc/self/environ", "/proc/self/environ", // Access to environment variables
+            "error_log", "access_log", // Log files (potentially contain sensitive info)
+            "server-status", "server-info", // Apache server status/info pages
+            "test.php", "debug.php", // Common test/debug files that might be left exposed
+            "install.php", "upgrade.php", // Installation/upgrade scripts (shouldn't be accessible)
+            "xmlrpc.php", // XML-RPC (can be exploited)
+            "composer.json", "package.json", // Information about project dependencies
+            ".sql", "sql_dump", "database_dump", "db_backup", "backup.sql.gz", "backup.sql.zip", "backup.sql.tar" // SQL paths
+        );
+    
+        /**
+         * Extracts the path part from the URL.
+         * If parsing fails, the original URL is used.
+         * Leading and trailing slashes are removed for consistency.
+         *
+         * @var string|null
+         */
+        $url_path = parse_url($url, PHP_URL_PATH);
+        if ($url_path === null) {
+            $url_path = $url;
+        }
+        $url_path = trim($url_path, '/');
+    
+        /**
+         * Converts the URL path to lowercase for case-insensitive comparison.
+         *
+         * @var string
+         */
+        $url_path_lower = strtolower($url_path);
+    
+        /**
+         * Iterates through the blocked paths and checks if any of them
+         * are present in the URL path.
+         *
+         * @var string $blocked_path
+         */
+        foreach ($black_lested_paths as $blocked_path) {
+            /**
+             * Removes leading and trailing slashes from the blocked path
+             * for consistency.
+             *
+             * @var string
+             */
+            $blocked_path = trim($blocked_path, '/');
+    
+            /**
+             * Converts the blocked path to lowercase for case-insensitive
+             * comparison.
+             *
+             * @var string
+             */
+            $blocked_path_lower = strtolower($blocked_path);
+    
+            /**
+             * Checks if the blocked path is found in the URL path.
+             * If a match is found, the function immediately returns `true`.
+             */
+            if (strpos($url_path_lower, $blocked_path_lower) !== false) {
+                return true;
+            }
+        }
+    
+        /**
+         * If no match is found after checking all blocked paths, the function
+         * returns `false`.
+         */
+        return false;
+    }
+}
+
+/**
+ * Adds a blocked IP address to the database.
+ *
+ * @param {string} $ip_address The IP address to block.
+ * @param {string} $url The URL where the IP address was blocked.
+ * @param {string} $reason The reason for blocking the IP address.
+ * @returns {boolean} True on success.
+ */
+if(!function_exists('addBlockedIPAdress'))
+{
+    function addBlockedIPAdress($ipAddress, $url, $blockEndTime, $reason)
+    {
+        $tableName = "blocked_ips";
+        $newBlackListData = [
+            'blocked_ip_id' =>  getGUID(),
+            'ip_address' => $ipAddress,
+            'block_start_time' => date('Y-m-d H:i:s'),
+            'block_end_time' => $blockEndTime,
+            'reason' => $reason,
+            'notes' => null,
+            'page_visited_url' => $url
+        ];
+
+        if (!recordExists($tableName, 'ip_address', $newBlackListData["ip_address"])) {
+            addRecord($tableName, $newBlackListData);
+        } 
+
+        return true;
+    }
+}
+
+
+/**
+ * Checks if an IP address is blocked.
+ *
+ * @param {string} $ip_address The IP address to check.
+ * @returns {boolean} True if the IP address is blocked, false otherwise.
+ */
+if (!function_exists('isBlockedIP')) {
+    function isBlockedIP($ipAddress) {
+        $tableName = "blocked_ips";
+        $db = \Config\Database::connect();
+
+        $builder = $db->table($tableName); 
+
+        $builder->where('ip_address', $ipAddress);
+        $query = $builder->get();
+
+        if ($query->getNumRows() > 0) {
+            $row = $query->getRow();
+
+            // Check if the block is indefinite or not expired.
+            if ($row->block_end_time === null || strtotime($row->block_end_time) > time()) {
+                return true;
+            } else {
+                $builder->where('id', $row->id);
+                $builder->delete();
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+}
+
+/**
  * Validates an API key by checking its existence and status in the database.
  * 
  * @param {string} $apiKey - The API key to validate.
@@ -4120,7 +4288,7 @@ if (!function_exists('formatAIResponse')) {
  */
 if (!function_exists('callGeminiAPI')) {
     function callGeminiAPI($prompt) {
-        $apiKey = getConfigData("AIHelpChatKey");
+        $apiKey = getDefaultConfigData("AIHelpChatKey", getenv('CONFIG.AIHelpChatKey'));
         $apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" . $apiKey;
 
         $data = [

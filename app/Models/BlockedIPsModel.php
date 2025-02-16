@@ -5,20 +5,20 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 /**
- * SiteStatsModel class
+ * BlockedIPsModel class
  *
- * Represents the model for the site_stats table in the database.
+ * Represents the model for the blocked_ips table in the database.
  */
-class SiteStatsModel extends Model
-{
+class BlockedIPsModel extends Model
+{    
     public function __construct()
     {
         parent::__construct();
         helper('data'); // Load the helper here
     }
-
-    protected $table            = 'site_stats';
-    protected $primaryKey       = 'site_stat_id';
+    
+    protected $table            = 'blocked_ips';
+    protected $primaryKey       = 'blocked_ip_id';
     protected $useAutoIncrement = false;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
@@ -26,21 +26,11 @@ class SiteStatsModel extends Model
     protected $allowedFields    = [
         'site_stat_id',
         'ip_address',
-        'device_type',
-        'browser_type',
-        'page_type',
-        'page_visited_id',
+        'block_start_time',
+        'block_end_time',
+        'reason',
+        'notes',
         'page_visited_url',
-        'referrer',
-        'status_code',
-        'user_id',
-        'session_id',
-        'request_method',
-        'operating_system',
-        'country',
-        'screen_resolution',
-        'user_agent',
-        'other_params'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -71,34 +61,47 @@ class SiteStatsModel extends Model
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
-    protected $afterDelete    = [];    
+    protected $afterDelete    = [];
 
-    public function logSiteStat($param = array())
+    public function c($param = array())
     {
         // Generate a unique ID (UUID)
-        $statId = getGUID();
+        $blockedIpId = getGUID();
         $data = [
-            'site_stat_id' => $statId,
+            'blocked_ip_id' => $blockedIpId,
             'ip_address' => $param['ip_address'],
-            'device_type' => $param['device_type'],
-            'browser_type' => $param['browser_type'],
-            'page_type' => $param['page_type'],
-            'page_visited_id' => $param['page_visited_id'],
+            'block_start_time' => $param['block_start_time'],
+            'block_end_time' => $param['block_end_time'],
+            'reason' => $param['reason'],
+            'notes' => $param['notes'],
             'page_visited_url' => $param['page_visited_url'],
-            'referrer' => $param['referrer'],
-            'status_code' => $param['status_code'],
-            'user_id' => $param['user_id'],
-            'session_id' => $param['session_id'],
-            'request_method' => $param['request_method'],
-            'operating_system' => $param['operating_system'],
-            'country' => $param['country'],
-            'screen_resolution' => $param['screen_resolution'],
-            'user_agent' => $param['user_agent'],
-            'other_params' => $param['other_params']
         ];
         $this->save($data);
     
         return true;
     }
-    
+
+
+    public function updateBlockedIP($blockedIpId, $param = [])
+    {
+        // Check if record exists
+        $existingBlockedIP = $this->find($blockedIpId);
+        if (!$existingBlockedIP) {
+            return false; // not found
+        }
+
+        // Update the fields
+        $existingBlockedIP['ip_address'] = $param['ip_address'];
+        $existingBlockedIP['block_start_time'] = $param['block_start_time'];
+        $existingBlockedIP['block_end_time'] = $param['block_end_time'];
+        $existingBlockedIP['reason'] = $param['reason'];
+        $existingBlockedIP['notes'] = $param['notes'];
+        $existingBlockedIP['created_by'] = $param['created_by'];
+        $existingBlockedIP['updated_by'] = $param['updated_by'];
+
+        // Save the updated data
+        $this->save($existingBlockedIP);
+
+        return true;
+    }
 }

@@ -17,6 +17,7 @@ use App\Models\ThemesModel;
 use App\Models\SubscribersModel;
 use App\Models\ContactMessagesModel;
 use App\Models\SiteStatsModel;
+use App\Models\BlockedIPsModel;
 use CodeIgniter\Database\BaseConnection;
 
 class AdminController extends BaseController
@@ -1190,7 +1191,7 @@ class AdminController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'visit_stats' => $visitStatsModel->orderBy('created_at', 'DESC')->paginate(100),
+            'visit_stats' => $visitStatsModel->orderBy('created_at', 'DESC')->paginate(1000),
             'pager' => $visitStatsModel->pager,
             'total_stats' => $visitStatsModel->pager->getTotal()
         ];
@@ -1217,6 +1218,24 @@ class AdminController extends BaseController
         ];
 
         return view('back-end/admin/visit-stats/view-stat', $data);
+    }
+
+    //############################//
+    //       Blocked IPS          //
+    //############################//
+    public function blockedIps()
+    {
+        $tableName = 'blocked_ips';
+        $blockedIPsModel = new BlockedIPsModel();
+
+        // Set data to pass in view
+        $data = [
+            'blocked_ips' => $blockedIPsModel->orderBy('created_at', 'DESC')->paginate(100),
+            'pager' => $blockedIPsModel->pager,
+            'total_blocked_ips' => $blockedIPsModel->pager->getTotal()
+        ];
+
+        return view('back-end/admin/blocked-ips/index', $data);
     }
 
     //############################//

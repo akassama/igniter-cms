@@ -5,6 +5,7 @@ namespace App\Filters;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Constants\ActivityTypes;
 
 class SiteStatsFilter implements FilterInterface
 {
@@ -49,6 +50,23 @@ class SiteStatsFilter implements FilterInterface
                 $otherParams
             );
         }
+
+        //check if suspicius activity and add to block ip
+        if(isBlockedRoute($pageVisitedUrl)){
+            //log ip as black listed
+            $reason = ActivityTypes::BLOCKED_IP_SUSPICIOUS_ACTIVITY;
+            $blockEndTime = date('Y-m-d H:i:s', strtotime('+5 years'));
+            addBlockedIPAdress($ipAddress, $pageVisitedUrl, $blockEndTime, $reason);
+        }
+
+        //check if blocked ip
+        if(isBlockedIP($ipAddress)){
+            $response = service('response');
+            $response->setStatusCode(403); // Forbidden status code
+            $response->setBody('Your IP address has been blocked.');
+            return $response;
+        }
+
         return $request;
     }
 
