@@ -17,6 +17,7 @@ class ActivityTypes
     const USER_LOGIN = 'user_login';
     const USER_LOGOUT = 'user_logout';
     const FAILED_USER_LOGIN = 'failed_user_login';
+    const TOO_MANY_FAILED_USER_LOGIN = 'too_many_failed_user_login';
 
     //CONTACT LOGS
     const CONTACT_CREATION = 'contact_created';
@@ -336,6 +337,7 @@ class ActivityTypes
             self::USER_LOGIN => 'User Login',
             self::USER_LOGOUT => 'User Logout',
             self::FAILED_USER_LOGIN => 'Failed User Login',
+            self::TOO_MANY_FAILED_USER_LOGIN => 'Too Many Failed User Login Attempts',
 
             //Contact
             self::CONTACT_CREATION => 'Contact Creation',

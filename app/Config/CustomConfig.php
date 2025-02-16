@@ -20,6 +20,7 @@ class CustomConfig extends BaseConfig
     public $loginSuccessMsg = 'Login successful.';
     public $logoutSuccessMsg = 'You have been successfully logged out.';
     public $pendingActivationMsg = 'Your account has not been activated yet or is no longer active. Please contact the administrator.';
+    public $tooManyFailedLogins = 'Too many failed login attempts. Your IP has been blocked for 1 hour.';
     public $invalidAccessMsg = 'You do not have access to this area.';
     public $createSuccessMsg = 'Record created successfully.';
     public $editSuccessMsg = 'Record updated successfully.';
