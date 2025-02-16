@@ -11,6 +11,7 @@
         <?php $validation = \Config\Services::validation(); ?>
 
         <form action="<?= base_url('forgot-password') ?>" method="post" class="row g-3 needs-validation save-changes" novalidate>
+            <?= csrf_field() ?>
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text">
@@ -28,7 +29,7 @@
                     </div>
                 </div>
                 <span class="small text-muted">
-                    Enter your email and we’ll send you a link to reset your password.
+                    Enter your email and we'll send you a link to reset your password.
                 </span>
             </div>
             <div class="mb-3">

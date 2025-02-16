@@ -40,7 +40,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>reason</th>
                             <th>Notes</th>
                             <th>URL</th>
-                            <!-- <th>Country</th> -->
+                            <th>Country</th>
                             <th>Visit Date</th>
                             <th>Actions</th>
                         </tr>
@@ -57,6 +57,10 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= esc($blocked_ip['reason']) ?></td>
                                     <td><?= esc($blocked_ip['notes']) ?></td>
                                     <td><?= esc($blocked_ip['page_visited_url']) ?></td>
+                                    <td>
+                                        <span class="fi fi-<?= strtolower(esc($blocked_ip['country'])) ?>"></span>
+                                        <?= esc($blocked_ip['country']) ?>
+                                    </td>
                                     <td><?= esc($blocked_ip['created_at']) ?></td>
                                     <td>
                                         <div class="row text-center p-1">

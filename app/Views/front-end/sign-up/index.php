@@ -11,6 +11,7 @@
         <?php $validation = \Config\Services::validation(); ?>
 
         <form action="<?= base_url('sign-up') ?>" method="post" class="row g-3 needs-validation save-changes" novalidate>
+            <?= csrf_field() ?>
             <div class="mb-3">
                 <label for="first_name" class="form-label">First Name</label>
                 <input type="text" class="form-control" id="first_name" name="first_name" placeholder="first name" required>

@@ -1,11 +1,15 @@
 <?php
+use App\Constants\ActivityTypes;
+
 //log error
 log_message('error', $message);
 
 //log visit
 $currentUrl = current_url();
+$ipAddress = getDeviceIP();
+$country = getCountry();
 logSiteStatistic(
-    getDeviceIP(),
+    $ipAddress,
     getDeviceType(),
     getBrowserName(),
     getPageType($currentUrl),
@@ -17,11 +21,28 @@ logSiteStatistic(
     session_id(),
     getReguestMethod(),
     getOperatingSystem(),
-    getCountry(),
+    $country,
     getScreenResolution(),
     getUserAgent(),
     null
-)
+);
+
+//check if suspicius activity and add to block ip
+if(isBlockedRoute($currentUrl)){
+    //log ip as black listed
+    $reason = ActivityTypes::BLOCKED_IP_SUSPICIOUS_ACTIVITY;
+    $blockEndTime = date('Y-m-d H:i:s', strtotime('+3 years'));
+    addBlockedIPAdress($ipAddress, $country, $currentUrl, $blockEndTime, $reason);
+
+    //log activity
+    logActivity("User IP: ".$ipAddress , $reason, 'Suspicious user activity with IP: ' . $ipAddress);
+}
+
+//check if blocked ip
+if(isBlockedIP($ipAddress)){
+    echo 'Your IP address has been blocked.';
+    exit();
+}
 ?>
 
 <!doctype html>

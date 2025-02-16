@@ -17,6 +17,10 @@ class BlockedIps extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 50,
             ],
+            'country' => [
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+            ],
             'block_start_time' => [
                 'type' => 'TIMESTAMP',
                 'null' => true

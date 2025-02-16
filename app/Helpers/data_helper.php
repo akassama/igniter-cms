@@ -3359,12 +3359,13 @@ if(!function_exists('isBlockedRoute'))
  */
 if(!function_exists('addBlockedIPAdress'))
 {
-    function addBlockedIPAdress($ipAddress, $url, $blockEndTime, $reason)
+    function addBlockedIPAdress($ipAddress, $country, $url, $blockEndTime, $reason)
     {
         $tableName = "blocked_ips";
         $newBlackListData = [
             'blocked_ip_id' =>  getGUID(),
             'ip_address' => $ipAddress,
+            'country' => $country,
             'block_start_time' => date('Y-m-d H:i:s'),
             'block_end_time' => $blockEndTime,
             'reason' => $reason,

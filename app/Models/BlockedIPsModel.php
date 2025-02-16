@@ -26,6 +26,7 @@ class BlockedIPsModel extends Model
     protected $allowedFields    = [
         'site_stat_id',
         'ip_address',
+        'country',
         'block_start_time',
         'block_end_time',
         'reason',
@@ -70,6 +71,7 @@ class BlockedIPsModel extends Model
         $data = [
             'blocked_ip_id' => $blockedIpId,
             'ip_address' => $param['ip_address'],
+            'country' => $param['country'],
             'block_start_time' => $param['block_start_time'],
             'block_end_time' => $param['block_end_time'],
             'reason' => $param['reason'],
@@ -92,6 +94,7 @@ class BlockedIPsModel extends Model
 
         // Update the fields
         $existingBlockedIP['ip_address'] = $param['ip_address'];
+        $existingBlockedIP['country'] = $param['country'];
         $existingBlockedIP['block_start_time'] = $param['block_start_time'];
         $existingBlockedIP['block_end_time'] = $param['block_end_time'];
         $existingBlockedIP['reason'] = $param['reason'];
