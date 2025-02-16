@@ -1,9 +1,4 @@
 <?php
-//use captcha
-$useCaptcha = getConfigData("UseCaptcha");
-$useGoogleRecaptcha = getConfigData("UseGoogleRecaptcha");
-$googleRecaptchaSiteKey = getConfigData("GoogleRecaptchaSiteKey");
-
 //cookie concent
 $useCookieConcent = getConfigData("UseCookieConcent");
 $cookieConcentCode = getConfigData("CookieConcentCode");

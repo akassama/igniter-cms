@@ -1054,22 +1054,7 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'UseGoogleRecaptcha',
-                'config_value' => 'No',
-                'group' => 'security',
-                'data_type' => 'Select',
-                'options' => 'Yes,No',
-                'default_value' => 'No',
-                'deletable' => 0,
-                'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
-                'updated_by' => null,
-                'icon' => 'ri-google-line',
-                'search_terms' => 'recaptcha,google,security,spam'
-            ],
-            [
-                'config_id' => getGUID(),
-                'config_for' => 'GoogleRecaptchaSiteKey',
+                'config_for' => 'HCaptchaSiteKey',
                 'config_value' => '',
                 'group' => 'security',
                 'data_type' => 'Text',
@@ -1080,12 +1065,12 @@ class Configurations extends Migration
                 'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
                 'updated_by' => null,
                 'icon' => 'ri-key-2-line',
-                'search_terms' => 'recaptcha,key,site,google'
+                'search_terms' => 'recaptcha,key,site,hcaptcha'
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'GoogleRecaptchaSecretKey',
-                'config_value' => 'G-XXXXXXXXXX',
+                'config_for' => 'HCaptchaSecretKey',
+                'config_value' => 'ES_XXXXXXXXXX',
                 'group' => 'security',
                 'data_type' => 'Text',
                 'options' => null,
@@ -1095,7 +1080,7 @@ class Configurations extends Migration
                 'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
                 'updated_by' => null,
                 'icon' => 'ri-key-line',
-                'search_terms' => 'recaptcha,secret,key,google'
+                'search_terms' => 'recaptcha,secret,key,hcaptcha'
             ],
             [
                 'config_id' => getGUID(),

@@ -576,8 +576,11 @@ if(strtolower($frontEndFormat) === "mvc")
     $routes->get('search', 'FrontEndController::searchResults', ['filter' => ['siteStatsFilter']]);
     $routes->get('/search/filter', 'FrontEndController::getSearchFilter', ['filter' => ['siteStatsFilter']]);
 
-    #sitemap
+    #Sitemap
     $routes->get('sitemap.xml', 'FrontEndController::getSitemaps', ['filter' => ['siteStatsFilter']]);
+
+    #Robots.txt
+    $routes->get('robots.txt', 'FrontEndController::getRobotsTxt', ['filter' => ['siteStatsFilter']]);
 
     // Redirect other sitemap URLs to 'sitemap.xml'
     $routes->get('sitemap', function() {

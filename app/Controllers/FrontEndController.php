@@ -323,7 +323,17 @@ class FrontEndController extends BaseController
     //############################//
     public function getContactForm()
     {
-        return view('front-end/themes/'.getCurrentTheme().'/contact/index');
+        //get use captch config
+        $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
+        if(strtolower($useCaptcha) === "yes"){
+            // Generate captcha
+            $builder = new CaptchaBuilder;
+            $builder->build();
+            session()->set('captcha', $builder->getPhrase());
+            $data['captcha_image'] = $builder->inline();
+        }
+        
+        return view('front-end/themes/'.getCurrentTheme().'/contact/index', $data);
     }
 
     //############################//
@@ -667,5 +677,52 @@ class FrontEndController extends BaseController
             default:
                 return '0.50';
         }
+    }
+
+
+    //############################//
+    //         Robots.txt         //
+    //############################//
+    public function getRobotsTxt() {
+        // Set the content type to plain text
+        header('Content-Type: text/plain');
+    
+        $robots_txt = "User-agent: *\n";
+    
+        $disallowed_paths = array(
+            '/admin',           // Disallow access to the admin module
+            '/api',             // Disallow access to the API
+            '/uploads/temp',    // Disallow access to temporary uploads
+            '/maintenance',    // Disallow access to maintenance pages
+            '/sign-in',         // Disallow access to the sign-in page
+            '/sign-up',         // Disallow access to the sign-up page
+            '/account',         // Disallow access to user account pages (often sensitive)
+            '/search',          // Disallow access to search results pages (can create duplicate content)
+            '/login',           // Another common login path
+            '/register',        // Another common registration path
+            '/forgot-password', // Disallow forgot password functionality
+            '/password-reset',  // Disallow password reset functionality
+            '/services',        // Disallow thank you pages (often similar to order confirmation)
+        );
+    
+        foreach ($disallowed_paths as $path) {
+            $robots_txt .= "Disallow: " . $path . "\n";
+        }
+    
+        // Allow access to the root and public uploads
+        $allowed_paths = array(
+            '/',
+            '/public/uploads',
+        );
+    
+        foreach ($allowed_paths as $path) {
+            $robots_txt .= "Allow: " . $path . "\n";
+        }
+    
+        // Add the sitemap directive
+        $robots_txt .= "Sitemap: " . base_url('sitemap.xml') . "\n";
+    
+        // Output the robots.txt content
+        echo $robots_txt;
     }
 }
