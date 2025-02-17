@@ -51,7 +51,14 @@ echo generateBreadcrumb($breadcrumb_links);
                             <?php foreach($visit_stats as $visit): ?>
                                 <tr>
                                     <td><?= $rowCount; ?></td>
-                                    <td><?= esc($visit['ip_address']) ?></td>
+                                    <td>
+                                        <?= esc($visit['ip_address']) ?>
+                                        <?php
+                                            if($visit['ip_address'] === getDeviceIP()){
+                                                echo "<span class='badge bg-secondary'>You</span>";
+                                            }
+                                        ?>
+                                    </td>
                                     <td><?= esc($visit['device_type']) ?></td>
                                     <td><?= esc($visit['browser_type']) ?></td>
                                     <td><?= esc($visit['page_visited_url']) ?></td>
