@@ -12,6 +12,7 @@
 
         <form action="<?= base_url('forgot-password') ?>" method="post" class="row g-3 needs-validation save-changes" novalidate>
             <?= csrf_field() ?>
+            <?=getHoneypotInput()?>
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text">

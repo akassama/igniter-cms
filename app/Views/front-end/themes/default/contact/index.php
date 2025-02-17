@@ -51,6 +51,7 @@ $contactDescription = getHomePageData("Contact", "section_description");
                     <!-- to get an API token!-->
                     <form action="<?= base_url('/api/send-contact-message') ?>" method="post" class="g-3 needs-validation" id="contactForm">
                         <?= csrf_field() ?>
+                        <?=getHoneypotInput()?>
                         <!-- Name input-->
                         <div class="form-floating mb-3">
                             <input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." required/>

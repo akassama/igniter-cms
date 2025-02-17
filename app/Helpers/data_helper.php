@@ -3415,6 +3415,67 @@ if (!function_exists('isBlockedIP')) {
 }
 
 /**
+ * Generates a hidden honeypot input field.
+ * This field is designed to trap spambots.  It's visually hidden
+ * and given a random class to make it harder for bots to target.
+ *
+ * @returns {string} The HTML for the honeypot input field.
+ */
+if (!function_exists('getHoneypotInput')) {
+    function getHoneypotInput(): string {
+        // Add a random class name to make it harder for bots to identify
+        $randomClass = 'field_' . bin2hex(random_bytes(8));
+        return '<input type="text" name="' . getenv('CONFIG.honeypotKey') . '" ' .
+            'id="' . getenv('CONFIG.honeypotKey') . '" ' .
+            'class="' . $randomClass . '" ' .
+            'autocomplete="off" ' .
+            'tabindex="-1" ' .
+            'style="position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0,0,0,0) !important;white-space:nowrap !important;border:0 !important;">';
+    }
+}
+
+/**
+ * Validates the honeypot input.
+ * If the honeypot field has a value, it's assumed a bot filled it out.
+ * The bot's IP is then blocked and the activity is logged.
+ *
+ * @param {string} $honeypotInput The value of the honeypot input field.
+ * @returns {void}
+ */
+if (!function_exists('validateHoneypotInput')) {
+    function validateHoneypotInput($honeypotInput): void {
+        if (!empty($honeypotInput)) {
+            $ipAddress = getDeviceIP();
+            $currentUrl = current_url();
+            $country = getCountry();
+            $reason = ActivityTypes::BLOCKED_IP_SPAMMING;
+            $blockEndTime = date('Y-m-d H:i:s', strtotime('+3 years'));
+
+            // Add to blocked IPs
+            addBlockedIPAdress($ipAddress, $country, $currentUrl, $blockEndTime, $reason);
+
+            // Log the activity
+            logActivity("User IP: " . $ipAddress, $reason, 'Spamming (honeypot) activity with IP: ' . $ipAddress);
+
+            // Return a normal-looking 403 response
+            header('HTTP/1.1 403 Forbidden');
+
+            // If it's an AJAX request, return JSON
+            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+                strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                header('Content-Type: application/json');
+                echo json_encode(['error' => 'Access denied']);
+                exit();
+            }
+
+            echo 'Your IP address has been blocked.';
+            exit();
+        }
+    }
+}
+
+
+/**
  * Validates an API key by checking its existence and status in the database.
  * 
  * @param {string} $apiKey - The API key to validate.

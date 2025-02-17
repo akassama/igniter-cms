@@ -479,6 +479,7 @@ $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
 								<div class="ms-xl-4">
                                     <form action="<?= base_url('/api/add-subscriber') ?>" method="post" class="g-3 needs-validation" id="subscribeForm">
                                         <?= csrf_field() ?>
+                                        <?=getHoneypotInput()?>
                                         <div class="input-group mb-2">
                                             <div class="col-12">
                                                 <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()."?#subscribe"?>">
@@ -523,6 +524,7 @@ $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
                                     <!-- to get an API token!-->
                                     <form action="<?= base_url('/api/send-contact-message') ?>" method="post" class="g-3 needs-validation" id="contactForm">
                                         <?= csrf_field() ?>
+                                        <?=getHoneypotInput()?>
                                         <!-- Name input-->
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." required/>

@@ -9,9 +9,9 @@
     <div class="col-md-4 col-sm-12 bg-light rounded p-4">
 
         <?php $validation = \Config\Services::validation(); ?>
-
         <form action="<?= base_url('sign-in') ?>" method="post" class="row g-3 needs-validation save-changes" novalidate>
             <?= csrf_field() ?>
+            <?=getHoneypotInput()?>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="<?= set_value('email') ?>" required>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
             <?php } ?>
-
+            
             <!--hidden inputs -->
             <div class="col-12">
                 <input type="hidden" class="form-control" id="return_url" name="return_url" value="<?= $returnUrl ?? base_url('/account/dashboard'); ?>">

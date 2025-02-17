@@ -12,6 +12,7 @@
 
         <form action="<?= base_url('password-reset') ?>" method="post" class="row g-3 needs-validation save-changes" novalidate>
             <?= csrf_field() ?>
+            <?=getHoneypotInput()?>
             <input type="hidden" name="token" value="<?= $token ?>">
             <div class="mb-3">
                 <label for="password" class="form-label">New Password</label>
