@@ -29,6 +29,12 @@ class SignUpController extends BaseController
 
     public function addRegistration()
     {
+        // Retrieve the honeypot and timestamp values
+        $honeypotInput = $this->request->getPost(getenv('CONFIG.honeypotKey'));
+        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.timestampKey'));
+        //Honeypot validator - Validate the inputs
+        validateHoneypotInput($honeypotInput, $submittedTimestamp);
+        
         // Load the UsersModel
         $usersModel = new UsersModel();
 

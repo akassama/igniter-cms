@@ -20,6 +20,12 @@ class PasswordResetController extends Controller
 
     public function resetPassword()
     {
+        // Retrieve the honeypot and timestamp values
+        $honeypotInput = $this->request->getPost(getenv('CONFIG.honeypotKey'));
+        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.timestampKey'));
+        //Honeypot validator - Validate the inputs
+        validateHoneypotInput($honeypotInput, $submittedTimestamp);
+        
         $rules = [
             'token' => 'required',
             'password' => 'required|min_length[6]|regex_match[/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).{6,}$/]',

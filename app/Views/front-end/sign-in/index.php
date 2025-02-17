@@ -82,19 +82,7 @@
     </div>
 </div>
 
-<script>
-    //TODO: REMOVE AUTO LOGIN
-    $(document).ready(function() {
-        setTimeout(
-            function()
-            {
-                $("#email").val("admin@example.com");
-                $("#password").val("Admin@1");
-                $("#submit-btn").click();
-            }, 100);
 
-    });
-</script>
 
 <!-- end main content -->
 <?= $this->endSection() ?>

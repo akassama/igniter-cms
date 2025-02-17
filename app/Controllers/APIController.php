@@ -1938,6 +1938,12 @@ class APIController extends BaseController
     //CONTACT MESSAGES
     public function sendContactMessage()
     {
+        // Retrieve the honeypot and timestamp values
+        $honeypotInput = $this->request->getPost(getenv('CONFIG.honeypotKey'));
+        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.timestampKey'));
+        //Honeypot validator - Validate the inputs
+        validateHoneypotInput($honeypotInput, $submittedTimestamp);
+
         $returnUrl = $this->request->getPost('return_url');
         $toEmail = getDefaultConfigData("CompanyEmail", config('CustomConfig')->companyEmail);
         $name = $this->request->getPost('name');
@@ -2015,6 +2021,12 @@ class APIController extends BaseController
     //ADD SUBSCRIPTION
     public function addSubscription()
     {
+        // Retrieve the honeypot and timestamp values
+        $honeypotInput = $this->request->getPost(getenv('CONFIG.honeypotKey'));
+        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.timestampKey'));
+        //Honeypot validator - Validate the inputs
+        validateHoneypotInput($honeypotInput, $submittedTimestamp);
+        
         // Get POST data - using input stream since it might be coming from fetch/ajax
         $json = $this->request->getBody();
         $postData = json_decode($json, true);

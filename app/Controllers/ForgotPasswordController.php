@@ -23,6 +23,12 @@ class ForgotPasswordController extends BaseController
 
     public function sendResetLinkEmail()
     {
+        // Retrieve the honeypot and timestamp values
+        $honeypotInput = $this->request->getPost(getenv('CONFIG.honeypotKey'));
+        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.timestampKey'));
+        //Honeypot validator - Validate the inputs
+        validateHoneypotInput($honeypotInput, $submittedTimestamp);
+        
         $rules = [
             'email' => 'required|valid_email',
         ];
