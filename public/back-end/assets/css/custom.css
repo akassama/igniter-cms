@@ -41,3 +41,37 @@
 .htmx-request.htmx-indicator{
     opacity:1;
 }
+
+/* custom bootstrap 5 text colors */
+.text-purple {
+    color: #8a2be2 !important; /* Example purple color */
+}
+
+.text-pink {
+    color: #ff69b4 !important; /* Example pink color */
+}
+
+.text-orange {
+    color: #ffa500 !important; /* Example orange color */
+}
+
+.text-teal {
+    color: #008080 !important; /* Example teal color */
+}
+
+.text-lime {
+    color: #90ee90 !important; /* Example lime color */
+}
+
+.text-brown {
+    color: #a0522d !important; /* Example brown color */
+}
+
+.text-maroon {
+    color: #800000 !important; /* Example maroon color */
+}
+
+.text-olive {
+    color: #808000 !important; /* Example olive color */
+}
+  

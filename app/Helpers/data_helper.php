@@ -3214,6 +3214,161 @@ if (!function_exists('removeTextSpace')) {
 }
 
 /**
+ * Generate a label with an icon and color based on the identified IP service type.
+ *
+ * @param string $ipAddress The IP address to check.
+ * @return string The HTML label with an icon and color.
+ */
+if (!function_exists('IPIdentifierLabel')) {
+    function IPIdentifierLabel(string $ipAddress): string
+    {
+        // Identify the IP service type
+        $ipType = identifyIPServiceType($ipAddress);
+
+        // Get the current device's IP address (example implementation)
+        $deviceIP = getDeviceIP();
+
+        // Determine the label based on the IP type
+        switch ($ipType) {
+            case 'Cloudflare':
+                return '<i class="ri-circle-fill text-primary"></i>'; // Blue for Cloudflare
+                break;
+
+            case 'Fastly':
+                return '<i class="ri-circle-fill text-success"></i>'; // Green for Fastly
+                break;
+
+            case 'Akamai':
+                return '<i class="ri-circle-fill text-info"></i>'; // Light blue for Akamai
+                break;
+
+            case 'Amazon CloudFront':
+                return '<i class="ri-circle-fill text-warning"></i>'; // Yellow for CloudFront
+                break;
+
+            case 'Sucuri':
+                return '<i class="ri-circle-fill text-danger"></i>'; // Red for Sucuri
+                break;
+
+            case 'NitroPack':
+                return '<i class="ri-circle-fill text-secondary"></i>'; // Gray for NitroPack
+                break;
+
+            case 'Microsoft Azure CDN':
+                return '<i class="ri-circle-fill text-teal"></i>'; // Gray for Microsoft Azure CDN
+                break;
+
+            case 'Google Cloud CDN':
+                return '<i class="ri-circle-fill text-orange"></i>'; // Gray for Google Cloud CDN
+                break;
+
+            case 'Unknown':
+                // Check if the IP matches the current device's IP
+                if ($ipAddress === $deviceIP) {
+                    return '<i class="ri-circle-fill text-muted"></i>'; // Gray for local device
+                }
+                return '<i class="ri-checkbox-blank-circle-line text-dark"></i>'; // Dark for unknown IPs
+                break;
+
+            default:
+                return '<i class="ri-checkbox-blank-circle-line text-dark"></i>'; // Fallback (Unknown)
+        }
+    }
+}
+
+/**
+ * Identifies the service type (CDN/proxy) based on IP address
+ * 
+ * @param string $ipAddress The IP address to check
+ * @return string The identified service type
+ */
+if (!function_exists('identifyIPServiceType')) {
+    function identifyIPServiceType(string $ipAddress): string {
+        // Normalize IP address to lowercase for consistent matching
+        $ipAddress = strtolower($ipAddress);
+
+        // Cloudflare IPv6 ranges
+        if (preg_match('/^2a06:98c0:|^2606:4700:|^2803:f800:/i', $ipAddress)) {
+            return "Cloudflare";
+        }
+
+        // Fastly IPv6 ranges
+        if (preg_match('/^2a04:4e42:|^2a04:4e40:/i', $ipAddress)) {
+            return "Fastly";
+        }
+
+        // Akamai IPv6 ranges
+        if (preg_match('/^2600:1400:|^2600:1401:|^2600:1402:|^2600:1403:/i', $ipAddress)) {
+            return "Akamai";
+        }
+
+        // Amazon CloudFront IPv6 ranges
+        if (preg_match('/^2600:9000:|^2406:da00:|^2404:c2c0:/i', $ipAddress)) {
+            return "Amazon CloudFront";
+        }
+
+        // Microsoft Azure CDN IPv6 ranges
+        if (preg_match('/^2620:1ec:|^2a0c::|^2603:1030:/i', $ipAddress)) {
+            return "Microsoft Azure CDN";
+        }
+
+        // Google Cloud CDN IPv6 ranges
+        if (preg_match('/^2600:1901:|^2404:6800:|^2607:f8b0:/i', $ipAddress)) {
+            return "Google Cloud CDN";
+        }
+
+        // Sucuri IPv6 ranges
+        if (preg_match('/^2a02:fe80:/i', $ipAddress)) {
+            return "Sucuri";
+        }
+
+        // NitroPack IPv6 ranges
+        if (preg_match('/^2a01:7c8:/i', $ipAddress)) {
+            return "NitroPack";
+        }
+
+        // IPv4 address patterns
+        $ipPatterns = [
+            'Cloudflare' => [
+                '/^103\.21\.244\.|^103\.22\.200\.|^103\.31\.4\.|^104\.16\.|^104\.17\.|^104\.18\.|^104\.19\.|^104\.20\.|^104\.21\.|^104\.22\.|^104\.23\.|^104\.24\.|^104\.25\.|^104\.26\.|^104\.27\.|^104\.28\.|^108\.162\.192\.|^141\.101\.|^162\.158\.|^172\.64\.|^173\.245\.48\.|^188\.114\.|^190\.93\.240\.|^197\.234\.240\.|^198\.41\.128\./'
+            ],
+            'Fastly' => [
+                '/^151\.101\.|^199\.27\./'
+            ],
+            'Akamai' => [
+                '/^23\.32\.|^23\.33\.|^23\.34\.|^23\.35\.|^23\.36\.|^23\.37\.|^23\.38\.|^23\.39\.|^23\.40\.|^23\.41\.|^23\.42\.|^23\.43\.|^23\.44\.|^23\.45\.|^23\.46\.|^23\.47\.|^23\.48\.|^23\.49\.|^23\.50\.|^23\.51\.|^23\.52\.|^23\.53\.|^23\.54\.|^23\.55\./'
+            ],
+            'Amazon CloudFront' => [
+                '/^13\.32\.|^13\.33\.|^13\.34\.|^13\.35\.|^13\.224\.|^13\.225\.|^13\.226\.|^13\.227\.|^13\.228\./'
+            ],
+            'Microsoft Azure CDN' => [
+                '/^147\.243\.|^152\.199\.|^204\.79\.|^204\.96\.|^13\.107\.|^72\.21\./'
+            ],
+            'Google Cloud CDN' => [
+                '/^172\.217\.|^172\.253\.|^216\.239\.|^74\.125\.|^108\.177\.|^142\.250\.|^35\.190\.|^35\.191\./'
+            ],
+            'Sucuri' => [
+                '/^192\.124\.249\.|^192\.161\.0\./'
+            ],
+            'NitroPack' => [
+                '/^194\.1\.147\./'
+            ]
+        ];
+
+        // Check IPv4 patterns
+        foreach ($ipPatterns as $service => $patterns) {
+            foreach ($patterns as $pattern) {
+                if (preg_match($pattern, $ipAddress)) {
+                    return $service;
+                }
+            }
+        }
+
+        return "Unknown";
+    }
+}
+
+/**
  * Determines whether a visit should be logged based on the current URL.
  * 
  * @param string $currentUrl The current URL to check
