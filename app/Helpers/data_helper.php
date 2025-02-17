@@ -3273,7 +3273,7 @@ if(!function_exists('isBlockedRoute'))
             "ads.txt", "humans.txt", "security.txt",  // Text files
             ".env", ".git/", ".svn/",  // Sensitive directories/files
             "config.php", "configuration.php", "db.php", "database.php", // Common config files
-            "admin/", "administrator/", "cpanel/", "login/", "signin/",  // Common admin/login paths
+            "admin/login", "administrator/login", "cpanel/", // Common admin/login paths
             "shell/", "r57shell/", "cmd.php", "backdoor.php", // Known backdoor/shell scripts
             "phpinfo.php",  // Information disclosure risk
             "eval()", "assert()", "base64_decode(", // Attempted code injection (can be part of URL)
