@@ -579,9 +579,6 @@ if(strtolower($frontEndFormat) === "mvc")
     #Sitemap
     $routes->get('sitemap.xml', 'FrontEndController::getSitemaps', ['filter' => ['siteStatsFilter']]);
 
-    #Robots.txt
-    $routes->get('robots.txt', 'FrontEndController::getRobotsTxt', ['filter' => ['siteStatsFilter']]);
-
     // Redirect other sitemap URLs to 'sitemap.xml'
     $routes->get('sitemap', function() {
         return redirect()->to('sitemap.xml');
@@ -594,6 +591,9 @@ if(strtolower($frontEndFormat) === "mvc")
     $routes->get('sitemap_index.xml', function() {
         return redirect()->to('sitemap.xml');
     });
+
+    #Robots.txt
+    $routes->get('robots.txt', 'FrontEndController::getRobotsTxt', ['filter' => ['siteStatsFilter']]);
 
     #Pages - Placed button to avoid conflict with '/blogs', '/events', '/portfolios', '/search'
     $routes->get('/(:segment)', 'FrontEndController::getPageDetails/$1', ['filter' => ['siteStatsFilter']]);

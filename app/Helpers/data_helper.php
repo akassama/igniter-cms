@@ -3270,7 +3270,6 @@ if(!function_exists('isBlockedRoute'))
          */
         $black_lested_paths = array(
             "wp-settings.php", "wp-login.php", "setup-config.php", "wp-admin/", "wordpress/", //Wordpress files
-            "ads.txt", "humans.txt", "security.txt",  // Text files
             ".env", ".git/", ".svn/",  // Sensitive directories/files
             "config.php", "configuration.php", "db.php", "database.php", // Common config files
             "admin/login", "administrator/login", "cpanel/", // Common admin/login paths
