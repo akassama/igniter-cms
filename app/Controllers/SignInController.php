@@ -31,8 +31,11 @@ class SignInController extends BaseController
 
     public function login()
     {
-        //honeypot validator
-        validateHoneypotInput($this->request->getPost(getenv('CONFIG.honeypotKey')));
+        // Retrieve the honeypot and timestamp values
+        $honeypotInput = $this->request->getPost(getenv('CONFIG.honeypotKey'));
+        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.timestampKey'));
+        //Honeypot validator - Validate the inputs
+        validateHoneypotInput($honeypotInput, $submittedTimestamp);
 
         // Get use captcha config
         $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);

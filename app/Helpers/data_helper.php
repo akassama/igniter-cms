@@ -3415,65 +3415,98 @@ if (!function_exists('isBlockedIP')) {
 }
 
 /**
- * Generates a hidden honeypot input field.
- * This field is designed to trap spambots.  It's visually hidden
- * and given a random class to make it harder for bots to target.
+ * Generates a hidden honeypot input field and a timestamp input field.
+ * This includes a random class for the honeypot field and a hidden timestamp field.
  *
- * @returns {string} The HTML for the honeypot input field.
+ * @returns {string} The HTML for the honeypot and timestamp input fields.
  */
 if (!function_exists('getHoneypotInput')) {
     function getHoneypotInput(): string {
         // Add a random class name to make it harder for bots to identify
         $randomClass = 'field_' . bin2hex(random_bytes(8));
-        return '<input type="text" name="' . getenv('CONFIG.honeypotKey') . '" ' .
-            'id="' . getenv('CONFIG.honeypotKey') . '" ' .
+        $honeypotKey = getenv('CONFIG.honeypotKey');
+        $timestampKey = getenv('CONFIG.timestampKey');
+
+        // Generate the honeypot input
+        $honeypotInput = '<input type="text" name="' . $honeypotKey . '" ' .
+            'id="' . $honeypotKey . '" ' .
             'class="' . $randomClass . '" ' .
             'autocomplete="off" ' .
             'tabindex="-1" ' .
             'style="position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0,0,0,0) !important;white-space:nowrap !important;border:0 !important;">';
+
+        // Generate the timestamp input
+        $timestampInput = '<input type="hidden" name="' . $timestampKey . '" ' .
+            'id="' . $timestampKey . '" ' .
+            'value="' . time() . '">';
+
+        return $honeypotInput . $timestampInput;
     }
 }
 
 /**
- * Validates the honeypot input.
- * If the honeypot field has a value, it's assumed a bot filled it out.
- * The bot's IP is then blocked and the activity is logged.
+ * Validates the honeypot input and the timestamp.
+ * If the honeypot field has a value or the form was submitted too quickly, it blocks the IP.
  *
  * @param {string} $honeypotInput The value of the honeypot input field.
+ * @param {int} $submittedTimestamp The timestamp submitted with the form.
  * @returns {void}
  */
 if (!function_exists('validateHoneypotInput')) {
-    function validateHoneypotInput($honeypotInput): void {
+    function validateHoneypotInput($honeypotInput, $submittedTimestamp): void {
+        // Check if the honeypot field is filled (indicating bot activity)
         if (!empty($honeypotInput)) {
-            $ipAddress = getDeviceIP();
-            $currentUrl = current_url();
-            $country = getCountry();
-            $reason = ActivityTypes::BLOCKED_IP_SPAMMING;
-            $blockEndTime = date('Y-m-d H:i:s', strtotime('+3 years'));
+            blockAndLogIPSpam("Honeypot field filled");
+            return;
+        }
 
-            // Add to blocked IPs
-            addBlockedIPAdress($ipAddress, $country, $currentUrl, $blockEndTime, $reason);
+        // Validate the timestamp
+        $currentTime = time();
+        $submittedTimestamp = intval($submittedTimestamp);
+        $minSubmissionTime = 2; // Minimum allowed time in seconds
 
-            // Log the activity
-            logActivity("User IP: " . $ipAddress, $reason, 'Spamming (honeypot) activity with IP: ' . $ipAddress);
-
-            // Return a normal-looking 403 response
-            header('HTTP/1.1 403 Forbidden');
-
-            // If it's an AJAX request, return JSON
-            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-                strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-                header('Content-Type: application/json');
-                echo json_encode(['error' => 'Access denied']);
-                exit();
-            }
-
-            echo 'Your IP address has been blocked.';
-            exit();
+        //check if form filled too quickly by being less than min allowed time or not being able to set before subission
+        if (($currentTime - $submittedTimestamp) < $minSubmissionTime || $submittedTimestamp === 0) {
+            blockAndLogIPSpam("Form submitted too quickly");
+            return;
         }
     }
 }
 
+/**
+ * Blocks the IP address and logs the activity.
+ *
+ * @param {string} $reason The reason for blocking the IP.
+ * @returns {void}
+ */
+if (!function_exists('blockAndLogIPSpam')) {
+    function blockAndLogIPSpam($reason): void {
+        $ipAddress = getDeviceIP();
+        $currentUrl = current_url();
+        $country = getCountry();
+        $blockEndTime = date('Y-m-d H:i:s', strtotime('+3 years'));
+
+        // Add to blocked IPs
+        addBlockedIPAdress($ipAddress, $country, $currentUrl, $blockEndTime, ActivityTypes::BLOCKED_IP_SPAMMING);
+
+        // Log the activity
+        logActivity("User IP: " . $ipAddress, ActivityTypes::BLOCKED_IP_SPAMMING, $reason . ' with IP: ' . $ipAddress);
+
+        // Return a normal-looking 403 response
+        header('HTTP/1.1 403 Forbidden');
+
+        // If it's an AJAX request, return JSON
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Access denied']);
+            exit();
+        }
+
+        echo 'Your IP address has been blocked.';
+        exit();
+    }
+}
 
 /**
  * Validates an API key by checking its existence and status in the database.
