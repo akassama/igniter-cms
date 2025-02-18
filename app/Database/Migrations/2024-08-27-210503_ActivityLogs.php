@@ -36,6 +36,11 @@ class ActivityLogs extends Migration
                 'null' => true,
                 'after' => 'activity'
             ],
+            'country' => [
+                'type' => 'VARCHAR',
+                'constraint' => '50',
+                'null' => true,
+            ],
             'device' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,

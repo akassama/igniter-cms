@@ -1054,7 +1054,7 @@ class AdminController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'activity_logs' => $activityLogsModel->orderBy('created_at', 'DESC')->paginate(500),
+            'activity_logs' => $activityLogsModel->orderBy('created_at', 'DESC')->paginate(1000),
             'pager' => $activityLogsModel->pager,
             'total_activities' => $activityLogsModel->pager->getTotal()
         ];

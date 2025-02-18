@@ -29,6 +29,7 @@ class ActivityLogsModel extends Model
         'activity_type', 
         'activity', 
         'ip_address', 
+        'country', 
         'device'
     ];
     protected bool $allowEmptyInserts = false;
@@ -74,7 +75,10 @@ class ActivityLogsModel extends Model
             'activity_id' => $activityId,
             'activity_type' => $param['activity_type'],
             'activity' => $param['activity'],
-            'activity_by' => $param['activity_by']
+            'activity_by' => $param['activity_by'],
+            'ip_address' => $param['ip_address'],
+            'country' => $param['country'],
+            'device' => $param['device']
         ];
         $this->save($data);
 

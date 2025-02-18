@@ -39,6 +39,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>Activity</th>
                             <th>IP Address</th>
                             <th>Device</th>
+                            <th>Country</th>
                             <th>Date/Time</th>
                             <th>Actions</th>
                         </tr>
@@ -58,6 +59,10 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= esc($activity['activity']) ?></td>
                                     <td><?= esc($activity['ip_address']) ?></td>
                                     <td><?= esc($activity['device']) ?></td>
+                                    <td>
+                                        <span class="fi fi-<?= strtolower(esc($activity['country'])) ?>"></span>
+                                        <?= esc($activity['country']) ?>
+                                    </td>
                                     <td><?= esc($activity['created_at']) ?></td>
                                     <td>
                                         <div class="row text-center p-1">
@@ -79,9 +84,9 @@ echo generateBreadcrumb($breadcrumb_links);
         </div>
     </div>
     <?php
-        if($total_activities > 100){
+        if($total_activities > 1000){
             ?>
-                <!--Show pagination if more than 100 records-->
+                <!--Show pagination if more than 1000 records-->
                 <div class="col-12 text-start">
                     <p>Pagination</p>
                     <?= $pager->links('default', 'bootstrap') ?>

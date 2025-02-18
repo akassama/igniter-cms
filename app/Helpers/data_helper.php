@@ -1767,6 +1767,7 @@ if (!function_exists('logActivity')) {
             'activity_type' => $activityType,
             'activity' => ActivityTypes::getDescription($activityType) . ($activityDetails ? ': ' . $activityDetails : ''),
             'ip_address' => getIPAddress(),
+            'country' => getCountry(getIPAddress()),
             'device' => getUserDevice(),
             'created_at' => date('Y-m-d H:i:s')
         ];
