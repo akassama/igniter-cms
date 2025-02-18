@@ -1713,6 +1713,32 @@ if(!function_exists('dateFormat'))
 }
 
 /**
+ * Gets the countries as select options.
+ * Uses "iso" for value and "nicename" for name.
+ * If $countryIso value is passed, then sets it as the selected option.
+ * Lists only <option></option> tags.
+ *
+ * @param string|null $countryIso The ISO code of the country to be selected (optional).
+ * @return string HTML string of <option> tags.
+ */
+if (!function_exists('getCountrySelectOptions')) {
+
+    function getCountrySelectOptions($countryIso = null)
+    {
+        $db = \Config\Database::connect();
+        $countries = $db->table('countries')->get()->getResultArray();
+
+        $options = '';
+        foreach ($countries as $country) {
+            $selected = ($countryIso !== null && $country['iso'] == $countryIso) ? 'selected' : '';
+            $options .= '<option value="' . $country['iso'] . '" ' . $selected . '>' . implode(' ', preg_split('/(?=[A-Z])/', $country['nicename'])) . '</option>';
+        }
+
+        return $options;
+    }
+}
+
+/**
  * Retrieves the text name of a country based on its ISO code.
  *
  * @param {string} countryIso - The ISO code of the country.
@@ -3580,8 +3606,8 @@ if (!function_exists('getHoneypotInput')) {
     function getHoneypotInput(): string {
         // Add a random class name to make it harder for bots to identify
         $randomClass = 'field_' . bin2hex(random_bytes(8));
-        $honeypotKey = getenv('CONFIG.honeypotKey');
-        $timestampKey = getenv('CONFIG.timestampKey');
+        $honeypotKey = getenv('CONFIG.HONEYPOT_KEY');
+        $timestampKey = getenv('CONFIG.TIMESTAMP_KEY');
 
         // Generate the honeypot input
         $honeypotInput = '<input type="text" name="' . $honeypotKey . '" ' .
@@ -4538,7 +4564,7 @@ if (!function_exists('formatAIResponse')) {
  */
 if (!function_exists('callGeminiAPI')) {
     function callGeminiAPI($prompt) {
-        $apiKey = getDefaultConfigData("AIHelpChatKey", getenv('CONFIG.AIHelpChatKey'));
+        $apiKey = getDefaultConfigData("AIHelpChatKey", getenv('CONFIG.AI_HELP_CHAT_KEY'));
         $apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" . $apiKey;
 
         $data = [

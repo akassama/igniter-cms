@@ -32,8 +32,8 @@ class SignInController extends BaseController
     public function login()
     {
         // Retrieve the honeypot and timestamp values
-        $honeypotInput = $this->request->getPost(getenv('CONFIG.honeypotKey'));
-        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.timestampKey'));
+        $honeypotInput = $this->request->getPost(getenv('CONFIG.HONEYPOT_KEY'));
+        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.TIMESTAMP_KEY'));
         //Honeypot validator - Validate the inputs
         validateHoneypotInput($honeypotInput, $submittedTimestamp);
 

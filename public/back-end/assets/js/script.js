@@ -378,3 +378,31 @@ function getScreenResolution() {
     return `${screen.width} x ${screen.height}`;
 }
 
+/**
+ * Initialize Tempus Dominus for all elements with the class "tempus-datetime-picker"
+ */
+$(document).ready(function () {
+    document.querySelectorAll('.tempus-datetime-picker').forEach(function (input) {
+      new tempusDominus.TempusDominus(input, {
+        display: {
+          components: {
+            decades: true,
+            year: true,
+            month: true,
+            date: true,
+            hours: true,
+            minutes: true,
+            seconds: false,
+          },
+          buttons: {
+            today: true,
+            clear: true,
+            close: true,
+          },
+        },
+        localization: {
+          format: 'yyyy-MM-dd HH:mm:ss', // Customize the datetime format
+        },
+      });
+    });
+  });

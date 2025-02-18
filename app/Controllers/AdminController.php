@@ -1238,6 +1238,65 @@ class AdminController extends BaseController
         return view('back-end/admin/blocked-ips/index', $data);
     }
 
+    public function newBlockedIP()
+    {
+        return view('back-end/admin/blocked-ips/new-blocked-ip');
+    }
+
+    public function addBlockedIP()
+    {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
+        // Load the BlockedIPsModel
+        $blockedIPsModel = new BlockedIPsModel();
+
+        // Validation rules from the model
+        $validationRules = $blockedIPsModel->getValidationRules();
+
+        // Validate the incoming data
+        if (!$this->validate($validationRules)) {
+            // If validation fails, return validation errors
+            $data['validation'] = $this->validator;
+            return view('back-end/admin/blocked-ips/new-blocked-ip');
+        }
+
+        // If validation passes, create the user
+        $blockedIPData = [
+            'ip_address' => $this->request->getPost('ip_address'),
+            'country' => $this->request->getPost('country'),
+            'block_start_time' => $this->request->getPost('block_start_time'),
+            'block_end_time' => $this->request->getPost('block_end_time'),
+            'reason' => $this->request->getPost('reason'),
+            'notes' => $this->request->getPost('notes'),
+            'page_visited_url' => $this->request->getPost('page_visited_url')
+        ];
+
+        // Call createBlockedIP method from the BlockedIPsModel
+        if ($blockedIPsModel->createBlockedIP($blockedIPData)) {
+            //inserted user_id
+            $insertedId = $blockedIPsModel->getInsertID();
+
+            // Record created successfully. Redirect to dashboard
+            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
+            session()->setFlashdata('successAlert', $createSuccessMsg);
+
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::USER_CREATION, 'Blocked IP added with id: ' . $insertedId);
+
+            return redirect()->to('/account/admin/blocked-ips');
+        } else {
+            // Failed to create record. Redirect to dashboard
+            $errorMsg = config('CustomConfig')->errorMsg;
+            session()->setFlashdata('errorAlert', $errorMsg);
+
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::FAILED_USER_CREATION, 'Failed to add blocked IP with IP: ' . $this->request->getPost('ip_address'));
+
+            return view('back-end/admin/blocked-ips/new-blocked-ip');
+        }
+    }
+
     //############################//
     //          Backups           //
     //############################//

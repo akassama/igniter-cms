@@ -19,6 +19,11 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="col-12">
         <h3>Blocked IP Addresses</h3>
     </div>
+    <div class="col-12 d-flex justify-content-end mb-2">
+        <a href="<?=base_url('/account/admin/blocked-ips/new-blocked-ip')?>" class="btn btn-outline-dark mx-1">
+            <i class="ri-add-fill"></i> New Block IP
+        </a>
+    </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">

@@ -50,6 +50,9 @@
 <!-- jquery.timepicker CDN -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 
+<!-- Tempus Dominus CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.7/dist/css/tempus-dominus.min.css">
+
 <!--Syntax JS CSS-->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/syntax.js.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/themes/syntax.js.dark.theme.css" />

@@ -24,7 +24,7 @@ class BlockedIPsModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'site_stat_id',
+        'blocked_ip_id',
         'ip_address',
         'country',
         'block_start_time',
@@ -48,8 +48,14 @@ class BlockedIPsModel extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
+    protected $validationRules = [
+        'ip_address' => 'required|is_unique[blocked_ips.ip_address]',
+        'block_end_time' => 'required',
+    ];
+    protected $validationMessages   = [
+        'ip_address' => 'ip_address is required',
+        'block_end_time' => 'block_end_time is required',
+    ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
@@ -64,7 +70,7 @@ class BlockedIPsModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function c($param = array())
+    public function createBlockedIP($param = array())
     {
         // Generate a unique ID (UUID)
         $blockedIpId = getGUID();
