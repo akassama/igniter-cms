@@ -23,7 +23,7 @@ class FileManagerController extends BaseController
         $fileUploadsModel = new FileUploadModel();
 
         // Get file uploads for the logged-in user
-        $fileUploads = $fileUploadsModel->where('user_id', $loggedInUserId)->findAll();
+        $fileUploads = $fileUploadsModel->where('user_id', $loggedInUserId)->orderBy('created_at', 'DESC')->findAll();
         $userRole = getUserRole(getLoggedInUserId());
         //check if admin to view all images
         if ($userRole == "Admin"){
@@ -31,14 +31,13 @@ class FileManagerController extends BaseController
             $fileUploads = $fileUploadsModel->findAll();
         } 
 
-        // Get the total count of file uploads
-        $totalFileUploads = $fileUploadsModel->countAll();
-
         // Set data to pass in view
         $data = [
-            'file_uploads' => $fileUploads,
-            'totalFileUploads' => $totalFileUploads
+            'file_uploads' => $fileUploadsModel->where('user_id', $loggedInUserId)->orderBy('created_at', 'DESC')->paginate(100),
+            'pager' => $fileUploadsModel->pager,
+            'total_file_uploads' => $fileUploadsModel->pager->getTotal()
         ];
+
         return view('back-end/file-manager/index', $data);
     }
 

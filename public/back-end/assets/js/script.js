@@ -1,7 +1,6 @@
 /* Set Cookies */
 Cookies.set('max_file_size', '5', { expires: 7 });
 Cookies.set('screen_resolution', getScreenResolution(), { expires: 1 });
-console.log("screen_resolution: " + Cookies.get('screen_resolution'));
 /*!
     * Start Bootstrap - SB Admin v7.0.7 (https://startbootstrap.com/template/sb-admin)
     * Copyright 2013-2023 Start Bootstrap

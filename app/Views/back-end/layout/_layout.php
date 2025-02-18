@@ -15,7 +15,6 @@ $session = session();
 <?=  $this->include('back-end/layout/back_end_nav.php'); ?>
 
 <div id="layoutSidenav">
-
     <!-- Include left sidebar -->
     <?=  $this->include('back-end/layout/left_sidebar.php'); ?>
 

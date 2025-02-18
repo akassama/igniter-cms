@@ -3710,7 +3710,7 @@ if (!function_exists('blockAndLogIPSpam')) {
         $ipAddress = getDeviceIP();
         $currentUrl = current_url();
         $country = getCountry();
-        $blockEndTime = date('Y-m-d H:i:s', strtotime('+3 years'));
+        $blockEndTime = date('Y-m-d H:i:s', strtotime(getConfigData("BlockedIPSuspensionPeriod")));
 
         // Add to blocked IPs
         addBlockedIPAdress($ipAddress, $country, $currentUrl, $blockEndTime, ActivityTypes::BLOCKED_IP_SPAMMING);

@@ -55,7 +55,7 @@ class SiteStatsFilter implements FilterInterface
         if(isBlockedRoute($pageVisitedUrl)){
             //log ip as black listed
             $reason = ActivityTypes::BLOCKED_IP_SUSPICIOUS_ACTIVITY;
-            $blockEndTime = date('Y-m-d H:i:s', strtotime('+3 years'));
+            $blockEndTime = date('Y-m-d H:i:s', strtotime(getConfigData("BlockedIPSuspensionPeriod")));
             addBlockedIPAdress($ipAddress, $country, $pageVisitedUrl, $blockEndTime, $reason);
 
             //log activity

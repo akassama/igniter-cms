@@ -112,14 +112,15 @@ class SignInController extends BaseController
                 session()->set('failed_login_attempts', $failedAttempts);
 
                 // Check if the number of failed attempts exceeds the limit
-                $maxFailedAttempts = 5; // max login limit
+                $maxFailedAttempts = intval(getConfigData("MaxFailedAttempts")); // max login limit
                 if ($failedAttempts >= $maxFailedAttempts) {
                     // Block the IP address
                     $ipAddress = getDeviceIP();
+                    $country = getCountry();
                     $pageVisitedUrl = current_url();
                     $reason = ActivityTypes::BLOCKED_IP_TOO_MANY_FAILED_LOGINS;
-                    $blockEndTime = date('Y-m-d H:i:s', strtotime('+1 hour'));
-                    addBlockedIPAdress($ipAddress, $pageVisitedUrl, $blockEndTime, $reason);
+                    $blockEndTime = date('Y-m-d H:i:s', strtotime(getConfigData("FailedLoginsSuspensionPeriod")));
+                    addBlockedIPAdress($ipAddress, $country, $pageVisitedUrl, $blockEndTime, $reason);
 
                     // Reset failed login attempts
                     session()->remove('failed_login_attempts');

@@ -70,7 +70,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="block_end_time" class="form-label">Block End Time</label>
-                <input type="text" class="form-control tempus-datetime-picker" id="block_end_time" name="block_end_time" maxlength="250" value="<?= date('Y-m-d H:i:s', strtotime('+3 years')) ?>" required>
+                <input type="text" class="form-control tempus-datetime-picker" id="block_end_time" name="block_end_time" maxlength="250" value="<?= date('Y-m-d H:i:s', getConfigData("BlockedIPSuspensionPeriod")) ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('block_end_time')) {?>
                     <div class='text-danger mt-2'>

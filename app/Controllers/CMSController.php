@@ -55,8 +55,9 @@ class CMSController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'blogs' => $blogsModel->orderBy('created_at', 'DESC')->findAll(),
-            'total_blogs' => getTotalRecords($tableName)
+            'blogs' => $blogsModel->orderBy('created_at', 'DESC')->paginate(100),
+            'pager' => $blogsModel->pager,
+            'total_blogs' => $blogsModel->pager->getTotal()
         ];
 
         return view('back-end/cms/blogs/index', $data);

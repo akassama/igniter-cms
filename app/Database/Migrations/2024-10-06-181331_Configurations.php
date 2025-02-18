@@ -1487,6 +1487,66 @@ class Configurations extends Migration
                 'icon' => 'ri-shield-keyhole-fill',
                 'search_terms' => 'honeypot,bot detection,spam,security, block ip'
             ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'MaxFailedAttempts',
+                'config_value' => '5',
+                'group' => 'security',
+                'data_type' => 'Text',
+                'options' => null,
+                'default_value' => '5',
+                'deletable' => 0,
+                'description' => 'This is maximum failed login attempts allowed in one session.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'icon' => 'ri-lock-fill',
+                'search_terms' => 'failed login,locked out,security'
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'FailedLoginsSuspensionPeriod',
+                'config_value' => '+30 minutes',
+                'group' => 'security',
+                'data_type' => 'Select',
+                'options' => '+5 minutes,+10 minutes,+30 minutes,+1 hour,+3 hours,+24 hours',
+                'default_value' => '+30 minutes',
+                'deletable' => 0,
+                'description' => 'This is suspension period for multiple failed logins.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'icon' => 'ri-time-fill',
+                'search_terms' => 'suspension,failed login,locked out,security, timeout'
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'BlockedIPSuspensionPeriod',
+                'config_value' => '+3 years',
+                'group' => 'security',
+                'data_type' => 'Select',
+                'options' => '+1 day,+1 days,+1 month,+3 months,+6 months,+1 year,+3 years,+5 years,+10 years',
+                'default_value' => '+3 years',
+                'deletable' => 0,
+                'description' => 'This is suspension period for suspended IP\'s.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'icon' => 'ri-time-fill',
+                'search_terms' => 'suspension,bot detection,spam,security, block ip'
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'MaxUploadFileSize',
+                'config_value' => '1',
+                'group' => 'site',
+                'data_type' => 'Select',
+                'options' => '1,3,5,10,50,100,1000',
+                'default_value' => '5',
+                'deletable' => 0,
+                'description' => 'This is the maximum file upload size in megabytes.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'icon' => 'ri-upload-cloud-fill',
+                'search_terms' => 'file upload,maximum,file size'
+            ],
         ];
 
         // Using Query Builder

@@ -53,7 +53,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <i class="ri-grid-line me-1"></i>
                 Files
                 <span class="badge rounded-pill bg-dark">
-                    <?= $totalFileUploads ?>
+                    <?= $total_file_uploads ?>
                 </span>
 
                 <a href="<?=base_url('/account/file-manager')?>" class="text-dark td-none float-end reload-files">
@@ -178,6 +178,17 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
         </div>
     </div>
+    <?php
+        if($total_file_uploads > 100){
+            ?>
+                <!--Show pagination if more than 100 records-->
+                <div class="col-12 text-start">
+                    <p>Pagination</p>
+                    <?= $pager->links('default', 'bootstrap') ?>
+                </div>
+            <?php
+        }
+    ?>
 </div>
 
 <!-- Include the delete script -->

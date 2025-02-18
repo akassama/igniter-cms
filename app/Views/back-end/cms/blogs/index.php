@@ -94,6 +94,17 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
         </div>
     </div>
+    <?php
+        if($total_blogs > 100){
+            ?>
+                <!--Show pagination if more than 100 records-->
+                <div class="col-12 text-start">
+                    <p>Pagination</p>
+                    <?= $pager->links('default', 'bootstrap') ?>
+                </div>
+            <?php
+        }
+    ?>
 </div>
 
 <!-- Include the delete script -->

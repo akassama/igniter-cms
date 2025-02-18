@@ -25,6 +25,15 @@ class AuthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
+        //check if blocked ip
+        $ipAddress = getDeviceIP();
+        if(isBlockedIP($ipAddress)){
+            $response = service('response');
+            $response->setStatusCode(403); // Forbidden status code
+            $response->setBody('Your IP address has been blocked.');
+            return $response;
+        }
+
         if (!session()->get('is_logged_in'))
         {
             // Get the current URL

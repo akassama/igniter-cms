@@ -80,5 +80,13 @@
 <script src="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/languages/syntax.html.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/languages/syntax.css.js"></script>
 
+<script>
+    //Set max file size upload
+    $(document).ready(function() {
+        const maxFileSize = "<?= getConfigData("MaxUploadFileSize") ?>"; 
+        Cookies.set('max_file_size', maxFileSize, { expires: 7 });
+    });
+</script>
+
 <!--custom js-->
 <script src="<?= base_url('public/back-end/assets/js/script.js')?>"></script>
