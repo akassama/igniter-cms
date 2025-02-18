@@ -123,7 +123,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 2,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -144,7 +144,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 4,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -165,7 +165,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 6,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -186,7 +186,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 8,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -207,7 +207,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 12,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -228,7 +228,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 14,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -249,7 +249,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 16,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -270,7 +270,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 18,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -291,7 +291,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 20,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -312,7 +312,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 22,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -333,7 +333,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 24,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -354,7 +354,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 26,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -375,7 +375,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 28,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ],
@@ -396,7 +396,7 @@ class HomePage extends Migration
                 'new_tab'    => false,
                 'status'    => '1',
                 'order'    => 30,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null,
                 'deletable'    => 0
             ]

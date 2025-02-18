@@ -151,11 +151,35 @@ class AppModules extends Migration
             ],
             [
                 'app_module_id' => getGUID(),
+                'module_name'  => 'Error Logs',
+                'module_description'  => 'View error logs',
+                'module_roles'    => 'Admin',
+                'module_link'    => 'account/admin/logs',
+                'module_search_terms' => 'error logs,activity,tracking'
+            ],
+            [
+                'app_module_id' => getGUID(),
                 'module_name'  => 'Visit Stats',
                 'module_description'  => 'View visit statistics and charts',
                 'module_roles'    => 'Admin',
                 'module_link'    => 'account/admin/visit-stats',
                 'module_search_terms' => 'stats,visits,analytics'
+            ],
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'Blocked IP\'s',
+                'module_description'  => 'View blocked ip addresses',
+                'module_roles'    => 'Admin',
+                'module_link'    => 'account/admin/blocked-ips',
+                'module_search_terms' => 'block,blacklist,security,deny ip,spam'
+            ],
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'Whitelisted IP\'s',
+                'module_description'  => 'View whitelisted ip addresses',
+                'module_roles'    => 'Admin',
+                'module_link'    => 'account/admin/whitelisted-ips',
+                'module_search_terms' => 'unblock,whitelist,security,allow ip'
             ],
             [
                 'app_module_id' => getGUID(),

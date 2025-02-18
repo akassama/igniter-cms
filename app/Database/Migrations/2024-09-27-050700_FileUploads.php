@@ -64,7 +64,7 @@ class FileUploads extends Migration
         $data = [
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('client-1.png'),
                 'file_type'    => 'png',
                 'file_size'    => '3036',
@@ -74,7 +74,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('client-2.png'),
                 'file_type'    => 'png',
                 'file_size'    => '5150',
@@ -84,7 +84,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('client-3.png'),
                 'file_type'    => 'png',
                 'file_size'    => '5000',
@@ -94,7 +94,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('client-4.png'),
                 'file_type'    => 'png',
                 'file_size'    => '4450',
@@ -104,7 +104,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('home-about.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '119000',
@@ -114,7 +114,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('about-us.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '141000',
@@ -124,7 +124,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('portfolio-image-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '65000',
@@ -134,7 +134,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('portfolio-image-2.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '72000',
@@ -144,7 +144,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('portfolio-image-3.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '41000',
@@ -154,7 +154,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('portfolio-image-4.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '60500',
@@ -164,7 +164,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('team-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '63000',
@@ -174,7 +174,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('team-2.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '33000',
@@ -184,7 +184,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('team-3.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '25000',
@@ -194,7 +194,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('team-4.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '53000',
@@ -204,7 +204,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('testimonials-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '39000',
@@ -214,7 +214,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('testimonials-2.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '56000',
@@ -224,7 +224,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('testimonials-3.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '17000',
@@ -234,7 +234,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('testimonials-4.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '19700',
@@ -244,7 +244,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('gallery-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '64000',
@@ -254,7 +254,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('gallery-2.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '62000',
@@ -264,7 +264,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('gallery-3.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '112000',
@@ -274,7 +274,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('gallery-4.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '72000',
@@ -284,7 +284,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('pexel-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '25000',
@@ -294,7 +294,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('pexel-2.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '37000',
@@ -304,7 +304,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('pexel-3.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '32000',
@@ -314,7 +314,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('pexel-4.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '24000',
@@ -324,7 +324,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('blog-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '104000',
@@ -334,7 +334,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('blog-2.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '69000',
@@ -344,7 +344,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('blog-3.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '89000',
@@ -354,7 +354,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('event-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '30000',
@@ -364,7 +364,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('event-2.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '26000',
@@ -374,7 +374,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('page-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '381000',
@@ -384,7 +384,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('page-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '123000',
@@ -394,7 +394,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('ci-cms-logo.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '43000',
@@ -404,7 +404,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('ci-cms-logo.png'),
                 'file_type'    => 'png',
                 'file_size'    => '43000',
@@ -414,7 +414,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('favicon.ico'),
                 'file_type'    => 'ico',
                 'file_size'    => '14000',
@@ -424,7 +424,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('apple-touch-icon.png'),
                 'file_type'    => 'png',
                 'file_size'    => '36000',
@@ -434,7 +434,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('favicon-96x96.png'),
                 'file_type'    => 'png',
                 'file_size'    => '13000',
@@ -444,7 +444,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('web-app-manifest-192x192.png'),
                 'file_type'    => 'png',
                 'file_size'    => '40000',
@@ -454,7 +454,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('web-app-manifest-512x512.png'),
                 'file_type'    => 'png',
                 'file_size'    => '188000',
@@ -464,7 +464,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('favicon.svg'),
                 'file_type'    => 'svg',
                 'file_size'    => '183000',
@@ -474,7 +474,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('site.webmanifest'),
                 'file_type'    => 'webmanifest',
                 'file_size'    => '183000',
@@ -484,7 +484,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('hero-bg-light.webp'),
                 'file_type'    => 'webp',
                 'file_size'    => '135000',
@@ -494,7 +494,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('wDchsz8nmbo.mp4'),
                 'file_type'    => 'mp4',
                 'file_size'    => '220000',
@@ -504,7 +504,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('sQ22pm-xvrE.mp4'),
                 'file_type'    => 'mp4',
                 'file_size'    => '220000',
@@ -514,7 +514,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('pexel-video-1.mp4'),
                 'file_type'    => 'mp4',
                 'file_size'    => '823000',
@@ -524,7 +524,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('sample-audio-1.mp3'),
                 'file_type'    => 'mp3',
                 'file_size'    => '716',
@@ -534,7 +534,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('sample-audio-1.ogg'),
                 'file_type'    => 'ogg',
                 'file_size'    => '980000',
@@ -544,7 +544,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('hero-img.svg'),
                 'file_type'    => 'svg',
                 'file_size'    => '10600',
@@ -554,7 +554,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('hero-carousel-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '325000',
@@ -564,7 +564,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('hero-carousel-2.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '290000',
@@ -574,7 +574,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('hero-carousel-3.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '325000',
@@ -584,7 +584,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('skills.png'),
                 'file_type'    => 'png',
                 'file_size'    => '40700',
@@ -594,7 +594,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('why-us.png'),
                 'file_type'    => 'png',
                 'file_size'    => '85000',
@@ -604,7 +604,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('hero-img.png'),
                 'file_type'    => 'png',
                 'file_size'    => '66600',
@@ -614,7 +614,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('sample.pdf'),
                 'file_type'    => 'pdf',
                 'file_size'    => '18300',
@@ -624,7 +624,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('community_garden.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '439000',
@@ -634,7 +634,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('disaster_relief.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '668000',
@@ -644,7 +644,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('end_hunger.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '509000',
@@ -655,7 +655,7 @@ class FileUploads extends Migration
             //
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('earbuds.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '264000',
@@ -665,7 +665,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('earbuds-case.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '298000',
@@ -675,7 +675,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('earbuds-side.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '419000',
@@ -685,7 +685,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('earbuds-demo.mp4'),
                 'file_type'    => 'mp4',
                 'file_size'    => '1030000',
@@ -695,7 +695,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('hat.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '445000',
@@ -705,7 +705,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('hat_back.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '322000',
@@ -715,7 +715,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('hat_closeup.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '36000',
@@ -725,7 +725,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('hat_side.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '812000',
@@ -735,7 +735,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('shirt.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '500000',
@@ -745,7 +745,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('shirt-closeup.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '304000',
@@ -755,7 +755,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('shirt-front.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '444000',
@@ -765,7 +765,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('shirt-side.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '305000',
@@ -775,7 +775,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('speaker.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '284000',
@@ -785,7 +785,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('speaker_back.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '422000',
@@ -795,7 +795,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('speaker_closeup.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '559000',
@@ -805,7 +805,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('speaker_front.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '385000',
@@ -815,7 +815,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('speaker_side.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '286000',
@@ -825,7 +825,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('speaker_demo.mp4'),
                 'file_type'    => 'mp4',
                 'file_size'    => '856000',
@@ -835,7 +835,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '128000',
@@ -845,7 +845,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-1-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '194000',
@@ -855,7 +855,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-2.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '507000',
@@ -865,7 +865,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-2-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '722000',
@@ -875,7 +875,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-3.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '72000',
@@ -885,7 +885,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-3-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '768000',
@@ -895,7 +895,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-4.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '121000',
@@ -905,7 +905,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-4-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '406000',
@@ -915,7 +915,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-5.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '104000',
@@ -925,7 +925,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-5-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '467000',
@@ -935,7 +935,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-6.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '127000',
@@ -945,7 +945,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-6-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '403000',
@@ -955,7 +955,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-7.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '62000',
@@ -965,7 +965,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-7-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '683000',
@@ -975,7 +975,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('type-8-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '20000',
@@ -985,7 +985,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('resume-profile.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '20000',
@@ -995,7 +995,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('company-logo.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '8000',
@@ -1005,7 +1005,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('university-logo.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '13000',
@@ -1015,7 +1015,7 @@ class FileUploads extends Migration
             ],
             [
                 'file_id' => getGUID(),
-                'user_id'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('university-education-logo.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '24000',

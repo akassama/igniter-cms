@@ -70,7 +70,7 @@ class TestController extends BaseController
 
     public function sendWelcomeEmailPlain()
     {
-        $fromEmail = "kassamadeveloper@gmail.com";//getDefaultConfigData("CompanyEmail", config('CustomConfig')->companyEmail);
+        $fromEmail = "kassamadeveloper@gmail.com";//getConfigData("CompanyEmail");
         $to = 'abdoulie.s.kassama@gmail.com';
         $subject = 'Welcome to Our Application';
         $body = 'Thank you for joining our application!';

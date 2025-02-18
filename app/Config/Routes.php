@@ -91,6 +91,9 @@ $routes->group('account', ['filter' => 'authFilter'], function($routes) {
     $routes->get('admin/blocked-ips', 'AdminController::blockedIps', ['filter' => 'adminRoleFilter']);
     $routes->get('admin/blocked-ips/new-blocked-ip', 'AdminController::newBlockedIP', ['filter' => 'adminRoleFilter']);
     $routes->post('admin/blocked-ips/new-blocked-ip', 'AdminController::addBlockedIP');
+    $routes->get('admin/whitelisted-ips', 'AdminController::whitelistedIps', ['filter' => 'adminRoleFilter']);
+    $routes->get('admin/whitelisted-ips/new-whitelisted-ip', 'AdminController::newWhitelistedIP', ['filter' => 'adminRoleFilter']);
+    $routes->post('admin/whitelisted-ips/new-whitelisted-ip', 'AdminController::addWhitelistedIP');
     $routes->get('admin/configurations', 'AdminController::configurations', ['filter' => 'adminRoleFilter']);
     $routes->get('admin/configurations/new-config', 'AdminController::newConfiguration', ['filter' => 'adminRoleFilter']);
     $routes->post('admin/configurations/new-config', 'AdminController::addConfiguration');
@@ -528,7 +531,7 @@ $routes->group('api', function($routes) {
 });
 
 
-$frontEndFormat = getDefaultConfigData("FrontEndFormat", config('CustomConfig')->frontEndFormat);
+$frontEndFormat = getConfigData("FrontEndFormat");
 if(strtolower($frontEndFormat) === "mvc")
 {
     //FRONT END CONTROLLER

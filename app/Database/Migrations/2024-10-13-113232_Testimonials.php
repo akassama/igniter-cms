@@ -78,7 +78,7 @@ class Testimonials extends Migration
                 'rating' => 5,
                 'link' => 'https://techsolutions.com',
                 'new_tab' => true,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -91,7 +91,7 @@ class Testimonials extends Migration
                 'rating' => 5,
                 'link' => 'https://marketmakers.com',
                 'new_tab' => true,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -104,7 +104,7 @@ class Testimonials extends Migration
                 'rating' => 4,
                 'link' => 'https://innovatech.com',
                 'new_tab' => true,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -117,7 +117,7 @@ class Testimonials extends Migration
                 'rating' => 5,
                 'link' => 'https://webworks.com',
                 'new_tab' => true,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ]
         ];

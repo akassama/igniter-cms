@@ -11,7 +11,6 @@ class CustomConfig extends BaseConfig
     #--------------------------------------------------------------------
     public $useCaptcha = "No";
     public $appApiKey = "default";
-    public $frontEndFormat = "MVC"; //MVC/API
 
     #--------------------------------------------------------------------
     # MESSAGES
@@ -41,11 +40,4 @@ class CustomConfig extends BaseConfig
     public $contactMessageFailed = 'Oops! Something went wrong with your message submission. Please try again later.';
     public $subscriptionSuccessful = 'You have successfully subscribed!';
     public $subscriptionFailed = 'Sorry, something went wrong with your subscription. Please try again.';
-
-    #--------------------------------------------------------------------
-    # COMPANY
-    #--------------------------------------------------------------------
-    public $companyName = 'Igniter CMS App';
-    public $companyEmail = 'igniter-cms@mail.com';
-    public $companyAddress = '123 Maple Street<br/> Watford, Hertfordshire<br/> WD17 1AA<br/> United Kingdom';
 }

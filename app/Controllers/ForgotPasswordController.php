@@ -24,8 +24,8 @@ class ForgotPasswordController extends BaseController
     public function sendResetLinkEmail()
     {
         // Retrieve the honeypot and timestamp values
-        $honeypotInput = $this->request->getPost(getenv('CONFIG.HONEYPOT_KEY'));
-        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.TIMESTAMP_KEY'));
+        $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
+        $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
         //Honeypot validator - Validate the inputs
         validateHoneypotInput($honeypotInput, $submittedTimestamp);
         
@@ -34,7 +34,7 @@ class ForgotPasswordController extends BaseController
         ];
 
         if ($this->validate($rules)) {
-            $fromEmail = getDefaultConfigData("CompanyEmail", config('CustomConfig')->companyEmail);
+            $fromEmail = getConfigData("CompanyEmail");
             $toEmail = $this->request->getPost('email');
             $tableName = 'users';
 
@@ -46,7 +46,7 @@ class ForgotPasswordController extends BaseController
                 $fullName = $firstName . " " . $lastName;
 
                 $resetToken = generateResetLink($toEmail);
-                $companyAddress = getDefaultConfigData("CompanyAddress", config('CustomConfig')->companyAddress);
+                $companyAddress = getConfigData("CompanyAddress");
                 $subject = 'Password Reset Request';
 
                 $templateData = [

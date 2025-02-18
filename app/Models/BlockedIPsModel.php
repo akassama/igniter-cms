@@ -72,23 +72,26 @@ class BlockedIPsModel extends Model
 
     public function createBlockedIP($param = array())
     {
-        // Generate a unique ID (UUID)
-        $blockedIpId = getGUID();
-        $data = [
-            'blocked_ip_id' => $blockedIpId,
-            'ip_address' => $param['ip_address'],
-            'country' => $param['country'],
-            'block_start_time' => $param['block_start_time'],
-            'block_end_time' => $param['block_end_time'],
-            'reason' => $param['reason'],
-            'notes' => $param['notes'],
-            'page_visited_url' => $param['page_visited_url'],
-        ];
-        $this->save($data);
+        $tableNameWhitelisted  = "whitelisted_ips";
+        $ipExistsInWhitelistedIps = recordExists($tableNameWhitelisted, 'ip_address', $newBlackListData["ip_address"]);
+        if (!$ipExistsInWhitelistedIps) {
+            // Generate a unique ID (UUID)
+            $blockedIpId = getGUID();
+            $data = [
+                'blocked_ip_id' => $blockedIpId,
+                'ip_address' => $param['ip_address'],
+                'country' => $param['country'],
+                'block_start_time' => $param['block_start_time'],
+                'block_end_time' => $param['block_end_time'],
+                'reason' => $param['reason'],
+                'notes' => $param['notes'],
+                'page_visited_url' => $param['page_visited_url'],
+            ];
+            $this->save($data);
+        }
     
         return true;
     }
-
 
     public function updateBlockedIP($blockedIpId, $param = [])
     {

@@ -73,6 +73,47 @@ if(!function_exists('getGUID')){
     }
 }
 
+
+/**
+ * Generates a static GUID based on the current date.
+ * The GUID will remain the same for the entire day and change on subsequent days.
+ *
+ * @function
+ * @returns {string} A static GUID for the current date.
+ * @example
+ * // Example output: "f3bd0ee7-880e-4a81-8a59-9e47416e6ced"
+ * const guid = getDefaultAdminGUID();
+ */
+if (!function_exists('getDefaultAdminGUID')) {
+    function getDefaultAdminGUID()
+    {
+        // Get CI4 session service
+        $session = \Config\Services::session();
+        
+        // Check if we already have the GUID in session
+        if ($session->has('default_admin_guid')) {
+            return $session->get('default_admin_guid');
+        }
+        
+        // If not in session, check if we need to generate based on date
+        $today = date('Y-m-d'); // Format: 2025-02-18
+        
+        // Create a seed based on the date
+        $seed = md5($today . 'default_admin_salt');
+        
+        // Use the existing getGUID function with a deterministic seed
+        mt_srand(hexdec(substr($seed, 0, 8))); // Use first 8 chars of md5 as seed
+        
+        // Generate the GUID
+        $guid = getGUID();
+        
+        // Store in session for consistency across requests
+        $session->set('default_admin_guid', $guid);
+        
+        return $guid;
+    }
+}
+
 /**
  * Generates a directory name based on a username.
  *
@@ -3542,7 +3583,8 @@ if(!function_exists('addBlockedIPAdress'))
 {
     function addBlockedIPAdress($ipAddress, $country, $url, $blockEndTime, $reason)
     {
-        $tableName = "blocked_ips";
+        $tableNameBlocked = "blocked_ips";
+        $tableNameWhitelisted  = "whitelisted_ips";
         $newBlackListData = [
             'blocked_ip_id' =>  getGUID(),
             'ip_address' => $ipAddress,
@@ -3554,10 +3596,12 @@ if(!function_exists('addBlockedIPAdress'))
             'page_visited_url' => $url
         ];
 
-        if (!recordExists($tableName, 'ip_address', $newBlackListData["ip_address"])) {
-            addRecord($tableName, $newBlackListData);
-        } 
-
+        $ipExistsInBlockedIps = recordExists($tableNameBlocked, 'ip_address', $newBlackListData["ip_address"]);
+        $ipExistsInWhitelistedIps = recordExists($tableNameWhitelisted, 'ip_address', $newBlackListData["ip_address"]);
+        if (!$ipExistsInBlockedIps && !$ipExistsInWhitelistedIps) {
+            addRecord($tableNameBlocked, $newBlackListData);
+        }
+        
         return true;
     }
 }
@@ -3606,8 +3650,8 @@ if (!function_exists('getHoneypotInput')) {
     function getHoneypotInput(): string {
         // Add a random class name to make it harder for bots to identify
         $randomClass = 'field_' . bin2hex(random_bytes(8));
-        $honeypotKey = getenv('CONFIG.HONEYPOT_KEY');
-        $timestampKey = getenv('CONFIG.TIMESTAMP_KEY');
+        $honeypotKey = getConfigData("HoneypotKey");
+        $timestampKey = getConfigData("TimestampKey");
 
         // Generate the honeypot input
         $honeypotInput = '<input type="text" name="' . $honeypotKey . '" ' .
@@ -3923,7 +3967,7 @@ if(!function_exists('getHomePageData')) {
  * 
  * @example
  * // Retrieve API key for a user
- * $apiKey = getApiKeyFor(config('CustomConfig')->appApiKey);
+ * $apiKey = getApiKeyFor($assignedTo);
  * 
  * @example
  * // Handle case where no API key is found
@@ -4666,7 +4710,7 @@ if (!function_exists('extractPromptText')) {
 if (!function_exists('renderHcaptcha')) {
     function renderHcaptcha()
     {
-        $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
+        $useCaptcha = getConfigData("UseCaptcha");
         if(strtolower($useCaptcha) === "yes")
         {
             // Get the hCaptcha site key from environment or configuration
@@ -4693,7 +4737,7 @@ if (!function_exists('validateHcaptcha')) {
     function validateHcaptcha($returnUrl = null)
     {
         // Check if CAPTCHA is enabled
-        $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
+        $useCaptcha = getConfigData("UseCaptcha");
         if (strtolower($useCaptcha) !== "yes") {
             return true; // CAPTCHA is not enabled, so validation is skipped
         }

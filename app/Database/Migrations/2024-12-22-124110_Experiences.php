@@ -108,8 +108,8 @@ class Experiences extends Migration
             'company_url' => 'https://example.com',
             'order' => 1,
             'status' => 1,
-            'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
-            'updated_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435")
+            'created_by' => getGUID(getDefaultAdminGUID()),
+            'updated_by' => getGUID(getDefaultAdminGUID())
         ];
 
         // Using Query Builder

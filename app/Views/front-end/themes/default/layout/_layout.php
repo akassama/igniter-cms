@@ -2,11 +2,6 @@
 // Get current theme impact
 $theme = getCurrentTheme();
 
-// Retrieve the API key and endpoint
-$apiKey = getApiKeyFor(config('CustomConfig')->appApiKey);
-$navsApiEndpoint = base_url("/api/$apiKey/get-navigations");
-$socialsApiEndpoint = base_url("/api/$apiKey/get-socials");
-
 //get site config values
 $baseUrl = base_url();
 $currentUrl = current_url();

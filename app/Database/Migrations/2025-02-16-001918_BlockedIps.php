@@ -38,11 +38,6 @@ class BlockedIps extends Migration
                 'type' => 'TEXT',
                 'null' => true,
             ],
-            'page_visited_id' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-                'null' => true,
-            ],
             'page_visited_url' => [
                 'type' => 'TEXT',
                 'null' => true,

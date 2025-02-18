@@ -72,7 +72,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => 'home',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -84,7 +84,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#about',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -96,7 +96,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#services',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -108,7 +108,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#portfolio',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -120,7 +120,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#team',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -132,7 +132,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => 'blogs',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -144,7 +144,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => 'donate',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -156,7 +156,7 @@ class Navigations extends Migration
                 'parent'    => getGUID("cb3badd1-b6df-420c-a74d-796e181b1228"),
                 'link'    => 'donate/urban-gardening-initiative',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -168,7 +168,7 @@ class Navigations extends Migration
                 'parent'    => getGUID("cb3badd1-b6df-420c-a74d-796e181b1228"),
                 'link'    => 'donate/disaster-relief-fund',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -180,7 +180,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => 'contact',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -192,7 +192,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#!',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -204,7 +204,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#!',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -216,7 +216,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#!',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -228,7 +228,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#!',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -240,7 +240,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#!',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -252,7 +252,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => 'home',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -264,7 +264,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#about',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -276,7 +276,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#services',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -288,7 +288,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#services',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -300,7 +300,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#services',
                 'new_tab'    => false,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ]
         ];

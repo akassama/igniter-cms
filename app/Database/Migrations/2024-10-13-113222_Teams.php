@@ -102,7 +102,7 @@ class Teams extends Migration
                 'social_link_6' => '',
                 'details_link' => 'https://example.com/team/bob-smith',
                 'new_tab' => true,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -119,7 +119,7 @@ class Teams extends Migration
                 'social_link_6' => '',
                 'details_link' => 'https://example.com/team/alice-johnson',
                 'new_tab' => true,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -136,7 +136,7 @@ class Teams extends Migration
                 'social_link_6' => '',
                 'details_link' => 'https://example.com/team/david-white',
                 'new_tab' => true,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -153,7 +153,7 @@ class Teams extends Migration
                 'social_link_6' => '',
                 'details_link' => 'https://example.com/team/carol-brown',
                 'new_tab' => true,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ]
         ];

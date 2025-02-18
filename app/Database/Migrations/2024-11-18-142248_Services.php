@@ -75,7 +75,7 @@ class Services extends Migration
                 'link'    => null,
                 'new_tab'    => null,
                 'order'    => 2,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null
             ],
             [
@@ -87,7 +87,7 @@ class Services extends Migration
                 'link'    => null,
                 'new_tab'    => null,
                 'order'    => 4,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null
             ],
             [
@@ -99,7 +99,7 @@ class Services extends Migration
                 'link'    => null,
                 'new_tab'    => null,
                 'order'    => 6,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null
             ],
             [
@@ -111,7 +111,7 @@ class Services extends Migration
                 'link'    => null,
                 'new_tab'    => null,
                 'order'    => 8,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null
             ],
         ];

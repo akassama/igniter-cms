@@ -124,8 +124,8 @@ class Resumes extends Migration
             'image' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/resume-profile.jpg',
             'cv_file' => 'public/uploads/cv_files/john_doe_cv.pdf',
             'status' => 1,
-            'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
-            'updated_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+            'created_by' => getGUID(getDefaultAdminGUID()),
+            'updated_by' => getGUID(getDefaultAdminGUID()),
             'meta_title' => 'Mary Jane - Software Engineer',
             'meta_description' => 'Mary Jane is an experienced software engineer with a passion for developing innovative programs.',
             'meta_keywords' => 'Mary Jane, Software Engineer, Developer, Programmer'

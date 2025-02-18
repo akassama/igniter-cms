@@ -92,7 +92,7 @@ class Users extends Migration
 
         //Insert default record
         $data = [
-            'user_id' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+            'user_id' => getGUID(getDefaultAdminGUID()),
             'first_name'    => 'Admin',
             'last_name'    => 'User',
             'username'    => 'admin',

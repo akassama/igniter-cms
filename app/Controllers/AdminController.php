@@ -18,6 +18,7 @@ use App\Models\SubscribersModel;
 use App\Models\ContactMessagesModel;
 use App\Models\SiteStatsModel;
 use App\Models\BlockedIPsModel;
+use App\Models\WhitelistedIPsModel;
 use CodeIgniter\Database\BaseConnection;
 
 class AdminController extends BaseController
@@ -1282,7 +1283,7 @@ class AdminController extends BaseController
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::USER_CREATION, 'Blocked IP added with id: ' . $insertedId);
+            logActivity($loggedInUserId, ActivityTypes::BLOCKED_IP_CREATION, 'Blocked IP added with id: ' . $insertedId);
 
             return redirect()->to('/account/admin/blocked-ips');
         } else {
@@ -1291,9 +1292,81 @@ class AdminController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_USER_CREATION, 'Failed to add blocked IP with IP: ' . $this->request->getPost('ip_address'));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_BLOCKED_IP_CREATION, 'Failed to add blocked IP with IP: ' . $this->request->getPost('ip_address'));
 
             return view('back-end/admin/blocked-ips/new-blocked-ip');
+        }
+    }
+
+    //############################//
+    //      Whitelisted IPS       //
+    //############################//
+    public function whitelistedIps()
+    {
+        $tableName = 'whitelisted_ips';
+        $whitelistedIPsModel = new WhitelistedIPsModel();
+
+        // Set data to pass in view
+        $data = [
+            'whitelisted_ips' => $whitelistedIPsModel->orderBy('created_at', 'DESC')->paginate(100),
+            'pager' => $whitelistedIPsModel->pager,
+            'total_whitelisted_ips' => $whitelistedIPsModel->pager->getTotal()
+        ];
+
+        return view('back-end/admin/whitelisted-ips/index', $data);
+    }
+
+    public function newWhitelistedIP()
+    {
+        return view('back-end/admin/whitelisted-ips/new-whitelisted-ip');
+    }
+
+    public function addWhitelistedIP()
+    {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
+        // Load the WhitelistedIPsModel
+        $whitelistedIPsModel = new WhitelistedIPsModel();
+
+        // Validation rules from the model
+        $validationRules = $whitelistedIPsModel->getValidationRules();
+
+        // Validate the incoming data
+        if (!$this->validate($validationRules)) {
+            // If validation fails, return validation errors
+            $data['validation'] = $this->validator;
+            return view('back-end/admin/whitelisted-ips/new-whitelisted-ip');
+        }
+
+        // If validation passes, create the user
+        $whitelistedIPData = [
+            'ip_address' => $this->request->getPost('ip_address'),
+            'reason' => $this->request->getPost('reason'),
+        ];
+
+        // Call createWhitelistedIP method from the WhitelistedIPsModel
+        if ($whitelistedIPsModel->createWhitelistedIP($whitelistedIPData)) {
+            //inserted user_id
+            $insertedId = $whitelistedIPsModel->getInsertID();
+
+            // Record created successfully. Redirect to dashboard
+            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
+            session()->setFlashdata('successAlert', $createSuccessMsg);
+
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::WHITELISTED_IP_CREATION, 'Whitelisted IP added with id: ' . $insertedId);
+
+            return redirect()->to('/account/admin/whitelisted-ips');
+        } else {
+            // Failed to create record. Redirect to dashboard
+            $errorMsg = config('CustomConfig')->errorMsg;
+            session()->setFlashdata('errorAlert', $errorMsg);
+
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::FAILED_WHITELISTED_IP_CREATION, 'Failed to add whitelisted IP with IP: ' . $this->request->getPost('ip_address'));
+
+            return view('back-end/admin/whitelisted-ips/new-whitelisted-ip');
         }
     }
 

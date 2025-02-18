@@ -83,7 +83,7 @@ class Counters extends Migration
                 'icon'    => 'ri-user-smile-line flex-shrink-0',
                 'link'    => null,
                 'new_tab'    => null,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null
             ],
             [
@@ -96,7 +96,7 @@ class Counters extends Migration
                 'icon'    => 'ri-book-read-fill',
                 'link'    => null,
                 'new_tab'    => null,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null
             ],
             [
@@ -109,7 +109,7 @@ class Counters extends Migration
                 'icon'    => 'ri-customer-service-fill',
                 'link'    => null,
                 'new_tab'    => null,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null
             ],
             [
@@ -122,7 +122,7 @@ class Counters extends Migration
                 'icon'    => 'ri-group-line',
                 'link'    => null,
                 'new_tab'    => null,
-                'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by'    => null
             ],
         ];

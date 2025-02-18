@@ -87,7 +87,7 @@ class ContentBlocks extends Migration
             [
                 'content_id' => getGUID(),
                 'identifier'    => 'BusinessServices',
-                'author'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'author'    => getGUID(getDefaultAdminGUID()),
                 'title'    => 'Business Services',
                 'description'    => 'Exhaustive technology of implementing multi purpose projects is putting your project successful.',
                 'content'    => null,
@@ -97,13 +97,13 @@ class ContentBlocks extends Migration
                 'new_tab'    => false,
                 'custom_field'    => null,
                 'order'    => 2,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
                 'content_id' => getGUID(),
                 'identifier'    => 'SavingInvestments',
-                'author'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'author'    => getGUID(getDefaultAdminGUID()),
                 'title'    => 'Saving Investments',
                 'description'    => 'Exhaustive technology of implementing multi purpose projects is putting your project successful.',
                 'content'    => null,
@@ -113,13 +113,13 @@ class ContentBlocks extends Migration
                 'new_tab'    => false,
                 'custom_field'    => null,
                 'order'    => 4,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
                 'content_id' => getGUID(),
                 'identifier'    => 'OnlineConsulting',
-                'author'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'author'    => getGUID(getDefaultAdminGUID()),
                 'title'    => 'Online Consulting',
                 'description'    => 'Exhaustive technology of implementing multi purpose projects is putting your project successful.',
                 'content'    => null,
@@ -129,7 +129,7 @@ class ContentBlocks extends Migration
                 'new_tab'    => false,
                 'custom_field'    => null,
                 'order'    => 6,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
         ];

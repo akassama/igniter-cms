@@ -13,7 +13,7 @@ class SignInController extends BaseController
     public function index()
     {
         //get use captcha config
-        $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
+        $useCaptcha = getConfigData("UseCaptcha");
         if(strtolower($useCaptcha) === "yes"){
             // Generate captcha
             $builder = new CaptchaBuilder;
@@ -32,13 +32,13 @@ class SignInController extends BaseController
     public function login()
     {
         // Retrieve the honeypot and timestamp values
-        $honeypotInput = $this->request->getPost(getenv('CONFIG.HONEYPOT_KEY'));
-        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.TIMESTAMP_KEY'));
+        $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
+        $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
         //Honeypot validator - Validate the inputs
         validateHoneypotInput($honeypotInput, $submittedTimestamp);
 
         // Get use captcha config
-        $useCaptcha = getDefaultConfigData("UseCaptcha", config('CustomConfig')->useCaptcha);
+        $useCaptcha = getConfigData("UseCaptcha");
 
         // Set validation rules
         $rules = [

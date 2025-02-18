@@ -217,6 +217,9 @@ $userRole = getUserRole($sessionEmail);
                             <a class="nav-link <?= (str_contains(current_url(), 'account/admin/blocked-ips')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/blocked-ips'); ?>">
                                 <i class="ri-arrow-drop-right-fill"></i> Blocked IP's
                             </a>
+                            <a class="nav-link <?= (str_contains(current_url(), 'account/admin/whitelisted-ips')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/whitelisted-ips'); ?>">
+                                <i class="ri-arrow-drop-right-fill"></i> Whitelisted IP's
+                            </a>
                             <a class="nav-link <?= (str_contains(current_url(), 'account/admin/backups')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/backups'); ?>">
                                 <i class="ri-arrow-drop-right-fill"></i> Backups
                             </a>

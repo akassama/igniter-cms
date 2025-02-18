@@ -89,8 +89,8 @@ class Skills extends Migration
                 'icon' => 'ri-robot-2-line',
                 'order' => 1,
                 'status' => 1,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
-                'updated_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435")
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'skill_id' => getGUID(),
@@ -103,8 +103,8 @@ class Skills extends Migration
                 'icon' => 'ri-python-line',
                 'order' => 2,
                 'status' => 1,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
-                'updated_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435")
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'skill_id' => getGUID(),
@@ -117,8 +117,8 @@ class Skills extends Migration
                 'icon' => 'ri-html5-line',
                 'order' => 3,
                 'status' => 1,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
-                'updated_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435")
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'skill_id' => getGUID(),
@@ -131,8 +131,8 @@ class Skills extends Migration
                 'icon' => 'ri-reactjs-line',
                 'order' => 4,
                 'status' => 1,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
-                'updated_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435")
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'skill_id' => getGUID(),
@@ -145,8 +145,8 @@ class Skills extends Migration
                 'icon' => 'ri-database-2-line',
                 'order' => 5,
                 'status' => 1,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
-                'updated_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435")
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'skill_id' => getGUID(),
@@ -159,8 +159,8 @@ class Skills extends Migration
                 'icon' => 'ri-docker-line',
                 'order' => 6,
                 'status' => 1,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
-                'updated_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435")
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => getGUID(getDefaultAdminGUID())
             ]
         ];
 

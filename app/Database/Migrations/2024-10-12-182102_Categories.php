@@ -78,7 +78,7 @@ class Categories extends Migration
                 'new_tab'    => false,
                 'order'    => 6,
                 'status'    => 1,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -91,7 +91,7 @@ class Categories extends Migration
                 'new_tab'    => false,
                 'order'    => 2,
                 'status'    => 1,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -104,7 +104,7 @@ class Categories extends Migration
                 'new_tab'    => false,
                 'order'    => 4,
                 'status'    => 1,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ]
         ];

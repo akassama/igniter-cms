@@ -93,6 +93,21 @@ class Configurations extends Migration
         $data = [
             [
                 'config_id' => getGUID(),
+                'config_for' => 'AppApiKey',
+                'config_value' => 'your-app-api-key',
+                'group' => 'site',
+                'data_type' => 'Text',
+                'options' => null,
+                'default_value' => null,
+                'deletable' => 0,
+                'description' => '',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'icon' => 'ri-key-fill',
+                'search_terms' => 'api,integration,middleware'
+            ],
+            [
+                'config_id' => getGUID(),
                 'config_for' => 'CompanyName',
                 'config_value' => 'Igniter CMS App',
                 'group' => 'site',
@@ -101,7 +116,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-building-line',
                 'search_terms' => 'company,name,business,organization'
@@ -116,7 +131,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-mail-line',
                 'search_terms' => 'email,contact,communication'
@@ -131,7 +146,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-mail-line',
                 'search_terms' => 'email,contact,support,communication'
@@ -146,7 +161,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-customer-service-line',
                 'search_terms' => 'email,enquiry,contact,support'
@@ -161,7 +176,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-phone-line',
                 'search_terms' => 'phone,contact,number,telephone'
@@ -176,7 +191,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-phone-line',
                 'search_terms' => 'phone,contact,number,telephone,secondary'
@@ -191,7 +206,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-map-pin-line',
                 'search_terms' => 'address,location,office'
@@ -206,7 +221,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-map-2-line',
                 'search_terms' => 'map,location,directions,address'
@@ -221,7 +236,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-time-line',
                 'search_terms' => 'address,location,office'
@@ -236,7 +251,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-settings-line',
                 'search_terms' => 'maintenance,mode,status,settings'
@@ -251,7 +266,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-settings-line',
                 'search_terms' => 'maintenance,mode,status,settings'
@@ -266,7 +281,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-settings-line',
                 'search_terms' => 'maintenance,mode,status,settings'
@@ -281,7 +296,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-mail-settings-line',
                 'search_terms' => 'email,configuration,smtp,mailjet,mailgun,sendgrid,postmark'
@@ -296,7 +311,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-server-line',
                 'search_terms' => 'smtp,host,server,email'
@@ -311,7 +326,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-router-line',
                 'search_terms' => 'smtp,port,connection,email'
@@ -326,7 +341,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-user-line',
                 'search_terms' => 'smtp,username,credentials,email'
@@ -341,7 +356,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-lock-line',
                 'search_terms' => 'smtp,password,credentials,email'
@@ -356,7 +371,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-lock-password-line',
                 'search_terms' => 'smtp,encryption,ssl,tls,security'
@@ -371,7 +386,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-key-line',
                 'search_terms' => 'mailgun,api,key,credentials'
@@ -386,7 +401,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-global-line',
                 'search_terms' => 'mailgun,domain,email,configuration'
@@ -401,7 +416,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-mail-send-line',
                 'search_terms' => 'mailgun,sender,domain,email'
@@ -416,7 +431,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-earth-line',
                 'search_terms' => 'mailgun,region,location,configuration'
@@ -431,7 +446,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-key-line',
                 'search_terms' => 'sendgrid,api,key,credentials'
@@ -446,7 +461,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-mail-send-line',
                 'search_terms' => 'sendgrid,sender,email,configuration'
@@ -461,7 +476,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-user-line',
                 'search_terms' => 'sendgrid,sender,name,configuration'
@@ -476,7 +491,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-key-line',
                 'search_terms' => 'postmark,api,token,credentials'
@@ -491,7 +506,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-file-list-line',
                 'search_terms' => 'postmark,sender,signature,configuration'
@@ -506,7 +521,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-key-line',
                 'search_terms' => 'mailjet,api,key,credentials'
@@ -521,7 +536,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-lock-password-line',
                 'search_terms' => 'mailjet,api,secret,credentials'
@@ -536,7 +551,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-heading',
                 'search_terms' => 'meta,title,seo,page'
@@ -551,7 +566,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-text',
                 'search_terms' => 'meta,description,seo,page'
@@ -566,7 +581,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'meta,keywords,seo,tags'
@@ -581,7 +596,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-user-line',
                 'search_terms' => 'meta,author,seo,page'
@@ -596,7 +611,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-image-line',
                 'search_terms' => 'meta,og,image,social'
@@ -611,7 +626,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-article-line',
                 'search_terms' => 'blog,meta,title,seo,page'
@@ -626,7 +641,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-file-text-line',
                 'search_terms' => 'blog,meta,description,seo'
@@ -641,7 +656,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'blog,meta,keywords,tags'
@@ -656,7 +671,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-calendar-event-line',
                 'search_terms' => 'events,meta,title,seo'
@@ -671,7 +686,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-calendar-todo-line',
                 'search_terms' => 'events,meta,description,seo'
@@ -686,7 +701,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'events,meta,keywords,tags'
@@ -702,7 +717,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-contacts-line',
                 'search_terms' => 'contact,meta,title,seo'
@@ -717,7 +732,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-chat-3-line',
                 'search_terms' => 'contact,meta,description,seo'
@@ -732,7 +747,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'contact,meta,keywords,tags'
@@ -747,7 +762,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-gallery-line',
                 'search_terms' => 'portfolio,meta,title,seo'
@@ -762,7 +777,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-gallery-upload-line',
                 'search_terms' => 'portfolio,meta,description,seo'
@@ -777,7 +792,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'portfolio,meta,keywords,tags'
@@ -792,7 +807,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-search-line',
                 'search_terms' => 'search,meta,title,seo'
@@ -807,7 +822,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-file-search-line',
                 'search_terms' => 'search,meta,description,seo'
@@ -822,7 +837,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'search,meta,keywords,tags'
@@ -837,7 +852,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-filter-line',
                 'search_terms' => 'search,filter,meta,title,seo'
@@ -852,7 +867,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-filter-2-line',
                 'search_terms' => 'search,filter,meta,description,seo'
@@ -867,7 +882,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'search,filter,meta,keywords,tags'
@@ -882,7 +897,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable'    => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-image-2-line',
                 'search_terms' => 'logo,site,branding,image'
@@ -897,7 +912,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable'    => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-image-2-line',
                 'search_terms' => 'logo,site,branding,image'
@@ -912,7 +927,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-image-line',
                 'search_terms' => 'favicon,site,icon,browser'
@@ -927,7 +942,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-image-line',
                 'search_terms' => 'favicon,96,site,icon'
@@ -942,7 +957,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-apple-line',
                 'search_terms' => 'favicon,apple,touch,icon'
@@ -957,7 +972,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-file-list-3-line',
                 'search_terms' => 'favicon,manifest,site,web'
@@ -972,7 +987,7 @@ class Configurations extends Migration
                 'default_value' => 'MVC',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-layout-2-line',
                 'search_terms' => 'frontend,format,mvc,api'
@@ -987,7 +1002,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-download-cloud-line',
                 'search_terms' => 'api,get,require,access'
@@ -1002,7 +1017,7 @@ class Configurations extends Migration
                 'default_value' => 'Yes',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-upload-cloud-line',
                 'search_terms' => 'api,post,require,access'
@@ -1017,7 +1032,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-database-2-line',
                 'search_terms' => 'api,get,models,allowed'
@@ -1032,7 +1047,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-database-2-line',
                 'search_terms' => 'api,post,models,allowed'
@@ -1047,7 +1062,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-shield-check-line',
                 'search_terms' => 'captcha,security,forms,spam'
@@ -1062,7 +1077,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => 'hCaptcha is a platform that stops online fraud and abuse with no personal information. It offers high accuracy, low friction, and universal compatibility for web, mobile, and server-side use cases. Learn more: https://www.hcaptcha.com/',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-key-2-line',
                 'search_terms' => 'recaptcha,key,site,hcaptcha'
@@ -1077,7 +1092,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => 'hCaptcha is a platform that stops online fraud and abuse with no personal information. It offers high accuracy, low friction, and universal compatibility for web, mobile, and server-side use cases. Learn more: https://www.hcaptcha.com/',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-key-line',
                 'search_terms' => 'recaptcha,secret,key,hcaptcha'
@@ -1092,7 +1107,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => 'ShareThis official site. Digital data solutions for media planning, targeting, and measurement. Website tools to grow online audiences. Learn more: https://sharethis.com/',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-share-line',
                 'search_terms' => 'share,social,buttons,sharing'
@@ -1107,7 +1122,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => 'You can install the ShareThis share button on your HTML website in a few easy steps. Navigate to the setup page and choose your preference of Inline Buttons or Sticky Buttons. Learn more: https://sharethis.com/',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-share-line',
                 'search_terms' => 'share,code,script'
@@ -1122,7 +1137,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-bar-chart-line',
                 'search_terms' => 'analytics,google,tracking'
@@ -1137,7 +1152,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-google-line',
                 'search_terms' => 'analytics,google,tag manager'
@@ -1152,7 +1167,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-google-line',
                 'search_terms' => 'analytics,google,tag manager'
@@ -1167,7 +1182,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-facebook-circle-line',
                 'search_terms' => 'analytics,facebook,pixel'
@@ -1182,7 +1197,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-facebook-circle-line',
                 'search_terms' => 'analytics,facebook,pixel'
@@ -1197,7 +1212,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-line-chart-fill',
                 'search_terms' => 'analytics,posthog,script'
@@ -1212,7 +1227,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => 'Add this snippet to your website within the <head> tag and you\'ll be ready to start using PostHog. Learn more: https://posthog.com/',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-line-chart-fill',
                 'search_terms' => 'analytics,posthog,script'
@@ -1227,7 +1242,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-share-forward-line',
                 'search_terms' => 'social,auto posting'
@@ -1242,7 +1257,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-facebook-circle-line',
                 'search_terms' => 'social,facebook,access token'
@@ -1257,7 +1272,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => 'Cookie Consent solution for your website to comply with ePrivacy Directive & GDPR. See options: https://termly.io/, https://www.freeprivacypolicy.com/free-cookie-consent/',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-shield-check-line',
                 'search_terms' => 'security,cookie,consent'
@@ -1272,7 +1287,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => 'Cookie Consent solution for your website to comply with ePrivacy Directive & GDPR. See options: https://termly.io/, https://www.freeprivacypolicy.com/free-cookie-consent/',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-shield-check-line',
                 'search_terms' => 'security,cookie,consent'
@@ -1287,7 +1302,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-twitter-line',
                 'search_terms' => 'analytics,twitter,feed'
@@ -1302,7 +1317,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-twitter-line',
                 'search_terms' => 'analytics,twitter,feed'
@@ -1317,7 +1332,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-bank-card-line',
                 'search_terms' => 'ecommerce,payment,gateway'
@@ -1332,7 +1347,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-bank-card-line',
                 'search_terms' => 'ecommerce,payment,stripe'            
@@ -1347,7 +1362,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-bug-line',
                 'search_terms' => 'debugging,error,tracking'
@@ -1362,7 +1377,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-bug-line',
                 'search_terms' => 'debugging,error,sentry'
@@ -1377,7 +1392,7 @@ class Configurations extends Migration
                 'default_value' => 'Gemini',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-robot-2-fill',
                 'search_terms' => 'ai,chat,help,gemini,deepseek,qwen,gpt'
@@ -1392,7 +1407,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-robot-2-fill',
                 'search_terms' => 'ai,api key,chat,help,gemini,deepseek,qwen,gpt'
@@ -1407,7 +1422,7 @@ class Configurations extends Migration
                 'default_value' => 'No',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-robot-2-line',
                 'search_terms' => 'chatbot,enable'
@@ -1422,7 +1437,7 @@ class Configurations extends Migration
                 'default_value' => null,
                 'deletable' => 0,
                 'description' => 'Integrate chatbots and monitor customer activity in real time. See optionslike: https://www.tawk.to/, https://zapier.com/, https://botpress.com/, https://webagent.ai/, https://botpenguin.com/',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-robot-2-line',
                 'search_terms' => 'chatbot,tawk.to'
@@ -1437,10 +1452,40 @@ class Configurations extends Migration
                 'default_value' => 'Yes',
                 'deletable' => 0,
                 'description' => '',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'icon' => 'ri-earth-line',
                 'search_terms' => 'translate,google,language'
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'HoneypotKey',
+                'config_value' => 'igniter_hpot_val',
+                'group' => 'security',
+                'data_type' => 'Text',
+                'options' => null,
+                'default_value' => 'igniter_hpot_val',
+                'deletable' => 0,
+                'description' => 'This is the input name for your honeypot input.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'icon' => 'ri-shield-keyhole-fill',
+                'search_terms' => 'honeypot,bot detection,spam,security, block ip'
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'TimestampKey',
+                'config_value' => 'igniter_timestamp_val',
+                'group' => 'security',
+                'data_type' => 'Text',
+                'options' => null,
+                'default_value' => 'igniter_timestamp_val',
+                'deletable' => 0,
+                'description' => 'This is the input name for your timestamp bot detector.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'icon' => 'ri-shield-keyhole-fill',
+                'search_terms' => 'honeypot,bot detection,spam,security, block ip'
             ],
         ];
 

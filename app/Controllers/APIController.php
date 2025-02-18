@@ -1939,19 +1939,19 @@ class APIController extends BaseController
     public function sendContactMessage()
     {
         // Retrieve the honeypot and timestamp values
-        $honeypotInput = $this->request->getPost(getenv('CONFIG.HONEYPOT_KEY'));
-        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.TIMESTAMP_KEY'));
+        $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
+        $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
         //Honeypot validator - Validate the inputs
         validateHoneypotInput($honeypotInput, $submittedTimestamp);
 
         $returnUrl = $this->request->getPost('return_url');
-        $toEmail = getDefaultConfigData("CompanyEmail", config('CustomConfig')->companyEmail);
+        $toEmail = getConfigData("CompanyEmail");
         $name = $this->request->getPost('name');
         $fromEmail = $this->request->getPost('email');
         $subject = $this->request->getPost('subject') ?? "Contact Message";
         $message = $this->request->getPost('message');
-        $companyName = getDefaultConfigData("CompanyName", config('CustomConfig')->companyName);
-        $companyAddress = getDefaultConfigData("CompanyAddress", config('CustomConfig')->companyAddress);
+        $companyName = getConfigData("CompanyName");
+        $companyAddress = getConfigData("CompanyAddress");
 
         // Validate hCaptcha
         $captchaValidation = validateHcaptcha();
@@ -2022,8 +2022,8 @@ class APIController extends BaseController
     public function addSubscription()
     {
         // Retrieve the honeypot and timestamp values
-        $honeypotInput = $this->request->getPost(getenv('CONFIG.HONEYPOT_KEY'));
-        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.TIMESTAMP_KEY'));
+        $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
+        $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
         //Honeypot validator - Validate the inputs
         validateHoneypotInput($honeypotInput, $submittedTimestamp);
         

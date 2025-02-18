@@ -228,7 +228,7 @@ class AnnouncementPopups extends Migration
                 'start_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'))),
                 'end_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' + 7 days')),
                 'show_on_pages' => 'home,pages,shop',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'deletable'    => 0
             ],
@@ -268,7 +268,7 @@ class AnnouncementPopups extends Migration
                 'start_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'))),
                 'end_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' + 7 days')),
                 'show_on_pages' => 'home,pages,shop',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'deletable'    => 0
             ],
@@ -308,7 +308,7 @@ class AnnouncementPopups extends Migration
                 'start_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'))),
                 'end_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' + 7 days')),
                 'show_on_pages' => 'home,pages,shop',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'deletable'    => 0
             ],
@@ -348,7 +348,7 @@ class AnnouncementPopups extends Migration
                 'start_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'))),
                 'end_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' + 7 days')),
                 'show_on_pages' => 'home,pages,shop',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'deletable'    => 0
             ],
@@ -388,7 +388,7 @@ class AnnouncementPopups extends Migration
                 'start_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'))),
                 'end_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' + 7 days')),
                 'show_on_pages' => 'home,pages,shop',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'deletable'    => 0
             ],
@@ -428,7 +428,7 @@ class AnnouncementPopups extends Migration
                 'start_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'))),
                 'end_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' + 7 days')),
                 'show_on_pages' => 'home,pages,shop',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'deletable'    => 0
             ],
@@ -468,7 +468,7 @@ class AnnouncementPopups extends Migration
                 'start_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'))),
                 'end_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' + 7 days')),
                 'show_on_pages' => 'home,pages,shop',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'deletable'    => 0
             ],
@@ -508,7 +508,7 @@ class AnnouncementPopups extends Migration
                 'start_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'))),
                 'end_date' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' + 7 days')),
                 'show_on_pages' => 'home,pages,shop',
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'deletable'    => 0
             ],

@@ -21,8 +21,8 @@ class PasswordResetController extends Controller
     public function resetPassword()
     {
         // Retrieve the honeypot and timestamp values
-        $honeypotInput = $this->request->getPost(getenv('CONFIG.HONEYPOT_KEY'));
-        $submittedTimestamp = $this->request->getPost(getenv('CONFIG.TIMESTAMP_KEY'));
+        $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
+        $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
         //Honeypot validator - Validate the inputs
         validateHoneypotInput($honeypotInput, $submittedTimestamp);
         

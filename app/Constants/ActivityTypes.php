@@ -306,6 +306,8 @@ class ActivityTypes
     const SUBSCRIPTION_DELETION = 'subscription_delete';
 
     // BLOCKED IP REASONS
+    const BLOCKED_IP_CREATION = 'blocked_ip_created';
+    const FAILED_BLOCKED_IP_CREATION = 'failed_blocked_ip_creation';
     const BLOCKED_IP_TOO_MANY_FAILED_LOGINS = 'too_many_failed_logins';
     const BLOCKED_IP_SUSPICIOUS_ACTIVITY = 'suspicious_activity';
     const BLOCKED_IP_MALICIOUS_TRAFFIC = 'malicious_traffic';
@@ -318,6 +320,10 @@ class ActivityTypes
     const BLOCKED_IP_SQL_INJECTION_ATTEMPT = 'sql_injection_attempt';
     const BLOCKED_IP_DIRECTORY_TRAVERSAL = 'directory_traversal';
     const BLOCKED_IP_EXPLOIT_ATTEMPT = 'exploit_attempt';
+
+    // WHITELISTED IPS
+    const WHITELISTED_IP_CREATION = 'whitelisted_ip_created';
+    const FAILED_WHITELISTED_IP_CREATION = 'failed_whitelisted_ip_creation';
 
 
     // Add more activity types as needed
@@ -620,6 +626,8 @@ class ActivityTypes
             self::SUBSCRIPTION_CREATION => 'Subscription Deletion',
 
             // BLOCKED IP REASONS
+            self::BLOCKED_IP_CREATION => 'Blocked IP Created',
+            self::FAILED_BLOCKED_IP_CREATION => 'Blocked IP Creation Failed',
             self::BLOCKED_IP_TOO_MANY_FAILED_LOGINS => 'Too Many Failed Logins',
             self::BLOCKED_IP_SUSPICIOUS_ACTIVITY => 'Suspicious Activity Detected',
             self::BLOCKED_IP_MALICIOUS_TRAFFIC => 'Malicious Traffic Identified',
@@ -632,6 +640,10 @@ class ActivityTypes
             self::BLOCKED_IP_SQL_INJECTION_ATTEMPT => 'Potential SQL Injection Attempt',
             self::BLOCKED_IP_DIRECTORY_TRAVERSAL => 'Directory Traversal Attempt',
             self::BLOCKED_IP_EXPLOIT_ATTEMPT => 'Exploit Attempt',
+
+            // BLOCKED IP REASONS
+            self::WHITELISTED_IP_CREATION => 'Whitelisted IP Created',
+            self::FAILED_WHITELISTED_IP_CREATION => 'Whitelisted IP Creation Failed',
 
             // Add more descriptions as needed
         ];

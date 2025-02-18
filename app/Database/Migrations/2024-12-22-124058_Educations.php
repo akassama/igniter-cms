@@ -103,8 +103,8 @@ class Educations extends Migration
                 'institution_logo' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/university-logo.jpg',
                 'order' => 1,
                 'status' => 1,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
-                'updated_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435")
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'education_id' => getGUID(),
@@ -120,8 +120,8 @@ class Educations extends Migration
                 'institution_logo' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/university-education-logo.jpg',
                 'order' => 2,
                 'status' => 1,
-                'created_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
-                'updated_by' => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435")
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => getGUID(getDefaultAdminGUID())
             ]
         ];
 

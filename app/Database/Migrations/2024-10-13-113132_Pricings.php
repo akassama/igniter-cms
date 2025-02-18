@@ -105,7 +105,7 @@ class Pricings extends Migration
                         'new_tab' => true,
                         'order' => 2,
                         'other_label' => 'Best for individuals',
-                        'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                        'created_by'    => getGUID(getDefaultAdminGUID()),
                         'updated_by'    => null
                     ],
                     [
@@ -123,7 +123,7 @@ class Pricings extends Migration
                         'new_tab' => true,
                         'order' => 4,
                         'other_label' => 'Most popular',
-                        'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                        'created_by'    => getGUID(getDefaultAdminGUID()),
                         'updated_by'    => null
                     ],
                     [
@@ -141,7 +141,7 @@ class Pricings extends Migration
                         'new_tab' => true,
                         'order' => 6,
                         'other_label' => 'Best for businesses',
-                        'created_by'    => getGUID("c9539038-7831-4904-8f6c-a5fd7720c435"),
+                        'created_by'    => getGUID(getDefaultAdminGUID()),
                         'updated_by'    => null
                     ]
                 ];
