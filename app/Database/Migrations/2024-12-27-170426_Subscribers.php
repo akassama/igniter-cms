@@ -31,6 +31,11 @@ class Subscribers extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'country' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'null' => true,
+            ],
             'status' => [
                 'type' => 'INT',
                 'default' => 0,
@@ -50,6 +55,7 @@ class Subscribers extends Migration
                 'name'    => 'John Doe',
                 'email'    => 'user@example.com',
                 'ip_address'    => '192.168.1.1',
+                'country'    => 'GM',
                 'status'    => 1,
             ],
             [
@@ -57,6 +63,7 @@ class Subscribers extends Migration
                 'name'    => 'Mary Jane',
                 'email'    => 'subscriber@example.com',
                 'ip_address'    => '192.168.1.1',
+                'country'    => 'GM',
                 'status'    => 1,
             ],
             [
@@ -64,6 +71,7 @@ class Subscribers extends Migration
                 'name'    => 'Mr Foo',
                 'email'    => 'example@subscriber.com',
                 'ip_address'    => '192.168.1.1',
+                'country'    => 'GM',
                 'status'    => 0,
             ]
         ];

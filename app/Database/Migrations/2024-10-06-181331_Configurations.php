@@ -1509,7 +1509,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'AIHelpChatKey',
-                'config_value' => '',
+                'config_value' => 'ai-chat-key',
                 'group' => 'ai',
                 'data_type' => 'Text',
                 'options' => null,

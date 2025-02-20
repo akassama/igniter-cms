@@ -17,6 +17,7 @@ class SubscribersModel extends Model
         'name',
         'email',
         'ip_address',
+        'country',
         'status',
     ];
 
@@ -62,6 +63,7 @@ class SubscribersModel extends Model
             'name' => $param['name'],
             'email' => $param['email'],
             'ip_address' => $param['ip_address'],
+            'country' => $param['country'],
             'status' => $param['status'],
         ];
         $this->save($data);
@@ -80,6 +82,7 @@ class SubscribersModel extends Model
         // Update the fields
         $existingSubscriber['name'] = $param['name'];
         $existingSubscriber['ip_address'] = $param['ip_address'];
+        $existingSubscriber['country'] = $param['country'];
         $existingSubscriber['status'] = $param['status'];
 
         // Save the updated data

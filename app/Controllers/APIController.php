@@ -1987,6 +1987,7 @@ class APIController extends BaseController
                 'subject' => $subject,
                 'message' => $message,
                 'ip_address' => getIPAddress(),
+                'country' => getCountry(),
                 'device' => getUserDevice(),
             ];
             $contactMessagesModel->createContactMessage($data);
@@ -2066,6 +2067,7 @@ class APIController extends BaseController
             'email' => $email,
             'status' => 1,
             'ip_address' => getIPAddress(),
+            'country' => getCountry(),
         ];
 
         $tableName = 'subscribers';

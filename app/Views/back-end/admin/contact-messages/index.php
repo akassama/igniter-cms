@@ -44,6 +44,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>IP</th>
                             <th>Country</th>
                             <th>Created</th>
                             <th>Actions</th>
@@ -73,7 +74,13 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </td>
                                     <td>
                                         <a class="text-dark td-none" href="<?=base_url('account/admin/contact-messages/view-contact/'.$contact_message['contact_message_id'])?>">
-                                            <?= getCountry($contact_message['ip_address']); ?>
+                                            <?= $contact_message['ip_address']; ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="text-dark td-none" href="<?=base_url('account/admin/contact-messages/view-contact/'.$contact_message['contact_message_id'])?>">
+                                            <span class="fi fi-<?= strtolower(esc($contact_message['country'])) ?>"></span>
+                                            <?= esc($contact_message['country']) ?>
                                         </a>
                                     </td>
                                     <td>

@@ -30,7 +30,8 @@ class ContactMessagesModel extends Model
         'subject', 
         'is_read', 
         'message', 
-        'ip_address', 
+        'ip_address',
+        'country', 
         'device'
     ];
     protected bool $allowEmptyInserts = false;
@@ -81,6 +82,8 @@ class ContactMessagesModel extends Model
             'name' => $param['name'],
             'email' => $param['email'],
             'subject' => $param['subject'],
+            'ip_address' => $param['ip_address'] ?? getIPAddress(),
+            'country' => $param['country'] ?? getCountry(),
             'message' => $param['message']
         ];
         $this->save($data);

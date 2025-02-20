@@ -46,6 +46,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>Email</th>
                             <th>Status</th>
                             <th>IP</th>
+                            <th>Country</th>
                             <th>Created</th>
                             <th>Actions</th>
                         </tr>
@@ -69,6 +70,10 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </td>
                                     <td>
                                         <?= $subscriber['ip_address']; ?>
+                                    </td>
+                                    <td>
+                                        <span class="fi fi-<?= strtolower(esc($subscriber['country'])) ?>"></span>
+                                        <?= esc($subscriber['country']) ?>
                                     </td>
                                     <td><?= dateFormat($subscriber['created_at']); ?></td>
                                     <td>
