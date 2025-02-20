@@ -133,6 +133,20 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
             
             <div class="col-sm-12 col-md-6 mb-3">
+                <label for="custom_class" class="form-label">Custom Class</label>
+                <input type="text" class="form-control" id="custom_class" name="custom_class" value="<?= set_value('custom_class') ?>">
+                <!-- Error -->
+                <?php if($validation->getError('custom_class')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('custom_class'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide custom_class
+                </div>
+            </div>
+            
+            <div class="col-sm-12 col-md-6 mb-3">
                 <label for="icon" class="form-label">
                     Icon
                 </label>
@@ -147,7 +161,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     Please provide icon
                 </div>
             </div>
-            <div class="col-sm-12 col-md-6 mb-3">
+            <div class="col-sm-12 col-md-12 mb-3">
                 <label for="search_terms" class="form-label">Search Terms</label>
                 <textarea rows="1" class="form-control tags-input" id="search_terms" name="search_terms"><?= set_value('search_terms') ?></textarea>
                 <!-- Error -->

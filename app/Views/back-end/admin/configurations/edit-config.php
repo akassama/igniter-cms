@@ -57,16 +57,16 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="config_value" class="form-label">Config value</label>
                 
                 <?php if ($dataType === 'Text'): ?>
-                    <input type="text" class="form-control" id="config_value" name="config_value" value="<?= $config_data['config_value'] ?>" required>
+                    <input type="text" class="form-control <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" value="<?= $config_data['config_value'] ?>" required>
                 
                 <?php elseif ($dataType === 'Textarea'): ?>
-                    <textarea rows="1" class="form-control" id="config_value" name="config_value" required><?= $config_data['config_value'] ?></textarea>
+                    <textarea rows="1" class="form-control <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" required><?= $config_data['config_value'] ?></textarea>
                 
                 <?php elseif ($dataType === 'Code'): ?>
-                    <textarea rows="2" class="form-control js-editor" id="config_value" name="config_value" required><?= $config_data['config_value'] ?></textarea>
+                    <textarea rows="2" class="form-control js-editor <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" required><?= $config_data['config_value'] ?></textarea>
                 
                 <?php elseif ($dataType === 'Select'): ?>
-                    <select class="form-control" id="config_value" name="config_value" required>
+                    <select class="form-control <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" required>
                         <?php if (!empty($options)): ?>
                             <?php $optionValues = explode(',', $options); ?>
                             <?php foreach ($optionValues as $option): ?>
@@ -132,6 +132,20 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
             
             <div class="col-sm-12 col-md-6 mb-3">
+                <label for="custom_class" class="form-label">Custom Class <?=$readonlyLabel?></label>
+                <input type="text" class="form-control" id="custom_class" name="custom_class" value="<?= $config_data['custom_class'] ?>" <?=$readonlyInputs?>>
+                <!-- Error -->
+                <?php if($validation->getError('custom_class')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('custom_class'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide custom_class
+                </div>
+            </div>
+            
+            <div class="col-sm-12 col-md-6 mb-3">
                 <label for="icon" class="form-label">
                     Icon <?=$readonlyLabel?>
                 </label>
@@ -146,7 +160,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     Please provide icon
                 </div>
             </div>
-            <div class="col-sm-12 col-md-6 mb-3">
+            <div class="col-sm-12 col-md-12 mb-3">
                 <label for="search_terms" class="form-label">
                     Search Terms <?=$readonlyLabel?>
                 </label>

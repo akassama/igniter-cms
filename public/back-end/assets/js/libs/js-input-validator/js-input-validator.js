@@ -211,4 +211,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return sanitized;
     }, 'Invalid SSN format');
+
+    // Yes/No validation
+    createInputValidator('.yes-no', function(value) {
+        const lowerValue = value.toLowerCase();
+        if (lowerValue === 'yes' || lowerValue === 'no') {
+            return value; // Return the original value if valid
+        }
+        return ''; // Clear the input if invalid
+    }, 'Only "Yes" or "No" is allowed');
+
+    // true/false validation
+    createInputValidator('.true-false', function(value) {
+        const lowerValue = value.toLowerCase();
+        if (lowerValue === 'true' || lowerValue === 'false') {
+            return value; // Return the original value if valid
+        }
+        return ''; // Clear the input if invalid
+    }, 'Only "true" or "false" is allowed');
+    
 });

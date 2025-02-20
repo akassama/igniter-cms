@@ -63,6 +63,12 @@ class Configurations extends Migration
                 'null' => true,
                 'default' => null,
             ],
+            'custom_class' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'null' => true,
+                'default' => null,
+            ],
             'search_terms' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
@@ -103,6 +109,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-key-fill',
                 'search_terms' => 'api,integration,middleware'
             ],
@@ -118,6 +125,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => 'title-text',
                 'icon' => 'ri-building-line',
                 'search_terms' => 'company,name,business,organization'
             ],
@@ -133,6 +141,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => 'email',
                 'icon' => 'ri-mail-line',
                 'search_terms' => 'email,contact,communication'
             ],
@@ -148,6 +157,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => 'email',
                 'icon' => 'ri-mail-line',
                 'search_terms' => 'email,contact,support,communication'
             ],
@@ -163,6 +173,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => 'email',
                 'icon' => 'ri-customer-service-line',
                 'search_terms' => 'email,enquiry,contact,support'
             ],
@@ -178,6 +189,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => 'phone-number',
                 'icon' => 'ri-phone-line',
                 'search_terms' => 'phone,contact,number,telephone'
             ],
@@ -193,6 +205,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => 'phone-number',
                 'icon' => 'ri-phone-line',
                 'search_terms' => 'phone,contact,number,telephone,secondary'
             ],
@@ -208,6 +221,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => 'title-text',
                 'icon' => 'ri-map-pin-line',
                 'search_terms' => 'address,location,office'
             ],
@@ -223,6 +237,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-map-2-line',
                 'search_terms' => 'map,location,directions,address'
             ],
@@ -238,6 +253,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-time-line',
                 'search_terms' => 'address,location,office'
             ],
@@ -253,6 +269,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-settings-line',
                 'search_terms' => 'maintenance,mode,status,settings'
             ],
@@ -268,6 +285,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => 'title-text',
                 'icon' => 'ri-settings-line',
                 'search_terms' => 'maintenance,mode,status,settings'
             ],
@@ -283,6 +301,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-settings-line',
                 'search_terms' => 'maintenance,mode,status,settings'
             ],
@@ -298,6 +317,7 @@ class Configurations extends Migration
                 'description' => 'This configuration enables or disables registration/signup.',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-settings-line',
                 'search_terms' => 'registration,sign up,mode,status,settings'
             ],      
@@ -313,6 +333,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-mail-settings-line',
                 'search_terms' => 'email,configuration,smtp,mailjet,mailgun,sendgrid,postmark'
             ],
@@ -328,6 +349,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-server-line',
                 'search_terms' => 'smtp,host,server,email'
             ],
@@ -343,6 +365,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-router-line',
                 'search_terms' => 'smtp,port,connection,email'
             ],
@@ -358,6 +381,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-user-line',
                 'search_terms' => 'smtp,username,credentials,email'
             ],
@@ -373,6 +397,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-lock-line',
                 'search_terms' => 'smtp,password,credentials,email'
             ],
@@ -388,6 +413,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-lock-password-line',
                 'search_terms' => 'smtp,encryption,ssl,tls,security'
             ],
@@ -403,6 +429,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-key-line',
                 'search_terms' => 'mailgun,api,key,credentials'
             ],
@@ -418,6 +445,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-global-line',
                 'search_terms' => 'mailgun,domain,email,configuration'
             ],
@@ -433,6 +461,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-mail-send-line',
                 'search_terms' => 'mailgun,sender,domain,email'
             ],
@@ -448,6 +477,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-earth-line',
                 'search_terms' => 'mailgun,region,location,configuration'
             ],
@@ -463,6 +493,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-key-line',
                 'search_terms' => 'sendgrid,api,key,credentials'
             ],
@@ -478,6 +509,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-mail-send-line',
                 'search_terms' => 'sendgrid,sender,email,configuration'
             ],
@@ -493,6 +525,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-user-line',
                 'search_terms' => 'sendgrid,sender,name,configuration'
             ],
@@ -508,6 +541,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-key-line',
                 'search_terms' => 'postmark,api,token,credentials'
             ],
@@ -523,6 +557,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-file-list-line',
                 'search_terms' => 'postmark,sender,signature,configuration'
             ],
@@ -538,6 +573,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-key-line',
                 'search_terms' => 'mailjet,api,key,credentials'
             ],
@@ -553,6 +589,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-lock-password-line',
                 'search_terms' => 'mailjet,api,secret,credentials'
             ],
@@ -568,6 +605,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-heading',
                 'search_terms' => 'meta,title,seo,page'
             ],
@@ -583,6 +621,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-text',
                 'search_terms' => 'meta,description,seo,page'
             ],
@@ -598,6 +637,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'meta,keywords,seo,tags'
             ],
@@ -613,6 +653,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-user-line',
                 'search_terms' => 'meta,author,seo,page'
             ],
@@ -628,6 +669,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-image-line',
                 'search_terms' => 'meta,og,image,social'
             ],
@@ -643,6 +685,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-article-line',
                 'search_terms' => 'blog,meta,title,seo,page'
             ],
@@ -658,6 +701,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-file-text-line',
                 'search_terms' => 'blog,meta,description,seo'
             ],
@@ -673,6 +717,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'blog,meta,keywords,tags'
             ],
@@ -688,6 +733,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-calendar-event-line',
                 'search_terms' => 'events,meta,title,seo'
             ],
@@ -703,6 +749,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-calendar-todo-line',
                 'search_terms' => 'events,meta,description,seo'
             ],
@@ -718,6 +765,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'events,meta,keywords,tags'
             ],
@@ -734,6 +782,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-contacts-line',
                 'search_terms' => 'contact,meta,title,seo'
             ],
@@ -749,6 +798,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-chat-3-line',
                 'search_terms' => 'contact,meta,description,seo'
             ],
@@ -764,6 +814,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'contact,meta,keywords,tags'
             ],    
@@ -779,6 +830,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-gallery-line',
                 'search_terms' => 'portfolio,meta,title,seo'
             ],
@@ -794,6 +846,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-gallery-upload-line',
                 'search_terms' => 'portfolio,meta,description,seo'
             ],
@@ -809,6 +862,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'portfolio,meta,keywords,tags'
             ],    
@@ -824,6 +878,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-search-line',
                 'search_terms' => 'search,meta,title,seo'
             ],
@@ -839,6 +894,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-file-search-line',
                 'search_terms' => 'search,meta,description,seo'
             ],
@@ -854,6 +910,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'search,meta,keywords,tags'
             ],
@@ -869,6 +926,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-filter-line',
                 'search_terms' => 'search,filter,meta,title,seo'
             ],
@@ -884,6 +942,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-filter-2-line',
                 'search_terms' => 'search,filter,meta,description,seo'
             ],
@@ -899,6 +958,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-hashtag',
                 'search_terms' => 'search,filter,meta,keywords,tags'
             ],
@@ -914,6 +974,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-image-2-line',
                 'search_terms' => 'logo,site,branding,image'
             ],
@@ -929,6 +990,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-image-2-line',
                 'search_terms' => 'logo,site,branding,image'
             ],
@@ -944,6 +1006,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-image-line',
                 'search_terms' => 'favicon,site,icon,browser'
             ],
@@ -959,6 +1022,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-image-line',
                 'search_terms' => 'favicon,96,site,icon'
             ],
@@ -974,6 +1038,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-apple-line',
                 'search_terms' => 'favicon,apple,touch,icon'
             ],
@@ -989,6 +1054,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-file-list-3-line',
                 'search_terms' => 'favicon,manifest,site,web'
             ],
@@ -1004,6 +1070,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-layout-2-line',
                 'search_terms' => 'frontend,format,mvc,api'
             ],
@@ -1019,6 +1086,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-download-cloud-line',
                 'search_terms' => 'api,get,require,access'
             ],
@@ -1034,6 +1102,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-upload-cloud-line',
                 'search_terms' => 'api,post,require,access'
             ],
@@ -1049,6 +1118,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-database-2-line',
                 'search_terms' => 'api,get,models,allowed'
             ],
@@ -1064,6 +1134,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-database-2-line',
                 'search_terms' => 'api,post,models,allowed'
             ],
@@ -1079,6 +1150,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-shield-check-line',
                 'search_terms' => 'captcha,security,forms,spam'
             ],
@@ -1094,6 +1166,7 @@ class Configurations extends Migration
                 'description' => 'hCaptcha is a platform that stops online fraud and abuse with no personal information. It offers high accuracy, low friction, and universal compatibility for web, mobile, and server-side use cases. Learn more: https://www.hcaptcha.com/',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-key-2-line',
                 'search_terms' => 'recaptcha,key,site,hcaptcha'
             ],
@@ -1109,6 +1182,7 @@ class Configurations extends Migration
                 'description' => 'hCaptcha is a platform that stops online fraud and abuse with no personal information. It offers high accuracy, low friction, and universal compatibility for web, mobile, and server-side use cases. Learn more: https://www.hcaptcha.com/',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-key-line',
                 'search_terms' => 'recaptcha,secret,key,hcaptcha'
             ],
@@ -1124,6 +1198,7 @@ class Configurations extends Migration
                 'description' => 'ShareThis official site. Digital data solutions for media planning, targeting, and measurement. Website tools to grow online audiences. Learn more: https://sharethis.com/',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-share-line',
                 'search_terms' => 'share,social,buttons,sharing'
             ],
@@ -1139,6 +1214,7 @@ class Configurations extends Migration
                 'description' => 'You can install the ShareThis share button on your HTML website in a few easy steps. Navigate to the setup page and choose your preference of Inline Buttons or Sticky Buttons. Learn more: https://sharethis.com/',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-share-line',
                 'search_terms' => 'share,code,script'
             ],
@@ -1154,6 +1230,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-bar-chart-line',
                 'search_terms' => 'analytics,google,tracking'
             ],
@@ -1169,6 +1246,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-google-line',
                 'search_terms' => 'analytics,google,tag manager'
             ],
@@ -1184,6 +1262,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-google-line',
                 'search_terms' => 'analytics,google,tag manager'
             ],
@@ -1199,6 +1278,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-facebook-circle-line',
                 'search_terms' => 'analytics,facebook,pixel'
             ],
@@ -1214,6 +1294,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-facebook-circle-line',
                 'search_terms' => 'analytics,facebook,pixel'
             ],
@@ -1229,6 +1310,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-line-chart-fill',
                 'search_terms' => 'analytics,posthog,script'
             ],
@@ -1244,6 +1326,7 @@ class Configurations extends Migration
                 'description' => 'Add this snippet to your website within the <head> tag and you\'ll be ready to start using PostHog. Learn more: https://posthog.com/',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-line-chart-fill',
                 'search_terms' => 'analytics,posthog,script'
             ],
@@ -1259,6 +1342,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-share-forward-line',
                 'search_terms' => 'social,auto posting'
             ],
@@ -1274,6 +1358,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-facebook-circle-line',
                 'search_terms' => 'social,facebook,access token'
             ],
@@ -1289,6 +1374,7 @@ class Configurations extends Migration
                 'description' => 'Cookie Consent solution for your website to comply with ePrivacy Directive & GDPR. See options: https://termly.io/, https://www.freeprivacypolicy.com/free-cookie-consent/',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-shield-check-line',
                 'search_terms' => 'security,cookie,consent'
             ],
@@ -1304,6 +1390,7 @@ class Configurations extends Migration
                 'description' => 'Cookie Consent solution for your website to comply with ePrivacy Directive & GDPR. See options: https://termly.io/, https://www.freeprivacypolicy.com/free-cookie-consent/',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-shield-check-line',
                 'search_terms' => 'security,cookie,consent'
             ],
@@ -1319,6 +1406,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-twitter-line',
                 'search_terms' => 'analytics,twitter,feed'
             ],
@@ -1334,6 +1422,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-twitter-line',
                 'search_terms' => 'analytics,twitter,feed'
             ],
@@ -1349,6 +1438,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-bank-card-line',
                 'search_terms' => 'ecommerce,payment,gateway'
             ],
@@ -1364,6 +1454,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-bank-card-line',
                 'search_terms' => 'ecommerce,payment,stripe'            
             ],
@@ -1379,6 +1470,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-bug-line',
                 'search_terms' => 'debugging,error,tracking'
             ],
@@ -1394,6 +1486,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-bug-line',
                 'search_terms' => 'debugging,error,sentry'
             ],
@@ -1409,6 +1502,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-robot-2-fill',
                 'search_terms' => 'ai,chat,help,gemini,deepseek,qwen,gpt'
             ],
@@ -1424,6 +1518,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-robot-2-fill',
                 'search_terms' => 'ai,api key,chat,help,gemini,deepseek,qwen,gpt'
             ],
@@ -1439,6 +1534,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-robot-2-line',
                 'search_terms' => 'chatbot,enable'
             ],
@@ -1454,6 +1550,7 @@ class Configurations extends Migration
                 'description' => 'Integrate chatbots and monitor customer activity in real time. See optionslike: https://www.tawk.to/, https://zapier.com/, https://botpress.com/, https://webagent.ai/, https://botpenguin.com/',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-robot-2-line',
                 'search_terms' => 'chatbot,tawk.to'
             ],
@@ -1469,6 +1566,7 @@ class Configurations extends Migration
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-earth-line',
                 'search_terms' => 'translate,google,language'
             ],
@@ -1484,6 +1582,7 @@ class Configurations extends Migration
                 'description' => 'This is the input name for your honeypot input.',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-shield-keyhole-fill',
                 'search_terms' => 'honeypot,bot detection,spam,security, block ip'
             ],
@@ -1499,6 +1598,7 @@ class Configurations extends Migration
                 'description' => 'This is the input name for your timestamp bot detector.',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-shield-keyhole-fill',
                 'search_terms' => 'honeypot,bot detection,spam,security, block ip'
             ],
@@ -1514,6 +1614,7 @@ class Configurations extends Migration
                 'description' => 'This is maximum failed login attempts allowed in one session.',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-lock-fill',
                 'search_terms' => 'failed login,locked out,security'
             ],
@@ -1529,6 +1630,7 @@ class Configurations extends Migration
                 'description' => 'This is suspension period for multiple failed logins.',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-time-fill',
                 'search_terms' => 'suspension,failed login,locked out,security, timeout'
             ],
@@ -1544,6 +1646,7 @@ class Configurations extends Migration
                 'description' => 'This is suspension period for suspended IP\'s.',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-time-fill',
                 'search_terms' => 'suspension,bot detection,spam,security, block ip'
             ],
@@ -1559,6 +1662,7 @@ class Configurations extends Migration
                 'description' => 'This is the maximum file upload size in megabytes.',
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
+                'custom_class' => '',
                 'icon' => 'ri-upload-cloud-fill',
                 'search_terms' => 'file upload,maximum,file size'
             ],

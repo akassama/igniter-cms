@@ -82,6 +82,10 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="default_value" class="form-label">Default Value</label>
                 <input type="text" class="form-control" id="default_value" name="default_value" value="<?= $config_data['default_value'] ?>" readonly>
             </div>
+            <div class="col-sm-12 col-md-6 mb-3">
+                <label for="custom_class" class="form-label">Custom Class</label>
+                <input type="text" class="form-control" id="custom_class" name="custom_class" value="<?= $config_data['custom_class'] ?>" readonly>
+            </div>
 
             <!--hidden inputs -->
             <div class="col-12">

@@ -33,6 +33,7 @@ class ConfigurationsModel extends Model
         'data_type',
         'options',
         'default_value',
+        'custom_class',
         'search_terms',
         'deletable',
         'created_by', 
@@ -87,6 +88,7 @@ class ConfigurationsModel extends Model
             'data_type' => $param['data_type'],
             'options' => $param['options'],
             'default_value' => $param['default_value'],
+            'custom_class' => $param['custom_class'],
             'search_terms' => $param['search_terms'],
             'deletable' => $param['deletable'],
             'created_by' => $param['created_by'],
@@ -114,6 +116,7 @@ class ConfigurationsModel extends Model
         $existingConfiguration['data_type'] = $param['data_type'];
         $existingConfiguration['options'] = $param['options'];
         $existingConfiguration['default_value'] = $param['default_value'];
+        $existingConfiguration['custom_class'] = $param['custom_class'];
         $existingConfiguration['search_terms'] = $param['search_terms'];
         $existingConfiguration['deletable'] = $param['deletable'];
         $existingConfiguration['created_by'] = $param['created_by'];
