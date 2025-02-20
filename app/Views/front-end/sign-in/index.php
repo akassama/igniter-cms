@@ -73,11 +73,18 @@
                     <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Login</button>
                 </div>
             </div>
-            <div class="my-2">
-                <p>
-                    Don't have an account? Register <a href="<?= base_url('/sign-up'); ?>">here</a>
-                </p>
-            </div>
+            <?php
+                $allowRegistration = getConfigData("AllowRegistration");
+                if(strtolower($allowRegistration) === "yes"){
+                    ?>
+                        <div class="my-2">
+                            <p>
+                                Don't have an account? Register <a href="<?= base_url('/sign-up'); ?>">here</a>
+                            </p>
+                        </div>
+                    <?php
+                }
+            ?>
         </form>
     </div>
 </div>

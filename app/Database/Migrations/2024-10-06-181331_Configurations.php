@@ -285,7 +285,22 @@ class Configurations extends Migration
                 'updated_by' => null,
                 'icon' => 'ri-settings-line',
                 'search_terms' => 'maintenance,mode,status,settings'
-            ],         
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'AllowRegistration',
+                'config_value' => 'Yes',
+                'group' => 'site',
+                'data_type' => 'Select',
+                'options' => 'Yes,No',
+                'default_value' => 'Yes',
+                'deletable' => 0,
+                'description' => 'This configuration enables or disables registration/signup.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'icon' => 'ri-settings-line',
+                'search_terms' => 'registration,sign up,mode,status,settings'
+            ],      
             [
                 'config_id' => getGUID(),
                 'config_for' => 'EmailConfigType',

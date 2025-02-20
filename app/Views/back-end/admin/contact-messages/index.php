@@ -62,7 +62,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </td>
                                     <td>
                                         <a class="text-dark td-none" href="<?=base_url('account/admin/contact-messages/view-contact/'.$contact_message['contact_message_id'])?>">
-                                        <?= $contact_message['name']; ?>
+                                            <?= $contact_message['name']; ?>
                                             <span class="d-none"><?= $contact_message['is_read'] == 0 ? 'unread' : ''; ?></span>
                                         </a>
                                     </td>

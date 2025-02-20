@@ -12,6 +12,15 @@ class SignUpController extends BaseController
 {
     public function index()
     {
+        //get allow registration
+        $allowRegistration = getConfigData("AllowRegistration");
+        if(strtolower($allowRegistration) === "no"){
+            // Not allowed to access signup page
+            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            session()->setFlashdata('errorAlert', $invalidAccessMsg);
+            return redirect()->to('/');
+        }
+        
         //get use captcha config
         $useCaptcha = getConfigData("UseCaptcha");
         if(strtolower($useCaptcha) === "yes"){
@@ -29,6 +38,15 @@ class SignUpController extends BaseController
 
     public function addRegistration()
     {
+        //get allow registration
+        $allowRegistration = getConfigData("AllowRegistration");
+        if(strtolower($allowRegistration) === "no"){
+            // Not allowed to access signup page
+            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            session()->setFlashdata('errorAlert', $invalidAccessMsg);
+            return redirect()->to('/');
+        }
+
         // Retrieve the honeypot and timestamp values
         $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
         $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));

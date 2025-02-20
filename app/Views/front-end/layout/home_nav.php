@@ -16,9 +16,16 @@
                 <li class="nav-item">
                     <a class="nav-link <?=strtolower(getFileNameFromUrl(current_url())) === "sign-in" ? "active" : ""?>" href="<?= base_url('/sign-in'); ?>">Sign-In</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <?=strtolower(getFileNameFromUrl(current_url())) === "sign-up" ? "active" : ""?>" href="<?= base_url('/sign-up'); ?>">Sign-Up</a>
-                </li>
+                <?php
+                    $allowRegistration = getConfigData("AllowRegistration");
+                    if(strtolower($allowRegistration) === "yes"){
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?=strtolower(getFileNameFromUrl(current_url())) === "sign-up" ? "active" : ""?>" href="<?= base_url('/sign-up'); ?>">Sign-Up</a>
+                        </li>
+                        <?php
+                    }
+                ?>
             </ul>
         </div>
     </div>
