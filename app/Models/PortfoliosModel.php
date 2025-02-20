@@ -40,11 +40,12 @@ class PortfoliosModel extends Model
         'details_image_4',
         'content',
         'status',
-        'created_by',
-        'updated_by',
+        'total_views',
         'meta_title', 
         'meta_description', 
-        'meta_keywords'
+        'meta_keywords',
+        'created_by',
+        'updated_by',
     ];
 
     protected bool $allowEmptyInserts = false;

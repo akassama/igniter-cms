@@ -25,6 +25,7 @@ class DonationCausesModel extends Model
         'embedded_page_title',
         'embedded_page',
         'status',
+        'total_views',
         'meta_title', 
         'meta_description', 
         'meta_keywords'

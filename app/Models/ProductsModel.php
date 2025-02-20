@@ -93,6 +93,7 @@ class ProductsModel extends Model
         'tags',
         'status',// 1 = active, 0 = inactive/out of stock
         'order',
+        'total_views',
         'created_by',
         'updated_by',
         'meta_title', 

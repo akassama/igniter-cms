@@ -134,6 +134,11 @@ class Products extends Migration
                 'constraint' => 11,
                 'default' => 0
             ],
+            'total_views' => [
+                'type' => 'INT',
+                'default' => 0,
+                'null' => true,
+            ],
             'created_by' => [
                 'type' => 'VARCHAR',
                 'constraint' => '50',

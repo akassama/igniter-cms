@@ -38,6 +38,7 @@ class ResumesModel extends Model
             'image',
             'cv_file',
             'status',
+            'total_views',
             'created_by',
             'updated_by',
             'meta_title',

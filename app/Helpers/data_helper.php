@@ -4781,3 +4781,54 @@ if (!function_exists('validateHcaptcha')) {
         return true; // CAPTCHA validation successful
     }
 }
+
+/**
+ * Updates the total view count for a specific record in a table.
+ * Checks if a session exists for the record to avoid incrementing on page reloads.
+ * If no session exists, increments the total views and updates the database.
+ * 
+ * @param {string} $tableName - The name of the table (e.g., "blogs").
+ * @param {string} $primaryIdName - The name of the primary key column (e.g., "blog_id").
+ * @param {string|int} $primaryId - The primary key value of the record (e.g., "7c4d3d90-08e0-451a-b79a-106d3150e6f3").
+ * @return {void}
+ */
+if (!function_exists('updateTotalViewCount')) {
+
+    function updateTotalViewCount($tableName, $primaryIdName, $primaryId)
+    {
+        try {
+            $db = \Config\Database::connect();
+            $session = \Config\Services::session();
+
+            // Generate a unique session key for this record
+            $sessionKey = 'viewed_' . $tableName . '_' . $primaryId;
+
+            // Check if the session exists for this record
+            if (!$session->get($sessionKey)) {
+                // Get the current total views
+                $builder = $db->table($tableName);
+                $builder->select('total_views');
+                $builder->where($primaryIdName, $primaryId);
+                $query = $builder->get();
+                $row = $query->getRow();
+
+                if ($row) {
+                    $currentViews = $row->total_views;
+
+                    // Increment the total views
+                    $newViews = $currentViews + 1;
+
+                    // Update the total views in the database
+                    $builder->where($primaryIdName, $primaryId);
+                    $builder->update(['total_views' => $newViews]);
+
+                    // Set a session to track that the view count has been updated for this record
+                    $session->set($sessionKey, true);
+                }
+            }
+        } catch (\Exception $e) {
+            // Log the error if needed (optional)
+            log_message('error', $e->getMessage());
+        }
+    }
+}

@@ -2,6 +2,8 @@
 // Get current theme impact
 $theme = getCurrentTheme();
 
+//update view count
+updateTotalViewCount("portfolios", "portfolio_id", $portfolio_data['portfolio_id']);
 ?>
 <!-- include theme layout -->
 <?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>

@@ -81,6 +81,11 @@ class Portfolios extends Migration
                 'default' => 0,
                 'null' => true,
             ],
+            'total_views' => [
+                'type' => 'INT',
+                'default' => 0,
+                'null' => true,
+            ],
             'created_by' => [
                 'type' => 'VARCHAR',
                 'constraint' => '50',

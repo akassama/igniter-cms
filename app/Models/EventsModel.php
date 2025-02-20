@@ -39,6 +39,7 @@ class EventsModel extends Model
         'registration_link',
         'new_tab',
         'status',
+        'total_views',
         'meta_title', 
         'meta_description', 
         'meta_keywords',

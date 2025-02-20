@@ -3,6 +3,14 @@
     <a class="navbar-brand ps-3" href="<?= base_url('/account'); ?>">Igniter CMS</a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="ri-list-check h5"></i></button>
+
+    <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+            <div id="MyClockDisplay" class="clock" onload="showTime()" style="color:rgb(164, 238, 255); font-size: 14px; font-family: Orbitron; letter-spacing: 3px;"></div>
+        </li>
+    </ul>
+    
+    
     <!-- Navbar Search-->
     <form action="<?= base_url('search/modules') ?>" method="get" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
@@ -25,6 +33,38 @@
 </nav>
 
 <script>
+    //set clock
+    function showTime(){
+        var date = new Date();
+        var h = date.getHours(); // 0 - 23
+        var m = date.getMinutes(); // 0 - 59
+        var s = date.getSeconds(); // 0 - 59
+        var session = "AM";
+        
+        if(h == 0){
+            h = 12;
+        }
+        
+        if(h > 12){
+            h = h - 12;
+            session = "PM";
+        }
+        
+        h = (h < 10) ? "0" + h : h;
+        m = (m < 10) ? "0" + m : m;
+        s = (s < 10) ? "0" + s : s;
+        
+        //var time = h + ":" + m + ":" + s + " " + session;
+        var time =  h + ":" + m + " " + session;
+        document.getElementById("MyClockDisplay").innerText = time;
+        document.getElementById("MyClockDisplay").textContent = time;
+        
+        setTimeout(showTime, 1000);
+        
+    }
+    //show clock
+    showTime();
+
     // When the logout link is clicked
     document.getElementById('logout-link').addEventListener('click', function (event) {
         event.preventDefault(); // Prevent the default link behavior

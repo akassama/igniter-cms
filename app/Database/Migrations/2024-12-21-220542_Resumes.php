@@ -73,6 +73,11 @@ class Resumes extends Migration
                 'default' => 0,
                 'null' => true,
             ],
+            'total_views' => [
+                'type' => 'INT',
+                'default' => 0,
+                'null' => true,
+            ],
             'meta_title' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,

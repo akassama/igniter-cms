@@ -2,6 +2,8 @@
 // Get current theme impact
 $theme = getCurrentTheme();
 
+//update view count
+updateTotalViewCount("blogs", "blog_id", $blog_data['blog_id']);
 ?>
 <!-- include theme layout -->
 <?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>
