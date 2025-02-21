@@ -29,6 +29,7 @@ class PagesModel extends Model
         'slug',
         'content',
         'status',
+        'total_views',
         'created_by',
         'updated_by',
         'meta_title',

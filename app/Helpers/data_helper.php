@@ -2856,52 +2856,52 @@ if (!function_exists('getTopBrowsers')) {
 if (!function_exists('getMostVisitedPages')) {
     function getMostVisitedPages($limit = 10)
     {
-        // List of excluded page urls. Do not include if any of the url contains any in this list
-        $excludedUrlSlugs = array("/sign-in", "/sign-up", "/sign-out", "/forgot-password");
-
         // Connect to the database
         $db = \Config\Database::connect();
-        
-        // Start building the query
-        $builder = $db->table('site_stats')
-                      ->select('page_type, page_visited_url, COUNT(*) as views')
-                      ->groupBy('page_visited_id')
-                      ->orderBy('views', 'DESC')
-                      ->limit($limit);
 
-        // Add notLike conditions for each excluded URL slug
-        foreach ($excludedUrlSlugs as $slug) {
-            $builder->notLike('page_visited_url', $slug);
-        }
-
-        // Execute the query
-        $query = $builder->get();
+        // Query to get published pages
+        $query = $db->table('pages')
+                   ->where('status', 1)
+                   ->orderBy('total_views', 'DESC')
+                   ->limit($limit)
+                   ->get(); // Use get() to execute the query and get the result object
 
         // HTML structure for the table header
         echo "<table class='table simple-datatable table-bordered w-100'>
                 <thead>
                     <tr>
-                        <th>Type</th>
+                        <th>Page Type</th>
                         <th>URL</th>
                         <th>Views</th>
                     </tr>
                 </thead>
             <tbody>";
 
-        // Loop through each stat record and display as a table row
-        $rowCount = 1;
+        // Loop through each post record and display as a table row
         foreach ($query->getResult() as $row) {
+            $pageId = $row->page_id;
+            $pageType = "Page";
+            $title = $row->title;
+            $slug = $row->slug;
+            $status = $row->status;
+            $statusLabel = $status == "1" ? "Published" : "Draft";
+            $statusClass = $status == "1" ? "success" : "danger";
+            $totalViews = $row->total_views;
+            $createdBy = $row->created_by;
+            $createdAt = $row->created_at;
+
+            // Display individual post data
             echo "<tr>
-                    <td class='text-capitalize'>".$row->page_type."</td>
-                    <td><a href='".$row->page_visited_url."' target='_blank'>".getPageTitle($row->page_visited_url)."</a></td>
-                    <td>".$row->views."</td>
+                    <td class='text-capitalize'>".$pageType."</td>
+                    <td><a href='".base_url($slug)."' target='_blank'>".$title."</a></td>
+                    <td>".$totalViews."</td>
                 </tr>";
-            $rowCount++;
         }
         
         // Close the table structure
         echo "</tbody>
         </table>";
+    
     }
 }
 
