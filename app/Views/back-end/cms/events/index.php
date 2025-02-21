@@ -46,6 +46,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <th>Date</th>
                                 <th>Status</th>
                                 <th>Author</th>
+                                <th>Views</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -67,6 +68,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             <?= getActivityBy(esc($event['created_by'])) ?>
                                         </span>
                                     </td>
+                                    <td><?= $event['total_views']; ?></td>
                                     <td>
                                         <div class="row text-center p-1">
                                             <div class="col mb-1">

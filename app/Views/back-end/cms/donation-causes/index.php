@@ -52,6 +52,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>Title</th>
                             <th>Status</th>
                             <th>Author</th>
+                            <th>Views</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -71,6 +72,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             <?= getActivityBy(esc($donation['created_by'])) ?>
                                         </span>
                                     </td>
+                                    <td><?= $donation['total_views']; ?></td>
                                     <td>
                                         <div class="row text-center p-1">
                                             <div class="col mb-1">

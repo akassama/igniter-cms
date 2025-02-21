@@ -1557,11 +1557,11 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'EnableGoogleTranslate',
-                'config_value' => 'Yes',
+                'config_value' => 'No',
                 'group' => 'site',
                 'data_type' => 'Select',
                 'options' => 'Yes,No',
-                'default_value' => 'Yes',
+                'default_value' => 'No',
                 'deletable' => 0,
                 'description' => '',
                 'created_by' => getGUID(getDefaultAdminGUID()),

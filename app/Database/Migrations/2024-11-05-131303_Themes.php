@@ -103,7 +103,7 @@ class Themes extends Migration
                 'other_color' => '#212529',
                 'image' => 'public/front-end/themes/default/assets/images/default-theme.png',
                 'theme_url' => 'https://startbootstrap.com/template/modern-business',
-                'footer_copyright' => "<p>Copyright &copy; Your Website ". date('Y') ."</p>",
+                'footer_copyright' => "<p>Copyright &copy; Igniter CMS ". date('Y') ."</p>",
                 'selected' => true,
                 'category' => 'Business & Corporate',
                 'sub_category' => 'Portfolio & Resume',

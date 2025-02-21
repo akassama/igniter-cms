@@ -66,7 +66,9 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <?= getInputLinkTag($api_key['api_id'], $api_key['api_key']); ?>
                                     </td>
                                     <td>
-                                        <?= $api_key['assigned_to'] ?>
+                                        <span class="text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="User ID: <?= esc($api_key['assigned_to']) ?>">
+                                            <?= getActivityBy(esc($api_key['assigned_to'])) ?>
+                                        </span>
                                     </td>
                                     <td><?= $api_key['status'] == "1" ? "<span class='badge bg-success'>Active</span>" : "<span class='badge bg-secondary'>Inactive</span>" ?></td>
                                     <td><?= dateFormat($api_key['created_at']) ?></td>

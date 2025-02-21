@@ -242,7 +242,7 @@ $userRole = getUserRole($sessionEmail);
                 </a>
                 <a class="nav-link <?= (str_contains(current_url(), 'account/ai-helpbot')) ? 'active' : ''; ?>" href="<?= base_url('/account/ai-helpbot'); ?>">
                     <div class="sb-nav-link-icon"><i class="ri-robot-2-fill"></i></div>
-                    AI AskBot
+                    Ask AI
                 </a>
             </div>
         </div>
