@@ -44,10 +44,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="slug" class="form-label">Slug</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><?= base_url('/donate/'); ?></span>
-                    <input type="text" class="form-control" id="slug" name="slug" maxlength="250" value="<?= $donation_data['slug'] ?>" readonly 
-                        hx-post="<?=base_url()?>/htmx/get-project-title-slug"
-                        hx-trigger="load delay:1s"
-                        hx-swap="outerHTML">
+                    <input type="text" class="form-control" id="slug" name="slug" maxlength="250" value="<?= $donation_data['slug'] ?>" readonly>
                 </div>
             </div>
 

@@ -1,13 +1,9 @@
 <?php
-//cookie concent
-$useCookieConcent = getConfigData("UseCookieConcent");
-$cookieConcentCode = getConfigData("CookieConcentCode");
-
 //chatbot
 $enableChatbot = getConfigData("EnableChatbot");
 $chatbotCode = getConfigData("ChatbotCode");
 
-//payment gateway
+//payment gateway (TODO)
 $enablePaymentGateway = getConfigData("EnablePaymentGateway");
 $stripeAPIKey = getConfigData("StripeAPIKey");
 
@@ -17,28 +13,36 @@ $ShareThisCode = getConfigData("ShareThisCode");
 
 //google analytics
 $useGoogleAnalytics = getConfigData("UseGoogleAnalytics");
-$googleTagManagerHead = getConfigData("GoogleTagManagerHead");
-$googleTagManagerBody = getConfigData("GoogleTagManagerBody");
+$googleAnalyticsCode = getConfigData("GoogleAnalyticsCode");
 
-//cookie concent
-$enableSocialAutoPosting = getConfigData("EnableSocialAutoPosting");
-$useFacebookPixel = getConfigData("UseFacebookPixel");
-$facebookPixelCode = getConfigData("FacebookPixelCode");
-$facebookPageAccessToken = getConfigData("FacebookPageAccessToken");
-
-//twitter feed
-$useTwitterFeed = getConfigData("UseTwitterFeed");
-$twitterFeedCode = getConfigData("TwitterFeedCode");
-
-//payment gateway
-$enablePaymentGateway = getConfigData("EnablePaymentGateway");
-$stripeAPIKey = getConfigData("StripeAPIKey");
-
-//chatbot
-$enableChatbot = getConfigData("EnableChatbot");
-$chatbotAPIKey = getConfigData("ChatbotAPIKey");
-
-//google translate
-$enableGoogleTranslate = getConfigData("EnableGoogleTranslate");
+//posthog analytics
+$usePostHog = getConfigData("UsePostHog");
+$postHogCode = getConfigData("PostHogCode");
 ?>
+
+<?php
+if (strtolower($enableChatbot) === "yes") {
+    echo $chatbotCode;
+}
+?>
+
+<?php
+if (strtolower($useShareThis) === "yes") {
+    echo $ShareThisCode;
+}
+?>
+
+<?php
+if (strtolower($useGoogleAnalytics) === "yes") {
+    echo $googleAnalyticsCode;
+}
+?>
+
+<?php
+if (strtolower($usePostHog) === "yes") {
+    echo $postHogCode;
+}
+?>
+
+
 

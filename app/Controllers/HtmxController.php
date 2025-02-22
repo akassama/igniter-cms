@@ -281,6 +281,18 @@ class HtmxController extends BaseController
         exit();
     }
 
+    public function getDonationTitleSlug()
+    {
+        $title = $this->request->getPost('title');
+        $baseUrl = base_url();
+        $slug = generateDonationTitleSlug($title);
+        $slugInput = '<input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required hx-post="'.$baseUrl.'/htmx/get-donation-title-slug" hx-trigger="load delay:1s" hx-swap="outerHTML">';
+        echo $slugInput;
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
 
     //Generic image preview display
     public function setImageDisplay()

@@ -179,13 +179,6 @@ class ActivityTypes
     const FAILED_VIDEO_UPDATE = 'failed_video_update';
     const VIDEO_DELETION = 'video_delete';
 
-    // POLICIES
-    const POLICY_CREATION = 'policy_created';
-    const FAILED_POLICY_CREATION = 'failed_policy_creation';
-    const POLICY_UPDATE = 'policy_updated';
-    const FAILED_POLICY_UPDATE = 'failed_policy_update';
-    const POLICY_DELETION = 'policy_delete';
-
     // PRICINGS
     const PRICING_CREATION = 'pricing_created';
     const FAILED_PRICING_CREATION = 'failed_pricing_creation';
@@ -498,13 +491,6 @@ class ActivityTypes
             self::VIDEO_UPDATE => 'Video Updated',
             self::FAILED_VIDEO_UPDATE => 'Video Update Failed',
             self::VIDEO_DELETION => 'Video Deletion',
-
-            // Policies
-            self::POLICY_CREATION => 'Policy Created',
-            self::FAILED_POLICY_CREATION => 'Policy Creation Failed',
-            self::POLICY_UPDATE => 'Policy Updated',
-            self::FAILED_POLICY_UPDATE => 'Policy Update Failed',
-            self::POLICY_DELETION => 'Policy Deletion',
 
             // Pricings
             self::PRICING_CREATION => 'Pricing Created',

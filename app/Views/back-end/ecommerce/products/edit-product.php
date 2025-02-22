@@ -78,10 +78,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="slug" class="form-label">Slug</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><?= base_url('/shop/'); ?></span>
-                    <input type="text" class="form-control" id="slug" name="slug" maxlength="250" value="<?= $product_data['slug']; ?>" required 
-                        hx-post="<?=base_url()?>/htmx/get-product-title-slug"
-                        hx-trigger="load delay:1s"
-                        hx-swap="outerHTML">
+                    <input type="text" class="form-control" id="slug" name="slug" maxlength="250" value="<?= $product_data['slug']; ?>" required>
                     <div class="invalid-feedback">
                         Please provide slug
                     </div>

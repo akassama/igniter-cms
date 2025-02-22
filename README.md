@@ -124,7 +124,7 @@ The application includes a fetch-only RESTful API.  Refer to the documentation f
 ### File Upload System
 The application has a built-in file upload system for handling various types of files:
 * Supported Types: Docs (`.doc, .docx, .pdf, .txt, .rtf, .odt.`), Images (`jpg, png, gif, jpeg`), Audios (`.mp3, .wav, .ogg`) and Videos (`.mp4, .avi, .mov.`)
-* Maximum File Size: 5MB. You can modify this value in `public\back-end\assest\js\script.js` and modify `Cookies.set('max_file_size', '5')`
+* Maximum File Size: 5MB. You can modify this value in `Configurations (MaxUploadFileSize)` 
 * Validation and configuration can be updated in the relevant controller handling file uploads.
 
 ### Other Features Summary

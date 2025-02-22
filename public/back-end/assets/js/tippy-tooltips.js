@@ -301,19 +301,6 @@ tippy('.remove-faq', {
     content: 'Remove faq',
     placement: 'top',
 });
-//Policies
-tippy('.view-policy', {
-    content: 'View policy',
-    placement: 'top',
-});
-tippy('.edit-policy', {
-    content: 'Edit policy',
-    placement: 'top',
-});
-tippy('.remove-policy', {
-    content: 'Remove policy',
-    placement: 'top',
-});
 //Translations
 tippy('.view-translation', {
     content: 'View translation',

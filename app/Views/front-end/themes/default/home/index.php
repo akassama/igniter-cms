@@ -390,34 +390,49 @@ $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
                 ?>
                   <!-- Call To Action Section -->
                   <section class="py-2">
-                    <div class="container px-5 my-5">
-                        <div class="text-center mb-5">
-                            <h1 class="fw-bolder"><?=$sectionTitle?></h1>
-                            <p class="lead fw-normal text-muted mb-0"><?=$sectionDescription?></p>
-                        </div>
-                        <!-- Call to action-->
-                        <?php
-                            $callToActionImage = getHomePageData("CallToAction", "section_image");
-                            $callToActionVideo = getHomePageData("CallToAction", "section_video");
-                            $callToActionTitle = getHomePageData("CallToAction", "section_title");
-                            $callToActionDescription = getHomePageData("CallToAction", "section_description");
-                        ?>
-                        <aside class="bg-primary call-to-action rounded-3 p-4 p-sm-5 mt-5 position-relative" style="background-image: url('<?=$callToActionImage?>');">
-                        <div class="overlay"></div>
-                        <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start position-relative">
-                            <div class="mb-4 mb-xl-0">
-                                <div class="fs-3 fw-bold text-white text-shadow"><?=$sectionTitle?></div>
-                                <div class="text-white text-shadow"><?=$callToActionDescription?></div>
+                        <div class="container px-5 my-5">
+                            <div class="text-center mb-5">
+                                <h1 class="fw-bolder"><?=$sectionTitle?></h1>
+                                <p class="lead fw-normal text-muted mb-0"><?=$sectionDescription?></p>
                             </div>
-                            <div class="ms-xl-4">
-                                <a href="#!" class="btn btn-outline-light w-100">
-                                    Get In Touch!
-                                </a>
-                            </div>
+                            <!-- Call to action-->
+                            <?php
+                                $callToActionImage = getHomePageData("CallToAction", "section_image");
+                                $callToActionVideo = getHomePageData("CallToAction", "section_video");
+                                $callToActionTitle = getHomePageData("CallToAction", "section_title");
+                                $callToActionDescription = getHomePageData("CallToAction", "section_description");
+                            ?>
+                             <aside class="bg-primary call-to-action rounded-3 p-4 p-sm-5 mt-5 position-relative" style="background-image: url('<?=$callToActionImage?>');">
+                                <div class="overlay"></div>
+                                <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start position-relative">
+                                    <div class="mb-4 mb-xl-0">
+                                        <div class="fs-3 fw-bold text-white text-shadow"><?=$sectionTitle?></div>
+                                        <div class="text-white text-shadow"><?=$callToActionDescription?></div>
+                                    </div>
+                                    <div class="ms-xl-4">
+                                        <a href="#!" class="btn btn-outline-light w-100">
+                                            Get In Touch!
+                                        </a>
+                                    </div>
+                                </div>
+                            </aside>
                         </div>
-                    </aside>
-                    </div>
-                </section>
+                        <div class="row d-flex justify-content-center align-items-center">
+                                <!--scrollable -->
+                                <?php
+                                $useTwitterFeed = getConfigData("UseTwitterFeed");
+                                $twitterFeedCode = getConfigData("TwitterFeedCode");
+
+                                if (strtolower($useTwitterFeed) === "yes") {
+                                    ?>
+                                        <div class="col-12 col-md-8 mt-2" style="height: 40em; overflow-y: scroll;">
+                                            <?=$twitterFeedCode?>
+                                        </div>
+                                    <?php
+                                }
+                                ?>
+                        </div>
+                    </section>
                 <!-- /Call To Action Section -->
                 <?php
             } elseif ($section === "RecentPosts") {

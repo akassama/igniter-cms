@@ -74,7 +74,7 @@
                 </div>
             </div>
             <?php
-                $allowRegistration = getConfigData("AllowRegistration");
+                $allowRegistration = getConfigData("EnableRegistration");
                 if(strtolower($allowRegistration) === "yes"){
                     ?>
                         <div class="my-2">

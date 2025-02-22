@@ -13,7 +13,7 @@ class SignUpController extends BaseController
     public function index()
     {
         //get allow registration
-        $allowRegistration = getConfigData("AllowRegistration");
+        $allowRegistration = getConfigData("EnableRegistration");
         if(strtolower($allowRegistration) === "no"){
             // Not allowed to access signup page
             $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
@@ -39,7 +39,7 @@ class SignUpController extends BaseController
     public function addRegistration()
     {
         //get allow registration
-        $allowRegistration = getConfigData("AllowRegistration");
+        $allowRegistration = getConfigData("EnableRegistration");
         if(strtolower($allowRegistration) === "no"){
             // Not allowed to access signup page
             $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;

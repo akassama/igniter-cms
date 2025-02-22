@@ -16,7 +16,6 @@ use App\Models\FrequentlyAskedQuestionsModel;
 use App\Models\GalleryModel;
 use App\Models\HomePageModel;
 use App\Models\PagesModel;
-use App\Models\PoliciesModel;
 use App\Models\PricingsModel;
 use App\Models\PortfoliosModel;
 use App\Models\SlidersModel;
@@ -156,6 +155,15 @@ class FrontEndController extends BaseController
     //############################//
     public function getEvents()
     {
+        //get enable events page
+        $enableEventsPage = getConfigData("EnableEventsPage");
+        if(strtolower($enableEventsPage) === "no"){
+            // Not allowed to access page
+            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            session()->setFlashdata('errorAlert', $invalidAccessMsg);
+            return redirect()->to('/');
+        }
+
         $tableName = 'events';
         $eventsModel = new EventsModel();
 
@@ -171,6 +179,15 @@ class FrontEndController extends BaseController
 
     public function getEventDetails($slug)
     {
+        //get enable events page
+        $enableEventsPage = getConfigData("EnableEventsPage");
+        if(strtolower($enableEventsPage) === "no"){
+            // Not allowed to access page
+            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            session()->setFlashdata('errorAlert', $invalidAccessMsg);
+            return redirect()->to('/');
+        }
+
         $tableName = 'events';
         //Check if record exists
         if (!recordExists($tableName, "slug", $slug)) {
@@ -194,6 +211,15 @@ class FrontEndController extends BaseController
     //############################//
     public function getPortfolios()
     {
+        //get enable portfolios page
+        $enablePortfoliosPage = getConfigData("EnablePortfoliosPage");
+        if(strtolower($enablePortfoliosPage) === "no"){
+            // Not allowed to access page
+            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            session()->setFlashdata('errorAlert', $invalidAccessMsg);
+            return redirect()->to('/');
+        }
+
         $tableName = 'portfolios';
         $portfoliosModel = new PortfoliosModel();
 
@@ -233,6 +259,15 @@ class FrontEndController extends BaseController
     //############################//
     public function getDonationCampaings()
     {
+        //get enable donations page
+        $enableDonationsPage = getConfigData("EnableDonationsPage");
+        if(strtolower($enableDonationsPage) === "no"){
+            // Not allowed to access page
+            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            session()->setFlashdata('errorAlert', $invalidAccessMsg);
+            return redirect()->to('/');
+        }
+
         $tableName = 'donation_causes';
         $donationCausesModel = new DonationCausesModel();
 
@@ -248,6 +283,14 @@ class FrontEndController extends BaseController
 
     public function getDonationCampaingDetails($slug)
     {
+        //get enable donations page
+        $enableDonationsPage = getConfigData("EnableDonationsPage");
+        if(strtolower($enableDonationsPage) === "no"){
+            // Not allowed to access page
+            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            session()->setFlashdata('errorAlert', $invalidAccessMsg);
+            return redirect()->to('/');
+        }
         
         $tableName = 'donation_causes';
         //Check if record exists
@@ -272,6 +315,15 @@ class FrontEndController extends BaseController
     //############################//
     public function getProducts()
     {
+        //get enable shop
+        $enableShopFront = getConfigData("EnableShopFront");
+        if(strtolower($enableShopFront) === "no"){
+            // Not allowed to access page
+            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            session()->setFlashdata('errorAlert', $invalidAccessMsg);
+            return redirect()->to('/');
+        }
+
         $tableName = 'products';
         $productsModel = new ProductsModel();
 
@@ -287,6 +339,14 @@ class FrontEndController extends BaseController
 
     public function getProductDetails($slug)
     {
+        //get enable shop
+        $enableShopFront = getConfigData("EnableShopFront");
+        if(strtolower($enableShopFront) === "no"){
+            // Not allowed to access page
+            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            session()->setFlashdata('errorAlert', $invalidAccessMsg);
+            return redirect()->to('/');
+        }
         
         $tableName = 'products';
         //Check if record exists
@@ -368,9 +428,14 @@ class FrontEndController extends BaseController
             ->orderBy('created_at', 'DESC')
             ->limit(20)
             ->findAll();
-        
+
         // Events search
-        $data['eventsSearchResults'] = $eventsModel
+        $enableEventsPage = getConfigData("EnableEventsPage");
+
+        if (strtolower($enableEventsPage) === "no") {
+            $data['eventsSearchResults'] = []; // Make the array empty
+        } else {
+            $data['eventsSearchResults'] = $eventsModel
             ->groupStart()
                 ->like('title', $searchQuery)
                 ->orLike('description', $searchQuery)
@@ -384,9 +449,15 @@ class FrontEndController extends BaseController
             ->orderBy('created_at', 'DESC')
             ->limit(20)
             ->findAll();
+        }
         
         // Portfolios search
-        $data['portfoliosSearchResults'] = $portfoliosModel
+        $enablePortfoliosPage = getConfigData("EnablePortfoliosPage");
+
+        if (strtolower($enablePortfoliosPage) === "no") {
+            $data['portfoliosSearchResults'] = []; 
+        } else {
+            $data['portfoliosSearchResults'] = $portfoliosModel
             ->groupStart()
                 ->like('title', $searchQuery)
                 ->orLike('description', $searchQuery)
@@ -400,9 +471,15 @@ class FrontEndController extends BaseController
             ->orderBy('created_at', 'DESC')
             ->limit(20)
             ->findAll();
-        
+        }
+           
         // Donations search
-        $data['donationsSearchResults'] = $donationCausesModel
+        $enableDonationsPage = getConfigData("EnableDonationsPage");
+
+        if (strtolower($enableDonationsPage) === "no") {
+            $data['donationsSearchResults'] = []; 
+        } else {
+            $data['donationsSearchResults'] = $donationCausesModel
             ->groupStart()
                 ->like('title', $searchQuery)
                 ->orLike('description', $searchQuery)
@@ -415,10 +492,15 @@ class FrontEndController extends BaseController
             ->orderBy('created_at', 'DESC')
             ->limit(20)
             ->findAll();
-            
+        }  
         
         // Shop search
-        $data['shopSearchResults'] = $shopModel
+        $enableShopFront = getConfigData("EnableShopFront");
+
+        if (strtolower($enableShopFront) === "no") {
+            $data['shopSearchResults'] = []; 
+        } else {
+            $data['shopSearchResults'] = $shopModel
             ->groupStart()
                 ->like('title', $searchQuery)
                 ->orLike('description', $searchQuery)
@@ -433,6 +515,7 @@ class FrontEndController extends BaseController
             ->orderBy('created_at', 'DESC')
             ->limit(20)
             ->findAll();
+        }  
         
         // Log activity
         logActivity(null, ActivityTypes::SEARCH, 'Search made for: ' . $searchQuery);
@@ -507,27 +590,44 @@ class FrontEndController extends BaseController
                 ->findAll();
     
             // Events search
-            $data['eventsSearchResults'] = $eventsModel
-                ->groupStart()
-                ->like('created_by', $userId)
-                ->groupEnd()
-                ->where('status', '1')
-                ->orderBy('created_at', 'DESC')
-                ->limit(20)
-                ->findAll();
+            $enableEventsPage = getConfigData("EnableEventsPage");
+
+            if (strtolower($enableEventsPage) === "no") {
+                $data['eventsSearchResults'] = []; // Make the array empty
+            } else {
+                $data['eventsSearchResults'] = $eventsModel
+                    ->groupStart()
+                        ->like('created_by', $userId)
+                    ->groupEnd()
+                    ->where('status', '1')
+                    ->orderBy('created_at', 'DESC')
+                    ->limit(20)
+                    ->findAll();
+            }
             
             // Portfolios search
-            $data['portfoliosSearchResults'] = $portfoliosModel
-                ->groupStart()
-                    ->like('created_by', $userId)
-                ->groupEnd()
-                ->where('status', '1')
-                ->orderBy('created_at', 'DESC')
-                ->limit(20)
-                ->findAll();
+            $enablePortfoliosPage = getConfigData("EnablePortfoliosPage");
+
+            if (strtolower($enablePortfoliosPage) === "no") {
+                $data['portfoliosSearchResults'] = []; 
+            } else {
+                $data['portfoliosSearchResults'] = $portfoliosModel
+                    ->groupStart()
+                        ->like('created_by', $userId)
+                    ->groupEnd()
+                    ->where('status', '1')
+                    ->orderBy('created_at', 'DESC')
+                    ->limit(20)
+                    ->findAll();
+            }
             
             // Donations search
-            $data['donationsSearchResults'] = $donationCausesModel
+            $enableDonationsPage = getConfigData("EnableDonationsPage");
+
+            if (strtolower($enableDonationsPage) === "no") {
+                $data['donationsSearchResults'] = []; 
+            } else {
+                $data['donationsSearchResults'] = $donationCausesModel
                 ->groupStart()
                     ->like('created_by', $userId)
                 ->groupEnd()
@@ -535,9 +635,15 @@ class FrontEndController extends BaseController
                 ->orderBy('created_at', 'DESC')
                 ->limit(20)
                 ->findAll();
+            } 
 
             // Shop search
-            $data['shopSearchResults'] = $shopModel
+            $enableShopFront = getConfigData("EnableShopFront");
+
+            if (strtolower($enableShopFront) === "no") {
+                $data['shopSearchResults'] = []; 
+            } else {
+                $data['shopSearchResults'] = $shopModel
                 ->groupStart()
                     ->like('created_by', $userId)
                 ->groupEnd()
@@ -545,6 +651,8 @@ class FrontEndController extends BaseController
                 ->orderBy('created_at', 'DESC')
                 ->limit(20)
                 ->findAll();
+            } 
+            
         }
 
         return view('front-end/themes/'.getCurrentTheme().'/search/filter', $data);

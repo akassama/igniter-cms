@@ -2539,6 +2539,38 @@ if (!function_exists('generateProductTitleSlug')) {
 }
 
 /**
+ * Generates a unique slug for a given donation title.
+ *
+ * @param {string} title - The donation title to generate a slug for.
+ * @returns {string} The generated slug.
+ */
+if (!function_exists('generateDonationTitleSlug')) {
+
+    function generateDonationTitleSlug(string $title)
+    {
+        $db = \Config\Database::connect();
+
+        // Convert the title to lower case, remove special characters, and replace spaces with dashes
+        $slug = strtolower($title);
+        $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug); // Remove special characters
+        $slug = preg_replace('/\s+/', '-', $slug); // Replace spaces with dashes
+        $slug = trim($slug, '-'); // Trim any leading or trailing dashes
+
+        // Check if the slug exists in the 'donations' table
+        $builder = $db->table('donation_causes');
+        $existingSlug = $builder->where('slug', $slug)->get()->getRow();
+
+        // If the slug exists, add a random 6-digit alphanumeric string
+        if ($existingSlug) {
+            $randomString = substr(md5(uniqid(rand(), true)), 0, 6);
+            $slug .= '-' . $randomString;
+        }
+
+        return $slug;
+    }
+}
+
+/**
  * Renders a list of tags as HTML badges.
  *
  * This function takes a string representing a list of tags, which can be either
@@ -2870,8 +2902,7 @@ if (!function_exists('getMostVisitedPages')) {
         echo "<table class='table simple-datatable table-bordered w-100'>
                 <thead>
                     <tr>
-                        <th>Page Type</th>
-                        <th>URL</th>
+                        <th>Page</th>
                         <th>Views</th>
                     </tr>
                 </thead>
@@ -2880,7 +2911,6 @@ if (!function_exists('getMostVisitedPages')) {
         // Loop through each post record and display as a table row
         foreach ($query->getResult() as $row) {
             $pageId = $row->page_id;
-            $pageType = "Page";
             $title = $row->title;
             $slug = $row->slug;
             $status = $row->status;
@@ -2892,7 +2922,6 @@ if (!function_exists('getMostVisitedPages')) {
 
             // Display individual post data
             echo "<tr>
-                    <td class='text-capitalize'>".$pageType."</td>
                     <td><a href='".base_url($slug)."' target='_blank'>".$title."</a></td>
                     <td>".$totalViews."</td>
                 </tr>";
@@ -2915,7 +2944,6 @@ if(!function_exists('getDefaultImagePath'))
     function getDefaultImagePath()
     {
         return 'public/back-end/assets/img/default_image_placeholder.png';
-
     }
 }
 
@@ -2929,7 +2957,6 @@ if(!function_exists('getDefaultProfileImagePath'))
     function getDefaultProfileImagePath()
     {
         return 'public/uploads/file-uploads/default/default-profile.png';
-
     }
 }
 

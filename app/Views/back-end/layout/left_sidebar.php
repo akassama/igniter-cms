@@ -118,9 +118,6 @@ $userRole = getUserRole($sessionEmail);
                         <a class="nav-link <?= (str_contains(current_url(), 'account/cms/popups')) ? 'active' : ''; ?>" href="<?= base_url('/account/cms/popups'); ?>">
                             <i class="ri-arrow-drop-right-fill"></i> Popups
                         </a>
-                        <a class="nav-link <?= (str_contains(current_url(), 'account/cms/policies')) ? 'active' : ''; ?>" href="<?= base_url('/account/cms/policies'); ?>">
-                            <i class="ri-arrow-drop-right-fill"></i> Policies
-                        </a>
                     </nav>
                 </div>
                 <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/ecommerce')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseECommerce" aria-expanded="false" aria-controls="collapseECommerce" id="ecommerceButton">

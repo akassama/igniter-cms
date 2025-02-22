@@ -344,14 +344,6 @@ class AppModules extends Migration
             ],
             [
                 'app_module_id' => getGUID(),
-                'module_name'  => 'Policies',
-                'module_description'  => 'Manage policies',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/policies',
-                'module_search_terms' => 'policies,terms,conditions'
-            ],
-            [
-                'app_module_id' => getGUID(),
                 'module_name'  => 'Popup Announcements',
                 'module_description'  => ' Announcement & Popups',
                 'module_roles'    => 'Admin,Manager,User',

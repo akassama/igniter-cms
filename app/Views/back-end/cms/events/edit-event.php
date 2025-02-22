@@ -61,10 +61,7 @@
             <label for="slug" class="form-label">Slug</label>
             <div class="input-group mb-3">
                <span class="input-group-text"><?= base_url('/event/'); ?></span>
-               <input type="text" class="form-control" id="slug" name="slug" value="<?= $event_data['slug'] ?>" required 
-                     hx-post="<?=base_url()?>/htmx/get-event-title-slug"
-                     hx-trigger="load delay:1s"
-                     hx-swap="outerHTML">
+               <input type="text" class="form-control" id="slug" name="slug" value="<?= $event_data['slug'] ?>" required>
                <div class="invalid-feedback">
                      Please provide slug
                </div>

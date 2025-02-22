@@ -17,7 +17,7 @@
                     <a class="nav-link <?=strtolower(getFileNameFromUrl(current_url())) === "sign-in" ? "active" : ""?>" href="<?= base_url('/sign-in'); ?>">Sign-In</a>
                 </li>
                 <?php
-                    $allowRegistration = getConfigData("AllowRegistration");
+                    $allowRegistration = getConfigData("EnableRegistration");
                     if(strtolower($allowRegistration) === "yes"){
                         ?>
                         <li class="nav-item">

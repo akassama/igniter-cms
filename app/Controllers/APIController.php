@@ -20,7 +20,6 @@ use App\Models\FrequentlyAskedQuestionsModel;
 use App\Models\GalleryModel;
 use App\Models\HomePageModel;
 use App\Models\PagesModel;
-use App\Models\PoliciesModel;
 use App\Models\PricingsModel;
 use App\Models\PortfoliosModel;
 use App\Models\SlidersModel;
@@ -75,7 +74,6 @@ class APIController extends BaseController
             'navigations' => 'App\Models\NavigationsModel',
             'pages' => 'App\Models\PagesModel',
             'partners' => 'App\Models\PartnersModel',
-            'policies' => 'App\Models\PoliciesModel',
             'portfolios' => 'App\Models\PortfoliosModel',
             'pricings' => 'App\Models\PricingsModel',
             'products' => 'App\Models\ProductsModel',
@@ -1083,67 +1081,6 @@ class APIController extends BaseController
             'take' => $take,
             'skip' => $skip,
             'data' => $languages
-        ]);
-    }
-
-    // POLICIES API
-    public function getPolicy($apiKey, $policyId = null)
-    {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
-        if (!$policyId) {
-            return $this->response->setStatusCode(400)->setJSON([
-                'status' => 'error',
-                'message' => 'Policy ID parameter is required.'
-            ]);
-        }
-
-        $policiesModel = new PoliciesModel();
-        $policy = $policiesModel->where('policy_id', $policyId)->first();
-
-        if ($policy) {
-            return $this->response->setStatusCode(200)->setJSON([
-                'status' => 'success',
-                'data' => $policy
-            ]);
-        } else {
-            return $this->response->setStatusCode(404)->setJSON([
-                'status' => 'error',
-                'message' => 'Policy not found.'
-            ]);
-        }
-    }
-
-    public function getPolicies($apiKey)
-    {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-    
-        // Get pagination parameters with defaults
-        $take = $this->request->getGet('take') ?? 10;
-        $skip = $this->request->getGet('skip') ?? 0;
-    
-        $policiesModel = new PoliciesModel();
-        $policies = $policiesModel->findAll($take, $skip);
-    
-        // Get total count
-        $totalPolicies = $policiesModel->countAllResults();
-    
-        return $this->response->setStatusCode(200)->setJSON([
-            'status' => 'success',
-            'total' => $totalPolicies,
-            'take' => $take,
-            'skip' => $skip,
-            'data' => $policies
         ]);
     }
 

@@ -279,14 +279,6 @@ $routes->group('account', ['filter' => 'authFilter'], function($routes) {
     $routes->get('cms/donation-causes/edit-donation-cause/(:any)', 'CMSController::editDonationCause/$1');
     $routes->post('cms/donation-causes/edit-donation-cause', 'CMSController::updateDonationCause');
 
-    //POLICIES
-    $routes->get('cms/policies', 'CMSController::policies');
-    $routes->get('cms/policies/new-policy', 'CMSController::newPolicy');
-    $routes->post('cms/policies/new-policy', 'CMSController::addPolicy');
-    $routes->get('cms/policies/view-policy/(:any)', 'CMSController::viewPolicy/$1');
-    $routes->get('cms/policies/edit-policy/(:any)', 'CMSController::editPolicy/$1');
-    $routes->post('cms/policies/edit-policy', 'CMSController::updatePolicy');
-
     #TESTIMONIAL
     $routes->get('cms/testimonials', 'CMSController::testimonials');
     $routes->get('cms/testimonials/new-testimonial', 'CMSController::newTestimonial');
@@ -379,6 +371,7 @@ $routes->group('htmx', function($routes) {
     $routes->post('get-event-title-slug', 'HtmxController::getEventTitleSlug');
     $routes->post('get-portfolio-title-slug', 'HtmxController::getPortfolioTitleSlug');
     $routes->post('get-product-title-slug', 'HtmxController::getProductTitleSlug');
+    $routes->post('get-donation-title-slug', 'HtmxController::getDonationTitleSlug');
     $routes->post('set-image-display', 'HtmxController::setImageDisplay');
     $routes->get('get-file-data-form/(:any)', 'HtmxController::getFileDataForm/$1');
     $routes->post('update-file-data-form/(:any)', 'HtmxController::updateFileDataList/$1');
@@ -465,10 +458,6 @@ $routes->group('api', function($routes) {
     // Languages
     $routes->get('(:segment)/get-language/(:segment)', 'APIController::getLanguage/$1/$2');
     $routes->get('(:segment)/get-languages', 'APIController::getLanguages/$1');
-    
-    // Policies
-    $routes->get('(:segment)/get-policy/(:segment)', 'APIController::getPolicy/$1/$2');
-    $routes->get('(:segment)/get-policies', 'APIController::getPolicies/$1');
     
     // Pricings
     $routes->get('(:segment)/get-pricing/(:segment)', 'APIController::getPricing/$1/$2');
