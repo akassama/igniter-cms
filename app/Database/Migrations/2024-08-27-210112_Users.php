@@ -92,25 +92,44 @@ class Users extends Migration
 
         //Insert default record
         $data = [
-            'user_id' => getGUID(getDefaultAdminGUID()),
-            'first_name'    => 'Admin',
-            'last_name'    => 'User',
-            'username'    => 'admin',
-            'email'    => 'admin@example.com',
-            'password' => password_hash('Admin@1', PASSWORD_DEFAULT),
-            'status'    => 1,
-            'role'    => 'Admin',
-            'profile_picture'    => getDefaultProfileImagePath(),
-            'twitter_link'    => 'https://twitter.com/admin-user',
-            'facebook_link'    => 'https://www.facebook.com/admin-user',
-            'instagram_link'    => 'https://instagram.com/admin-user',
-            'linkedin_link'    => 'https://www.linkedin.com/in/admin-user',
-            'about_summary'    => 'Hello! I\'m Admin User, the administrator of this platform. With a strong background in managing and overseeing operations, I ensure everything runs smoothly. You can connect with me on social media through the links provided. I\'m here to help and support our community!',
-            'upload_directory' => "admin_8J0IM"
+            [
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'first_name'    => 'Admin',
+                'last_name'    => 'User',
+                'username'    => 'admin',
+                'email'    => 'admin@example.com',
+                'password' => password_hash('Admin@1', PASSWORD_DEFAULT),
+                'status'    => 1,
+                'role'    => 'Admin',
+                'profile_picture'    => getDefaultProfileImagePath(),
+                'twitter_link'    => 'https://twitter.com/admin-user',
+                'facebook_link'    => 'https://www.facebook.com/admin-user',
+                'instagram_link'    => 'https://instagram.com/admin-user',
+                'linkedin_link'    => 'https://www.linkedin.com/in/admin-user',
+                'about_summary'    => 'Hello! I\'m Admin User, the administrator of this platform. With a strong background in managing and overseeing operations, I ensure everything runs smoothly. You can connect with me on social media through the links provided. I\'m here to help and support our community!',
+                'upload_directory' => "admin_8J0IM"
+            ],
+            [
+                'user_id' => getGUID(),
+                'first_name'    => 'Manager',
+                'last_name'    => 'User',
+                'username'    => 'manager',
+                'email'    => 'manager@example.com',
+                'password' => password_hash('Manager@1', PASSWORD_DEFAULT),
+                'status'    => 1,
+                'role'    => 'Manager',
+                'profile_picture'    => getDefaultProfileImagePath(),
+                'twitter_link'    => 'https://twitter.com/manager-user',
+                'facebook_link'    => 'https://www.facebook.com/manager-user',
+                'instagram_link'    => 'https://instagram.com/manager-user',
+                'linkedin_link'    => 'https://www.linkedin.com/in/manager-user',
+                'about_summary'    => 'Hello! I\'m Manager User, the manager of this platform. With a strong background in managing and overseeing operations, I ensure everything runs smoothly. You can connect with me on social media through the links provided. I\'m here to help and support our community!',
+                'upload_directory' => "manager_10BYZL"
+            ]
         ];
 
         // Using Query Builder
-        $this->db->table('users')->insert($data);
+        $this->db->table('users')->insertBatch($data);
     }
 
     public function down()

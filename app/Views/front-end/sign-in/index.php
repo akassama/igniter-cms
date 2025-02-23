@@ -96,7 +96,7 @@
                 setTimeout(function() {
                     $("#email").val("<?= getenv('CONFIG.DEV_ADMIN_EMAIL') ?? 'admin@example.com' ?>");
                     $("#password").val("<?= getenv('CONFIG.DEV_ADMIN_PASSWORD') ?? '' ?>");
-                    $("#submit-btn").click();
+                    //$("#submit-btn").click();
                 }, 3000);
             });
         </script>
