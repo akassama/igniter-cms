@@ -59,7 +59,8 @@ Igniter CMS is a light but powerful, versatile Content Management System built o
     ```
     Make sure to update the `hostname`, `username`, `password`, and `database` fields with your database connection details.
     * Create the Database: Using your database management system (e.g., PhpMyAdmin), create a new database with the same name specified in `Database.php`.
-    * Set Up Base URL: Edit the configuration file located in `app/Config/App.php`:
+    * Set Up Base URL: Edit the configuration file located in `app/Config/App.php`
+    * Create a .env: Create a .env file in the root folder and add the environment variable `CI_ENVIRONMENT = development`. 
     * Run migrations: `php spark migrate`. This command will execute all available migrations, creating the necessary database tables.
     * Start the Application
       Ensure that your local server (e.g., Apache, Nginx) is running, then navigate to the base URL you set earlier:
