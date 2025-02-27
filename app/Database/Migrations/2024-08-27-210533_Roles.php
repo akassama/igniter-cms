@@ -8,9 +8,6 @@ class Roles extends Migration
 {
     public function up()
     {
-        // Load custom helper
-        helper('data_helper');
-
         $this->forge->addField([
             'role_id' => [
                 'type' => 'VARCHAR',

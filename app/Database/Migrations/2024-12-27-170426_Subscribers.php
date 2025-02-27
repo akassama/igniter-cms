@@ -8,9 +8,6 @@ class Subscribers extends Migration
 {
     public function up()
     {
-        // Load custom helper
-        helper('data_helper');
-
         $this->forge->addField([
             'subscriber_id' => [
                 'type' => 'VARCHAR',

@@ -31,7 +31,7 @@
             "Config\\": "app/Config/"
         },
         "files": [
-            "app/Helpers/data_helper.php"
+            "app/Helpers/global_functions_helper.php"
         ],
         "classmap": [
             "app/Models",

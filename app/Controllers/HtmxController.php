@@ -7,8 +7,6 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class HtmxController extends BaseController
 {
-    protected $helpers = ['data_helper'];
-
     /**
      * Checks if a user email exists in the database.
      * Echoes a message if the email already exists.

@@ -715,19 +715,25 @@ if (!function_exists('softDeleteRecord')) {
     {
         $db = \Config\Database::connect();
 
-        // Define the data to be updated
-        $data = ['deleted' => 1];
+        try {
+            $db->transStart(); // Start transaction
 
-        // Build the query
-        $db->table($tableName)
-            ->where($primaryKey, $primaryKeyValue)
-            ->update($data);
+            // Define the data to be updated
+            $data = ['deleted' => 1];
 
-        // Check if the update was successful
-        if ($db->affectedRows() > 0) {
-            return true; // Return true if successful
-        } else {
-            return false; // Return false if no rows were affected
+            // Build the query
+            $db->table($tableName)
+                ->where($primaryKey, $primaryKeyValue)
+                ->update($data);
+
+            $db->transComplete(); // Complete transaction
+
+            // Check if the update was successful
+            return $db->affectedRows() > 0;
+        } catch (\Exception $e) {
+            $db->transRollback(); // Rollback transaction on error
+            log_message('error', $e->getMessage());
+            return false;
         }
     }
 }
@@ -775,11 +781,24 @@ if(!function_exists('getSingleRecord')) {
  * @param array  $data      Associative array of data to insert.
  * @return bool True if insertion was successful, false otherwise.
  */
-if(!function_exists('addRecord')) {
+if (!function_exists('addRecord')) {
     function addRecord(string $tableName, array $data): bool
     {
         $db = \Config\Database::connect();
-        return $db->table($tableName)->insert($data);
+
+        try {
+            $db->transStart(); // Start transaction
+
+            $result = $db->table($tableName)->insert($data);
+
+            $db->transComplete(); // Complete transaction
+
+            return $result;
+        } catch (\Exception $e) {
+            $db->transRollback(); // Rollback transaction on error
+            log_message('error', $e->getMessage());
+            return false;
+        }
     }
 }
 
@@ -791,11 +810,26 @@ if(!function_exists('addRecord')) {
  * @param string $whereClause The WHERE clause (e.g., "user_id = 123").
  * @return bool True if update was successful, false otherwise.
  */
-if(!function_exists('updateRecord')) {
+if (!function_exists('updateRecord')) {
     function updateRecord(string $tableName, array $data, string $whereClause): bool
     {
         $db = \Config\Database::connect();
-        return $db->table($tableName)->where($whereClause)->update($data);
+
+        try {
+            $db->transStart(); // Start transaction
+
+            $result = $db->table($tableName)
+                ->where($whereClause)
+                ->update($data);
+
+            $db->transComplete(); // Complete transaction
+
+            return $result;
+        } catch (\Exception $e) {
+            $db->transRollback(); // Rollback transaction on error
+            log_message('error', $e->getMessage());
+            return false;
+        }
     }
 }
 
@@ -811,26 +845,35 @@ if (!function_exists('updateRecordColumn')) {
     function updateRecordColumn(string $tableName, string $data, string $whereClause): bool
     {
         $db = \Config\Database::connect();
-        
-        // Split the data string into column and value
-        list($column, $value) = explode('=', $data);
-        
-        // Trim whitespace and remove any surrounding quotes
-        $column = trim($column, " '\"");
-        $value = trim($value, " '\"");
-        
-        // Prepare the data array
-        $updateData = [
-            $column => $value
-        ];
-        
-        // Perform the update
-        $result = $db->table($tableName)
-                     ->where($whereClause)
-                     ->update($updateData);
-        
-        // Return true if the update was successful, false otherwise
-        return $result;
+
+        try {
+            $db->transStart(); // Start transaction
+
+            // Split the data string into column and value
+            list($column, $value) = explode('=', $data);
+
+            // Trim whitespace and remove any surrounding quotes
+            $column = trim($column, " '\"");
+            $value = trim($value, " '\"");
+
+            // Prepare the data array
+            $updateData = [
+                $column => $value
+            ];
+
+            // Perform the update
+            $result = $db->table($tableName)
+                ->where($whereClause)
+                ->update($updateData);
+
+            $db->transComplete(); // Complete transaction
+
+            return $result;
+        } catch (\Exception $e) {
+            $db->transRollback(); // Rollback transaction on error
+            log_message('error', $e->getMessage());
+            return false;
+        }
     }
 }
 
@@ -1982,18 +2025,31 @@ if (!function_exists('logActivity')) {
     {
         $activityLogsModel = new ActivityLogsModel();
 
-        $data = [
-            'activity_id' => uniqid(), // Generate a unique ID
-            'activity_by' => $activityBy,
-            'activity_type' => $activityType,
-            'activity' => ActivityTypes::getDescription($activityType) . ($activityDetails ? ': ' . $activityDetails : ''),
-            'ip_address' => getIPAddress(),
-            'country' => getCountry(getIPAddress()),
-            'device' => getUserDevice(),
-            'created_at' => date('Y-m-d H:i:s')
-        ];
+        try {
+            $db = \Config\Database::connect();
+            $db->transStart(); // Start transaction
 
-        return $activityLogsModel->insert($data);
+            $data = [
+                'activity_id' => uniqid(), // Generate a unique ID
+                'activity_by' => $activityBy,
+                'activity_type' => $activityType,
+                'activity' => ActivityTypes::getDescription($activityType) . ($activityDetails ? ': ' . $activityDetails : ''),
+                'ip_address' => getIPAddress(),
+                'country' => getCountry(getIPAddress()),
+                'device' => getUserDevice(),
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+
+            $result = $activityLogsModel->insert($data);
+
+            $db->transComplete(); // Complete transaction
+
+            return $result;
+        } catch (\Exception $e) {
+            $db->transRollback(); // Rollback transaction on error
+            log_message('error', $e->getMessage());
+            return false;
+        }
     }
 }
 
@@ -3367,24 +3423,23 @@ function getMaximumFromList(string $list, $addToTotal = 0): int
  * 
  * @returns {void}
  */
-if(!function_exists('logSiteStatistic'))
-{
+if (!function_exists('logSiteStatistic')) {
     function logSiteStatistic(
-        $ipAddress, 
-        $deviceType, 
-        $browserType, 
-        $pageType, 
-        $pageVisitedId, 
-        $pageVisitedUrl, 
-        $referrer, 
-        $statusCode, 
-        $userId, 
-        $sessionId, 
-        $requestMethod, 
-        $operatingSystem, 
-        $country, 
-        $screenResolution, 
-        $userAgent, 
+        $ipAddress,
+        $deviceType,
+        $browserType,
+        $pageType,
+        $pageVisitedId,
+        $pageVisitedUrl,
+        $referrer,
+        $statusCode,
+        $userId,
+        $sessionId,
+        $requestMethod,
+        $operatingSystem,
+        $country,
+        $screenResolution,
+        $userAgent,
         $otherParams = null
     ) {
         $statId = getGUID();
@@ -3392,45 +3447,49 @@ if(!function_exists('logSiteStatistic'))
         $tableName = "site_stats";
         $logVisit = shouldLogVisit($pageVisitedUrl);
 
-        // Check if there is a record in the past 1 hour with the same attributes
-        $oneHourAgo = date('Y-m-d H:i:s', strtotime('-1 hour'));
-        $existingRecord = $db->table($tableName)
-            ->where('ip_address', $ipAddress)
-            ->where('page_visited_id', $pageVisitedId)
-            ->where('status_code', $statusCode)
-            ->where('user_id', $userId)
-            ->where('session_id', $sessionId)
-            ->where('created_at >=', $oneHourAgo)
-            ->get()->getRowArray();
+        try {
+            $db->transStart(); // Start transaction
 
-        if ($existingRecord) {
-            // If a record exists, do nothing
-            return;
-        }
+            // Check if there is a record in the past 1 hour with the same attributes
+            $oneHourAgo = date('Y-m-d H:i:s', strtotime('-1 hour'));
+            $existingRecord = $db->table($tableName)
+                ->where('ip_address', $ipAddress)
+                ->where('page_visited_id', $pageVisitedId)
+                ->where('status_code', $statusCode)
+                ->where('user_id', $userId)
+                ->where('session_id', $sessionId)
+                ->where('created_at >=', $oneHourAgo)
+                ->get()->getRowArray();
 
-        // If no record exists, add the new data
-        $data = [
-            'site_stat_id' => $statId,
-            'ip_address' => $ipAddress,
-            'device_type' => $deviceType,
-            'browser_type' => $browserType,
-            'page_type' => strtolower($pageType),
-            'page_visited_id' => $pageVisitedId,
-            'page_visited_url' => $pageVisitedUrl,
-            'referrer' => $referrer,
-            'status_code' => $statusCode,
-            'user_id' => $userId,
-            'session_id' => $sessionId,
-            'request_method' => $requestMethod,
-            'operating_system' => $operatingSystem,
-            'country' => $country,
-            'screen_resolution' => $screenResolution,
-            'user_agent' => $userAgent,
-            'other_params' => $otherParams
-        ];
-        if($logVisit){
-            //if pageVisitedUrl not including admin module, then log
-            $db->table($tableName)->insert($data);
+            if (!$existingRecord && $logVisit) {
+                // If no record exists, add the new data
+                $data = [
+                    'site_stat_id' => $statId,
+                    'ip_address' => $ipAddress,
+                    'device_type' => $deviceType,
+                    'browser_type' => $browserType,
+                    'page_type' => strtolower($pageType),
+                    'page_visited_id' => $pageVisitedId,
+                    'page_visited_url' => $pageVisitedUrl,
+                    'referrer' => $referrer,
+                    'status_code' => $statusCode,
+                    'user_id' => $userId,
+                    'session_id' => $sessionId,
+                    'request_method' => $requestMethod,
+                    'operating_system' => $operatingSystem,
+                    'country' => $country,
+                    'screen_resolution' => $screenResolution,
+                    'user_agent' => $userAgent,
+                    'other_params' => $otherParams
+                ];
+
+                $db->table($tableName)->insert($data);
+            }
+
+            $db->transComplete(); // Complete transaction
+        } catch (\Exception $e) {
+            $db->transRollback(); // Rollback transaction on error
+            log_message('error', $e->getMessage());
         }
     }
 }
@@ -3962,29 +4021,37 @@ if (!function_exists('generateApiKey')) {
  * @param {string} $country - The country of origin for the API call.
  * @param {string} $userAgent - The user agent string of the client.
  */
-if(!function_exists('logApiCall'))
-{
+if (!function_exists('logApiCall')) {
     function logApiCall(
         $apiKey,
-        $ipAddress, 
-        $deviceType,  
-        $country, 
+        $ipAddress,
+        $deviceType,
+        $country,
         $userAgent
     ) {
         $apiCallId = getGUID();
         $db = \Config\Database::connect();
         $tableName = "api_calls_tracker";
 
-        // If no record exists, add the new data
-        $data = [
-            'api_call_id' => $apiCallId,
-            'api_key' => $apiKey,
-            'ip_address' => $ipAddress,
-            'country' => $country,
-            'user_agent' => $userAgent
-        ];
+        try {
+            $db->transStart(); // Start transaction
 
-        $db->table($tableName)->insert($data);
+            // If no record exists, add the new data
+            $data = [
+                'api_call_id' => $apiCallId,
+                'api_key' => $apiKey,
+                'ip_address' => $ipAddress,
+                'country' => $country,
+                'user_agent' => $userAgent
+            ];
+
+            $db->table($tableName)->insert($data);
+
+            $db->transComplete(); // Complete transaction
+        } catch (\Exception $e) {
+            $db->transRollback(); // Rollback transaction on error
+            log_message('error', $e->getMessage());
+        }
     }
 }
 
@@ -4048,7 +4115,7 @@ if(!function_exists('getConfigData')) {
                 return null;
             }
         }
-            //catch exception
+        //catch exception
         catch(Exception $e) {
             return "";
         }
@@ -4974,7 +5041,6 @@ if (!function_exists('validateHcaptcha')) {
  * @return {void}
  */
 if (!function_exists('updateTotalViewCount')) {
-
     function updateTotalViewCount($tableName, $primaryIdName, $primaryId)
     {
         try {
@@ -4986,6 +5052,8 @@ if (!function_exists('updateTotalViewCount')) {
 
             // Check if the session exists for this record
             if (!$session->get($sessionKey)) {
+                $db->transStart(); // Start transaction
+
                 // Get the current total views
                 $builder = $db->table($tableName);
                 $builder->select('total_views');
@@ -5006,9 +5074,11 @@ if (!function_exists('updateTotalViewCount')) {
                     // Set a session to track that the view count has been updated for this record
                     $session->set($sessionKey, true);
                 }
+
+                $db->transComplete(); // Complete transaction
             }
         } catch (\Exception $e) {
-            // Log the error if needed (optional)
+            $db->transRollback(); // Rollback transaction on error
             log_message('error', $e->getMessage());
         }
     }

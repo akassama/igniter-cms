@@ -113,7 +113,7 @@ To see how configurations are used, review the code in AdminController or other 
 
 ### Helper Functions
 There is a global helper with several functions available to ease the development process:
-* Global Data Helpers: `app/Helpers/data_helper.php`
+* Global Functions Helpers: `app/Helpers/global_functions_helper.php`
 
 ### Usage
 Refer to the detailed documentation for information on using the application's features, API endpoints, and development guidelines.  The documentation is available here: [Igniter CMS Documentation](https://abdouliekassama.com/projects/igniter-cms/docs)

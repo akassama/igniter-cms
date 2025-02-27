@@ -8,9 +8,6 @@ class AppModules extends Migration
 {
     public function up()
     {
-        // Load custom helper
-        helper('data_helper');
-
         $this->forge->addField([
             'app_module_id' => [
                 'type' => 'VARCHAR',

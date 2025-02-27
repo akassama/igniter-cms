@@ -8,9 +8,6 @@ class Users extends Migration
 {
     public function up()
     {
-        // Load custom helper
-        helper('data_helper');
-
         $this->forge->addField([
             'user_id' => [
                 'type' => 'VARCHAR',

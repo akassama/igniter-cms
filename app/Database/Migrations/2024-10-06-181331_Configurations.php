@@ -8,9 +8,6 @@ class Configurations extends Migration
 {
     public function up()
     {
-        // Load custom helper
-        helper('data_helper');
-
         $this->forge->addField([
             'config_id' => [
                 'type' => 'VARCHAR',

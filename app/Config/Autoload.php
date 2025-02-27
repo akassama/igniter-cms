@@ -93,6 +93,6 @@ class Autoload extends AutoloadConfig
     public $helpers = [
         'url',
         'form',
-        'data_helper'
+        'global_functions_helper'
     ];
 }
