@@ -89,19 +89,5 @@
     </div>
 </div>
 
-<?php if (ENVIRONMENT === 'development' && getenv('CONFIG.AUTO_LOGIN_DEV') === 'true') : ?>
-    <div class="col">
-        <script>
-            $(document).ready(function() {
-                setTimeout(function() {
-                    $("#email").val("<?= getenv('CONFIG.DEV_ADMIN_EMAIL') ?? 'admin@example.com' ?>");
-                    $("#password").val("<?= getenv('CONFIG.DEV_ADMIN_PASSWORD') ?? '' ?>");
-                    //$("#submit-btn").click();
-                }, 3000);
-            });
-        </script>
-    </div>
-<?php endif; ?>
-
 <!-- end main content -->
 <?= $this->endSection() ?>

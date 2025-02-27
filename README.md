@@ -76,10 +76,10 @@ Igniter CMS is a light but powerful, versatile Content Management System built o
         To modify the default Admin login, go to the migration file located at `app/Database/Migrations/2024-08-27-210112_Users.php` and update the `$data[]` array accordingly.
 3. **Permissions:** Ensure `writable` and `public/uploads` directories are writable by the web server.
 
-4. **Email Configuration:** To enable email functionality, you need to configure your Mailjet settings in app/Config/Email.php:
+4. **Email Configuration:** To enable email functionality, you need to configure your Mailjet settings in `/account/admin/configurations` page:
     ```
-    public string $mailjetApiKey = 'your-mailjet-api-key';
-    public string $mailjetApiSecret = 'your-mailjet-api-secret';
+    MailjetApiKey = 'your-mailjet-api-key';
+    MailjetApiSecret = 'your-mailjet-api-secret';
     ```
 
 ## How to Customize System Features?

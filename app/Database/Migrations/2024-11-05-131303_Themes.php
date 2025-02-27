@@ -111,23 +111,6 @@ class Themes extends Migration
                 'home_page' => '',
                 'created_by' => getGUID('c9539038-7831-4904-8f6c-a5fd7720c435')
             ],
-            // [
-            //     'theme_id' => getGUID(),
-            //     'name' => 'Impact Theme',
-            //     'path' => '/impact',
-            //     'primary_color' => '#008374',
-            //     'secondary_color' => '#01433c',
-            //     'other_color' => '#FFFFFF',
-            //     'image' => 'https://bootstrapmade.com/content/templatefiles/Impact/Impact-bootstrap-website-template.webp',
-            //     'theme_url' => 'https://bootstrapmade.com/demo/Impact/',
-            //     'footer_copyright' => '<p>© <span>Copyright</span> <strong class="px-1 sitename">Impact</strong> <span>All Rights Reserved</span></p> <div class="credits"> Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> </div>',
-            //     'selected' => false,
-            //     'category' => 'Business & Corporate',
-            //     'sub_category' => 'Blog & News',
-            //     'deletable' => 1,
-            //     'home_page' => '',
-            //     'created_by' => getGUID('c9539038-7831-4904-8f6c-a5fd7720c435')
-            // ]
         ];
 
         // Using Query Builder

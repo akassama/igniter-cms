@@ -215,13 +215,13 @@ class Products extends Migration
                 'purchase_options' => json_encode([
                     [
                         'platform' => 'Amazon',
-                        'url' => 'https://amazon.com/product/hat',
+                        'url' => 'https://amazon.com/product/?hat',
                         'price' => '19.99',
                         'availability' => 'In Stock',
                     ],
                     [
                         'platform' => 'Official Store',
-                        'url' => 'https://sunshine.com/product/hat',
+                        'url' => 'https://sunshine.com/product/?hat',
                         'price' => '14.99',
                         'availability' => 'In Stock',
                     ],
@@ -277,7 +277,7 @@ class Products extends Migration
                 'purchase_options' => json_encode([
                     [
                         'platform' => 'Amazon',
-                        'url' => 'https://amazon.com/product/speaker',
+                        'url' => 'https://amazon.com/product/?speaker',
                         'price' => '59.99',
                         'availability' => 'In Stock',
                     ],
@@ -331,13 +331,13 @@ class Products extends Migration
                 'purchase_options' => json_encode([
                     [
                         'platform' => 'Amazon',
-                        'url' => 'https://amazon.com/mens-shirt',
+                        'url' => 'https://amazon.com/?mens-shirt',
                         'price' => '39.99',
                         'availability' => 'In Stock',
                     ],
                     [
                         'platform' => 'Etsy',
-                        'url' => 'https://etsy.com/mens-shirt',
+                        'url' => 'https://etsy.com/?mens-shirt',
                         'price' => '44.99',
                         'availability' => '2-3 days',
                     ],
@@ -392,7 +392,7 @@ class Products extends Migration
                 'purchase_options' => json_encode([
                     [
                         'platform' => 'Best Buy',
-                        'url' => 'https://bestbuy.com/earbuds',
+                        'url' => 'https://bestbuy.com/?earbuds',
                         'price' => '79.99',
                         'availability' => 'In Stock',
                     ],
