@@ -5084,6 +5084,92 @@ if (!function_exists('updateTotalViewCount')) {
     }
 }
 
+/**
+ * Minify CSS file and return the minified version's URL.
+ *
+ * @param string $css_path Path to the CSS file.
+ * @return string URL to the minified CSS file.
+ */
+if (!function_exists('minifyCSS')) {
+    function minifyCSS($css_path)
+    {
+        // Ensure the file exists
+        if (!file_exists($css_path)) {
+            return $css_path; // Return the original path if the file doesn't exist
+        }
+
+        // Generate a unique cache key for the file
+        $cache_key = md5($css_path . filemtime($css_path));
+
+        // Define the cache directory and minified file path
+        $cache_dir = WRITEPATH . 'cache/assets/css/';
+        $minified_file = $cache_dir . $cache_key . '.min.css';
+
+        // Check if the minified file already exists
+        if (!file_exists($minified_file)) {
+            // Create the cache directory if it doesn't exist
+            if (!is_dir($cache_dir)) {
+                mkdir($cache_dir, 0755, true);
+            }
+
+            // Minify the CSS
+            $css_content = file_get_contents($css_path);
+            $minified_css = preg_replace('/\s+/', ' ', $css_content); // Basic minification
+            $minified_css = preg_replace('/\/\*.*?\*\//', '', $minified_css); // Remove comments
+
+            // Save the minified CSS to the cache file
+            file_put_contents($minified_file, $minified_css);
+        }
+
+        // Return the URL to the minified file
+        return base_url('writable/cache/assets/css/' . $cache_key . '.min.css');
+    }
+}
+
+
+/**
+ * Minify JavaScript file and return the minified version's URL.
+ *
+ * @param string $js_path Path to the JavaScript file.
+ * @return string URL to the minified JavaScript file.
+ */
+if (!function_exists('minifyJS')) {
+    function minifyJS($js_path)
+    {
+        // Ensure the file exists
+        if (!file_exists($js_path)) {
+            return $js_path; // Return the original path if the file doesn't exist
+        }
+
+        // Generate a unique cache key for the file
+        $cache_key = md5($js_path . filemtime($js_path));
+
+        // Define the cache directory and minified file path
+        $cache_dir = WRITEPATH . 'cache/assets/js/';
+        $minified_file = $cache_dir . $cache_key . '.min.js';
+
+        // Check if the minified file already exists
+        if (!file_exists($minified_file)) {
+            // Create the cache directory if it doesn't exist
+            if (!is_dir($cache_dir)) {
+                mkdir($cache_dir, 0755, true);
+            }
+
+            // Minify the JavaScript
+            $js_content = file_get_contents($js_path);
+            $minified_js = preg_replace('/\s+/', ' ', $js_content); // Basic minification
+            $minified_js = preg_replace('/\/\/.*?\n/', '', $minified_js); // Remove single-line comments
+            $minified_js = preg_replace('/\/\*.*?\*\//', '', $minified_js); // Remove multi-line comments
+
+            // Save the minified JavaScript to the cache file
+            file_put_contents($minified_file, $minified_js);
+        }
+
+        // Return the URL to the minified file
+        return base_url('writable/cache/assets/js/' . $cache_key . '.min.js');
+    }
+}
+
 
 /**
  * Check if the given text is a valid email address.

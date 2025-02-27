@@ -124,7 +124,7 @@ if (strtolower($maintenanceMode) === "yes") {
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="<?= base_url('public/front-end/themes/'.$theme.'/assets/css/styles.css')?>" rel="stylesheet">
+        <link href="<?= minifyCSS('public/front-end/themes/' . $theme . '/assets/css/styles.css') ?>" rel="stylesheet">
     </theme-data>
 
     <custom-head-data>
@@ -331,10 +331,10 @@ if (strtolower($maintenanceMode) === "yes") {
     </footer>
 
     <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core theme JS-->
-    <script src="<?= base_url('public/front-end/themes/'.$theme.'/assets/js/scripts.js')?>"></script>
+    <script src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/js/scripts.js') ?>"></script>
 
     <custom-footer-data>
         <?php if(!empty($customJSFooter)): ?>
@@ -348,7 +348,7 @@ if (strtolower($maintenanceMode) === "yes") {
     </config-footer-data>
 
   <!-- SweetAlert JS -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Include sweet_alerts-->
   <?= $this->include('front-end/layout/assets/sweet_alerts.php'); ?>
 </body>
