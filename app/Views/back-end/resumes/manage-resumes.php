@@ -55,7 +55,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <tr>
                                     <td><?= $rowCount; ?></td>
                                     <td>
-                                        <img src="<?= base_url($resume['image']); ?>" class="rounded" alt="<?= $resume['image']; ?>" width="50" height="50">
+                                        <img loading="lazy" src="<?= base_url($resume['image']); ?>" class="rounded" alt="<?= $resume['image']; ?>" width="50" height="50">
                                     </td>
                                     <td><?= $resume['full_name']; ?></td>
                                     <td><?= $resume['email']; ?></td>

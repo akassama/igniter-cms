@@ -56,7 +56,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <tr>
                                     <td><?= $rowCount; ?></td>
                                     <td>
-                                        <img src="<?=getImageUrl($blog['featured_image'] ?? getDefaultImagePath())?>" class="img-thumbnail" alt="<?= $blog['title']; ?>" width="100" height="100">
+                                        <img loading="lazy" src="<?=getImageUrl($blog['featured_image'] ?? getDefaultImagePath())?>" class="img-thumbnail" alt="<?= $blog['title']; ?>" width="100" height="100">
                                     </td>
                                     <td><?= $blog['title']; ?></td>
                                     <td><?= !empty($blog['category']) ? getBlogCategoryName($blog['category']) : "" ?></td>

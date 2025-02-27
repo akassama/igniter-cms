@@ -36,7 +36,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="row">
                     <div class="col-12" id="display-preview-image">
                         <div class="float-end">         
-                        <img src="<?= base_url(getDefaultImagePath())?>" class="img-thumbnail" alt="Featured image" width="150" height="150"> 
+                        <img loading="lazy" src="<?= base_url(getDefaultImagePath())?>" class="img-thumbnail" alt="Featured image" width="150" height="150"> 
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 mb-3">

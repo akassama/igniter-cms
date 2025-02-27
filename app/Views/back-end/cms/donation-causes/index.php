@@ -63,7 +63,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <tr>
                                     <td><?= $rowCount; ?></td>
                                     <td>
-                                        <img src="<?=getImageUrl($donation['image'] ?? getDefaultImagePath())?>" class="img-thumbnail" alt="<?= $donation['title']; ?>" width="100" height="100">
+                                        <img loading="lazy" src="<?=getImageUrl($donation['image'] ?? getDefaultImagePath())?>" class="img-thumbnail" alt="<?= $donation['title']; ?>" width="100" height="100">
                                     </td>
                                     <td><?= $donation['title']; ?></td>
                                     <td><?= $donation['status'] == "1" ? "<span class='badge bg-success'>Published</span>" : "<span class='badge bg-secondary'>Unpublished</span>" ?></td>

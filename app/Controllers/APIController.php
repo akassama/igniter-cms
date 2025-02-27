@@ -234,7 +234,7 @@ class APIController extends BaseController
         $blogsModel = new BlogsModel();
         // Order by created_at in descending order
         $blogsModel->orderBy('created_at', 'DESC');
-        $blogs = $blogsModel->findAll();
+        $blogs = $blogsModel->limit(intval(getConfigData("queryLimitDefault")))->findAll();
 
         // Return the list of blogs
         return $this->response->setStatusCode(200)->setJSON([
@@ -248,7 +248,7 @@ class APIController extends BaseController
     {
         // Fetch all page data
         $homePageModel = new HomePageModel();
-        $pages = $homePageModel->where('status', '1')->orderBy('order', 'ASC')->findAll();
+        $pages = $homePageModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
 
         // Return the list of pages
         return $this->response->setStatusCode(200)->setJSON([
@@ -270,7 +270,7 @@ class APIController extends BaseController
 
         // Fetch all page data
         $homePageModel = new HomePageModel();
-        $pages = $homePageModel->where('status', '1')->orderBy('order', 'ASC')->findAll();
+        $pages = $homePageModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
 
         // Return the list of pages
         return $this->response->setStatusCode(200)->setJSON([
@@ -369,7 +369,7 @@ class APIController extends BaseController
         $pagesModel = new PagesModel();
         // Order by created_at in descending order
         $pagesModel->orderBy('created_at', 'DESC');
-        $pages = $pagesModel->where('status', '1')->findAll();
+        $pages = $pagesModel->where('status', '1')->limit(intval(getConfigData("queryLimitVeryHigh")))->findAll();
 
         // Return the list of pages
         return $this->response->setStatusCode(200)->setJSON([
@@ -2098,7 +2098,7 @@ class APIController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(20)
+            ->limit(intval(getConfigData("queryLimitDefault")))
             ->findAll();
 
         $pages = $pagesModel
@@ -2111,7 +2111,7 @@ class APIController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(20)
+            ->limit(intval(getConfigData("queryLimitDefault")))
             ->findAll();
 
         $portfolios = $portfoliosModel
@@ -2127,7 +2127,7 @@ class APIController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(20)
+            ->limit(intval(getConfigData("queryLimitDefault")))
             ->findAll();
 
         $events = $eventsModel
@@ -2142,7 +2142,7 @@ class APIController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(20)
+            ->limit(intval(getConfigData("queryLimitDefault")))
             ->findAll();
 
         // Transform and combine results
@@ -2284,7 +2284,7 @@ class APIController extends BaseController
         $results = $model
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(20)
+            ->limit(intval(getConfigData("queryLimitDefault")))
             ->findAll();
 
         // Return the search results
@@ -2336,7 +2336,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(100)
+                ->limit(intval(getConfigData("queryLimitVeryHigh")))
                 ->findAll();
         } 
         elseif (strcasecmp($type, 'tag') === 0) {
@@ -2346,7 +2346,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(100)
+                ->limit(intval(getConfigData("queryLimitVeryHigh")))
                 ->findAll();
         } 
         elseif (strcasecmp($type, 'author') === 0) {
@@ -2367,7 +2367,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(100)
+                ->limit(intval(getConfigData("queryLimitVeryHigh")))
                 ->findAll();
 
             // Pages search
@@ -2377,7 +2377,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(20)
+                ->limit(intval(getConfigData("queryLimitDefault")))
                 ->findAll();
     
             // Events search
@@ -2387,7 +2387,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(20)
+                ->limit(intval(getConfigData("queryLimitDefault")))
                 ->findAll();
             
             // Portfolios search
@@ -2397,7 +2397,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(20)
+                ->limit(intval(getConfigData("queryLimitDefault")))
                 ->findAll();
             
             // Shop search
@@ -2407,7 +2407,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(20)
+                ->limit(intval(getConfigData("queryLimitDefault")))
                 ->findAll();
         } 
         else {

@@ -23,7 +23,7 @@ class FileManagerController extends BaseController
         $fileUploadsModel = new FileUploadModel();
 
         // Get file uploads for the logged-in user
-        $fileUploads = $fileUploadsModel->where('user_id', $loggedInUserId)->orderBy('created_at', 'DESC')->findAll();
+        $fileUploads = $fileUploadsModel->where('user_id', $loggedInUserId)->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitUltraMax")))->findAll();
         $userRole = getUserRole(getLoggedInUserId());
         //check if admin to view all images
         if ($userRole == "Admin"){

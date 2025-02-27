@@ -55,7 +55,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <tr>
                                     <td><?= $rowCount; ?></td>
                                     <td>
-                                        <img src="<?= base_url($team['image']); ?>" class="rounded" alt="<?= $team['image']; ?>" width="50" height="50">
+                                        <img loading="lazy" src="<?= base_url($team['image']); ?>" class="rounded" alt="<?= $team['image']; ?>" width="50" height="50">
                                     </td>
                                     <td><?= $team['name']; ?></td>
                                     <td><?= $team['title']; ?></td>

@@ -60,7 +60,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= $experience['group']; ?></td>
                                     <td><?= $experience['start_date']; ?></td>
                                     <td>
-                                        <img src="<?= base_url($experience['company_logo']); ?>" class="rounded" alt="<?= $experience['company_logo']; ?>" width="50" height="50">
+                                        <img loading="lazy" src="<?= base_url($experience['company_logo']); ?>" class="rounded" alt="<?= $experience['company_logo']; ?>" width="50" height="50">
                                     </td>
                                     <td><?= $experience['status'] == "1" ? "<span class='badge bg-success'>Published</span>" : "<span class='badge bg-secondary'>Unpublished</span>" ?></td>
                                     <td>

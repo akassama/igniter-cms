@@ -57,7 +57,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <tr>
                                     <td><?= $rowCount; ?></td>
                                     <td>
-                                        <img src="<?=getImageUrl($event['image'] ?? getDefaultImagePath())?>" class="img-thumbnail" alt="<?= $event['title']; ?>" width="100" height="100">
+                                        <img loading="lazy" src="<?=getImageUrl($event['image'] ?? getDefaultImagePath())?>" class="img-thumbnail" alt="<?= $event['title']; ?>" width="100" height="100">
                                     </td>
                                     <td><?= $event['title']; ?></td>
                                     <td><?= $event['location']; ?></td>

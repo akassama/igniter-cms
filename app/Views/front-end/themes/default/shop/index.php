@@ -18,7 +18,7 @@ $theme = getCurrentTheme();
                             <div class="col-lg-4 mb-3">
                                 <div class="card h-100 shadow-sm">
                                     <a href="<?= base_url('shop/'.$product['slug']) ?>">
-                                        <img src="<?=getImageUrl($product['featured_image'] ?? getDefaultImagePath())?>" alt="<?= $product['title']; ?>" class="card-img-top">
+                                        <img loading="lazy" src="<?=getImageUrl($product['featured_image'] ?? getDefaultImagePath())?>" alt="<?= $product['title']; ?>" class="card-img-top">
                                     </a>
                                     <div class="card-body">
                                         <h5 class="card-title"><?= $product['title']; ?></h5>

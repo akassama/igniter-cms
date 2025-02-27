@@ -57,7 +57,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= $rowCount; ?></td>
                                     <td><?= $partner['title']; ?></td>
                                     <td>
-                                        <img src="<?= base_url($partner['logo'] ?? getDefaultImagePath()); ?>" class="rounded img-thumbnail" alt="<?= $partner['logo']; ?>" width="75">
+                                        <img loading="lazy" src="<?= base_url($partner['logo'] ?? getDefaultImagePath()); ?>" class="rounded img-thumbnail" alt="<?= $partner['logo']; ?>" width="75">
                                     </td>
                                     <td>
                                         <?= getInputLinkTag($partner['partner_id'], $partner['link']); ?>

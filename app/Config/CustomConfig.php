@@ -11,6 +11,22 @@ class CustomConfig extends BaseConfig
     #--------------------------------------------------------------------
     public $useCaptcha = "No";
     public $appApiKey = "default";
+    //query limits
+    public $queryLimitVeryLow = 3;
+    public $queryLimitLow = 6;
+    public $queryLimitMedium = 12;
+    public $queryLimitDefault = 25;
+    public $queryLimitHigh = 50;
+    public $queryLimitVeryHigh = 100;
+    public $queryLimitMax = 1000;
+    public $queryLimitUltraMax = 10000;
+    //paginations
+    public $paginateVeryLow = 10;
+    public $paginateLow = 20;
+    public $paginateDefault = 50;
+    public $paginateHigh = 100;
+    public $paginateVeryHigh = 500;
+    public $paginateMax = 1000;
 
     #--------------------------------------------------------------------
     # MESSAGES

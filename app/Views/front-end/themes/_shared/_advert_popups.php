@@ -196,7 +196,7 @@ function advertType4(popupData) {
         html: `
         <div style="display: flex; min-height: ${popupData.height}px;">
             <div style="flex: 1;">
-                <img src="${popupData.image}" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="${popupData.image}" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div style="flex: 1; padding: 2rem; text-align: left;">
                 <h2 style="color: ${popupData.text_color}">${popupData.title}</h2>
@@ -224,7 +224,7 @@ function advertType5(popupData) {
         html: `
         <div style="display: flex; min-height: ${popupData.height}px;">
             <div style="flex: 1;">
-                <img src="${popupData.image}" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="${popupData.image}" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div style="flex: 1; padding: 2rem; text-align: left;">
                 <h2 style="color: ${popupData.text_color}; font-size: 2em; margin-bottom: 1rem;">${popupData.title}</h2>
@@ -296,7 +296,7 @@ function advertType6(popupData) {
         html: `
         <div style="display: flex; min-height: ${popupData.height}px;">
             <div style="flex: 1;">
-                <img src="${popupData.image}" style="width: 100%; height: 100%; object-fit: cover;">
+                <img loading="lazy" src="${popupData.image}" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div style="flex: 1; padding: 2rem; text-align: left;">
                 <h2 style="color: ${popupData.text_color}">${popupData.title}</h2>

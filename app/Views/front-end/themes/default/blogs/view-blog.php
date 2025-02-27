@@ -18,7 +18,7 @@ updateTotalViewCount("blogs", "blog_id", $blog_data['blog_id']);
             <div class="col-lg-3">
                 <div class="d-flex align-items-center mt-lg-5 mb-4">
                     <a href="<?= base_url('/search/filter/?type=author&key='.getUserData($blog_data['created_by'], "username"))?>">
-                        <img src="<?=getImageUrl(getUserData($blog_data['created_by'], "profile_picture") ?? getDefaultProfileImagePath())?>" class="rounded-circle" alt="<?= $blog_data['title'] ?>" width="50" height="50"> 
+                        <img loading="lazy" src="<?=getImageUrl(getUserData($blog_data['created_by'], "profile_picture") ?? getDefaultProfileImagePath())?>" class="rounded-circle" alt="<?= $blog_data['title'] ?>" width="50" height="50"> 
                     </a>
                     <div class="ms-3">
                         <div class="fw-bold">

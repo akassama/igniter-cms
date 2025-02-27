@@ -125,7 +125,7 @@
             <?php if (!empty($captcha_image)) { ?>
                 <div class="mb-3">
                     <label for="captcha" class="form-label">Captcha</label>
-                    <img src="<?= $captcha_image ?>" alt="CAPTCHA" class="mb-2">
+                    <img loading="lazy" src="<?= $captcha_image ?>" alt="CAPTCHA" class="mb-2">
                     <input type="text" class="form-control" id="captcha" name="captcha" required>
                     <input type="hidden" name="captcha_session" value="<?= session('captcha') ?>">
                     <?php if ($validation->getError('captcha')) { ?>

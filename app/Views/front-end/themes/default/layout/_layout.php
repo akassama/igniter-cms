@@ -38,11 +38,11 @@ $otherThemeColor = getThemeData($theme, "other_color");
 
 //Get navigation and social model lists
 $navigationsModel = new \App\Models\NavigationsModel();
-$topNavLists = $navigationsModel->where('group', 'top_nav')->orderBy('order', 'ASC')->findAll();
-$footerNavLists = $navigationsModel->where('group', 'footer_nav')->orderBy('order', 'ASC')->findAll();
-$servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('order', 'ASC')->findAll();
+$topNavLists = $navigationsModel->where('group', 'top_nav')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
+$footerNavLists = $navigationsModel->where('group', 'footer_nav')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
+$servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
 $socialsModel = new \App\Models\SocialsModel();
-$socialsLists = $socialsModel->orderBy('order', 'ASC')->findAll();
+$socialsLists = $socialsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitMedium")))->findAll();
 
 //Maintenance mode data
 if (strtolower($maintenanceMode) === "yes") {
@@ -234,6 +234,7 @@ if (strtolower($maintenanceMode) === "yes") {
                                 // Find child navigations
                                 $childNavigations = $navigationsModel->where('parent', $navigationId)
                                                                     ->orderBy('order', 'ASC')
+                                                                    ->limit(intval(getConfigData("queryLimitDefault")))
                                                                     ->findAll();
                             ?>
                             

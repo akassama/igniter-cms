@@ -78,7 +78,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= $rowCount; ?></td>
                                     <td>
                                         <a href="<?= $theme['theme_url']; ?>" target="_blank">
-                                            <img src="<?= getImageUrl($theme['image'] ?? getDefaultImagePath()); ?>" class="rounded border border-light" alt="<?= $theme['name']; ?>" width="100" height="100">
+                                            <img loading="lazy" src="<?= getImageUrl($theme['image'] ?? getDefaultImagePath()); ?>" class="rounded border border-light" alt="<?= $theme['name']; ?>" width="100" height="100">
                                         </a>
                                     </td>
                                     <td><?= $theme['name']; ?></td>

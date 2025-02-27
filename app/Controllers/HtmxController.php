@@ -311,9 +311,9 @@ class HtmxController extends BaseController
             $image = $this->request->getPost('institution_logo');
         }
 
-        $imageInput = '<div class="float-end"><img src="'.base_url(getDefaultImagePath()).'" class="img-thumbnail" alt="Preview Image" width="150" height="150"></div>';
+        $imageInput = '<div class="float-end"><img loading="lazy" src="'.base_url(getDefaultImagePath()).'" class="img-thumbnail" alt="Preview Image" width="150" height="150"></div>';
         if(!empty($image)){
-            $imageInput = '<div class="float-end"><img src="'.getImageUrl($image).'" class="img-thumbnail" alt="Preview Image" width="150" height="150"></div>';
+            $imageInput = '<div class="float-end"><img loading="lazy" src="'.getImageUrl($image).'" class="img-thumbnail" alt="Preview Image" width="150" height="150"></div>';
         }
         echo $imageInput;
 
@@ -325,9 +325,9 @@ class HtmxController extends BaseController
     {
         $title = $this->request->getPost('title');
         $image = $this->request->getPost('logo');
-        $imageInput = '<div class="float-end"><img src="'.base_url(getDefaultImagePath()).'" class="img-thumbnail" alt="Logo image" width="150" height="150"></div>';
+        $imageInput = '<div class="float-end"><img loading="lazy" src="'.base_url(getDefaultImagePath()).'" class="img-thumbnail" alt="Logo image" width="150" height="150"></div>';
         if(!empty($image)){
-            $imageInput = '<div class="float-end"><img src="'.getImageUrl($image).'" class="img-thumbnail" alt="'.$title.'" width="150" height="150"></div>';
+            $imageInput = '<div class="float-end"><img loading="lazy" src="'.getImageUrl($image).'" class="img-thumbnail" alt="'.$title.'" width="150" height="150"></div>';
         }
         echo $imageInput;
 

@@ -46,22 +46,22 @@ updateTotalViewCount("portfolios", "portfolio_id", $portfolio_data['portfolio_id
             </div>
             <?php if(!empty($portfolio_data['details_image_1'])): ?>
               <div class="col-lg-6">
-                <img src="<?=getImageUrl(($portfolio_data['details_image_1']) ?? getDefaultImagePath())?>?>" alt="" class="img-fluid rounded-3 mb-5">
+                <img loading="lazy" src="<?=getImageUrl(($portfolio_data['details_image_1']) ?? getDefaultImagePath())?>?>" alt="" class="img-fluid rounded-3 mb-5">
               </div>
             <?php endif; ?>
             <?php if(!empty($portfolio_data['details_image_2'])): ?>
               <div class="col-lg-6">
-                <img src="<?=getImageUrl(($portfolio_data['details_image_2']) ?? getDefaultImagePath())?>?>" alt="" class="img-fluid rounded-3 mb-5">
+                <img loading="lazy" src="<?=getImageUrl(($portfolio_data['details_image_2']) ?? getDefaultImagePath())?>?>" alt="" class="img-fluid rounded-3 mb-5">
               </div>
             <?php endif; ?>
             <?php if(!empty($portfolio_data['details_image_3'])): ?>
               <div class="col-lg-6">
-                <img src="<?=getImageUrl(($portfolio_data['details_image_3']) ?? getDefaultImagePath())?>?>" alt="" class="img-fluid rounded-3 mb-5">
+                <img loading="lazy" src="<?=getImageUrl(($portfolio_data['details_image_3']) ?? getDefaultImagePath())?>?>" alt="" class="img-fluid rounded-3 mb-5">
               </div>
             <?php endif; ?>
             <?php if(!empty($portfolio_data['details_image_4'])): ?>
               <div class="col-lg-6">
-                <img src="<?=getImageUrl(($portfolio_data['details_image_4']) ?? getDefaultImagePath())?>?>" alt="" class="img-fluid rounded-3 mb-5">
+                <img loading="lazy" src="<?=getImageUrl(($portfolio_data['details_image_4']) ?? getDefaultImagePath())?>?>" alt="" class="img-fluid rounded-3 mb-5">
               </div>
             <?php endif; ?>
         </div>

@@ -376,7 +376,7 @@ $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
                             <?php if($partners): ?>
                                 <?php foreach($partners as $partner): ?>
                                     <div class="col-6 col-md-4 col-lg-2 text-center">
-                                        <img src="<?=getImageUrl($partner['logo'] ?? getDefaultImagePath())?>" alt="<?=$partner['title']?>" class="img-fluid grayscale opacity-75 hover-opacity-100">
+                                        <img loading="lazy" src="<?=getImageUrl($partner['logo'] ?? getDefaultImagePath())?>" alt="<?=$partner['title']?>" class="img-fluid grayscale opacity-75 hover-opacity-100">
                                     </div>
                                 <!-- End Partner Item -->
                                 <?php endforeach; ?>

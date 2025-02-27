@@ -67,21 +67,21 @@ class FrontEndController extends BaseController
 
 		// Set data to pass in view
 		$data = [
-			'home_pages' => $homePageModel->where('status', '1')->orderBy('order', 'ASC')->findAll(),
-            'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(12)->findAll(),
-            'categories' => $categoriesModel->orderBy('title', 'ASC')->findAll(),
-            'navigations' => $navigationsModel->orderBy('order', 'ASC')->findAll(),
-            'events' => $eventsModel->where('status', '1')->orderBy('created_at', 'DESC')->findAll(),
+			'home_pages' => $homePageModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+            'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+            'categories' => $categoriesModel->orderBy('title', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+            'navigations' => $navigationsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+            'events' => $eventsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
             'portfolios' => $portfoliosModel->where('status', '1')->orderBy('created_at', 'DESC')->findAll(),
-            'socials' => $socialsModel->orderBy('order', 'ASC')->findAll(),
-            'counters' => $countersModel->orderBy('created_at', 'DESC')->findAll(),
-            'partners' => $partnersModel->orderBy('created_at', 'DESC')->findAll(),
-            'services' => $servicesModel->orderBy('order', 'ASC')->findAll(),
-            'pricings' => $pricingsModel->orderBy('order', 'ASC')->findAll(),
-            'teams' => $teamsModel->orderBy('created_at', 'DESC')->findAll(),
-            'faqs' => $faqsModel->orderBy('created_at', 'DESC')->findAll(),
-            'testimonials' => $testimonialsModel->orderBy('created_at', 'DESC')->findAll(),
-            'donations' => $donationsModel->orderBy('created_at', 'DESC')->findAll(),
+            'socials' => $socialsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+            'counters' => $countersModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+            'partners' => $partnersModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+            'services' => $servicesModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+            'pricings' => $pricingsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+            'teams' => $teamsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+            'faqs' => $faqsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+            'testimonials' => $testimonialsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+            'donations' => $donationsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
 		];
 
         //load home view
@@ -122,7 +122,7 @@ class FrontEndController extends BaseController
 		$categoriesModel = new CategoriesModel();
         $data = [
             'blog_data' => $blogsModel->find($blogId),
-            'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(6)->findAll(),
+            'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitLow")))->findAll(),
             'categories' => $categoriesModel->orderBy('title', 'ASC')->findAll(),
         ];
         return view('front-end/themes/'.getCurrentTheme().'/blogs/view-blog', $data);
@@ -201,7 +201,7 @@ class FrontEndController extends BaseController
         $eventsModel = new EventsModel();
         $data = [
             'event_data' => $eventsModel->find($eventId),
-            'events' => $eventsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(6)->findAll()
+            'events' => $eventsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitLow")))->findAll()
         ];
         return view('front-end/themes/'.getCurrentTheme().'/events/view-event', $data);
     }
@@ -305,7 +305,7 @@ class FrontEndController extends BaseController
         $donationCausesModel = new DonationCausesModel();
         $data = [
             'donation_cause_data' => $donationCausesModel->find($donationCauseId),
-            'donation_causes' => $donationCausesModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(6)->findAll(),
+            'donation_causes' => $donationCausesModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitLow")))->findAll(),
         ];
         return view('front-end/themes/'.getCurrentTheme().'/donate/view-donation-campaign', $data);
     }
@@ -362,7 +362,7 @@ class FrontEndController extends BaseController
 		$categoriesModel = new ProductCategoriesModel();
         $data = [
             'product_data' => $productsModel->find($productId),
-            'products' => $productsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(6)->findAll(),
+            'products' => $productsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitLow")))->findAll(),
             'categories' => $categoriesModel->orderBy('title', 'ASC')->findAll(),
         ];
         return view('front-end/themes/'.getCurrentTheme().'/shop/view-product', $data);
@@ -412,7 +412,7 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(20)
+            ->limit(intval(getConfigData("queryLimitDefault")))
             ->findAll();
         
         // Pages search
@@ -426,7 +426,7 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(20)
+            ->limit(intval(getConfigData("queryLimitDefault")))
             ->findAll();
 
         // Events search
@@ -447,7 +447,7 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(20)
+            ->limit(intval(getConfigData("queryLimitDefault")))
             ->findAll();
         }
         
@@ -469,7 +469,7 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(20)
+            ->limit(intval(getConfigData("queryLimitDefault")))
             ->findAll();
         }
            
@@ -490,7 +490,7 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(20)
+            ->limit(intval(getConfigData("queryLimitDefault")))
             ->findAll();
         }  
         
@@ -513,7 +513,7 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(20)
+            ->limit(intval(getConfigData("queryLimitDefault")))
             ->findAll();
         }  
         
@@ -550,7 +550,7 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(100)
+            ->limit(intval(getConfigData("queryLimitVeryHigh")))
             ->findAll();
         }
 
@@ -562,7 +562,7 @@ class FrontEndController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(100)
+                ->limit(intval(getConfigData("queryLimitVeryHigh")))
                 ->findAll();
         }
 
@@ -576,7 +576,7 @@ class FrontEndController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(100)
+                ->limit(intval(getConfigData("queryLimitVeryHigh")))
                 ->findAll();
 
             // Pages search
@@ -586,7 +586,7 @@ class FrontEndController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(20)
+                ->limit(intval(getConfigData("queryLimitDefault")))
                 ->findAll();
     
             // Events search
@@ -601,7 +601,7 @@ class FrontEndController extends BaseController
                     ->groupEnd()
                     ->where('status', '1')
                     ->orderBy('created_at', 'DESC')
-                    ->limit(20)
+                    ->limit(intval(getConfigData("queryLimitDefault")))
                     ->findAll();
             }
             
@@ -617,7 +617,7 @@ class FrontEndController extends BaseController
                     ->groupEnd()
                     ->where('status', '1')
                     ->orderBy('created_at', 'DESC')
-                    ->limit(20)
+                    ->limit(intval(getConfigData("queryLimitDefault")))
                     ->findAll();
             }
             
@@ -633,7 +633,7 @@ class FrontEndController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(20)
+                ->limit(intval(getConfigData("queryLimitDefault")))
                 ->findAll();
             } 
 
@@ -649,7 +649,7 @@ class FrontEndController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(20)
+                ->limit(intval(getConfigData("queryLimitDefault")))
                 ->findAll();
             } 
             
@@ -679,7 +679,7 @@ class FrontEndController extends BaseController
             $sitemapData[$key] = $model->select('slug, updated_at, created_at')
                 ->where('status', '1') // Only active records
                 ->orderBy('created_at', 'DESC')
-                ->limit(50) // Limit to 50 entries per model
+                ->limit(intval(getConfigData("queryLimitHigh"))) 
                 ->findAll();
         }
 

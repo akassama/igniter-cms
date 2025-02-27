@@ -68,7 +68,7 @@ updateTotalViewCount("donation_causes", "donation_cause_id", $donation_cause_dat
                     <div class="col-12">
                         <div class="d-flex align-items-center mt-lg-5 mb-4">
                             <a href="<?= base_url('/search/filter/?type=author&key='.getUserData($donation_cause_data['created_by'], "username"))?>">
-                                <img src="<?=getImageUrl(getUserData($donation_cause_data['created_by'], "profile_picture") ?? getDefaultProfileImagePath())?>" class="rounded-circle" alt="<?= $donation_cause_data['title'] ?>" width="50" height="50"> 
+                                <img loading="lazy" src="<?=getImageUrl(getUserData($donation_cause_data['created_by'], "profile_picture") ?? getDefaultProfileImagePath())?>" class="rounded-circle" alt="<?= $donation_cause_data['title'] ?>" width="50" height="50"> 
                             </a>
                             <div class="ms-3">
                                 <div class="fw-bold">

@@ -64,7 +64,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="row">
                     <div class="col-12" id="display-preview-image">
                         <div class="float-end">         
-                            <img src="<?= getImageUrl(($portfolio_data['featured_image']) ?? getDefaultImagePath())?>" class="img-thumbnail" alt="Featured image" width="150" height="150"> 
+                            <img loading="lazy" src="<?= getImageUrl(($portfolio_data['featured_image']) ?? getDefaultImagePath())?>" class="img-thumbnail" alt="Featured image" width="150" height="150"> 
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 mb-3">
@@ -84,7 +84,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="details_image_1" name="details_image_1" placeholder="select picture" value="<?= $portfolio_data['details_image_1'] ?>" readonly>
                     <button class="btn btn-dark p-0" type="button">
-                        <img src="<?= getImageUrl(($portfolio_data['details_image_1']) ?? getDefaultImagePath())?>" class="img-fluid" alt="image" width="50"> 
+                        <img loading="lazy" src="<?= getImageUrl(($portfolio_data['details_image_1']) ?? getDefaultImagePath())?>" class="img-fluid" alt="image" width="50"> 
                     </button>
                 </div>
             </div>
@@ -94,7 +94,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="details_image_2" name="details_image_2" placeholder="select picture" value="<?= $portfolio_data['details_image_2'] ?>" readonly>
                     <button class="btn btn-dark p-0" type="button">
-                        <img src="<?= getImageUrl(($portfolio_data['details_image_2']) ?? getDefaultImagePath())?>" class="img-fluid" alt="image" width="50"> 
+                        <img loading="lazy" src="<?= getImageUrl(($portfolio_data['details_image_2']) ?? getDefaultImagePath())?>" class="img-fluid" alt="image" width="50"> 
                     </button>
                 </div>
             </div>
@@ -104,7 +104,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="details_image_3" name="details_image_3" placeholder="select picture" value="<?= $portfolio_data['details_image_3'] ?>" readonly>
                     <button class="btn btn-dark p-0" type="button">
-                        <img src="<?= getImageUrl(($portfolio_data['details_image_3']) ?? getDefaultImagePath())?>" class="img-fluid" alt="image" width="50"> 
+                        <img loading="lazy" src="<?= getImageUrl(($portfolio_data['details_image_3']) ?? getDefaultImagePath())?>" class="img-fluid" alt="image" width="50"> 
                     </button>
                 </div>
             </div>
@@ -114,7 +114,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="details_image_4" name="details_image_4" placeholder="select picture" value="<?= $portfolio_data['details_image_4'] ?>" readonly>
                     <button class="btn btn-dark p-0" type="button">
-                        <img src="<?= getImageUrl(($portfolio_data['details_image_4']) ?? getDefaultImagePath())?>" class="img-fluid" alt="image" width="50"> 
+                        <img loading="lazy" src="<?= getImageUrl(($portfolio_data['details_image_4']) ?? getDefaultImagePath())?>" class="img-fluid" alt="image" width="50"> 
                     </button>
                 </div>
             </div>

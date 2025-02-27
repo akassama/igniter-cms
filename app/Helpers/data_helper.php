@@ -1156,7 +1156,7 @@ if (!function_exists('getFileInputPreview')) {
             case 'webp':
             case 'bmp':
             case 'tiff':
-                return '<img src="'.getImageUrl($fileLink ?? getDefaultImagePath()).'" class="img-thumbnail" alt="Image file" width="'.$width.'">';
+                return '<img loading="lazy" src="'.getImageUrl($fileLink ?? getDefaultImagePath()).'" class="img-thumbnail" alt="Image file" width="'.$width.'">';
 
             case 'pdf':
                 return sprintf(
@@ -1298,13 +1298,15 @@ if (!function_exists('getImageFilesTableData')) {
         // Get image files for the user
         $imageFiles = $fileUploadsModel->where('user_id', $userId)
             ->whereIn('file_type', ['jpg', 'jpeg', 'png', 'gif']) // Adjust file types accordingly
+            ->limit(intval(getConfigData("queryLimitMax")))
             ->findAll();
 
         $userRole = getUserRole(getLoggedInUserId());
         //check if admin to view all images
         if ($userRole == "Admin"){
             $imageFiles = $fileUploadsModel
-            ->whereIn('file_type', ['jpg', 'jpeg', 'png', 'gif']) 
+            ->whereIn('file_type', ['jpg', 'jpeg', 'png', 'gif'])
+            ->limit(intval(getConfigData("queryLimitMax")))
             ->findAll();
         }
 
@@ -1317,7 +1319,7 @@ if (!function_exists('getImageFilesTableData')) {
                                 <td style='width: 5%;'>{$rowCount}</td>
                                 <td style='width: 50%;'>
                                     <div class='mb-1'>
-                                        <img src='" . getImageUrl($file['upload_path']) . "' class='img-thumbnail' alt='" . esc($file['file_name']) . "' style='height: 125px; width: 125px'> 
+                                        <img loading='lazy' src='" . getImageUrl($file['upload_path']) . "' class='img-thumbnail' alt='" . esc($file['file_name']) . "' style='height: 125px; width: 125px'> 
                                     </div>
                                     <div class='input-group col-12 mb-3'>
                                         <span class='input-group-text'>" . getFileInputIcon($file['file_type']) . "</span>
@@ -1364,6 +1366,7 @@ if (!function_exists('getDocumentFilesTableData')) {
         // Get document files for the user
         $imageFiles = $fileUploadsModel->where('user_id', $userId)
             ->whereIn('file_type', ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'rtf', 'odt', 'ods', 'odp']) // Adjust file types accordingly
+            ->limit(intval(getConfigData("queryLimitMax")))
             ->findAll();
 
         $userRole = getUserRole(getLoggedInUserId());
@@ -1371,6 +1374,7 @@ if (!function_exists('getDocumentFilesTableData')) {
         if ($userRole == "Admin"){
             $imageFiles = $fileUploadsModel
             ->whereIn('file_type', ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'rtf', 'odt', 'ods', 'odp']) // Adjust file types accordingly
+            ->limit(intval(getConfigData("queryLimitMax")))
             ->findAll();
         }
 
@@ -1427,6 +1431,7 @@ if (!function_exists('getVideoFilesTableData')) {
         // Get document files for the user
         $imageFiles = $fileUploadsModel->where('user_id', $userId)
             ->whereIn('file_type', ['mp4', 'mov', 'avi', 'mkv', 'webm', 'flv', 'wmv', 'mpeg', 'mpg']) // Adjust file types accordingly
+            ->limit(intval(getConfigData("queryLimitMax")))
             ->findAll();
 
         $userRole = getUserRole(getLoggedInUserId());
@@ -1434,6 +1439,7 @@ if (!function_exists('getVideoFilesTableData')) {
         if ($userRole == "Admin"){
             $imageFiles = $fileUploadsModel
             ->whereIn('file_type', ['mp4', 'mov', 'avi', 'mkv', 'webm', 'flv', 'wmv', 'mpeg', 'mpg']) // Adjust file types accordingly
+            ->limit(intval(getConfigData("queryLimitMax")))
             ->findAll();
         }
 
@@ -1490,6 +1496,7 @@ if (!function_exists('getAudioFilesTableData')) {
         // Get document files for the user
         $imageFiles = $fileUploadsModel->where('user_id', $userId)
             ->whereIn('file_type', ['mp3', 'wav', 'ogg', 'flac', 'aac']) // Adjust file types accordingly
+            ->limit(intval(getConfigData("queryLimitMax")))
             ->findAll();
 
         $userRole = getUserRole(getLoggedInUserId());
@@ -1497,6 +1504,7 @@ if (!function_exists('getAudioFilesTableData')) {
         if ($userRole == "Admin"){
             $imageFiles = $fileUploadsModel
             ->whereIn('file_type', ['mp3', 'wav', 'ogg', 'flac', 'aac']) // Adjust file types accordingly
+            ->limit(intval(getConfigData("queryLimitMax")))
             ->findAll();
         }            
 
@@ -1551,13 +1559,13 @@ if (!function_exists('getAllFilesTableData')) {
         $fileUploadsModel = new FileUploadModel();
 
         // Get document files for the user
-        $imageFiles = $fileUploadsModel->where('user_id', $userId)->findAll();
+        $imageFiles = $fileUploadsModel->where('user_id', $userId)->limit(intval(getConfigData("queryLimitMax")))->findAll();
 
         $userRole = getUserRole(getLoggedInUserId());
         //check if admin to view all images
         if ($userRole == "Admin"){
             // Get document files for the user
-            $imageFiles = $fileUploadsModel->findAll();
+            $imageFiles = $fileUploadsModel->limit(intval(getConfigData("queryLimitUltraMax")))->findAll();
         }   
 
         $output = '';
@@ -1613,6 +1621,7 @@ if (!function_exists('getArchivesFilesTableData')) {
         // Get document files for the user
         $imageFiles = $fileUploadsModel->where('user_id', $userId)
             ->whereIn('file_type', ['zip', 'rar', 'tar', 'gz', '7z']) // Adjust file types accordingly
+            ->limit(intval(getConfigData("queryLimitMax")))
             ->findAll();
 
         $userRole = getUserRole(getLoggedInUserId());
@@ -1621,6 +1630,7 @@ if (!function_exists('getArchivesFilesTableData')) {
             // Get document files for the user
             $imageFiles = $fileUploadsModel
             ->whereIn('file_type', ['zip', 'rar', 'tar', 'gz', '7z']) // Adjust file types accordingly
+            ->limit(intval(getConfigData("queryLimitUltraMax")))
             ->findAll();
         }  
 
@@ -2778,7 +2788,7 @@ if(!function_exists('getRecentPosts'))
             // Display individual post data
             echo "<tr>
                     <td>".$rowCount."</td>
-                    <td><img src='".getImageUrl($featuredImage ?? getDefaultImagePath())."' class='img-thumbnail' alt='".$title."' width='100' height='100'></td>
+                    <td><img loading='lazy' src='".getImageUrl($featuredImage ?? getDefaultImagePath())."' class='img-thumbnail' alt='".$title."' width='100' height='100'></td>
                     <td>".$title."</td>
                     <td>".getBlogCategoryName($category)."</td>
                     <td><span class='badge bg-".$statusClass." p-2'>".$statusLabel."</span></td>

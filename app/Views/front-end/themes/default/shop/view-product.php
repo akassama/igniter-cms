@@ -91,14 +91,14 @@ updateTotalViewCount("products", "product_id", $product_data['product_id']);
         <div class="row">
             <!-- Product Images -->
             <div class="col-md-6 mb-4">
-                <img src="<?= getImageUrl(($product_data['featured_image']) ?? getDefaultImagePath()) ?>" alt="Product" class="img-fluid rounded product-image" id="mainImage">
+                <img loading="lazy" src="<?= getImageUrl(($product_data['featured_image']) ?? getDefaultImagePath()) ?>" alt="Product" class="img-fluid rounded product-image" id="mainImage">
                 <div class="d-flex mt-3">
                     <?php if (!empty($product_data['featured_image'])): ?>
-                        <img src="<?= getImageUrl(($product_data['featured_image']) ?? getDefaultImagePath()) ?>" alt="" class="thumbnail rounded active" onclick="changeImage(event, this.src)">
+                        <img loading="lazy" src="<?= getImageUrl(($product_data['featured_image']) ?? getDefaultImagePath()) ?>" alt="" class="thumbnail rounded active" onclick="changeImage(event, this.src)">
                     <?php endif; ?>
                     <?php for ($i = 1; $i <= 4; $i++): ?>
                         <?php if (!empty($product_data["product_image_$i"])): ?>
-                            <img src="<?= getImageUrl(($product_data["product_image_$i"]) ?? getDefaultImagePath()) ?>" alt="" class="thumbnail rounded" onclick="changeImage(event, this.src)">
+                            <img loading="lazy" src="<?= getImageUrl(($product_data["product_image_$i"]) ?? getDefaultImagePath()) ?>" alt="" class="thumbnail rounded" onclick="changeImage(event, this.src)">
                         <?php endif; ?>
                     <?php endfor; ?>
                 </div>

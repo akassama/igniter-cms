@@ -56,7 +56,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <tr>
                                     <td><?= $rowCount; ?></td>
                                     <td>
-                                        <img src="<?=getImageUrl($popup['image'] ?? getDefaultImagePath())?>" class="img-thumbnail" alt="<?= $popup['title']; ?>" width="100" height="100">
+                                        <img loading="lazy" src="<?=getImageUrl($popup['image'] ?? getDefaultImagePath())?>" class="img-thumbnail" alt="<?= $popup['title']; ?>" width="100" height="100">
                                     </td>
                                     <td>
                                         <?= $popup['type']; ?>.  (<?= $popup['name']; ?>)
@@ -68,7 +68,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             <div class="modal-dialog modal-dialog-centered <?=$modalSize?>"> 
                                                 <div class="modal-content">
                                                     <div class="modal-body p-0">
-                                                        <img src="<?= $imagePath; ?>" class="img-fluid" alt="Image Preview"> 
+                                                        <img loading="lazy" src="<?= $imagePath; ?>" class="img-fluid" alt="Image Preview"> 
                                                     </div>
                                                 </div>
                                             </div>

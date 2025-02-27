@@ -60,7 +60,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= $service['title']; ?></td>
                                     <td><?= $service['description']; ?></td>
                                     <td>
-                                        <img src="<?= base_url($service['image'] ?? getDefaultImagePath()); ?>" class="rounded" alt="<?= $service['image']; ?>" width="50" height="50">
+                                        <img loading="lazy" src="<?= base_url($service['image'] ?? getDefaultImagePath()); ?>" class="rounded" alt="<?= $service['image']; ?>" width="50" height="50">
                                     </td>
                                     <td><?= $service['icon']; ?></td>
                                     <td><?= $service['order']; ?></td>

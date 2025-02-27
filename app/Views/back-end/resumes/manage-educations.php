@@ -56,7 +56,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <tr>
                                     <td><?= $rowCount; ?></td>
                                     <td>
-                                        <img src="<?= base_url($education['institution_logo']); ?>" class="rounded" alt="<?= $education['institution_logo']; ?>" width="50" height="50">
+                                        <img loading="lazy" src="<?= base_url($education['institution_logo']); ?>" class="rounded" alt="<?= $education['institution_logo']; ?>" width="50" height="50">
                                     </td>
                                     <td><?= $education['institution']; ?></td>
                                     <td><?= $education['degree']; ?></td>
