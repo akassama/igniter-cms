@@ -85,6 +85,11 @@ class Educations extends Migration
             ]
         ]);
         $this->forge->addKey('education_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('institution');
+        $this->forge->addKey('degree');
+
         $this->forge->createTable('educations');
 
         //Insert default record

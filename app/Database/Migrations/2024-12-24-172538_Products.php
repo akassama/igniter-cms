@@ -166,6 +166,11 @@ class Products extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('product_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('slug');
+        $this->forge->addKey('category');
+
         $this->forge->createTable('products');
 
         //insert default records

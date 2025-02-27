@@ -59,6 +59,11 @@ class Navigations extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('navigation_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('title');
+        $this->forge->addKey('description');
+
         $this->forge->createTable('navigations');
 
         //Insert default record

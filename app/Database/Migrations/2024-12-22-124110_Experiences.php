@@ -90,6 +90,11 @@ class Experiences extends Migration
             ]
         ]);
         $this->forge->addKey('experience_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('company_name');
+        $this->forge->addKey('position');
+
         $this->forge->createTable('experiences');
 
         //Insert default record

@@ -536,7 +536,7 @@ if (!function_exists('checkRecordExists')) {
     }
 }
 
-
+//TODO : Implement transStart for all
 /**
  * Delete a record if it exists.
  *
@@ -550,11 +550,15 @@ if(!function_exists('deleteRecord')) {
     {
         $db = \Config\Database::connect();
 
+        $db->transStart();
+
         $builder = $db->table($tableName);
         $builder->where($primaryKey, $primaryKeyValue);
         $result = $builder->delete();
 
-        return $result && $db->affectedRows() > 0;
+        $db->transComplete();
+
+        return $db->transStatus() && $db->affectedRows() > 0;
     }
 }
 

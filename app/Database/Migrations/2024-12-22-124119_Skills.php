@@ -74,6 +74,11 @@ class Skills extends Migration
             ]
         ]);
         $this->forge->addKey('skill_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('name');
+        $this->forge->addKey('description');
+
         $this->forge->createTable('skills');
 
         //Insert default record

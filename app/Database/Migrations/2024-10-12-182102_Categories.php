@@ -64,6 +64,14 @@ class Categories extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('category_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('title');
+        $this->forge->addKey('group');
+        $this->forge->addKey('parent');
+        $this->forge->addKey('status');
+        $this->forge->addKey('created_by');
+
         $this->forge->createTable('categories');
 
         //Insert default record

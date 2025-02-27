@@ -63,6 +63,12 @@ class Testimonials extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('testimonial_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('name');
+        $this->forge->addKey('title');
+        $this->forge->addKey('testimonial');
+
         $this->forge->createTable('testimonials');
 
                 //insert default records

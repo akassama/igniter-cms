@@ -40,6 +40,9 @@ class Filters extends BaseFilters
         'managerRoleFilter' => \App\Filters\ManagerFilter::class,
         'userRoleFilter' => \App\Filters\UserFilter::class,
         'siteStatsFilter' => \App\Filters\SiteStatsFilter::class,
+        'cacheFilter' => \App\Filters\CacheFilter::class,
+        'compressionFilter' => \App\Filters\CompressionFilter::class,
+        'cacheHeadersFilter' => \App\Filters\CacheHeadersFilter::class,
     ];
 
     /**
@@ -82,6 +85,9 @@ class Filters extends BaseFilters
         'after' => [
             // 'honeypot',
             // 'secureheaders',
+            // Custom Optimization
+            'cacheFilter' => ['except' => ['account/*', 'user/*', 'admin/*', 'dashboard/*']], // Don't cache admin pages
+            'compressionFilter',
         ],
     ];
 
@@ -109,5 +115,17 @@ class Filters extends BaseFilters
      *
      * @var array<string, array<string, list<string>>>
      */
-    public array $filters = [];
+    public array $filters = [
+        // Custom Optimization
+        'cacheHeadersFilter' => [
+            'before' => [],
+            'after' => [
+                'assets/*', // Cache assets for 1 year
+                'pages/*:3600', // Cache pages for 1 hour
+                'page/*:3600', // Cache pages for 1 hour
+                'blogs/*:1800', // Cache blog for 30 minutes
+                'blog/*:1800' // Cache blog for 30 minutes
+            ]
+        ]
+    ];
 }

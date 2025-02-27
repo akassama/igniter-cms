@@ -64,6 +64,11 @@ class ProductCategories extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('category_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('title');
+        $this->forge->addKey('description');
+
         $this->forge->createTable('product_categories');
         
         //Insert default record

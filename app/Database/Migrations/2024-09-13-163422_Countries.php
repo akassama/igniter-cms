@@ -46,6 +46,13 @@ class Countries extends Migration
             ]
         ]);
         $this->forge->addKey('id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('iso');
+        $this->forge->addKey('name');
+        $this->forge->addKey('nicename');
+        $this->forge->addKey('iso3');
+
         $this->forge->createTable('countries');
 
         //run query

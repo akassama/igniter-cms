@@ -102,6 +102,12 @@ class HomePage extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('home_page_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('section');
+        $this->forge->addKey('section_title');
+        $this->forge->addKey('section_description');
+
         $this->forge->createTable('home_page');
 
         //Insert default record

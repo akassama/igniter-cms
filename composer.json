@@ -30,6 +30,13 @@
             "App\\": "app/",
             "Config\\": "app/Config/"
         },
+        "files": [
+            "app/Helpers/data_helper.php"
+        ],
+        "classmap": [
+            "app/Models",
+            "app/Controllers/Core"
+        ],
         "exclude-from-classmap": [
             "**/Database/Migrations/**"
         ]

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
@@ -55,7 +54,7 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = service('session');
 
-        // Optimization - Enable gzip compression if available
+        // // Custom Optimization - Enable gzip compression if available
         if (extension_loaded('zlib') && !ini_get('zlib.output_compression')) {
             ob_start('ob_gzhandler');
         }

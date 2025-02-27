@@ -95,6 +95,10 @@ class DonationCauses extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('donation_cause_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('slug');
+
         $this->forge->createTable('donation_causes');
 
         //insert default records

@@ -187,6 +187,12 @@ class AnnouncementPopups extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('popup_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('name');
+        $this->forge->addKey('title');
+        $this->forge->addKey('text');
+
         $this->forge->createTable('announcement_popups');
 
         //insert default records

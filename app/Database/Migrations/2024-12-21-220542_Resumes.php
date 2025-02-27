@@ -111,6 +111,12 @@ class Resumes extends Migration
             ]
         ]);
         $this->forge->addKey('resume_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('full_name');
+        $this->forge->addKey('title');
+        $this->forge->addKey('summary');
+
         $this->forge->createTable('resumes');
 
         //Insert default record

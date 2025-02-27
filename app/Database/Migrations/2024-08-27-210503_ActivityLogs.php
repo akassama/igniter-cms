@@ -51,6 +51,11 @@ class ActivityLogs extends Migration
             'created_at datetime default current_timestamp',
         ]);
         $this->forge->addKey('activity_id', true);
+        
+        // Custom Optimization - Indexing
+        $this->forge->addKey('activity_by');
+        $this->forge->addKey('created_at');
+        
         $this->forge->createTable('activity_logs');
     }
 

@@ -84,6 +84,14 @@ class Blogs extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('blog_id', true);
+        
+        // Custom Optimization - Indexing
+        $this->forge->addKey('title');
+        $this->forge->addKey('slug');
+        $this->forge->addKey('category');
+        $this->forge->addKey('tags');
+        $this->forge->addKey('created_by');
+
         $this->forge->createTable('blogs');
 
         //Insert default record

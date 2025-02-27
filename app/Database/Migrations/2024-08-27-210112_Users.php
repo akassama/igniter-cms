@@ -88,6 +88,15 @@ class Users extends Migration
         ]);
 
         $this->forge->addKey('user_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('first_name');
+        $this->forge->addKey('last_name');
+        $this->forge->addKey('username');
+        $this->forge->addKey('email');
+        $this->forge->addKey('profile_picture');
+        $this->forge->addKey('created_at');
+
         $this->forge->createTable('users');
 
         //Insert default record

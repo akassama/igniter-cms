@@ -52,6 +52,13 @@ class ContactMessages extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('contact_message_id', true);
+        
+        // Custom Optimization - Indexing
+        $this->forge->addKey('name');
+        $this->forge->addKey('email');
+        $this->forge->addKey('subject');
+        $this->forge->addKey('country');
+
         $this->forge->createTable('contact_messages');
 
         //Insert default record

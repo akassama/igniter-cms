@@ -79,6 +79,14 @@ class ContentBlocks extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('content_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('identifier');
+        $this->forge->addKey('author');
+        $this->forge->addKey('title');
+        $this->forge->addKey('group');
+        $this->forge->addKey('created_by');
+
         $this->forge->createTable('content_blocks');
 
         //insert default records

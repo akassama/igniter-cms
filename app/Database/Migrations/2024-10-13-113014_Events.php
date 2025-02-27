@@ -108,6 +108,11 @@ class Events extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('event_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('slug');
+        $this->forge->addKey('start_date');
+
         $this->forge->createTable('events');
 
                 //Insert default record

@@ -38,6 +38,11 @@ class Faqs extends Migration
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
         $this->forge->addKey('faq_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('question');
+        $this->forge->addKey('answer');
+
         $this->forge->createTable('faqs');
 
         //insert default records

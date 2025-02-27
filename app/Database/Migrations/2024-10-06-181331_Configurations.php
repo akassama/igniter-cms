@@ -93,6 +93,10 @@ class Configurations extends Migration
         ]);
 
         $this->forge->addKey('config_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('config_value');
+
         $this->forge->createTable('configurations');
 
         //Insert default record

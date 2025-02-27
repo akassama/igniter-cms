@@ -47,6 +47,12 @@ class AppModules extends Migration
             'created_at datetime default current_timestamp',
         ]);
         $this->forge->addKey('app_module_id', true);
+
+        // Custom Optimization - Indexing
+        $this->forge->addKey('module_name');
+        $this->forge->addKey('module_description');
+        $this->forge->addKey('module_search_terms');
+        
         $this->forge->createTable('app_modules');
 
         //insert default records

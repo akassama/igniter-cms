@@ -57,6 +57,14 @@ class FileUploads extends Migration
             'created_at datetime default current_timestamp',
         ]);
         $this->forge->addKey('file_id', true);
+        
+        // Custom Optimization - Indexing
+        $this->forge->addKey('user_id');
+        $this->forge->addKey('file_name');
+        $this->forge->addKey('file_type');
+        $this->forge->addKey('unique_identifier');
+        $this->forge->addKey('group');
+
         $this->forge->createTable('file_uploads');
 
         //insert default records
