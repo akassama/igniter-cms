@@ -112,9 +112,8 @@ public static function getDescription($type)
 To see how configurations are used, review the code in AdminController or other controllers located in the `app/Controllers` directory.
 
 ### Helper Functions
-There are multiple helper functions available to ease the development process:
-* Authentication Helpers: `app/Helpers/auth_helper.php`
-* Data Helpers: `app/Helpers/data_helper.php`
+There is a global helper with several functions available to ease the development process:
+* Global Data Helpers: `app/Helpers/data_helper.php`
 
 ### Usage
 Refer to the detailed documentation for information on using the application's features, API endpoints, and development guidelines.  The documentation is available here: [Igniter CMS Documentation](https://abdouliekassama.com/projects/igniter-cms/docs)

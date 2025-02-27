@@ -23,7 +23,6 @@ use CodeIgniter\Database\BaseConnection;
 
 class AdminController extends BaseController
 {
-    protected $helpers = ['auth_helper'];
     protected $session;
     protected $db;
 

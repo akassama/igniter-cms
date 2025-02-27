@@ -7,7 +7,6 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class AccessController extends BaseController
 {
-    protected $helpers = ['auth_helper'];
     protected $session;
     public function __construct()
     {

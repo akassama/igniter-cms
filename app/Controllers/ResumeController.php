@@ -12,7 +12,6 @@ use App\Models\SkillsModel;
 
 class ResumeController extends BaseController
 {
-    protected $helpers = ['auth_helper'];
     protected $session;
     public function __construct()
     {

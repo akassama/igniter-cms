@@ -9,7 +9,6 @@ use App\Models\AppModulesModel;
 
 class SearchController extends BaseController
 {
-    protected $helpers = ['auth_helper'];
     public function searchModulesResult()
     {
         $session = session();

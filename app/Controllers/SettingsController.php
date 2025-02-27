@@ -9,7 +9,6 @@ use App\Models\UsersModel;
 
 class SettingsController extends BaseController
 {
-    protected $helpers = ['auth_helper'];
     protected $session;
     public function __construct()
     {

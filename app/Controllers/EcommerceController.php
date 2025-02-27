@@ -10,7 +10,6 @@ use App\Constants\ActivityTypes;
 
 class EcommerceController extends BaseController
 {
-    protected $helpers = ['auth_helper'];
     protected $session;
     public function __construct()
     {

@@ -8,7 +8,6 @@ use App\Models\FileUploadModel;
 
 class FileManagerController extends BaseController
 {
-    protected $helpers = ['auth_helper'];
     protected $session;
     public function __construct()
     {

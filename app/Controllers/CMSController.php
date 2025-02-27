@@ -31,7 +31,6 @@ use App\Models\ResumesModel;
 
 class CMSController extends BaseController
 {
-    protected $helpers = ['auth_helper'];
     protected $session;
     public function __construct()
     {

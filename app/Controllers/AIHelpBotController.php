@@ -9,7 +9,6 @@ use App\Models\AIChatModel;
 
 class AIHelpBotController extends BaseController
 {
-    protected $helpers = ['auth_helper'];
     protected $session;
     protected $db;
 

@@ -7,7 +7,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class HtmxController extends BaseController
 {
-    protected $helpers = ['data_helper', 'auth_helper'];
+    protected $helpers = ['data_helper'];
 
     /**
      * Checks if a user email exists in the database.

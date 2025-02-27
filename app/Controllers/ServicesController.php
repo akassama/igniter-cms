@@ -12,7 +12,7 @@ use CodeIgniter\HTTP\ResponseInterface;
  */
 class ServicesController extends BaseController
 {
-    protected $helpers = ['auth_helper', 'form'];
+    protected $helpers = ['form'];
     protected $session;
     public function __construct()
     {

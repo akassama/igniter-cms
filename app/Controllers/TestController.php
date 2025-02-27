@@ -10,7 +10,6 @@ use App\Services\EmailService;
 
 class TestController extends BaseController
 {
-    protected $helpers = ['auth_helper'];
     private EmailService $emailService;
 
     public function __construct()
