@@ -21,6 +21,13 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
         <?php echo form_open(base_url('account/settings/change-password/update-password'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
+        <?php
+            //check if password change is required and display message
+            if(passwordChangeRequired()){
+                $passwordResetRequiredMsg = config('CustomConfig')->passwordResetRequiredMsg;
+                echo "<div class='alert alert-danger'>".$passwordResetRequiredMsg."</div>";
+            }
+        ?>
         <div class="row">
             <div class="col-8 offset-2">
                 <div class="col-12 mb-3">

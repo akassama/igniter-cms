@@ -1,5 +1,9 @@
 <!-- include layout -->
 <?= $this->extend('back-end/layout/_layout') ?>
+
+<!-- page title -->
+<?= $this->section('title') ?>View Event<?= $this->endSection() ?>
+
 <!-- begin main content -->
 <?= $this->section('content') ?>
 <?php

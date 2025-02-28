@@ -25,6 +25,9 @@ class AuthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
+        // Get the current URL
+        $currentUrl = current_url();
+
         //check if blocked ip
         $ipAddress = getDeviceIP();
         if(isBlockedIP($ipAddress)){
@@ -35,10 +38,7 @@ class AuthFilter implements FilterInterface
         }
 
         if (!session()->get('is_logged_in'))
-        {
-            // Get the current URL
-            $currentUrl = current_url();
-                    
+        { 
             // Encode the URL to make it safe for use in a query string
             $encodedUrl = urlencode($currentUrl);
 
@@ -51,6 +51,12 @@ class AuthFilter implements FilterInterface
         if (!recordExists('users', 'user_id', $userId)) {
            // Redirect to the sign-out page to clear session
            return redirect()->to('/sign-out');
+        }
+
+        //check if password change is required and not currently in password change page
+        $isPasswordChangeURL = strtolower($currentUrl) == strtolower(base_url('/account/settings/change-password'));
+        if(passwordChangeRequired() && !$isPasswordChangeURL){
+            return redirect()->to('/account/settings/change-password');
         }
     }
 

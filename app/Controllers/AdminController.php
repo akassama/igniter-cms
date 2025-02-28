@@ -94,7 +94,8 @@ class AdminController extends BaseController
             'facebook_link' => $this->request->getPost('facebook_link'),
             'instagram_link' => $this->request->getPost('instagram_link'),
             'linkedin_link' => $this->request->getPost('linkedin_link'),
-            'about_summary' => $this->request->getPost('about_summary')
+            'about_summary' => $this->request->getPost('about_summary'),
+            'password_change_required' => $this->request->getPost('password_change_required') ?? false,
         ];
 
         // Call createUser method from the UsersModel
@@ -177,7 +178,8 @@ class AdminController extends BaseController
                 'facebook_link' => $this->request->getPost('facebook_link'),
                 'instagram_link' => $this->request->getPost('instagram_link'),
                 'linkedin_link' => $this->request->getPost('linkedin_link'),
-                'about_summary' => $this->request->getPost('about_summary')
+                'about_summary' => $this->request->getPost('about_summary'),
+                'password_change_required' => $this->request->getPost('password_change_required') ?? false,
             ];
 
             $builder->where('user_id', $userId);

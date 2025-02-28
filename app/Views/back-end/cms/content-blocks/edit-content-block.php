@@ -1,6 +1,9 @@
 <!-- include layout -->
 <?= $this->extend('back-end/layout/_layout') ?>
 
+<!-- page title -->
+<?= $this->section('title') ?>{{SET_TITLE}}<?= $this->endSection() ?>
+
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
@@ -10,7 +13,7 @@ $breadcrumb_links = array(
     array('title' => 'Dashboard', 'url' => '/account'),
     array('title' => 'CMS', 'url' => '/account/cms'),
     array('title' => 'Content Blocks', 'url' => '/account/cms/content-blocks'),
-    array('title' => 'Views Content Block')
+    array('title' => 'Edit Content Block')
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -18,7 +21,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Views Content Block</h3>
+        <h3>Edit Content Block</h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>

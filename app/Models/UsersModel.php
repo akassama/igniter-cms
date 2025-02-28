@@ -30,8 +30,8 @@ class UsersModel extends Model
         'username', 
         'email', 
         'password', 
-        'status', 
-        'role', 
+        'status',
+        'role',
         'upload_directory',
         'profile_picture', 
         'twitter_link', 
@@ -39,6 +39,7 @@ class UsersModel extends Model
         'instagram_link', 
         'linkedin_link', 
         'about_summary',
+        'password_change_required',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -112,7 +113,8 @@ class UsersModel extends Model
             'facebook_link' => $param['facebook_link'] ?? null,
             'instagram_link' => $param['instagram_link'] ?? null,
             'linkedin_link' => $param['linkedin_link'] ?? null,
-            'about_summary' => $param['about_summary'] ?? null
+            'about_summary' => $param['about_summary'] ?? null,
+            'password_change_required' => $param['password_change_required'] ?? false
         ];
         $this->save($data);
 
@@ -137,14 +139,15 @@ class UsersModel extends Model
         }
 
         // Update the fields
-        $existingUser['first_name'] = $param['first_name'];
-        $existingUser['last_name'] = $param['last_name'];
-        $existingUser['profile_picture'] = $param['profile_picture'];
-        $existingUser['twitter_link'] = $param['twitter_link'];
-        $existingUser['facebook_link'] = $param['facebook_link'];
-        $existingUser['instagram_link'] = $param['instagram_link'];
-        $existingUser['linkedin_link'] = $param['linkedin_link'];
-        $existingUser['about_summary'] = $param['about_summary'];
+        $existingUser['first_name'] = $param['first_name'] ?? $existingUser['first_name'];
+        $existingUser['last_name'] = $param['last_name'] ?? $existingUser['last_name'];
+        $existingUser['profile_picture'] = $param['profile_picture'] ?? $existingUser['profile_picture'];
+        $existingUser['twitter_link'] = $param['twitter_link'] ?? $existingUser['twitter_link'];
+        $existingUser['facebook_link'] = $param['facebook_link'] ?? $existingUser['facebook_link'];
+        $existingUser['instagram_link'] = $param['instagram_link'] ?? $existingUser['instagram_link'];
+        $existingUser['linkedin_link'] = $param['linkedin_link'] ?? $existingUser['linkedin_link'];
+        $existingUser['about_summary'] = $param['about_summary'] ?? $existingUser['about_summary'];
+        $existingUser['password_change_required'] = $param['password_change_required'] ?? $existingUser['password_change_required'];
 
         // Save the updated data
         $this->save($existingUser);

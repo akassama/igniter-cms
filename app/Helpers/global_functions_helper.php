@@ -139,6 +139,32 @@ if (!function_exists('getUserStatusOnly')) {
 }
 
 /**
+ * Determines if a password change is required for the currently logged-in user.
+ * 
+ * This function checks if the user's account has the password_change_required flag set.
+ * It bypasses the check when running in development environment.
+ * 
+ * @param string|null $currentUrl The current URL (not used in the current implementation)
+ * @return boolean Returns true if password change is required, false otherwise
+ */
+if (!function_exists('passwordChangeRequired')) {
+    function passwordChangeRequired($currentUrl = null) 
+    {
+        // Skip password change requirement in development environment
+        if (ENVIRONMENT === 'development') {
+            return false;
+        }
+
+        $whereClause = ['user_id' => getLoggedInUserId()];
+        $changeRequiredStatus = getTableData('users', $whereClause, 'password_change_required');
+        if(filter_var($changeRequiredStatus, FILTER_VALIDATE_BOOLEAN)){
+            return true;
+        }
+        return false;
+    }
+}
+
+/**
  * Returns a GUIDv4 string
  *
  * Uses the best cryptographically secure method

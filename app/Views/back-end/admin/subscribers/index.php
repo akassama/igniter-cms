@@ -9,6 +9,9 @@ $subscriberRole = getUserRole($sessionEmail);
 <!-- include layout -->
 <?= $this->extend('back-end/layout/_layout') ?>
 
+<!-- page title -->
+<?= $this->section('title') ?>Manage Subscribers<?= $this->endSection() ?>
+
 <!-- begin main content -->
 <?= $this->section('content') ?>
 

@@ -1,13 +1,11 @@
 <?php
-
 // Get root directory by removing the last directory from the path
 $rootDirectory = dirname(dirname(__DIR__));
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Igniter CMS App</title>
+    <title><?=getConfigData("CompanyName");?> - <?= $this->renderSection('title', 'Home'); ?></title>
 
     <!-- Include the header assets -->
     <?= $this->include('front-end/layout/assets/header_assets.php'); ?>

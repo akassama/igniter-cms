@@ -1,6 +1,9 @@
 <!-- include layout -->
 <?= $this->extend('back-end/layout/_layout') ?>
 
+<!-- page title -->
+<?= $this->section('title') ?>Manage Resumes<?= $this->endSection() ?>
+
 <!-- begin main content -->
 <?= $this->section('content') ?>
 

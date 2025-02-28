@@ -9,6 +9,9 @@ $userRole = getUserRole($sessionEmail);
 <!-- include layout -->
 <?= $this->extend('back-end/layout/_layout') ?>
 
+<!-- page title -->
+<?= $this->section('title') ?>Shops File Editor<?= $this->endSection() ?>
+
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
@@ -18,7 +21,7 @@ $breadcrumb_links = array(
     array('title' => 'Dashboard', 'url' => '/account'),
     array('title' => 'Admin', 'url' => '/account/admin'),
     array('title' => 'File Editor', 'url' => '/account/admin/file-editor'),
-    array('title' => 'Edit Portfolios File')
+    array('title' => 'Edit Shops File')
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>

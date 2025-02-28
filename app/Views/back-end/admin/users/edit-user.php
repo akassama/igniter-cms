@@ -9,6 +9,9 @@ $userRole = getUserRole($sessionEmail);
 <!-- include layout -->
 <?= $this->extend('back-end/layout/_layout') ?>
 
+<!-- page title -->
+<?= $this->section('title') ?>Edit User<?= $this->endSection() ?>
+
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
@@ -208,6 +211,23 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php }?>
                 <div class="invalid-feedback">
                     Please provide about_summary
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 mb-3">
+                <label for="password_change_required" class="form-label">Password Change Required</label>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="password_change_required" name="password_change_required" value="1" <?= ($user_data['password_change_required'] == '1') ? 'checked' : '' ?>>
+                    <label class="form-check-label small" for="password_change_required">Toggle to set as required</label>
+                </div>
+                <!-- Error -->
+                <?php if($validation->getError('password_change_required')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('password_change_required'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide password_change_required
                 </div>
             </div>
 

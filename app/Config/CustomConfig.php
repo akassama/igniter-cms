@@ -48,6 +48,7 @@ class CustomConfig extends BaseConfig
     public $errorMsg = 'Oops! Something went wrong. Please try again later.';
     public $resetLinkMsg = 'A password reset link has been sent to your email address. Please check your inbox and follow the instructions to reset your password. If you do not see the email in your inbox, please check your spam or junk folder.';
     public $invalidResetLinkMsg = 'Invalid or expired password reset link.';
+    public $passwordResetRequiredMsg = 'For security reasons, you need to change your password before continuing. Your current password was either set by an administrator or is a default password.';
     public $passwordResetSuccessfulMsg = 'Your password has been reset successfully. You can now log in with your new password.';
     public $passwordResetFailedMsg = 'Unable to reset password. Please try again';
     public $nonExistingResetEmailMsg = 'We are sorry, but the email address you entered is not associated with any account. Please check the email address and try again.';

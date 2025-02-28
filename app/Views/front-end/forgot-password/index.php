@@ -1,6 +1,8 @@
 <!-- include layout -->
 <?= $this->extend('front-end/layout/_layout') ?>
 
+<?= $this->section('title') ?>Forgot Password<?= $this->endSection() ?>
+
 <!-- begin main content -->
 <?= $this->section('content') ?>
 

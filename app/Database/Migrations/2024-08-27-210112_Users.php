@@ -80,6 +80,11 @@ class Users extends Migration
                 'constraint' => '255',
                 'default' => generateUserDirectory('user'),
             ],
+            'password_change_required' => [
+                'type' => 'BOOLEAN',
+                'default' => false,
+                'null' => true,
+            ],
             'created_at datetime default current_timestamp',
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
@@ -113,7 +118,8 @@ class Users extends Migration
                 'instagram_link'    => 'https://instagram..com/?admin-user',
                 'linkedin_link'    => 'https://www.linkedin.com/in/?admin-user',
                 'about_summary'    => 'Hello! I\'m Admin User, the administrator of this platform. With a strong background in managing and overseeing operations, I ensure everything runs smoothly. You can connect with me on social media through the links provided. I\'m here to help and support our community!',
-                'upload_directory' => "admin_8J0IM"
+                'upload_directory' => "admin_8J0IM",
+                'password_change_required' => true
             ],
             [
                 'user_id' => getGUID(),
@@ -130,7 +136,8 @@ class Users extends Migration
                 'instagram_link'    => 'https://instagram..com/?manager-user',
                 'linkedin_link'    => 'https://www.linkedin.com/in/?manager-user',
                 'about_summary'    => 'Hello! I\'m Manager User, the manager of this platform. With a strong background in managing and overseeing operations, I ensure everything runs smoothly. You can connect with me on social media through the links provided. I\'m here to help and support our community!',
-                'upload_directory' => "manager_10BYZL"
+                'upload_directory' => "manager_10BYZL",
+                'password_change_required' => false
             ]
         ];
 

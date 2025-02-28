@@ -6,8 +6,11 @@ $sessionEmail = $session->get('email');
 $userRole = getUserRole($sessionEmail);
 ?>
 
-    <!-- include layout -->
+<!-- include layout -->
 <?= $this->extend('back-end/layout/_layout') ?>
+
+<!-- page title -->
+<?= $this->section('title') ?>View Log<?= $this->endSection() ?>
 
     <!-- begin main content -->
 <?= $this->section('content') ?>
