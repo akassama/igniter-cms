@@ -3,6 +3,7 @@ use App\Models\ActivityLogsModel;
 use App\Constants\ActivityTypes;
 use App\Models\FileUploadModel;
 use App\Models\SiteStatsModel;
+use MatthiasMullie\Minify;
 
 /**
  * Get the logged-in user ID from the session
@@ -5112,10 +5113,12 @@ if (!function_exists('minifyCSS')) {
                 mkdir($cache_dir, 0755, true);
             }
 
-            // Minify the CSS
-            $css_content = file_get_contents($css_path);
-            $minified_css = preg_replace('/\s+/', ' ', $css_content); // Basic minification
-            $minified_css = preg_replace('/\/\*.*?\*\//', '', $minified_css); // Remove comments
+            // Use the Minify library to minify the CSS
+            $minifier = new Minify\CSS($css_path);
+            $minified_css = $minifier->minify();
+
+            // Post-process the minified CSS to fix ":;" -> ": ;"
+            $minified_css = str_replace(':;', ': ;', $minified_css);
 
             // Save the minified CSS to the cache file
             file_put_contents($minified_file, $minified_css);
@@ -5155,14 +5158,9 @@ if (!function_exists('minifyJS')) {
                 mkdir($cache_dir, 0755, true);
             }
 
-            // Minify the JavaScript
-            $js_content = file_get_contents($js_path);
-            $minified_js = preg_replace('/\s+/', ' ', $js_content); // Basic minification
-            $minified_js = preg_replace('/\/\/.*?\n/', '', $minified_js); // Remove single-line comments
-            $minified_js = preg_replace('/\/\*.*?\*\//', '', $minified_js); // Remove multi-line comments
-
-            // Save the minified JavaScript to the cache file
-            file_put_contents($minified_file, $minified_js);
+            // Use the Minify library to minify the JavaScript
+            $minifier = new Minify\JS($js_path);
+            $minifier->minify($minified_file);
         }
 
         // Return the URL to the minified file
