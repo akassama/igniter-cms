@@ -177,8 +177,6 @@ $routes->group('account', ['filter' => 'authFilter'], function($routes) {
 
     #CMS-HOME-PAGE
     $routes->get('cms/home-page', 'CMSController::homePage');
-    $routes->get('cms/home-page/new-home-page-section', 'CMSController::newHomePageSection');
-    $routes->post('cms/home-page/new-home-page-section', 'CMSController::addHomePageSection');
     $routes->get('cms/home-page/view-home-page-section/(:any)', 'CMSController::viewHomePageSection/$1');
     $routes->get('cms/home-page/edit-home-page-section/(:any)', 'CMSController::editHomePageSection/$1');
     $routes->post('cms/home-page/edit-home-page-section', 'CMSController::updateHomePageSection');

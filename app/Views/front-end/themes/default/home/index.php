@@ -615,30 +615,6 @@ $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
                 </section>
                   <!-- /Contact Section -->
                 <?php
-            }else 
-            {
-                $sectionImage = $home_page['section_image'];
-                $sectionImage2 = $home_page['section_image_2'];
-                $sectionImag3 = $home_page['section_image_3'];
-                $sectionImag4 = $home_page['section_image_4'];
-                $sectionVideo = $home_page['section_video'];
-                $sectionAudio = $home_page['section_audio'];
-                $sectionFile = $home_page['section_file'];
-                $sectionContentBlocks = $home_page['content_blocks'];
-                $sectionLink = $home_page['section_link'];
-                $newTab = $home_page['new_tab'];
-                ?>
-                    <div class="row">
-                        <div class="col-12">
-                            <h2><?=$sectionTitle?></h2>
-                            <p><?=$sectionDescription?></p>
-                            <img class="img-fluid w-100" src="<?=getImageUrl($sectionImage ?? getDefaultImagePath())?>" alt="Section Image" height="500"> 
-                        </div>
-                        <div class="col-12">
-                            <!--TODO: Get Content Blocks-->
-                        </div>
-                    </div>
-                <?php
             }
           ?>
     <?php endforeach; ?>

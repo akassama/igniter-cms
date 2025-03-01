@@ -98,6 +98,10 @@ echo generateBreadcrumb($breadcrumb_links);
                                                         <i class="ri-checkbox-multiple-fill"></i>
                                                     </button>
                                                 </span>
+                                                <span class="d-none">
+                                                    <!--Search Terms-->
+                                                    <?= $file['file_id']; ?>,<?= $file['file_type']; ?>,<?= $file['file_name']; ?>,<?= $file['caption']; ?>,<?= $file['unique_identifier']; ?>
+                                                </span>
                                             </div>
                                             <div class="row">
                                                 <div class="col-12">

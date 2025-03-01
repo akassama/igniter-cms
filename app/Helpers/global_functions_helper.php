@@ -1541,6 +1541,10 @@ if (!function_exists('getImageFilesTableData')) {
                                         <button class='btn btn-outline-secondary btn-modal-copy copy-btn-label' type='button' id='button-addon2' data-clipboard-text='" . esc($file['file_name']) . "'>
                                             <i class='ri-checkbox-multiple-fill'></i>
                                         </button>
+                                        <span class='d-none'>
+                                            <!--Search Terms-->
+                                           ".$file['file_type'].",".$file['file_type'].",".$file['file_name'].",".$file['caption'].",".$file['unique_identifier']."
+                                        </span>
                                     </div>
                                     <p class='".(!empty($file['caption']) ? '' : 'd-none')."'>Caption: " . $file['caption'] . "</p>
                                     <p class='".(!empty($file['unique_identifier']) ? '' : 'd-none')."'>Caption: " . $file['unique_identifier'] . "</p>
@@ -1606,6 +1610,10 @@ if (!function_exists('getDocumentFilesTableData')) {
                                         <button class='btn btn-outline-secondary btn-modal-copy copy-btn-label' type='button' id='button-addon2' data-clipboard-text='" . esc($file['file_name']) . "'>
                                             <i class='ri-checkbox-multiple-fill'></i>
                                         </button>
+                                        <span class='d-none'>
+                                            <!--Search Terms-->
+                                           ".$file['file_type'].",".$file['file_type'].",".$file['file_name'].",".$file['caption'].",".$file['unique_identifier']."
+                                        </span>
                                     </div>
                                     <p class='".(!empty($file['caption']) ? '' : 'd-none')."'>Caption: " . $file['caption'] . "</p>
                                     <p class='".(!empty($file['unique_identifier']) ? '' : 'd-none')."'>Caption: " . $file['unique_identifier'] . "</p>
@@ -1671,6 +1679,10 @@ if (!function_exists('getVideoFilesTableData')) {
                                         <button class='btn btn-outline-secondary btn-modal-copy copy-btn-label' type='button' id='button-addon2' data-clipboard-text='" . esc($file['file_name']) . "'>
                                             <i class='ri-checkbox-multiple-fill'></i>
                                         </button>
+                                        <span class='d-none'>
+                                            <!--Search Terms-->
+                                           ".$file['file_type'].",".$file['file_type'].",".$file['file_name'].",".$file['caption'].",".$file['unique_identifier']."
+                                        </span>
                                     </div>
                                     <p class='".(!empty($file['caption']) ? '' : 'd-none')."'>Caption: " . $file['caption'] . "</p>
                                     <p class='".(!empty($file['unique_identifier']) ? '' : 'd-none')."'>Caption: " . $file['unique_identifier'] . "</p>
@@ -1736,6 +1748,10 @@ if (!function_exists('getAudioFilesTableData')) {
                                         <button class='btn btn-outline-secondary btn-modal-copy copy-btn-label' type='button' id='button-addon2' data-clipboard-text='" . esc($file['file_name']) . "'>
                                             <i class='ri-checkbox-multiple-fill'></i>
                                         </button>
+                                        <span class='d-none'>
+                                            <!--Search Terms-->
+                                           ".$file['file_type'].",".$file['file_type'].",".$file['file_name'].",".$file['caption'].",".$file['unique_identifier']."
+                                        </span>
                                     </div>
                                     <p class='".(!empty($file['caption']) ? '' : 'd-none')."'>Caption: " . $file['caption'] . "</p>
                                     <p class='".(!empty($file['unique_identifier']) ? '' : 'd-none')."'>Caption: " . $file['unique_identifier'] . "</p>
@@ -1796,6 +1812,10 @@ if (!function_exists('getAllFilesTableData')) {
                                         <button class='btn btn-outline-secondary btn-modal-copy copy-btn-label' type='button' id='button-addon2' data-clipboard-text='" . esc($file['file_name']) . "'>
                                             <i class='ri-checkbox-multiple-fill'></i>
                                         </button>
+                                        <span class='d-none'>
+                                            <!--Search Terms-->
+                                           ".$file['file_type'].",".$file['file_type'].",".$file['file_name'].",".$file['caption'].",".$file['unique_identifier']."
+                                        </span>
                                     </div>
                                     <p class='".(!empty($file['caption']) ? '' : 'd-none')."'>Caption: " . $file['caption'] . "</p>
                                     <p class='".(!empty($file['unique_identifier']) ? '' : 'd-none')."'>Caption: " . $file['unique_identifier'] . "</p>
@@ -1862,6 +1882,10 @@ if (!function_exists('getArchivesFilesTableData')) {
                                         <button class='btn btn-outline-secondary btn-modal-copy copy-btn-label' type='button' id='button-addon2' data-clipboard-text='" . esc($file['file_name']) . "'>
                                             <i class='ri-checkbox-multiple-fill'></i>
                                         </button>
+                                        <span class='d-none'>
+                                            <!--Search Terms-->
+                                           ".$file['file_type'].",".$file['file_type'].",".$file['file_name'].",".$file['caption'].",".$file['unique_identifier']."
+                                        </span>
                                     </div>
                                     <p class='".(!empty($file['caption']) ? '' : 'd-none')."'>Caption: " . $file['caption'] . "</p>
                                     <p class='".(!empty($file['unique_identifier']) ? '' : 'd-none')."'>Caption: " . $file['unique_identifier'] . "</p>
