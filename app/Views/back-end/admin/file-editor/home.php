@@ -79,17 +79,8 @@ echo generateBreadcrumb($breadcrumb_links);
     </div>
 </div>
 
-<script>
-    $(document).ready(function() {
-        var editor = ace.edit("editor");
-        editor.setTheme("ace/theme/monokai");
-        editor.session.setMode("ace/mode/php");
-
-        document.getElementById('saveFileForm').addEventListener('submit', function() {
-            document.getElementById('fileContent').value = editor.getValue();
-        });
-    });
-</script>
+<!-- Include the code editor script -->
+<?=  $this->include('back-end/admin/file-editor/_file_editor_initiator.php'); ?>
 
 <!-- end main content -->
 <?= $this->endSection() ?>

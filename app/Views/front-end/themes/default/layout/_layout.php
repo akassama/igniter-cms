@@ -1,56 +1,71 @@
 <?php
-// Get current theme impact
+// Get current theme
 $theme = getCurrentTheme();
 
-//get site config values
-$baseUrl = base_url();
-$currentUrl = current_url();
-$maintenanceMode = getConfigData("MaintenanceMode");
-$companyName = getConfigData("CompanyName");
-$companyAddress = getConfigData("CompanyAddress");
-$companyEmail = getConfigData("CompanyEmail");
-$companyNumber = getConfigData("CompanyNumber");
-$metaAuthor = getPageMetaInfo($currentUrl, "MetaAuthor");
-$metaTitle = getPageMetaInfo($currentUrl, "MetaTitle");
-$metaDescription = getPageMetaInfo($currentUrl, "MetaDescription");
-$metaKeywords = getPageMetaInfo($currentUrl, "MetaKeywords");
-$metaOgImage = getPageMetaInfo($currentUrl, "MetaOgImage");
-$metaPageUrl =  getPageMetaInfo($currentUrl, "MetaPageUrl");
-$siteLogoLink = getConfigData("SiteLogoLink");
-$siteLogoTwoLink = getConfigData("SiteLogoTwoLink");
-$siteFaviconLink = getConfigData("SiteFaviconLink");
-$siteFaviconManifestLink = getConfigData("SiteFaviconManifestLink");
-$siteFaviconLink96 = getConfigData("SiteFaviconLink96");
-$siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
-$siteFacebookLink = getTableData('socials', ['name' => 'Facebook'], 'link');
-$siteInstagramLink = getTableData('socials', ['name' => 'Instagram'], 'link');
-$siteLinkedInLink = getTableData('socials', ['name' => 'LinkedIn'], 'link');
-$siteTwitterLink = getTableData('socials', ['name' => 'Twitter'], 'link');
+// Get site config values
+$configData = [
+    'baseUrl' => base_url(),
+    'currentUrl' => current_url(),
+    'maintenanceMode' => getConfigData("MaintenanceMode"),
+    'companyName' => getConfigData("CompanyName"),
+    'companyAddress' => getConfigData("CompanyAddress"),
+    'companyEmail' => getConfigData("CompanyEmail"),
+    'companyNumber' => getConfigData("CompanyNumber"),
+    'siteLogoLink' => getConfigData("SiteLogoLink"),
+    'siteLogoTwoLink' => getConfigData("SiteLogoTwoLink"),
+    'siteFaviconLink' => getConfigData("SiteFaviconLink"),
+    'siteFaviconManifestLink' => getConfigData("SiteFaviconManifestLink"),
+    'siteFaviconLink96' => getConfigData("SiteFaviconLink96"),
+    'siteFaviconLinkAppleTouch' => getConfigData("SiteFaviconLinkAppleTouch"),
+];
 
-//get theme data
-$customCSS = getTableData('codes', ['code_for' => 'CSS'], 'code');
-$customJSTop = getTableData('codes', ['code_for' => 'HeaderJS'], 'code');
-$customJSFooter = getTableData('codes', ['code_for' => 'FooterJS'], 'code');
-$copyRight = getThemeData($theme, "footer_copyright");
-$primaryThemeColor = getThemeData($theme, "primary_color");
-$secondaryThemeColor = getThemeData($theme, "secondary_color");
-$otherThemeColor = getThemeData($theme, "other_color");
+// Get meta data
+$metaData = [
+    'author' => getPageMetaInfo($configData['currentUrl'], "MetaAuthor"),
+    'title' => getPageMetaInfo($configData['currentUrl'], "MetaTitle"),
+    'description' => getPageMetaInfo($configData['currentUrl'], "MetaDescription"),
+    'keywords' => getPageMetaInfo($configData['currentUrl'], "MetaKeywords"),
+    'ogImage' => getPageMetaInfo($configData['currentUrl'], "MetaOgImage"),
+    'pageUrl' => getPageMetaInfo($configData['currentUrl'], "MetaPageUrl"),
+];
 
-//Get navigation and social model lists
+// Get social links
+$socialLinks = [
+    'facebook' => getTableData('socials', ['name' => 'Facebook'], 'link'),
+    'instagram' => getTableData('socials', ['name' => 'Instagram'], 'link'),
+    'linkedin' => getTableData('socials', ['name' => 'LinkedIn'], 'link'),
+    'twitter' => getTableData('socials', ['name' => 'Twitter'], 'link'),
+];
+
+// Get theme data
+$themeData = [
+    'customCSS' => getTableData('codes', ['code_for' => 'CSS'], 'code'),
+    'customJSTop' => getTableData('codes', ['code_for' => 'HeaderJS'], 'code'),
+    'customJSFooter' => getTableData('codes', ['code_for' => 'FooterJS'], 'code'),
+    'copyRight' => getThemeData($theme, "footer_copyright"),
+    'primaryColor' => getThemeData($theme, "primary_color"),
+    'secondaryColor' => getThemeData($theme, "secondary_color"),
+    'otherColor' => getThemeData($theme, "other_color"),
+];
+
+// Get navigation and social model lists
 $navigationsModel = new \App\Models\NavigationsModel();
 $topNavLists = $navigationsModel->where('group', 'top_nav')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
 $footerNavLists = $navigationsModel->where('group', 'footer_nav')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
 $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
+
 $socialsModel = new \App\Models\SocialsModel();
 $socialsLists = $socialsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitMedium")))->findAll();
 
-//Maintenance mode data
-if (strtolower($maintenanceMode) === "yes") {
-    $maintenancePage = $this->include('front-end/themes/_shared/_maintenance_page.php');
-    echo strval($maintenancePage); 
+// Maintenance mode
+if (strtolower($configData['maintenanceMode']) === "yes") {
+    echo $this->include('front-end/themes/_shared/_maintenance_page.php');
     exit();
 }
 ?>
+
+<!-- Include Theme Functions -->
+<?= $this->include('front-end/themes/'.$theme.'/includes/_functions.php'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,295 +76,170 @@ if (strtolower($maintenanceMode) === "yes") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Title and Description -->
-    <title><?=$metaTitle?> - <?=$companyName?></title>
-    <meta name="description" content="<?=$metaDescription?>">
+    <title><?= $metaData['title'] ?? 'Default Title' ?> - <?= $configData['companyName'] ?? 'Company Name' ?></title>
+    <meta name="description" content="<?= $metaData['description'] ?? '' ?>">
 
     <!-- Keywords for SEO -->
-    <meta name="keywords" content="<?=$metaKeywords?>">
+    <meta name="keywords" content="<?= $metaData['keywords'] ?? '' ?>">
 
     <!-- Author Information -->
-    <meta name="author" content="<?=$metaAuthor?>">
+    <meta name="author" content="<?= $metaData['author'] ?? '' ?>">
 
     <!-- Open Graph (Facebook) -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="<?=$metaTitle?>">
-    <meta property="og:description" content="<?=$metaDescription?>">
-    <meta property="og:url" content="<?=$metaPageUrl?>">
-    <meta property="og:image" content="<?=getImageUrl($metaOgImage ?? getDefaultImagePath())?>">
-    <meta property="og:site_name" content="<?=$metaTitle?>">
+    <meta property="og:title" content="<?= $metaData['title'] ?? '' ?>">
+    <meta property="og:description" content="<?= $metaData['description'] ?? '' ?>">
+    <meta property="og:url" content="<?= $metaData['pageUrl'] ?? '' ?>">
+    <meta property="og:image" content="<?= getImageUrl($metaData['ogImage'] ?? getDefaultImagePath()) ?>">
+    <meta property="og:site_name" content="<?= $metaData['title'] ?? '' ?>">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<?=$metaTitle?>">
-    <meta name="twitter:description" content="<?=$metaDescription?>">
-    <meta name="twitter:image" content="<?=getImageUrl($siteLogoLink ?? getDefaultImagePath())?>">
-    <meta name="twitter:site" content="@<?=$metaAuthor?>">
+    <meta name="twitter:title" content="<?= $metaData['title'] ?? '' ?>">
+    <meta name="twitter:description" content="<?= $metaData['description'] ?? '' ?>">
+    <meta name="twitter:image" content="<?= getImageUrl($configData['siteLogoLink'] ?? getDefaultImagePath()) ?>">
+    <meta name="twitter:site" content="@<?= $metaData['author'] ?? '' ?>">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="<?=$metaPageUrl?>">
+    <link rel="canonical" href="<?= $metaData['pageUrl'] ?? '' ?>">
 
     <!-- Robots and Indexing -->
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
 
-    <!-- Additional SEO Meta Tags -->
-    <meta name="theme-color" content="<?=$primaryThemeColor?>">
-    <meta name="msapplication-TileColor" content="<?=$secondaryThemeColor?>">
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="<?= $themeData['primaryColor'] ?? '#000000' ?>">
+    <meta name="msapplication-TileColor" content="<?= $themeData['secondaryColor'] ?? '#ffffff' ?>">
 
     <!-- Favicon and Icons -->
-    <link rel="icon" href="<?=getImageUrl($siteFaviconLink ?? getDefaultImagePath())?>">
-    <link rel="apple-touch-icon" href="<?=getImageUrl($siteFaviconLinkAppleTouch ?? getDefaultImagePath())?>">
-    <link rel="manifest" href="<?= getLinkUrl($siteFaviconManifestLink)?>">
+    <link rel="icon" href="<?= getImageUrl($configData['siteFaviconLink'] ?? getDefaultImagePath()) ?>">
+    <link rel="apple-touch-icon" href="<?= getImageUrl($configData['siteFaviconLinkAppleTouch'] ?? getDefaultImagePath()) ?>">
+    <link rel="manifest" href="<?= getLinkUrl($configData['siteFaviconManifestLink'] ?? '') ?>">
 
     <!-- Structured Data (JSON-LD) for Rich Snippets -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Person",
-        "name": "<?=$metaAuthor?>",
-        "url": "<?=$metaPageUrl?>",
+        "name": "<?= $metaData['author'] ?? '' ?>",
+        "url": "<?= $metaData['pageUrl'] ?? '' ?>",
         "sameAs": [
-        "https://www.facebook.com/<?=$siteFacebookLink?>",
-        "https://twitter.com/<?=$siteTwitterLink?>",
-        "https://www.instagram.com/<?=$siteInstagramLink?>"
+            "https://www.facebook.com/<?= $socialLinks['facebook'] ?? '' ?>",
+            "https://twitter.com/<?= $socialLinks['twitter'] ?? '' ?>",
+            "https://www.instagram.com/<?= $socialLinks['instagram'] ?? '' ?>"
         ],
-        "description": "<?=$metaDescription?>",
-        "image": "<?=getImageUrl($siteLogoLink ?? getDefaultImagePath())?>"
+        "description": "<?= $metaData['description'] ?? '' ?>",
+        "image": "<?= getImageUrl($configData['siteLogoLink'] ?? getDefaultImagePath()) ?>"
     }
     </script>
 
-    <theme-data>
-        <!-- Remix icons-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="<?= minifyCSS('public/front-end/themes/' . $theme . '/assets/css/styles.css') ?>" rel="stylesheet">
-    </theme-data>
+    <!-- Remix icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css" />
 
-    <custom-head-data>
-    <?php if(!empty($customCSS)): ?>
-        <!-- Custom CSS -->
-        <style>
-            <?=$customCSS?>
-        </style>
+    <!-- Bootstrap icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Core theme CSS (includes Bootstrap) -->
+    <link href="<?= minifyCSS('public/front-end/themes/' . $theme . '/assets/css/styles.css') ?>" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <?php if (!empty($themeData['customCSS'])): ?>
+        <style><?= $themeData['customCSS'] ?></style>
     <?php endif; ?>
 
     <!-- Custom Theme CSS -->
     <style>
-        /*Primary*/
-        .bg-dark {
-            background-color: <?=$primaryThemeColor?> !important;
-        }
-
-        .bg-dark-subtle {
-            background-color: <?=$primaryThemeColor?> !important;
-        }
-
-        /*Secondary*/
-        .bg-primary {
-            background-color: <?=$secondaryThemeColor?> !important;
-        }
-
-        .bg-primary-subtle {
-            background-color: rgba(13, 110, 253, 0.1) !important;
-        }
-
-        .btn-primary {
-            color: #ffffff;
-            background-color: <?=$secondaryThemeColor?> !important;
-            border-color: <?=$secondaryThemeColor?> !important;
-        }
-
-        .btn-outline-primary {
-            color: <?=$secondaryThemeColor?> !important;
-            border-color: <?=$secondaryThemeColor?> !important;
-        }
-
-        .btn-primary:hover, .btn-primary:focus {
-            background-color: #0b5ed7;
-            border-color: #0a58ca;
-        }
-
-        .text-primary {
-            color: <?=$secondaryThemeColor?> !important;
-        }
-
-        .border-primary {
-            border-color: <?=$secondaryThemeColor?> !important;
-        }
-
-        .link-primary {
-            color: <?=$secondaryThemeColor?>;
-        }
-        .link-primary:hover {
-            color: #0a58ca;
-        }
-
-        .fw-bolder {
-            font-weight: bolder !important;
-            color: <?=$otherThemeColor?> !important;
-        }
-
-        .h3.fw-bolder {
-            color: <?=$otherThemeColor?> !important;
-        }
+        .bg-dark { background-color: <?= $themeData['primaryColor'] ?? '#000000' ?> !important; }
+        .bg-dark-subtle { background-color: <?= $themeData['primaryColor'] ?? '#000000' ?> !important; }
+        .bg-primary { background-color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }
+        .btn-primary { background-color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; border-color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }
+        .btn-outline-primary { color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; border-color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }
+        .text-primary { color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }
+        .border-primary { border-color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }
+        .link-primary { color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?>; }
+        .fw-bolder { font-weight: bolder !important; color: <?= $themeData['otherColor'] ?? '#000000' ?> !important; }
+        .h3.fw-bolder { color: <?= $themeData['otherColor'] ?? '#000000' ?> !important; }
     </style>
 
-    <?php if(!empty($customJSTop)): ?>
-        <!-- Custom JavaScript in the head -->
-        <?=$customJSTop?>
+    <!-- Custom JavaScript in the head -->
+    <?php if (!empty($themeData['customJSTop'])): ?>
+        <?= $themeData['customJSTop'] ?>
     <?php endif; ?>
-    </custom-head-data>
 
-    <config-head-data>
-        <?= $this->include('front-end/themes/_shared/_custom_head_data.php'); ?>
-    </config-head-data>
+    <!-- Custom Head Data -->
+    <?= $this->include('front-end/themes/_shared/_custom_head_data.php'); ?>
 </head>
 <body class="d-flex flex-column h-100">
-
-<!--MAIN CONTENT-->
-<main class="flex-shrink-0">
-
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container px-5">
-            <a class="navbar-brand" href="<?=base_url('/')?>"><?=$companyName?></a>
+            <a class="navbar-brand" href="<?= $configData['baseUrl'] ?>"><?= $configData['companyName'] ?></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Navigation Links -->
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <?php if($topNavLists): ?>
-                        <?php foreach($topNavLists as $navigation): ?>
-                            <?php
-                                $navigationId = $navigation['navigation_id'];
-                                $navTitle = $navigation['title'];
-                                $parent = $navigation['parent'];
-                                $link = getLinkUrl($navigation['link']);
-                                $newTab = $navigation['new_tab'];
-                                $navTarget = $newTab === "1" ? "_blank" : "_self";
-                                
-                                // Find child navigations
-                                $childNavigations = $navigationsModel->where('parent', $navigationId)
-                                                                    ->orderBy('order', 'ASC')
-                                                                    ->limit(intval(getConfigData("queryLimitDefault")))
-                                                                    ->findAll();
-                            ?>
-                            
-                            <?php if(empty($parent)): ?>
-                                <?php if(empty($childNavigations)): ?>
-                                    <!-- Link without children -->
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="<?=$link?>" target="<?=$navTarget?>">
-                                            <?=$navTitle?>
-                                        </a>
-                                    </li>
-                                <?php else: ?>
-                                    <!-- Link with dropdown -->
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="dropdown-<?=$navigationId?>" 
-                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <?=$navTitle?>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end" 
-                                            aria-labelledby="dropdown-<?=$navigationId?>">
-                                            <?php foreach($childNavigations as $childNav): ?>
-                                                <li>
-                                                    <a class="dropdown-item" 
-                                                    href="<?=getLinkUrl($childNav['link'])?>" 
-                                                    target="<?=$childNav['new_tab'] === "1" ? "_blank" : "_self"?>">
-                                                        <?=$childNav['title']?>
-                                                    </a>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </li>
-                                <?php endif; ?>
-                            <?php endif; ?>
+                    <?php if ($topNavLists): ?>
+                        <?php foreach ($topNavLists as $navigation): ?>
+                            <?= themef_renderNavigation($navigation, $navigationsModel) ?>
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </ul>
-
-                <div class="d-none d-md-block d-lg-none d-xl-block">
-                    <!--Disable on md screens for better rendering-->
-                    <form action="<?= base_url('search') ?>" method="get" class="d-flex ms-xl-3 mt-3 mt-xl-0" role="search">
-                        <input class="form-control me-2" type="search" id="q" name="q" placeholder="Search for..." aria-label="Search for..." min="2" required>
-                    </form>
-                </div>
-                
+                <form action="<?= base_url('search') ?>" method="get" class="d-flex ms-xl-3 mt-3 mt-xl-0" role="search">
+                    <input class="form-control me-2" type="search" id="q" name="q" placeholder="Search for..." aria-label="Search for..." min="2" required>
+                </form>
                 <div id="google_translate_element"></div>
             </div>
         </div>
     </nav>
 
-    <div class="row">
-        <?= $this->renderSection('content') ?>
-    </div>
+    <!-- Main Content -->
+    <main class="flex-shrink-0">
+        <div class="row">
+            <?= $this->renderSection('content') ?>
+        </div>
+    </main>
 
-</main>
-<!--MAIN CONTENT END-->
-    <!-- Footer-->
+    <!-- Footer -->
     <footer class="bg-dark py-4 mt-auto">
         <div class="container px-5">
             <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                 <div class="col-auto">
-                    <div class="small m-0 text-white">
-                        <?=$copyRight?>
-                    </div>
+                    <div class="small m-0 text-white"><?= $themeData['copyRight'] ?></div>
                 </div>
-
                 <div class="col-auto">
-                    <?php if($footerNavLists): ?>
-                        <?php foreach($footerNavLists as $navigation): ?>
-                            <?php
-                                $navigationId = $navigation['navigation_id'];
-                                $navTitle = $navigation['title'];
-                                $parent = $navigation['parent'];
-                                $link = getLinkUrl($navigation['link']);
-                                $newTab = $navigation['new_tab'];
-                                $navTarget = $newTab === "1" ? "_blank" : "_self";
-                                $hasChildren = getTableData('navigations', ['navigation_id' => $navigationId], 'parent');
-                            ?>
-                            <!--Links without parent-->
-                            <?php if(empty($parent)): ?> 
-                                <a class="link-light small" href="<?=$link?>" target="<?=$navTarget?>">
-                                    <?=$navTitle?>
+                    <?php if ($footerNavLists): ?>
+                        <?php foreach ($footerNavLists as $navigation): ?>
+                            <?php if (empty($navigation['parent'])): ?>
+                                <a class="link-light small" href="<?= getLinkUrl($navigation['link']) ?>" target="<?= $navigation['new_tab'] === "1" ? "_blank" : "_self" ?>">
+                                    <?= $navigation['title'] ?>
                                 </a>
                                 <span class="text-white mx-1">&middot;</span>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                    
-                    <a class="link-light small" href="<?=site_url('sign-in')?>" target="_blank">
-                        Sign-In
-                    </a>
+                    <a class="link-light small" href="<?= site_url('sign-in') ?>" target="_blank">Sign-In</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap core JS-->
+    <!-- Bootstrap core JS -->
     <script async src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core theme JS-->
-    <script src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/js/scripts.js') ?>"></script>
+    <!-- Core theme JS -->
+    <script defer src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/js/scripts.js') ?>"></script>
 
-    <custom-footer-data>
-        <?php if(!empty($customJSFooter)): ?>
-            <!-- Custom JavaScript in the footer -->
-            <?=$customJSFooter?>
-        <?php endif; ?>
-    </custom-footer-data>
+    <!-- Custom JavaScript in the footer -->
+    <?php if (!empty($themeData['customJSFooter'])): ?>
+        <?= $themeData['customJSFooter'] ?>
+    <?php endif; ?>
 
-    <config-footer-data>
-        <?= $this->include('front-end/themes/_shared/_custom_footer_data.php'); ?>
-    </config-footer-data>
+    <!-- Custom Footer Data -->
+    <?= $this->include('front-end/themes/_shared/_custom_footer_data.php'); ?>
 
-  <!-- SweetAlert JS -->
-  <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- Include sweet_alerts-->
-  <?= $this->include('front-end/layout/assets/sweet_alerts.php'); ?>
+    <!-- SweetAlert JS -->
+    <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <?= $this->include('front-end/layout/assets/sweet_alerts.php'); ?>
 </body>
 </html>
