@@ -1,6 +1,18 @@
+<?php
+    //get site config values
+    $companyName = getConfigData("CompanyName");
+    $backendLogoLink = getConfigData("BackendLogoLink");
+?>
+
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="<?= base_url('/account'); ?>">Igniter CMS</a>
+    <a class="navbar-brand ps-3" href="<?= base_url('/account'); ?>">
+        <?php if (!empty($backendLogoLink)): ?>
+            <img src="<?= getImageUrl($backendLogoLink ?? getDefaultImagePath()) ?>" alt="Logo" class="img-thumbnail mt-4" style="max-height: 65px;">
+        <?php else: ?>
+            Igniter CMS
+        <?php endif; ?>
+    </a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="ri-list-check h5"></i></button>
 

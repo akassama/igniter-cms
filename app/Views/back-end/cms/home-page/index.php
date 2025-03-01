@@ -30,11 +30,6 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="col-12">
         <h3>Manage Home Page</h3>
     </div>
-    <div class="col-12 d-flex justify-content-end mb-2">
-        <a href="<?=base_url('/account/cms/home-page/new-home-page-section')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Home Section
-        </a>
-    </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
@@ -81,21 +76,6 @@ echo generateBreadcrumb($breadcrumb_links);
                                                     <i class="h5 ri-edit-box-line"></i>
                                                 </a>
                                             </div>
-                                            <?php
-                                            if ($home_page['deletable'] == 1) {
-                                                echo '<div class="col mb-1">
-                                                            <a class="text-dark td-none mr-1 remove-home-page" href="javascript:void(0)" onclick="deleteRecord(\'home_page\', \'home_page_id\', \'' . $home_page['home_page_id'] . '\', \'\', \'account/cms/home-page\')">
-                                                                <i class="h5 ri-close-circle-fill"></i>
-                                                            </a>
-                                                        </div>';
-                                            } else {
-                                            echo '<div class="col mb-1">
-                                                        <a class="text-dark td-none mr-1 remove-home-page disabled text-muted" href="javascript:void(0)">
-                                                            <i class="h5 ri-close-circle-fill"></i>
-                                                        </a>
-                                                    </div>';
-                                            }
-                                            ?>
                                         </div>
                                     </td>
                                 </tr>

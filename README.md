@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://i.ibb.co/Pv4XWmxv/Igniter-CMS.jpg" alt="Igniter CMS Logo" width="500">
+</p>
+
 # CodeIgniter 4 CMS
 Igniter CMS is a light but powerful, versatile Content Management System built on the robust CodeIgniter 4 framework. It offers a comprehensive solution for website management, content creation, and digital presence optimization.
 
