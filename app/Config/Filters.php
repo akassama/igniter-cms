@@ -44,7 +44,7 @@ class Filters extends BaseFilters
         'compressionFilter' => \App\Filters\CompressionFilter::class,
         'cacheHeadersFilter' => \App\Filters\CacheHeadersFilter::class,
         'corsFilter' => \App\Filters\CorsFilter::class,
-        'apiKeyFilter'   => \App\Filters\ApiKeyFilter::class,
+        'apiAccessFilter'   => \App\Filters\ApiAccessFilter::class,
     ];
 
     /**
@@ -83,7 +83,6 @@ class Filters extends BaseFilters
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
-            'corsFilter',
         ],
         'after' => [
             // 'honeypot',

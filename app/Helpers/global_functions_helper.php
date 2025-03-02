@@ -4063,6 +4063,88 @@ if (!function_exists('generateApiKey')) {
     }
 }
 
+if (!function_exists('isAllowedModel')) {
+    function isAllowedModel($urlSegment)
+    {
+        $requestModels = [
+            'get-home-page' => 'HomePageModel',
+            'get-all-blogs' => 'BlogsModel',
+            'get-blog' => 'BlogsModel',
+            'get-blogs' => 'BlogsModel',
+            'get-category' => 'CategoriesModel',
+            'get-categories' => 'CategoriesModel',
+            'get-code' => 'CodesModel',
+            'get-codes' => 'CodesModel',
+            'get-content-block' => 'ContentBlocksModel',
+            'get-content-blocks' => 'ContentBlocksModel',
+            'get-country' => 'CountriesModel',
+            'get-countries' => 'CountriesModel',
+            'get-counter' => 'CountersModel',
+            'get-counters' => 'CountersModel',
+            'get-donation-cause' => 'DonationCausesModel',
+            'get-donation-causes' => 'DonationCausesModel',
+            'get-event' => 'EventsModel',
+            'get-events' => 'EventsModel',
+            'get-faq' => 'FrequentlyAskedQuestionsModel',
+            'get-faqs' => 'FrequentlyAskedQuestionsModel',
+            'get-language' => 'LanguagesModel',
+            'get-languages' => 'LanguagesModel',
+            'get-navigation' => 'NavigationsModel',
+            'get-navigations' => 'NavigationsModel',
+            'get-all-pages' => 'PagesModel',
+            'get-page' => 'PagesModel',
+            'get-pages' => 'PagesModel',
+            'get-partner' => 'PartnersModel',
+            'get-partners' => 'PartnersModel',
+            'get-policy' => 'PoliciesModel',
+            'get-policies' => 'PoliciesModel',
+            'get-portfolio' => 'PortfoliosModel',
+            'get-portfolios' => 'PortfoliosModel',
+            'get-pricing' => 'PricingsModel',
+            'get-pricings' => 'PricingsModel',
+            'get-product-category' => 'ProductCategoriesModel',
+            'get-product-categories' => 'ProductCategoriesModel',
+            'get-product' => 'ProductsModel',
+            'get-products' => 'ProductsModel',
+            'get-resume' => 'ResumesModel',
+            'get-resumes' => 'ResumesModel',
+            'search-results' => 'SearchModel',
+            'model-search-results' => 'SearchModel',
+            'filter-search-results' => 'SearchModel',
+            'get-service' => 'ServicesModel',
+            'get-services' => 'ServicesModel',
+            'get-social' => 'SocialsModel',
+            'get-socials' => 'SocialsModel',
+            'get-team' => 'TeamsModel',
+            'get-teams' => 'TeamsModel',
+            'get-testimonial' => 'TestimonialsModel',
+            'get-testimonials' => 'TestimonialsModel',
+            'get-theme' => 'ThemesModel',
+            'get-themes' => 'ThemesModel',
+            'get-translation' => 'TranslationsModel',
+            'get-translations' => 'TranslationsModel',
+        ];
+
+        // Check if the given $urlSegment exists in the requestModels array
+        if (!isset($requestModels[$urlSegment])) {
+            return false;
+        }
+
+        // Retrieve the corresponding model name
+        $modelName = $requestModels[$urlSegment];
+
+        // Fetch the allowed models from configuration
+        $allowedModels = getConfigData("AllowedApiGetModels");
+
+        // Convert CSV list of allowed models into an array
+        $allowedModelsArray = array_map('trim', explode(',', $allowedModels));
+
+        // Check if the retrieved model name exists in the allowed models array
+        return in_array($modelName, $allowedModelsArray, true);
+    }
+}
+
+
 /**
  * Logs an API call with details in the database.
  * 

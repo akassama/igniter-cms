@@ -7,7 +7,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
 
-class ApiKeyFilter implements FilterInterface
+class ApiAccessFilter implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -32,6 +32,7 @@ class ApiKeyFilter implements FilterInterface
 
         // The API key is the second segment (after 'api')
         $apiKey = $segments[1] ?? null;
+        $resource = $segments[2] ?? null;
 
         // Debug: Check the extracted API key
         // var_dump($apiKey); exit();
@@ -43,6 +44,16 @@ class ApiKeyFilter implements FilterInterface
                 ->setJSON([
                     'status' => 'error',
                     'message' => 'Invalid API key.'
+                ]);
+        }
+
+         // Validate the API key using the helper function
+         if (!isAllowedModel($resource)) {
+            return Services::response()
+                ->setStatusCode(401)
+                ->setJSON([
+                    'status' => 'error',
+                    'message' => 'Invalid model access.'
                 ]);
         }
 
