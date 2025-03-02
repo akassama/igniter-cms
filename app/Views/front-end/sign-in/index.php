@@ -87,6 +87,8 @@
                     <?php
                 }
             ?>
+            <!-- Social login buttons -->
+            <?=  $this->include('front-end/layout/_social_login.php'); ?>
         </form>
     </div>
 </div>
