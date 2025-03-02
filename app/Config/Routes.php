@@ -396,7 +396,7 @@ $routes->get('/test/send-email', 'TestController::sendWelcomeEmail');
 $routes->get('/test/send-email-text', 'TestController::sendWelcomeEmailPlain');
 
 //API Endpoints
-$routes->group('api',  function($routes) {
+$routes->group('api', ['filter' => 'apiKeyFilter'],  function($routes) {
     //Generic Queries
     $routes->get('(:segment)/get-model-data', 'APIController::getModelData/$1');
 

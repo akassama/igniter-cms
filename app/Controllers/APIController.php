@@ -49,14 +49,6 @@ class APIController extends BaseController
     //GENERIC GET METHODS
     public function getModelData($apiKey)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.',
-            ]);
-        }
-
         // Define the list of allowed models
         $allowedModels = [
             'announcementPopups' => 'App\Models\AnnouncementPopupsModel',
@@ -147,14 +139,6 @@ class APIController extends BaseController
     //BLOGS API
     public function getBlog($apiKey, $blogId = null)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Check if slug is provided
         if (!$blogId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -186,14 +170,6 @@ class APIController extends BaseController
     
     public function getBlogs($apiKey)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
         $skip = $this->request->getGet('skip') ?? 0;
@@ -222,14 +198,6 @@ class APIController extends BaseController
 
     public function getAllBlogs($apiKey)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Fetch all blog blogs
         $blogsModel = new BlogsModel();
         // Order by created_at in descending order
@@ -260,14 +228,6 @@ class APIController extends BaseController
     //HOME PAGE API
     public function getHomePage($apiKey)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Fetch all page data
         $homePageModel = new HomePageModel();
         $pages = $homePageModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
@@ -282,14 +242,6 @@ class APIController extends BaseController
     //PAGE API
     public function getPage($apiKey, $pageId = null)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Check if slug is provided
         if (!$pageId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -321,14 +273,6 @@ class APIController extends BaseController
 
     public function getPages($apiKey)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
         $skip = $this->request->getGet('skip') ?? 0;
@@ -357,14 +301,6 @@ class APIController extends BaseController
 
     public function getAllPages($apiKey)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Fetch all page
         $pagesModel = new PagesModel();
         // Order by created_at in descending order
@@ -381,14 +317,6 @@ class APIController extends BaseController
     //NAVIGATIONS API
     public function getNavigation($apiKey, $navigationId = null)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Check if navigationId is provided
         if (!$navigationId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -417,14 +345,6 @@ class APIController extends BaseController
 
     public function getNavigations($apiKey)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
         $skip = $this->request->getGet('skip') ?? 0;
@@ -453,14 +373,6 @@ class APIController extends BaseController
     //CATEGORIES API
     public function getCategory($apiKey, $categoryId = null)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Check if categoryId is provided
         if (!$categoryId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -489,14 +401,6 @@ class APIController extends BaseController
 
     public function getCategories($apiKey)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
         $skip = $this->request->getGet('skip') ?? 0;
@@ -525,12 +429,6 @@ class APIController extends BaseController
     // CODES API
     public function getCode($apiKey, $codeId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$codeId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -557,12 +455,6 @@ class APIController extends BaseController
 
     public function getCodes($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -586,12 +478,6 @@ class APIController extends BaseController
     // CONTENT BLOCKS API
     public function getContentBlock($apiKey, $contentId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$contentId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -618,12 +504,6 @@ class APIController extends BaseController
 
     public function getContentBlocks($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -647,12 +527,6 @@ class APIController extends BaseController
     // PORTFOLIOS API
     public function getPortfolio($apiKey, $portfolioId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$portfolioId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -682,12 +556,6 @@ class APIController extends BaseController
 
     public function getPortfolios($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -716,12 +584,6 @@ class APIController extends BaseController
     // SERVICES API
     public function getService($apiKey, $serviceId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$serviceId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -748,12 +610,6 @@ class APIController extends BaseController
 
     public function getServices($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -777,12 +633,6 @@ class APIController extends BaseController
     // PARTNERS API
     public function getPartner($apiKey, $partnerId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$partnerId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -809,12 +659,6 @@ class APIController extends BaseController
 
     public function getPartners($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -838,12 +682,6 @@ class APIController extends BaseController
     // COUNTERS API
     public function getCounter($apiKey, $counterId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$counterId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -870,12 +708,6 @@ class APIController extends BaseController
 
     public function getCounters($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -899,12 +731,6 @@ class APIController extends BaseController
     // COUNTRIES API
     public function getCountry($apiKey, $countryId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$countryId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -931,12 +757,6 @@ class APIController extends BaseController
 
     public function getCountries($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -965,12 +785,6 @@ class APIController extends BaseController
     // FREQUENTLY ASKED QUESTIONS API
     public function getFaq($apiKey, $faqId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$faqId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -997,12 +811,6 @@ class APIController extends BaseController
 
     public function getFaqs($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1026,12 +834,6 @@ class APIController extends BaseController
     // LANGUAGES API
     public function getLanguage($apiKey, $languageId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$languageId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1058,12 +860,6 @@ class APIController extends BaseController
 
     public function getLanguages($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1087,12 +883,6 @@ class APIController extends BaseController
     // PRICINGS API
     public function getPricing($apiKey, $pricingId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$pricingId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1119,12 +909,6 @@ class APIController extends BaseController
 
     public function getPricings($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1148,12 +932,6 @@ class APIController extends BaseController
     // SOCIALS API
     public function getSocial($apiKey, $socialId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$socialId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1180,12 +958,6 @@ class APIController extends BaseController
 
     public function getSocials($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1209,12 +981,6 @@ class APIController extends BaseController
     // TEAMS API
     public function getTeam($apiKey, $teamId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$teamId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1241,12 +1007,6 @@ class APIController extends BaseController
 
     public function getTeams($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1270,14 +1030,6 @@ class APIController extends BaseController
     // TESTIMONIALS API
     public function getTestimonial($apiKey, $testimonialId = null)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Check if id is provided
         if (!$testimonialId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1306,12 +1058,6 @@ class APIController extends BaseController
 
     public function getTestimonials($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1335,14 +1081,6 @@ class APIController extends BaseController
     // THEMES API
     public function getTheme($apiKey, $themeId = null)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Check if id is provided
         if (!$themeId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1371,12 +1109,6 @@ class APIController extends BaseController
 
     public function getThemes($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1400,14 +1132,6 @@ class APIController extends BaseController
     // TRANSLATIONS API
     public function getTranslation($apiKey, $translationId = null)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Check if id is provided
         if (!$translationId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1436,12 +1160,6 @@ class APIController extends BaseController
 
     public function getTranslations($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1465,12 +1183,6 @@ class APIController extends BaseController
     // EVENTS API (with status check)
     public function getEvent($apiKey, $eventId = null)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         if (!$eventId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1497,12 +1209,6 @@ class APIController extends BaseController
 
     public function getEvents($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1531,14 +1237,6 @@ class APIController extends BaseController
     //ECOMMERCE API
     public function getProduct($apiKey, $productId = null)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Check if productId is provided
         if (!$productId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1567,12 +1265,6 @@ class APIController extends BaseController
 
     public function getProducts($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1599,14 +1291,6 @@ class APIController extends BaseController
 
     public function getProductCategory($apiKey, $productCategoryId = null)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Check if productId is provided
         if (!$productCategoryId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1635,12 +1319,6 @@ class APIController extends BaseController
 
     public function getProductCategories($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1668,14 +1346,6 @@ class APIController extends BaseController
     //RESUME API
     public function getResume($apiKey, $resumeId = null)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Check if resumeId is provided
         if (!$resumeId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1704,12 +1374,6 @@ class APIController extends BaseController
 
     public function getResumes($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1737,14 +1401,6 @@ class APIController extends BaseController
     //POPUPS API
     public function getPopupAnnouncement($apiKey, $popupId = null)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Check if popupId is provided
         if (!$popupId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1773,12 +1429,6 @@ class APIController extends BaseController
 
     public function getPopupAnnouncements($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -1806,14 +1456,6 @@ class APIController extends BaseController
     //DONATION CAUSES API
     public function getDonationCause($apiKey, $donationCauseId = null)
     {
-        // Validate API Key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
-
         // Check if donationCauseId is provided
         if (!$donationCauseId) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -1842,12 +1484,6 @@ class APIController extends BaseController
 
     public function getDonationCauses($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
     
         // Get pagination parameters with defaults
         $take = $this->request->getGet('take') ?? 10;
@@ -2061,12 +1697,6 @@ class APIController extends BaseController
     //SEARCH API
     public function searchResults($apiKey)
     {
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
         
         $searchQuery = trim($this->request->getGet('key'));
 
@@ -2215,12 +1845,6 @@ class APIController extends BaseController
     public function modelSearchResults($apiKey)
     {
         // Validate API key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         // Get the search query and type
         $searchQuery = trim($this->request->getGet('key'));
@@ -2297,12 +1921,6 @@ class APIController extends BaseController
     public function filterSearchResults($apiKey)
     {
         // Validate API key
-        if (!isValidApiKey($apiKey)) {
-            return $this->response->setStatusCode(401)->setJSON([
-                'status' => 'error',
-                'message' => 'Invalid API key.'
-            ]);
-        }
 
         // Get search parameters
         $type = $this->request->getGet('type'); // e.g., category, tag, author
@@ -2421,6 +2039,5 @@ class APIController extends BaseController
             'status' => 'success',
             'data' => $data
         ]);
-    }
-    
+    } 
 }

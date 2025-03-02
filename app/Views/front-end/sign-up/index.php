@@ -142,7 +142,9 @@
             <?php } ?>
             
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Submit</button>
+                </div>
             </div>
             <div class="my-2">
                 <p>

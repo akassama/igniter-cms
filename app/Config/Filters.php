@@ -44,6 +44,7 @@ class Filters extends BaseFilters
         'compressionFilter' => \App\Filters\CompressionFilter::class,
         'cacheHeadersFilter' => \App\Filters\CacheHeadersFilter::class,
         'corsFilter' => \App\Filters\CorsFilter::class,
+        'apiKeyFilter'   => \App\Filters\ApiKeyFilter::class,
     ];
 
     /**

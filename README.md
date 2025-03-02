@@ -51,12 +51,12 @@ Igniter CMS is a light but powerful, versatile Content Management System built o
     * Install dependencies: `composer install`
     * Set Up Database Connection: Edit the database configuration in `app/Config/Database.php`:
     ```
-    public $default = [
+    public array $default = [
         'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => 'your_database_username',
-        'password' => 'your_database_password',
-        'database' => 'your_database_name',
+        'hostname' => ENVIRONMENT === 'production' ? 'prod_hostname' : 'localhost',
+        'username' => ENVIRONMENT === 'production' ? 'prod_db_username' : 'root',
+        'password' => ENVIRONMENT === 'production' ? 'prod_db_password' : '',
+        'database' => ENVIRONMENT === 'production' ? 'prod_db' : 'igniter_db',
         'DBDriver' => 'MySQLi',
         // other settings
     ];
