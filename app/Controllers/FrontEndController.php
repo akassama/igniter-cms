@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
@@ -37,6 +36,7 @@ use App\Constants\ActivityTypes;
 class FrontEndController extends BaseController
 {
     private EmailService $emailService;
+    private SimpleCacheService $cacheService;
 
     public function __construct()
     {
@@ -67,22 +67,55 @@ class FrontEndController extends BaseController
 
 		// Set data to pass in view
 		$data = [
-			'home_pages' => $homePageModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-            'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-            'categories' => $categoriesModel->orderBy('title', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-            'navigations' => $navigationsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-            'events' => $eventsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-            'portfolios' => $portfoliosModel->where('status', '1')->orderBy('created_at', 'DESC')->findAll(),
-            'socials' => $socialsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-            'counters' => $countersModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-            'partners' => $partnersModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-            'services' => $servicesModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-            'pricings' => $pricingsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-            'teams' => $teamsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-            'faqs' => $faqsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-            'testimonials' => $testimonialsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-            'donations' => $donationsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-		];
+            'home_pages'    => $homePageModel->where('status', '1')
+                                            ->orderBy('order', 'ASC')
+                                            ->limit(intval(getConfigData("queryLimitDefault")))
+                                            ->findAll(),
+            'blogs'         => $blogsModel->where('status', '1')
+                                            ->orderBy('created_at', 'DESC')
+                                            ->limit(intval(getConfigData("queryLimitMedium")))
+                                            ->findAll(),
+            'categories'    => $categoriesModel->orderBy('title', 'ASC')
+                                            ->limit(intval(getConfigData("queryLimitDefault")))
+                                            ->findAll(),
+            'navigations'   => $navigationsModel->orderBy('order', 'ASC')
+                                            ->limit(intval(getConfigData("queryLimitDefault")))
+                                            ->findAll(),
+            'events'        => $eventsModel->where('status', '1')
+                                            ->orderBy('created_at', 'DESC')
+                                            ->limit(intval(getConfigData("queryLimitMedium")))
+                                            ->findAll(),
+            'portfolios'    => $portfoliosModel->where('status', '1')
+                                            ->orderBy('created_at', 'DESC')
+                                            ->findAll(),
+            'socials'       => $socialsModel->orderBy('order', 'ASC')
+                                            ->limit(intval(getConfigData("queryLimitMedium")))
+                                            ->findAll(),
+            'counters'      => $countersModel->orderBy('created_at', 'DESC')
+                                            ->limit(intval(getConfigData("queryLimitMedium")))
+                                            ->findAll(),
+            'partners'      => $partnersModel->orderBy('created_at', 'DESC')
+                                            ->limit(intval(getConfigData("queryLimitDefault")))
+                                            ->findAll(),
+            'services'      => $servicesModel->orderBy('order', 'ASC')
+                                            ->limit(intval(getConfigData("queryLimitDefault")))
+                                            ->findAll(),
+            'pricings'      => $pricingsModel->orderBy('order', 'ASC')
+                                            ->limit(intval(getConfigData("queryLimitMedium")))
+                                            ->findAll(),
+            'teams'         => $teamsModel->orderBy('created_at', 'DESC')
+                                            ->limit(intval(getConfigData("queryLimitMedium")))
+                                            ->findAll(),
+            'faqs'          => $faqsModel->orderBy('created_at', 'DESC')
+                                            ->limit(intval(getConfigData("queryLimitDefault")))
+                                            ->findAll(),
+            'testimonials'  => $testimonialsModel->orderBy('created_at', 'DESC')
+                                            ->limit(intval(getConfigData("queryLimitMedium")))
+                                            ->findAll(),
+            'donations'     => $donationsModel->orderBy('created_at', 'DESC')
+                                            ->limit(intval(getConfigData("queryLimitMedium")))
+                                            ->findAll(),
+        ];
 
         //load home view
         return view('front-end/themes/'.getCurrentTheme().'/home/index', $data);

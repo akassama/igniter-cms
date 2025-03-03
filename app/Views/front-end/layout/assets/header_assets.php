@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css" />
 
 <!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script async src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--favicon [https://realfavicongenerator.net/]-->
 <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('public/back-end/assets/img/favicon/apple-touch-icon.png')?>">

@@ -72,7 +72,7 @@ $siteTwitterLink = getTableData('socials', ['name' => 'Twitter'], 'link');
                 <?=$maintenanceModeText?>
             </p>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.js"></script>
+        <script async src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script async src="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.js"></script>
     </body>
 </html>

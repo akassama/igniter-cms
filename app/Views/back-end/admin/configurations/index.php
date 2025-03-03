@@ -66,8 +66,10 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <tr>
                                     <td><?= $rowCount; ?></td>
                                     <td>
-                                        <i class="<?= $config['icon']; ?>"></i>
-                                        <?= $config['config_for']; ?>
+                                        <span  data-bs-toggle="tooltip" data-bs-placement="top" title="<?= htmlspecialchars($config['description']); ?>">
+                                            <i class="<?= $config['icon']; ?>"></i>
+                                            <?= $config['config_for']; ?>
+                                        </span>
                                     </td>
                                     <td class="text-break text-wrap">
                                         <?= htmlspecialchars($config['config_value']); ?>

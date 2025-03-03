@@ -51,7 +51,7 @@
 <link href="<?= base_url('public/back-end/assets/css/custom.css')?>" rel="stylesheet" />
 
 <!-- Chart.js CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css">
 
 <!-- jquery.timepicker CDN -->
@@ -65,7 +65,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/themes/syntax.js.dark.theme.css" />
 
 <!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script async src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--favicon-->
 <?php if (!empty($backendFaviconLink)): ?>
