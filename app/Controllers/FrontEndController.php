@@ -809,8 +809,110 @@ class FrontEndController extends BaseController
     
         // Add the sitemap directive
         $robots_txt .= "Sitemap: " . base_url('sitemap.xml') . "\n";
+        
+        // Log activity for Robots feed access
+        logActivity(null, ActivityTypes::ROBOTS, 'Robots txt accessed');
     
         // Output the robots.txt content
         echo $robots_txt;
+    }
+
+    //############################//
+    //         RSS Feed           //
+    //############################//
+    public function getRssFeed()
+    {
+        // Models to query (same as sitemap)
+        $models = [
+            'blog' => new BlogsModel(),
+            'page' => new PagesModel(),
+            'event' => new EventsModel(),
+            'portfolio' => new PortfoliosModel(),
+            'donate' => new DonationCausesModel(),
+            'shop' => new ProductsModel()
+        ];
+    
+        // Fetch data from each model
+        $rssData = [];
+        foreach ($models as $key => $model) {
+            // Define the summary/description field for each model
+            $summaryField = $this->getSummaryField($key);
+    
+            // Select fields dynamically
+            $fields = ['slug', 'title', 'updated_at', 'created_at'];
+            if ($summaryField) {
+                $fields[] = $summaryField;
+            }
+    
+            // Fetch data
+            $rssData[$key] = $model->select($fields)
+                ->where('status', '1') // Only active records
+                ->orderBy('created_at', 'DESC')
+                ->limit(intval(getConfigData("queryLimitHigh"))) 
+                ->findAll();
+        }
+    
+        // Log activity for RSS feed access
+        logActivity(null, ActivityTypes::RSS, 'RSS feed accessed');
+    
+        // Generate the RSS XML
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+        $xml .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' . PHP_EOL;
+        $xml .= '  <channel>' . PHP_EOL;
+        $xml .= '    <title>Your CMS Title</title>' . PHP_EOL;
+        $xml .= '    <description>Latest updates from your CMS</description>' . PHP_EOL;
+        $xml .= '    <link>' . base_url() . '</link>' . PHP_EOL;
+        $xml .= '    <atom:link href="' . base_url('rss') . '" rel="self" type="application/rss+xml" />' . PHP_EOL;
+        $xml .= '    <lastBuildDate>' . date('r') . '</lastBuildDate>' . PHP_EOL;
+        $xml .= '    <language>en-us</language>' . PHP_EOL;
+    
+        // Add dynamic items from models
+        foreach ($rssData as $type => $items) {
+            foreach ($items as $item) {
+                $url = base_url("/{$type}/{$item['slug']}");
+                $title = htmlspecialchars($item['title'], ENT_XML1, 'UTF-8');
+                $summaryField = $this->getSummaryField($type);
+                $description = $summaryField ? htmlspecialchars($item[$summaryField] ?? '', ENT_XML1, 'UTF-8') : '';
+                $pubDate = !empty($item['updated_at']) ? date('r', strtotime($item['updated_at'])) : date('r', strtotime($item['created_at']));
+    
+                $xml .= '    <item>' . PHP_EOL;
+                $xml .= '      <title>' . $title . '</title>' . PHP_EOL;
+                $xml .= '      <description>' . $description . '</description>' . PHP_EOL;
+                $xml .= '      <link>' . $url . '</link>' . PHP_EOL;
+                $xml .= '      <guid>' . $url . '</guid>' . PHP_EOL;
+                $xml .= '      <pubDate>' . $pubDate . '</pubDate>' . PHP_EOL;
+                $xml .= '    </item>' . PHP_EOL;
+            }
+        }
+    
+        // Close the RSS XML tags
+        $xml .= '  </channel>' . PHP_EOL;
+        $xml .= '</rss>' . PHP_EOL;
+    
+        // Set the response headers
+        $this->response->setContentType('application/rss+xml');
+        return $this->response->setBody($xml);
+    }
+    
+    /**
+     * Helper function to get the summary/description field for a given content type.
+     *
+     * @param string $type Content type (e.g., blog, page, event)
+     * @return string|null
+     */
+    private function getSummaryField(string $type): ?string
+    {
+        switch ($type) {
+            case 'blog':
+                return 'excerpt'; // Blogs use "excerpt"
+            case 'event':
+            case 'donate':
+            case 'portfolio':
+            case 'shop':
+                return 'description'; // Events, donations, portfolios, and products use "description"
+            case 'page':
+            default:
+                return null; // Pages do not have a summary/description field
+        }
     }
 }

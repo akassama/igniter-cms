@@ -2719,7 +2719,7 @@ if (!function_exists('generatePageTitleSlug')) {
         $slug = trim($slug, '-'); // Trim any leading or trailing dashes
 
         // List of excluded slugs that should not be used directly
-        $excludedSlugs = array("about", "contact", "home", "blog", "blogs", "tag", "tags", "category", "categories", "privacy-policy", "cookie-policy", "sitemap", "shop", "campaings", "donate");
+        $excludedSlugs = array("contact", "home", "blog", "blogs", "tag", "tags", "category", "categories", "privacy-policy", "cookie-policy", "sitemap", "rss", "shop", "campaings", "donate");
 
         // Check if the slug exists in the 'pages' table or is in the excluded list
         $builder = $db->table('pages');
@@ -4063,9 +4063,16 @@ if (!function_exists('generateApiKey')) {
     }
 }
 
+/**
+ * Checks if the given API request model is allowed.
+ *
+ * @param string $urlSegment The request segment (e.g., 'get-blog').
+ * @return bool Returns true if the model is allowed, otherwise false.
+ */
 if (!function_exists('isAllowedModel')) {
     function isAllowedModel($urlSegment)
     {
+        //Mapping of request segments to their respective model names.
         $requestModels = [
             'get-home-page' => 'HomePageModel',
             'get-all-blogs' => 'BlogsModel',
@@ -4125,21 +4132,21 @@ if (!function_exists('isAllowedModel')) {
             'get-translations' => 'TranslationsModel',
         ];
 
-        // Check if the given $urlSegment exists in the requestModels array
+        // Validates if the given request segment exists in the predefined request models.
         if (!isset($requestModels[$urlSegment])) {
             return false;
         }
 
-        // Retrieve the corresponding model name
+        // Retrieves the corresponding model name for the given request segment.
         $modelName = $requestModels[$urlSegment];
 
-        // Fetch the allowed models from configuration
+        // Fetches the list of allowed models from the configuration.
         $allowedModels = getConfigData("AllowedApiGetModels");
 
-        // Convert CSV list of allowed models into an array
+        // Converts the CSV string of allowed models into an array.
         $allowedModelsArray = array_map('trim', explode(',', $allowedModels));
 
-        // Check if the retrieved model name exists in the allowed models array
+        // Checks if the model name exists in the allowed models array.
         return in_array($modelName, $allowedModelsArray, true);
     }
 }

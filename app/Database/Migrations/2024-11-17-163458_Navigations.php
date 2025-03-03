@@ -286,7 +286,7 @@ class Navigations extends Migration
             ],
             [
                 'navigation_id' => getGUID("204476df-0090-48de-829d-e5f30e2b85d6"),
-                'title'    => 'Terms of service',
+                'title'    => 'Terms of Service',
                 'description'    => 'Terms of service page',
                 'group'    => 'footer_nav',
                 'order'    => 38,
@@ -298,12 +298,36 @@ class Navigations extends Migration
             ],
             [
                 'navigation_id' => getGUID("a5556828-689e-48fb-9f84-b59858a04e0a"),
-                'title'    => 'Privacy policy',
+                'title'    => 'Privacy Policy',
                 'description'    => 'Privacy policy page',
                 'group'    => 'footer_nav',
                 'order'    => 40,
                 'parent'    => null,
                 'link'    => '#services',
+                'new_tab'    => false,
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null
+            ],
+            [
+                'navigation_id' => getGUID("5b2969a9-6d2f-431f-9a06-cebf924daa10"),
+                'title'    => 'Sitemap',
+                'description'    => 'Sitemap page',
+                'group'    => 'footer_nav',
+                'order'    => 42,
+                'parent'    => null,
+                'link'    => 'sitemap',
+                'new_tab'    => false,
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null
+            ],
+            [
+                'navigation_id' => getGUID("07b6258b-1884-47af-892f-52d203d97d1e"),
+                'title'    => 'RSS Feed',
+                'description'    => 'RSS feed page',
+                'group'    => 'footer_nav',
+                'order'    => 44,
+                'parent'    => null,
+                'link'    => 'rss',
                 'new_tab'    => false,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null

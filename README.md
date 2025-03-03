@@ -120,7 +120,7 @@ There is a global helper with several functions available to ease the developmen
 * Global Functions Helpers: `app/Helpers/global_functions_helper.php`
 
 ### Usage
-Refer to the detailed documentation for information on using the application's features, API endpoints, and development guidelines.  The documentation is available here: [Igniter CMS Documentation](https://abdouliekassama.com/projects/igniter-cms/docs)
+Refer to the detailed documentation for information on using the application's features, API endpoints, and development guidelines.  The documentation is available here: [Igniter CMS Documentation](https://docs.igniter-cms.aktools.net)
 
 ### API
 The application includes a fetch-only RESTful API.  Refer to the documentation for available endpoints and usage instructions.  API keys may be required for authentication.

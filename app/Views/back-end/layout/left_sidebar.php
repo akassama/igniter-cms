@@ -233,13 +233,9 @@ $userRole = getUserRole($sessionEmail);
                     </div>
                 <?php endif; ?>
 
-                <a class="nav-link" href="https://abdouliekassama.com/projects/igniter-cms" target="_blank">
+                <a class="nav-link" href="https://docs.igniter-cms.aktools.net" target="_blank">
                     <div class="sb-nav-link-icon"><i class="ri-code-s-slash-line h5"></i></div>
                     Documentation
-                </a>
-                <a class="nav-link <?= (str_contains(current_url(), 'account/ai-helpbot')) ? 'active' : ''; ?>" href="<?= base_url('/account/ai-helpbot'); ?>">
-                    <div class="sb-nav-link-icon"><i class="ri-robot-2-fill"></i></div>
-                    Ask AI
                 </a>
             </div>
         </div>

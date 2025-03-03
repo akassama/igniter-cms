@@ -71,6 +71,8 @@ class ActivityTypes
     const MODULE_SEARCH = 'module_search';
     const SEARCH = 'search';
     const SITEMAP = 'sitemap';
+    const ROBOTS = 'robots';
+    const RSS = 'rss';
 
     //DELETE LOG
     const DELETE_LOG = 'delete_log';
@@ -386,6 +388,8 @@ class ActivityTypes
             self::MODULE_SEARCH => 'Module Search',
             self::SEARCH => 'Search',
             self::SITEMAP => 'Sitemap',
+            self::ROBOTS => 'Robots',
+            self::RSS => 'Rss',
             self::DELETE_LOG => 'Delete Action',
             self::FAILED_DELETE_LOG => 'Failed Delete Action',
 

@@ -4,7 +4,7 @@ use CodeIgniter\Router\RouteCollection;
 
 /**
  * @var RouteCollection $routes
- */
+*/
 
 //SIGN-IN
 $routes->group('sign-in', ['filter' => ['siteStatsFilter','guestFilter']], function($routes) {
@@ -142,11 +142,6 @@ $routes->group('account', ['filter' => 'authFilter'], function($routes) {
     $routes->get('admin/file-editor/search-filter', 'AdminController::searchFilterFileEditor', ['filter' => 'adminRoleFilter']);
     $routes->get('admin/file-editor/sitemap', 'AdminController::sitemapFileEditor', ['filter' => 'adminRoleFilter']);
     $routes->post('admin/file-editor/save-file', 'AdminController::saveFile');
-
-    //AI HELP BOT
-    $routes->get('ai-helpbot', 'AIHelpBotController::index');
-    $routes->get('ai-helpbot/(:any)', 'AIHelpBotController::index/$1');
-    $routes->post('ai-helpbot/send-message', 'AIHelpBotController::sendMessage');
 
     //CMS
     $routes->get('cms', 'CMSController::index');
@@ -586,6 +581,9 @@ if(strtolower($frontEndFormat) === "mvc")
 
     #Robots.txt
     $routes->get('robots.txt', 'FrontEndController::getRobotsTxt', ['filter' => ['siteStatsFilter']]);
+
+    #RSS
+    $routes->get('rss', 'FrontEndController::getRssFeed', ['filter' => ['siteStatsFilter']]);
 
     #Pages - Placed button to avoid conflict with '/blogs', '/events', '/portfolios', '/search'
     $routes->get('/(:segment)', 'FrontEndController::getPageDetails/$1', ['filter' => ['siteStatsFilter']]);
