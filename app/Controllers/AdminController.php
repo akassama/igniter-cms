@@ -1390,7 +1390,7 @@ class AdminController extends BaseController
         return view('back-end/admin/backups/index', $data);
     }
 
-    public function generateBackup()
+    public function generateDbBackup()
     {
         //get logged-in user id
         $loggedInUserId = $this->session->get('user_id');
@@ -1400,8 +1400,8 @@ class AdminController extends BaseController
 
         try {
             // Get database configuration
-            $hostname = config('CustomConfig')->hostname;
-            $databaseName = config('CustomConfig')->database;
+            $hostname = env('database.default.hostname', 'localhost');
+            $databaseName = env('database.default.database', 'igniter_db');
             
             // Generate file name with date and time
             $fileName = 'backup_' . date('Y-m-d_H-i-s') .'-'. rand(). '.sql';
@@ -1499,7 +1499,7 @@ class AdminController extends BaseController
         }
     }
 
-    public function downloadBackup($fileName)
+    public function downloadDbBackup($fileName)
     {
         // Path to the backup file in the writable directory
         $filePath = WRITEPATH . 'backups/' . $fileName;
@@ -1512,6 +1512,80 @@ class AdminController extends BaseController
             // File not found, set an error message
             session()->setFlashdata('errorAlert', 'Backup file not found.');
             return redirect()->to('/account/admin/backups');
+        }
+    }
+
+    public function downloadPublicFolderBackup()
+    {
+        // Define the path to the public folder
+        $publicFolderPath = FCPATH . 'public'; // FCPATH points to the root directory
+    
+        // Generate a unique name for the zip file
+        $zipFileName = 'public_backup_' . date('Y-m-d_H-i-s') . '.zip';
+        $zipFilePath = WRITEPATH . 'backups/' . $zipFileName;
+    
+        // Ensure the backups directory exists
+        if (!is_dir(WRITEPATH . 'backups')) {
+            mkdir(WRITEPATH . 'backups', 0777, true);
+        }
+    
+        // Initialize the ZipArchive class
+        $zip = new \ZipArchive();
+    
+        // Attempt to create the zip file
+        if ($zip->open($zipFilePath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
+            // Add the public folder contents to the zip file
+            $this->addFolderToZip($publicFolderPath, $zip);
+    
+            // Close the zip file
+            $zip->close();
+    
+            // Check if the zip file was created successfully
+            if (file_exists($zipFilePath)) {
+                // Use CodeIgniter's response to download the file
+                return $this->response->download($zipFilePath, null)->setFileName($zipFileName);
+            } else {
+                // Handle error if the zip file could not be created
+                session()->setFlashdata('errorAlert', 'Failed to create the public folder backup.');
+                return redirect()->to('/account/admin/backups');
+            }
+        } else {
+            // Handle error if the zip file could not be opened
+            session()->setFlashdata('errorAlert', 'Failed to open the zip archive.');
+            return redirect()->to('/account/admin/backups');
+        }
+    }
+    
+    /**
+     * Helper function to recursively add folder contents to a zip archive.
+     *
+     * @param string $folderPath Path to the folder being added.
+     * @param ZipArchive $zip ZipArchive instance.
+     * @param string $parentFolder Parent folder path (used for recursion).
+     */
+    private function addFolderToZip($folderPath, $zip, $parentFolder = '')
+    {
+        // Open the folder
+        $files = new \DirectoryIterator($folderPath);
+    
+        foreach ($files as $file) {
+            // Skip "." and ".." directories
+            if ($file->isDot()) {
+                continue;
+            }
+    
+            // Construct the full path and relative path
+            $filePath = $file->getPathname();
+            $relativePath = $parentFolder ? $parentFolder . '/' . $file->getFilename() : $file->getFilename();
+    
+            if ($file->isDir()) {
+                // If it's a directory, add it to the zip and recurse into it
+                $zip->addEmptyDir($relativePath);
+                $this->addFolderToZip($filePath, $zip, $relativePath);
+            } else {
+                // If it's a file, add it to the zip
+                $zip->addFile($filePath, $relativePath);
+            }
         }
     }
 

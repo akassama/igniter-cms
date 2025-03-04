@@ -120,8 +120,9 @@ $routes->group('account', ['filter' => 'authFilter'], function($routes) {
     $routes->get('admin/translations/new-translation', 'AdminController::newTranslation', ['filter' => 'adminRoleFilter']);
     $routes->post('admin/translations/new-translation', 'AdminController::addTranslation');
     $routes->get('admin/backups', 'AdminController::backups', ['filter' => 'adminRoleFilter']);
-    $routes->get('admin/backups/generate-backup', 'AdminController::generateBackup', ['filter' => 'adminRoleFilter']);
-    $routes->get('admin/backups/download/(:any)', 'AdminController::downloadBackup/$1', ['filter' => 'adminRoleFilter']);
+    $routes->get('admin/backups/generate-db-backup', 'AdminController::generateDbBackup', ['filter' => 'adminRoleFilter']);
+    $routes->get('admin/backups/download-db/(:any)', 'AdminController::downloadDbBackup/$1', ['filter' => 'adminRoleFilter']);
+    $routes->get('admin/backups/download-public-folder-backup', 'AdminController::downloadPublicFolderBackup', ['filter' => 'adminRoleFilter']);
     //file editors
     $routes->get('admin/file-editor', 'AdminController::viewFiles', ['filter' => 'adminRoleFilter']);
     $routes->get('admin/file-editor/layout', 'AdminController::layoutFileEditor', ['filter' => 'adminRoleFilter']);

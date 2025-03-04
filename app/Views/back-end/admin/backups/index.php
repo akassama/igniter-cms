@@ -22,18 +22,23 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="col-12">
         <h3>Backups</h3>
     </div>
+    <div class="col-12 d-flex justify-content-end mb-2">
+        <a href="<?= base_url('account/admin/backups/download-public-folder-backup')?>" class="btn btn-outline-dark mx-1">
+            <i class="ri-folder-download-fill"></i> Generate Public Folder Backup
+        </a>
+    </div>
     <div class="col-12">
         <div class="card mb-4">
         <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Backups
+                Database Backups
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_backups ?>
                 </span>
             </div>
             <div class="card-body">
                 <div class="d-grid gap-3">
-                    <a href="<?= base_url('account/admin/backups/generate-backup')?>" class="btn btn-outline-primary btn-block">
+                    <a href="<?= base_url('account/admin/backups/generate-db-backup')?>" class="btn btn-outline-primary btn-block">
                         <i class="ri-database-2-fill"></i>
                         Generate Backup
                     </a>
@@ -71,7 +76,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                                     </a>
                                                 </div>
                                                 <div class="col mb-1">
-                                                    <a class="text-dark td-none mr-1 mb-1 download-btn" href="<?= base_url('account/admin/backups/download/' . $backup['backup_file_path']) ?>">
+                                                    <a class="text-dark td-none mr-1 mb-1 download-btn" href="<?= base_url('account/admin/backups/download-db/' . $backup['backup_file_path']) ?>">
                                                         <i class="h5 ri-download-2-line"></i>
                                                     </a>
                                                 </div>
