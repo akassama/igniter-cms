@@ -148,7 +148,7 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <?php endif; ?>
 
     <!-- Custom Theme CSS -->
-    <style>
+    <style>   
         .bg-dark { background-color: <?= $themeData['primaryColor'] ?? '#000000' ?> !important; }
         .bg-dark-subtle { background-color: <?= $themeData['primaryColor'] ?? '#000000' ?> !important; }
         .bg-primary { background-color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }

@@ -233,7 +233,7 @@ $userRole = getUserRole($sessionEmail);
                     </div>
                 <?php endif; ?>
 
-                <a class="nav-link" href="https://docs.igniter-cms.aktools.net" target="_blank">
+                <a class="nav-link" href="https://igniter-cms.aktools.net/docs" target="_blank">
                     <div class="sb-nav-link-icon"><i class="ri-code-s-slash-line h5"></i></div>
                     Documentation
                 </a>

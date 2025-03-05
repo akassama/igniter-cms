@@ -68,4 +68,6 @@ CI_ENVIRONMENT = development
 
 # logger.threshold = 4
 
+DEMO_MODE = false
+
 

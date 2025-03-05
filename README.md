@@ -26,6 +26,7 @@ Igniter CMS is a light but powerful, versatile Content Management System built o
     * Global Exception Handling
     * Easily Customizable Settings
     * Emailing Service Integration
+    * **PHP Zip Extension:** Ensure the PHP zip extension is enabled. In your `php.ini` file, uncomment the line `extension=zip` (or `extension=php_zip.dll` on Windows) and restart your web server.
 
 * **Comprehensive CMS:**  Manage various website content, including blogs, pages, categories, navigations, events, portfolios, services, partners, counters, social links, pricings, teams, testimonials, FAQs, donation causes, popups, and policies.
 * **E-commerce Module:** Basic e-commerce functionality with product and category management.
@@ -35,7 +36,8 @@ Igniter CMS is a light but powerful, versatile Content Management System built o
 * **Settings:** Configure application settings, including account details and password.
 * **API:** Fetch-only RESTful API for retrieving CMS data.
 * **Themes:**  Support for managing and switching between website themes.
-* **Translations:** Manage translations for different languages.
+* **Translations:** Manage Google translations for different languages.
+* **Data Backup:** Export database and project assets.
 * **Customizable:**  Easily customize app messages, activity types, and more.
 
 ## Getting Started
@@ -49,22 +51,34 @@ Igniter CMS is a light but powerful, versatile Content Management System built o
     * Clone the repository: `git clone https://github.com/akassama/igniter-cms` (Replace with your actual repo URL)
     * Navigate to the project folder: `cd igniter-cms`
     * Install dependencies: `composer install`
-    * Set Up Database Connection: Edit the database configuration in `app/Config/Database.php`:
-    ```
-    public array $default = [
-        'DSN'      => '',
-        'hostname' => ENVIRONMENT === 'production' ? 'prod_hostname' : 'localhost',
-        'username' => ENVIRONMENT === 'production' ? 'prod_db_username' : 'root',
-        'password' => ENVIRONMENT === 'production' ? 'prod_db_password' : '',
-        'database' => ENVIRONMENT === 'production' ? 'prod_db' : 'igniter_db',
-        'DBDriver' => 'MySQLi',
-        // other settings
-    ];
-    ```
-    Make sure to update the `hostname`, `username`, `password`, and `database` fields with your database connection details.
+    * **Configure Database Connection:**
+        * The database configuration is managed via a `.env` file. If you don't have one, create a `.env` file in the root directory of your project.
+        * Add the following database configuration settings to your `.env` file, replacing the placeholder values with your actual database credentials:
+        ```
+        database.default.hostname = localhost
+        database.default.database = igniter_db
+        database.default.username = root
+        database.default.password = 
+        database.default.DBDriver = MySQLi
+        database.default.DBPrefix = 
+        database.default.port = 3306
+        ```
+        * Alternatively, you can directly edit the database configuration in `app/Config/Database.php`:
+        ```
+        public array $default = [
+            'DSN'     => '',
+            'hostname' => ENVIRONMENT === 'production' ? 'prod_hostname' : 'localhost',
+            'username' => ENVIRONMENT === 'production' ? 'prod_db_username' : 'root',
+            'password' => ENVIRONMENT === 'production' ? 'prod_db_password' : '',
+            'database' => ENVIRONMENT === 'production' ? 'prod_db' : 'igniter_db',
+            'DBDriver' => 'MySQLi',
+            // other settings
+        ];
+        ```
+        Make sure to update the `hostname`, `username`, `password`, and `database` fields with your database connection details.
     * Create the Database: Using your database management system (e.g., PhpMyAdmin), create a new database with the same name specified in `Database.php`.
     * Set Up Base URL: Edit the configuration file located in `app/Config/App.php`
-    * Create a .env: Create a .env file in the root folder and add the environment variable `CI_ENVIRONMENT = development`. 
+    * Make sure to have the environment variable `CI_ENVIRONMENT = development` in the .env file. 
     * Run migrations: `php spark migrate`. This command will execute all available migrations, creating the necessary database tables.
     * Start the Application
       Ensure that your local server (e.g., Apache, Nginx) is running, then navigate to the base URL you set earlier:
@@ -120,7 +134,7 @@ There is a global helper with several functions available to ease the developmen
 * Global Functions Helpers: `app/Helpers/global_functions_helper.php`
 
 ### Usage
-Refer to the detailed documentation for information on using the application's features, API endpoints, and development guidelines.  The documentation is available here: [Igniter CMS Documentation](https://docs.igniter-cms.aktools.net)
+Refer to the detailed documentation for information on using the application's features, API endpoints, and development guidelines.  The documentation is available here: [Igniter CMS Documentation](https://igniter-cms.aktools.net/docs)
 
 ### API
 The application includes a fetch-only RESTful API.  Refer to the documentation for available endpoints and usage instructions.  API keys may be required for authentication.
