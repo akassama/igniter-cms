@@ -157,8 +157,8 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
         .text-primary { color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }
         .border-primary { border-color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }
         .link-primary { color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?>; }
-        .fw-bolder { font-weight: bolder !important; color: <?= $themeData['otherColor'] ?? '#000000' ?> !important; }
-        .h3.fw-bolder { color: <?= $themeData['otherColor'] ?? '#000000' ?> !important; }
+        .fw-bolder { font-weight: bolder !important; color: <?= colorShade($themeData['otherColor'], "darker", 10) ?? '#000000' ?> !important; }
+        .h3.fw-bolder { color: <?= colorShade($themeData['otherColor'], "darker", 10) ?? '#000000' ?> !important; }
     </style>
 
     <!-- Custom JavaScript in the head -->

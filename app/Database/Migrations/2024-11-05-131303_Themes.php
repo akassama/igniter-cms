@@ -100,7 +100,7 @@ class Themes extends Migration
                 'path' => '/default',
                 'primary_color' => '#212529',
                 'secondary_color' => '#0d6efd',
-                'other_color' => '#212529',
+                'other_color' => '#444342',
                 'image' => 'public/front-end/themes/default/assets/images/default-theme.png',
                 'theme_url' => 'https://startbootstrap.com/template/modern-business',
                 'footer_copyright' => "<p>Copyright &copy; Igniter CMS ". date('Y') ."</p>",

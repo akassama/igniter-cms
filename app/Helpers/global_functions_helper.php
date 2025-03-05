@@ -5307,6 +5307,128 @@ if (!function_exists('minifyJS')) {
     }
 }
 
+/**
+ * Generates a lighter or darker shade of a given CSS color code.
+ *
+ * @param string $colorCode The CSS color code (e.g., #00050a, rgb(0, 5, 10), rgba(0, 5, 10, 1.0)).
+ * @param string $shade     'lighter' or 'darker'.
+ * @param int    $percent   The percentage to lighten or darken (0-100).
+ *
+ * @return string The modified color code, or the original if an error occurs.
+ */
+if (!function_exists('colorShade')) {
+    function colorShade($colorCode, $shade = "lighter", $percent = 25)
+    {
+        // Validate inputs
+        if (!in_array($shade, ['lighter', 'darker']) || !is_numeric($percent) || $percent < 0 || $percent > 100) {
+            return $colorCode; // Return the original color on invalid input
+        }
+
+        // Normalize color code to hex format
+        $colorCode = normalizeHex($colorCode);
+
+        if (!$colorCode) {
+            return $colorCode; // Return the original color if normalization fails
+        }
+
+        // Remove '#' if present
+        $colorCode = ltrim($colorCode, '#');
+
+        // Convert hex to RGB
+        $rgb = hexToRgb($colorCode);
+
+        if (!$rgb) {
+            return "#" . $colorCode; // Return Original hex if RGB conversion fails
+        }
+
+        // Adjust RGB values
+        $adjustedRgb = [];
+        foreach ($rgb as $value) {
+            $change = round(($percent / 100) * (255 - $value));
+            if ($shade === 'darker') {
+                $change = -$change;
+            }
+            $adjustedValue = max(0, min(255, $value + $change));
+            $adjustedRgb[] = $adjustedValue;
+        }
+
+        // Convert adjusted RGB back to hex
+        return '#' . rgbToHex($adjustedRgb);
+    }
+
+    /**
+     * Normalizes a color code to hex format.
+     *
+     * @param string $colorCode The color code.
+     *
+     * @return string|false The normalized hex code, or false on error.
+     */
+    function normalizeHex($colorCode)
+    {
+        $colorCode = trim($colorCode);
+        if (strpos($colorCode, 'rgb') !== false) {
+            preg_match_all('/\d+/', $colorCode, $matches);
+            if (count($matches[0]) >= 3) {
+                return rgbToHex($matches[0]);
+            }
+            return false;
+        }
+
+        if (strpos($colorCode, '#') === 0 && (strlen($colorCode) === 4 || strlen($colorCode) === 7)) {
+            if (strlen($colorCode) === 4) {
+                $colorCode = '#' . $colorCode[1] . $colorCode[1] . $colorCode[2] . $colorCode[2] . $colorCode[3] . $colorCode[3];
+            }
+            return $colorCode;
+        }
+
+        if (preg_match('/^[0-9a-fA-F]{3}$/', $colorCode)){
+            return '#' . $colorCode[0] . $colorCode[0] . $colorCode[1] . $colorCode[1] . $colorCode[2] . $colorCode[2];
+        }
+
+        if (preg_match('/^[0-9a-fA-F]{6}$/', $colorCode)){
+            return '#' . $colorCode;
+        }
+
+        return false;
+    }
+
+    /**
+     * Converts a hex color code to RGB.
+     *
+     * @param string $hex The hex color code.
+     *
+     * @return array|false The RGB values, or false on error.
+     */
+    function hexToRgb($hex)
+    {
+        $hex = str_replace('#', '', $hex);
+        if (strlen($hex) !== 6) {
+            return false;
+        }
+        $rgb = [];
+        for ($i = 0; $i < 3; $i++) {
+            $rgb[] = hexdec(substr($hex, $i * 2, 2));
+        }
+        return $rgb;
+    }
+
+    /**
+     * Converts RGB values to a hex color code.
+     *
+     * @param array $rgb The RGB values.
+     *
+     * @return string The hex color code.
+     */
+    function rgbToHex($rgb)
+    {
+        $hex = '';
+        foreach ($rgb as $value) {
+            $hex .= str_pad(dechex($value), 2, '0', STR_PAD_LEFT);
+        }
+        return $hex;
+    }
+}
+
 
 /**
  * Check if the given text is a valid email address.
