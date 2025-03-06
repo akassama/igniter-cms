@@ -50,6 +50,8 @@ Vagrantfile
 #-------------------------
 writable/cache/assets/*
 !writable/cache/assets/.gitkeep
+!writable/cache/assets/css/
+!writable/cache/assets/js/
 !writable/cache/index.html
 
 writable/logs/*
