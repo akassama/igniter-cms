@@ -5316,8 +5316,8 @@ if (!function_exists('minifyJS')) {
  *
  * @return string The modified color code, or the original if an error occurs.
  */
-if (!function_exists('colorShade')) {
-    function colorShade($colorCode, $shade = "lighter", $percent = 25)
+if (!function_exists('adjustColorShade')) {
+    function adjustColorShade($colorCode, $shade = "lighter", $percent = 25)
     {
         // Validate inputs
         if (!in_array($shade, ['lighter', 'darker']) || !is_numeric($percent) || $percent < 0 || $percent > 100) {
