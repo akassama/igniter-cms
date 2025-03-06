@@ -49,6 +49,7 @@ Vagrantfile
 # Temporary Files
 #-------------------------
 writable/cache/assets/*
+!writable/cache/assets/.gitkeep
 !writable/cache/index.html
 
 writable/logs/*
