@@ -44,7 +44,7 @@ Igniter CMS is a light but powerful, versatile Content Management System built o
     * Composer
     * MySQL (or other supported database)
     * Web server (Apache, Nginx, etc.)
-    * Enable `zip` etension in php ini
+    * Enable `zip` extension in php ini
 
 2. **Steps:**
     * Clone the repository: `git clone https://github.com/akassama/igniter-cms` (Replace with your actual repo URL)
