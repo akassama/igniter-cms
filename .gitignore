@@ -48,10 +48,7 @@ Vagrantfile
 #-------------------------
 # Temporary Files
 #-------------------------
-writable/cache/assets/*
-!writable/cache/assets/.gitkeep
-!writable/cache/assets/css/
-!writable/cache/assets/js/
+writable/cache/*
 !writable/cache/index.html
 
 writable/logs/*
@@ -67,6 +64,12 @@ writable/debugbar/*
 !writable/debugbar/.gitkeep
 
 php_errors.log
+
+#-------------------------
+# Ensures public/cache/ directory is not ignored
+#-------------------------
+/public/cache/*
+!/public/cache/index.html
 
 #-------------------------
 # User Guide Temp Files

@@ -5242,7 +5242,7 @@ if (!function_exists('minifyCSS')) {
         $cache_key = md5($css_path . filemtime($css_path));
 
         // Define the cache directory and minified file path
-        $cache_dir = WRITEPATH . 'cache/assets/css/';
+        $cache_dir = FCPATH . 'public/cache/assets/css/';
         $minified_file = $cache_dir . $cache_key . '.min.css';
 
         // Check if the minified file already exists
@@ -5264,7 +5264,7 @@ if (!function_exists('minifyCSS')) {
         }
 
         // Return the URL to the minified file
-        return base_url('writable/cache/assets/css/' . $cache_key . '.min.css');
+        return base_url('public/cache/assets/css/' . $cache_key . '.min.css');
     }
 }
 
@@ -5287,7 +5287,7 @@ if (!function_exists('minifyJS')) {
         $cache_key = md5($js_path . filemtime($js_path));
 
         // Define the cache directory and minified file path
-        $cache_dir = WRITEPATH . 'cache/assets/js/';
+        $cache_dir = FCPATH . 'public/cache/assets/js/';
         $minified_file = $cache_dir . $cache_key . '.min.js';
 
         // Check if the minified file already exists
@@ -5303,7 +5303,7 @@ if (!function_exists('minifyJS')) {
         }
 
         // Return the URL to the minified file
-        return base_url('writable/cache/assets/js/' . $cache_key . '.min.js');
+        return base_url('public/cache/assets/js/' . $cache_key . '.min.js');
     }
 }
 
