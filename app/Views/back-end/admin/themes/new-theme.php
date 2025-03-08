@@ -224,8 +224,29 @@ echo generateBreadcrumb($breadcrumb_links);
                     Please provide sub_category
                 </div>
             </div>
+            
+            <div class="col-sm-12 col-md-6 mb-3">
+                <label for="home_page" class="form-label">Home Page Format</label>
+                <select class="form-select" id="home_page" name="home_page" required>
+                    <option value="">Select format</option>
+                    <option value="HomePage" selected>HomePage</option>
+                    <option value="Blog">Blog</option>
+                    <option value="Shop">Shop</option>
+                    <option value="Portfolio">Portfolio</option>
+                    <option value="Donate">Donate</option>
+                </select>
+                <!-- Error -->
+                <?php if($validation->getError('home_page')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('home_page'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide home_page
+                </div>
+            </div>
 
-            <div class="col-sm-12 col-md-12 mb-3">
+            <div class="col-sm-12 col-md-6 mb-3">
                 <label for="selected" class="form-label">Selected</label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="selected" name="selected" value="1">

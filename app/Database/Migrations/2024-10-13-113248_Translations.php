@@ -34,13 +34,13 @@ class Translations extends Migration
                 'translation_id' => getGUID(),
                 'language'    => 'en',
                 'created_at'    => date('Y/m/d h:i:s'),
-                'created_by' => getGUID('c9539038-7831-4904-8f6c-a5fd7720c435'),
+                'created_by' => getGUID(getDefaultAdminGUID()),
             ],
             [
                 'translation_id' => getGUID(),
                 'language'    => 'ar',
                 'created_at'    => date('Y/m/d h:i:s'),
-                'created_by' => getGUID('c9539038-7831-4904-8f6c-a5fd7720c435'),
+                'created_by' => getGUID(getDefaultAdminGUID()),
             ]
         ];
 

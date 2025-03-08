@@ -229,8 +229,29 @@ echo generateBreadcrumb($breadcrumb_links);
                     Please provide sub_category
                 </div>
             </div>
+            
+            <div class="col-sm-12 col-md-6 mb-3">
+                <label for="home_page" class="form-label">Home Page Format</label>
+                <select class="form-select" id="home_page" name="home_page" required>
+                    <option value="">Select format</option>
+                    <option value="HomePage" <?= ($theme_data['home_page'] == 'HomePage') ? 'selected' : '' ?>>HomePage</option>
+                    <option value="Blog" <?= ($theme_data['home_page'] == 'Blog') ? 'selected' : '' ?>>Blog</option>
+                    <option value="Shop" <?= ($theme_data['home_page'] == 'Shop') ? 'selected' : '' ?>>Shop</option>
+                    <option value="Portfolio" <?= ($theme_data['home_page'] == 'Portfolio') ? 'selected' : '' ?>>Portfolio</option>
+                    <option value="Donate" <?= ($theme_data['home_page'] == 'Donate') ? 'selected' : '' ?>>Donate</option>
+                </select>
+                <!-- Error -->
+                <?php if($validation->getError('home_page')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('home_page'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide home_page
+                </div>
+            </div>
 
-            <div class="col-sm-12 col-md-12 mb-3">
+            <div class="col-sm-12 col-md-6 mb-3">
                 <label for="selected" class="form-label">Selected</label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="selected" name="selected" value="1" <?= ($theme_data['selected'] == '1') ? 'checked' : '' ?>>
@@ -251,7 +272,6 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-12">
                 <input type="hidden" class="form-control" id="theme_id" name="theme_id" value="<?= $theme_data['theme_id']; ?>" />
                 <input type="hidden" class="form-control" id="deletable" name="deletable" value="<?= $theme_data['deletable']; ?>" />
-                <input type="hidden" class="form-control" id="home_page" name="home_page" value="<?= $theme_data['home_page']; ?>" />
                 <input type="hidden" class="form-control" id="created_by" name="created_by" value="<?= $theme_data['created_by']; ?>" />
             </div>
 

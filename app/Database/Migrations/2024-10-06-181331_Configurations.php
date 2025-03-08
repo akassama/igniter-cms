@@ -100,6 +100,22 @@ class Configurations extends Migration
         $data = [
             [
                 'config_id' => getGUID(),
+                'config_for' => 'HomePageFormat',
+                'config_value' => 'HomePage',
+                'group' => 'site',
+                'data_type' => 'Select',
+                'options' => 'HomePage,Blog,Shop,Resume,Portfolio,Donate',
+                'default_value' => 'HomePage',
+                'deletable' => 0,
+                'description' => 'Enable or disable maintenance mode for the site.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'custom_class' => '',
+                'icon' => 'ri-pages-fill',
+                'search_terms' => 'Home page,blogs,resumes,shops,portfolioslayout,status,settings'
+            ],
+            [
+                'config_id' => getGUID(),
                 'config_for' => 'AppApiKey',
                 'config_value' => 'your-app-api-key',
                 'group' => 'site',

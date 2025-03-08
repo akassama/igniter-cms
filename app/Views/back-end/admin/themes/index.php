@@ -67,6 +67,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>Name</th>
                             <th>Category</th>
                             <th>Active</th>
+                            <th>HomePage</th>
                             <th>Last Modified</th>
                             <th>Created By</th>
                             <th>Updated By</th>
@@ -87,6 +88,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= $theme['name']; ?></td>
                                     <td><?= $theme['category']; ?></td>
                                     <td><?= $theme['selected'] == "1" ? "<span class='badge bg-success'>Active</span>" : "<span class='badge bg-secondary'>Not Active</span>" ?></td>
+                                    <td><?= $theme['home_page']; ?></td>
                                     <td><?= $theme['updated_at']; ?></td>
                                     <td><?= getActivityBy(esc($theme['created_by']) , ""); ?></td>
                                     <td><?= getActivityBy(esc($theme['updated_by']) , ""); ?></td>

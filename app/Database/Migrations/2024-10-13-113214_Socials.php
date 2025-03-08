@@ -67,7 +67,7 @@ class Socials extends Migration
                 'link' => 'https://www.facebook.com/yourpage',
                 'new_tab' => true,
                 'order'    => 2,
-                'created_by' => getGUID('c9539038-7831-4904-8f6c-a5fd7720c435'),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -77,7 +77,7 @@ class Socials extends Migration
                 'link' => 'https://www.twitter.com/yourprofile',
                 'new_tab' => true,
                 'order'    => 4,
-                'created_by' => getGUID('c9539038-7831-4904-8f6c-a5fd7720c435'),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -87,7 +87,7 @@ class Socials extends Migration
                 'link' => 'https://www.linkedin.com/in/yourprofile',
                 'new_tab' => true,
                 'order'    => 6,
-                'created_by' => getGUID('c9539038-7831-4904-8f6c-a5fd7720c435'),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
             [
@@ -97,7 +97,7 @@ class Socials extends Migration
                 'link' => 'https://www.instagram.com/yourprofile',
                 'new_tab' => true,
                 'order'    => 8,
-                'created_by' => getGUID('c9539038-7831-4904-8f6c-a5fd7720c435'),
+                'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ]
         ];

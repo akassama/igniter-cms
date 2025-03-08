@@ -891,7 +891,7 @@ class AdminController extends BaseController
             'sub_category'  => $this->request->getVar('sub_category'),
             'selected'  => $this->request->getVar('selected') ?? 0,
             'deletable' => $this->request->getVar('deletable') ?? 1,
-            'home_page'  => $this->request->getVar('home_page'),
+            'home_page'  => $this->request->getVar('home_page') ?? 'HomePage',
             'created_by' => $loggedInUserId,
             'updated_by' => null
         ];
@@ -905,6 +905,12 @@ class AdminController extends BaseController
             $updateWhereClause = "theme_id != 'NULL'";
 
             updateRecord('themes', $updatedData, $updateWhereClause);
+
+            //update home_page config value
+            $homePage = $this->request->getVar('home_page');
+            $updateColumn = "'config_value' = '$homePage'";
+            $updateWhereClause = "config_for = 'HomePageFormat'";
+            updateRecordColumn("configurations", $updateColumn, $updateWhereClause);
         }
     
         // Call createTheme method from the ThemeModel
@@ -981,6 +987,12 @@ class AdminController extends BaseController
                 $updateWhereClause = "theme_id != 'NULL'";
 
                 updateRecord('themes', $updatedData, $updateWhereClause);
+
+                //update home_page config value
+                $homePage = $this->request->getVar('home_page');
+                $updateColumn = "'config_value' = '$homePage'";
+                $updateWhereClause = "config_for = 'HomePageFormat'";
+                updateRecordColumn("configurations", $updateColumn, $updateWhereClause);
             }
 
             $db = \Config\Database::connect();
@@ -998,7 +1010,7 @@ class AdminController extends BaseController
                 'sub_category'  => $this->request->getVar('sub_category'),
                 'selected'  => $this->request->getVar('selected') ?? 0,
                 'deletable' => $this->request->getVar('deletable') ?? 1,
-                'home_page'  => $this->request->getVar('home_page'),
+                'home_page'  => $this->request->getVar('home_page') ?? 'HomePage',
                 'created_by' => $this->request->getVar('created_by'),
                 'updated_by' => $loggedInUserId
             ];

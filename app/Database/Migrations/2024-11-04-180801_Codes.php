@@ -53,21 +53,21 @@ class Codes extends Migration
                 'code_for'    => 'CSS',
                 'code'    => '.dummy-class { color: initial; background-color: initial; font-size: initial; display: initial; visibility: initial; }',
                 'deletable'    => 0,
-                'created_by' => getGUID('c9539038-7831-4904-8f6c-a5fd7720c435')
+                'created_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'code_id' => getGUID(),
                 'code_for'    => 'HeaderJS',
                 'code'    => "<script>console.log('Head script loaded');</script>",
                 'deletable'    => 0,
-                'created_by' => getGUID('c9539038-7831-4904-8f6c-a5fd7720c435')
+                'created_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'code_id' => getGUID(),
                 'code_for'    => 'FooterJS',
                 'code'    => "<script>console.log('Footer script loaded');</script>",
                 'deletable'    => 0,
-                'created_by' => getGUID('c9539038-7831-4904-8f6c-a5fd7720c435')
+                'created_by' => getGUID(getDefaultAdminGUID())
             ],
         ];
 

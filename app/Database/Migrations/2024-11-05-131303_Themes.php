@@ -73,8 +73,9 @@ class Themes extends Migration
                 'default' => 1,
             ],
             'home_page' => [
-                'type' => 'TEXT',
-                'null' => true,
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'default' => 'HomePage',
             ],
             'created_by' => [
                 'type' => 'VARCHAR',
@@ -102,14 +103,14 @@ class Themes extends Migration
                 'secondary_color' => '#0d6efd',
                 'other_color' => '#444342',
                 'image' => 'public/front-end/themes/default/assets/images/default-theme.png',
-                'theme_url' => 'https://startbootstrap.com/template/modern-business',
+                'theme_url' => 'https://startbootstrap.com/previews/modern-business',
                 'footer_copyright' => "<p>Copyright &copy; Igniter CMS ". date('Y') ."</p>",
                 'selected' => true,
                 'category' => 'Business & Corporate',
                 'sub_category' => 'Portfolio & Resume',
                 'deletable' => 0,
-                'home_page' => '',
-                'created_by' => getGUID('c9539038-7831-4904-8f6c-a5fd7720c435')
+                'home_page' => 'HomePage',
+                'created_by' => getGUID(getDefaultAdminGUID())
             ],
         ];
 
