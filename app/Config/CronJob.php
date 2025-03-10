@@ -109,8 +109,8 @@ class CronJob extends \Daycry\CronJob\Config\CronJob
     |--------------------------------------------------------------------------
     */
     public bool $enableDashboard = false;
-    public string $username      = 'admin';
-    public string $password      = 'admin';
+    public string $username      = 'admin_user';
+    public string $password      = 'admin_password';
 
     /*
     |--------------------------------------------------------------------------
