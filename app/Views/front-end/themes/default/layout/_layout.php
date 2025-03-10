@@ -213,14 +213,14 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
                     <?php if ($footerNavLists): ?>
                         <?php foreach ($footerNavLists as $navigation): ?>
                             <?php if (empty($navigation['parent'])): ?>
-                                <a class="link-light small" href="<?= getLinkUrl($navigation['link']) ?>" target="<?= $navigation['new_tab'] === "1" ? "_blank" : "_self" ?>">
+                                <a class="link-light small text-decoration-none" href="<?= getLinkUrl($navigation['link']) ?>" target="<?= $navigation['new_tab'] === "1" ? "_blank" : "_self" ?>">
                                     <?= $navigation['title'] ?>
                                 </a>
                                 <span class="text-white mx-1">&middot;</span>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                    <a class="link-light small" href="<?= site_url('sign-in') ?>" target="_blank">Sign-In</a>
+                    <a class="link-light small text-decoration-none" href="<?= site_url('sign-in') ?>" target="_blank">Sign-In</a>
                 </div>
             </div>
         </div>

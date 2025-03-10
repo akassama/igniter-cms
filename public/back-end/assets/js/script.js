@@ -96,20 +96,27 @@ $(document).ready(function() {
  * Initializes a DataTable instance for the element with the class "datatable".
  */
 $(document).ready(function () {
-    $('.datatable').DataTable();
+    setTimeout(function (){
+        $('.datatable').DataTable({
+            lengthMenu : [10, 25, 50, 100, 200, 500, 1000],
+        });    
+      }, 500);
 });
 
 /**
  * Initializes a DataTable export instance for the element with the class "datatable".
  */
 $(document).ready(function () {
-    new DataTable('.datatable-export', {
-        layout: {
-            topStart: {
-                buttons: ['copy', 'excel', 'pdf', 'colvis']
-            }
-        }
-    });
+    setTimeout(function (){
+        new DataTable('.datatable-export', {
+            layout: {
+                topStart: {
+                    buttons: ['copy', 'excel', 'pdf', 'colvis']
+                }
+            },
+            pageLength: 100, // Default page length
+        });   
+      }, 500);
 });
 
 

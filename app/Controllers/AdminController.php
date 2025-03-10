@@ -907,7 +907,7 @@ class AdminController extends BaseController
             updateRecord('themes', $updatedData, $updateWhereClause);
 
             //update home_page config value
-            $homePage = $this->request->getVar('home_page');
+            $homePage = $themeData["selected"];
             $updateColumn = "'config_value' = '$homePage'";
             $updateWhereClause = "config_for = 'HomePageFormat'";
             updateRecordColumn("configurations", $updateColumn, $updateWhereClause);
