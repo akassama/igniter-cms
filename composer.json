@@ -12,6 +12,7 @@
     "require": {
         "php": "^8.1",
         "codeigniter4/framework": "^4.0",
+        "daycry/cronjob": "^2.2",
         "gregwar/captcha": "^1.2",
         "mailgun/mailgun-php": "^4.3",
         "mailjet/mailjet-apiv3-php": "^1.6",

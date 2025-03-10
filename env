@@ -68,6 +68,10 @@ CI_ENVIRONMENT = development
 
 # logger.threshold = 4
 
+#--------------------------------------------------------------------
+# SETTINGS
+#--------------------------------------------------------------------
 DEMO_MODE = false
+CRON_SECURITY_KEY = 42b619bd-bdc3-4ffd-8c69-8e70632f96ae
 
 

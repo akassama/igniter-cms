@@ -385,11 +385,12 @@ $routes->group('services', function($routes) {
     $routes->post('remove-backup', 'ServicesController::deleteBackupService', ['filter' => 'authFilter']);
 });
 
-//TEST
-$routes->get('/test', 'TestController::index');
-$routes->post('test/upload', 'TestController::uploadFile');
-$routes->get('/test/send-email', 'TestController::sendWelcomeEmail');
-$routes->get('/test/send-email-text', 'TestController::sendWelcomeEmailPlain');
+//CRON JOBS
+$routes->get("cron/daily-jobs/(:any)", "BackgroundController::dailyJobs/$1");
+$routes->get("cron/monday-jobs/(:any)", "BackgroundController::mondayJobs/$1");
+if (file_exists(ROOTPATH . 'vendor/daycry/cronjob/src/Config/Routes.php')) {
+    require ROOTPATH . 'vendor/daycry/cronjob/src/Config/Routes.php';
+}
 
 //API Endpoints
 $routes->group('api', ['filter' => ['apiAccessFilter','corsFilter']],  function($routes) {
