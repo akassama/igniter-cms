@@ -104,7 +104,7 @@ class Configurations extends Migration
                 'config_value' => 'HomePage',
                 'group' => 'site',
                 'data_type' => 'Select',
-                'options' => 'HomePage,Blog,Shop,Resume,Portfolio,Donate',
+                'options' => 'HomePage,Blog,Shop,Resume,Portfolio,Donate,None',
                 'default_value' => 'HomePage',
                 'deletable' => 0,
                 'description' => 'Enable or disable maintenance mode for the site.',

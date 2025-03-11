@@ -234,6 +234,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <option value="Shop">Shop</option>
                     <option value="Portfolio">Portfolio</option>
                     <option value="Donate">Donate</option>
+                    <option value="None">None</option>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('home_page')) {?>

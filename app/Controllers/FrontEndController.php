@@ -27,6 +27,8 @@ use App\Models\ServicesModel;
 use App\Models\ProductsModel;
 use App\Models\ProductCategoriesModel;
 use App\Models\ResumesModel;
+use App\Models\SkillsModel;
+use App\Models\EducationsModel;
 use App\Models\AnnouncementPopupsModel;
 use App\Models\DonationCausesModel;
 use App\Services\EmailService;
@@ -48,74 +50,97 @@ class FrontEndController extends BaseController
     //############################//
     public function index()
     {
-        $tableName = 'home_page';
-		$homePageModel = new HomePageModel();
-		$blogsModel = new BlogsModel();
-		$categoriesModel = new CategoriesModel();
-		$navigationsModel = new NavigationsModel();
-		$eventsModel = new EventsModel();
-		$portfoliosModel = new PortfoliosModel();
-		$socialsModel = new SocialsModel();
-		$countersModel = new CountersModel();
-		$partnersModel = new PartnersModel();
-		$servicesModel = new ServicesModel();
-		$pricingsModel = new PricingsModel();
-		$teamsModel = new TeamsModel();
-		$faqsModel = new FrequentlyAskedQuestionsModel();
-		$testimonialsModel = new TestimonialsModel();
-		$donationsModel = new DonationCausesModel();
-
-		// Set data to pass in view
-		$data = [
-            'home_pages'    => $homePageModel->where('status', '1')
-                                            ->orderBy('order', 'ASC')
-                                            ->limit(intval(getConfigData("queryLimitDefault")))
-                                            ->findAll(),
-            'blogs'         => $blogsModel->where('status', '1')
-                                            ->orderBy('created_at', 'DESC')
-                                            ->limit(intval(getConfigData("queryLimitMedium")))
-                                            ->findAll(),
-            'categories'    => $categoriesModel->orderBy('title', 'ASC')
-                                            ->limit(intval(getConfigData("queryLimitDefault")))
-                                            ->findAll(),
-            'navigations'   => $navigationsModel->orderBy('order', 'ASC')
-                                            ->limit(intval(getConfigData("queryLimitDefault")))
-                                            ->findAll(),
-            'events'        => $eventsModel->where('status', '1')
-                                            ->orderBy('created_at', 'DESC')
-                                            ->limit(intval(getConfigData("queryLimitMedium")))
-                                            ->findAll(),
-            'portfolios'    => $portfoliosModel->where('status', '1')
-                                            ->orderBy('created_at', 'DESC')
-                                            ->findAll(),
-            'socials'       => $socialsModel->orderBy('order', 'ASC')
-                                            ->limit(intval(getConfigData("queryLimitMedium")))
-                                            ->findAll(),
-            'counters'      => $countersModel->orderBy('created_at', 'DESC')
-                                            ->limit(intval(getConfigData("queryLimitMedium")))
-                                            ->findAll(),
-            'partners'      => $partnersModel->orderBy('created_at', 'DESC')
-                                            ->limit(intval(getConfigData("queryLimitDefault")))
-                                            ->findAll(),
-            'services'      => $servicesModel->orderBy('order', 'ASC')
-                                            ->limit(intval(getConfigData("queryLimitDefault")))
-                                            ->findAll(),
-            'pricings'      => $pricingsModel->orderBy('order', 'ASC')
-                                            ->limit(intval(getConfigData("queryLimitMedium")))
-                                            ->findAll(),
-            'teams'         => $teamsModel->orderBy('created_at', 'DESC')
-                                            ->limit(intval(getConfigData("queryLimitMedium")))
-                                            ->findAll(),
-            'faqs'          => $faqsModel->orderBy('created_at', 'DESC')
-                                            ->limit(intval(getConfigData("queryLimitDefault")))
-                                            ->findAll(),
-            'testimonials'  => $testimonialsModel->orderBy('created_at', 'DESC')
-                                            ->limit(intval(getConfigData("queryLimitMedium")))
-                                            ->findAll(),
-            'donations'     => $donationsModel->orderBy('created_at', 'DESC')
-                                            ->limit(intval(getConfigData("queryLimitMedium")))
-                                            ->findAll(),
+        //set default array data
+        $data = [
+            'home_pages'   => [],
+            'blogs'        => [],
+            'categories'   => [],
+            'navigations'  => [],
+            'events'       => [],
+            'portfolios'   => [],
+            'socials'      => [],
+            'counters'     => [],
+            'partners'     => [],
+            'services'     => [],
+            'pricings'     => [],
+            'teams'        => [],
+            'faqs'         => [],
+            'testimonials' => [],
+            'donations'    => [],
         ];
+
+        $homePageModel = new HomePageModel();
+        $blogsModel = new BlogsModel();
+        $categoriesModel = new CategoriesModel();
+        $navigationsModel = new NavigationsModel();
+        $eventsModel = new EventsModel();
+        $portfoliosModel = new PortfoliosModel();
+        $socialsModel = new SocialsModel();
+        $countersModel = new CountersModel();
+        $partnersModel = new PartnersModel();
+        $servicesModel = new ServicesModel();
+        $pricingsModel = new PricingsModel();
+        $teamsModel = new TeamsModel();
+        $faqsModel = new FrequentlyAskedQuestionsModel();
+        $testimonialsModel = new TestimonialsModel();
+        $donationsModel = new DonationCausesModel();
+        $productsModel = new ProductsModel();
+        $productCategoriesModel = new ProductCategoriesModel();
+        $resumesModel = new ResumesModel();
+        $skillsModel = new SkillsModel();
+        $educationsModel = new EducationsModel();
+
+        $homePageFormat = getConfigData("HomePageFormat");
+        if(strtolower($homePageFormat) === "homepage"){
+    
+            // Set data to pass in view
+            $data = [
+                'home_pages'    => $homePageModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+                'blogs'         => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+                'categories'    => $categoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+                'navigations'   => $navigationsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+                'events'        => $eventsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+                'portfolios'    => $portfoliosModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+                'socials'       => $socialsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+                'counters'      => $countersModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+                'partners'      => $partnersModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+                'services'      => $servicesModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+                'pricings'      => $pricingsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+                'teams'         => $teamsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+                'faqs'          => $faqsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+                'testimonials'  => $testimonialsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+                'donations'     => $donationsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
+            ];       
+        }
+        else if(strtolower($homePageFormat) === "blog"){
+            $data = [
+                'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitVeryHigh")))->findAll(),
+                'categories'    => $categoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+            ];
+        }
+        else if(strtolower($homePageFormat) === "shop"){
+            $data = [
+                'products' => $productsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitVeryHigh")))->findAll(),
+                'product_categories'    => $productCategoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+            ];
+        }
+        else if(strtolower($homePageFormat) === "resume"){
+            $data = [
+                'resume' => $resumesModel->where('status', 1)->first(),
+                'resume_skills'    => $skillsModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+                'resume_education'    => $educationsModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+            ];        
+        }
+        else if(strtolower($homePageFormat) === "portfolio"){
+            $data = [
+                'portfolios'    => $portfoliosModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+            ];        
+        }
+        else if(strtolower($homePageFormat) === "donate"){
+            $data = [
+                'donations' => $donationsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+            ];        
+        }
 
         //load home view
         return view('front-end/themes/'.getCurrentTheme().'/home/index', $data);

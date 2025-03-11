@@ -12,6 +12,7 @@ class CustomConfig extends BaseConfig
     public $useCaptcha = "No";
     public $appApiKey = "default";
     //query limits
+    public $queryLimitSingle = 1;
     public $queryLimitVeryLow = 3;
     public $queryLimitLow = 6;
     public $queryLimitMedium = 12;
