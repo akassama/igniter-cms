@@ -19,6 +19,12 @@ $siteFaviconLink96 = getConfigData("SiteFaviconLink96");
 $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
 $contactTitle = getHomePageData("Contact", "section_title");
 $contactDescription = getHomePageData("Contact", "section_description");
+
+//popup settings
+$currentPage = "contact";
+$popUpWhereClause = ['status' => 1];
+$showOnPages = getTableData('announcement_popups', $popUpWhereClause, 'show_on_pages');
+$enablePopupAds = getConfigData("EnablePopupAds");
 ?>
 <!-- include theme layout -->
 <?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>
@@ -126,6 +132,16 @@ $contactDescription = getHomePageData("Contact", "section_description");
     </div>
     </section>
     <!-- /Contact Section -->
+
+<?php
+// Check if popups should be shown
+if (strtolower($enablePopupAds) === "yes" && in_array($currentPage, explode(',', $showOnPages))) {
+    ?>
+        <!-- Advert Popup Section -->
+        <?= $this->include('front-end/themes/_shared/_advert_popups.php'); ?>
+    <?php
+}
+?>
 
 <!-- end main content -->
 <?= $this->endSection() ?>

@@ -2391,6 +2391,7 @@ class CMSController extends BaseController
 
     public function updatePopup()
     {
+
         $loggedInUserId = $this->session->get('user_id');
         $popupsModel = new AnnouncementPopupsModel();
         $popupId = $this->request->getPost('popup_id');
@@ -2410,6 +2411,8 @@ class CMSController extends BaseController
             updateRecord('announcement_popups', $updatedData, $updateWhereClause);
         }
 
+        $selectedPages = $this->request->getPost('show_on_pages');
+        $commaSeparatedPages = !empty($selectedPages) ? implode(',', $selectedPages) : "";
         $data = [
             'name' => $this->request->getPost('name'),
             'type' => $this->request->getPost('type'),
@@ -2443,7 +2446,7 @@ class CMSController extends BaseController
             'frequency' => $this->request->getPost('frequency'),
             'start_date' => $this->request->getPost('start_date'),
             'end_date' => $this->request->getPost('end_date'),
-            'show_on_pages' => $this->request->getPost('show_on_pages'),
+            'show_on_pages' => $commaSeparatedPages,
             'deletable' => $this->request->getPost('deletable'),
             'created_by' => $this->request->getPost('created_by'),
             'updated_by' => $loggedInUserId

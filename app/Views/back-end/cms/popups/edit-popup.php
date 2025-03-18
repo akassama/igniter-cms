@@ -567,24 +567,36 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" value="home" id="home" name="show_on_pages" <?= strpos($popup_data['show_on_pages'], "home") !== false ? "checked" : "" ?>>
+                    <input class="form-check-input" type="checkbox" value="home" id="home" name="show_on_pages[]" <?= strpos($popup_data['show_on_pages'], "home") !== false ? "checked" : "" ?>>
                     <label class="form-check-label" for="home">Home</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" value="blogs" id="blogs" name="show_on_pages" <?= strpos($popup_data['show_on_pages'], "blogs") !== false ? "checked" : "" ?>>
+                    <input class="form-check-input" type="checkbox" value="blogs" id="blogs" name="show_on_pages[]" <?= strpos($popup_data['show_on_pages'], "blogs") !== false ? "checked" : "" ?>>
                     <label class="form-check-label" for="blogs">Blogs</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" value="pages" id="pages" name="show_on_pages" <?= strpos($popup_data['show_on_pages'], "pages") !== false ? "checked" : "" ?>>
+                    <input class="form-check-input" type="checkbox" value="pages" id="pages" name="show_on_pages[]" <?= strpos($popup_data['show_on_pages'], "pages") !== false ? "checked" : "" ?>>
                     <label class="form-check-label" for="pages">Pages</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" value="shop" id="shop" name="show_on_pages" <?= strpos($popup_data['show_on_pages'], "shop") !== false ? "checked" : "" ?>>
+                    <input class="form-check-input" type="checkbox" value="shop" id="shop" name="show_on_pages[]" <?= strpos($popup_data['show_on_pages'], "shop") !== false ? "checked" : "" ?>>
                     <label class="form-check-label" for="shop">Shop</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" value="contact" id="contact" name="show_on_pages" <?= strpos($popup_data['show_on_pages'], "contact") !== false ? "checked" : "" ?>>
+                    <input class="form-check-input" type="checkbox" value="events" id="events" name="show_on_pages[]" <?= strpos($popup_data['show_on_pages'], "events") !== false ? "checked" : "" ?>>
+                    <label class="form-check-label" for="events">Events</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="portfolios" id="portfolios" name="show_on_pages[]" <?= strpos($popup_data['show_on_pages'], "portfolios") !== false ? "checked" : "" ?>>
+                    <label class="form-check-label" for="portfolios">Portfolios</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="contact" id="contact" name="show_on_pages[]" <?= strpos($popup_data['show_on_pages'], "contact") !== false ? "checked" : "" ?>>
                     <label class="form-check-label" for="contact">Contact</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="donate" id="donate" name="show_on_pages[]" <?= strpos($popup_data['show_on_pages'], "donate") !== false ? "checked" : "" ?>>
+                    <label class="form-check-label" for="donate">Donate</label>
                 </div>
             </div>
 

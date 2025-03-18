@@ -1,5 +1,5 @@
-<!--Alert Success-->
 <?php if(session()->getFlashdata('successAlert')):?>
+    <!--Alert Success-->
     <script>
         swal.fire({
             title: 'Success!',
@@ -11,8 +11,8 @@
     </script>
 <?php endif;?>
 
-<!--Alert Error-->
 <?php if(session()->getFlashdata('errorAlert')):?>
+    <!--Alert Error-->
     <script>
         swal.fire({
             title: 'Errror!',
@@ -24,8 +24,8 @@
     </script>
 <?php endif;?>
 
-<!--Alert Warning-->
 <?php if(session()->getFlashdata('warningAlert')):?>
+    <!--Alert Warning-->
     <script>
         swal.fire({
             title: 'Warning!',
@@ -37,8 +37,8 @@
     </script>
 <?php endif;?>
 
-<!--Alert Info-->
 <?php if(session()->getFlashdata('infoAlert')):?>
+    <!--Alert Info-->
     <script>
         swal.fire({
             title: 'Info!',
@@ -50,8 +50,8 @@
     </script>
 <?php endif;?>
 
-<!--Message Alert-->
 <?php if(session()->getFlashdata('messageAlert')):?>
+    <!--Message Alert-->
     <script>
         swal.fire('<?= session()->getFlashdata('messageAlert') ?>');
     </script>

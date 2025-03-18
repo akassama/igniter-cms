@@ -251,7 +251,7 @@ class Products extends Migration
                 'brand' => 'SoundMax',
                 'model' => 'SPK101',
                 'price' => 59.99,
-                'sale_price' => 49.99,
+                'sale_price' => null,
                 'currency' => '$',
                 'price_note' => 'per piece',
                 'featured_image' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/speaker.jpg',

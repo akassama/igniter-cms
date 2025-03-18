@@ -847,7 +847,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '128000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-1.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-1.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -857,7 +857,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-1-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '194000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-1-preview.png',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-1-preview.png',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -867,7 +867,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-2.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '507000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-2.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-2.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -877,7 +877,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-2-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '722000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-2-preview.png',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-2-preview.png',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -887,7 +887,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-3.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '72000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-3.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-3.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -897,7 +897,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-3-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '768000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-3-preview.png',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-3-preview.png',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -907,7 +907,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-4.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '121000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-4.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-4.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -917,7 +917,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-4-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '406000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-4-preview.png',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-4-preview.png',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -927,7 +927,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-5.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '104000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-5.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-5.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -937,7 +937,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-5-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '467000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-5-preview.png',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-5-preview.png',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -947,7 +947,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-6.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '127000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-6.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-6.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -957,7 +957,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-6-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '403000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-6-preview.png',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-6-preview.png',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -967,7 +967,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-7.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '62000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-7.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-7.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -977,7 +977,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-7-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '683000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-7-preview.png',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-7-preview.png',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -987,7 +987,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('type-8-preview.png'),
                 'file_type'    => 'jpg',
                 'file_size'    => '20000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/adverts/type-8-preview.png',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/ad-modals/type-8-preview.png',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],

@@ -129,7 +129,7 @@ $theme = getCurrentTheme();
 
                                     <h3 class="text-dark">Search</h3>
                                     <form action="<?= base_url('search') ?>" method="get">
-                                        <input type="text" id="q" name="q" placeholder="Search for..." aria-label="Search for..." min="2" required class="form-control">
+                                        <input type="text" id="q" name="q" placeholder="Search for..." aria-label="Search for..." minlength="2" required class="form-control">
                                     </form>
                                 </div>
                         </div>

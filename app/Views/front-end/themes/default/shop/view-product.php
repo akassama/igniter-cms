@@ -1,6 +1,13 @@
 <?php
 // Get current theme impact
 $theme = getCurrentTheme();
+
+//popup settings
+$currentPage = "shop";
+$popUpWhereClause = ['status' => 1];
+$showOnPages = getTableData('announcement_popups', $popUpWhereClause, 'show_on_pages');
+$enablePopupAds = getConfigData("EnablePopupAds");
+
 // Update view count
 updateTotalViewCount("products", "product_id", $product_data['product_id']);
 ?>
@@ -88,6 +95,15 @@ updateTotalViewCount("products", "product_id", $product_data['product_id']);
 
 <section class="product-page">
     <div class="container">
+        <div class="row">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
+                    <li class="breadcrumb-item"><a href="<?=base_url('/shop')?>">Shop</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?= esc($product_data['title']) ?></li>
+                </ol>
+            </nav>
+        </div>
         <div class="row">
             <!-- Product Images -->
             <div class="col-md-6 mb-4">
@@ -198,5 +214,17 @@ updateTotalViewCount("products", "product_id", $product_data['product_id']);
         event.target.classList.add('active');
     }
 </script>
+
+
+<?php
+// Check if popups should be shown
+if (strtolower($enablePopupAds) === "yes" && in_array($currentPage, explode(',', $showOnPages))) {
+    ?>
+        <!-- Advert Popup Section -->
+        <?= $this->include('front-end/themes/_shared/_advert_popups.php'); ?>
+    <?php
+}
+?>
+
 <!-- End main content -->
 <?= $this->endSection() ?>

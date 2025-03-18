@@ -2,6 +2,11 @@
 // Get current theme impact
 $theme = getCurrentTheme();
 
+//popup settings
+$currentPage = "donate";
+$popUpWhereClause = ['status' => 1];
+$showOnPages = getTableData('announcement_popups', $popUpWhereClause, 'show_on_pages');
+$enablePopupAds = getConfigData("EnablePopupAds");
 ?>
 <!-- include theme layout -->
 <?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>
@@ -54,5 +59,16 @@ $theme = getCurrentTheme();
             </div>
         </div>
     </section>
+
+<?php
+// Check if popups should be shown
+if (strtolower($enablePopupAds) === "yes" && in_array($currentPage, explode(',', $showOnPages))) {
+    ?>
+        <!-- Advert Popup Section -->
+        <?= $this->include('front-end/themes/_shared/_advert_popups.php'); ?>
+    <?php
+}
+?>
+
 <!-- end main content -->
 <?= $this->endSection() ?>

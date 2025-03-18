@@ -401,7 +401,23 @@ class Configurations extends Migration
                 'custom_class' => '',
                 'icon' => 'ri-money-pound-circle-fill',
                 'search_terms' => 'charity,donations,crowdfunding,mode,status,settings'
-            ],  
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'EnablePopupAds',
+                'config_value' => 'Yes',
+                'group' => 'site',
+                'data_type' => 'Select',
+                'options' => 'Yes,No',
+                'default_value' => 'Yes',
+                'deletable' => 0,
+                'description' => 'This configuration enables or disables the popup ads for the home page.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'custom_class' => '',
+                'icon' => 'ri-advertisement-line',
+                'search_terms' => 'popup,advert,alerts,announcements,pop-up'
+            ], 
             [
                 'config_id' => getGUID(),
                 'config_for' => 'EmailConfigType',

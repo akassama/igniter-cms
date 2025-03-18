@@ -177,7 +177,7 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container px-5">
             <a class="navbar-brand" href="<?= $configData['baseUrl'] ?>">
-                <?= $configData['companyName'] ?>
+                <img src="<?=getImageUrl($configData['siteLogoTwoLink'] ?? getDefaultImagePath())?>" alt="<?=$configData['companyName']?> Logo" class="border border-dark rounded" height="45">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -191,7 +191,7 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
                     <?php endif; ?>
                 </ul>
                 <form action="<?= base_url('search') ?>" method="get" class="d-flex ms-xl-3 mt-3 mt-xl-0" role="search">
-                    <input class="form-control me-2" type="search" id="q" name="q" placeholder="Search for..." aria-label="Search for..." min="2" required>
+                    <input class="form-control me-2" type="search" id="q" name="q" placeholder="Search for..." aria-label="Search for..." minlength="2" required>
                 </form>
                 <div id="google_translate_element"></div>
             </div>
