@@ -124,15 +124,11 @@ class FrontEndController extends BaseController
                 'product_categories'    => $productCategoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
             ];
         }
-        else if(strtolower($homePageFormat) === "resume"){
+        else if(strtolower($homePageFormat) === "portfolio"){
             $data = [
                 'resume' => $resumesModel->where('status', 1)->first(),
                 'resume_skills'    => $skillsModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
                 'resume_education'    => $educationsModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-            ];        
-        }
-        else if(strtolower($homePageFormat) === "portfolio"){
-            $data = [
                 'portfolios'    => $portfoliosModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
             ];        
         }

@@ -14,7 +14,7 @@
 <script async src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.colVis.min.js"></script>
 
 <!-- SweetAlert JS -->
-<script async src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
 
 <!--HTMX cdn-->
 <script async src="https://unpkg.com/htmx.org@1.9.6/dist/htmx.min.js"></script>

@@ -8,6 +8,9 @@
 <!--datatables css-->
 <link href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
+<!-- SweetAlert CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css">
+
 <!--custom css-->
 <link href="<?= base_url('public/front-end/assets/css/style.css')?>" rel="stylesheet" />
 

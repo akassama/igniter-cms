@@ -238,7 +238,6 @@ echo generateBreadcrumb($breadcrumb_links);
                     <option value="Blog" <?= ($theme_data['home_page'] == 'Blog') ? 'selected' : '' ?>>Blog</option>
                     <option value="Shop" <?= ($theme_data['home_page'] == 'Shop') ? 'selected' : '' ?>>Shop</option>
                     <option value="Portfolio" <?= ($theme_data['home_page'] == 'Portfolio') ? 'selected' : '' ?>>Portfolio</option>
-                    <option value="Donate" <?= ($theme_data['home_page'] == 'Donate') ? 'selected' : '' ?>>Donate</option>
                     <option value="None" <?= ($theme_data['home_page'] == 'None') ? 'selected' : '' ?>>None</option>
                 </select>
                 <!-- Error -->

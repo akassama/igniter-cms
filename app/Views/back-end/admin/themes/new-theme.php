@@ -233,7 +233,6 @@ echo generateBreadcrumb($breadcrumb_links);
                     <option value="Blog">Blog</option>
                     <option value="Shop">Shop</option>
                     <option value="Portfolio">Portfolio</option>
-                    <option value="Donate">Donate</option>
                     <option value="None">None</option>
                 </select>
                 <!-- Error -->

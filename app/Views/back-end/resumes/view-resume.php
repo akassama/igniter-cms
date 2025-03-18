@@ -27,7 +27,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="full_name" class="form-label">Full Name</label>
-                <input type="text" class="form-control title-text" id="full_name" name="full_name" data-show-err="true" maxlength="100" value="<?= $resume_data['summary'] ?>" readonly>
+                <input type="text" class="form-control title-text" id="full_name" name="full_name" data-show-err="true" maxlength="100" value="<?= $resume_data['full_name'] ?>" readonly>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">

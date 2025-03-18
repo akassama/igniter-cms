@@ -14,7 +14,8 @@ if (function_exists('Swal')) {
 
 if (!$swalLoaded) {
   // Include SweetAlert2 if not loaded yet
-  echo '<script async src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+  echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css">';
+  echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>';
   echo "<script>console.log('sweetalert2 loaded')</script>";
 }
 

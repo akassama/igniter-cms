@@ -17,6 +17,12 @@ $siteFaviconLink = getConfigData("SiteFaviconLink");
 $siteFaviconManifestLink = getConfigData("SiteFaviconManifestLink");
 $siteFaviconLink96 = getConfigData("SiteFaviconLink96");
 $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
+
+//check for right theme format
+if(empty($home_pages)){
+    echo "The current HomePageFormat is of the wrong type. Please set to 'Home Page'";
+    exit();
+}
 ?>
 
 <!-- include theme layout -->

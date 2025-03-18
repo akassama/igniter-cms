@@ -142,6 +142,9 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <!-- Core theme CSS (includes Bootstrap) -->
     <link href="<?= minifyCSS('public/front-end/themes/' . $theme . '/assets/css/styles.css') ?>" rel="stylesheet">
 
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css">
+
     <!-- Custom CSS -->
     <?php if (!empty($themeData['customCSS'])): ?>
         <style><?= $themeData['customCSS'] ?></style>
@@ -241,7 +244,7 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <?= $this->include('front-end/themes/_shared/_custom_footer_data.php'); ?>
 
     <!-- SweetAlert JS -->
-    <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
     <?= $this->include('front-end/layout/assets/sweet_alerts.php'); ?>
 </body>
 </html>

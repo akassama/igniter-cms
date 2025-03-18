@@ -75,7 +75,7 @@ class Themes extends Migration
             'home_page' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
-                'default' => 'HomePage', //Options : 'HomePage,Blog,Shop,Resume,Portfolio,Donate,None'
+                'default' => 'HomePage', //Options : 'HomePage,Blog,Shop,Portfolio,None'
             ],
             'created_by' => [
                 'type' => 'VARCHAR',
