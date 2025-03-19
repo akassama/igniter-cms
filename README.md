@@ -121,64 +121,17 @@ Here are some websites built with Igniter CMS:
         To modify the default Admin login, go to the migration file located at `app/Database/Migrations/2024-08-27-210112_Users.php` and update the `$data[]` array accordingly.
 3. **Permissions:** Ensure `writable` and `public/uploads` directories are writable by the web server.
 
-4. **Email Configuration:** To enable email functionality, you need to configure your Mailjet settings in app/Config/Email.php:
-    ```
-    public string $mailjetApiKey = 'your-mailjet-api-key';
-    public string $mailjetApiSecret = 'your-mailjet-api-secret';
-    ```
-
-## How to Customize System Features?
-### Customizing Notification Messages
-To customize system messages:
-* Edit `app/Config/CustomConfig.php` to modify existing messages or add new ones.
-
-### Customizing Activity Logging
-To update activity log types:
-* See  `app/Constants/ActivityTypes.php`
-* Update the value or add new constants, for example
-```
-const PUSH_NOTIFICATION = 'push_notification';
-```
-
-* Add the description in the function
-```
-public static function getDescription($type)
-{
-    $descriptions = [
-        self::PUSH_NOTIFICATION => 'Push Notification Sent',
-        // Add more descriptions as needed
-    ];
-
-    return $descriptions[$type] ?? 'Unknown Activity';
-}
-```
-
-## Usage Examples in Controllers
-To see how configurations are used, review the code in AdminController or other controllers located in the `app/Controllers` directory.
-
-### Helper Functions
-There are multiple helper functions available to ease the development process:
-* Authentication Helpers: `app/Helpers/auth_helper.php`
-* Data Helpers: `app/Helpers/data_helper.php`
+4. **Email Configuration:** To enable email functionality, you need to configure your `EmailConfigType` in configurations (`account/admin/configurations`):
 
 ### Usage
 Refer to the detailed documentation for information on using the application's features, API endpoints, and development guidelines.  The documentation is available here: [Igniter CMS Documentation](https://igniter-cms.aktools.net/docs/)
 
-### API
-The application includes a fetch-only RESTful API.  Refer to the documentation for available endpoints and usage instructions.  API keys may be required for authentication.
+## Sponsor
+If you find this project helpful, consider buying me a coffee:
 
-### File Upload System
-The application has a built-in file upload system for handling various types of files:
-* Supported Types: Docs (`.doc, .docx, .pdf, .txt, .rtf, .odt.`), Images (`jpg, png, gif, jpeg`), Audios (`.mp3, .wav, .ogg`) and Videos (`.mp4, .avi, .mov.`)
-* Maximum File Size: 5MB. You can modify this value in `Configurations (MaxUploadFileSize)` 
-* Validation and configuration can be updated in the relevant controller handling file uploads.
-
-### Other Features Summary
-
-* User & Admin Module: Management for different user roles and actions.
-* Search Module: Backend search capabilities to easily navigate records.
-* Global Exception Handling: Handle application-wide exceptions gracefully.
-* Easily Customizable: The application structure is modular to facilitate easy updates and modifications.
+<a href="https://www.buymeacoffee.com/akassama">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="160">
+</a>
 
 ### License
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
