@@ -123,8 +123,7 @@ Here are some websites built with Igniter CMS:
 
 4. **Email Configuration:** To enable email functionality, you need to configure your `EmailConfigType` in configurations (`account/admin/configurations`):
 
-### Usage
-Refer to the detailed documentation for information on using the application's features, API endpoints, and development guidelines.  The documentation is available here: [Igniter CMS Documentation](https://igniter-cms.aktools.net/docs/)
+**[🔗 Live Demo](https://demo.igniter-cms.aktools.net/)** | [Documentation](https://igniter-cms.aktools.net/docs/)
 
 ## Sponsor
 If you find this project helpful, consider buying me a coffee:
