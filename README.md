@@ -38,6 +38,35 @@ Igniter CMS is a light but powerful, versatile Content Management System built o
 * **Translations:** Manage translations for different languages.
 * **Customizable:**  Easily customize app messages, activity types, and more.
 
+## Example Sites
+Here are some websites built with Igniter CMS:
+
+<table>
+  <tr>
+    <td align="center">
+      <strong>AK Tools</strong><br>
+      <a href="https://aktools.net/" target="_blank">
+        <img src="https://i.ibb.co/XHjZ5X7/ak-tools-home.png" alt="AK Tools Preview" width="250">
+      </a><br>
+      A suite of web utilities built on the Igniter CMS framework.
+    </td>
+    <td align="center">
+      <strong>GamsecureTech</strong><br>
+      <a href="https://gamsecuretech.com/" target="_blank">
+        <img src="https://i.ibb.co/zhFQXnsq/gamsecuretech-home.png" alt="GamsecureTech Preview" width="250">
+      </a><br>
+       GamSecureTech - IT consultancy website
+    </td>
+    <td align="center">
+      <strong>AK Portfolio Site</strong><br>
+      <a href="https://abdouliekassama.com/" target="_blank">
+        <img src="https://i.ibb.co/93rdpSZL/akassama-home.png" alt="Portfolio Site Preview" width="250">
+      </a><br>
+      A creative portfolio showcasing projects and resume.
+    </td>
+  </tr>
+</table>
+
 ## Getting Started
 1. **Requirements:**
     * PHP 8.0 or higher
@@ -133,7 +162,7 @@ There are multiple helper functions available to ease the development process:
 * Data Helpers: `app/Helpers/data_helper.php`
 
 ### Usage
-Refer to the detailed documentation for information on using the application's features, API endpoints, and development guidelines.  The documentation is available here: [Igniter CMS Documentation](https://abdouliekassama.com/projects/igniter-cms/docs)
+Refer to the detailed documentation for information on using the application's features, API endpoints, and development guidelines.  The documentation is available here: [Igniter CMS Documentation](https://igniter-cms.aktools.net/docs/)
 
 ### API
 The application includes a fetch-only RESTful API.  Refer to the documentation for available endpoints and usage instructions.  API keys may be required for authentication.

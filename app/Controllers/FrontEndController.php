@@ -132,11 +132,6 @@ class FrontEndController extends BaseController
                 'portfolios'    => $portfoliosModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
             ];        
         }
-        else if(strtolower($homePageFormat) === "donate"){
-            $data = [
-                'donations' => $donationsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-            ];        
-        }
 
         //load home view
         return view('front-end/themes/'.getCurrentTheme().'/home/index', $data);
