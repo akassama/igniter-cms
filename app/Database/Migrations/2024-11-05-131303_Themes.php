@@ -8,6 +8,9 @@ class Themes extends Migration
 {
     public function up()
     {
+        // Load the CustomConfig
+        $customConfig = config('CustomConfig');
+
         $this->forge->addField([
             'theme_id' => [
                 'type' => 'VARCHAR',
@@ -106,8 +109,8 @@ class Themes extends Migration
                 'theme_url' => 'https://startbootstrap.com/previews/modern-business',
                 'footer_copyright' => "<p>Copyright &copy; Igniter CMS ". date('Y') ."</p>",
                 'selected' => true,
-                'category' => 'Business & Corporate',
-                'sub_category' => 'Portfolio & Resume',
+                'category' => $customConfig->themeCategories['BusinessCorporate'],
+                'sub_category' => $customConfig->themeCategories['PortfolioResume'],
                 'deletable' => 0,
                 'home_page' => 'HomePage',
                 'created_by' => getGUID(getDefaultAdminGUID())

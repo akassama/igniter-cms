@@ -145,6 +145,12 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <!-- SweetAlert CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css">
 
+    <!-- AOS Library CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- Animate Library CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
     <!-- Custom CSS -->
     <?php if (!empty($themeData['customCSS'])): ?>
         <style><?= $themeData['customCSS'] ?></style>
@@ -231,6 +237,12 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
 
     <!-- Bootstrap core JS -->
     <script async src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS Library JS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+    AOS.init();
+    </script>
 
     <!-- Core theme JS -->
     <script defer src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/js/scripts.js') ?>"></script>

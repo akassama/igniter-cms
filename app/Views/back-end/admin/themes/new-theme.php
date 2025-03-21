@@ -173,18 +173,9 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="category" class="form-label">Category</label>
                 <select class="form-select" id="category" name="category" required>
                     <option value="">Select category</option>
-                    <option value="General">General</option>
-                    <option value="Business & Corporate">Business & Corporate</option>
-                    <option value="Portfolio & Resume">Portfolio & Resume</option>
-                    <option value="Blog & News">Blog & News</option>
-                    <option value="Landing Pages">Landing Pages</option>
-                    <option value="Ecommerce">Ecommerce</option>
-                    <option value="Charity & NGO">Charity & NGO</option>
-                    <option value="Real Estate & Construction">Real Estate</option>
-                    <option value="Classifieds">Classifieds</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Video & Photography">Video & Photography</option>
-                    <option value="Education">Education</option>
+                    <?php foreach (config('CustomConfig')->themeCategories as $key => $value): ?>
+                        <option value="<?= $value ?>"><?= $value ?></option>
+                    <?php endforeach; ?>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('category')) {?>
@@ -201,18 +192,9 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="sub_category" class="form-label">Sub Category</label>
                 <select class="form-select" id="sub_category" name="sub_category">
                     <option value="">Select sub category</option>
-                    <option value="General">General</option>
-                    <option value="Business & Corporate">Business & Corporate</option>
-                    <option value="Portfolio & Resume">Portfolio & Resume</option>
-                    <option value="Blog & News">Blog & News</option>
-                    <option value="Landing Pages">Landing Pages</option>
-                    <option value="Ecommerce">Ecommerce</option>
-                    <option value="Charity & NGO">Charity & NGO</option>
-                    <option value="Real Estate & Construction">Real Estate</option>
-                    <option value="Classifieds">Classifieds</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Video & Photography">Video & Photography</option>
-                    <option value="Education">Education</option>
+                    <?php foreach (config('CustomConfig')->themeCategories as $key => $value): ?>
+                        <option value="<?= $value ?>"><?= $value ?></option>
+                    <?php endforeach; ?>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('sub_category')) {?>
