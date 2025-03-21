@@ -48,14 +48,14 @@ if(empty($home_pages)){
             if ($section === "HomeHero") {
                 ?>
                   <!-- Hero Section -->
-                    <header class="bg-dark py-5">
+                    <header class="bg-dark py-5" data-aos="fade-down">
                         <div class="container px-5">
                             <div class="row gx-5 align-items-center justify-content-center">
                                 <div class="col-lg-8 col-xl-7 col-xxl-6">
-                                    <div class="my-5 text-center text-xl-start">
-                                        <h1 class="display-5 fw-bold text-white mb-2"><?=$sectionTitle?></h1>
-                                        <p class="lead fw-normal text-white-50 mb-4"><?=$sectionDescription?></p>
-                                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                                    <div class="my-5 text-center text-xl-start" data-aos="fade-right">
+                                        <h1 class="display-5 fw-bold text-white mb-2" data-aos="fade-up"><?=$sectionTitle?></h1>
+                                        <p class="lead fw-normal text-white-50 mb-4" data-aos="fade-up"><?=$sectionDescription?></p>
+                                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start" data-aos="fade-up" data-aos-delay="200">
                                             <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#services">Get Started</a>
                                             <a class="btn btn-outline-light btn-lg px-4" href="#about">Learn More</a>
                                         </div>
@@ -70,7 +70,7 @@ if(empty($home_pages)){
             } elseif ($section === "HomeAbout") {
                 ?>
                 <!-- About Section -->
-                    <section class="py-5 bg-light" id="about">
+                    <section class="py-5 bg-light" id="about" data-aos="fade-up">
                         <div class="container px-5 my-5">
                             <div class="row gx-5 align-items-center">
                                 <div class="col-lg-6"><img class="img-fluid rounded mb-5 mb-lg-0" src="<?=getImageUrl($home_page['section_image'] ?? getDefaultImagePath())?>" alt="Section image" /></div>
@@ -86,7 +86,7 @@ if(empty($home_pages)){
             } elseif ($section === "Services") {
               ?>
                   <!-- Services Section -->
-                    <section class="py-5" id="services">
+                    <section class="py-5" id="services" data-aos="fade-up">
                         <div class="container px-5 my-5">
                             <div class="row gx-5">
                                 <div class="col-lg-4 mb-5 mb-lg-0">
@@ -124,7 +124,7 @@ if(empty($home_pages)){
             } elseif ($section === "Counters") {
               ?>
                 <!-- Stats Section -->
-                <section class="py-5 bg-light">
+                <section class="py-5 bg-light" data-aos="fade-up">
                     <div class="container px-5">
                         <div class="row gx-5 justify-content-center">
                             <?php if($counters): ?>
@@ -144,7 +144,7 @@ if(empty($home_pages)){
             } elseif ($section === "Pricing") {
               ?>
                 <!-- Pricing Section -->
-                <section class="bg-light py-5" id="pricing">
+                <section class="bg-light py-5" id="pricing" data-aos="fade-up">
                     <div class="container px-5 my-5">
                         <div class="text-center mb-5">
                             <h1 class="fw-bolder"><?=$sectionTitle?></h1>
@@ -213,7 +213,7 @@ if(empty($home_pages)){
             } elseif ($section === "FrequentlyAskedQuestions") {
               ?>
                 <!-- Faq Section -->
-                <section class="py-5" id="faq">
+                <section class="py-5" id="faq" data-aos="fade-up">
                     <div class="container px-5 my-5">
                         <div class="text-center mb-5">
                             <h1 class="fw-bolder"><?=$sectionTitle?></h1>
@@ -248,7 +248,7 @@ if(empty($home_pages)){
             } elseif ($section === "Testimonials") {
               ?>
                 <!-- Testimonials Section -->
-                <div class="py-5 bg-white position-relative" id="testimonial">
+                <div class="py-5 bg-white position-relative" id="testimonial" data-aos="fade-up">
                     <div class="container px-5 my-5">
                         <div class="text-center mb-5">
                             <h1 class="fw-bolder"><?= esc($sectionTitle) ?></h1>
@@ -323,13 +323,13 @@ if(empty($home_pages)){
             } elseif ($section === "Portfolio") {
               ?>
                 <!-- Portfolio Section -->
-                <section class="py-5" id="portfolio">
+                <section class="py-5" id="portfolio" data-aos="fade-up">
                     <div class="container px-5 my-5">
                         <div class="text-center mb-5">
                             <h1 class="fw-bolder"><?=$sectionTitle?></h1>
                             <p class="lead fw-normal text-muted mb-0"><?=$sectionDescription?></p>
                         </div>
-                        <div class="row gx-5">
+                        <div class="row gx-5" data-aos="zoom-in">
                             <?php if($portfolios): ?>
                                 <?php foreach($portfolios as $portfolio): ?>
                                     <div class="col-lg-6">
@@ -349,7 +349,7 @@ if(empty($home_pages)){
             } elseif ($section === "Team") {
               ?>
                 <!-- Team Section -->
-                    <section class="py-5 bg-light" id="team">
+                    <section class="py-5 bg-light" id="team" data-aos="fade-up">
                         <div class="container px-5 my-5">
                             <div class="text-center">
                                 <h2 class="fw-bolder"><?=$sectionTitle?></h2>
@@ -376,7 +376,7 @@ if(empty($home_pages)){
             } elseif ($section === "Partners") {
                 ?>
                 <!-- Clients Section -->
-                <section class="py-5 bg-light">
+                <section class="py-5 bg-light" data-aos="fade-up">
                     <div class="container px-5">
                         <div class="row">
                             <div class="col-12 text-center mb-5">
@@ -401,7 +401,7 @@ if(empty($home_pages)){
             } elseif ($section === "CallToAction") {
                 ?>
                   <!-- Call To Action Section -->
-                  <section class="py-2">
+                  <section class="py-2" data-aos="fade-up">
                         <div class="container px-5 my-5">
                             <div class="text-center mb-5">
                                 <h1 class="fw-bolder"><?=$sectionTitle?></h1>
@@ -450,7 +450,7 @@ if(empty($home_pages)){
             } elseif ($section === "RecentPosts") {
               ?>
                 <!-- Recent Posts Section -->
-                <section class="py-5" id="blog">
+                <section class="py-5" id="blog" data-aos="fade-up">
                     <div class="container px-5 my-5">
                         <div class="row gx-5 justify-content-center">
                             <div class="col-lg-8 col-xl-6">
@@ -460,7 +460,7 @@ if(empty($home_pages)){
                                 </div>
                             </div>
                         </div>
-                        <div class="row gx-5">
+                        <div class="row gx-5" data-aos="zoom-in">
                             <?php if($blogs): ?>
                                 <?php foreach($blogs as $blog): ?>
                                     <div class="col-lg-4 mb-5">
@@ -495,7 +495,7 @@ if(empty($home_pages)){
             } elseif ($section === "Subscribe") {
                 ?>
                 <!-- Subscribe Section -->
-				<section class="py-2" id="subscribe">
+				<section class="py-2" id="subscribe" data-aos="fade-up">
 					<div class="container">
 						<aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
 							<div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
@@ -531,7 +531,7 @@ if(empty($home_pages)){
             }  elseif ($section === "Contact") {
                 ?>
                   <!-- Contact Section -->
-                  <section class="py-5" id="contact">
+                  <section class="py-5" id="contact" data-aos="fade-up">
                     <div class="container px-5">
                         <!-- Contact form-->
                         <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">

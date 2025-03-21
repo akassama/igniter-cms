@@ -58,4 +58,22 @@ class CustomConfig extends BaseConfig
     public $contactMessageFailed = 'Oops! Something went wrong with your message submission. Please try again later.';
     public $subscriptionSuccessful = 'You have successfully subscribed!';
     public $subscriptionFailed = 'Sorry, something went wrong with your subscription. Please try again.';
+
+    #--------------------------------------------------------------------
+    # THEME CATEGORIES
+    #--------------------------------------------------------------------
+    public $themeCategories = [
+        'General' => 'General',
+        'BusinessCorporate' => 'Business & Corporate',
+        'PortfolioResume' => 'Portfolio & Resume',
+        'BlogNews' => 'Blog & News',
+        'LandingPages' => 'Landing Pages',
+        'Ecommerce' => 'Ecommerce',
+        'CharityNGO' => 'Charity & NGO',
+        'RealEstate' => 'Real Estate & Construction',
+        'Classifieds' => 'Classifieds',
+        'Healthcare' => 'Healthcare',
+        'VideoPhotography' => 'Video & Photography',
+        'Education' => 'Education',
+    ];
 }

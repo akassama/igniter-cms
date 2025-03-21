@@ -303,7 +303,7 @@ class Navigations extends Migration
                 'group'    => 'footer_nav',
                 'order'    => 40,
                 'parent'    => null,
-                'link'    => '#services',
+                'link'    => '/privacy-policy',
                 'new_tab'    => false,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null

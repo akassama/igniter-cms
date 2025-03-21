@@ -178,18 +178,9 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="category" class="form-label">Category</label>
                 <select class="form-select" id="category" name="category" required>
                     <option value="">Select category</option>
-                    <option value="General" <?= ($theme_data['category'] == 'General') ? 'selected' : '' ?>>General</option>
-                    <option value="Business & Corporate" <?= ($theme_data['category'] == 'Business & Corporate') ? 'selected' : '' ?>>Business & Corporate</option>
-                    <option value="Portfolio & Resume" <?= ($theme_data['category'] == 'Portfolio & Resume') ? 'selected' : '' ?>>Portfolio & Resume</option>
-                    <option value="Blog & News" <?= ($theme_data['category'] == 'Blog & News') ? 'selected' : '' ?>>Blog & News</option>
-                    <option value="Landing Pages" <?= ($theme_data['category'] == 'Landing Pages') ? 'selected' : '' ?>>Landing Pages</option>
-                    <option value="Ecommerce" <?= ($theme_data['category'] == 'Ecommerce') ? 'selected' : '' ?>>Ecommerce</option>
-                    <option value="Charity & NGO" <?= ($theme_data['category'] == 'Charity & NGO') ? 'selected' : '' ?>>Charity & NGO</option>
-                    <option value="Real Estate & Construction" <?= ($theme_data['category'] == 'Real Estate') ? 'selected' : '' ?>>Real Estate</option>
-                    <option value="Classifieds" <?= ($theme_data['category'] == 'Classifieds') ? 'selected' : '' ?>>Classifieds</option>
-                    <option value="Healthcare" <?= ($theme_data['category'] == 'Healthcare') ? 'selected' : '' ?>>Healthcare</option>
-                    <option value="Video & Photography" <?= ($theme_data['category'] == 'Video & Photography') ? 'selected' : '' ?>>Video & Photography</option>
-                    <option value="Education" <?= ($theme_data['category'] == 'Education') ? 'selected' : '' ?>>Education</option>
+                    <?php foreach (config('CustomConfig')->themeCategories as $key => $value): ?>
+                        <option value="<?= $value ?>" <?= ($theme_data['category'] == $value) ? 'selected' : '' ?>><?= $value ?></option>
+                    <?php endforeach; ?>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('category')) {?>
@@ -206,18 +197,9 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="sub_category" class="form-label">Sub Category</label>
                 <select class="form-select" id="sub_category" name="sub_category">
                     <option value="">Select sub category</option>
-                    <option value="General" <?= ($theme_data['sub_category'] == 'General') ? 'selected' : '' ?>>General</option>
-                    <option value="Business & Corporate" <?= ($theme_data['sub_category'] == 'Business & Corporate') ? 'selected' : '' ?>>Business & Corporate</option>
-                    <option value="Portfolio & Resume" <?= ($theme_data['sub_category'] == 'Portfolio & Resume') ? 'selected' : '' ?>>Portfolio & Resume</option>
-                    <option value="Blog & News" <?= ($theme_data['sub_category'] == 'Blog & News') ? 'selected' : '' ?>>Blog & News</option>
-                    <option value="Landing Pages" <?= ($theme_data['sub_category'] == 'Landing Pages') ? 'selected' : '' ?>>Landing Pages</option>
-                    <option value="Ecommerce" <?= ($theme_data['sub_category'] == 'Ecommerce') ? 'selected' : '' ?>>Ecommerce</option>
-                    <option value="Charity & NGO" <?= ($theme_data['sub_category'] == 'Charity & NGO') ? 'selected' : '' ?>>Charity & NGO</option>
-                    <option value="Real Estate & Construction" <?= ($theme_data['sub_category'] == 'Real Estate') ? 'selected' : '' ?>>Real Estate</option>
-                    <option value="Classifieds" <?= ($theme_data['sub_category'] == 'Classifieds') ? 'selected' : '' ?>>Classifieds</option>
-                    <option value="Healthcare" <?= ($theme_data['sub_category'] == 'Healthcare') ? 'selected' : '' ?>>Healthcare</option>
-                    <option value="Video & Photography" <?= ($theme_data['sub_category'] == 'Video & Photography') ? 'selected' : '' ?>>Video & Photography</option>
-                    <option value="Education" <?= ($theme_data['sub_category'] == 'Education') ? 'selected' : '' ?>>Education</option>
+                    <?php foreach (config('CustomConfig')->themeCategories as $key => $value): ?>
+                        <option value="<?= $value ?>" <?= ($theme_data['sub_category'] == $value) ? 'selected' : '' ?>><?= $value ?></option>
+                    <?php endforeach; ?>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('sub_category')) {?>
