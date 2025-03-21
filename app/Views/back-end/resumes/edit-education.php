@@ -189,7 +189,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="order" class="form-label">
-                    Orser
+                    Order
                 </label>
                 <input type="text" class="form-control integer-plus-only" id="order" name="order" data-show-err="true" maxlength="250" value="<?= $education_data['order']; ?>">
                 <!-- Error -->

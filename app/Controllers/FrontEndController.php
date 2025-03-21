@@ -29,6 +29,7 @@ use App\Models\ProductCategoriesModel;
 use App\Models\ResumesModel;
 use App\Models\SkillsModel;
 use App\Models\EducationsModel;
+use App\Models\ExperiencesModel;
 use App\Models\AnnouncementPopupsModel;
 use App\Models\DonationCausesModel;
 use App\Services\EmailService;
@@ -89,6 +90,7 @@ class FrontEndController extends BaseController
         $resumesModel = new ResumesModel();
         $skillsModel = new SkillsModel();
         $educationsModel = new EducationsModel();
+        $experiencesModel = new ExperiencesModel();
 
         $homePageFormat = getConfigData("HomePageFormat");
         if(strtolower($homePageFormat) === "homepage"){
@@ -128,7 +130,8 @@ class FrontEndController extends BaseController
             $data = [
                 'resume' => $resumesModel->where('status', 1)->first(),
                 'resume_skills'    => $skillsModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-                'resume_education'    => $educationsModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+                'resume_educations'    => $educationsModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+                'resume_experiences'    => $experiencesModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
                 'portfolios'    => $portfoliosModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
             ];        
         }
