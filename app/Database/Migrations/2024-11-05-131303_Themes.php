@@ -52,6 +52,16 @@ class Themes extends Migration
                 'constraint' => '255',
                 'null' => true,
             ],
+            'theme_bg_image' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => true,
+            ],
+            'theme_bg_video' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => true,
+            ],
             'footer_copyright' => [
                 'type' => 'TEXT',
                 'null' => true,
@@ -107,6 +117,8 @@ class Themes extends Migration
                 'other_color' => '#444342',
                 'image' => 'public/front-end/themes/default/assets/images/default-theme.png',
                 'theme_url' => 'https://startbootstrap.com/previews/modern-business',
+                'theme_bg_image' => '',
+                'theme_bg_video' => '',
                 'footer_copyright' => "<p>Copyright &copy; Igniter CMS ". date('Y') ."</p>",
                 'selected' => true,
                 'category' => $customConfig->themeCategories['BusinessCorporate'],

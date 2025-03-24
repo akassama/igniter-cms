@@ -26,6 +26,8 @@ class ThemesModel extends Model
         'other_color',
         'image',
         'theme_url',
+        'theme_bg_image',
+        'theme_bg_video',
         'footer_copyright',
         'category',
         'sub_category',
@@ -83,6 +85,8 @@ class ThemesModel extends Model
             'other_color' => $param['other_color'],
             'image' => $param['image'],
             'theme_url' => $param['theme_url'],
+            'theme_bg_image' => $param['theme_bg_image'],
+            'theme_bg_video' => $param['theme_bg_video'],
             'footer_copyright' => $param['footer_copyright'],
             'category' => $param['category'],
             'sub_category' => $param['sub_category'],
@@ -113,6 +117,8 @@ class ThemesModel extends Model
         $existingTheme['other_color'] = $param['other_color'];
         $existingTheme['image'] = $param['image'];
         $existingTheme['theme_url'] = $param['theme_url'];
+        $existingTheme['theme_bg_image'] = $param['theme_bg_image'];
+        $existingTheme['theme_bg_video'] = $param['theme_bg_video'];
         $existingTheme['footer_copyright'] = $param['footer_copyright'];
         $existingTheme['category'] = $param['category'];
         $existingTheme['sub_category'] = $param['sub_category'];

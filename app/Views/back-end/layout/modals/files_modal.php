@@ -8,15 +8,6 @@ $sessionUserId = $session->get('user_id');
 <div class="modal fade" id="imageFilesModal">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <iframe src="<?= base_url('elfinder') ?>" style="width:100%;height:500px;border:none;"></iframe>
-        </div>
-    </div>
-</div>
-
-<!-- Image Files Modal -->
-<div class="modal fade" id="imageFilesModalX">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Image Files</h4>

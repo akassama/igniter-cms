@@ -51,6 +51,8 @@ echo generateBreadcrumb($breadcrumb_links);
                 <input type="hidden" class="form-control" id="other_color" name="other_color" value="<?= $theme_data['other_color']; ?>" />
                 <input type="hidden" class="form-control" id="image" name="image" value="<?= $theme_data['image']; ?>" />
                 <input type="hidden" class="form-control" id="theme_url" name="theme_url" value="<?= $theme_data['theme_url']; ?>" />
+                <input type="hidden" class="form-control" id="theme_bg_image" name="theme_bg_image" value="<?= $theme_data['theme_bg_image']; ?>" />
+                <input type="hidden" class="form-control" id="theme_bg_video" name="theme_bg_video" value="<?= $theme_data['theme_bg_video']; ?>" />
                 <textarea style="display:none;" class="form-control" id="footer_copyright" name="footer_copyright"><?= $theme_data['footer_copyright']; ?></textarea>
                 <input type="hidden" class="form-control" id="selected" name="selected" value="<?= $theme_data['selected']; ?>" />
                 <input type="hidden" class="form-control" id="home_page" name="home_page" value="<?= $theme_data['home_page']; ?>" />
