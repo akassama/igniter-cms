@@ -578,136 +578,201 @@ class FrontEndController extends BaseController
 
     public function getSearchFilter()
     {
-        $session = session();
-        $type = $this->request->getGet('type');
-        $searchQuery = trim($this->request->getGet('key'));
-        
-        // Load the models
-        $blogsModel = new BlogsModel();
-        $pagesModel = new PagesModel();
-        $eventsModel = new EventsModel();
-        $portfoliosModel = new PortfoliosModel();
-        $donationCausesModel = new DonationCausesModel();
-        $shopModel = new ProductsModel();
-
-        $data["searchQuery"] = $searchQuery;
-
-        if (strcasecmp($type, 'category') === 0) {
-            // Blogs search
-            $whereClause = ['title' => $searchQuery];
-            $categoryId = getTableData('categories', $whereClause, 'category_id');
-            $data['blogsSearchResults'] = $blogsModel
-            ->groupStart()
-                ->like('category', $categoryId)
-            ->groupEnd()
-            ->where('status', '1')
-            ->orderBy('created_at', 'DESC')
-            ->limit(intval(getConfigData("queryLimitVeryHigh")))
-            ->findAll();
-        }
-
-        if (strcasecmp($type, 'tag') === 0) {
-            // Blogs search
-            $data['blogsSearchResults'] = $blogsModel
-                ->groupStart()
-                    ->like('tags', $searchQuery)
-                ->groupEnd()
-                ->where('status', '1')
-                ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitVeryHigh")))
-                ->findAll();
-        }
-
-        if (strcasecmp($type, 'author') === 0) {
-            // Blogs search
-            //get $userId from $searchQuery
-            $userId = getUserIdFromName($searchQuery);
-            $data['blogsSearchResults'] = $blogsModel
-                ->groupStart()
-                    ->like('created_by', $userId)
-                ->groupEnd()
-                ->where('status', '1')
-                ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitVeryHigh")))
-                ->findAll();
-
-            // Pages search
-            $data['pagesSearchResults'] = $pagesModel
-                ->groupStart()
-                    ->like('created_by', $userId)
-                ->groupEnd()
-                ->where('status', '1')
-                ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitDefault")))
-                ->findAll();
+        try {
+            $session = session();
+            $type = $this->request->getGet('type');
+            $searchQuery = trim($this->request->getGet('key'));
+            
+            // Initialize default data array
+            $data = [
+                "searchQuery" => $searchQuery,
+                'blogsSearchResults' => null,
+                'pagesSearchResults' => null,
+                'eventsSearchResults' => null,
+                'portfoliosSearchResults' => null,
+                'donationsSearchResults' => null,
+                'shopSearchResults' => null
+            ];
     
-            // Events search
-            $enableEventsPage = getConfigData("EnableEventsPage");
-
-            if (strtolower($enableEventsPage) === "no") {
-                $data['eventsSearchResults'] = []; // Make the array empty
-            } else {
-                $data['eventsSearchResults'] = $eventsModel
-                    ->groupStart()
-                        ->like('created_by', $userId)
-                    ->groupEnd()
-                    ->where('status', '1')
-                    ->orderBy('created_at', 'DESC')
-                    ->limit(intval(getConfigData("queryLimitDefault")))
-                    ->findAll();
+            try {
+                // Load the models
+                $blogsModel = new BlogsModel();
+                $pagesModel = new PagesModel();
+                $eventsModel = new EventsModel();
+                $portfoliosModel = new PortfoliosModel();
+                $donationCausesModel = new DonationCausesModel();
+                $shopModel = new ProductsModel();
+    
+                if (strcasecmp($type, 'category') === 0) {
+                    try {
+                        // Blogs search
+                        $whereClause = ['title' => $searchQuery];
+                        $categoryId = getTableData('categories', $whereClause, 'category_id');
+                        $data['blogsSearchResults'] = $blogsModel
+                            ->groupStart()
+                                ->like('category', $categoryId)
+                            ->groupEnd()
+                            ->where('status', '1')
+                            ->orderBy('created_at', 'DESC')
+                            ->limit(intval(getConfigData("queryLimitVeryHigh")))
+                            ->findAll();
+                    } catch (\Exception $e) {
+                        $data['blogsSearchResults'] = null;
+                        log_message('error', 'Category search error: ' . $e->getMessage());
+                    }
+                }
+    
+                if (strcasecmp($type, 'tag') === 0) {
+                    try {
+                        // Blogs search
+                        $data['blogsSearchResults'] = $blogsModel
+                            ->groupStart()
+                                ->like('tags', $searchQuery)
+                            ->groupEnd()
+                            ->where('status', '1')
+                            ->orderBy('created_at', 'DESC')
+                            ->limit(intval(getConfigData("queryLimitVeryHigh")))
+                            ->findAll();
+                    } catch (\Exception $e) {
+                        $data['blogsSearchResults'] = null;
+                        log_message('error', 'Tag search error: ' . $e->getMessage());
+                    }
+                }
+    
+                if (strcasecmp($type, 'author') === 0) {
+                    try {
+                        // Blogs search
+                        //get $userId from $searchQuery
+                        $userId = getUserIdFromName($searchQuery);
+                        $data['blogsSearchResults'] = $blogsModel
+                            ->groupStart()
+                                ->like('created_by', $userId)
+                            ->groupEnd()
+                            ->where('status', '1')
+                            ->orderBy('created_at', 'DESC')
+                            ->limit(intval(getConfigData("queryLimitVeryHigh")))
+                            ->findAll();
+                    } catch (\Exception $e) {
+                        $data['blogsSearchResults'] = null;
+                        log_message('error', 'Author blogs search error: ' . $e->getMessage());
+                    }
+    
+                    try {
+                        // Pages search
+                        $data['pagesSearchResults'] = $pagesModel
+                            ->groupStart()
+                                ->like('created_by', $userId)
+                            ->groupEnd()
+                            ->where('status', '1')
+                            ->orderBy('created_at', 'DESC')
+                            ->limit(intval(getConfigData("queryLimitDefault")))
+                            ->findAll();
+                    } catch (\Exception $e) {
+                        $data['pagesSearchResults'] = null;
+                        log_message('error', 'Author pages search error: ' . $e->getMessage());
+                    }
+        
+                    // Events search
+                    $enableEventsPage = getConfigData("EnableEventsPage");
+                    if (strtolower($enableEventsPage) === "no") {
+                        $data['eventsSearchResults'] = [];
+                    } else {
+                        try {
+                            $data['eventsSearchResults'] = $eventsModel
+                                ->groupStart()
+                                    ->like('created_by', $userId)
+                                ->groupEnd()
+                                ->where('status', '1')
+                                ->orderBy('created_at', 'DESC')
+                                ->limit(intval(getConfigData("queryLimitDefault")))
+                                ->findAll();
+                        } catch (\Exception $e) {
+                            $data['eventsSearchResults'] = null;
+                            log_message('error', 'Author events search error: ' . $e->getMessage());
+                        }
+                    }
+                    
+                    // Portfolios search
+                    $enablePortfoliosPage = getConfigData("EnablePortfoliosPage");
+                    if (strtolower($enablePortfoliosPage) === "no") {
+                        $data['portfoliosSearchResults'] = []; 
+                    } else {
+                        try {
+                            $data['portfoliosSearchResults'] = $portfoliosModel
+                                ->groupStart()
+                                    ->like('created_by', $userId)
+                                ->groupEnd()
+                                ->where('status', '1')
+                                ->orderBy('created_at', 'DESC')
+                                ->limit(intval(getConfigData("queryLimitDefault")))
+                                ->findAll();
+                        } catch (\Exception $e) {
+                            $data['portfoliosSearchResults'] = null;
+                            log_message('error', 'Author portfolios search error: ' . $e->getMessage());
+                        }
+                    }
+                    
+                    // Donations search
+                    $enableDonationsPage = getConfigData("EnableDonationsPage");
+                    if (strtolower($enableDonationsPage) === "no") {
+                        $data['donationsSearchResults'] = []; 
+                    } else {
+                        try {
+                            $data['donationsSearchResults'] = $donationCausesModel
+                                ->groupStart()
+                                    ->like('created_by', $userId)
+                                ->groupEnd()
+                                ->where('status', '1')
+                                ->orderBy('created_at', 'DESC')
+                                ->limit(intval(getConfigData("queryLimitDefault")))
+                                ->findAll();
+                        } catch (\Exception $e) {
+                            $data['donationsSearchResults'] = null;
+                            log_message('error', 'Author donations search error: ' . $e->getMessage());
+                        }
+                    } 
+    
+                    // Shop search
+                    $enableShopFront = getConfigData("EnableShopFront");
+                    if (strtolower($enableShopFront) === "no") {
+                        $data['shopSearchResults'] = []; 
+                    } else {
+                        try {
+                            $data['shopSearchResults'] = $shopModel
+                                ->groupStart()
+                                    ->like('created_by', $userId)
+                                ->groupEnd()
+                                ->where('status', '1')
+                                ->orderBy('created_at', 'DESC')
+                                ->limit(intval(getConfigData("queryLimitDefault")))
+                                ->findAll();
+                        } catch (\Exception $e) {
+                            $data['shopSearchResults'] = null;
+                            log_message('error', 'Author shop search error: ' . $e->getMessage());
+                        }
+                    } 
+                }
+    
+            } catch (\Exception $e) {
+                log_message('error', 'Model initialization error: ' . $e->getMessage());
+                // All results already initialized as null
             }
-            
-            // Portfolios search
-            $enablePortfoliosPage = getConfigData("EnablePortfoliosPage");
-
-            if (strtolower($enablePortfoliosPage) === "no") {
-                $data['portfoliosSearchResults'] = []; 
-            } else {
-                $data['portfoliosSearchResults'] = $portfoliosModel
-                    ->groupStart()
-                        ->like('created_by', $userId)
-                    ->groupEnd()
-                    ->where('status', '1')
-                    ->orderBy('created_at', 'DESC')
-                    ->limit(intval(getConfigData("queryLimitDefault")))
-                    ->findAll();
-            }
-            
-            // Donations search
-            $enableDonationsPage = getConfigData("EnableDonationsPage");
-
-            if (strtolower($enableDonationsPage) === "no") {
-                $data['donationsSearchResults'] = []; 
-            } else {
-                $data['donationsSearchResults'] = $donationCausesModel
-                ->groupStart()
-                    ->like('created_by', $userId)
-                ->groupEnd()
-                ->where('status', '1')
-                ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitDefault")))
-                ->findAll();
-            } 
-
-            // Shop search
-            $enableShopFront = getConfigData("EnableShopFront");
-
-            if (strtolower($enableShopFront) === "no") {
-                $data['shopSearchResults'] = []; 
-            } else {
-                $data['shopSearchResults'] = $shopModel
-                ->groupStart()
-                    ->like('created_by', $userId)
-                ->groupEnd()
-                ->where('status', '1')
-                ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitDefault")))
-                ->findAll();
-            } 
-            
+    
+            return view('front-end/themes/'.getCurrentTheme().'/search/filter', $data);
+    
+        } catch (\Exception $e) {
+            log_message('error', 'Search filter error: ' . $e->getMessage());
+            // Return view with all null results
+            return view('front-end/themes/'.getCurrentTheme().'/search/filter', [
+                "searchQuery" => $searchQuery ?? '',
+                'blogsSearchResults' => null,
+                'pagesSearchResults' => null,
+                'eventsSearchResults' => null,
+                'portfoliosSearchResults' => null,
+                'donationsSearchResults' => null,
+                'shopSearchResults' => null
+            ]);
         }
-
-        return view('front-end/themes/'.getCurrentTheme().'/search/filter', $data);
     }
 
     //############################//

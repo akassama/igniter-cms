@@ -89,7 +89,7 @@ updateTotalViewCount("blogs", "blog_id", $blog_data['blog_id']);
                                     <ul class="list-unstyled mb-0">
                                         <?php foreach ($firstHalf as $category) : ?>
                                             <?php $whereClause = "category = '" . $category['category_id'] . "'"; ?>
-                                            <li><a href="#"><?= $category['title'] ?> <span>(<?= getTotalRecords('blogs', $whereClause) ?>)</span></a></li>
+                                            <li><a href="<?= base_url('/search/filter/?type=category&key='.$category['title']) ?>"><?= $category['title'] ?> <span>(<?= getTotalRecords('blogs', $whereClause) ?>)</span></a></li>
                                         <?php endforeach; ?>
                                     </ul>
                                 </div>
@@ -98,7 +98,7 @@ updateTotalViewCount("blogs", "blog_id", $blog_data['blog_id']);
                                     <ul class="list-unstyled mb-0">
                                         <?php foreach ($secondHalf as $category) : ?>
                                             <?php $whereClause = "category = '" . $category['category_id'] . "'"; ?>
-                                            <li><a href="#"><?= $category['title'] ?> <span>(<?= getTotalRecords('blogs', $whereClause) ?>)</span></a></li>
+                                            <li><a href="<?= base_url('/search/filter/?type=category&key='.$category['title']) ?>"><?= $category['title'] ?> <span>(<?= getTotalRecords('blogs', $whereClause) ?>)</span></a></li>
                                         <?php endforeach; ?>
                                     </ul>
                                 </div>

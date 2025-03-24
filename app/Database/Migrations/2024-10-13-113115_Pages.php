@@ -83,7 +83,7 @@ class Pages extends Migration
                 'meta_keywords' => 'about us, company, mission, values, team',
             ],
             [
-                'page_id' => getGUID("a1b2c3d4-e5f6-7890-1234-567890abcdef"), // Generate unique GUID
+                'page_id' => getGUID("a1b2c3d4-e5f6-7890-1234-567890abcdef"),
                 'title' => 'Cookie Policy',
                 'slug' => 'cookie-policy',
                 'status' => 1,
@@ -95,7 +95,7 @@ class Pages extends Migration
                 'meta_keywords' => 'cookies, policy, privacy',
             ],
             [
-                'page_id' => getGUID("fedcba98-7654-3210-0fed-cba987654321"), // Generate unique GUID
+                'page_id' => getGUID("fedcba98-7654-3210-0fed-cba987654321"),
                 'title' => 'Privacy Policy',
                 'slug' => 'privacy-policy',
                 'status' => 1,

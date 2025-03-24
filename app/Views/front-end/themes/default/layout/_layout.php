@@ -46,6 +46,8 @@ $themeData = [
     'primaryColor' => getThemeData($theme, "primary_color"),
     'secondaryColor' => getThemeData($theme, "secondary_color"),
     'otherColor' => getThemeData($theme, "other_color"),
+    'backgroundImage' => getThemeData($theme, "theme_bg_image"),
+    'backgroundVideo' => getThemeData($theme, "theme_bg_video"),
 ];
 
 // Get navigation and social model lists
