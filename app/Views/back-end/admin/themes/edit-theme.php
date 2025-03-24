@@ -159,6 +159,44 @@ echo generateBreadcrumb($breadcrumb_links);
                     Please provide theme_url
                 </div>
             </div>
+
+            <div class="col-sm-12 col-md-6 mb-3">
+                <label for="theme_bg_image" class="form-label">Theme Background Image</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="theme_bg_image" name="theme_bg_image" maxlength="250" placeholder="select image" value="<?= $theme_data['theme_bg_image'] ?>">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                        <i class="ri-image-fill"></i>
+                    </button>
+                </div>
+                <!-- Error -->
+                <?php if($validation->getError('theme_bg_image')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('theme_bg_image'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide theme_bg_image
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 mb-3">
+                <label for="theme_bg_video" class="form-label">Theme Background Video</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="theme_bg_video" name="theme_bg_video" maxlength="250" placeholder="select video" value="<?= $theme_data['theme_bg_video'] ?>">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#videoFilesModal">
+                        <i class="ri-youtube-fill"></i>
+                    </button>
+                </div>
+                <!-- Error -->
+                <?php if($validation->getError('theme_bg_video')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('theme_bg_video'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide theme_bg_video
+                </div>
+            </div>
             
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="footer_copyright" class="form-label">Footer Copyright</label>
