@@ -15,11 +15,11 @@ $theme = getCurrentTheme();
             <div class="col-12">
                 <?php 
                 // Check if all search result arrays are empty
-                $noResults = empty($blogsSearchResults) && 
-                            empty($pagesSearchResults) && 
-                            empty($eventsSearchResults) && 
-                            empty($portfoliosSearchResults) && 
-                            empty($donationsSearchResults) && 
+                $noResults = empty($blogsSearchResults) &&
+                            empty($pagesSearchResults) &&
+                            empty($eventsSearchResults) &&
+                            empty($portfoliosSearchResults) &&
+                            empty($donationsSearchResults) &&
                             empty($shopSearchResults);
                 
                 // If no results, display a message

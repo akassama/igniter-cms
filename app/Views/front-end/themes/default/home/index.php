@@ -147,64 +147,55 @@ if(empty($home_pages)){
                 <section class="bg-light py-5" id="pricing" data-aos="fade-up">
                     <div class="container px-5 my-5">
                         <div class="text-center mb-5">
-                            <h1 class="fw-bolder"><?=$sectionTitle?></h1>
-                            <p class="lead fw-normal text-muted mb-0"><?=$sectionDescription?></p>
+                            <h1 class="fw-bolder"><?= $sectionTitle ?></h1>
+                            <p class="lead fw-normal text-muted mb-0"><?= $sectionDescription ?></p>
                         </div>
                         <div class="row gx-5 justify-content-center">
-                        <?php if($pricings): ?>
-                        <?php foreach($pricings as $pricing): ?>
-                            <div class="col-lg-6 col-xl-4">
-                                <div class="card mb-5 mb-xl-0">
-                                    <div class="card-body p-5">
-                                        <div class="small text-uppercase fw-bold <?= $pricing['is_popular'] == 1 ? "" : "text-muted"?>">
-                                            <?= $pricing['is_popular'] == 1 ? "<i class='bi bi-star-fill text-warning'></i>" : ""?>
-                                            <?= $pricing['title']?>
-                                        </div>
-                                        <div class="mb-3">
-                                            <span class="display-4 fw-bold">$<?= $pricing['amount']?></span>
-                                            <span class="text-muted">/ mo.</span>
-                                        </div>
-                                        <ul class="list-unstyled mb-4">
-                                            <!--Included list-->
-                                            <?php
-                                                $includedList = $pricing['included_features_list'];
-                                                if(!empty($includedList)){
-                                                    $array = explode(",", $includedList);
-
-                                                    foreach ($array as $value)
-                                                    {
-                                                        echo '<li class="mb-2"><i class="bi bi-check text-primary"></i> <strong>'.$value.'</strong></li>';
+                            <?php if ($pricings): ?>
+                                <?php foreach ($pricings as $pricing): ?>
+                                    <div class="col-lg-6 col-xl-4">
+                                        <div class="card h-100 d-flex flex-column mb-5 mb-xl-0">
+                                            <div class="card-body p-5 flex-grow-1">
+                                                <div class="small text-uppercase fw-bold <?= $pricing['is_popular'] == 1 ? "" : "text-muted" ?>">
+                                                    <?= $pricing['is_popular'] == 1 ? "<i class='bi bi-star-fill text-warning'></i>" : "" ?>
+                                                    <?= $pricing['title'] ?>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <span class="display-4 fw-bold">$<?= $pricing['amount'] ?></span>
+                                                    <span class="text-muted">/ mo.</span>
+                                                </div>
+                                                <ul class="list-unstyled mb-4">
+                                                    <?php
+                                                    $includedList = $pricing['included_features_list'];
+                                                    if (!empty($includedList)) {
+                                                        $array = explode(",", $includedList);
+                                                        foreach ($array as $value) {
+                                                            echo '<li class="mb-2"><i class="bi bi-check text-primary"></i> <strong>' . $value . '</strong></li>';
+                                                        }
                                                     }
-                                                }
-                                            ?>
-                                  
-                                            <!--Excluded list-->
-                                            <?php
-                                                $excludedList = $pricing['excluded_features_list'];
-                                                if(!empty($excludedList)){
-                                                $array = explode(",", $excludedList);
-          
-                                                foreach ($array as $value)
-                                                {
-                                                    echo '<li class="mb-2 text-muted"><i class="bi bi-x"></i>'.$value.'</li>';
-                                                }
-                                                }
-                                            ?>
-                                        </ul>
-                                        <?php
-                                        if(!empty($pricing['link'])){
-                                            ?>
-                                            <div class="d-grid"><a class="btn <?= $pricing['is_popular'] == 1 ? "btn-primary" : "btn-outline-primary"?>" href="<?= $pricing['link']; ?>" target="<?= $pricing['new_tab'] == 1 ? "_blank" : "_self" ?>"><?= $pricing['link_title']; ?></a></div>
-                                            <?php
-                                        }
-                                        ?>
+                                                    $excludedList = $pricing['excluded_features_list'];
+                                                    if (!empty($excludedList)) {
+                                                        $array = explode(",", $excludedList);
+                                                        foreach ($array as $value) {
+                                                            echo '<li class="mb-2 text-muted"><i class="bi bi-x"></i> ' . $value . '</li>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </ul>
+                                            </div>
+                                            <?php if (!empty($pricing['link'])): ?>
+                                                <div class="d-grid p-4 mt-auto hover-text-white">
+                                                    <a class="btn <?= $pricing['is_popular'] == 1 ? "btn-primary" : "btn-outline-primary" ?>" 
+                                                    href="<?= $pricing['link']; ?>" 
+                                                    target="<?= $pricing['new_tab'] == 1 ? "_blank" : "_self" ?>">
+                                                        <?= $pricing['link_title']; ?>
+                                                    </a>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        <!-- End Pricing Item -->
-                        <?php endforeach; ?>
-                      <?php endif; ?>
-                            
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </section>
@@ -400,51 +391,51 @@ if(empty($home_pages)){
                 <?php
             } elseif ($section === "CallToAction") {
                 ?>
-                  <!-- Call To Action Section -->
-                  <section class="py-2" data-aos="fade-up">
-                        <div class="container px-5 my-5">
-                            <div class="text-center mb-5">
-                                <h1 class="fw-bolder"><?=$sectionTitle?></h1>
-                                <p class="lead fw-normal text-muted mb-0"><?=$sectionDescription?></p>
-                            </div>
-                            <!-- Call to action-->
-                            <?php
-                                $callToActionImage = getHomePageData("CallToAction", "section_image");
-                                $callToActionVideo = getHomePageData("CallToAction", "section_video");
-                                $callToActionTitle = getHomePageData("CallToAction", "section_title");
-                                $callToActionDescription = getHomePageData("CallToAction", "section_description");
-                            ?>
-                             <aside class="bg-primary call-to-action rounded-3 p-4 p-sm-5 mt-5 position-relative" style="background-image: url('<?=$callToActionImage?>');">
-                                <div class="overlay"></div>
-                                <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start position-relative">
-                                    <div class="mb-4 mb-xl-0">
-                                        <div class="fs-3 fw-bold text-white text-shadow"><?=$sectionTitle?></div>
-                                        <div class="text-white text-shadow"><?=$callToActionDescription?></div>
-                                    </div>
-                                    <div class="ms-xl-4">
-                                        <a href="#!" class="btn btn-outline-light w-100">
-                                            Get In Touch!
-                                        </a>
-                                    </div>
+                <!-- Call To Action Section -->
+                <section class="py-2" data-aos="fade-up">
+                    <div class="container px-5 my-5">
+                        <div class="text-center mb-5">
+                            <h1 class="fw-bolder"><?=$sectionTitle?></h1>
+                            <p class="lead fw-normal text-muted mb-0"><?=$sectionDescription?></p>
+                        </div>
+                        <!-- Call to action-->
+                        <?php
+                            $callToActionImage = getHomePageData("CallToAction", "section_image");
+                            $callToActionVideo = getHomePageData("CallToAction", "section_video");
+                            $callToActionTitle = getHomePageData("CallToAction", "section_title");
+                            $callToActionDescription = getHomePageData("CallToAction", "section_description");
+                        ?>
+                            <aside class="bg-primary call-to-action rounded-3 p-4 p-sm-5 mt-5 position-relative" style="background-image: url('<?=$callToActionImage?>');">
+                            <div class="overlay"></div>
+                            <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start position-relative">
+                                <div class="mb-4 mb-xl-0">
+                                    <div class="fs-3 fw-bold text-white text-shadow"><?=$sectionTitle?></div>
+                                    <div class="text-white text-shadow"><?=$callToActionDescription?></div>
                                 </div>
-                            </aside>
-                        </div>
-                        <div class="row d-flex justify-content-center align-items-center">
-                                <!--scrollable -->
-                                <?php
-                                $useTwitterFeed = getConfigData("UseTwitterFeed");
-                                $twitterFeedCode = getConfigData("TwitterFeedCode");
+                                <div class="ms-xl-4">
+                                    <a href="#!" class="btn btn-outline-light w-100">
+                                        Get In Touch!
+                                    </a>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                    <div class="row d-flex justify-content-center align-items-center">
+                            <!--scrollable -->
+                            <?php
+                            $useTwitterFeed = getConfigData("UseTwitterFeed");
+                            $twitterFeedCode = getConfigData("TwitterFeedCode");
 
-                                if (strtolower($useTwitterFeed) === "yes") {
-                                    ?>
-                                        <div class="col-12 col-md-8 mt-2" style="height: 40em; overflow-y: scroll;">
-                                            <?=$twitterFeedCode?>
-                                        </div>
-                                    <?php
-                                }
+                            if (strtolower($useTwitterFeed) === "yes") {
                                 ?>
-                        </div>
-                    </section>
+                                    <div class="col-12 col-md-8 mt-2" style="height: 40em; overflow-y: scroll;">
+                                        <?=$twitterFeedCode?>
+                                    </div>
+                                <?php
+                            }
+                            ?>
+                    </div>
+                </section>
                 <!-- /Call To Action Section -->
                 <?php
             } elseif ($section === "RecentPosts") {
@@ -531,7 +522,7 @@ if(empty($home_pages)){
             }  elseif ($section === "Contact") {
                 ?>
                   <!-- Contact Section -->
-                  <section class="py-5" id="contact" data-aos="fade-up">
+                    <section class="py-5" id="contact" data-aos="fade-up">
                     <div class="container px-5">
                         <!-- Contact form-->
                         <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
@@ -624,7 +615,7 @@ if(empty($home_pages)){
                             </div>
                         </div>
                     </div>
-                </section>
+                    </section>
                   <!-- /Contact Section -->
                 <?php
             }

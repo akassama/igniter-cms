@@ -286,12 +286,12 @@ class Navigations extends Migration
             ],
             [
                 'navigation_id' => getGUID("204476df-0090-48de-829d-e5f30e2b85d6"),
-                'title'    => 'Terms of Service',
-                'description'    => 'Terms of service page',
+                'title'    => 'Cookie Policy',
+                'description'    => 'Cookie Policy page',
                 'group'    => 'footer_nav',
                 'order'    => 38,
                 'parent'    => null,
-                'link'    => '#services',
+                'link'    => '/cookie-policy',
                 'new_tab'    => false,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null

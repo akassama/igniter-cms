@@ -143,6 +143,7 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
 
     <!-- Core theme CSS (includes Bootstrap) -->
     <link href="<?= minifyCSS('public/front-end/themes/' . $theme . '/assets/css/styles.css') ?>" rel="stylesheet">
+    <link href="<?= minifyCSS('public/front-end/themes/' . $theme . '/assets/css/custom.css') ?>" rel="stylesheet">
 
     <!-- SweetAlert CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css">
