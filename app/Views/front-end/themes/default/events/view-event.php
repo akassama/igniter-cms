@@ -20,6 +20,16 @@ updateTotalViewCount("events", "event_id", $event_data['event_id']);
 <!-- Page Content-->
 <section class="py-5">
     <div class="container px-5 my-5">
+        <!--Breadcrumb-->
+        <div class="row mb-1">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?=base_url('/events')?>">Events</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Event Details</li>
+            </ol>
+            </nav>
+        </div>
         <div class="row gx-5">
             <div class="col-12">
                 <!-- Event content-->

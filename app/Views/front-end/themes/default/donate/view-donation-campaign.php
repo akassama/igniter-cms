@@ -20,6 +20,17 @@ updateTotalViewCount("donation_causes", "donation_cause_id", $donation_cause_dat
 <!-- Page Content-->
 <section class="py-5">
     <div class="container px-5 my-5">
+        <!--Breadcrumb-->
+        <div class="row mb-1">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?=base_url('/donate')?>">Donation Campaigns</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Campaign Details</li>
+            </ol>
+            </nav>
+        </div>
+        
         <div class="row gx-5">
             <div class="col-12">
                 <!-- Donation content-->

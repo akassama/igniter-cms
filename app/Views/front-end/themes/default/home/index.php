@@ -57,7 +57,7 @@ if(empty($home_pages)){
                                         <p class="lead fw-normal text-white-50 mb-4" data-aos="fade-up"><?=$sectionDescription?></p>
                                         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start" data-aos="fade-up" data-aos-delay="200">
                                             <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#services">Get Started</a>
-                                            <a class="btn btn-outline-light btn-lg px-4" href="#about">Learn More</a>
+                                            <a class="btn btn-outline-light btn-lg px-4" href="#about">About Us</a>
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +76,8 @@ if(empty($home_pages)){
                                 <div class="col-lg-6"><img class="img-fluid rounded mb-5 mb-lg-0" src="<?=getImageUrl($home_page['section_image'] ?? getDefaultImagePath())?>" alt="Section image" /></div>
                                 <div class="col-lg-6">
                                     <h2 class="fw-bolder"><?=$sectionTitle?></h2>
-                                    <p class="lead fw-normal text-muted mb-0"><?=$sectionDescription?></p>
+                                    <p class="lead fw-normal text-muted mb-2"><?=$sectionDescription?></p>
+                                    <a class="btn btn-primary text-white btn-lg px-4" href="<?=base_url('/about-us')?>">Learn More</a>
                                 </div>
                             </div>
                         </div>
@@ -502,7 +503,7 @@ if(empty($home_pages)){
                                             <div class="col-12">
                                                 <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()."?#subscribe"?>">
                                             </div>
-                                            <input class="form-control" type="email" name="email" name="email" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" required />
+                                            <input class="form-control" type="email" name="email" id="email" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" required />
                                             <div class="invalid-feedback">
                                                 Please provide email
                                             </div>

@@ -17,6 +17,16 @@ $enablePopupAds = getConfigData("EnablePopupAds");
     <!-- event preview section-->
     <section class="py-5">
         <div class="container px-5">
+            <!--Breadcrumb-->
+            <div class="row mb-1">
+                <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Events</li>
+                </ol>
+                </nav>
+            </div>
+
             <h2 class="fw-bolder fs-5 mb-4">Events</h2>
             <div class="row gx-5">
                 <?php if($events): ?>

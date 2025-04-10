@@ -20,6 +20,16 @@ updateTotalViewCount("blogs", "blog_id", $blog_data['blog_id']);
 <!-- Page Content-->
 <section class="py-5">
     <div class="container px-5 my-5">
+        <!--Breadcrumb-->
+        <div class="row mb-1">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?=base_url('/blogs')?>">Blogs</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Blog Details</li>
+            </ol>
+            </nav>
+        </div>
         <div class="row">
             <div class="col-lg-8">
                 <!-- Post content-->
