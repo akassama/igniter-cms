@@ -35,10 +35,21 @@ $enablePopupAds = getConfigData("EnablePopupAds");
     <!-- Contact Section -->
     <section class="py-5" id="contact">
     <div class="container px-5">
+        <!--Breadcrumb-->
+        <div class="row mb-1">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Contact Page</li>
+            </ol>
+            </nav>
+        </div>
         <!-- Contact form-->
         <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
             <div class="text-center mb-5">
-                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div>
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
+                    <i class="bi bi-envelope"></i>
+                </div>
                 <h1 class="fw-bolder">
                     <?=$contactTitle?>
                 </h1>

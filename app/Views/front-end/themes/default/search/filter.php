@@ -11,15 +11,25 @@ $theme = getCurrentTheme();
 
 <section class="py-5 bg-light">
     <div class="container px-5">
+        <!--Breadcrumb-->
+        <div class="row mb-1">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Search Results</li>
+            </ol>
+            </nav>
+        </div>
+
         <div class="row gx-5">
             <div class="col-12">
                 <?php 
                 // Check if all search result arrays are empty
-                $noResults = empty($blogsSearchResults) && 
-                            empty($pagesSearchResults) && 
-                            empty($eventsSearchResults) && 
+                $noResults = empty($blogsSearchResults) &&
+                            empty($pagesSearchResults) &&
+                            empty($eventsSearchResults) &&
                             empty($portfoliosSearchResults) &&
-                            empty($donationsSearchResults) && 
+                            empty($donationsSearchResults) &&
                             empty($shopSearchResults);
                 
                 // If no results, display a message

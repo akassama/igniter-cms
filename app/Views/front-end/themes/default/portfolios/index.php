@@ -7,7 +7,8 @@ $currentPage = "portfolios";
 $popUpWhereClause = ['status' => 1];
 $showOnPages = getTableData('announcement_popups', $popUpWhereClause, 'show_on_pages');
 $enablePopupAds = getConfigData("EnablePopupAds");
-
+$sectionTitle = getHomePageData("Portfolio", "section_title");
+$sectionDescription = getHomePageData("Portfolio", "section_description");
 ?>
 <!-- include theme layout -->
 <?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>
@@ -16,9 +17,19 @@ $enablePopupAds = getConfigData("EnablePopupAds");
 <?= $this->section('content') ?>
     <section class="py-5" id="portfolio">
         <div class="container px-5 my-5">
+            <!--Breadcrumb-->
+            <div class="row mb-1">
+                <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Portfolios</li>
+                </ol>
+                </nav>
+            </div>
+            
             <div class="text-center mb-5">
-                <h1 class="fw-bolder">Our Work</h1>
-                <p class="lead fw-normal text-muted mb-0">Company portfolio</p>
+                <h1 class="fw-bolder"><?=$sectionTitle?></h1>
+                <p class="lead fw-normal text-muted mb-0"><?=$sectionDescription?></p>
             </div>
             <div class="row gx-5">
                 <?php if($portfolios): ?>

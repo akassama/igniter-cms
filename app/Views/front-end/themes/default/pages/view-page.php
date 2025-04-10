@@ -20,6 +20,15 @@ updateTotalViewCount("pages", "page_id", $page_data['page_id']);
 <!-- Page Content-->
 <section class="py-3">
     <div class="container px-5 my-2">
+        <!--Breadcrumb-->
+        <div class="row mb-1">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><?= $page_data['title'] ?></li>
+            </ol>
+            </nav>
+        </div>
         <div class="row gx-5">
             <div class="col-12">
                 <!-- Page content-->

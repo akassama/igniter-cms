@@ -7,6 +7,8 @@ $currentPage = "blogs";
 $popUpWhereClause = ['status' => 1];
 $showOnPages = getTableData('announcement_popups', $popUpWhereClause, 'show_on_pages');
 $enablePopupAds = getConfigData("EnablePopupAds");
+$sectionTitle = getHomePageData("RecentPosts", "section_title");
+$sectionDescription = getHomePageData("RecentPosts", "section_description");
 ?>
 <!-- include theme layout -->
 <?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>
@@ -16,7 +18,20 @@ $enablePopupAds = getConfigData("EnablePopupAds");
     <!-- Blog preview section-->
     <section class="py-5">
         <div class="container px-5">
-            <h2 class="fw-bolder fs-5 mb-4">Blogs and Featured Stories</h2>
+            <!--Breadcrumb-->
+            <div class="row mb-1">
+                <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Blogs</li>
+                </ol>
+                </nav>
+            </div>
+
+            <div class="text-center mb-5">
+                <h1 class="fw-bolder"><?=$sectionTitle?></h1>
+                <p class="lead fw-normal text-muted mb-0"><?=$sectionDescription?></p>
+            </div>
             <div class="row gx-5">
                     <?php if($blogs): ?>
                         <?php foreach($blogs as $blog): ?>

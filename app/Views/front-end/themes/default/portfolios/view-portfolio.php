@@ -20,6 +20,17 @@ updateTotalViewCount("portfolios", "portfolio_id", $portfolio_data['portfolio_id
 <!-- Page Content-->
 <section class="py-5">
     <div class="container px-5 my-2">
+        <!--Breadcrumb-->
+        <div class="row mb-1">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?=base_url('/portfolios')?>">Portfolios</a></li>
+                <li class="breadcrumb-item active" aria-current="page">View Portfolio</li>
+            </ol>
+            </nav>
+        </div>
+
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-6">
                 <div class="text-center mb-5">
@@ -46,28 +57,28 @@ updateTotalViewCount("portfolios", "portfolio_id", $portfolio_data['portfolio_id
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        <img class="img-fluid rounded-3" src="<?=getImageUrl(($portfolio_data['featured_image']) ?? getDefaultImagePath())?>?>" alt="..." />
+                        <img class="img-fluid rounded-3" src="<?=getImageUrl(($portfolio_data['featured_image']) ?? getDefaultImagePath())?>" alt="..." />
                     </div>
                 </div>
             </div>
             <?php if(!empty($portfolio_data['details_image_1'])): ?>
               <div class="col-lg-6">
-                <img loading="lazy" src="<?=getImageUrl(($portfolio_data['details_image_1']) ?? getDefaultImagePath())?>?>" alt="" class="img-fluid rounded-3 mb-5">
+                <img loading="lazy" src="<?=getImageUrl(($portfolio_data['details_image_1']) ?? getDefaultImagePath())?>" alt="" class="img-fluid rounded-3 mb-5">
               </div>
             <?php endif; ?>
             <?php if(!empty($portfolio_data['details_image_2'])): ?>
               <div class="col-lg-6">
-                <img loading="lazy" src="<?=getImageUrl(($portfolio_data['details_image_2']) ?? getDefaultImagePath())?>?>" alt="" class="img-fluid rounded-3 mb-5">
+                <img loading="lazy" src="<?=getImageUrl(($portfolio_data['details_image_2']) ?? getDefaultImagePath())?>" alt="" class="img-fluid rounded-3 mb-5">
               </div>
             <?php endif; ?>
             <?php if(!empty($portfolio_data['details_image_3'])): ?>
               <div class="col-lg-6">
-                <img loading="lazy" src="<?=getImageUrl(($portfolio_data['details_image_3']) ?? getDefaultImagePath())?>?>" alt="" class="img-fluid rounded-3 mb-5">
+                <img loading="lazy" src="<?=getImageUrl(($portfolio_data['details_image_3']) ?? getDefaultImagePath())?>" alt="" class="img-fluid rounded-3 mb-5">
               </div>
             <?php endif; ?>
             <?php if(!empty($portfolio_data['details_image_4'])): ?>
               <div class="col-lg-6">
-                <img loading="lazy" src="<?=getImageUrl(($portfolio_data['details_image_4']) ?? getDefaultImagePath())?>?>" alt="" class="img-fluid rounded-3 mb-5">
+                <img loading="lazy" src="<?=getImageUrl(($portfolio_data['details_image_4']) ?? getDefaultImagePath())?>" alt="" class="img-fluid rounded-3 mb-5">
               </div>
             <?php endif; ?>
         </div>
