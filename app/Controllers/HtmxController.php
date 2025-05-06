@@ -422,4 +422,113 @@ class HtmxController extends BaseController
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();
     }
+
+    //AI REQUESTS    
+    public function getExcerptAI()
+    {
+        $content = $this->request->getPost('content');
+        if(empty($content)){
+            $content = $this->request->getPost('title');
+        }
+
+        $content = getTextSummary(strip_tags($content), 1000);
+        $prompt = "From the blog content provided below, extract an SEO-friendly excerpt using up to the first 1,000 characters. If the blog content is shorter than 1,000 characters, use the entire content for the excerpt. Ensure the excerpt is engaging, concise, and relevant to the blog topic. The response should contain only the excerpt, with no explanations or additional options. \nBlog Content:\n$content";
+        $excerpt = callGeminiAPI($prompt);
+
+        $excerptInput = '<textarea class="form-control" id="excerpt" name="excerpt">'.$excerpt.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($excerptInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    public function setTagsAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+        $description = $this->request->getPost('description');
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control tags-input" id="tags" name="meta_description" required></textarea>';
+        }
+
+        $prompt = "Given the blog title '$title' and the blog description '$description', generate a list of relevant meta keywords, separated by commas. If the description is empty, derive keywords primarily from the blog title. Ensure keywords are concise, relevant, and SEO-friendly. Only provide the keywords without any explanation or additional options.";
+        $keywords = callGeminiAPI($prompt);
+
+        $tagsInput = '<textarea rows="1" class="form-control tags-input" id="tags" name="tags" required>'.$keywords.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($tagsInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    public function setMetaTitleAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<input type="text" class="form-control" id="meta_title" name="meta_title" value="">';
+        }
+
+        $prompt = "I have a blog post titled '$title'. Please generate a compelling and SEO-friendly meta title that accurately summarizes the content while enticing users to click. Keep it under 160 characters. Generate only the response text.";
+        $metaTitle = callGeminiAPI($prompt);
+
+        $metaInput = '<input type="text" class="form-control" id="meta_title" name="meta_title" value="'.$metaTitle.'">';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    public function setMetaDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea class="form-control" id="meta_description" name="meta_description"></textarea>';
+        }
+
+        $prompt = "I have a blog post titled '$title'. Please generate a compelling and SEO-friendly meta description that accurately summarizes the content while enticing users to click. Keep it under 160 characters. Generate only the response text.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea class="form-control" id="meta_description" name="meta_description">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    public function setMetaKeywordsAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+        $description = $this->request->getPost('description');
+
+        //if no data, return default input
+        if(empty($title) && empty($description)){
+            return '<textarea class="form-control" id="meta_keywords" name="meta_keywords"></textarea>';
+        }
+
+        $prompt = "Given the blog title '$title' and the blog description '$description', generate a list of relevant meta keywords, separated by commas. If the description is empty, derive keywords primarily from the blog title. Ensure keywords are concise, relevant, and SEO-friendly. Only provide the keywords without any explanation or additional options.";
+        $keywords = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="meta_keywords" name="meta_keywords">'.$keywords.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
 }

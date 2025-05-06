@@ -2472,37 +2472,6 @@ if (!function_exists('isValidResetToken')) {
     }
 }
 
-/**
- * Retrieves the configuration data based on the configuration key.
- *
- * @param string $configKey The key to look up in the configuration table.
- * @param string $settingValue The fallback setting value if the configuration value is not found.
- * @return string The configuration value or the provided fallback setting value.
- */
-if (!function_exists('getDefaultConfigData')) {
-    function getDefaultConfigData($configKey, $settingValue): string
-    {
-        if(!empty($configKey) && !empty($settingValue)) {
-            $db = \Config\Database::connect();
-            
-            // Check if table exists before querying
-            if ($db->tableExists('configurations')) {
-                $tableName = 'configurations';
-                $whereClause = ['config_for' => $configKey];
-                $returnColumn = 'config_value';
-                $configValue = getTableData($tableName, $whereClause, $returnColumn);
-                if (!empty($configValue)) {
-                    return $configValue;
-                }
-            }
-            
-            return $settingValue;
-        }
-
-        return '';
-    }
-}
-
 
 /**
  * Generates a unique slug for a given navigation title.
@@ -4626,38 +4595,6 @@ if (!function_exists('getTextSummary')) {
 }
 
 /**
- * Get a summary of the given text.
- *
- * This function strips any HTML tags from the text, checks if the length of the text is less than or equal to the specified length,
- * and if so, returns the text as is.
- *
- * @param string $text The text to summarize.
- * @param int $length The maximum length of the summary. Default is 50 characters.
- * @return string The summarized text.
- */
-if (!function_exists('trimText')) {
-    function trimText($text, $length = 50) {
-        // Check if $text is not empty
-        if (empty($text)) {
-            return '';
-        }
-
-        // Strip any HTML tags
-        $text = strip_tags($text);
-
-        // Check if length is less than or equal to the specified length, if so return $text
-        if (strlen($text) <= $length) {
-            return $text;
-        }
-
-        // Else take 0 to specified length and add "..."
-        $summary = substr($text, 0, $length);
-
-        return trim($summary) . '...';
-    }
-}
-
-/**
  * Estimate the reading time for the given blog content.
  *
  * This function estimates how long it would take to read the provided blog content.
@@ -4954,8 +4891,8 @@ if (! function_exists('isLocalEnvironment')) {
  * @param string $aiResponse The AI response string.
  * @return string The formatted HTML string.
  */
-if (!function_exists('formatAIResponse')) {
-    function formatAIResponse($aiResponse) {
+if (!function_exists('formatGeminiAIResponse')) {
+    function formatGeminiAIResponse($aiResponse) {
         if ($aiResponse === false || $aiResponse === null || empty($aiResponse)) {
             return "<div class='ai-response'>Error getting a response from the AI.</div>";
         }
@@ -4996,9 +4933,8 @@ if (!function_exists('formatAIResponse')) {
  */
 if (!function_exists('callGeminiAPI')) {
     function callGeminiAPI($prompt) {
-        $apiKey = getDefaultConfigData("AIHelpChatKey", getenv('CONFIG.AI_HELP_CHAT_KEY'));
-        $apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" . $apiKey;
-
+        $apiKey = empty(!getConfigData("AIServiceKey")) ? getConfigData("AIServiceKey") : env('AI_API_KEY');
+        $apiUrl = getConfigData("GeminiBaseURL") . $apiKey;
         $data = [
             "contents" => [
                 [

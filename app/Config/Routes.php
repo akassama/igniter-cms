@@ -371,6 +371,13 @@ $routes->group('htmx', function($routes) {
     $routes->post('update-file-data-form/(:any)', 'HtmxController::updateFileDataList/$1');
     $routes->get('cancel-file-data-form/(:any)', 'HtmxController::getFileDataList/$1');
 
+    //AI REQUESTS
+    $routes->post('get-excerpt-via-ai', 'HtmxController::getExcerptAI');
+    $routes->post('get-tags-via-ai', 'HtmxController::setTagsAI');
+    $routes->post('set-meta-title-via-ai', 'HtmxController::setMetaTitleAI');
+    $routes->post('set-meta-description-via-ai', 'HtmxController::setMetaDescriptionAI');
+    $routes->post('set-meta-keywords-via-ai', 'HtmxController::setMetaKeywordsAI');
+
     //ADMIN
     $routes->post('get-primary-color-name', 'HtmxController::getPrimaryColorName');
     $routes->post('get-secondary-color-name', 'HtmxController::getSecondaryColorName');
