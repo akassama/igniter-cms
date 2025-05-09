@@ -101,8 +101,17 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="icon" class="form-label">Icon</label>
-                <input type="text" class="form-control" id="icon" name="icon" data-show-err="true" maxlength="250" value="<?= htmlspecialchars(set_value('icon')) ?>">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label for="icon" class="form-label">Icon</label>
+                        <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                        hx-post="<?=base_url()?>/htmx/get-remix-icon-via-ai"
+                        hx-trigger="click delay:250ms"
+                        hx-target="#icon-div"
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </div>
+                <div id="icon-div">
+                    <input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="<?= htmlspecialchars(set_value('icon')) ?>" placeholder="E.g. ri-user-line">
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('icon')) {?>
                     <div class='text-danger mt-2'>

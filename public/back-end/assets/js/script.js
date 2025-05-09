@@ -34,33 +34,6 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
-// Initialize tags input
-$(document).ready(function() {
-    // Initialize tags input
-    $('.tags-input').tagsInput({
-        width: 'auto',
-        height: 'auto',
-        onAddTag: function(tag) {
-            if ($('.tags-input').attr('readonly')) {
-                $('.tags-input').removeTag(tag); // Prevent adding new tags if readonly
-            }
-        }
-    });
-
-    // Check if the input is readonly and disable adding new tags
-    if ($('.tags-input').attr('readonly')) {
-        $('.tags-input').siblings('.tagsinput').find('input').prop('disabled', true);
-    }
-});
-
-// Select 2 options
-$(document).ready(function() {
-    $('.select2-options').select2({
-      minimumInputLength: 2,
-      maximumInputLength: 25
-    });
-});
-
 
 /**
  * Disables form submissions if there are invalid fields, applying custom Bootstrap validation styles.
@@ -139,10 +112,65 @@ $(document).ready(function () {
  * @summary Initializes Summernote editor on content-editor elements.
  */
 $(document).ready(function () {
-    $('.content-editor').summernote({
-        placeholder: 'Enter content here...',
-        tabsize: 2,
-        height: 150
+    setTimeout(function (){
+        $('.content-editor').summernote({
+            placeholder: 'Enter content here...',
+            tabsize: 2,
+            height: 150
+        });       
+      }, 500);
+});
+
+// Initialize tags input
+$(document).ready(function() {
+    // Initialize tags input
+    $('.tags-input').tagsInput({
+        width: 'auto',
+        height: 'auto',
+        onAddTag: function(tag) {
+            if ($('.tags-input').attr('readonly')) {
+                $('.tags-input').removeTag(tag); // Prevent adding new tags if readonly
+            }
+        }
+    });
+
+    // Check if the input is readonly and disable adding new tags
+    if ($('.tags-input').attr('readonly')) {
+        $('.tags-input').siblings('.tagsinput').find('input').prop('disabled', true);
+    }
+});
+
+// Select 2 options
+$(document).ready(function() {
+    $('.select2-options').select2({
+      minimumInputLength: 2,
+      maximumInputLength: 25
+    });
+});
+
+/**
+ * Initializes event listeners on all buttons with the class `.use-ai-btn`.
+ * When clicked, the icon inside the button is temporarily changed to a loading spinner
+ * for 2.5 seconds, then reverted back to the original robot icon.
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.use-ai-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            console.log("Clicked Use AI");
+            const icon = this.querySelector('i');
+            if (!icon) return;
+
+            // Save original class
+            const originalClass = icon.className;
+
+            // Change to loading spinner
+            icon.className = 'ri-loader-2-line ri-spin';
+
+            // Revert after 2.5 seconds
+            setTimeout(() => {
+                icon.className = originalClass;
+            }, 2500);
+        });
     });
 });
 
@@ -411,4 +439,6 @@ $(document).ready(function () {
         },
       });
     });
-  });
+});
+
+

@@ -109,12 +109,12 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <div class="col-sm-12 col-md-12 mb-3">
                 <div class="d-flex justify-content-between align-items-center">
-                <label for="excerpt" class="form-label">Excerpt</label>
-                    <button type="button" class="btn btn-secondary btn-sm mb-1"
-                    hx-post="<?=base_url()?>/htmx/get-excerpt-via-ai"
-                    hx-trigger="click delay:250ms"
-                    hx-target="#excerpt-div"
-                    hx-swap="innerHTML">Use AI</button>
+                    <label for="excerpt" class="form-label">Excerpt</label>
+                        <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                        hx-post="<?=base_url()?>/htmx/get-excerpt-via-ai"
+                        hx-trigger="click delay:250ms"
+                        hx-target="#excerpt-div"
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
                 </div>
                 <div id="excerpt-div">
                     <textarea class="form-control" id="excerpt" name="excerpt" ><?= set_value('excerpt') ?></textarea>
@@ -150,11 +150,11 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <div class="d-flex justify-content-between align-items-center">
                 <label for="tags" class="form-label">Tags</label>
-                    <button type="button" class="btn btn-secondary btn-sm mb-1"
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
                     hx-post="<?=base_url()?>/htmx/get-tags-via-ai"
                     hx-trigger="click delay:250ms"
                     hx-target="#tags-div"
-                    hx-swap="innerHTML">Use AI</button>
+                    hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
                 </div>
                 <div id="tags-div" hx-on:htmx:after-settle="setTagsInput('tags')">
                     <textarea rows="1" class="form-control tags-input" id="tags" name="tags" required><?= set_value('tags') ?></textarea>
@@ -219,11 +219,11 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <div class="col-12 mb-3">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label for="meta_title" class="form-label">Meta Title</label>
-                                            <button type="button" class="btn btn-secondary btn-sm mb-1" data-target="meta_title"
+                                            <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="meta_title"
                                             hx-post="<?=base_url()?>/htmx/set-meta-title-via-ai"
                                             hx-trigger="click delay:250ms"
                                             hx-target="#meta-title-div"
-                                            hx-swap="innerHTML">Use AI</button>
+                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
                                         </div>
                                         <div id="meta-title-div">
                                             <input type="text" class="form-control" id="meta_title" name="meta_title" value="<?= set_value('meta_title') ?>">
@@ -240,11 +240,11 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <div class="col-12 mb-3">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label for="meta_description" class="form-label">Meta Description</label>
-                                            <button type="button" class="btn btn-secondary btn-sm mb-1" data-target="meta_description"
+                                            <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="meta_description"
                                             hx-post="<?=base_url()?>/htmx/set-meta-description-via-ai"
                                             hx-trigger="click delay:250ms"
                                             hx-target="#meta-description-div"
-                                            hx-swap="innerHTML">Use AI</button>
+                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
                                         </div>
                                         <div id="meta-description-div">
                                             <textarea class="form-control" id="meta_description" name="meta_description" ><?= set_value('meta_description') ?></textarea>
@@ -261,11 +261,11 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <div class="col-12 mb-3">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label for="meta_keywords" class="form-label">Meta Keywords</label>
-                                            <button type="button" class="btn btn-secondary btn-sm mb-1" data-target="meta_keywords"
+                                            <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="meta_keywords"
                                             hx-post="<?=base_url()?>/htmx/set-meta-keywords-via-ai"
                                             hx-trigger="click delay:250ms"
                                             hx-target="#meta-keywords-div"
-                                            hx-swap="innerHTML">Use AI</button>
+                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
                                         </div>
                                         <div id="meta-keywords-div" hx-on:htmx:after-settle="setTagsInput('meta_keywords')">
                                             <textarea rows="1" class="form-control tags-input" id="meta_keywords" name="meta_keywords"><?= set_value('meta_keywords') ?></textarea>

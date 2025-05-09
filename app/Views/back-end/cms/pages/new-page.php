@@ -29,11 +29,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row">
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= set_value('title') ?>" required
-                       hx-post="<?=base_url()?>/htmx/set-meta-title"
-                       hx-trigger="keyup, changed delay:250ms"
-                       hx-target="#meta-title-div"
-                       hx-swap="innerHTML">
+                <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= set_value('title') ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('title')) {?>
                     <div class='text-danger mt-2'>
@@ -109,7 +105,14 @@ echo generateBreadcrumb($breadcrumb_links);
                             <div class="accordion-body">
                                 <div class="row">
                                     <div class="col-12 mb-3">
-                                        <label for="meta_title" class="form-label">Meta Title</label>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <label for="meta_title" class="form-label">Meta Title</label>
+                                            <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="meta_title"
+                                            hx-post="<?=base_url()?>/htmx/set-meta-title-via-ai"
+                                            hx-trigger="click delay:250ms"
+                                            hx-target="#meta-title-div"
+                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                                        </div>
                                         <div id="meta-title-div">
                                             <input type="text" class="form-control" id="meta_title" name="meta_title" value="<?= set_value('meta_title') ?>">
                                         </div>
@@ -124,9 +127,16 @@ echo generateBreadcrumb($breadcrumb_links);
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3">
-                                        <label for="meta_description" class="form-label">Meta Description</label>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <label for="meta_description" class="form-label">Meta Description</label>
+                                            <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="meta_description"
+                                            hx-post="<?=base_url()?>/htmx/set-meta-description-via-ai"
+                                            hx-trigger="click delay:250ms"
+                                            hx-target="#meta-description-div"
+                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                                        </div>
                                         <div id="meta-description-div">
-                                            <textarea type="text" class="form-control" id="meta_description" name="meta_description"><?= set_value('meta_description') ?></textarea>
+                                            <textarea class="form-control" id="meta_description" name="meta_description" ><?= set_value('meta_description') ?></textarea>
                                         </div>
                                         <!-- Error -->
                                         <?php if($validation->getError('meta_description')) {?>
@@ -139,9 +149,16 @@ echo generateBreadcrumb($breadcrumb_links);
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3">
-                                        <label for="meta_keywords" class="form-label">Meta Keywords</label>
-                                        <div id="meta-keywords-div">
-                                            <input type="text" class="form-control tags-input" id="meta_keywords" name="meta_keywords" value="<?= set_value('meta_keywords') ?>">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <label for="meta_keywords" class="form-label">Meta Keywords</label>
+                                            <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="meta_keywords"
+                                            hx-post="<?=base_url()?>/htmx/set-meta-keywords-via-ai"
+                                            hx-trigger="click delay:250ms"
+                                            hx-target="#meta-keywords-div"
+                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                                        </div>
+                                        <div id="meta-keywords-div" hx-on:htmx:after-settle="setTagsInput('meta_keywords')">
+                                            <textarea rows="1" class="form-control tags-input" id="meta_keywords" name="meta_keywords"><?= set_value('meta_keywords') ?></textarea>
                                         </div>
                                         <!-- Error -->
                                         <?php if($validation->getError('meta_keywords')) {?>

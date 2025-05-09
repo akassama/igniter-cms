@@ -423,7 +423,8 @@ class HtmxController extends BaseController
         exit();
     }
 
-    //AI REQUESTS    
+    //AI REQUESTS 
+    ## BLOGS ##  
     public function getExcerptAI()
     {
         $content = $this->request->getPost('content');
@@ -477,7 +478,7 @@ class HtmxController extends BaseController
             return '<input type="text" class="form-control" id="meta_title" name="meta_title" value="">';
         }
 
-        $prompt = "I have a blog post titled '$title'. Please generate a compelling and SEO-friendly meta title that accurately summarizes the content while enticing users to click. Keep it under 160 characters. Generate only the response text.";
+        $prompt = "I have a blog post titled '$title'. Please generate a compelling and SEO-friendly meta title that accurately summarizes the content while enticing users to click. Keep it under 160 characters. Do not include any placeholders. Generate only the response text.";
         $metaTitle = callGeminiAPI($prompt);
 
         $metaInput = '<input type="text" class="form-control" id="meta_title" name="meta_title" value="'.$metaTitle.'">';
@@ -499,7 +500,7 @@ class HtmxController extends BaseController
             return '<textarea class="form-control" id="meta_description" name="meta_description"></textarea>';
         }
 
-        $prompt = "I have a blog post titled '$title'. Please generate a compelling and SEO-friendly meta description that accurately summarizes the content while enticing users to click. Keep it under 160 characters. Generate only the response text.";
+        $prompt = "I have a blog post titled '$title'. Please generate a compelling and SEO-friendly meta description that accurately summarizes the content while enticing users to click. Keep it under 160 characters. Do not include any placeholders. Generate only the response text.";
         $description = callGeminiAPI($prompt);
 
         $metaInput = '<textarea class="form-control" id="meta_description" name="meta_description">'.$description.'</textarea>';
@@ -526,6 +527,127 @@ class HtmxController extends BaseController
         $keywords = callGeminiAPI($prompt);
 
         $metaInput = '<textarea rows="1" class="form-control" id="meta_keywords" name="meta_keywords">'.$keywords.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## CATEGORIES ## 
+    public function getCategoryBlogDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control" id="description" name="description" required></textarea>';
+        }
+
+        $prompt = "Based on the blog category name '$title', generate a clear, engaging, and SEO-friendly description that effectively defines the category and its purpose. Do not include any placeholders. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## NAVIGATION ## 
+    public function getNavigationDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control" id="description" name="description" required></textarea>';
+        }
+
+        $prompt = "Based on the site navigation name '$title', generate a clear, engaging, and SEO-friendly description that effectively defines the navigation and its purpose. Do not include any placeholders. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## HOME PAGE SECTION ## 
+    public function getHomePageSectionDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('section');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea class="form-control" id="section_description" name="section_description"></textarea>';
+        }
+
+        $prompt = "Given the homepage section title '$title', generate a clear, engaging, and SEO-friendly description that effectively introduces and explains the section. Ensure the description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea class="form-control" id="section_description" name="section_description">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## CONTENT BLOCK ## 
+    public function getContentBlockDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control" id="description" name="description" required></textarea>';
+        }
+
+        $prompt = "Given the content block title '$title', generate a clear, engaging, and SEO-friendly description that effectively introduces and explains the block. Ensure the description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## REMIX ICON ## 
+    public function getRemixIconAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('config_for');
+        }
+        if(empty($title)){
+            $title = $this->request->getPost('category');
+        }
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="" placeholder="E.g. ri-user-line">';
+        }
+
+        $prompt = "Based on the title '$title', provide the most relevant Remix Icon text representation. Ensure the response contains only the icon text (e.g., 'ri-user-line', 'ri-loop-left-fill', etc.), with no explanations or additional options.";
+        $icon = callGeminiAPI($prompt);
+
+        $metaInput = '<input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="'.$icon.'" placeholder="E.g. ri-user-line">';
         echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded

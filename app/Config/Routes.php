@@ -372,11 +372,27 @@ $routes->group('htmx', function($routes) {
     $routes->get('cancel-file-data-form/(:any)', 'HtmxController::getFileDataList/$1');
 
     //AI REQUESTS
+    #Blogs#
     $routes->post('get-excerpt-via-ai', 'HtmxController::getExcerptAI');
     $routes->post('get-tags-via-ai', 'HtmxController::setTagsAI');
     $routes->post('set-meta-title-via-ai', 'HtmxController::setMetaTitleAI');
     $routes->post('set-meta-description-via-ai', 'HtmxController::setMetaDescriptionAI');
     $routes->post('set-meta-keywords-via-ai', 'HtmxController::setMetaKeywordsAI');
+
+    #Categories#
+    $routes->post('get-blog-category-description-via-ai', 'HtmxController::getCategoryBlogDescriptionAI');
+
+    #Navigation#
+    $routes->post('get-navigation-description-via-ai', 'HtmxController::getNavigationDescriptionAI');
+
+    #Home Page Section#
+    $routes->post('get-homepage-section-description-via-ai', 'HtmxController::getHomePageSectionDescriptionAI');
+
+    #Content Block#
+    $routes->post('get-content-block-description-via-ai', 'HtmxController::getContentBlockDescriptionAI');
+
+    #Get Icons#
+    $routes->post('get-remix-icon-via-ai', 'HtmxController::getRemixIconAI');
 
     //ADMIN
     $routes->post('get-primary-color-name', 'HtmxController::getPrimaryColorName');

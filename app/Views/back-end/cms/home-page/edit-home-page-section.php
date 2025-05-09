@@ -54,8 +54,17 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="section_description" class="form-label">Description</label>
-                <textarea class="form-control" id="section_description" name="section_description"><?= $home_page_data['section_description'] ?></textarea>
+                <div class="d-flex justify-content-between align-items-center">
+                    <label for="section_description" class="form-label">Description</label>
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="section_description"
+                    hx-post="<?=base_url()?>/htmx/get-homepage-section-description-via-ai"
+                    hx-trigger="click delay:250ms"
+                    hx-target="#section-description-div"
+                    hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </div>
+                <div id="section-description-div">
+                    <textarea class="form-control" id="section_description" name="section_description"><?= $home_page_data['section_description'] ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('section_description')) {?>
                     <div class='text-danger mt-2'>
