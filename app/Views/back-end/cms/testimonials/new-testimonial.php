@@ -87,20 +87,6 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-12 mb-3">
-                <label for="testimonial" class="form-label">Testimonial</label>
-                <textarea rows="1" class="form-control" id="testimonial" name="testimonial" maxlength="500" required><?= set_value('testimonial') ?></textarea>
-                <!-- Error -->
-                <?php if($validation->getError('testimonial')) {?>
-                    <div class='text-danger mt-2'>
-                        <?= $error = $validation->getError('testimonial'); ?>
-                    </div>
-                <?php }?>
-                <div class="invalid-feedback">
-                    Please provide testimonial
-                </div>
-            </div>
-
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="company" class="form-label">Company/Organization</label>
                 <input type="text" class="form-control" id="company" name="company" maxlength="250" value="<?= set_value('company') ?>" required>
@@ -126,6 +112,29 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php }?>
                 <div class="invalid-feedback">
                     Please provide rating
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label for="testimonial" class="form-label">Testimonial</label>
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                    hx-post="<?=base_url()?>/htmx/get-testimonial-via-ai"
+                    hx-trigger="click delay:250ms"
+                    hx-target="#testimonial-div"
+                    hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </div>
+                <div id="testimonial-div">
+                    <textarea rows="1" class="form-control" id="testimonial" name="testimonial" maxlength="500" required><?= set_value('testimonial') ?></textarea>
+                </div>
+                <!-- Error -->
+                <?php if($validation->getError('testimonial')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('testimonial'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide testimonial
                 </div>
             </div>
             

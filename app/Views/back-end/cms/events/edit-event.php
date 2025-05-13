@@ -49,7 +49,7 @@
                hx-post="<?=base_url()?>/htmx/set-meta-description"
                hx-trigger="keyup, changed delay:250ms"
                hx-target="#meta-description-div"
-               hx-swap="innerHTML"><?= $event_data['description'] ?></textarea>
+               hx-swap="innerHTML" maxlength="500"><?= $event_data['description'] ?></textarea>
             <!-- Error -->
             <?php if($validation->getError('description')) {?>
             <div class='text-danger mt-2'>

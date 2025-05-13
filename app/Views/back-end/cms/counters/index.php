@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>{{SET_TITLE}}<?= $this->endSection() ?>
+<?= $this->section('title') ?>Manage Counters<?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>

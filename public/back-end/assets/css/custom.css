@@ -5,19 +5,19 @@
 }
 
 #toast-container > .toast-success {
-    background-color: rgba(40, 167, 69, 0.8); /* Success background color with transparency */
+    background-color: rgba(40, 167, 69, 0.8);
 }
 
 #toast-container > .toast-error {
-    background-color: rgba(220, 53, 69, 0.8); /* Error background color with transparency */
+    background-color: rgba(220, 53, 69, 0.8);
 }
 
 #toast-container > .toast-info {
-    background-color: rgba(23, 162, 184, 0.8); /* Info background color with transparency */
+    background-color: rgba(23, 162, 184, 0.8);
 }
 
 #toast-container > .toast-warning {
-    background-color: rgba(255, 193, 7, 0.8); /* Warning background color with transparency */
+    background-color: rgba(255, 193, 7, 0.8);
 }
 
 /* Remove text decoration */
@@ -44,34 +44,44 @@
 
 /* custom bootstrap 5 text colors */
 .text-purple {
-    color: #8a2be2 !important; /* Example purple color */
+    color: #8a2be2 !important;
 }
 
 .text-pink {
-    color: #ff69b4 !important; /* Example pink color */
+    color: #ff69b4 !important;
 }
 
 .text-orange {
-    color: #ffa500 !important; /* Example orange color */
+    color: #ffa500 !important;
 }
 
 .text-teal {
-    color: #008080 !important; /* Example teal color */
+    color: #008080 !important;
 }
 
 .text-lime {
-    color: #90ee90 !important; /* Example lime color */
+    color: #90ee90 !important;
 }
 
 .text-brown {
-    color: #a0522d !important; /* Example brown color */
+    color: #a0522d !important;
 }
 
 .text-maroon {
-    color: #800000 !important; /* Example maroon color */
+    color: #800000 !important;
 }
 
 .text-olive {
-    color: #808000 !important; /* Example olive color */
+    color: #808000 !important;
 }
-  
+
+/* remix ixon spinner */
+.ri-spin {
+    animation: ri-spin 1s linear infinite;
+}
+
+@keyframes ri-spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}

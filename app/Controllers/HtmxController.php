@@ -409,9 +409,6 @@ class HtmxController extends BaseController
         $readStatus = $this->request->getPost('read_status');
         $contactMessageId = $this->request->getPost('contact_message_id');
 
-        //var_dump($readStatus);
-        //exit();
-
         $readValue = (empty($readStatus) || $readStatus == "0") ? 1 : 0;
 
         //mark as read
@@ -433,7 +430,8 @@ class HtmxController extends BaseController
         }
 
         $content = getTextSummary(strip_tags($content), 1000);
-        $prompt = "From the blog content provided below, extract an SEO-friendly excerpt using up to the first 1,000 characters. If the blog content is shorter than 1,000 characters, use the entire content for the excerpt. Ensure the excerpt is engaging, concise, and relevant to the blog topic. The response should contain only the excerpt, with no explanations or additional options. \nBlog Content:\n$content";
+        $prompt = "From the blog/page content provided below, extract an SEO-friendly excerpt using up to the first 1,000 characters. If the content is shorter, use it entirely. Ensure the excerpt is engaging, concise, and relevant. Do not include explanations or placeholders — return only the excerpt.\n\nBlog Content:\n$content";
+
         $excerpt = callGeminiAPI($prompt);
 
         $excerptInput = '<textarea class="form-control" id="excerpt" name="excerpt">'.$excerpt.'</textarea>';
@@ -443,6 +441,7 @@ class HtmxController extends BaseController
         exit();
     }
 
+    ## TAGS LIST ##
     public function setTagsAI()
     {
         $title = $this->request->getPost('title');
@@ -456,7 +455,7 @@ class HtmxController extends BaseController
             return '<textarea rows="1" class="form-control tags-input" id="tags" name="meta_description" required></textarea>';
         }
 
-        $prompt = "Given the blog title '$title' and the blog description '$description', generate a list of relevant meta keywords, separated by commas. If the description is empty, derive keywords primarily from the blog title. Ensure keywords are concise, relevant, and SEO-friendly. Only provide the keywords without any explanation or additional options.";
+        $prompt = "Given the blog/page title '$title' and the blog/page description '$description', generate a list of relevant meta keywords, separated by commas. If the description is empty, derive keywords primarily from the blog/page title. Ensure keywords are concise, relevant, and SEO-friendly. Do not use placeholders—provide a fully formed description with concrete wording. Only provide the keywords without any explanation or additional options.";
         $keywords = callGeminiAPI($prompt);
 
         $tagsInput = '<textarea rows="1" class="form-control tags-input" id="tags" name="tags" required>'.$keywords.'</textarea>';
@@ -466,6 +465,7 @@ class HtmxController extends BaseController
         exit();
     }
 
+    ## META TITLE ##
     public function setMetaTitleAI()
     {
         $title = $this->request->getPost('title');
@@ -478,8 +478,11 @@ class HtmxController extends BaseController
             return '<input type="text" class="form-control" id="meta_title" name="meta_title" value="">';
         }
 
-        $prompt = "I have a blog post titled '$title'. Please generate a compelling and SEO-friendly meta title that accurately summarizes the content while enticing users to click. Keep it under 160 characters. Do not include any placeholders. Generate only the response text.";
-        $metaTitle = callGeminiAPI($prompt);
+        $prompt = "Given the blog/page title '$title'. Please generate a compelling and SEO-friendly meta title that accurately summarizes the content while enticing users to click. Keep it under 160 characters. Do not use placeholders—provide a fully formed description with concrete wording. Generate only the response text.";
+        $companyName = getConfigData("CompanyName");
+        $companyAddress = getConfigData("CompanyAddress");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
+        $metaTitle = callGeminiAPI($prompt." ".$companyInfo);
 
         $metaInput = '<input type="text" class="form-control" id="meta_title" name="meta_title" value="'.$metaTitle.'">';
         echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
@@ -488,6 +491,7 @@ class HtmxController extends BaseController
         exit();
     }
 
+    ## META DESCRIPTION ##
     public function setMetaDescriptionAI()
     {
         $title = $this->request->getPost('title');
@@ -500,8 +504,11 @@ class HtmxController extends BaseController
             return '<textarea class="form-control" id="meta_description" name="meta_description"></textarea>';
         }
 
-        $prompt = "I have a blog post titled '$title'. Please generate a compelling and SEO-friendly meta description that accurately summarizes the content while enticing users to click. Keep it under 160 characters. Do not include any placeholders. Generate only the response text.";
-        $description = callGeminiAPI($prompt);
+        $prompt = "Given the blog/page title '$title'. Please generate a compelling and SEO-friendly meta description that accurately summarizes the content while enticing users to click. Keep it under 160 characters. Do not use placeholders—provide a fully formed description with concrete wording. Generate only the response text.";
+        $companyName = getConfigData("CompanyName");
+        $companyAddress = getConfigData("CompanyAddress");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
+        $description = callGeminiAPI($prompt." ".$companyInfo);
 
         $metaInput = '<textarea class="form-control" id="meta_description" name="meta_description">'.$description.'</textarea>';
         echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
@@ -510,6 +517,7 @@ class HtmxController extends BaseController
         exit();
     }
 
+    ## META KEYWORDS DESCRIPTION ##
     public function setMetaKeywordsAI()
     {
         $title = $this->request->getPost('title');
@@ -523,7 +531,7 @@ class HtmxController extends BaseController
             return '<textarea class="form-control" id="meta_keywords" name="meta_keywords"></textarea>';
         }
 
-        $prompt = "Given the blog title '$title' and the blog description '$description', generate a list of relevant meta keywords, separated by commas. If the description is empty, derive keywords primarily from the blog title. Ensure keywords are concise, relevant, and SEO-friendly. Only provide the keywords without any explanation or additional options.";
+        $prompt = "Given the blog/page title '$title' and the blog/page description '$description', generate a list of relevant meta keywords, separated by commas. If the description is empty, derive keywords primarily from the blog/page title. Ensure keywords are concise, relevant, and SEO-friendly. Do not use placeholders—provide a fully formed description with concrete wording. Only provide the keywords without any explanation or additional options.";
         $keywords = callGeminiAPI($prompt);
 
         $metaInput = '<textarea rows="1" class="form-control" id="meta_keywords" name="meta_keywords">'.$keywords.'</textarea>';
@@ -533,8 +541,8 @@ class HtmxController extends BaseController
         exit();
     }
 
-    ## CATEGORIES ## 
-    public function getCategoryBlogDescriptionAI()
+    ## BLOG CATEGORIES DESCRIPTION ## 
+    public function getBlogCategoryDescriptionAI()
     {
         $title = $this->request->getPost('title');
         if(empty($title)){
@@ -543,20 +551,20 @@ class HtmxController extends BaseController
 
         //if no data, return default input
         if(empty($title)){
-            return '<textarea rows="1" class="form-control" id="description" name="description" required></textarea>';
+            return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required></textarea>';
         }
 
-        $prompt = "Based on the blog category name '$title', generate a clear, engaging, and SEO-friendly description that effectively defines the category and its purpose. Do not include any placeholders. The response should contain only the description, with no explanations or additional options.";
+        $prompt = "Based on the blog/page category name '$title', generate a clear, engaging, and SEO-friendly description that effectively defines the category and its purpose. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" required>'.$description.'</textarea>';
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
         echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();
     }
 
-    ## NAVIGATION ## 
+    ## NAVIGATION DESCRIPTION ## 
     public function getNavigationDescriptionAI()
     {
         $title = $this->request->getPost('title');
@@ -566,20 +574,20 @@ class HtmxController extends BaseController
 
         //if no data, return default input
         if(empty($title)){
-            return '<textarea rows="1" class="form-control" id="description" name="description" required></textarea>';
+            return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required></textarea>';
         }
 
-        $prompt = "Based on the site navigation name '$title', generate a clear, engaging, and SEO-friendly description that effectively defines the navigation and its purpose. Do not include any placeholders. The response should contain only the description, with no explanations or additional options.";
+        $prompt = "Based on the site navigation name '$title', generate a clear, engaging, and SEO-friendly description that effectively defines the navigation and its purpose. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" required>'.$description.'</textarea>';
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
         echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();
     }
 
-    ## HOME PAGE SECTION ## 
+    ## HOME PAGE SECTION DESCRIPTION ## 
     public function getHomePageSectionDescriptionAI()
     {
         $title = $this->request->getPost('title');
@@ -602,7 +610,7 @@ class HtmxController extends BaseController
         exit();
     }
 
-    ## CONTENT BLOCK ## 
+    ## CONTENT BLOCK DESCRIPTION ## 
     public function getContentBlockDescriptionAI()
     {
         $title = $this->request->getPost('title');
@@ -612,13 +620,378 @@ class HtmxController extends BaseController
 
         //if no data, return default input
         if(empty($title)){
-            return '<textarea rows="1" class="form-control" id="description" name="description" required></textarea>';
+            return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required></textarea>';
         }
 
         $prompt = "Given the content block title '$title', generate a clear, engaging, and SEO-friendly description that effectively introduces and explains the block. Ensure the description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" required>'.$description.'</textarea>';
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## EVENT DESCRIPTION ## 
+    public function getEventDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500"></textarea>';
+        }
+
+        $prompt = "Given the event title '$title', generate a clear, engaging, and SEO-friendly description that effectively introduces and explains the event. Ensure the description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## PORTFOLIO DESCRIPTION ## 
+    public function getPortfolioDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500"></textarea>';
+        }
+
+        $prompt = "Given the portfolio title '$title', generate a clear, engaging, and SEO-friendly description that effectively introduces and explains the portfolio. Ensure the description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## COUNTER/STAT DESCRIPTION ## 
+    public function getCounterDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required></textarea>';
+        }
+
+        $prompt = "Given the counter/homepage statistic titled '$title', generate a clear, engaging, and SEO-friendly description that effectively introduces and explains the stat. Ensure the description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## PRIING DESCRIPTION ## 
+    public function getPricingDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500"></textarea>';
+        }
+
+        $prompt = "Given the pricing on the website titled '$title', generate a clear, engaging, and SEO-friendly description that effectively introduces and explains the pricing. Ensure the description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## TEAM MEMBER SUMMARY ## 
+    public function getTeamSummaryAI()
+    {
+        $name = $this->request->getPost('name');
+        $title = $this->request->getPost('title');
+
+        //if no data, return default input
+        if(empty($name) || empty($title)){
+            return '<textarea rows="1" class="form-control" id="summary" name="summary" maxlength="500" required></textarea>';
+        }
+
+        $prompt = "Given the name: '$name', and title: '$title' for this team member, generate a clear, engaging, and SEO-friendly summary that effectively introduces and explains the summary. Ensure the summary is concise, informative, and appealing for website visitors. Do not use placeholders — provide a fully formed summary with concrete wording. The response should contain only the summary, with no explanations or additional options.";
+        $companyName = getConfigData("CompanyName");
+        $companyAddress = getConfigData("CompanyAddress");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
+        $summary = callGeminiAPI($prompt." ".$companyInfo);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="summary" name="summary" maxlength="500" required>'.$summary.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## TESTIMONIAL TEXT ## 
+    public function getTestimonialAI()
+    {
+        $name = $this->request->getPost('name');
+        $title = $this->request->getPost('title');
+        $company = $this->request->getPost('company') ?? "Sample Company";
+
+        //if no data, return default input
+        if(empty($name) || empty($title)){
+            return '<textarea rows="1" class="form-control" id="testimonial" name="testimonial" maxlength="500" required></textarea>';
+        }
+
+        $prompt = "Given the name: '$name', and title: '$title' for a clients testimonial at a Company '($company)', generate a clear, engaging, and SEO-friendly testimonial that effectively introduces and explains the testimonial. Ensure the testimonial is concise, informative, and appealing for website visitors. Do not use placeholders — provide a fully formed testimonial with concrete wording. The response should contain only the testimonial, with no explanations or additional options.";
+        $companyName = getConfigData("CompanyName");
+        $companyAddress = getConfigData("CompanyAddress");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
+        $testimonial = callGeminiAPI($prompt." ".$companyInfo);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="testimonial" name="testimonial" maxlength="500" required>'.$testimonial.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## FAQ ANSWER ## 
+    public function getFaqAnswerAI()
+    {
+        $question = $this->request->getPost('question');
+
+        //if no data, return default input
+        if(empty($question)){
+            return '<textarea rows="1" class="form-control" id="answer" name="answer" maxlength="1000" required></textarea>';
+        }
+
+        $prompt = "Given the question: '$question' for an FAQ in the website, generate a clear, engaging, and SEO-friendly answer that effectively introduces and explains the FAQ. Ensure the answer is concise, informative, and appealing for website visitors. Do not use placeholders — provide a fully formed answer with concrete wording. The response should contain only the answer, with no explanations or additional options.";
+        $companyName = getConfigData("CompanyName");
+        $companyAddress = getConfigData("CompanyAddress");
+        $companyEmail = getConfigData("CompanyEmail");
+        $companyEnquiryEmail = getConfigData("CompanyEnquiryEmail");
+        $companyNumber = getConfigData("CompanyNumber");
+        $companyOpeningHours = getConfigData("CompanCompanyOpeningHoursyNumber");
+        $siteMetaDescription = getConfigData("MetaDescription");
+        $siteMetaKeywords = getConfigData("MetaKeywords");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress', Company Email: '$companyEmail', Company Enquiry Email: '$companyEnquiryEmail', CompanyNumber: '$companyNumber', Company Opening Hours: '$companyOpeningHours', Site Meta Description: '$siteMetaDescription', Site Meta Keywords: '$siteMetaDescription'. If not needed, ignore.";
+        $answer = callGeminiAPI($prompt." ".$companyInfo);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="answer" name="answer" maxlength="1000" required>'.$answer.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## DONATION CAUSE DESCRIPTION ## 
+    public function getDonationCauseDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500"></textarea>';
+        }
+
+        $prompt = "Given the title '$title' for a Donation Cause/Campaign page, generate a clear, engaging, and SEO-friendly description that effectively introduces and explains the Donation Cause. Ensure the description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## POPUP TEXT ## 
+    public function getPopupTextAI()
+    {
+        $title = $this->request->getPost('title');
+        $company = $this->request->getPost('company') ?? "Sample Company";
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control" id="text" name="text" maxlength="1000"></textarea>';
+        }
+
+        $prompt = "Given the title: '$title' for a popup advert on the website, generate a clear, engaging, and SEO-friendly popup-advert text that effectively introduces and explains the popup-advert. Ensure the popup-advert text is concise, informative, and appealing for website visitors. Do not use placeholders — provide a fully formed popup-advert text with concrete wording. The response should contain only the popup-advert text, with no explanations or additional options.";
+        $companyName = getConfigData("CompanyName");
+        $companyAddress = getConfigData("CompanyAddress");
+        $companyEmail = getConfigData("CompanyEmail");
+        $companyEnquiryEmail = getConfigData("CompanyEnquiryEmail");
+        $companyNumber = getConfigData("CompanyNumber");
+        $companyOpeningHours = getConfigData("CompanCompanyOpeningHoursyNumber");
+        $siteMetaDescription = getConfigData("MetaDescription");
+        $siteMetaKeywords = getConfigData("MetaKeywords");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress', Company Email: '$companyEmail', Company Enquiry Email: '$companyEnquiryEmail', CompanyNumber: '$companyNumber', Company Opening Hours: '$companyOpeningHours', Site Meta Description: '$siteMetaDescription', Site Meta Keywords: '$siteMetaDescription'. If not needed, ignore.";
+        $text = callGeminiAPI($prompt." ".$companyInfo);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="text" name="text" maxlength="1000">'.$text.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## PRODUCT DESCRIPTION ## 
+    public function getProductDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control content-editor" id="description" name="description" maxlength="500"></textarea>';
+        }
+
+        $prompt = "Given the product title: '$title', generate a clear, engaging, and SEO-friendly description that effectively introduces and explains the product. Ensure the description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control content-editor" id="description" name="description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## PRODUCT SHORT DESCRIPTION ## 
+    public function getProductShortDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        $description = strip_tags($this->request->getPost('description')) ?? $title;
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control" id="short_description" name="short_description" maxlength="500"></textarea>';
+        }
+
+        $prompt = "Given the product title: '$title', description: '$description', generate a clear, engaging, and SEO-friendly short description that effectively introduces and explains the product. Ensure the short-description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the short-description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="short_description" name="short_description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## PRODUCT BRAND ## 
+    public function getProductBrandAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<input type="text" class="form-control" id="brand" name="brand" maxlength="250" value="">';
+        }
+
+        $prompt = "Given the product title: '$title', get the possible brand of the product if applicable. The response should contain only the brand, with no explanations or additional options.";
+        $brand = callGeminiAPI($prompt);
+
+        $metaInput = '<input type="text" class="form-control" id="brand" name="brand" maxlength="250" value="'.$brand.'">';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## PRODUCT MODEL ## 
+    public function getProductModelAI()
+    {
+        $title = $this->request->getPost('title');
+        $description = strip_tags($this->request->getPost('description')) ?? $title;
+        $brand = $this->request->getPost('brand') ?? "NA";
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<input type="text" class="form-control" id="model" name="model" maxlength="250" value="">';
+        }
+
+        $prompt = "Given the product title: '$title', description: '$description', and brand : '$brand', get the possible model of the product if applicable. The response should contain only the model, with no explanations or additional options.";
+        $model = callGeminiAPI($prompt);
+
+        $metaInput = '<input type="text" class="form-control" id="model" name="model" maxlength="250" value="'.$model.'">';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## PRODUCT CATEGORIES DESCRIPTION ## 
+    public function getProductCategoryDescriptionAI()
+    {
+        $title = $this->request->getPost('title');
+        if(empty($title)){
+            $title = $this->request->getPost('name');
+        }
+
+        //if no data, return default input
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500"></textarea>';
+        }
+
+        $prompt = "Based on the product category name '$title', generate a clear, engaging, and SEO-friendly description that effectively defines the category and its purpose. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## RESUME SUMMARY ## 
+    public function getResumeSummaryAI()
+    {
+        $name = $this->request->getPost('full_name');
+        $title = $this->request->getPost('title');
+
+        //if no data, return default input
+        if(empty($name) || empty($title)){
+            return '<textarea rows="1" class="form-control" id="summary" name="summary" maxlength="500" required></textarea>';
+        }
+
+        $prompt = "Given the name: '$name', and title: '$title' for my resume, generate a clear, engaging, and SEO-friendly summary that effectively introduces and explains the resume. Ensure the summary is concise, informative, and appealing for website visitors. Do not use placeholders — provide a fully formed summary with concrete wording. The response should contain only the summary, with no explanations or additional options.";
+        $companyName = getConfigData("CompanyName");
+        $companyAddress = getConfigData("CompanyAddress");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
+        $summary = callGeminiAPI($prompt." ".$companyInfo);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="summary" name="summary" maxlength="500" required>'.$summary.'</textarea>';
         echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded

@@ -379,8 +379,8 @@ $routes->group('htmx', function($routes) {
     $routes->post('set-meta-description-via-ai', 'HtmxController::setMetaDescriptionAI');
     $routes->post('set-meta-keywords-via-ai', 'HtmxController::setMetaKeywordsAI');
 
-    #Categories#
-    $routes->post('get-blog-category-description-via-ai', 'HtmxController::getCategoryBlogDescriptionAI');
+    #Blog Categories#
+    $routes->post('get-blog-category-description-via-ai', 'HtmxController::getBlogCategoryDescriptionAI');
 
     #Navigation#
     $routes->post('get-navigation-description-via-ai', 'HtmxController::getNavigationDescriptionAI');
@@ -391,8 +391,53 @@ $routes->group('htmx', function($routes) {
     #Content Block#
     $routes->post('get-content-block-description-via-ai', 'HtmxController::getContentBlockDescriptionAI');
 
+    #Events#
+    $routes->post('get-event-description-via-ai', 'HtmxController::getEventDescriptionAI');
+
+    #Portfolios#
+    $routes->post('get-portfolio-description-via-ai', 'HtmxController::getPortfolioDescriptionAI');
+
+    #Counter#
+    $routes->post('get-counter-description-via-ai', 'HtmxController::getCounterDescriptionAI');
+
+    #Pricing#
+    $routes->post('get-pricing-description-via-ai', 'HtmxController::getPricingDescriptionAI');
+
+    #Team Summary#
+    $routes->post('get-team-summary-via-ai', 'HtmxController::getTeamSummaryAI');
+
+    #Testimonial#
+    $routes->post('get-testimonial-via-ai', 'HtmxController::getTestimonialAI');
+
+    #FAQ#
+    $routes->post('get-faq-answer-via-ai', 'HtmxController::getFaqAnswerAI');
+
+    #Donation Cause#
+    $routes->post('get-donation-cause-description-via-ai', 'HtmxController::getDonationCauseDescriptionAI');
+
+    #Popup Text#
+    $routes->post('get-popup-text-via-ai', 'HtmxController::getPopupTextAI');
+
     #Get Icons#
     $routes->post('get-remix-icon-via-ai', 'HtmxController::getRemixIconAI');
+
+    #Product Description#
+    $routes->post('get-product-description-via-ai', 'HtmxController::getProductDescriptionAI');
+
+    #Product Short Description#
+    $routes->post('get-product-short-description-via-ai', 'HtmxController::getProductShortDescriptionAI');
+
+    #Product Brand #
+    $routes->post('get-product-brand-via-ai', 'HtmxController::getProductBrandAI');
+
+    #Product Model #
+    $routes->post('get-product-model-via-ai', 'HtmxController::getProductModelAI');
+
+    #Product Categories#
+    $routes->post('get-product-category-description-via-ai', 'HtmxController::getProductCategoryDescriptionAI');
+
+    #Resume Summary#
+    $routes->post('get-resume-summary-via-ai', 'HtmxController::getResumeSummaryAI');
 
     //ADMIN
     $routes->post('get-primary-color-name', 'HtmxController::getPrimaryColorName');

@@ -88,8 +88,17 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="summary" class="form-label">Summary</label>
-                <textarea rows="1" class="form-control" id="summary" name="summary" required><?= set_value('summary') ?></textarea>
+                <div class="d-flex justify-content-between align-items-center">
+                    <label for="summary" class="form-label">Summary</label>
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                    hx-post="<?=base_url()?>/htmx/get-team-summary-via-ai"
+                    hx-trigger="click delay:250ms"
+                    hx-target="#summary-div"
+                    hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </div>
+                <div id="summary-div">
+                    <textarea rows="1" class="form-control" id="summary" name="summary" maxlength="500" required><?= set_value('summary') ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('summary')) {?>
                     <div class='text-danger mt-2'>

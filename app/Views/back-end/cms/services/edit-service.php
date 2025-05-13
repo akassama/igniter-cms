@@ -57,7 +57,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea rows="1" class="form-control" id="description" name="description" required><?= $service_data['description'] ?></textarea>
+                <textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required><?= $service_data['description'] ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('description')) {?>
                     <div class='text-danger mt-2'>

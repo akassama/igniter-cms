@@ -51,7 +51,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
                 </div>
                 <div id="description-div">
-                    <textarea rows="1" class="form-control" id="description" name="description" required><?= set_value('description') ?></textarea>
+                    <textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required><?= set_value('description') ?></textarea>
                 </div>
                 <!-- Error -->
                 <?php if($validation->getError('description')) {?>
