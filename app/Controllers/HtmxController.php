@@ -998,6 +998,73 @@ class HtmxController extends BaseController
         exit();
     }
 
+    ## EXPERIENCE DESCRIPTION ## 
+    public function getExperienceDescriptionAI()
+    {
+        $companyName = $this->request->getPost('company_name') ?? "NA";
+        $position = $this->request->getPost('position');
+
+        //if no data, return default input
+        if(empty($position)){
+            return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required></textarea>';
+        }
+
+        $prompt = "Given this work experience with company: '$companyName', and position : '$position', generate a clear, engaging, and SEO-friendly work description that effectively introduces and explains the job experience. Ensure the description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## EDUCATION DESCRIPTION ## 
+    public function getEducationDescriptionAI()
+    {
+        $institution = $this->request->getPost('institution') ?? "NA";
+        $degree = $this->request->getPost('degree');
+        $startDate = !empty($this->request->getPost('start_date')) ? "Start Date: ".$this->request->getPost('start_date') : "";
+        $endDate = !empty($this->request->getPost('end_date')) ? "End Date: ".$this->request->getPost('end_date') : "";
+
+        //if no data, return default input
+        if(empty($degree)){
+            return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required></textarea>';
+        }
+
+        $prompt = "Given this education experience with institution: '$institution', and degree : '$degree'. '$startDate', '$endDate'. Generate a clear, engaging, and SEO-friendly work description that effectively introduces and explains the education experience. Ensure the description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## SKILLS DESCRIPTION ## 
+    public function getSkillsDescriptionAI()
+    {
+        $category = $this->request->getPost('category') ?? "NA";
+        $name = $this->request->getPost('name');
+        $proficiencyLevel = $this->request->getPost('proficiency_level');
+        $yearsExperience = $this->request->getPost('years_experience');
+
+        //if no data, return default input
+        if(empty($name)){
+            return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required></textarea>';
+        }
+
+        $prompt = "Given this category: '$category', name: '$name', proficiency level: '$proficiencyLevel', and years of experience : '$yearsExperience'. Generate a clear, engaging, and SEO-friendly work description that effectively introduces and explains the resume skill. Ensure the description is concise, informative, and appealing for website visitors. Do not use placeholders—provide a fully formed description with concrete wording. The response should contain only the description, with no explanations or additional options.";
+        $description = callGeminiAPI($prompt);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
     ## REMIX ICON ## 
     public function getRemixIconAI()
     {

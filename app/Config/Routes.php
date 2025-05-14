@@ -436,6 +436,15 @@ $routes->group('htmx', function($routes) {
     #Product Categories#
     $routes->post('get-product-category-description-via-ai', 'HtmxController::getProductCategoryDescriptionAI');
 
+    #Experience#
+    $routes->post('get-experience-description-via-ai', 'HtmxController::getExperienceDescriptionAI');
+
+    #Education#
+    $routes->post('get-education-description-via-ai', 'HtmxController::getEducationDescriptionAI');
+
+    #Skills#
+    $routes->post('get-skill-description-via-ai', 'HtmxController::getSkillsDescriptionAI');
+
     #Resume Summary#
     $routes->post('get-resume-summary-via-ai', 'HtmxController::getResumeSummaryAI');
 
