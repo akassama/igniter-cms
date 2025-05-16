@@ -4561,7 +4561,7 @@ if (!function_exists('getDefaultDataValue')) {
 }
 
 /**
- * Get a summary of the given text.
+ * Get a summary of the given text. TrimText (trim text)
  *
  * This function strips any HTML tags from the text, checks if the length of the text is less than or equal to the specified length,
  * and if so, returns the text as is. If the length is greater than the specified length, it truncates the text to the specified length,
@@ -5027,6 +5027,80 @@ if (!function_exists('extractPromptText')) {
 }
 
 /**
+ * Cleans and formats the activity logs analysis response by removing markdown, 
+ * normalizing HTML, and extracting the security analysis content.
+ *
+ * @param string $analysis The raw analysis response containing HTML and markdown
+ * @return string Cleaned HTML content ready for display
+ *
+ * @example
+ * $cleanedHtml = cleanActivityLogsAnalysisResponse($apiResponse);
+ * // Returns: <div class="security-analysis">...</div>
+ */
+if (!function_exists('cleanActivityLogsAnalysisResponse')) {
+    function cleanActivityLogsAnalysisResponse($analysis)
+    {
+        $cleaned = preg_replace('/```html/', '', $analysis);
+        $cleaned = preg_replace('/```/', '', $cleaned);
+        
+        $cleaned = html_entity_decode($cleaned);
+    
+        $cleaned = preg_replace('/(?<=>)\s+|\s+(?=<)/', '', $cleaned);
+        
+        preg_match('/<div class="security-analysis">.*<\/div>/s', $cleaned, $matches);
+        
+        $result = $matches[0] ?? '<div class="security-analysis"><p>Error processing analysis</p></div>';
+        
+        return preg_replace('/\s+/', ' ', trim($result));
+    }
+}
+
+/**
+ * Cleans and sanitizes the AI-generated HTML response from error analysis.
+ * Ensures only the relevant .error-analysis block is extracted and returned,
+ * removing any markdown or extra formatting.
+ * @param {string} $response - The raw AI-generated HTML response.
+ * @returns {string} Sanitized HTML string containing only the desired .error-analysis content.
+*/
+if (!function_exists('cleanErrorAnalysisResponse')) {
+    function cleanErrorAnalysisResponse($response)
+    {
+        // Remove markdown code blocks if present
+        $cleaned = preg_replace('/```html/', '', $response);
+        $cleaned = preg_replace('/```/', '', $cleaned);
+        
+        // Decode HTML entities
+        $cleaned = html_entity_decode($cleaned);
+        
+        // Extract just our error-analysis div
+        preg_match('/<div class="error-analysis">.*<\/div>/s', $cleaned, $matches);
+        
+        return $matches[0] ?? '<div class="error-analysis"><p>Error processing analysis</p></div>';
+    }
+}
+
+/**
+ * Cleans and sanitizes the AI-generated HTML response from the visit stats analysis.
+ * Ensures only the relevant `.visit-analysis` block is extracted and returned,
+ * removing any markdown or extra formatting.
+ *
+ * @param {string} $analysis - The raw AI-generated HTML response.
+ * @returns {string} Sanitized HTML string with only the desired content.
+ */
+if (!function_exists('cleanVisitStatsAnalysisResponse')) {
+    function cleanVisitStatsAnalysisResponse($analysis)
+    {
+        $cleaned = preg_replace('/```html/', '', $analysis);
+        $cleaned = preg_replace('/```/', '', $cleaned);
+        $cleaned = html_entity_decode($cleaned);
+        $cleaned = preg_replace('/(?<=>)\s+|\s+(?=<)/', '', $cleaned);
+        preg_match('/<div class="visit-analysis">.*?<\/div>/s', $cleaned, $matches);
+        $result = $matches[0] ?? '<div class="visit-analysis"><p>Error processing analysis</p></div>';
+        return preg_replace('/\s+/', ' ', trim($result));
+    }
+}
+
+/**
  * Render hCaptcha widget if enabled.
  *
  * @return void
@@ -5365,6 +5439,220 @@ if (!function_exists('adjustColorShade')) {
     }
 }
 
+/**
+ * Retrieves recent activity logs from the database and formats them into an HTML table.
+ *
+ * This function checks if `getRecentActivityLogs` exists before defining it. It queries the 
+ * `activity_logs` table, orders records by `created_at` in descending order, and limits the 
+ * number of entries based on the system configuration. It then formats the results into an 
+ * HTML table structure.
+ *
+ * @return string HTML table containing recent activity logs.
+ */
+if(!function_exists('getRecentActivityLogs'))
+{
+    function getRecentActivityLogs()
+    {
+        $tableName = "activity_logs";
+        $db = \Config\Database::connect();
+        $query = $db->table($tableName)
+                     ->orderBy('created_at', 'DESC')
+                     ->limit(intval(getConfigData("queryLimit200")))
+                     ->get();
+
+        $count = 1;
+        $tableData = "";
+        foreach ($query->getResult() as $row) {
+            $activityId = $row->activity_id;
+            $activityBy = substr($row->activity_by, 0, 10)."...";
+            $activityType = $row->activity_type;
+            $activity = trimUUID($row->activity);
+            $ipAddress = $row->ip_address;
+            $country = $row->country;
+            $device = $row->device;
+            $createdAt = $row->created_at;
+
+            $tableData .= "<tr>
+                                <th>$count</th>
+                                <th>$activityBy</th>
+                                <th>$activityType</th>
+                                <th>$activity</th>
+                                <th>$ipAddress</th>
+                                <th>$device</th>
+                                <th>$country</th>
+                                <th>$createdAt</th>
+                            </tr>";
+            $count++;
+        }
+
+        return "<table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Activity By</th>
+                        <th>Activity Type</th>
+                        <th>Activity</th>
+                        <th>IP Address</th>
+                        <th>Device</th>
+                        <th>Country</th>
+                        <th>Date/Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        $tableData
+                    </tbody>
+                </table>";
+    }
+}
+
+if(!function_exists('getRecentActivityLogsInJson'))
+{
+    function getRecentActivityLogsInJson()
+    {
+        $tableName = "activity_logs";
+        $db = \Config\Database::connect();
+        $query = $db->table($tableName)
+                     ->orderBy('created_at', 'DESC')
+                     ->limit(intval(getConfigData("queryLimit200")))
+                     ->get();
+
+        $activities = [];
+        foreach ($query->getResult() as $row) {
+            $activities[] = [
+                '#' => count($activities) + 1,
+                'Activity By' => substr($row->activity_by, 0, 10)."...",
+                'Activity Type' => $row->activity_type,
+                'Activity' => trimUUID($row->activity),
+                'IP Address' => $row->ip_address,
+                'Device' => $row->device,
+                'Country' => $row->country,
+                'Date/Time' => $row->created_at
+            ];
+        }
+
+        return json_encode($activities, JSON_PRETTY_PRINT);
+    }
+}
+
+if(!function_exists('getRecentVisitStats'))
+{
+    function getRecentVisitStats()
+    {
+        $tableName = "site_stats";
+        $db = \Config\Database::connect();
+        $query = $db->table($tableName)
+                     ->orderBy('created_at', 'DESC')
+                     ->limit(intval(getConfigData("queryLimit200")))
+                     ->get();
+
+        $count = 1;
+        $tableData = "";
+        foreach ($query->getResult() as $row) {
+            $siteStatId = $row->site_stat_id;
+            $ipAddress = $row->ip_address;
+            $deviceType = $row->device_type;
+            $browserType = $row->browser_type;
+            $pageType = $row->page_type;
+            $pageVisitedId = $row->page_visited_id;
+            $pageVisitedUrl = $row->page_visited_url;
+            $referrer = $row->referrer;
+            $statusCode = $row->status_code;
+            $userId = $row->user_id;
+            $user = getActivityBy($userId);
+            $sessionId = $row->session_id;
+            $requestMethod = $row->request_method;
+            $operatingSystem = $row->operating_system;
+            $country = $row->country;
+            $screenResolution = $row->screen_resolution;
+            $userAgent = $row->user_agent;
+            $otherParams = $row->other_params;
+            $createdAt = $row->created_at;
+
+            $tableData .= "<tr>
+                                <th>$count</th>
+                                <th>$ipAddress</th>
+                                <th>$deviceType</th>
+                                <th>$browserType</th>
+                                <th>$pageVisitedUrl</th>
+                                <th>$user</th>
+                                <th>$operatingSystem</th>
+                                <th>$country</th>
+                                <th>$createdAt</th>
+                            </tr>";
+            $count++;
+        }
+
+        return "<table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>IP</th>
+                        <th>Device</th>
+                        <th>Browser</th>
+                        <th>URL</th>
+                        <th>User</th>
+                        <th>OS</th>
+                        <th>Country</th>
+                        <th>Visit Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        $tableData
+                    </tbody>
+                </table>";
+    }
+}
+
+if(!function_exists('getRecentVisitStatsInJson'))
+{
+    function getRecentVisitStatsInJson()
+    {
+        $tableName = "site_stats";
+        $db = \Config\Database::connect();
+        $query = $db->table($tableName)
+                     ->orderBy('created_at', 'DESC')
+                     ->limit(intval(getConfigData("queryLimit200")))
+                     ->get();
+
+        $visits = [];
+        foreach ($query->getResult() as $row) {
+            $visits[] = [
+                '#' => count($visits) + 1,
+                'IP' => $row->ip_address,
+                'Device' => $row->device_type,
+                'Browser' => $row->browser_type,
+                'URL' => $row->page_visited_url,
+                'User' => getActivityBy($row->user_id),
+                'OS' => $row->operating_system,
+                'Country' => $row->country,
+                'Visit Date' => $row->created_at,
+                'Page Type' => $row->page_type,
+                'Referrer' => $row->referrer,
+                'Status Code' => $row->status_code,
+                'Session ID' => $row->session_id,
+                'Request Method' => $row->request_method,
+                'Screen Resolution' => $row->screen_resolution,
+                'User Agent' => $row->user_agent,
+                'Other Parameters' => $row->other_params
+            ];
+        }
+
+        return json_encode($visits, JSON_PRETTY_PRINT);
+    }
+}
+
+/**
+ * Trims a UUID string by replacing the middle portion with ellipses (`.....`).
+ *
+ * This function uses regular expressions to match UUIDs and replace part of them,
+ * keeping the initial segment intact while replacing the latter portion.
+ *
+ * @param string $string The input string containing a UUID.
+ * @return string The modified string with the UUID trimmed.
+ */
+function trimUUID($string) {
+    return preg_replace('/([a-f0-9]{8}-[a-f0-9]{4}-)[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/', '$1.....', $string);
+}
 
 /**
  * Check if the given text is a valid email address.

@@ -19,6 +19,8 @@ class CustomConfig extends BaseConfig
     public $queryLimitDefault = 25;
     public $queryLimitHigh = 50;
     public $queryLimitVeryHigh = 100;
+    public $queryLimit200 = 200;
+    public $queryLimit500 = 500;
     public $queryLimitMax = 1000;
     public $queryLimitUltraMax = 10000;
     //paginations

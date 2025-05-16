@@ -97,6 +97,40 @@ echo generateBreadcrumb($breadcrumb_links);
             <?php
         }
     ?>
+
+    <!--AI Analysis Setion-->
+    <div class="row">
+        <div class="col-12 mt-3">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <i class="ri-cpu-line"></i> AI Analysis
+                    </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p><strong>Analyze this data with AI</strong> - This would use the most recent records for analysis (max 200)</p>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <button type="button" class="btn btn-dark btn-sm mb-1 use-ai-btn"
+                                        hx-post="<?=base_url()?>/htmx/get-activity-logs-analysis-via-ai"
+                                        hx-trigger="click delay:250ms"
+                                        hx-target="#analysis-div"
+                                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Analize With AI</button>
+                                    </div>
+                                    <div id="analysis-div">
+                                        <?=getRecentVisitStats()?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- end main content -->

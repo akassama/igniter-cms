@@ -435,6 +435,7 @@ class HtmxController extends BaseController
         $excerpt = callGeminiAPI($prompt);
 
         $excerptInput = '<textarea class="form-control" id="excerpt" name="excerpt">'.$excerpt.'</textarea>';
+        
         echo preg_replace('/\s*\R\s*/', ' ', trim($excerptInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
@@ -1065,6 +1066,38 @@ class HtmxController extends BaseController
         exit();
     }
 
+    ## ACCOUNT SUMMARY ## 
+    public function getAccountSummaryAI()
+    {
+        $aboutSummary = $this->request->getPost('about_summary');
+        $firstName = $this->request->getPost('first_name') ?? "NA";
+        $lastName = $this->request->getPost('last_name') ?? "NA";
+        $name = $firstName." ".$lastName;
+        $role = $this->request->getPost('role');
+        $twitterLink = $this->request->getPost('twitter_link');
+        $facebookLink = $this->request->getPost('facebook_link');
+        $instagramLink = $this->request->getPost('instagram_link');
+        $linkedinLink = $this->request->getPost('linkedin_link');
+        $socialLinks = $twitterLink.",".$facebookLink.",".$instagramLink.",".$linkedinLink;
+
+        //if no data, return default input
+        if(empty($name)){
+            return '<textarea rows="1" class="form-control" id="about_summary" name="about_summary" maxlength="500">'.$aboutSummary.'</textarea>';
+        }
+
+        $prompt = "Given the name: '$name', role: '$role', and social links ('$socialLinks') for this account user, generate a clear, engaging, and SEO-friendly summary that effectively introduces and explains the user. Ensure the summary is concise, informative, and appealing for website visitors. Do not use placeholders — provide a fully formed summary with concrete wording. The response should contain only the summary, with no explanations or additional options.";
+        $companyName = getConfigData("CompanyName");
+        $companyAddress = getConfigData("CompanyAddress");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
+        $summary = callGeminiAPI($prompt." ".$companyInfo);
+
+        $metaInput = '<textarea rows="1" class="form-control" id="about_summary" name="about_summary" maxlength="500">'.$summary.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
     ## REMIX ICON ## 
     public function getRemixIconAI()
     {
@@ -1093,4 +1126,165 @@ class HtmxController extends BaseController
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();
     }
+
+    ## ACTIVITY LOGS ## 
+    public function getActivityLogsAnalysisAI()
+    {
+        $activityLogs = getRecentActivityLogsInJson();
+
+        //if no data, return default input
+        if(empty($activityLogs)){
+            return '';
+        }
+
+        $prompt = "Analyze these website activity logs and provide a security-focused report in HTML format. Structure the response EXACTLY as follows:
+
+        <div class=\"security-analysis\">
+        <h4>Security Risks:</h4>
+        <ul>
+            <li>[Number] [Specific risk description]</li>
+            <li>[Number] [Specific risk description]</li>
+        </ul>
+        
+        <h4>General Summary:</h4>
+        <ul>
+            <li>Total activities: [number]</li>
+            <li>Most common activity: [type] ([count] occurrences)</li>
+            <li>[Other notable statistics]</li>
+            <li>[Pattern observation]</li>
+        </ul>
+        </div>
+
+        Focus specifically on identifying:
+        1. Suspicious IP addresses
+        2. Multiple failed login attempts
+        3. Unusual activity patterns
+        4. Potential brute force attacks
+        5. Administrative action anomalies
+
+        Return ONLY the HTML formatted as shown above - no additional text, explanations, or commentary. Use the exact same HTML structure with your analysis of this log data:
+        " . $activityLogs;
+
+        $analysis = callGeminiAPI($prompt);
+        
+        // Clean response
+        echo cleanActivityLogsAnalysisResponse($analysis);
+        exit();
+    }
+
+    ## ERROR LOGS ## 
+    public function getErrorLogsAnalysisAI()
+    {
+        $errorLogs = $this->request->getPost('error_log');
+
+        //if no data, return default input
+        if(empty($errorLogs)){
+            return '<div class="alert alert-info">No error logs found</div>';
+        }
+
+        $prompt = "Analyze these error logs and provide a concise HTML report with:
+            1. A summary table of error types/counts
+            2. List of critical errors with explanations
+            3. Suggested solutions
+            
+            Format the response EXACTLY like this:
+            
+            <div class=\"error-analysis\">
+            <h4>Error Summary</h4>
+            <table class=\"table table-bordered\">
+                <thead><tr><th>Error Type</th><th>Count</th></tr></thead>
+                <tbody>
+                <tr><td>[Error Type]</td><td>[Count]</td></tr>
+                </tbody>
+            </table>
+            
+            <h4>Critical Issues</h4>
+            <ul>
+                <li><strong>[Error]</strong>: [Explanation]</li>
+            </ul>
+            
+            <h4>Recommendations</h4>
+            <ol>
+                <li>[Suggested Action]</li>
+            </ol>
+            </div>
+
+            Analyze these logs:
+            " . $errorLogs;
+
+        $analysis = callGeminiAPI($prompt);
+        
+        // Clean response
+        echo cleanErrorAnalysisResponse($analysis);
+        exit();
+    }
+
+    ## VISIT STATS ## 
+    public function getVisitStatsAnalysisAI()
+    {
+        $visitStats = getRecentVisitStatsInJson();
+
+        // if no data, return default input
+        if(empty($visitStats)){
+            return '';
+        }
+
+        $prompt = "Analyze these website visit statistics and provide a comprehensive report in HTML format. Structure the response EXACTLY as follows:
+
+    <div class=\"visit-analysis\">
+    <h4>Visitor Overview:</h4>
+    <ul>
+        <li>Total visits: [number]</li>
+        <li>Unique IP addresses: [number]</li>
+        <li>Most visited page: [URL] ([count] visits)</li>
+        <li>Most active hour: [hour] (UTC)</li>
+    </ul>
+
+    <h4>User Agent Analysis:</h4>
+    <ul>
+        <li>Top browser: [browser] ([count] visits)</li>
+        <li>Top operating system: [OS] ([count] visits)</li>
+        <li>Top device type: [device] ([count] visits)</li>
+        <li>[Observation about diversity or dominance]</li>
+    </ul>
+
+    <h4>Geographic Insights:</h4>
+    <ul>
+        <li>Top country: [country] ([count] visits)</li>
+        <li>[Notable geographic pattern or anomaly]</li>
+    </ul>
+
+    <h4>Behavioral Patterns:</h4>
+    <ul>
+        <li>Most common referrer: [referrer] ([count] visits)</li>
+        <li>Frequent screen resolution: [resolution] ([count] visits)</li>
+        <li>[User navigation behavior observation]</li>
+    </ul>
+
+    <h4>Potential Anomalies:</h4>
+    <ul>
+        <li>[Number] visits from unusual device-browser combinations</li>
+        <li>[Number] visits with missing or generic user agents</li>
+        <li>[Potential bot or scraper detection]</li>
+        <li>[Other suspicious patterns]</li>
+    </ul>
+    </div>
+
+    Focus specifically on identifying:
+    1. Traffic sources and referral patterns
+    2. Device, browser, OS distribution
+    3. Geographic location trends
+    4. Repeated visits from same IP/user agent
+    5. Unusual screen resolutions or session behaviors
+
+    Return ONLY the HTML formatted as shown above - no additional text, explanations, or commentary. Use the exact same structure with your analysis of this visit stats data:
+    " . $visitStats;
+
+        $analysis = callGeminiAPI($prompt);
+
+        // Clean response
+        echo cleanVisitStatsAnalysisResponse($analysis);
+        exit();
+    }
 }
+

@@ -448,6 +448,18 @@ $routes->group('htmx', function($routes) {
     #Resume Summary#
     $routes->post('get-resume-summary-via-ai', 'HtmxController::getResumeSummaryAI');
 
+    #Account Summary#
+    $routes->post('get-account-summary-via-ai', 'HtmxController::getAccountSummaryAI');
+
+    #Activity Logs Analysis#
+    $routes->post('get-activity-logs-analysis-via-ai', 'HtmxController::getActivityLogsAnalysisAI');
+
+    #Error Logs Analysis#
+    $routes->post('get-error-logs-analysis-via-ai', 'HtmxController::getErrorLogsAnalysisAI');
+
+    #Visit Stats Analysis#
+    $routes->post('get-visit-stats-analysis-via-ai', 'HtmxController::getVisitStatsAnalysisAI');
+
     //ADMIN
     $routes->post('get-primary-color-name', 'HtmxController::getPrimaryColorName');
     $routes->post('get-secondary-color-name', 'HtmxController::getSecondaryColorName');
