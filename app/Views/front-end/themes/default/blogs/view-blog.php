@@ -124,10 +124,10 @@ updateTotalViewCount("blogs", "blog_id", $blog_data['blog_id']);
                         <div class="text-muted">
                             <?php
                                 $tags = $blog_data['tags'];
-                                $tagsArray = explode(', ', $tags);
+                                $tagsArray = explode(',', $tags);
                                 
                                 foreach ($tagsArray as $tag) {
-                                    $tag = htmlspecialchars($tag);
+                                    $tag = htmlspecialchars(trim($tag));
                                     echo '<a class="badge bg-dark text-decoration-none text-white me-1" href="'.base_url("/search/filter/?type=tag&key=$tag").'">' . $tag . '</a>';
                                 }
                             ?>

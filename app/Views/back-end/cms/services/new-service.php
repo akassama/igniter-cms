@@ -65,8 +65,17 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
                 <label for="description" class="form-label">Description</label>
-                <textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required><?= set_value('description') ?></textarea>
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                    hx-post="<?=base_url()?>/htmx/get-service-description-via-ai"
+                    hx-trigger="click delay:250ms"
+                    hx-target="#description-div"
+                    hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </div>
+                <div id="description-div">
+                    <textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required><?= set_value('description') ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('description')) {?>
                     <div class='text-danger mt-2'>

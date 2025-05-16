@@ -27,7 +27,9 @@ class ContentBlocks extends Migration
             ],
             'description' => [
                 'type' => 'TEXT',
+                'constraint' => '1000',
                 'null' => true,
+                'default' => null,
             ],
             'content' => [
                 'type' => 'TEXT',

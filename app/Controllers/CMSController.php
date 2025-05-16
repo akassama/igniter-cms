@@ -90,9 +90,9 @@ class CMSController extends BaseController
             'status' => $this->request->getPost('status'),
             'created_by' => $loggedInUserId,
             'updated_by' => null,
-            'meta_title' => $this->request->getPost('meta_title'),
-            'meta_description' => $this->request->getPost('meta_description'),
-            'meta_keywords' => getCsvFromJsonList($this->request->getPost('meta_keywords'))
+            'meta_title' => !empty($this->request->getPost('meta_title')) ? $this->request->getPost('meta_title') : $this->request->getPost('title'),
+            'meta_description' => !empty($this->request->getPost('meta_description')) ? $this->request->getPost('meta_description') : $this->request->getPost('excerpt'),
+            'meta_keywords' => !empty($this->request->getPost('meta_keywords')) ? getCsvFromJsonList($this->request->getPost('meta_keywords')) : getCsvFromJsonList($this->request->getPost('tags')),
         ];
 
         if ($blogsModel->createBlog($data)) {
@@ -565,9 +565,9 @@ class CMSController extends BaseController
             'status' => $this->request->getPost('status'),
             'created_by' => $loggedInUserId,
             'updated_by' => null,
-            'meta_title' => $this->request->getPost('meta_title'),
-            'meta_keywords' => $this->request->getPost('meta_keywords'),
-            'meta_description' => $this->request->getPost('meta_description')
+            'meta_title' => !empty($this->request->getPost('meta_title')) ? $this->request->getPost('meta_title') : $this->request->getPost('title'),
+            'meta_description' => !empty($this->request->getPost('meta_description')) ? $this->request->getPost('meta_description') : getTextSummary(strip_tags($this->request->getPost('content')), 160),
+            'meta_keywords' => $this->request->getPost('meta_keywords')
         ];
 
         if ($pagesModel->createPage($data)) {
@@ -822,8 +822,8 @@ class CMSController extends BaseController
             'status' => $this->request->getPost('status'),
             'created_by' => $loggedInUserId,
             'updated_by' => null,
-            'meta_title' => $this->request->getPost('meta_title'),
-            'meta_description' => $this->request->getPost('meta_description'),
+            'meta_title' => !empty($this->request->getPost('meta_title')) ? $this->request->getPost('meta_title') : $this->request->getPost('title'),
+            'meta_description' => !empty($this->request->getPost('meta_description')) ? $this->request->getPost('meta_description') : $this->request->getPost('description'),
             'meta_keywords' => $this->request->getPost('meta_keywords')
         ];
 
@@ -961,8 +961,8 @@ class CMSController extends BaseController
             'status' => $this->request->getPost('status'),
             'created_by' => $loggedInUserId,
             'updated_by' => null,
-            'meta_title' => $this->request->getPost('meta_title'),
-            'meta_description' => $this->request->getPost('meta_description'),
+            'meta_title' => !empty($this->request->getPost('meta_title')) ? $this->request->getPost('meta_title') : $this->request->getPost('title'),
+            'meta_description' => !empty($this->request->getPost('meta_description')) ? $this->request->getPost('meta_description') : $this->request->getPost('description'),
             'meta_keywords' => $this->request->getPost('meta_keywords')
         ];
 
@@ -2252,8 +2252,8 @@ class CMSController extends BaseController
             'embedded_page_title' => $this->request->getPost('embedded_page_title'),
             'embedded_page' => $this->request->getPost('embedded_page'),
             'status' => $this->request->getPost('status'),
-            'meta_title' => $this->request->getPost('meta_title'),
-            'meta_description' => $this->request->getPost('meta_description'),
+            'meta_title' => !empty($this->request->getPost('meta_title')) ? $this->request->getPost('meta_title') : $this->request->getPost('title'),
+            'meta_description' => !empty($this->request->getPost('meta_description')) ? $this->request->getPost('meta_description') : $this->request->getPost('description'),
             'meta_keywords' => $this->request->getPost('meta_keywords'),
             'created_by' => $loggedInUserId,
             'updated_by' => null,

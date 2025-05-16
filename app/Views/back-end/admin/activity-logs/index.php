@@ -121,7 +121,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Analize With AI</button>
                                     </div>
                                     <div id="analysis-div">
-                                        <?=getRecentVisitStats()?>
+                                        
                                     </div>
                                 </div>
                             </div>

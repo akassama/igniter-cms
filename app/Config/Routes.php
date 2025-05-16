@@ -397,6 +397,9 @@ $routes->group('htmx', function($routes) {
     #Portfolios#
     $routes->post('get-portfolio-description-via-ai', 'HtmxController::getPortfolioDescriptionAI');
 
+    #Service#
+    $routes->post('get-service-description-via-ai', 'HtmxController::getServiceDescriptionAI');
+
     #Counter#
     $routes->post('get-counter-description-via-ai', 'HtmxController::getCounterDescriptionAI');
 
