@@ -80,12 +80,18 @@
 <script async src="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/languages/syntax.html.js"></script>
 <script async src="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/languages/syntax.css.js"></script>
 
+<?php
+$enableGeminiAI = getConfigData("EnableGeminiAI");
+$enableGeminiAIAnalysis = getConfigData("EnableGeminiAIAnalysis");
+?>
 <script>
     //Set max file size upload
     $(document).ready(function() {
         const maxFileSize = "<?= getConfigData("MaxUploadFileSize") ?>"; 
         Cookies.set('max_file_size', maxFileSize, { expires: 7 });
     });
+
+    //TODO: check for enabling or disabling AI integration
 </script>
 
 <!--custom js-->

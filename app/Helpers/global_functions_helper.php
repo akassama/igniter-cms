@@ -4933,8 +4933,8 @@ if (!function_exists('formatGeminiAIResponse')) {
  */
 if (!function_exists('callGeminiAPI')) {
     function callGeminiAPI($prompt) {
-        $apiKey = empty(!getConfigData("AIServiceKey")) ? getConfigData("AIServiceKey") : env('AI_API_KEY');
-        $apiUrl = getConfigData("GeminiBaseURL") . $apiKey;
+        $apiKey = getConfigData("AIServiceKey");
+        $apiUrl = !empty($apiKey) ? getConfigData("GeminiBaseURL") . $apiKey : env('CUSTOM_GEMINI_REQUEST_URL') . env('CUSTOM_GEMINI_REQUEST_KEY');
         $data = [
             "contents" => [
                 [

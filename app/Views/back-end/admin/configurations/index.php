@@ -73,6 +73,9 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </td>
                                     <td class="text-break text-wrap">
                                         <?= htmlspecialchars($config['config_value']); ?>
+                                        <div class="alert alert-light">
+                                            <span class="text-muted small"><i class="ri-information-line"></i> <?= $config['description']; ?></span>
+                                        </div>
                                         <span class="d-none"><?= $config['search_terms']; ?></span>
                                     </td>
                                     <td><?= $config['group']; ?></td>
