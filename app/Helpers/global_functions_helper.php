@@ -2705,14 +2705,14 @@ if (!function_exists('generatePageTitleSlug')) {
 }
 
 /**
- * Generates a unique slug for a given project title.
+ * Generates a unique slug for a given portfolio title.
  *
- * @param {string} title - The project title to generate a slug for.
+ * @param {string} title - The portfolio title to generate a slug for.
  * @returns {string} The generated slug.
  */
-if (!function_exists('generateProjectTitleSlug')) {
+if (!function_exists('generatePortfolioTitleSlug')) {
 
-    function generateProjectTitleSlug(string $title)
+    function generatePortfolioTitleSlug(string $title)
     {
         $db = \Config\Database::connect();
 
@@ -4934,7 +4934,7 @@ if (!function_exists('formatGeminiAIResponse')) {
 if (!function_exists('callGeminiAPI')) {
     function callGeminiAPI($prompt) {
         $apiKey = getConfigData("AIServiceKey");
-        $apiUrl = !empty($apiKey) ? getConfigData("GeminiBaseURL") . $apiKey : env('CUSTOM_GEMINI_REQUEST_URL') . env('CUSTOM_GEMINI_REQUEST_KEY');
+        $apiUrl = !empty($apiKey) ? getConfigData("GeminiBaseURL") . $apiKey : env('CUSTOM_GEMINI_REQUEST_URL') . env('PUBLIC_GEMINI_REQUEST_KEY');
         $data = [
             "contents" => [
                 [

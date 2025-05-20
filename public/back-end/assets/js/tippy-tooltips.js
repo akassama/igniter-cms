@@ -93,6 +93,10 @@ tippy('.remove-config', {
     content: 'Remove config',
     placement: 'top',
 });
+tippy('.description-icon', {
+    content: 'Description',
+    placement: 'top',
+});
 //Blogs
 tippy('.view-blog', {
     content: 'View blog',

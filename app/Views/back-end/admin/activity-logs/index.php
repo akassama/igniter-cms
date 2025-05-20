@@ -98,6 +98,9 @@ echo generateBreadcrumb($breadcrumb_links);
         }
     ?>
 
+<!-- Check for enabling or disabling AI integration (sensitive data) -->
+<?php $enableGeminiAIAnalysis = getConfigData("EnableGeminiAIAnalysis"); ?>
+<?php if(strtolower($enableGeminiAIAnalysis) === "yes"):?>
     <!--AI Analysis Setion-->
     <div class="row">
         <div class="col-12 mt-3">
@@ -131,6 +134,9 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
         </div>
     </div>
+<?php endif;?>
+
+
 </div>
 
 <!-- end main content -->

@@ -29,7 +29,11 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row">
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= set_value('title') ?>" required>
+                <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= set_value('title') ?>" required
+                    hx-post="<?=base_url()?>/htmx/get-donation-title-slug"
+                    hx-trigger="keyup, changed delay:250ms"
+                    hx-target="#slug-div"
+                    hx-swap="innerHTML">
                 <!-- Error -->
                 <?php if($validation->getError('title')) {?>
                     <div class='text-danger mt-2'>
@@ -66,12 +70,9 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="slug" class="form-label">Slug</label>
-                <div class="input-group mb-3">
+                <div class="input-group mb-3" id="slug-div">
                     <span class="input-group-text"><?= base_url('/donate/'); ?></span>
-                    <input type="text" class="form-control" id="slug" name="slug" maxlength="250" value="<?= set_value('slug') ?>" required 
-                        hx-post="<?=base_url()?>/htmx/get-donation-title-slug"
-                        hx-trigger="load delay:1s"
-                        hx-swap="outerHTML">
+                    <input type="text" class="form-control" id="slug" name="slug" value="<?= set_value('slug') ?>" required>
                     <div class="invalid-feedback">
                         Please provide slug
                     </div>

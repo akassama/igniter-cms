@@ -224,7 +224,7 @@ class HtmxController extends BaseController
         $title = $this->request->getPost('title');
         $baseUrl = base_url();
         $slug = generateBlogTitleSlug($title);
-        $slugInput = '<input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required hx-post="'.$baseUrl.'/htmx/get-blog-title-slug" hx-trigger="load delay:1s" hx-swap="outerHTML">';
+        $slugInput = '<span class="input-group-text">'.$baseUrl.'blog/</span><input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required><div class="invalid-feedback">Please provide slug</div>';
         echo $slugInput;
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
@@ -236,7 +236,7 @@ class HtmxController extends BaseController
         $title = $this->request->getPost('title');
         $baseUrl = base_url();
         $slug = generatePageTitleSlug($title);
-        $slugInput = '<input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required hx-post="'.$baseUrl.'/htmx/get-page-title-slug" hx-trigger="load delay:1s" hx-swap="outerHTML">';
+        $slugInput = '<span class="input-group-text">'.$baseUrl.'</span><input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required><div class="invalid-feedback">Please provide slug</div>';
         echo $slugInput;
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
@@ -248,19 +248,19 @@ class HtmxController extends BaseController
         $title = $this->request->getPost('title');
         $baseUrl = base_url();
         $slug = generateEventTitleSlug($title);
-        $slugInput = '<input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required hx-post="'.$baseUrl.'/htmx/get-event-title-slug" hx-trigger="load delay:1s" hx-swap="outerHTML">';
+        $slugInput = '<span class="input-group-text">'.$baseUrl.'event/</span><input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required><div class="invalid-feedback">Please provide slug</div>';
         echo $slugInput;
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();
     }
 
-    public function getProjectTitleSlug()
+    public function getPortfolioTitleSlug()
     {
         $title = $this->request->getPost('title');
         $baseUrl = base_url();
-        $slug = generateProjectTitleSlug($title);
-        $slugInput = '<input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required hx-post="'.$baseUrl.'/htmx/get-project-title-slug" hx-trigger="load delay:1s" hx-swap="outerHTML">';
+        $slug = generatePortfolioTitleSlug($title);
+        $slugInput = '<span class="input-group-text">'.$baseUrl.'portfolio/</span><input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required><div class="invalid-feedback">Please provide slug</div>';
         echo $slugInput;
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
@@ -272,7 +272,7 @@ class HtmxController extends BaseController
         $title = $this->request->getPost('title');
         $baseUrl = base_url();
         $slug = generateProductTitleSlug($title);
-        $slugInput = '<input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required hx-post="'.$baseUrl.'/htmx/get-product-title-slug" hx-trigger="load delay:1s" hx-swap="outerHTML">';
+        $slugInput = '<span class="input-group-text">'.$baseUrl.'shop/</span><input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required><div class="invalid-feedback">Please provide slug</div>';
         echo $slugInput;
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
@@ -284,7 +284,7 @@ class HtmxController extends BaseController
         $title = $this->request->getPost('title');
         $baseUrl = base_url();
         $slug = generateDonationTitleSlug($title);
-        $slugInput = '<input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required hx-post="'.$baseUrl.'/htmx/get-donation-title-slug" hx-trigger="load delay:1s" hx-swap="outerHTML">';
+        $slugInput = '<span class="input-group-text">'.$baseUrl.'donate/</span><input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required><div class="invalid-feedback">Please provide slug</div>';
         echo $slugInput;
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded

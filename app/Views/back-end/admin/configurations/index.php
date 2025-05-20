@@ -66,15 +66,16 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <tr>
                                     <td><?= $rowCount; ?></td>
                                     <td>
-                                        <span  data-bs-toggle="tooltip" data-bs-placement="top" title="<?= htmlspecialchars($config['description']); ?>">
+                                        <span data-bs-toggle="tooltip" data-bs-placement="top" title="<?= htmlspecialchars($config['description']); ?>">
                                             <i class="<?= $config['icon']; ?>"></i>
                                             <?= $config['config_for']; ?>
                                         </span>
                                     </td>
                                     <td class="text-break text-wrap">
-                                        <?= htmlspecialchars($config['config_value']); ?>
+                                        <?php $configValue = !empty($config['config_value']) ? $config['config_value'] : "--"?>
+                                        <?= htmlspecialchars($configValue); ?>
                                         <div class="alert alert-light">
-                                            <span class="text-muted small"><i class="ri-information-line"></i> <?= $config['description']; ?></span>
+                                            <span class="text-muted small"><i class="ri-information-line description-icon"></i> <?= $config['description']; ?></span>
                                         </div>
                                         <span class="d-none"><?= $config['search_terms']; ?></span>
                                     </td>
@@ -122,6 +123,22 @@ echo generateBreadcrumb($breadcrumb_links);
         </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function () {
+    setTimeout(function () {
+        // Get the key value from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchValue = urlParams.get('dt-key') || '';
+        
+        // If key exists, set it as the datatable search value
+        if (searchValue) {
+             $('#dt-search-0').val(searchValue).focus(); 
+        }    
+    }, 800);
+});
+</script>
+
 
 <!-- Include the delete script -->
 <?=  $this->include('back-end/layout/assets/delete_prompt_script.php'); ?>

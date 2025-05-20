@@ -678,7 +678,7 @@ class AdminController extends BaseController
             //log activity
             logActivity($loggedInUserId, ActivityTypes::CONFIG_UPDATE, 'Config updated with id: ' . $configId);
 
-            return redirect()->to('/account/admin/configurations');
+            return redirect()->to('/account/admin/configurations?dt-key='.$data["config_for"]);
         }
         else{
             $data['validation'] = $this->validator;
