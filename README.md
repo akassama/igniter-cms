@@ -73,7 +73,7 @@ Here are some websites built with Igniter CMS:
     * Composer
     * MySQL (or other supported database)
     * Web server (Apache, Nginx, etc.)
-    * Enable `zip` extension in php ini
+    * Enable `zip` and `gd` extension in php ini
 
 2. **Steps:**
     * Clone the repository: `git clone https://github.com/akassama/igniter-cms` (Replace with your actual repo URL)
@@ -91,7 +91,7 @@ Here are some websites built with Igniter CMS:
         database.default.DBPrefix = 
         database.default.port = 3306
         ```
-        * Alternatively, you can directly edit the database configuration in `app/Config/Database.php`:
+        * Also edit the database configuration in `app/Config/Database.php`:
         ```
         public array $default = [
             'DSN'     => '',
@@ -124,7 +124,7 @@ Here are some websites built with Igniter CMS:
 
 4. **Email Configuration:** To enable email functionality, you need to configure your `EmailConfigType` in configurations (`account/admin/configurations`):
 
-**[🔗 Live Demo](https://demo.igniter-cms.aktools.net/)** | [Documentation](https://igniter-cms.aktools.net/docs/)
+**[🔗 Live Demo](https://demo.ignitercms.com/)** | [Documentation](https://docs.ignitercms.com/)
 
 ## Sponsor
 If you find this project helpful, consider buying me a coffee:

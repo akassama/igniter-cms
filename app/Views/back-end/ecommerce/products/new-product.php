@@ -377,11 +377,18 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="specifications" class="form-label">
                     Specifications
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                        hx-post="<?=base_url()?>/htmx/get-product-specifications-via-ai"
+                        hx-trigger="click delay:250ms"
+                        hx-target="#product-specifications-div"
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
                 </label>
                 <small class="float-end">
                     <a href="#!" data-bs-toggle="modal" data-bs-target="#productJsonDataModal">View Sample</a>
                 </small>
-                <textarea rows="1" class="form-control js-editor" id="specifications" name="specifications"><?= set_value('specifications') ?></textarea>
+                <div id="product-specifications-div" hx-on:htmx:after-settle="setCodeEditor('specifications')">
+                    <textarea rows="1" class="form-control js-editor" id="specifications" name="specifications"><?= set_value('specifications') ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('specifications')) {?>
                     <div class='text-danger mt-2'>
@@ -394,11 +401,20 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="attributes" class="form-label">Attributes</label>
+                <label for="attributes" class="form-label">
+                    Attributes
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                        hx-post="<?=base_url()?>/htmx/get-product-attributes-via-ai"
+                        hx-trigger="click delay:250ms"
+                        hx-target="#product-attributes-div"
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </label>
                 <small class="float-end">
                     <a href="#!" data-bs-toggle="modal" data-bs-target="#productJsonDataModal">View Sample</a>
                 </small>
-                <textarea rows="1" class="form-control js-editor" id="attributes" name="attributes"><?= set_value('attributes') ?></textarea>
+                <div id="product-attributes-div" hx-on:htmx:after-settle="setCodeEditor('attributes')">
+                    <textarea rows="1" class="form-control js-editor" id="attributes" name="attributes"><?= set_value('attributes') ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('attributes')) {?>
                     <div class='text-danger mt-2'>
@@ -411,11 +427,20 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="seller_info" class="form-label">Seller Info</label>
+                <label for="seller_info" class="form-label">
+                    Seller Info
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                        hx-post="<?=base_url()?>/htmx/get-product-seller-info-via-ai"
+                        hx-trigger="click delay:250ms"
+                        hx-target="#product-seller-info-div"
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </label>
                 <small class="float-end">
                     <a href="#!" data-bs-toggle="modal" data-bs-target="#productJsonDataModal">View Sample</a>
                 </small>
-                <textarea rows="1" class="form-control js-editor" id="seller_info" name="seller_info"><?= set_value('seller_info') ?></textarea>
+                <div id="product-seller-info-div" hx-on:htmx:after-settle="setCodeEditor('seller_info')">
+                    <textarea rows="1" class="form-control js-editor" id="seller_info" name="seller_info"><?= set_value('seller_info') ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('seller_info')) {?>
                     <div class='text-danger mt-2'>
@@ -428,11 +453,20 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="purchase_options" class="form-label">Purchase Options</label>
+                <label for="purchase_options" class="form-label">
+                    Purchase Options
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                        hx-post="<?=base_url()?>/htmx/get-product-purchase-options-via-ai"
+                        hx-trigger="click delay:250ms"
+                        hx-target="#product-purchase-options-div"
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </label>
                 <small class="float-end">
                     <a href="#!" data-bs-toggle="modal" data-bs-target="#productJsonDataModal">View Sample</a>
                 </small>
-                <textarea rows="1" class="form-control js-editor" id="purchase_options" name="purchase_options"><?= set_value('purchase_options') ?></textarea>
+                <div id="product-purchase-options-div" hx-on:htmx:after-settle="setCodeEditor('purchase_options')">
+                    <textarea rows="1" class="form-control js-editor" id="purchase_options" name="purchase_options"><?= set_value('purchase_options') ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('purchase_options')) {?>
                     <div class='text-danger mt-2'>
@@ -610,6 +644,22 @@ echo generateBreadcrumb($breadcrumb_links);
             tabsize: 2,
             height: 150
         });   
+    }
+
+    // Initializes a CodeMirror editor for a given textarea element ID.
+    function setCodeEditor(inputId) {
+        const el = document.getElementById(inputId);
+        if (el) {
+            CodeMirror.fromTextArea(el, {
+                mode: 'javascript',
+                theme: 'dracula',
+                styleActiveLine: true,
+                matchBrackets: true,
+                lineNumbers: true
+            });
+        } else {
+            console.warn(`Element with ID "${inputId}" not found.`);
+        }
     }
 </script>
 

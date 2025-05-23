@@ -2472,6 +2472,42 @@ if (!function_exists('isValidResetToken')) {
     }
 }
 
+/**
+ * Generates a URL-friendly slug from a given string.
+ *
+ * Converts the input to lowercase, removes special characters,
+ * replaces spaces with dashes, collapses multiple dashes,
+ * and trims leading/trailing dashes.
+ *
+ * @param {string} title - The input string to convert into a slug.
+ * @returns {string} The sanitized, URL-friendly slug.
+ *
+ * @example
+ * generateSlug("Dell - Inspiron - 15.6'' - Laptop!");
+ * // Returns: "dell-inspiron-156-laptop"
+ */
+if (!function_exists('generateSlug')) {
+    function generateSlug(string $title): string
+    {
+        // Convert to lowercase
+        $slug = strtolower($title);
+
+        // Remove all characters except letters, numbers, spaces, and dashes
+        $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug);
+
+        // Replace spaces with dashes
+        $slug = preg_replace('/\s+/', '-', $slug);
+
+        // Replace multiple dashes with a single dash
+        $slug = preg_replace('/-+/', '-', $slug);
+
+        // Trim leading and trailing dashes
+        $slug = trim($slug, '-');
+
+        return $slug;
+    }
+}
+
 
 /**
  * Generates a unique slug for a given navigation title.
@@ -2486,10 +2522,7 @@ if (!function_exists('generateNavigationSlug')) {
         $db = \Config\Database::connect();
 
         // Convert the title to lower case, remove special characters, and replace spaces with dashes
-        $slug = strtolower($title);
-        $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug); // Remove special characters
-        $slug = preg_replace('/\s+/', '-', $slug); // Replace spaces with dashes
-        $slug = trim($slug, '-'); // Trim any leading or trailing dashes
+        $slug = generateSlug($title);
 
         // Check if the slug exists in the 'categories' table
         $builder = $db->table('categories');
@@ -2617,10 +2650,7 @@ if (!function_exists('generateBlogTitleSlug')) {
         $db = \Config\Database::connect();
 
         // Convert the title to lower case, remove special characters, and replace spaces with dashes
-        $slug = strtolower($title);
-        $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug); // Remove special characters
-        $slug = preg_replace('/\s+/', '-', $slug); // Replace spaces with dashes
-        $slug = trim($slug, '-'); // Trim any leading or trailing dashes
+        $slug = generateSlug($title);
 
         // Check if the slug exists in the 'categories' table
         $builder = $db->table('blogs');
@@ -2650,10 +2680,7 @@ if (!function_exists('generateEventTitleSlug')) {
         $db = \Config\Database::connect();
 
         // Convert the title to lower case, remove special characters, and replace spaces with dashes
-        $slug = strtolower($title);
-        $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug); // Remove special characters
-        $slug = preg_replace('/\s+/', '-', $slug); // Replace spaces with dashes
-        $slug = trim($slug, '-'); // Trim any leading or trailing dashes
+        $slug = generateSlug($title);
 
         // Check if the slug exists in the 'categories' table
         $builder = $db->table('events');
@@ -2682,10 +2709,7 @@ if (!function_exists('generatePageTitleSlug')) {
         $db = \Config\Database::connect();
 
         // Convert the title to lower case, remove special characters, and replace spaces with dashes
-        $slug = strtolower($title);
-        $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug); // Remove special characters
-        $slug = preg_replace('/\s+/', '-', $slug); // Replace spaces with dashes
-        $slug = trim($slug, '-'); // Trim any leading or trailing dashes
+        $slug = generateSlug($title);
 
         // List of excluded slugs that should not be used directly
         $excludedSlugs = array("contact", "home", "blog", "blogs", "tag", "tags", "category", "categories", "privacy-policy", "cookie-policy", "sitemap", "rss", "shop", "campaings", "donate");
@@ -2717,10 +2741,7 @@ if (!function_exists('generatePortfolioTitleSlug')) {
         $db = \Config\Database::connect();
 
         // Convert the title to lower case, remove special characters, and replace spaces with dashes
-        $slug = strtolower($title);
-        $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug); // Remove special characters
-        $slug = preg_replace('/\s+/', '-', $slug); // Replace spaces with dashes
-        $slug = trim($slug, '-'); // Trim any leading or trailing dashes
+        $slug = generateSlug($title);
 
         // Check if the slug exists in the 'portfolios' table
         $builder = $db->table('portfolios');
@@ -2749,10 +2770,7 @@ if (!function_exists('generateProductTitleSlug')) {
         $db = \Config\Database::connect();
 
         // Convert the title to lower case, remove special characters, and replace spaces with dashes
-        $slug = strtolower($title);
-        $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug); // Remove special characters
-        $slug = preg_replace('/\s+/', '-', $slug); // Replace spaces with dashes
-        $slug = trim($slug, '-'); // Trim any leading or trailing dashes
+        $slug = generateSlug($title);
 
         // Check if the slug exists in the 'products' table
         $builder = $db->table('products');
@@ -2781,10 +2799,7 @@ if (!function_exists('generateDonationTitleSlug')) {
         $db = \Config\Database::connect();
 
         // Convert the title to lower case, remove special characters, and replace spaces with dashes
-        $slug = strtolower($title);
-        $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug); // Remove special characters
-        $slug = preg_replace('/\s+/', '-', $slug); // Replace spaces with dashes
-        $slug = trim($slug, '-'); // Trim any leading or trailing dashes
+        $slug = generateSlug($title);
 
         // Check if the slug exists in the 'donations' table
         $builder = $db->table('donation_causes');

@@ -21,6 +21,9 @@ $session = session();
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
+                <!-- Include password change checker -->
+                <?=  $this->include('back-end/layout/assets/password_change_checker.php'); ?>
+                
                 <?= $this->renderSection('content') ?>
             </div>
         </main>

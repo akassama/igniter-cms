@@ -459,8 +459,8 @@ class HtmxController extends BaseController
         $prompt = "Generate a list of SEO-friendly meta keywords for the page titled '$title' with description '$description'. Focus on relevance and conciseness. Return only comma-separated keywords.";
         $keywords = callGeminiAPI($prompt);
 
-        $tagsInput = '<textarea rows="1" class="form-control tags-input" id="tags" name="tags" required>'.$keywords.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($tagsInput));
+        $returnInput = '<textarea rows="1" class="form-control tags-input" id="tags" name="tags" required>'.$keywords.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();
@@ -485,8 +485,8 @@ class HtmxController extends BaseController
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
         $metaTitle = callGeminiAPI($prompt." ".$companyInfo);
 
-        $metaInput = '<input type="text" class="form-control" id="meta_title" name="meta_title" value="'.$metaTitle.'">';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<input type="text" class="form-control" id="meta_title" name="meta_title" value="'.$metaTitle.'">';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();
@@ -511,8 +511,8 @@ class HtmxController extends BaseController
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
         $description = callGeminiAPI($prompt." ".$companyInfo);
 
-        $metaInput = '<textarea class="form-control" id="meta_description" name="meta_description">'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea class="form-control" id="meta_description" name="meta_description">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();
@@ -535,8 +535,8 @@ class HtmxController extends BaseController
         $prompt = "Generate a list of SEO-friendly meta keywords for the page titled '$title' with description '$description'. Focus on relevance and conciseness. Return only comma-separated keywords.";
         $keywords = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="meta_keywords" name="meta_keywords">'.$keywords.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="meta_keywords" name="meta_keywords">'.$keywords.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();
@@ -558,8 +558,8 @@ class HtmxController extends BaseController
         $prompt = "Generate a clear, SEO-friendly description for the blog category titled '$title'. Explain its purpose in under 160 characters. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();
@@ -581,8 +581,8 @@ class HtmxController extends BaseController
         $prompt = "Generate a clear, SEO-friendly description for the page navigation titled '$title'. Explain its purpose in under 160 characters. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();
@@ -604,8 +604,8 @@ class HtmxController extends BaseController
         $prompt = "Write a concise, engaging description for the homepage section titled '$title'. Highlight its value to visitors in under 100 words. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea class="form-control" id="section_description" name="section_description">'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea class="form-control" id="section_description" name="section_description">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();
@@ -627,8 +627,8 @@ class HtmxController extends BaseController
         $prompt = "Generate a concise, SEO-friendly description for the content block titled '$title'. Explain its purpose in 1-2 sentences. Return only the description text.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -647,8 +647,8 @@ class HtmxController extends BaseController
         $prompt = "Create an engaging event description for '$title'. Include key details attendees should know in 2-3 sentences. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -667,8 +667,8 @@ class HtmxController extends BaseController
         $prompt = "Write a portfolio description for '$title'. Highlight its significance and key aspects in 2-3 sentences. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -687,8 +687,8 @@ class HtmxController extends BaseController
         $prompt = "Write a portfolio description for '$title'. Highlight its significance and key aspects in 2-3 sentences. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -707,8 +707,8 @@ class HtmxController extends BaseController
         $prompt = "Create a brief description for the statistic '$title'. Explain its importance in 1 sentence. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -727,8 +727,8 @@ class HtmxController extends BaseController
         $prompt = "Generate a pricing description for '$title'. Summarize what's included in 2 sentences. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -747,8 +747,8 @@ class HtmxController extends BaseController
         $companyInfo = "\nCompany context: $companyName (include if relevant)";
         $summary = callGeminiAPI($prompt.$companyInfo);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="summary" name="summary" maxlength="500" required>'.$summary.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="summary" name="summary" maxlength="500" required>'.$summary.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -769,8 +769,8 @@ class HtmxController extends BaseController
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
         $testimonial = callGeminiAPI($prompt." ".$companyInfo);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="testimonial" name="testimonial" maxlength="500" required>'.$testimonial.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="testimonial" name="testimonial" maxlength="500" required>'.$testimonial.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -795,8 +795,8 @@ class HtmxController extends BaseController
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress', Company Email: '$companyEmail', Company Enquiry Email: '$companyEnquiryEmail', CompanyNumber: '$companyNumber', Company Opening Hours: '$companyOpeningHours', Site Meta Description: '$siteMetaDescription', Site Meta Keywords: '$siteMetaDescription'. If not needed, ignore.";
         $answer = callGeminiAPI($prompt." ".$companyInfo);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="answer" name="answer" maxlength="1000" required>'.$answer.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="answer" name="answer" maxlength="1000" required>'.$answer.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -815,8 +815,8 @@ class HtmxController extends BaseController
         $prompt = "Write a compelling description for the donation cause '$title'. Explain its impact in 2-3 sentences. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -842,8 +842,8 @@ class HtmxController extends BaseController
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress', Company Email: '$companyEmail', Company Enquiry Email: '$companyEnquiryEmail', CompanyNumber: '$companyNumber', Company Opening Hours: '$companyOpeningHours', Site Meta Description: '$siteMetaDescription', Site Meta Keywords: '$siteMetaDescription'. If not needed, ignore.";
         $text = callGeminiAPI($prompt." ".$companyInfo);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="text" name="text" maxlength="1000">'.$text.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="text" name="text" maxlength="1000">'.$text.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -862,8 +862,8 @@ class HtmxController extends BaseController
         $prompt = "Generate a product description for '$title'. Highlight key features and benefits in 3-4 sentences. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control content-editor" id="description" name="description" maxlength="500">'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control content-editor" id="description" name="description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -883,8 +883,8 @@ class HtmxController extends BaseController
         $prompt = "Create a 1-sentence product summary for '$title' highlighting its main benefit. Return only the summary.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="short_description" name="short_description" maxlength="500">'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="short_description" name="short_description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -903,8 +903,8 @@ class HtmxController extends BaseController
         $prompt = "Extract the most likely brand name from product title: '$title'. Return only the brand name or 'N/A'.";
         $brand = callGeminiAPI($prompt);
 
-        $metaInput = '<input type="text" class="form-control" id="brand" name="brand" maxlength="250" value="'.$brand.'">';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<input type="text" class="form-control" id="brand" name="brand" maxlength="250" value="'.$brand.'">';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -925,8 +925,8 @@ class HtmxController extends BaseController
         $prompt = "Identify the model from product '$title' (Brand: $brand). Return only the model number/name or 'N/A'.";
         $model = callGeminiAPI($prompt);
 
-        $metaInput = '<input type="text" class="form-control" id="model" name="model" maxlength="250" value="'.$model.'">';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<input type="text" class="form-control" id="model" name="model" maxlength="250" value="'.$model.'">';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -945,8 +945,142 @@ class HtmxController extends BaseController
         $prompt = "Write a category description for '$title'. Explain what products it includes in 2 sentences. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500">'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
+        exit();
+    }
+    
+    ## PRODUCT SPECIFICATIONS ## 
+    public function getProductSpecificationsAI()
+    {
+        $title = $this->request->getPost('title');
+        $description = $this->request->getPost('description');
+        $brand = $this->request->getPost('brand');
+        $model = $this->request->getPost('model');
+        $currentSpecifications = $this->request->getPost('specifications');
+        if(empty($title) || empty($description)){
+            $title = $this->request->getPost('name');
+        }
+
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control js-editor" id="specifications" name="specifications">'.$currentSpecifications.'</textarea>';
+        }
+
+        $prompt = "Generate the most likely product specifications from a product with the following details\n Title: '$title', Description: '$description', Brand: '$brand', and Model: '$model'. Use this JSON specifications format: {'size': 'XL','color': 'Blue','material': 'Cotton','weight': '300g','dimensions': '10x20x30 cm'}. Return only the JSON specifications.";
+        $specifications = callGeminiAPI($prompt);
+
+        // Remove ```json and ```
+        $specifications = str_replace(['```json', '```'], '', $specifications);
+
+        // Trim any extra whitespace
+        $specifications = trim($specifications);
+
+        $returnInput = '<textarea rows="1" class="form-control js-editor" id="specifications" name="specifications">'.$specifications.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
+        exit();
+    }
+    
+    ## PRODUCT ATTRIBUTES ## 
+    public function getProductAttributesAI()
+    {
+        $title = $this->request->getPost('title');
+        $description = $this->request->getPost('description');
+        $brand = $this->request->getPost('brand');
+        $model = $this->request->getPost('model');
+        $currentAttributes = $this->request->getPost('attributes');
+        if(empty($title) || empty($description)){
+            $title = $this->request->getPost('name');
+        }
+
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control js-editor" id="attributes" name="attributes">'.$currentAttributes.'</textarea>';
+        }
+
+        $prompt = "Generate the most likely product attributes from a product with the following details\n Title: '$title', Description: '$description', Brand: '$brand', and Model: '$model'. Use this JSON specifications format: { 'features': ['Waterproof', 'Dustproof'], 'included_items': ['Manual', 'Warranty Card'], 'warranty': '1 Year Limited', 'certifications': ['CE', 'ISO 9001'] }. Return only the JSON attributes.";
+        $attributes = callGeminiAPI($prompt);
+
+        // Remove ```json and ```
+        $attributes = str_replace(['```json', '```'], '', $attributes);
+
+        // Trim any extra whitespace
+        $attributes = trim($attributes);
+
+        $returnInput = '<textarea rows="1" class="form-control js-editor" id="attributes" name="attributes">'.$attributes.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
+        exit();
+    }
+    
+    ## PRODUCT SELLER INFO ## 
+    public function getProductSellerInfoAI()
+    {
+        $title = $this->request->getPost('title');
+        $description = $this->request->getPost('description');
+        $brand = $this->request->getPost('brand');
+        $model = $this->request->getPost('model');
+        $currentSellerInfo = $this->request->getPost('seller_info');
+        if(empty($title) || empty($description)){
+            $title = $this->request->getPost('name');
+        }
+
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control js-editor" id="seller_info" name="seller_info">'.$currentSellerInfo.'</textarea>';
+        }
+
+        $prompt = "Generate the most likely product seller-information from a product with the following details\n Title: '$title', Description: '$description', Brand: '$brand', and Model: '$model'. Use this JSON specifications format: {  'name': 'Store Name',  'contact_person': 'John Doe',  'phone': '+1234567890',  'email': 'contact@store.com',  'location': 'City, Country' }. Return only the JSON seller-information.";
+        $companyName = getConfigData("CompanyName");
+        $companyAddress = getConfigData("CompanyAddress");
+        $companyEmail = getConfigData("CompanyEmail");
+        $companyEnquiryEmail = getConfigData("CompanyEnquiryEmail");
+        $companyNumber = getConfigData("CompanyNumber");
+        $companyOpeningHours = getConfigData("CompanCompanyOpeningHoursyNumber");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress', Company Email: '$companyEmail', Company Enquiry Email: '$companyEnquiryEmail', CompanyNumber: '$companyNumber', Company Opening Hours: '$companyOpeningHours'. If not needed, ignore.";
+        $sellerInfo = callGeminiAPI($prompt." ".$companyInfo);
+        
+        // Remove ```json and ```
+        $sellerInfo = str_replace(['```json', '```'], '', $sellerInfo);
+
+        // Trim any extra whitespace
+        $sellerInfo = trim($sellerInfo);
+
+        $returnInput = '<textarea rows="1" class="form-control js-editor" id="seller_info" name="seller_info">'.$sellerInfo.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
+        exit();
+    }
+    
+    ## PRODUCT PURCHASE OPTIONS ## 
+    public function getProductPurchaseOptionsAI()
+    {
+        $title = $this->request->getPost('title');
+        $description = $this->request->getPost('description');
+        $brand = $this->request->getPost('brand');
+        $model = $this->request->getPost('model');
+        $currentPurchaseOptions = $this->request->getPost('purchase_options');
+        if(empty($title) || empty($description)){
+            $title = $this->request->getPost('name');
+        }
+
+        if(empty($title)){
+            return '<textarea rows="1" class="form-control js-editor" id="purchase_options" name="purchase_options">'.$currentPurchaseOptions.'</textarea>';
+        }
+
+        $prompt = "Generate the most likely product purchase-options from a product with the following details\n Title: '$title', Description: '$description', Brand: '$brand', and Model: '$model'. Use this JSON specifications format: [ { 'platform': 'Amazon', 'url': 'https://amazon.com/product', 'price': '299.99', 'availability': 'In Stock' }, { 'platform': 'Official Store', 'url': 'https://store.com/product', 'price': '285.99', 'availability': '2-3 days' } ]. Return only the JSON purchase-options.";
+        $companyName = getConfigData("CompanyName");
+        $companyAddress = getConfigData("CompanyAddress");
+        $companyEmail = getConfigData("CompanyEmail");
+        $companyEnquiryEmail = getConfigData("CompanyEnquiryEmail");
+        $companyNumber = getConfigData("CompanyNumber");
+        $companyOpeningHours = getConfigData("CompanCompanyOpeningHoursyNumber");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress', Company Email: '$companyEmail', Company Enquiry Email: '$companyEnquiryEmail', CompanyNumber: '$companyNumber', Company Opening Hours: '$companyOpeningHours'. If not needed, ignore.";
+        $purchaseOptions = callGeminiAPI($prompt." ".$companyInfo);
+        
+        // Remove ```json and ```
+        $purchaseOptions = str_replace(['```json', '```'], '', $purchaseOptions);
+
+        // Trim any extra whitespace
+        $purchaseOptions = trim($purchaseOptions);
+
+        $returnInput = '<textarea rows="1" class="form-control js-editor" id="purchase_options" name="purchase_options">'.$purchaseOptions.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -966,8 +1100,8 @@ class HtmxController extends BaseController
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
         $summary = callGeminiAPI($prompt." ".$companyInfo);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="summary" name="summary" maxlength="500" required>'.$summary.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="summary" name="summary" maxlength="500" required>'.$summary.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -984,8 +1118,8 @@ class HtmxController extends BaseController
         $prompt = "Describe work experience as $position at $companyName. Focus on key achievements in 3-4 bullet points. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -1004,8 +1138,8 @@ class HtmxController extends BaseController
         $prompt = "Describe education in $degree at $institution ($startDate - $endDate). Highlight key learnings in 2-3 points. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -1024,8 +1158,8 @@ class HtmxController extends BaseController
         $prompt = "Describe $name skill ($proficiencyLevel level, $yearsExperience years experience) in $category. Explain its relevance in 2 sentences. Return only the description.";
         $description = callGeminiAPI($prompt);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -1054,8 +1188,8 @@ class HtmxController extends BaseController
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
         $summary = callGeminiAPI($prompt." ".$companyInfo);
 
-        $metaInput = '<textarea rows="1" class="form-control" id="about_summary" name="about_summary" maxlength="500">'.$summary.'</textarea>';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<textarea rows="1" class="form-control" id="about_summary" name="about_summary" maxlength="500">'.$summary.'</textarea>';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
         exit();
     }
 
@@ -1081,8 +1215,8 @@ class HtmxController extends BaseController
         $prompt = "Based on the title '$title', provide the most relevant Remix Icon text representation. Ensure the response contains only the icon text (e.g., 'ri-user-line', 'ri-loop-left-fill', etc.), with no explanations or additional options.";
         $icon = callGeminiAPI($prompt);
 
-        $metaInput = '<input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="'.$icon.'" placeholder="E.g. ri-user-line">';
-        echo preg_replace('/\s*\R\s*/', ' ', trim($metaInput));
+        $returnInput = '<input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="'.$icon.'" placeholder="E.g. ri-user-line">';
+        echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();

@@ -151,7 +151,7 @@ $(document).ready(function() {
 /**
  * Initializes event listeners on all buttons with the class `.use-ai-btn`.
  * When clicked, the icon inside the button is temporarily changed to a loading spinner
- * for 2.5 seconds, then reverted back to the original robot icon.
+ * for 4 seconds, then reverted back to the original robot icon.
  */
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.use-ai-btn').forEach(button => {
@@ -166,10 +166,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // Change to loading spinner
             icon.className = 'ri-loader-2-line ri-spin';
 
-            // Revert after 2.5 seconds
+            // Revert after 4 seconds
             setTimeout(() => {
                 icon.className = originalClass;
-            }, 2500);
+            }, 4000);
         });
     });
 });
@@ -314,11 +314,11 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     document.querySelectorAll('.css-editor').forEach((el) => {
         CodeMirror.fromTextArea(el, {
-            mode: 'css',               // Set the editor mode to CSS
-            theme: 'dracula',          // Use the Dracula theme
-            styleActiveLine: true,     // Highlight the active line
-            matchBrackets: true,       // Enable bracket matching
-            lineNumbers: true          // Show line numbers
+            mode: 'css',
+            theme: 'dracula',
+            styleActiveLine: true,
+            matchBrackets: true,
+            lineNumbers: true
         });
     });
 
@@ -328,9 +328,9 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     document.querySelectorAll('.code-editor').forEach((el) => {
         CodeMirror.fromTextArea(el, {
-            theme: 'dracula',       // Use the Dracula theme
-            lineNumbers: true,      // Show line numbers
-            mode: 'javascript'      // Default mode set to JavaScript
+            theme: 'dracula',
+            lineNumbers: true,
+            mode: 'javascript'
         });
     });
 });
@@ -440,5 +440,3 @@ $(document).ready(function () {
       });
     });
 });
-
-

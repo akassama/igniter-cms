@@ -439,6 +439,18 @@ $routes->group('htmx', function($routes) {
     #Product Categories#
     $routes->post('get-product-category-description-via-ai', 'HtmxController::getProductCategoryDescriptionAI');
 
+    #Product Specifications #
+    $routes->post('get-product-specifications-via-ai', 'HtmxController::getProductSpecificationsAI');
+
+    #Product Attributes #
+    $routes->post('get-product-attributes-via-ai', 'HtmxController::getProductAttributesAI');
+
+    #Product SellerInfo #
+    $routes->post('get-product-seller-info-via-ai', 'HtmxController::getProductSellerInfoAI');
+
+    #Product PurchaseOptions #
+    $routes->post('get-product-purchase-options-via-ai', 'HtmxController::getProductPurchaseOptionsAI');
+
     #Experience#
     $routes->post('get-experience-description-via-ai', 'HtmxController::getExperienceDescriptionAI');
 
