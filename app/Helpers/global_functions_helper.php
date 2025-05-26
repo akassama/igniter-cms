@@ -5520,6 +5520,12 @@ if(!function_exists('getRecentActivityLogs'))
     }
 }
 
+/**
+ * Retrieves recent activity logs in JSON format.
+ *
+ * @function getRecentActivityLogsInJson
+ * @returns {string} JSON string containing the recent activity logs.
+ */
 if(!function_exists('getRecentActivityLogsInJson'))
 {
     function getRecentActivityLogsInJson()
@@ -5549,6 +5555,12 @@ if(!function_exists('getRecentActivityLogsInJson'))
     }
 }
 
+/**
+ * Retrieves recent visit statistics and generates an HTML table.
+ *
+ * @function getRecentVisitStats
+ * @returns {string} HTML string representing the visit statistics table.
+ */
 if(!function_exists('getRecentVisitStats'))
 {
     function getRecentVisitStats()
@@ -5618,6 +5630,12 @@ if(!function_exists('getRecentVisitStats'))
     }
 }
 
+/**
+ * Retrieves recent visit statistics in JSON format.
+ *
+ * @function getRecentVisitStatsInJson
+ * @returns {string} JSON string containing recent visit statistics.
+ */
 if(!function_exists('getRecentVisitStatsInJson'))
 {
     function getRecentVisitStatsInJson()
@@ -5655,6 +5673,549 @@ if(!function_exists('getRecentVisitStatsInJson'))
         return json_encode($visits, JSON_PRETTY_PRINT);
     }
 }
+
+/**
+ * Retrieves Igniter-CMS knowledge base in JSON format.
+ *
+ * @function getSiteKnowledgeBaseInJson
+ * @returns {string} JSON string containing Igniter-CMS knowledge base.
+ */
+if(!function_exists('getSiteKnowledgeBaseInJson'))
+{
+    function getSiteKnowledgeBaseInJson()
+    {
+        $knowledgeBase = [
+            "cms_name" => "Igniter-CMS",
+            "version" => "1.0.0",
+            "description" => "Igniter CMS is a free, open-source content management system built on CodeIgniter, designed to help you manage various types of content with flexibility and extensibility. Supports both MVC and headless architecture.",
+            "website" => "https://ignitercms.com/",
+            "documentation" => "https://docs.ignitercms.com/",
+            "github" => "https://github.com/akassama/igniter-cms",
+            "demo" => "https://demo.ignitercms.com/",
+            "modules" => [
+                [
+                    "name" => "Dashboard",
+                    "description" => "The dashboard is the landing page of the backend and includes the following features.",
+                    "endpoints" => [
+                        "/account/dashboard",
+                        "/account/"
+                    ]
+                ],
+                [
+                    "name" => "CMS (Content Management System)",
+                    "description" => "The CMS module allows you to manage the website's content, including blogs, pages, and navigations.",
+                    "endpoints" => [
+                        // CMS Home
+                        "/account/cms",
+
+                        // Blogs
+                        "/account/cms/blogs",
+                        "/account/cms/blogs/new-blog",
+                        "/account/cms/blogs/edit-blog/{blog-id}",
+                        "/account/cms/blogs/view-blog/{blog-id}",
+
+                        // Categories
+                        "/account/cms/categories",
+                        "/account/cms/categories/new-category",
+                        "/account/cms/categories/edit-category/{category-id}",
+                        "/account/cms/categories/view-category/{category-id}",
+
+                        // Navigations
+                        "/account/cms/navigations",
+                        "/account/cms/navigations/new-navigation",
+                        "/account/cms/navigations/edit-navigation/{navigation-id}",
+                        "/account/cms/navigations/view-navigation/{navigation-id}",
+
+                        // Pages
+                        "/account/cms/pages",
+                        "/account/cms/pages/new-page",
+                        "/account/cms/pages/edit-page/{page-id}",
+                        "/account/cms/pages/view-page/{page-id}",
+
+                        // Home Page
+                        "/account/cms/homepage",
+                        "/account/cms/homepage/edit",
+
+                        // Content Blocks
+                        "/account/cms/blocks",
+                        "/account/cms/blocks/new-block",
+                        "/account/cms/blocks/edit-block/{block-id}",
+                        "/account/cms/blocks/view-block/{block-id}",
+
+                        // Events
+                        "/account/cms/events",
+                        "/account/cms/events/new-event",
+                        "/account/cms/events/edit-event/{event-id}",
+                        "/account/cms/events/view-event/{event-id}",
+
+                        // Portfolios
+                        "/account/cms/portfolios",
+                        "/account/cms/portfolios/new-portfolio",
+                        "/account/cms/portfolios/edit-portfolio/{portfolio-id}",
+                        "/account/cms/portfolios/view-portfolio/{portfolio-id}",
+
+                        // Services
+                        "/account/cms/services",
+                        "/account/cms/services/new-service",
+                        "/account/cms/services/edit-service/{service-id}",
+                        "/account/cms/services/view-service/{service-id}",
+
+                        // Partners
+                        "/account/cms/partners",
+                        "/account/cms/partners/new-partner",
+                        "/account/cms/partners/edit-partner/{partner-id}",
+                        "/account/cms/partners/view-partner/{partner-id}",
+
+                        // Counters
+                        "/account/cms/counters",
+                        "/account/cms/counters/new-counter",
+                        "/account/cms/counters/edit-counter/{counter-id}",
+                        "/account/cms/counters/view-counter/{counter-id}",
+
+                        // Socials
+                        "/account/cms/socials",
+                        "/account/cms/socials/new-social",
+                        "/account/cms/socials/edit-social/{social-id}",
+                        "/account/cms/socials/view-social/{social-id}",
+
+                        // Pricings
+                        "/account/cms/pricings",
+                        "/account/cms/pricings/new-pricing",
+                        "/account/cms/pricings/edit-pricing/{pricing-id}",
+                        "/account/cms/pricings/view-pricing/{pricing-id}",
+
+                        // Teams
+                        "/account/cms/teams",
+                        "/account/cms/teams/new-member",
+                        "/account/cms/teams/edit-member/{member-id}",
+                        "/account/cms/teams/view-member/{member-id}",
+
+                        // Testimonials
+                        "/account/cms/testimonials",
+                        "/account/cms/testimonials/new-testimonial",
+                        "/account/cms/testimonials/edit-testimonial/{testimonial-id}",
+                        "/account/cms/testimonials/view-testimonial/{testimonial-id}",
+
+                        // FAQs
+                        "/account/cms/faqs",
+                        "/account/cms/faqs/new-faq",
+                        "/account/cms/faqs/edit-faq/{faq-id}",
+                        "/account/cms/faqs/view-faq/{faq-id}",
+
+                        // Donations
+                        "/account/cms/donations",
+                        "/account/cms/donations/new-donation",
+                        "/account/cms/donations/edit-donation/{donation-id}",
+                        "/account/cms/donations/view-donation/{donation-id}",
+
+                        // Popups
+                        "/account/cms/popups",
+                        "/account/cms/popups/new-popup",
+                        "/account/cms/popups/edit-popup/{popup-id}",
+                        "/account/cms/popups/view-popup/{popup-id}",
+                    ],
+                    "management" => "All CMS sub-modules can be manage from '/account/cms/{module-name}'",
+                    "deletion" => "To delete any record, go to the management page ('/account/cms/{module-name}'), e.g. '/account/cms/blogs' and click on the delete (x) button, then confirm deletion prompt.",
+                ],
+                [
+                    "name" => "E-Commerce",
+                    "description" => "This is the module for the simple ecommerce service including product management.",
+                    "endpoints" => [
+                        // E-Commerce Home
+                        "/account/ecommerce",
+
+                        // Products
+                        "/account/ecommerce/products",
+                        "/account/ecommerce/products/new-product",
+                        "/account/ecommerce/products/edit-product/{product-id}",
+                        "/account/ecommerce/products/view-product/{product-id}",
+
+                        // Product Categories
+                        "/account/ecommerce/product-categories",
+                        "/account/ecommerce/product-categories/new-product-category",
+                        "/account/ecommerce/product-categories/edit-product-category/{product-category-id}",
+                    ],
+                    "management" => "All E-Commerce sub-modules can be manage from '/account/ecommerce/{module-name}'",
+                    "deletion" => "To delete any record, go to the management page ('/account/ecommerce/{module-name}'), e.g. '/account/ecommerce/products' and click on the delete (x) button, then confirm deletion prompt.",
+                ],
+                [
+                    "name" => "Resume Data",
+                    "description" => "This is the module for managing the resumes data.",
+                    "endpoints" => [
+                        // Resume Home
+                        "/account/resumes",
+
+                        // Resumes
+                        "/account/resumes/manage-resumes",
+                        "/account/resumes/new-resume",
+                        "/account/resumes/edit-resume/{resume-id}",
+                        "/account/resumes/view-resume/{resume-id}",
+
+                        // Experiences
+                        "/account/resumes/manage-experiences",
+                        "/account/resumes/new-experience",
+                        "/account/resumes/edit-experience/{experience-id}",
+                        "/account/resumes/view-experience/{experience-id}",
+
+                        // Education
+                        "/account/resumes/manage-education",
+                        "/account/resumes/new-education",
+                        "/account/resumes/edit-education/{education-id}",
+                        "/account/resumes/view-education/{education-id}",
+
+                        // Skills
+                        "/account/resumes/manage-skills",
+                        "/account/resumes/new-skill",
+                        "/account/resumes/edit-skill/{skill-id}",
+                        "/account/resumes/view-skill/{skill-id}",
+                    ],
+                    "management" => "All Resume sub-modules can be manage from '/account/resumes/{manage-module-name}'",
+                    "deletion" => "To delete any record, go to the management page ('/account/resumes/{manage-module-name}'), e.g. '/account/resumes/manage-experiences' and click on the delete (x) button, then confirm deletion prompt.",
+                ],
+                [
+                    "name" => "File Manager",
+                    "description" => "Upload, manage, and organize files (images, videos, audios, documents, etc.) for use within the application.",
+                    "endpoints" => [
+                        // File Manager Home
+                        "/account/file-manager",
+
+                        // File Uploads
+                        "/account/file-manager/upload-file",
+                        "/account/file-manager/add-file-url",
+                    ],
+                    "management" => "All files can be manage from '/account/file-manager'",
+                    "deletion" => "To delete any file, go to the management page ('/account/file-manager'), and click on the delete (x) button, then confirm deletion prompt.",
+                    "edit name" => "To edit any file data, go to the management page ('/account/file-manager'), and click on the edit file icon (pen) under the 'File' table column.",
+                    "file editing" => "To edit any file (e.g. crop or resize), go to the management page ('/account/file-manager'), and click on the edit file icon (pen) under the 'Actions' table column.",
+                    "copy file" => "To copy any file, go to the management page ('/account/file-manager'), and click on the copy icon under the 'Actions' table column.",
+                    "download file" => "To download any file, go to the management page ('/account/file-manager'), and click on the download icon under the 'Actions' table column.",
+                ],
+                [
+                    "name" => "Settings",
+                    "description" => "This is the module for managing your account details and changing passwords.",
+                    "endpoints" => [
+                        // Settings Home
+                        "/account/settings",
+
+                        // Update Account Details
+                        "/account/settings/update-details",
+
+                        // Change Password
+                        "/account/settings/change-password",
+                    ],
+                    "management" => "To update your account details, go to '/account/settings/update-details'. To update/change your account password, go to '/account/settings/change-password', enter old and new passwords."
+                ],
+                [
+                    "name" => "Admin Management",
+                    "description" => "The Admin module provides features for managing users, system configurations, and website functionality.",
+                    "endpoints" => [
+                        // Admin Home
+                        "/account/settings",
+
+                        // Manage Users
+                        "/account/admin/users",
+                        "/account/admin/users/new-user",
+                        "/account/admin/users/edit-user/{user-id}",
+                        "/account/admin/users/view-user/{user-id}",
+
+                        // Translations (Only Add or Delete)
+                        "/account/admin/translations",
+
+                        // Configurations
+                        "/account/admin/configurations",
+
+                        // Codes (No View)
+                        "/account/admin/codes",
+                        "/account/admin/codes/new-code",
+                        "/account/admin/codes/edit-code/{code-id}",
+
+                        // Themes (No View)
+                        "/account/admin/themes",
+                        "/account/admin/themes/new-theme",
+                        "/account/admin/themes/edit-theme/{theme-id}",
+
+                        // API Keys (No View)
+                        "/account/admin/api-keys",
+                        "/account/admin/api-keys/new-api-key",
+                        "/account/admin/api-keys/edit-api-key/{api-key-id}",
+
+                        // Activity Logs (Only View)
+                        "/account/admin/activity-logs",
+
+                        // Logs (Only View)
+                        "/account/admin/logs",
+
+                        // Visit Stats (Only View or Delete)
+                        "/account/admin/visit-stats",
+
+                        // Blocked IPs (Only Delete)
+                        "/account/admin/blocked-ips",
+
+                        // Whitelisted IPs (Only Delete)
+                        "/account/admin/whitelisted-ips",
+
+                        // Backups (Only Delete or Download)
+                        "/account/admin/backups",
+
+                        // File Editor
+                        "/account/admin/file-editor/layout",
+                        "/account/admin/file-editor/home",
+                        "/account/admin/file-editor/blogs",
+                        "/account/admin/file-editor/view-blog",
+                        "/account/admin/file-editor/contact",
+                        "/account/admin/file-editor/events",
+                        "/account/admin/file-editor/view-event",
+                        "/account/admin/file-editor/view-page",
+                        "/account/admin/file-editor/portfolios",
+                        "/account/admin/file-editor/view-portfolio",
+                        "/account/admin/file-editor/donations-campaigns",
+                        "/account/admin/file-editor/view-donation",
+                        "/account/admin/file-editor/shop",
+                        "/account/admin/file-editor/view-shop",
+                        "/account/admin/file-editor/search",
+                        "/account/admin/file-editor/search-filter",
+                        "/account/admin/file-editor/sitemap",
+
+                        // Contact Messages (Only View, Reply or Delete)
+                        "/account/admin/contact-messages",
+
+                        // Subscribers (Only Delete)
+                        "/account/admin/subscribers",
+                    ],
+                    "management" => "All Admin sub-modules can be manage from '/account/admin/{module-name}'",
+                    "deletion" => "To delete any record, go to the management page ('/account/admin/{module-name}'), e.g. '/account/admin/users' and click on the delete (x) button, then confirm deletion prompt.",
+                ]
+            ],
+            "frontend" => [
+                "framework" => "Bootstrap, PHP, and any CSS or JavaScript framework of your choice.",
+                "features" => [
+                    "Responsive design",
+                    "Multi-language support",
+                    "Theme customization",
+                ],
+                "customization" => "To customize your theme, manage theme files in '/your-app/app/Views/front-end/themes/{theme-name}/'. The themes folder has the following directories and files: blogs (index.php, view-blog.php), contact(index.php), donate(index.php, view-donation-campaign.php), events(index.php, view-event.php), home(index.php), includes(_functions.php), layout(_layout.php), pages(view-page.php), portfolios(index.php, view-portfolio.php), search(index.php, filter.php), and shop(index.php, view-product.php)",
+                "endpoints" => [
+                    // Home Page
+                    "/api/{api-key}/get-home-pages", // Retrieves the main homepage content and layout configuration.
+
+                    // Generic Model Data
+                    "/api/{api-key}/get-model-data?model=navigations&take=10&skip=0", // Fetch navigations (10 items, skip 0).
+                    "/api/{api-key}/get-model-data?model=categories&where_clause={'status':1}", // Filtered categories.
+                    "/api/{api-key}/get-model-data?model=blogs&where_clause={'blog_id':'{blog-id}'}", // Filtered blog by ID.
+                    "/api/{api-key}/get-model-data?model=blogs&where_clause={'blog_id':'{blog-id}','status':1}", // Multiple filter.
+
+                    // Blogs
+                    "/api/{api-key}/get-all-blogs", // All published blogs.
+                    "/api/{api-key}/get-blog/{blog_id}", // Blog by ID.
+                    "/api/{api-key}/get-blogs?take=10&skip=0", // Paginated blogs.
+
+                    // Categories
+                    "/api/{api-key}/get-category/{category_id}", // Single category.
+                    "/api/{api-key}/get-categories", // All categories.
+                    "/api/{api-key}/get-categories?take=10&skip=0", // Paginated categories.
+
+                    // Codes
+                    "/api/{api-key}/get-code/{code_id}",
+                    "/api/{api-key}/get-codes",
+                    "/api/{api-key}/get-codes?take=10&skip=0",
+
+                    // Content Blocks
+                    "/api/{api-key}/get-content-block/{content_id}",
+                    "/api/{api-key}/get-content-blocks",
+                    "/api/{api-key}/get-content-blocks?take=10&skip=0",
+
+                    // Countries
+                    "/api/{api-key}/get-country/{country_id}",
+                    "/api/{api-key}/get-countries",
+                    "/api/{api-key}/get-countries?take=10&skip=0",
+
+                    // Counters
+                    "/api/{api-key}/get-counter/{counter_id}",
+                    "/api/{api-key}/get-counters",
+                    "/api/{api-key}/get-counters?take=10&skip=0",
+
+                    // Donation Causes
+                    "/api/{api-key}/get-donation-cause/{donation_cause_id}",
+                    "/api/{api-key}/get-donation-causes",
+                    "/api/{api-key}/get-donation-causes?take=10&skip=0",
+
+                    // Events
+                    "/api/{api-key}/get-event/{event_id}",
+                    "/api/{api-key}/get-events",
+                    "/api/{api-key}/get-events?take=10&skip=0",
+
+                    // FAQs
+                    "/api/{api-key}/get-faq/{faq_id}",
+                    "/api/{api-key}/get-faqs",
+                    "/api/{api-key}/get-faqs?take=10&skip=0",
+
+                    // Languages
+                    "/api/{api-key}/get-language/{language_id}",
+                    "/api/{api-key}/get-languages",
+                    "/api/{api-key}/get-languages?take=10&skip=0",
+
+                    // Navigation
+                    "/api/{api-key}/get-navigation/{navigation_id}",
+                    "/api/{api-key}/get-navigations?take=10&skip=0",
+
+                    // Pages
+                    "/api/{api-key}/get-all-pages",
+                    "/api/{api-key}/get-page/{page_id}",
+                    "/api/{api-key}/get-pages?take=10&skip=0",
+
+                    // Partners
+                    "/api/{api-key}/get-partner/{partner_id}",
+                    "/api/{api-key}/get-partners",
+                    "/api/{api-key}/get-partners?take=10&skip=0",
+
+                    // Policies
+                    "/api/{api-key}/get-policy/{policy_id}",
+                    "/api/{api-key}/get-policies",
+                    "/api/{api-key}/get-policies?take=10&skip=0",
+
+                    // Portfolio
+                    "/api/{api-key}/get-portfolio/{portfolio_id}",
+                    "/api/{api-key}/get-portfolios",
+                    "/api/{api-key}/get-portfolios?take=10&skip=0",
+
+                    // Pricing
+                    "/api/{api-key}/get-pricing/{pricing_id}",
+                    "/api/{api-key}/get-pricings",
+                    "/api/{api-key}/get-pricings?take=10&skip=0",
+
+                    // Product Categories
+                    "/api/{api-key}/get-product-category/{product_category_id}",
+                    "/api/{api-key}/get-product-categories",
+                    "/api/{api-key}/get-product-categories?take=10&skip=0",
+
+                    // Products
+                    "/api/{api-key}/get-product/{product_id}",
+                    "/api/{api-key}/get-products",
+                    "/api/{api-key}/get-products?take=10&skip=0",
+
+                    // Resumes
+                    "/api/{api-key}/get-resume/{resume_id}",
+                    "/api/{api-key}/get-resumes",
+                    "/api/{api-key}/get-resumes?take=10&skip=0",
+
+                    // Search
+                    "/api/{api-key}/search-results?key=the",
+                    "/api/{api-key}/model-search-results?type=blog&key=the",
+                    "/api/{api-key}/filter-search-results?type=author&key=admin",
+
+                    // Services
+                    "/api/{api-key}/get-service/{service_id}",
+                    "/api/{api-key}/get-services",
+                    "/api/{api-key}/get-services?take=10&skip=0",
+
+                    // Social Media
+                    "/api/{api-key}/get-social/{social_id}",
+                    "/api/{api-key}/get-socials",
+                    "/api/{api-key}/get-socials?take=10&skip=0",
+
+                    // Team
+                    "/api/{api-key}/get-team/{team_id}",
+                    "/api/{api-key}/get-teams",
+                    "/api/{api-key}/get-teams?take=10&skip=0",
+
+                    // Testimonials
+                    "/api/{api-key}/get-testimonial/{testimonial_id}",
+                    "/api/{api-key}/get-testimonials",
+                    "/api/{api-key}/get-testimonials?take=10&skip=0",
+
+                    // Themes
+                    "/api/{api-key}/get-theme/{theme_id}",
+                    "/api/{api-key}/get-themes",
+                    "/api/{api-key}/get-themes?take=10&skip=0",
+
+                    // Translations
+                    "/api/{api-key}/get-translation/{translation_id}",
+                    "/api/{api-key}/get-translations",
+                    "/api/{api-key}/get-translations?take=10&skip=0",
+                ]
+            ],
+            "backend" => [
+                "framework" => "CodeIgniter",
+                "features" => [
+                    "Admin dashboard",
+                    "Advanced logging",
+                    "CMS & E-Commerce modules",
+                    "File Management",
+                    "Settings & Configurations",
+                    "Admin Management",
+                    "API-driven architecture"
+                ]
+            ],
+            "setup_instructions" => [
+                "Ensure your system meets the following requirements: PHP 8.0+, Composer, MySQL, a web server (Apache/Nginx), and the PHP zip extension enabled.",
+                "Clone the repository: `git clone https://github.com/akassama/igniter-cms`.",
+                "Navigate into the project directory: `cd igniter-cms`.",
+                "Install dependencies using Composer: `composer install`.",
+                "Configure the database in the `.env` file (create one if it doesn't exist) with your `hostname`, `database`, `username`, and `password`.",
+                "Also update the database credentials in `app/Config/Database.php`.",
+                "Create the database using your preferred database tool (e.g., PhpMyAdmin) with the name specified in your configuration.",
+                "Set the base URL in `app/Config/App.php` to match your local or deployment URL.",
+                "Run migrations to set up database tables: `php spark migrate`.",
+                "Ensure the `writable/` and `public/uploads/` directories are writable by the web server.",
+                "Start your local web server and access the CMS at `https://localhost/igniter-cms`.",
+                "Log in with the default admin credentials: Email: `admin@example.com`, Password: `Admin@1`.",
+                "To change the default login, edit the `$ data[]` array in the migration file: `app/Database/Migrations/2024-08-27-210112_Users.php`.",
+                "For email features, configure `EmailConfigType` via the Admin Panel: `/account/admin/configurations`."
+            ],
+            "troubleshooting" => [
+                "database_connection" => [
+                    "issue" => "Unable to connect to the database.",
+                    "solution" => "Ensure database settings are correct in `app/Config/Database.php` and in the `.env` file. Also verify the database server is running and accessible."
+                ],
+                "404_error" => [
+                    "issue" => "Page not found.",
+                    "solution" => "Check if routes are properly defined in `app/Config/Routes.php` and the controller/method exists. Also ensure mod_rewrite is enabled if using Apache."
+                ],
+                "500_internal_server" => [
+                    "issue" => "Internal server error.",
+                    "solution" => "Check `writable/logs/` for detailed error messages. This often indicates a misconfiguration, syntax error, or missing file."
+                ],
+                "env_file_missing" => [
+                    "issue" => "Environment variables not loading.",
+                    "solution" => "Ensure you have a valid `.env` file in the root directory and that it's not named `.env.example`. Clear cache with `php spark config:clear` if needed."
+                ],
+                "migrations_fail" => [
+                    "issue" => "Migrations not running or failing.",
+                    "solution" => "Check the migration files in `app/Database/Migrations/` for syntax or logic errors. Ensure your database exists and is properly connected."
+                ],
+                "permissions_error" => [
+                    "issue" => "Permission denied on certain folders or files.",
+                    "solution" => "Ensure `writable/` and `public/uploads/` directories are writable by the web server (e.g., using `chmod -R 775 writable/`)."
+                ],
+                "email_not_sending" => [
+                    "issue" => "Emails are not being sent.",
+                    "solution" => "Verify that your email settings are correctly configured in the Admin Panel (`/account/admin/configurations`). Also confirm your server allows outgoing mail and check logs for errors."
+                ],
+                "css_js_not_loading" => [
+                    "issue" => "CSS or JS files are not loading.",
+                    "solution" => "Check that the `baseURL` is correctly set in `app/Config/App.php` and that `public/` is the document root of your server."
+                ],
+                "composer_autoload" => [
+                    "issue" => "Class not found or autoloading issues.",
+                    "solution" => "Run `composer dump-autoload` to refresh the autoloader. Ensure namespaces and file paths follow PSR-4."
+                ]
+            ],
+            "faq" => [
+                [
+                    "question" => "How do I reset my admin password?",
+                    "answer" => "You can reset your password using the `Forgot Password` link on the login page or via the database."
+                ],
+                [
+                    "question" => "Can I extend the CMS with plugins?",
+                    "answer" => "Yes! You can create and integrate modules to extend functionality."
+                ]
+            ]
+        ];
+
+        return json_encode($knowledgeBase, JSON_PRETTY_PRINT);
+    }
+}
+
 
 /**
  * Trims a UUID string by replacing the middle portion with ellipses (`.....`).

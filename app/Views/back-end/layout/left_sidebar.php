@@ -233,6 +233,11 @@ $userRole = getUserRole($sessionEmail);
                     </div>
                 <?php endif; ?>
 
+                <a class="nav-link <?= (str_contains(current_url(), 'account/ask-ai')) ? 'active' : ''; ?>" href="<?= base_url('/account/ask-ai'); ?>">
+                    <div class="sb-nav-link-icon"><i class="ri-chat-ai-line h5"></i></div>
+                    Ask AI
+                </a>
+
                 <a class="nav-link" href="https://docs.ignitercms.com/" target="_blank">
                     <div class="sb-nav-link-icon"><i class="ri-code-s-slash-line h5"></i></div>
                     Documentation

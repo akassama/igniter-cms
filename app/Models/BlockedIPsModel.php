@@ -72,9 +72,9 @@ class BlockedIPsModel extends Model
 
     public function createBlockedIP($param = array())
     {
-        $tableNameWhitelisted  = "whitelisted_ips";
-        $ipExistsInWhitelistedIps = recordExists($tableNameWhitelisted, 'ip_address', $newBlackListData["ip_address"]);
-        if (!$ipExistsInWhitelistedIps) {
+        $tableNameBlackListed  = "blocked_ips";
+        $ipExistsInBlackListedIps = recordExists($tableNameBlackListed, 'ip_address', $param['ip_address']);
+        if (!$ipExistsInBlackListedIps) {
             // Generate a unique ID (UUID)
             $blockedIpId = getGUID();
             $data = [

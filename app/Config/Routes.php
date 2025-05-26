@@ -336,6 +336,9 @@ $routes->group('account', ['filter' => 'authFilter'], function($routes) {
     $routes->get('ecommerce/product-categories/edit-product-category/(:any)', 'EcommerceController::editProductCategory/$1');
     $routes->post('ecommerce/product-categories/edit-product-category', 'EcommerceController::updateProductCategory');
 
+    //Ask AI
+    $routes->get('ask-ai', 'AIController::index');
+
     //ACCESS DENIED
     $routes->get('access-denied', 'AccessController::index');
 });
@@ -474,6 +477,9 @@ $routes->group('htmx', function($routes) {
 
     #Visit Stats Analysis#
     $routes->post('get-visit-stats-analysis-via-ai', 'HtmxController::getVisitStatsAnalysisAI');
+
+    #Get AI Help Answer#
+    $routes->post('get-ai-help-answer', 'HtmxController::getAIHelpAnswer');
 
     //ADMIN
     $routes->post('get-primary-color-name', 'HtmxController::getPrimaryColorName');

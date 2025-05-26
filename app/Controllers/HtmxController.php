@@ -1381,5 +1381,45 @@ class HtmxController extends BaseController
         echo cleanVisitStatsAnalysisResponse($analysis);
         exit();
     }
+
+
+    ## GET AI HELP ANSWER ## 
+    public function getAIHelpAnswer()
+    {
+        $siteKnowledgeBaseInJson = getSiteKnowledgeBaseInJson();
+
+        // if no data, return default input
+        if(empty($siteKnowledgeBaseInJson)){
+            return '';
+        }
+
+        $question = $this->request->getPost('ai_question');
+
+        $prompt = "Here is a question about Igniter CMS.\n Question: '$question'. Provide the answer to the question and structure the response EXACTLY as follows:
+
+        <div class=\"row\">
+            <h4>'$question'</h4>
+            <div class=\"col-12 mt-4\">
+                <p>[answer]</p>
+            </ul>
+        </div>
+
+        Here is a knowledge base on Igniter CMS in JSON for your reference in providing an answer.\n Knowledge Base: '$siteKnowledgeBaseInJson'.
+
+        Focus specifically on:
+        1. Using the JSON knowledge base first for finding an answer.
+        2. Use the documentation site (https://docs.ignitercms.com/), the GitHub repo (https://docs.ignitercms.com/) and the website (https://docs.ignitercms.com/) to look for potential answers.
+        3. Use knowledge from CodeIgniter and PHP to also provide possible answers.
+
+        Return ONLY the HTML formatted as shown above - no additional text, explanations, or commentary. Use the exact same structure with answer.";
+
+        $answer = callGeminiAPI($prompt);
+
+        // Clean response
+        $answer = preg_replace('/```html/', '', $answer);
+        $answer = preg_replace('/```/', '', $answer);
+        echo preg_replace('/\s*\R\s*/', ' ', trim($answer));
+        exit();
+    }
 }
 
