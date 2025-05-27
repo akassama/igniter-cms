@@ -80,6 +80,7 @@
 <script async src="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/languages/syntax.html.js"></script>
 <script async src="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/languages/syntax.css.js"></script>
 
+
 <script>
     //Set max file size upload
     $(document).ready(function() {
@@ -87,6 +88,20 @@
         Cookies.set('max_file_size', maxFileSize, { expires: 7 });
     });
 </script>
+
+<!-- Check for enabling or disabling AI integration -->
+<?php $enableGeminiAI = getConfigData("EnableGeminiAI"); ?>
+<?php if(strtolower($enableGeminiAI) !== "yes"):?>
+<script>
+    //diabale AI buttons
+    setTimeout(function (){
+        var useAIbuttons = document.getElementsByClassName('use-ai-btn');
+        for (var i = 0; i < useAIbuttons.length; i ++) {
+            useAIbuttons[i].style.display = 'none';
+        }          
+    }, 500);
+</script>
+<?php endif;?>
 
 <!--custom js-->
 <script async src="<?= base_url('public/back-end/assets/js/script.js')?>"></script>

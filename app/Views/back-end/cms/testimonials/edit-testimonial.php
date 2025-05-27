@@ -87,20 +87,6 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-12 mb-3">
-                <label for="testimonial" class="form-label">Testimonial</label>
-                <textarea rows="1" class="form-control" id="testimonial" name="testimonial" maxlength="500" required><?= $testimonial_data['testimonial'] ?></textarea>
-                <!-- Error -->
-                <?php if($validation->getError('testimonial')) {?>
-                    <div class='text-danger mt-2'>
-                        <?= $error = $validation->getError('testimonial'); ?>
-                    </div>
-                <?php }?>
-                <div class="invalid-feedback">
-                    Please provide testimonial
-                </div>
-            </div>
-
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="company" class="form-label">Company/Organization</label>
                 <input type="text" class="form-control" id="company" name="company" maxlength="250" value="<?= $testimonial_data['company'] ?>" required>
@@ -126,6 +112,20 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php }?>
                 <div class="invalid-feedback">
                     Please provide rating
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 mb-3">
+                <label for="testimonial" class="form-label">Testimonial</label>
+                <textarea rows="1" class="form-control" id="testimonial" name="testimonial" maxlength="500" required><?= $testimonial_data['testimonial'] ?></textarea>
+                <!-- Error -->
+                <?php if($validation->getError('testimonial')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('testimonial'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide testimonial
                 </div>
             </div>
             

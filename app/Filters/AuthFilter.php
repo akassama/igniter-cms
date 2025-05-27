@@ -52,12 +52,6 @@ class AuthFilter implements FilterInterface
            // Redirect to the sign-out page to clear session
            return redirect()->to('/sign-out');
         }
-
-        //check if password change is required and not currently in password change page
-        $isPasswordChangeURL = strtolower($currentUrl) == strtolower(base_url('/account/settings/change-password'));
-        if(passwordChangeRequired() && !$isPasswordChangeURL){
-            return redirect()->to('/account/settings/change-password');
-        }
     }
 
     /**

@@ -780,15 +780,31 @@ class FrontEndController extends BaseController
     //############################//
     public function getSitemaps()
     {
+        // Check enabled pages
+        $enableEventsPage = getConfigData("EnableEventsPage");
+        $enablePortfoliosPage = getConfigData("EnablePortfoliosPage");
+        $enableDonationsPage = getConfigData("EnableDonationsPage");
+        $enableShopFront = getConfigData("EnableShopFront");
+
         // Models to query
         $models = [
             'blog' => new BlogsModel(),
-            'page' => new PagesModel(),
-            'event' => new EventsModel(),
-            'portfolio' => new PortfoliosModel(),
-            'donate' => new DonationCausesModel(),
-            'shop' => new ProductsModel()
+            'page' => new PagesModel()
         ];
+
+        // Conditionally add models based on config
+        if (strtolower($enableEventsPage) !== "no") {
+            $models['event'] = new EventsModel();
+        }
+        if (strtolower($enablePortfoliosPage) !== "no") {
+            $models['portfolio'] = new PortfoliosModel();
+        }
+        if (strtolower($enableDonationsPage) !== "no") {
+            $models['donate'] = new DonationCausesModel();
+        }
+        if (strtolower($enableShopFront) !== "no") {
+            $models['shop'] = new ProductsModel();
+        }
 
         // Fetch data from each model
         $sitemapData = [];
@@ -939,15 +955,31 @@ class FrontEndController extends BaseController
     //############################//
     public function getRssFeed()
     {
+        // Check enabled pages
+        $enableEventsPage = getConfigData("EnableEventsPage");
+        $enablePortfoliosPage = getConfigData("EnablePortfoliosPage");
+        $enableDonationsPage = getConfigData("EnableDonationsPage");
+        $enableShopFront = getConfigData("EnableShopFront");
+
         // Models to query (same as sitemap)
         $models = [
             'blog' => new BlogsModel(),
-            'page' => new PagesModel(),
-            'event' => new EventsModel(),
-            'portfolio' => new PortfoliosModel(),
-            'donate' => new DonationCausesModel(),
-            'shop' => new ProductsModel()
+            'page' => new PagesModel()
         ];
+
+        // Conditionally add models based on config
+        if (strtolower($enableEventsPage) !== "no") {
+            $models['event'] = new EventsModel();
+        }
+        if (strtolower($enablePortfoliosPage) !== "no") {
+            $models['portfolio'] = new PortfoliosModel();
+        }
+        if (strtolower($enableDonationsPage) !== "no") {
+            $models['donate'] = new DonationCausesModel();
+        }
+        if (strtolower($enableShopFront) !== "no") {
+            $models['shop'] = new ProductsModel();
+        }
     
         // Fetch data from each model
         $rssData = [];

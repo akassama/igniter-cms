@@ -161,6 +161,7 @@ class SettingsController extends BaseController
             $builder = $db->table('users');
             $data = [
                 'password'  => password_hash($this->request->getVar('new_password'), PASSWORD_DEFAULT),
+                'password_change_required'  => false
             ];
 
             $builder->where('user_id', $userId);

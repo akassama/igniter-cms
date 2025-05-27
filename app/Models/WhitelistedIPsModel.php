@@ -55,9 +55,9 @@ class WhitelistedIPsModel extends Model
     public function createWhitelistedIP($param = array())
     {
         // Generate a unique ID (UUID)
-        $blockedIpId = getGUID();
+        $whitelistedIpId = getGUID();
         $data = [
-            'whitelisted_ip_id' => $blockedIpId,
+            'whitelisted_ip_id' => $whitelistedIpId,
             'ip_address' => $param['ip_address'],
             'reason' => $param['reason'],
         ];

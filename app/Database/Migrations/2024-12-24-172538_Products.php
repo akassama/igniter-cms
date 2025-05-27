@@ -19,6 +19,9 @@ class Products extends Migration
             ],
             'description' => [
                 'type' => 'TEXT',
+                'constraint' => '1000',
+                'null' => true,
+                'default' => null,
             ],
             'short_description' => [
                 'type' => 'VARCHAR',

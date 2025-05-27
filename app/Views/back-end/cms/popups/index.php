@@ -22,11 +22,6 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="col-12">
         <h3>Manage Popup Adverts</h3>
     </div>
-    <div class="col-12 d-flex justify-content-end mb-2">
-        <a href="<?=base_url('/account/cms/popups/new-popup')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Popup
-        </a>
-    </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">

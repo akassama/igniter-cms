@@ -30,10 +30,10 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= set_value('title') ?>" required
-                       hx-post="<?=base_url()?>/htmx/set-meta-title"
-                       hx-trigger="keyup, changed delay:250ms"
-                       hx-target="#meta-title-div"
-                       hx-swap="innerHTML">
+                    hx-post="<?=base_url()?>/htmx/get-product-title-slug"
+                    hx-trigger="keyup, changed delay:250ms"
+                    hx-target="#slug-div"
+                    hx-swap="innerHTML">
                 <!-- Error -->
                 <?php if($validation->getError('title')) {?>
                     <div class='text-danger mt-2'>
@@ -46,8 +46,17 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
                 <label for="description" class="form-label">Description</label>
-                <textarea rows="1" class="form-control content-editor" id="description" name="description" required><?= set_value('description') ?></textarea>
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                    hx-post="<?=base_url()?>/htmx/get-product-description-via-ai"
+                    hx-trigger="click delay:250ms"
+                    hx-target="#description-div"
+                    hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </div>
+                <div id="description-div" hx-on:htmx:after-settle="setContentEditor()">
+                    <textarea rows="1" class="form-control content-editor" id="description" name="description" required><?= set_value('description') ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('description')) {?>
                     <div class='text-danger mt-2'>
@@ -60,12 +69,17 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
                 <label for="short_description" class="form-label">Short Description</label>
-                <textarea rows="1" class="form-control" id="short_description" name="short_description" maxlength="500"
-                    hx-post="<?=base_url()?>/htmx/set-meta-description"
-                    hx-trigger="keyup, changed delay:250ms"
-                    hx-target="#meta-description-div"
-                    hx-swap="innerHTML"><?= set_value('short_description') ?></textarea>
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                    hx-post="<?=base_url()?>/htmx/get-product-short-description-via-ai"
+                    hx-trigger="click delay:250ms"
+                    hx-target="#short-description-div"
+                    hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </div>
+                <div id="short-description-div">
+                    <textarea rows="1" class="form-control" id="short_description" name="short_description" maxlength="500"><?= set_value('short_description') ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('short_description')) {?>
                     <div class='text-danger mt-2'>
@@ -79,12 +93,9 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="slug" class="form-label">Slug</label>
-                <div class="input-group mb-3">
+                <div class="input-group mb-3" id="slug-div">
                     <span class="input-group-text"><?= base_url('/shop/'); ?></span>
-                    <input type="text" class="form-control" id="slug" name="slug" maxlength="250" value="<?= set_value('slug') ?>" required 
-                        hx-post="<?=base_url()?>/htmx/get-product-title-slug"
-                        hx-trigger="load delay:1s"
-                        hx-swap="outerHTML">
+                    <input type="text" class="form-control" id="slug" name="slug" value="<?= set_value('slug') ?>" required>
                     <div class="invalid-feedback">
                         Please provide slug
                     </div>
@@ -132,8 +143,17 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="brand" class="form-label">Brand</label>
-                <input type="text" class="form-control" id="brand" name="brand" maxlength="250" value="<?= set_value('brand') ?>">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label for="brand" class="form-label">Brand</label>
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                    hx-post="<?=base_url()?>/htmx/get-product-brand-via-ai"
+                    hx-trigger="click delay:250ms"
+                    hx-target="#product-brand-div"
+                    hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </div>
+                <div id="product-brand-div">
+                    <input type="text" class="form-control" id="brand" name="brand" maxlength="250" value="<?= set_value('brand') ?>">
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('brand')) {?>
                     <div class='text-danger mt-2'>
@@ -146,8 +166,17 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="model" class="form-label">Model</label>
-                <input type="text" class="form-control" id="model" name="model" maxlength="250" value="<?= set_value('model') ?>">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label for="model" class="form-label">Model</label>
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                    hx-post="<?=base_url()?>/htmx/get-product-model-via-ai"
+                    hx-trigger="click delay:250ms"
+                    hx-target="#product-model-div"
+                    hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </div>
+                <div id="product-model-div">
+                    <input type="text" class="form-control" id="model" name="model" maxlength="250" value="<?= set_value('brand') ?>">
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('model')) {?>
                     <div class='text-danger mt-2'>
@@ -348,11 +377,18 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="specifications" class="form-label">
                     Specifications
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                        hx-post="<?=base_url()?>/htmx/get-product-specifications-via-ai"
+                        hx-trigger="click delay:250ms"
+                        hx-target="#product-specifications-div"
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
                 </label>
                 <small class="float-end">
                     <a href="#!" data-bs-toggle="modal" data-bs-target="#productJsonDataModal">View Sample</a>
                 </small>
-                <textarea rows="1" class="form-control js-editor" id="specifications" name="specifications"><?= set_value('specifications') ?></textarea>
+                <div id="product-specifications-div" hx-on:htmx:after-settle="setCodeEditor('specifications')">
+                    <textarea rows="1" class="form-control js-editor" id="specifications" name="specifications"><?= set_value('specifications') ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('specifications')) {?>
                     <div class='text-danger mt-2'>
@@ -365,11 +401,20 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="attributes" class="form-label">Attributes</label>
+                <label for="attributes" class="form-label">
+                    Attributes
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                        hx-post="<?=base_url()?>/htmx/get-product-attributes-via-ai"
+                        hx-trigger="click delay:250ms"
+                        hx-target="#product-attributes-div"
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </label>
                 <small class="float-end">
                     <a href="#!" data-bs-toggle="modal" data-bs-target="#productJsonDataModal">View Sample</a>
                 </small>
-                <textarea rows="1" class="form-control js-editor" id="attributes" name="attributes"><?= set_value('attributes') ?></textarea>
+                <div id="product-attributes-div" hx-on:htmx:after-settle="setCodeEditor('attributes')">
+                    <textarea rows="1" class="form-control js-editor" id="attributes" name="attributes"><?= set_value('attributes') ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('attributes')) {?>
                     <div class='text-danger mt-2'>
@@ -382,11 +427,20 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="seller_info" class="form-label">Seller Info</label>
+                <label for="seller_info" class="form-label">
+                    Seller Info
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                        hx-post="<?=base_url()?>/htmx/get-product-seller-info-via-ai"
+                        hx-trigger="click delay:250ms"
+                        hx-target="#product-seller-info-div"
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </label>
                 <small class="float-end">
                     <a href="#!" data-bs-toggle="modal" data-bs-target="#productJsonDataModal">View Sample</a>
                 </small>
-                <textarea rows="1" class="form-control js-editor" id="seller_info" name="seller_info"><?= set_value('seller_info') ?></textarea>
+                <div id="product-seller-info-div" hx-on:htmx:after-settle="setCodeEditor('seller_info')">
+                    <textarea rows="1" class="form-control js-editor" id="seller_info" name="seller_info"><?= set_value('seller_info') ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('seller_info')) {?>
                     <div class='text-danger mt-2'>
@@ -399,11 +453,20 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="purchase_options" class="form-label">Purchase Options</label>
+                <label for="purchase_options" class="form-label">
+                    Purchase Options
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                        hx-post="<?=base_url()?>/htmx/get-product-purchase-options-via-ai"
+                        hx-trigger="click delay:250ms"
+                        hx-target="#product-purchase-options-div"
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                </label>
                 <small class="float-end">
                     <a href="#!" data-bs-toggle="modal" data-bs-target="#productJsonDataModal">View Sample</a>
                 </small>
-                <textarea rows="1" class="form-control js-editor" id="purchase_options" name="purchase_options"><?= set_value('purchase_options') ?></textarea>
+                <div id="product-purchase-options-div" hx-on:htmx:after-settle="setCodeEditor('purchase_options')">
+                    <textarea rows="1" class="form-control js-editor" id="purchase_options" name="purchase_options"><?= set_value('purchase_options') ?></textarea>
+                </div>
                 <!-- Error -->
                 <?php if($validation->getError('purchase_options')) {?>
                     <div class='text-danger mt-2'>
@@ -416,12 +479,17 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
         <div class="col-sm-12 col-md-6 mb-3">
+            <div class="d-flex justify-content-between align-items-center">
             <label for="tags" class="form-label">Tags</label>
-            <textarea rows="1" class="form-control tags-input" id="tags" name="tags" value="<?= set_value('tags') ?>" required
-                hx-post="<?=base_url()?>/htmx/set-meta-keywords"
-                hx-trigger="keyup, changed delay:250ms"
-                hx-target="#meta-keywords-div"
-                hx-swap="innerHTML"></textarea>
+                <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                hx-post="<?=base_url()?>/htmx/get-tags-via-ai"
+                hx-trigger="click delay:250ms"
+                hx-target="#tags-div"
+                hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+            </div>
+            <div id="tags-div" hx-on:htmx:after-settle="setTagsInput('tags')">
+                <textarea rows="1" class="form-control tags-input" id="tags" name="tags"><?= set_value('tags') ?></textarea>
+            </div>
             <!-- Error -->
             <?php if($validation->getError('tags')) {?>
                 <div class='text-danger mt-2'>
@@ -478,51 +546,69 @@ echo generateBreadcrumb($breadcrumb_links);
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <div class="row">
-                                    <div class="col-12 mb-3">
-                                        <label for="meta_title" class="form-label">Meta Title</label>
-                                        <div id="meta-title-div">
-                                            <input type="text" class="form-control" id="meta_title" name="meta_title" maxlength="250" value="<?= set_value('meta_title') ?>">
+                                <div class="col-12 mb-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <label for="meta_title" class="form-label">Meta Title</label>
+                                            <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="meta_title"
+                                            hx-post="<?=base_url()?>/htmx/set-meta-title-via-ai"
+                                            hx-trigger="click delay:250ms"
+                                            hx-target="#meta-title-div"
+                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
                                         </div>
-                                        <!-- Error -->
+                                        <div id="meta-title-div">
+                                            <input type="text" class="form-control" id="meta_title" name="meta_title" value="<?= set_value('meta_title') ?>">
+                                        </div>
                                         <?php if($validation->getError('meta_title')) {?>
                                             <div class='text-danger mt-2'>
-                                                <?= $error = $validation->getError('meta_title'); ?>
+                                            <?= $error = $validation->getError('meta_title'); ?>
                                             </div>
                                         <?php }?>
                                         <div class="invalid-feedback">
                                             Please provide meta_title
                                         </div>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <label for="meta_description" class="form-label">Meta Description</label>
-                                        <div id="meta-description-div">
-                                            <textarea type="text" class="form-control" id="meta_description" name="meta_description" maxlength="500" ><?= set_value('meta_description') ?></textarea>
+                                </div>
+                                <div class="col-12 mb-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <label for="meta_description" class="form-label">Meta Description</label>
+                                            <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="meta_description"
+                                            hx-post="<?=base_url()?>/htmx/set-meta-description-via-ai"
+                                            hx-trigger="click delay:250ms"
+                                            hx-target="#meta-description-div"
+                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
                                         </div>
-                                        <!-- Error -->
+                                        <div id="meta-description-div">
+                                            <textarea class="form-control" id="meta_description" name="meta_description" ><?= set_value('meta_description') ?></textarea>
+                                        </div>
                                         <?php if($validation->getError('meta_description')) {?>
                                             <div class='text-danger mt-2'>
-                                                <?= $error = $validation->getError('meta_description'); ?>
+                                            <?= $error = $validation->getError('meta_description'); ?>
                                             </div>
                                         <?php }?>
                                         <div class="invalid-feedback">
                                             Please provide meta_description
                                         </div>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <label for="meta_keywords" class="form-label">Meta Keywords</label>
-                                        <div id="meta-keywords-div">
-                                            <input type="text" class="form-control tags-input" id="meta_keywords" name="meta_keywords" maxlength="250" value="<?= set_value('meta_keywords') ?>" >
+                                </div>
+                                <div class="col-12 mb-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <label for="meta_keywords" class="form-label">Meta Keywords</label>
+                                            <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="meta_keywords"
+                                            hx-post="<?=base_url()?>/htmx/set-meta-keywords-via-ai"
+                                            hx-trigger="click delay:250ms"
+                                            hx-target="#meta-keywords-div"
+                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
                                         </div>
-                                        <!-- Error -->
+                                        <div id="meta-keywords-div" hx-on:htmx:after-settle="setTagsInput('meta_keywords')">
+                                            <textarea rows="1" class="form-control tags-input" id="meta_keywords" name="meta_keywords"><?= set_value('meta_keywords') ?></textarea>
+                                        </div>
                                         <?php if($validation->getError('meta_keywords')) {?>
                                             <div class='text-danger mt-2'>
-                                                <?= $error = $validation->getError('meta_keywords'); ?>
+                                            <?= $error = $validation->getError('meta_keywords'); ?>
                                             </div>
                                         <?php }?>
                                         <div class="invalid-feedback">
                                             Please provide meta_keywords
                                         </div>
-                                    </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -544,6 +630,38 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_close(); ?>
     </div>
 </div>
+
+<script>
+    // Initialize tags input
+    function setTagsInput(inputId){
+        $('#'+inputId).tagsInput();
+        $('#'+inputId).css('width', '100%');
+    }
+
+    // Initialize content editor
+    function setContentEditor(){
+        $('.content-editor').summernote({
+            tabsize: 2,
+            height: 150
+        });   
+    }
+
+    // Initializes a CodeMirror editor for a given textarea element ID.
+    function setCodeEditor(inputId) {
+        const el = document.getElementById(inputId);
+        if (el) {
+            CodeMirror.fromTextArea(el, {
+                mode: 'javascript',
+                theme: 'dracula',
+                styleActiveLine: true,
+                matchBrackets: true,
+                lineNumbers: true
+            });
+        } else {
+            console.warn(`Element with ID "${inputId}" not found.`);
+        }
+    }
+</script>
 
 <!-- Include the files modal -->
 <?=  $this->include('back-end/layout/modals/files_modal.php'); ?>

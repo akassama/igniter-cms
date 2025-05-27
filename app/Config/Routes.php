@@ -336,6 +336,9 @@ $routes->group('account', ['filter' => 'authFilter'], function($routes) {
     $routes->get('ecommerce/product-categories/edit-product-category/(:any)', 'EcommerceController::editProductCategory/$1');
     $routes->post('ecommerce/product-categories/edit-product-category', 'EcommerceController::updateProductCategory');
 
+    //Ask AI
+    $routes->get('ask-ai', 'AIController::index');
+
     //ACCESS DENIED
     $routes->get('access-denied', 'AccessController::index');
 });
@@ -370,6 +373,113 @@ $routes->group('htmx', function($routes) {
     $routes->get('get-file-data-form/(:any)', 'HtmxController::getFileDataForm/$1');
     $routes->post('update-file-data-form/(:any)', 'HtmxController::updateFileDataList/$1');
     $routes->get('cancel-file-data-form/(:any)', 'HtmxController::getFileDataList/$1');
+
+    //AI REQUESTS
+    #Blogs#
+    $routes->post('get-excerpt-via-ai', 'HtmxController::getExcerptAI');
+    $routes->post('get-tags-via-ai', 'HtmxController::setTagsAI');
+    $routes->post('set-meta-title-via-ai', 'HtmxController::setMetaTitleAI');
+    $routes->post('set-meta-description-via-ai', 'HtmxController::setMetaDescriptionAI');
+    $routes->post('set-meta-keywords-via-ai', 'HtmxController::setMetaKeywordsAI');
+
+    #Blog Categories#
+    $routes->post('get-blog-category-description-via-ai', 'HtmxController::getBlogCategoryDescriptionAI');
+
+    #Navigation#
+    $routes->post('get-navigation-description-via-ai', 'HtmxController::getNavigationDescriptionAI');
+
+    #Home Page Section#
+    $routes->post('get-homepage-section-description-via-ai', 'HtmxController::getHomePageSectionDescriptionAI');
+
+    #Content Block#
+    $routes->post('get-content-block-description-via-ai', 'HtmxController::getContentBlockDescriptionAI');
+
+    #Events#
+    $routes->post('get-event-description-via-ai', 'HtmxController::getEventDescriptionAI');
+
+    #Portfolios#
+    $routes->post('get-portfolio-description-via-ai', 'HtmxController::getPortfolioDescriptionAI');
+
+    #Service#
+    $routes->post('get-service-description-via-ai', 'HtmxController::getServiceDescriptionAI');
+
+    #Counter#
+    $routes->post('get-counter-description-via-ai', 'HtmxController::getCounterDescriptionAI');
+
+    #Pricing#
+    $routes->post('get-pricing-description-via-ai', 'HtmxController::getPricingDescriptionAI');
+
+    #Team Summary#
+    $routes->post('get-team-summary-via-ai', 'HtmxController::getTeamSummaryAI');
+
+    #Testimonial#
+    $routes->post('get-testimonial-via-ai', 'HtmxController::getTestimonialAI');
+
+    #FAQ#
+    $routes->post('get-faq-answer-via-ai', 'HtmxController::getFaqAnswerAI');
+
+    #Donation Cause#
+    $routes->post('get-donation-cause-description-via-ai', 'HtmxController::getDonationCauseDescriptionAI');
+
+    #Popup Text#
+    $routes->post('get-popup-text-via-ai', 'HtmxController::getPopupTextAI');
+
+    #Get Icons#
+    $routes->post('get-remix-icon-via-ai', 'HtmxController::getRemixIconAI');
+
+    #Product Description#
+    $routes->post('get-product-description-via-ai', 'HtmxController::getProductDescriptionAI');
+
+    #Product Short Description#
+    $routes->post('get-product-short-description-via-ai', 'HtmxController::getProductShortDescriptionAI');
+
+    #Product Brand #
+    $routes->post('get-product-brand-via-ai', 'HtmxController::getProductBrandAI');
+
+    #Product Model #
+    $routes->post('get-product-model-via-ai', 'HtmxController::getProductModelAI');
+
+    #Product Categories#
+    $routes->post('get-product-category-description-via-ai', 'HtmxController::getProductCategoryDescriptionAI');
+
+    #Product Specifications #
+    $routes->post('get-product-specifications-via-ai', 'HtmxController::getProductSpecificationsAI');
+
+    #Product Attributes #
+    $routes->post('get-product-attributes-via-ai', 'HtmxController::getProductAttributesAI');
+
+    #Product SellerInfo #
+    $routes->post('get-product-seller-info-via-ai', 'HtmxController::getProductSellerInfoAI');
+
+    #Product PurchaseOptions #
+    $routes->post('get-product-purchase-options-via-ai', 'HtmxController::getProductPurchaseOptionsAI');
+
+    #Experience#
+    $routes->post('get-experience-description-via-ai', 'HtmxController::getExperienceDescriptionAI');
+
+    #Education#
+    $routes->post('get-education-description-via-ai', 'HtmxController::getEducationDescriptionAI');
+
+    #Skills#
+    $routes->post('get-skill-description-via-ai', 'HtmxController::getSkillsDescriptionAI');
+
+    #Resume Summary#
+    $routes->post('get-resume-summary-via-ai', 'HtmxController::getResumeSummaryAI');
+
+    #Account Summary#
+    $routes->post('get-account-summary-via-ai', 'HtmxController::getAccountSummaryAI');
+
+    #Activity Logs Analysis#
+    $routes->post('get-activity-logs-analysis-via-ai', 'HtmxController::getActivityLogsAnalysisAI');
+
+    #Error Logs Analysis#
+    $routes->post('get-error-logs-analysis-via-ai', 'HtmxController::getErrorLogsAnalysisAI');
+
+    #Visit Stats Analysis#
+    $routes->post('get-visit-stats-analysis-via-ai', 'HtmxController::getVisitStatsAnalysisAI');
+
+    #Get AI Help Answer#
+    $routes->post('get-ai-help-answer', 'HtmxController::getAIHelpAnswer');
 
     //ADMIN
     $routes->post('get-primary-color-name', 'HtmxController::getPrimaryColorName');

@@ -91,20 +91,6 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="excerpt" class="form-label">Excerpt</label>
-                <textarea rows="1" class="form-control" id="excerpt" name="excerpt"><?= $blog_data['excerpt'] ?></textarea>
-                <!-- Error -->
-                <?php if($validation->getError('excerpt')) {?>
-                    <div class='text-danger mt-2'>
-                        <?= $error = $validation->getError('excerpt'); ?>
-                    </div>
-                <?php }?>
-                <div class="invalid-feedback">
-                    Please provide excerpt
-                </div>
-            </div>
-
-            <div class="col-sm-12 col-md-12 mb-3">
                 <label for="content" class="form-label">Content</label>
                 <textarea rows="1" class="form-control content-editor" id="content" name="content" required><?= $blog_data['content'] ?></textarea>
                 <!-- Error -->
@@ -115,6 +101,20 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php }?>
                 <div class="invalid-feedback">
                     Please provide content
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 mb-3">
+                <label for="excerpt" class="form-label">Excerpt</label>
+                <textarea rows="1" class="form-control" id="excerpt" name="excerpt"><?= $blog_data['excerpt'] ?></textarea>
+                <!-- Error -->
+                <?php if($validation->getError('excerpt')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('excerpt'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide excerpt
                 </div>
             </div>
 

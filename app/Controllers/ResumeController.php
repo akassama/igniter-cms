@@ -87,8 +87,8 @@ class ResumeController extends BaseController
             'image' => $this->request->getPost('image'),
             'cv_file' => $this->request->getPost('cv_file'),
             'status' => $this->request->getPost('status'),
-            'meta_title' => $this->request->getPost('meta_title'),
-            'meta_description' => $this->request->getPost('meta_description'),
+            'meta_title' => !empty($this->request->getPost('meta_title')) ? $this->request->getPost('meta_title') : $this->request->getPost('title'),
+            'meta_description' => !empty($this->request->getPost('meta_description')) ? $this->request->getPost('meta_description') : getTextSummary(strip_tags($this->request->getPost('summary')), 160),
             'meta_keywords' => $this->request->getPost('meta_keywords'),
             'created_by' => $loggedInUserId,
             'updated_by' => null

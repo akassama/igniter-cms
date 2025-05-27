@@ -18,8 +18,10 @@ class Pricings extends Migration
                 'constraint' => '255',
             ],
             'description' => [
-                'type' => 'VARCHAR',
-                'constraint' => '255',
+                'type' => 'TEXT',
+                'constraint' => '1000',
+                'null' => true,
+                'default' => null,
             ],
             'currency' => [
                 'type' => 'VARCHAR',

@@ -44,7 +44,9 @@ class Experiences extends Migration
             ],
             'description' => [
                 'type' => 'TEXT',
-                'null' => true
+                'constraint' => '1000',
+                'null' => true,
+                'default' => null,
             ],
             'achievements' => [
                 'type' => 'TEXT',

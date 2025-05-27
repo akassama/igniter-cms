@@ -32,7 +32,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea rows="1" class="form-control" id="description" name="description"><?= $portfolio_data['description'] ?></textarea>
+                <textarea rows="1" class="form-control" id="description" name="description" maxlength="500"><?= $portfolio_data['description'] ?></textarea>
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">

@@ -73,5 +73,7 @@ CI_ENVIRONMENT = development
 #--------------------------------------------------------------------
 DEMO_MODE = false
 CRON_SECURITY_KEY = 42b619bd-bdc3-4ffd-8c69-8e70632f96ae
+CUSTOM_GEMINI_REQUEST_URL = https://igniter-cms.aktools.net/process-gemini-request.php?key=
+PUBLIC_GEMINI_REQUEST_KEY = gHDJyVTKP3BsVjgcF8DpzsmCfWRQLoWIoaTBsszZLyvRPWW0rXh7e9R7PnRsRtdB7F8FRm4w0uYXlcPxlErCXmwswd5i6qnSeSh1u56FUzzIyLgaMiUyDx1eb8sSHppv
 
 
