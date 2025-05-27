@@ -53,11 +53,11 @@ $userRole = getUserRole($sessionEmail);
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading"></div>
-                <a class="nav-link <?= (str_contains(current_url(), 'account/dashboard')) ? 'active' : ''; ?>" href="<?= base_url('/account'); ?>">
+                <a id="dashboard-link" class="nav-link <?= (str_contains(current_url(), 'account/dashboard')) ? 'active' : ''; ?>" href="<?= base_url('/account'); ?>">
                     <div class="sb-nav-link-icon"><i class="ri-dashboard-line h5"></i></div>
                     Dashboard
                 </a>
-                <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/cms')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCMS" aria-expanded="false" aria-controls="collapseCMS" id="cmsButton">
+                <a id="cms-link" class="nav-link collapsed <?= (str_contains(current_url(), 'account/cms')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCMS" aria-expanded="false" aria-controls="collapseCMS" id="cmsButton">
                     <div class="sb-nav-link-icon"><i class="ri-draft-line h5"></i></div>
                     CMS
                     <div class="sb-sidenav-collapse-arrow"><i class="ri-arrow-down-s-fill"></i></div>
@@ -120,7 +120,7 @@ $userRole = getUserRole($sessionEmail);
                         </a>
                     </nav>
                 </div>
-                <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/ecommerce')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseECommerce" aria-expanded="false" aria-controls="collapseECommerce" id="ecommerceButton">
+                <a id="ecommerce-link" class="nav-link collapsed <?= (str_contains(current_url(), 'account/ecommerce')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseECommerce" aria-expanded="false" aria-controls="collapseECommerce" id="ecommerceButton">
                     <div class="sb-nav-link-icon"><i class="ri-shopping-bag-4-fill h5"></i></div>
                     E-Commerce
                     <div class="sb-sidenav-collapse-arrow"><i class="ri-arrow-down-s-fill"></i></div>
@@ -135,7 +135,7 @@ $userRole = getUserRole($sessionEmail);
                         </a>
                     </nav>
                 </div>
-                <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/resumes')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseResumes" aria-expanded="false" aria-controls="collapseResumes" id="resumesButton">
+                <a id="resumes-link" class="nav-link collapsed <?= (str_contains(current_url(), 'account/resumes')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseResumes" aria-expanded="false" aria-controls="collapseResumes" id="resumesButton">
                     <div class="sb-nav-link-icon"><i class="ri-profile-line h5"></i></div>
                     Resumes
                     <div class="sb-sidenav-collapse-arrow"><i class="ri-arrow-down-s-fill"></i></div>
@@ -156,11 +156,11 @@ $userRole = getUserRole($sessionEmail);
                         </a>
                     </nav>
                 </div>
-                <a class="nav-link <?= (str_contains(current_url(), 'account/file-manager')) ? 'active' : ''; ?>" href="<?= base_url('/account/file-manager'); ?>">
+                <a id="file-manager-link" class="nav-link <?= (str_contains(current_url(), 'account/file-manager')) ? 'active' : ''; ?>" href="<?= base_url('/account/file-manager'); ?>">
                     <div class="sb-nav-link-icon"><i class="ri-folder-open-line h5"></i></div>
                     File Manager
                 </a>
-                <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/settings')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings" id="settingsButton">
+                <a id="settings-link" class="nav-link collapsed <?= (str_contains(current_url(), 'account/settings')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings" id="settingsButton">
                     <div class="sb-nav-link-icon"><i class="ri-settings-2-line h5"></i></div>
                     Settings
                     <div class="sb-sidenav-collapse-arrow"><i class="ri-arrow-down-s-fill"></i></div>
@@ -177,7 +177,7 @@ $userRole = getUserRole($sessionEmail);
                 </div>
                 <?php if ($userRole == "Admin"): ?>
                     <!--Admin Views-->
-                    <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/admin')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAdmin" aria-expanded="false" aria-controls="collapseAdmin" id="adminButton">
+                    <a id="admin-link" class="nav-link collapsed <?= (str_contains(current_url(), 'account/admin')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAdmin" aria-expanded="false" aria-controls="collapseAdmin" id="adminButton">
                         <div class="sb-nav-link-icon"><i class="ri-user-settings-fill h5"></i></div>
                         Admin
                         <div class="sb-sidenav-collapse-arrow"><i class="ri-arrow-down-s-fill"></i></div>
@@ -233,12 +233,12 @@ $userRole = getUserRole($sessionEmail);
                     </div>
                 <?php endif; ?>
 
-                <a class="nav-link <?= (str_contains(current_url(), 'account/ask-ai')) ? 'active' : ''; ?>" href="<?= base_url('/account/ask-ai'); ?>">
+                <a id="ai-link" class="nav-link <?= (str_contains(current_url(), 'account/ask-ai')) ? 'active' : ''; ?>" href="<?= base_url('/account/ask-ai'); ?>">
                     <div class="sb-nav-link-icon"><i class="ri-chat-ai-line h5"></i></div>
                     Ask AI
                 </a>
 
-                <a class="nav-link" href="https://docs.ignitercms.com/" target="_blank">
+                <a id="documentation-link" class="nav-link" href="https://docs.ignitercms.com/" target="_blank">
                     <div class="sb-nav-link-icon"><i class="ri-code-s-slash-line h5"></i></div>
                     Documentation
                 </a>

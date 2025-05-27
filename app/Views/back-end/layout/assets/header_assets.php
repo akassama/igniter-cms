@@ -50,9 +50,6 @@
 <!--select2 css-->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-<!--custom css-->
-<link href="<?= base_url('public/back-end/assets/css/custom.css')?>" rel="stylesheet" />
-
 <!-- Chart.js CDN -->
 <script async src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css">
@@ -67,8 +64,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/syntax.js.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/themes/syntax.js.dark.theme.css" />
 
+<!--custom css-->
+<link href="<?= base_url('public/back-end/assets/css/custom.css')?>" rel="stylesheet" />
+
 <!-- jQuery CDN -->
-<script async src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--favicon-->
 <?php if (!empty($backendFaviconLink)): ?>
