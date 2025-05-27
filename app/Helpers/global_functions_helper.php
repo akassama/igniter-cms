@@ -6208,7 +6208,45 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                 [
                     "question" => "Can I extend the CMS with plugins?",
                     "answer" => "Yes! You can create and integrate modules to extend functionality."
-                ]
+                ],
+                [
+                    "question" => "Can I buy themes for Igniter CMS?",
+                    "answer" => "Yes, you cn buy modern and professional themes from https://themes.ignitercms.com"
+                ],
+                [
+                    "question" => "Can I buy custom themes from themeforrest pr codecanyon?",
+                    "answer" => "Yes, you cn buy custom themes from https://themeforest.net"
+                ],
+            ],
+            "image_assets" => [
+                [
+                    "image_url" => "https://docs.ignitercms.com/images/upload/01-dashboard.png",
+                    "image_description" => "Dashboard image"
+                ],
+                [
+                    "image_url" => "https://docs.ignitercms.com/images/upload/02-cms.png",
+                    "image_description" => "CMS management image"
+                ],
+                [
+                    "image_url" => "https://docs.ignitercms.com/images/upload/41-ecommerce.png",
+                    "image_description" => "Ecommerce management image"
+                ],
+                [
+                    "image_url" => "https://docs.ignitercms.com/images/upload/46-resumes.png",
+                    "image_description" => "Resumes management image"
+                ],
+                [
+                    "image_url" => "https://docs.ignitercms.com/images/upload/48-files.png",
+                    "image_description" => "File manager image"
+                ],
+                [
+                    "image_url" => "https://docs.ignitercms.com/images/upload/50-settings.png",
+                    "image_description" => "Settings management image"
+                ],
+                [
+                    "image_url" => "https://docs.ignitercms.com/images/upload/53-admin.png",
+                    "image_description" => "Admin Management"
+                ],
             ]
         ];
 
