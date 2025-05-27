@@ -47,27 +47,48 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
                 
                 <!-- AI Response Section -->
-                <div class="col-12 mt-4" id="">
+                <div class="col-12 mt-4">
                     <div class="card shadow-sm">
-                        <div class="card-header bg-white d-flex align-items-center">
-                            <i class="fas fa-robot text-primary me-2"></i>
-                            <h5 class="mb-0">
-                                <i class="ri-robot-2-fill"></i> AI Response
-                            </h5>
+                        <div class="card-header bg-white d-flex align-items-center justify-content-between">
+                            <div>
+                                <i class="fas fa-robot text-primary me-2"></i>
+                                <h5 class="mb-0 d-inline">AI Response</h5>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-dark copy-response" title="Copy to clipboard">
+                                <i class="ri-file-copy-line"></i> Copy
+                            </button>
                         </div>
                         <div class="card-body" id="ai-help-response-div">
                             <div class="ai-response-placeholder text-muted">
                                 <p class="mb-0">Your AI response will appear here after you ask a question.</p>
-                                <!-- <?=getSiteKnowledgeBaseInJson()?> -->
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </form>
     </div>
-
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Copy to clipboard functionality
+    document.querySelectorAll('.copy-response').forEach(button => {
+        button.addEventListener('click', function() {
+            const responseText = this.closest('.card').querySelector('.response-text').innerText;
+            navigator.clipboard.writeText(responseText).then(() => {
+                // Change button temporarily to show success
+                const originalHTML = this.innerHTML;
+                this.innerHTML = '<i class="ri-checkbox-multiple-fill"></i> Copied!';
+                setTimeout(() => {
+                    this.innerHTML = originalHTML;
+                }, 2000);
+            });
+        });
+    });
+});
+</script>
 
 <!-- end main content -->
 <?= $this->endSection() ?>

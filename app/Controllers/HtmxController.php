@@ -1397,8 +1397,8 @@ class HtmxController extends BaseController
 
         $prompt = "Here is a question about Igniter CMS.\n Question: '$question'. Provide the answer to the question and structure the response EXACTLY as follows:
 
-        <div class=\"row\">
-            <h4>'$question'</h4>
+        <div class=\"row response-text\">
+            <h4 class=\"text-primary mb-2\">'$question'</h4>
             <div class=\"col-12 mt-4\">
                 <p>[answer]</p>
             </ul>
@@ -1411,15 +1411,14 @@ class HtmxController extends BaseController
         2. Use the documentation site (https://docs.ignitercms.com/), the GitHub repo (https://docs.ignitercms.com/) and the website (https://docs.ignitercms.com/) to look for potential answers.
         3. Use knowledge from CodeIgniter and PHP to also provide possible answers.
 
-        Return ONLY the HTML formatted as shown above - no additional text, explanations, or commentary. Use the exact same structure with answer.";
+        Return ONLY the HTML formatted as shown above - no additional text, explanations, or commentary. You can include images if needed (for images use: <img src='[image-url]' class='img-fluid'>). Use the exact same structure with answer.";
 
         $answer = callGeminiAPI($prompt);
 
         // Clean response
         $answer = preg_replace('/```html/', '', $answer);
         $answer = preg_replace('/```/', '', $answer);
-        echo preg_replace('/\s*\R\s*/', ' ', trim($answer));
+        echo trim($answer);
         exit();
     }
 }
-
