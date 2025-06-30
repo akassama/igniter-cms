@@ -7,6 +7,7 @@ $companyName = getConfigData("CompanyName");
 $companyAddress = getConfigData("CompanyAddress");
 $companyEmail = getConfigData("CompanyEmail");
 $companyNumber = getConfigData("CompanyNumber");
+$companyOpeningHours = getConfigData("CompanyOpeningHours");
 $metaAuthor = getConfigData("MetaAuthor");
 $metaTitle = getConfigData("MetaTitle");
 $metaDescription = getConfigData("MetaDescription");
@@ -66,7 +67,7 @@ $enablePopupAds = getConfigData("EnablePopupAds");
                     <!-- To make this form functional, sign up at-->
                     <!-- https://startbootstrap.com/solution/contact-forms-->
                     <!-- to get an API token!-->
-                    <form action="<?= base_url('/api/send-contact-message') ?>" method="post" class="g-3 needs-validation" id="contactForm">
+                    <form action="<?= base_url('/api-form/send-contact-message') ?>" method="post" class="g-3 needs-validation" id="contactForm">
                         <?= csrf_field() ?>
                         <?=getHoneypotInput()?>
                         <!-- Name input-->

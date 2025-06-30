@@ -36,6 +36,13 @@ class ServicesController extends BaseController
         $childTables = $this->request->getPost('child_table');
         $returnUrl = $this->request->getPost('return_url');
 
+        //show demo message
+        if(boolval(env('DEMO_MODE', "false"))){
+            $errorMsg = "Action not available in the demo mode.";
+            session()->setFlashdata('warningAlert', $errorMsg);
+            return redirect()->to($returnUrl);
+        }
+
         try {
             //remove record
             deleteRecord($tableName, $pkName, $pkValue);
@@ -87,6 +94,13 @@ class ServicesController extends BaseController
         $childTables = $this->request->getPost('child_table');
         $filePath = $this->request->getPost('file_path');
         $returnUrl = $this->request->getPost('return_url');
+
+        //show demo message
+        if(boolval(env('DEMO_MODE', "false"))){
+            $errorMsg = "Action not available in the demo mode.";
+            session()->setFlashdata('warningAlert', $errorMsg);
+            return redirect()->to($returnUrl);
+        }
 
         try {
             //remove record
@@ -150,6 +164,13 @@ class ServicesController extends BaseController
       $fileName = $this->request->getPost('file_path');
       $returnUrl = $this->request->getPost('return_url');
 
+      //show demo message
+      if(boolval(env('DEMO_MODE', "false"))){
+        $errorMsg = "Action not available in the demo mode.";
+        session()->setFlashdata('warningAlert', $errorMsg);
+        return redirect()->to($returnUrl);
+      }
+
       try {
           //remove record
           deleteRecord($tableName, $pkName, $pkValue);
@@ -198,6 +219,13 @@ class ServicesController extends BaseController
         $pkValue = $this->request->getPost('pk_value');
         $childTables = $this->request->getPost('child_table');
         $returnUrl = $this->request->getPost('return_url');
+
+        //show demo message
+        if(boolval(env('DEMO_MODE', "false"))){
+            $errorMsg = "Action not available in the demo mode.";
+            session()->setFlashdata('warningAlert', $errorMsg);
+            return redirect()->to($returnUrl);
+        }
 
         try {
             // Remove the main record

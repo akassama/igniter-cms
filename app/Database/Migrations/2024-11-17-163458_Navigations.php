@@ -23,9 +23,10 @@ class Navigations extends Migration
                 'null' => true,
                 'default' => null,
             ],
+            
             'group' => [
                 'type' => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 100,
                 'null' => true,
             ],
             'order' => [
@@ -48,6 +49,11 @@ class Navigations extends Migration
                 'default' => false,
                 'null' => true,
             ],
+            'status' => [
+                'type' => 'INT',
+                'default' => 0,
+                'null' => true,
+            ],
             'created_by' => [
                 'type' => 'VARCHAR',
                 'constraint' => 50,
@@ -64,14 +70,13 @@ class Navigations extends Migration
 
         // Custom Optimization - Indexing
         $this->forge->addKey('title');
-        $this->forge->addKey('description');
 
         $this->forge->createTable('navigations');
 
         //Insert default record
         $data = [
             [
-                'navigation_id' => getGUID("4a886e81-a07d-4b7e-8750-25b5bd8f4e7a"),
+                'navigation_id' => getGUID("131c5798-d0b7-484c-bf21-e1768458632f"),
                 'title'    => 'Home',
                 'description'    => 'Home navigation',
                 'group'    => 'top_nav',
@@ -79,6 +84,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => 'home',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -91,6 +97,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#about',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -103,6 +110,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#services',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -115,6 +123,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#portfolio',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -127,6 +136,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#team',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -139,6 +149,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => 'blogs',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -146,11 +157,12 @@ class Navigations extends Migration
                 'navigation_id' => getGUID("cb3badd1-b6df-420c-a74d-796e181b1228"),
                 'title'    => 'Donate',
                 'description'    => 'Donate nav',
-                'group'    => 'top_nav',
+                'group'    => 'charity',
                 'order'    => 14,
                 'parent'    => null,
                 'link'    => 'donate',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -158,11 +170,12 @@ class Navigations extends Migration
                 'navigation_id' => getGUID("0a6d180e-96af-494d-b309-5cfa80e6c94f"),
                 'title'    => 'Plant a Seed of Hope',
                 'description'    => 'Donate Plant a Seed of Hope nav',
-                'group'    => 'top_nav',
+                'group'    => 'charity',
                 'order'    => 16,
                 'parent'    => getGUID("cb3badd1-b6df-420c-a74d-796e181b1228"),
                 'link'    => 'donate/urban-gardening-initiative',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -170,11 +183,25 @@ class Navigations extends Migration
                 'navigation_id' => getGUID("875edb73-84ef-403c-9132-519a7fa62f79"),
                 'title'    => 'Emergency Relief Fund',
                 'description'    => 'Donate Emergency Relief Fund nav',
-                'group'    => 'top_nav',
+                'group'    => 'charity',
                 'order'    => 18,
                 'parent'    => getGUID("cb3badd1-b6df-420c-a74d-796e181b1228"),
                 'link'    => 'donate/disaster-relief-fund',
                 'new_tab'    => false,
+                'status'    => 1,
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null
+            ],
+            [
+                'navigation_id' => getGUID("7b7c170f-d6a2-40d0-80ff-6d5b3f88dbce"),
+                'title'    => 'Book Now',
+                'description'    => 'Appointment page',
+                'group'    => 'top_nav',
+                'order'    => 19,
+                'parent'    => null,
+                'link'    => 'appointment/intro-call-calendly',
+                'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -187,6 +214,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => 'contact',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -199,6 +227,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#!',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -211,6 +240,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#!',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -223,6 +253,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#!',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -235,6 +266,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#!',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -247,6 +279,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#!',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -259,6 +292,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => 'home',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -271,6 +305,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#about',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -283,6 +318,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '#services',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -295,6 +331,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '/cookie-policy',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -307,6 +344,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => '/privacy-policy',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -319,6 +357,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => 'sitemap',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
@@ -331,6 +370,7 @@ class Navigations extends Migration
                 'parent'    => null,
                 'link'    => 'rss',
                 'new_tab'    => false,
+                'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ]

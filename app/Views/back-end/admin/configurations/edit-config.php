@@ -51,29 +51,34 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <?php
+                $dataType = $config_data['data_type'];
                 $readonlyInputs = $config_data['deletable'] == 1 ? "" : "readonly";
                 $readonlyLabel = $config_data['deletable'] == 1 ? "" : "<small>(read-only)</small>";
-                $dataType = $config_data['data_type'];
                 $options = $config_data['options'];
+                $configValue = getConfigData($config_data['config_for']);
+                $encryptedLabel = strtolower($dataType) === "secret" ? "<small>(Encrtpted)</small>" : "";
             ?>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="config_value" class="form-label">Config value</label>
+                <label for="config_value" class="form-label">Config value <?=$encryptedLabel?></label>
                 
                 <?php if ($dataType === 'Text'): ?>
-                    <input type="text" class="form-control <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" value="<?= $config_data['config_value'] ?>" required>
+                    <input type="text" class="form-control <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" value="<?= $configValue ?>" required>
                 
                 <?php elseif ($dataType === 'Textarea'): ?>
-                    <textarea rows="1" class="form-control <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" required><?= $config_data['config_value'] ?></textarea>
+                    <textarea rows="1" class="form-control <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" required><?= $configValue ?></textarea>
                 
                 <?php elseif ($dataType === 'Code'): ?>
-                    <textarea rows="2" class="form-control js-editor <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" required><?= $config_data['config_value'] ?></textarea>
+                    <textarea rows="2" class="form-control js-editor <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" required><?= $configValue ?></textarea>
                 
+                <?php elseif ($dataType === 'Secret'): ?>
+                    <textarea rows="1" class="form-control <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" required><?= $configValue ?></textarea>
+
                 <?php elseif ($dataType === 'Select'): ?>
                     <select class="form-control <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" required>
                         <?php if (!empty($options)): ?>
                             <?php $optionValues = explode(',', $options); ?>
                             <?php foreach ($optionValues as $option): ?>
-                                <option value="<?= trim($option) ?>" <?= ($config_data['config_value'] == trim($option) ? 'selected' : '') ?>>
+                                <option value="<?= trim($option) ?>" <?= ($configValue == trim($option) ? 'selected' : '') ?>>
                                     <?= trim($option) ?>
                                 </option>
                             <?php endforeach; ?>
@@ -193,10 +198,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>
-                <button type="submit" class="btn btn-outline-primary float-end" id="submit-btn">
-                    <i class="ri-edit-box-line"></i>
-                    Update
-                </button>
+                <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>
         </div>
         <?php echo form_close(); ?>

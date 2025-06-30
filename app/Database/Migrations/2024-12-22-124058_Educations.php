@@ -15,7 +15,7 @@ class Educations extends Migration
             ],
             'group' => [
                 'type' => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 100,
                 'null' => true
             ],
             'institution' => [

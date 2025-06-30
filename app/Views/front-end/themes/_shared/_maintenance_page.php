@@ -9,6 +9,7 @@ $companyName = getConfigData("CompanyName");
 $companyAddress = getConfigData("CompanyAddress");
 $companyEmail = getConfigData("CompanyEmail");
 $companyNumber = getConfigData("CompanyNumber");
+$companyOpeningHours = getConfigData("CompanyOpeningHours");
 $metaAuthor = getPageMetaInfo($currentUrl, "MetaAuthor");
 $metaTitle = getPageMetaInfo($currentUrl, "MetaTitle");
 $metaDescription = getPageMetaInfo($currentUrl, "MetaDescription");

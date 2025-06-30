@@ -125,6 +125,13 @@ class ActivityTypes
     const FAILED_CONTACT_MESSAGE_UPDATE = 'failed_contact_message_update';
     const CONTACT_MESSAGE_DELETION = 'contact_message_delete';
 
+    // BOOKING
+    const BOOKING_CREATION = 'booking_created';
+    const FAILED_BOOKING_CREATION = 'failed_booking_creation';
+    const BOOKING_UPDATE = 'booking_updated';
+    const FAILED_BOOKING_UPDATE = 'failed_booking_update';
+    const BOOKING_DELETION = 'booking_delete';
+
     // CONTENT BLOCKS
     const CONTENT_BLOCK_CREATION = 'content_block_created';
     const FAILED_CONTENT_BLOCK_CREATION = 'failed_content_block_creation';
@@ -208,6 +215,20 @@ class ActivityTypes
     const TEAM_UPDATE = 'team_updated';
     const FAILED_TEAM_UPDATE = 'failed_team_update';
     const TEAM_DELETION = 'team_delete';
+
+    // APPOINTMENTS
+    const APPOINTMENT_CREATION = 'appointment_created';
+    const FAILED_APPOINTMENT_CREATION = 'failed_appointment_creation';
+    const APPOINTMENT_UPDATE = 'appointment_updated';
+    const FAILED_APPOINTMENT_UPDATE = 'failed_appointment_update';
+    const APPOINTMENT_DELETION = 'appointment_delete';
+
+    // DATA GROUPS
+    const DATA_GROUP_CREATION = 'data_group_created';
+    const FAILED_DATA_GROUP_CREATION = 'failed_data_group_creation';
+    const DATA_GROUP_UPDATE = 'data_group_updated';
+    const FAILED_DATA_GROUP_UPDATE = 'failed_data_group_update';
+    const DATA_GROUP_DELETION = 'data_group_delete';
 
     // TESTIMONIALS
     const TESTIMONIAL_CREATION = 'testimonial_created';
@@ -440,6 +461,13 @@ class ActivityTypes
             self::FAILED_CONTACT_MESSAGE_UPDATE => 'Contact Message Update Failed',
             self::CONTACT_MESSAGE_DELETION => 'Contact Message Deletion',
 
+            // Booking
+            self::BOOKING_CREATION => 'Booking Created',
+            self::FAILED_BOOKING_CREATION => 'Booking Creation Failed',
+            self::BOOKING_UPDATE => 'Booking Updated',
+            self::FAILED_BOOKING_UPDATE => 'Booking Update Failed',
+            self::BOOKING_DELETION => 'Booking Deletion',
+
             // Content Blocks
             self::CONTENT_BLOCK_CREATION => 'Content Block Created',
             self::FAILED_CONTENT_BLOCK_CREATION => 'Content Block Creation Failed',
@@ -530,6 +558,20 @@ class ActivityTypes
             self::TESTIMONIAL_UPDATE => 'Testimonial Updated',
             self::FAILED_TESTIMONIAL_UPDATE => 'Testimonial Update Failed',
             self::TESTIMONIAL_DELETION => 'Testimonial Deletion',
+
+            // Appointments
+            self::APPOINTMENT_CREATION => 'Appointment Created',
+            self::FAILED_APPOINTMENT_CREATION => 'Appointment Creation Failed',
+            self::APPOINTMENT_UPDATE => 'Appointment Updated',
+            self::FAILED_APPOINTMENT_UPDATE => 'Appointment Update Failed',
+            self::APPOINTMENT_DELETION => 'Appointment Deletion',
+
+            // Data Groups
+            self::DATA_GROUP_CREATION => 'Data Group Created',
+            self::FAILED_DATA_GROUP_CREATION => 'Data Group Creation Failed',
+            self::DATA_GROUP_UPDATE => 'Data Group Updated',
+            self::FAILED_DATA_GROUP_UPDATE => 'Data Group Update Failed',
+            self::DATA_GROUP_DELETION => 'Data Group Deletion',
 
             // Translations
             self::TRANSLATION_CREATION => 'Translation Created',

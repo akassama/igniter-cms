@@ -1,3 +1,4 @@
+
 <!-- include layout -->
 <?= $this->extend('front-end/layout/_layout') ?>
 
@@ -14,7 +15,7 @@
         <form action="<?= base_url('sign-in') ?>" method="post" class="row g-3 needs-validation save-changes" novalidate>
             <?= csrf_field() ?>
             <?=getHoneypotInput()?>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="<?= set_value('email') ?>" required>
                 <!-- Error -->
@@ -27,9 +28,9 @@
                     Please provide an email
                 </div>
             </div>
-            <div class="mb-3" x-data="{ showPassword: false }">
+            <div class="mb-2" x-data="{ showPassword: false }">
                 <label for="password" class="form-label">Password</label>
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <input x-bind:type="showPassword ? 'text' : 'password'" class="form-control" id="password" name="password" placeholder="enter password" required>
                     <span class="input-group-text" id="addon-wrapping" x-on:click="showPassword = !showPassword">
                         <i x-bind:class="{'ri-eye-fill text-dark': !showPassword, 'ri-eye-off-fill text-dark': showPassword}" id="eye-icon"></i>
@@ -44,12 +45,14 @@
                         <?= $error = $validation->getError('password'); ?>
                     </div>
                 <?php }?>
-                <div class="text-start mt-1">
-                    <a href="<?= base_url('forgot-password') ?>" class="text-decoration-none text-dark">Forgot your password?</a>
-                </div>
+            </div>
+            <div class="mb-2">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me" value="true"> Remember me
+                </label>
             </div>
             <?php if (!empty($captcha_image)) { ?>
-                <div class="mb-3">
+                <div class="mb-2">
                     <label for="captcha" class="form-label">Captcha</label>
                     <img loading="lazy" src="<?= $captcha_image ?>" alt="CAPTCHA" class="mb-2">
                     <input type="text" class="form-control" id="captcha" name="captcha" required>
@@ -70,10 +73,13 @@
                 <input type="hidden" class="form-control" id="return_url" name="return_url" value="<?= $returnUrl ?? base_url('/account/dashboard'); ?>">
             </div>
 
-            <div class="mb-3">
+            <div class="mb-2">
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Login</button>
                 </div>
+            </div>
+            <div class="text-start mt-1">
+                <a href="<?= base_url('forgot-password') ?>" class="text-decoration-none text-dark">Forgot your password?</a>
             </div>
             <?php
                 $allowRegistration = getConfigData("EnableRegistration");

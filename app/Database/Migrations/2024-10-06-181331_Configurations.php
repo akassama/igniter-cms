@@ -38,7 +38,7 @@ class Configurations extends Migration
             ],
             'group' => [
                 'type' => 'VARCHAR',
-                'constraint' => '255',
+                'constraint' => '100',
                 'null' => true,
                 'default' => null,
             ],
@@ -91,9 +91,6 @@ class Configurations extends Migration
 
         $this->forge->addKey('config_id', true);
 
-        // Custom Optimization - Indexing
-        $this->forge->addKey('config_value');
-
         $this->forge->createTable('configurations');
 
         //Insert default record
@@ -113,22 +110,6 @@ class Configurations extends Migration
                 'custom_class' => '',
                 'icon' => 'ri-pages-fill',
                 'search_terms' => 'Home page,blogs,resumes,shops,portfolioslayout,status,settings'
-            ],
-            [
-                'config_id' => getGUID(),
-                'config_for' => 'AppApiKey',
-                'config_value' => 'your-app-api-key',
-                'group' => 'site',
-                'data_type' => 'Text',
-                'options' => null,
-                'default_value' => null,
-                'deletable' => 0,
-                'description' => 'API key for application integration.',
-                'created_by' => getGUID(getDefaultAdminGUID()),
-                'updated_by' => null,
-                'custom_class' => '',
-                'icon' => 'ri-key-fill',
-                'search_terms' => 'api,integration,middleware'
             ],
             [
                 'config_id' => getGUID(),
@@ -404,6 +385,22 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
+                'config_for' => 'EnableAppointmentsPage',
+                'config_value' => 'Yes',
+                'group' => 'site',
+                'data_type' => 'Select',
+                'options' => 'Yes,No',
+                'default_value' => 'Yes',
+                'deletable' => 0,
+                'description' => 'This configuration enables or disables the appointments page.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'custom_class' => '',
+                'icon' => 'ri-calendar-schedule-line',
+                'search_terms' => 'calendar,appointments,booking,scheduling,meetings'
+            ],
+            [
+                'config_id' => getGUID(),
                 'config_for' => 'EnablePopupAds',
                 'config_value' => 'Yes',
                 'group' => 'site',
@@ -517,9 +514,9 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'MailgunApiKey',
-                'config_value' => 'api-key',
+                'config_value' => configDataEncryption('api-key'),
                 'group' => 'email',
-                'data_type' => 'Text',
+                'data_type' => 'Secret',
                 'options' => null,
                 'default_value' => null,
                 'deletable' => 0,
@@ -629,9 +626,9 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'PostmarkApiToken',
-                'config_value' => 'api-token',
+                'config_value' => configDataEncryption('api-token'),
                 'group' => 'email',
-                'data_type' => 'Text',
+                'data_type' => 'Secret',
                 'options' => null,
                 'default_value' => null,
                 'deletable' => 0,
@@ -661,9 +658,9 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'MailjetApiKey',
-                'config_value' => 'your-mailjet-api-key',
+                'config_value' => configDataEncryption('your-mailjet-api-key'),
                 'group' => 'email',
-                'data_type' => 'Text',
+                'data_type' => 'Secret',
                 'options' => null,
                 'default_value' => null,
                 'deletable' => 0,
@@ -1254,9 +1251,9 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'HCaptchaSecretKey',
-                'config_value' => 'ES_XXXXXXXXXX',
+                'config_value' => configDataEncryption('ES_XXXXXXXXXX'),
                 'group' => 'security',
-                'data_type' => 'Text',
+                'data_type' => 'Secret',
                 'options' => null,
                 'default_value' => null,
                 'deletable' => 0,
@@ -1397,6 +1394,38 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
+                'config_for' => 'EnableInstallationTracking',
+                'config_value' => 'Yes',
+                'group' => 'site',
+                'data_type' => 'Select',
+                'options' => 'Yes,No',
+                'default_value' => 'Yes',
+                'deletable' => 0,
+                'description' => 'Enable or disable installation tracking. Only executed once if yes.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'custom_class' => '',
+                'icon' => 'ri-line-chart-fill',
+                'search_terms' => 'tracking,installation,stat'
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'InstallationTracked',
+                'config_value' => 'No',
+                'group' => 'site',
+                'data_type' => 'Select',
+                'options' => 'Yes,No',
+                'default_value' => 'No',
+                'deletable' => 0,
+                'description' => 'Checks if installation is tracked.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'custom_class' => '',
+                'icon' => 'ri-line-chart-fill',
+                'search_terms' => 'tracking,installation,stat'
+            ],
+            [
+                'config_id' => getGUID(),
                 'config_for' => 'UseCookieConcent',
                 'config_value' => 'Yes',
                 'group' => 'security',
@@ -1414,7 +1443,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'CookieConcentCode',
-                'config_value' => '<!-- Cookie Consent by https://www.FreePrivacyPolicy.com --> <script type="text/javascript" src="//www.freeprivacypolicy.com/public/cookie-consent/3.1.0/cookie-consent.js"></script> <script type="text/javascript"> document.addEventListener(’DOMContentLoaded’, function () { cookieconsent.run({"notice_banner_type":"headline","consent_type":"express","palette":"light","language":"en","website_name":"YOUR WEBSITE NAME"}); }); </script>',
+                'config_value' => '<!-- Cookie Consent by TermsFeed https://www.TermsFeed.com --><script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.2.0/cookie-consent.js" charset="UTF-8"></script><script type="text/javascript" charset="UTF-8">document.addEventListener("DOMContentLoaded", function () {cookieconsent.run({"notice_banner_type":"simple","consent_type":"express","palette":"light","language":"en","page_load_consent_levels":["strictly-necessary"],"notice_banner_reject_button_hide":false,"preferences_center_close_button_hide":false,"page_refresh_confirmation_buttons":false,"website_name":"Igniter CMS"});});</script><noscript>Free cookie consent management tool by <a href="https://www.termsfeed.com/">TermsFeed Generator</a></noscript><!-- End Cookie Consent by TermsFeed https://www.TermsFeed.com --><a href="#" id="open_preferences_center">Update cookies preferences</a>',
                 'group' => 'security',
                 'data_type' => 'Code',
                 'options' => null,
@@ -1573,6 +1602,22 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
+                'config_for' => 'EnableGlobalSearchIcon',
+                'config_value' => 'Yes',
+                'group' => 'site',
+                'data_type' => 'Select',
+                'options' => 'Yes,No',
+                'default_value' => 'Yes',
+                'deletable' => 0,
+                'description' => 'Enable or disable global search icon feature.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'custom_class' => '',
+                'icon' => 'ri-search-line',
+                'search_terms' => 'search,global search,search modal'
+            ],
+            [
+                'config_id' => getGUID(),
                 'config_for' => 'HoneypotKey',
                 'config_value' => 'igniter_hpot_val',
                 'group' => 'security',
@@ -1666,6 +1711,70 @@ class Configurations extends Migration
                 'custom_class' => '',
                 'icon' => 'ri-upload-cloud-fill',
                 'search_terms' => 'file upload,maximum,file size'
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'EnableDisqusComments',
+                'config_value' => 'Yes',
+                'group' => 'comment',
+                'data_type' => 'Select',
+                'options' => 'Yes,No',
+                'default_value' => 'Yes',
+                'deletable' => 0,
+                'description' => 'Disqus offers the best add-on tools for websites to increase engagement. Learn more: https://www.disqus.com/',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'custom_class' => '',
+                'icon' => 'ri-disqus-line',
+                'search_terms' => 'disqus,comments,discussion,settings'
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'EnableDisqusCommentCount',
+                'config_value' => 'Yes',
+                'group' => 'comment',
+                'data_type' => 'Select',
+                'options' => 'Yes,No',
+                'default_value' => 'Yes',
+                'deletable' => 0,
+                'description' => 'Disqus offers the best add-on tools for websites to increase engagement. Learn more: https://www.disqus.com/',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'custom_class' => '',
+                'icon' => 'ri-disqus-line',
+                'search_terms' => 'disqus,comments,discussion,settings'
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'DisqusShortName',
+                'config_value' => 'https://your-disqus-shortname.disqus.com/',
+                'group' => 'comment',
+                'data_type' => 'Text',
+                'options' => null,
+                'default_value' => null,
+                'deletable' => 0,
+                'description' => 'Provide your disqus shortname link here (e.g. https://your-disqus-shortname.disqus.com/). Do not include "/embed.js" or "/count.js". Learn more: https://www.disqus.com/',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'custom_class' => '',
+                'icon' => 'ri-disqus-line',
+                'search_terms' => 'disqus,comments,discussion,settings'
+            ],
+            [
+                'config_id' => getGUID(),
+                'config_for' => 'EnableIgniterNewsFeed',
+                'config_value' => 'Yes',
+                'group' => 'comment',
+                'data_type' => 'Select',
+                'options' => 'Yes,No',
+                'default_value' => 'Yes',
+                'deletable' => 0,
+                'description' => 'Get latest news, features, and security update feeds from Igniter CMS.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'custom_class' => '',
+                'icon' => 'ri-newspaper-line',
+                'search_terms' => 'igniter-cms,news feed,security updates'
             ],
         ];
 

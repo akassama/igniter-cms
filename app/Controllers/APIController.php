@@ -35,6 +35,9 @@ use App\Models\ResumesModel;
 use App\Models\SubscribersModel;
 use App\Models\AnnouncementPopupsModel;
 use App\Models\DonationCausesModel;
+use App\Models\AppointmentsModel;
+use App\Models\DataGroupsModel;
+use App\Models\BookingsModel;
 use App\Services\EmailService;
 
 class APIController extends BaseController
@@ -202,7 +205,7 @@ class APIController extends BaseController
         $blogsModel = new BlogsModel();
         // Order by created_at in descending order
         $blogsModel->orderBy('created_at', 'DESC');
-        $blogs = $blogsModel->limit(intval(getConfigData("queryLimitDefault")))->findAll();
+        $blogs = $blogsModel->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
 
         // Return the list of blogs
         return $this->response->setStatusCode(200)->setJSON([
@@ -216,7 +219,7 @@ class APIController extends BaseController
     {
         // Fetch all page data
         $homePageModel = new HomePageModel();
-        $pages = $homePageModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
+        $pages = $homePageModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
 
         // Return the list of pages
         return $this->response->setStatusCode(200)->setJSON([
@@ -230,7 +233,7 @@ class APIController extends BaseController
     {
         // Fetch all page data
         $homePageModel = new HomePageModel();
-        $pages = $homePageModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
+        $pages = $homePageModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
 
         // Return the list of pages
         return $this->response->setStatusCode(200)->setJSON([
@@ -305,7 +308,7 @@ class APIController extends BaseController
         $pagesModel = new PagesModel();
         // Order by created_at in descending order
         $pagesModel->orderBy('created_at', 'DESC');
-        $pages = $pagesModel->where('status', '1')->limit(intval(getConfigData("queryLimitVeryHigh")))->findAll();
+        $pages = $pagesModel->where('status', '1')->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))->findAll();
 
         // Return the list of pages
         return $this->response->setStatusCode(200)->setJSON([
@@ -578,6 +581,60 @@ class APIController extends BaseController
             'take' => $take,
             'skip' => $skip,
             'data' => $portfolios
+        ]);
+    }
+
+    // GALLERY API
+    public function getGallery($apiKey, $galleryId = null)
+    {
+
+        if (!$galleryId) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Gallery ID parameter is required.'
+            ]);
+        }
+
+        $galleriesModel = new GalleryModel();
+        $gallery = $galleriesModel->where('gallery_id', $galleryId)->first();      
+
+        if ($gallery) {
+            return $this->response->setStatusCode(200)->setJSON([
+                'status' => 'success',
+                'data' => $gallery
+            ]);
+        } else {
+            return $this->response->setStatusCode(404)->setJSON([
+                'status' => 'error',
+                'message' => 'Gallery not found.'
+            ]);
+        }
+    }
+
+    public function getGalleries($apiKey)
+    {
+
+        // Get pagination parameters with defaults
+        $take = $this->request->getGet('take') ?? 10;
+        $skip = $this->request->getGet('skip') ?? 0;
+
+        // Fetch all galleries
+        $galleriesModel = new GalleryModel();
+
+        // Order by order in ascending order
+        $galleriesModel->where('status', '1')->orderBy('created_at', 'DESC');
+
+        $galleries = $galleriesModel->findAll($take, $skip);
+
+        // Get total count
+        $totalGalleries = $galleriesModel->countAllResults();
+
+        return $this->response->setStatusCode(200)->setJSON([
+            'status' => 'success',
+            'total' => $totalGalleries,
+            'take' => $take,
+            'skip' => $skip,
+            'data' => $galleries
         ]);
     }
 
@@ -1508,190 +1565,169 @@ class APIController extends BaseController
         ]);
     }
 
-    //CONTACT MESSAGES
-    public function sendContactMessage()
+    //APPOINTMENT API
+    public function getAppointment($apiKey, $appointmentId = null)
     {
-        // Retrieve the honeypot and timestamp values
-        $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
-        $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
-        //Honeypot validator - Validate the inputs
-        validateHoneypotInput($honeypotInput, $submittedTimestamp);
-
-        $returnUrl = $this->request->getPost('return_url');
-        $toEmail = getConfigData("CompanyEmail");
-        $name = $this->request->getPost('name');
-        $fromEmail = $this->request->getPost('email');
-        $subject = $this->request->getPost('subject') ?? "Contact Message";
-        $message = $this->request->getPost('message');
-        $companyName = getConfigData("CompanyName");
-        $companyAddress = getConfigData("CompanyAddress");
-
-        // Validate hCaptcha
-        $captchaValidation = validateHcaptcha();
-        if ($captchaValidation !== true) {
-            // CAPTCHA validation failed
-            $errorMessage = $captchaValidation; // Error message returned by the helper function
-            if (!empty($returnUrl)) {
-                session()->setFlashdata('errorAlert', $errorMessage);
-                return redirect()->to($returnUrl);
-            }
-            return $this->response->setStatusCode(500)->setJSON(['message' => $errorMessage]);
+        // Check if appointmentId is provided
+        if (!$appointmentId) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Appointment Id parameter is required.'
+            ]);
         }
 
-        $templateData = [
-            'preheader' => $subject,
-            'greeting' => 'New Contact Message',
-            'main_content' => '<p>'.$message.'</p>',
-            'cta_text' => '',
-            'cta_url' => '',
-            'footer_text' => 'Sent from <a href="'.base_url().'">'.$companyName.'</a>',
-            'company_address' => $companyAddress,
-            'unsubscribe_url' => base_url('/unsubscribe/'.$toEmail)
-        ];
+        // Fetch the appointment by id
+        $appointmentsModel = new AppointmentsModel();
+        $appointment = $appointmentsModel->where('appointment_id', $appointmentId)->first();
 
-        $result = $this->emailService->sendHtmlEmail($toEmail, $name, $subject, $templateData, $fromEmail);
-
-        if ($result) {
-            //add client feedback data
-            $contactMessagesModel = new ContactMessagesModel();
-            $data = [
-                'name' => $name,
-                'email' => $this->request->getPost('email'),
-                'subject' => $subject,
-                'message' => $message,
-                'ip_address' => getIPAddress(),
-                'country' => getCountry(),
-                'device' => getUserDevice(),
-            ];
-            $contactMessagesModel->createContactMessage($data);
-
-            // Record created successfully.
-            $contactMessageSuccessful = config('CustomConfig')->contactMessageSuccessful;
-            session()->setFlashdata('successAlert', $contactMessageSuccessful);
-
-            //log activity
-            logActivity($fromEmail, ActivityTypes::CONTACT_MESSAGE_CREATION, 'Contact message sent from user with email: ' . $fromEmail);
-
-            if(!empty($returnUrl)){
-                return redirect()->to($returnUrl);
-            }
-            return $this->response->setStatusCode(200)->setJSON(['message' => 'Email sent successfully']);
+        // Return appointment or not found error
+        if ($appointment) {
+            return $this->response->setStatusCode(200)->setJSON([
+                'status' => 'success',
+                'data' => $appointment
+            ]);
         } else {
-
-            // Failed to create record.
-            $contactMessageFailed = config('CustomConfig')->contactMessageFailed;
-            session()->setFlashdata('errorAlert', $contactMessageFailed);
-
-            //log activity
-            logActivity($fromEmail, ActivityTypes::FAILED_CONTACT_MESSAGE_CREATION, 'Failed to send contact message from user with email: ' . $fromEmail);
-
-            if(!empty($returnUrl)){
-                return redirect()->to($returnUrl);      
-            }
-            return $this->response->setStatusCode(500)->setJSON(['message' => 'Failed to send email']);
+            return $this->response->setStatusCode(404)->setJSON([
+                'status' => 'error',
+                'message' => 'Appointment not found.'
+            ]);
         }
     }
 
-    //ADD SUBSCRIPTION
-    public function addSubscription()
+    public function getAppointments($apiKey)
     {
-        // Retrieve the honeypot and timestamp values
-        $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
-        $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
-        //Honeypot validator - Validate the inputs
-        validateHoneypotInput($honeypotInput, $submittedTimestamp);
-        
-        // Get POST data - using input stream since it might be coming from fetch/ajax
-        $json = $this->request->getBody();
-        $postData = json_decode($json, true);
-        
-        // If json decode failed, try getting regular POST data
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            $email = $this->request->getPost('email');
-            $returnUrl = $this->request->getPost('return_url');
-        } else {
-            $email = $postData['email'] ?? '';
-            $returnUrl = $postData['return_url'] ?? '';
-        }
+    
+        // Get pagination parameters with defaults
+        $take = $this->request->getGet('take') ?? 10;
+        $skip = $this->request->getGet('skip') ?? 0;
+    
+        // Fetch all appointments
+        $appointmentsModel = new AppointmentsModel();
+        // Order by title in ascending order
+        $appointmentsModel->orderBy('title', 'ASC');
+        $appointments = $appointmentsModel->where('status', '1')->findAll($take, $skip);
+    
+        // Get total count
+        $totalAppointments = $appointmentsModel->countAllResults();
+    
+        // Return the list of appointments
+        return $this->response->setStatusCode(200)->setJSON([
+            'status' => 'success',
+            'total' => $totalAppointments,
+            'take' => $take,
+            'skip' => $skip,
+            'data' => $appointments
+        ]);
+    }
 
-        // Validate hCaptcha
-        $captchaValidation = validateHcaptcha();
-        if ($captchaValidation !== true) {
-            // CAPTCHA validation failed
-            $errorMessage = $captchaValidation; // Error message returned by the helper function
-            if (!empty($returnUrl)) {
-                session()->setFlashdata('errorAlert', $errorMessage);
-                return redirect()->to($returnUrl);
-            }
-            return $this->response->setStatusCode(500)->setJSON(['message' => $errorMessage]);
-        }
-
-        // Validate email
-        if (empty($email)) {
+    //BOOKINGS API
+    public function getBooking($apiKey, $bookingId = null)
+    {
+        // Check if bookingId is provided
+        if (!$bookingId) {
             return $this->response->setStatusCode(400)->setJSON([
                 'status' => 'error',
-                'message' => 'Email is required'
+                'message' => 'Booking Id parameter is required.'
             ]);
         }
 
-        $subscribersModel = new SubscribersModel();
-        $data = [
-            'name' => ucfirst(strtok($email, '@')), // Get name from email
-            'email' => $email,
-            'status' => 1,
-            'ip_address' => getIPAddress(),
-            'country' => getCountry(),
-        ];
+        // Fetch the booking by id
+        $bookingsModel = new BookingsModel();
+        $booking = $bookingsModel->where('booking_id', $bookingId)->first();
 
-        $tableName = 'subscribers';
-        //Check if record exists
-        if (recordExists($tableName, "email", $email)) {
-            //update status as well
-            $updateColumn = "'status' = '1'";
-            $updateWhereClause = "email = '$email'";
-            updateRecordColumn("subscribers", $updateColumn, $updateWhereClause);
-
-            if (!empty($returnUrl)) {
-                return redirect()->to($returnUrl);
-            }
+        // Return booking or not found error
+        if ($booking) {
             return $this->response->setStatusCode(200)->setJSON([
                 'status' => 'success',
-                'message' => 'Subscribed successfully'
-            ]);
-        }
-
-        // Attempt to create the subscriber
-        if ($subscribersModel->createSubscriber($data)) {
-            // Record created successfully.
-            $subscriptionSuccessful = config('CustomConfig')->subscriptionSuccessful;
-            session()->setFlashdata('successAlert', $subscriptionSuccessful);
-
-            //log activity
-            logActivity($email, ActivityTypes::SUBSCRIPTION_CREATION, 'User subscribed with email: ' . $email);
-
-            if (!empty($returnUrl)) {
-                return redirect()->to($returnUrl);
-            }
-            return $this->response->setStatusCode(200)->setJSON([
-                'status' => 'success',
-                'message' => $subscriptionSuccessful
+                'data' => $booking
             ]);
         } else {
-            // Failed to create record.
-            $subscriptionFailed = config('CustomConfig')->subscriptionFailed;
-            session()->setFlashdata('errorAlert', $subscriptionFailed);
-
-            //log activity
-            logActivity($email, ActivityTypes::FAILED_SUBSCRIPTION_CREATION, 'Failed to create subscription with email: ' . $email);
-
-            if (!empty($returnUrl)) {
-                return redirect()->to($returnUrl);
-            }
-            return $this->response->setStatusCode(500)->setJSON([
+            return $this->response->setStatusCode(404)->setJSON([
                 'status' => 'error',
-                'message' => $subscriptionFailed
+                'message' => 'Booking not found.'
             ]);
         }
+    }
+
+    public function getBookings($apiKey)
+    {
+    
+        // Get pagination parameters with defaults
+        $take = $this->request->getGet('take') ?? 10;
+        $skip = $this->request->getGet('skip') ?? 0;
+    
+        // Fetch all bookings
+        $bookingsModel = new BookingsModel();
+        // Order by title in ascending order
+        $bookingsModel->orderBy('title', 'ASC');
+        $bookings = $bookingsModel->where('status', '1')->findAll($take, $skip);
+    
+        // Get total count
+        $totalBookings = $bookingsModel->countAllResults();
+    
+        // Return the list of bookings
+        return $this->response->setStatusCode(200)->setJSON([
+            'status' => 'success',
+            'total' => $totalBookings,
+            'take' => $take,
+            'skip' => $skip,
+            'data' => $bookings
+        ]);
+    }
+
+    //DATA GROUPS API
+    public function getDataGroup($apiKey, $dataGroupId = null)
+    {
+        // Check if dataGroupId is provided
+        if (!$dataGroupId) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'DataGroup Id parameter is required.'
+            ]);
+        }
+
+        // Fetch the DataGroup by id
+        $dataGroupsModel = new DataGroupsModel();
+        $dataGroup = $dataGroupsModel->where('data_group_id', $dataGroupId)->first();
+
+        // Return DataGroup or not found error
+        if ($dataGroup) {
+            return $this->response->setStatusCode(200)->setJSON([
+                'status' => 'success',
+                'data' => $dataGroup
+            ]);
+        } else {
+            return $this->response->setStatusCode(404)->setJSON([
+                'status' => 'error',
+                'message' => 'DataGroup not found.'
+            ]);
+        }
+    }
+
+    public function getDataGroups($apiKey)
+    {
+
+        // Get pagination parameters with defaults
+        $take = $this->request->getGet('take') ?? 10;
+        $skip = $this->request->getGet('skip') ?? 0;
+
+        // Fetch all dataGroups
+        $dataGroupsModel = new DataGroupsModel();
+        // Order by title in ascending order
+        $dataGroupsModel->orderBy('title', 'ASC');
+        $dataGroups = $dataGroupsModel->where('status', '1')->findAll($take, $skip);
+
+        // Get total count
+        $totalDataGroups = $dataGroupsModel->countAllResults();
+
+        // Return the list of dataGroups
+        return $this->response->setStatusCode(200)->setJSON([
+            'status' => 'success',
+            'total' => $totalDataGroups,
+            'take' => $take,
+            'skip' => $skip,
+            'data' => $dataGroups
+        ]);
     }
 
     //SEARCH API
@@ -1728,7 +1764,7 @@ class APIController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(intval(getConfigData("queryLimitDefault")))
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
             ->findAll();
 
         $pages = $pagesModel
@@ -1741,7 +1777,7 @@ class APIController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(intval(getConfigData("queryLimitDefault")))
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
             ->findAll();
 
         $portfolios = $portfoliosModel
@@ -1757,7 +1793,7 @@ class APIController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(intval(getConfigData("queryLimitDefault")))
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
             ->findAll();
 
         $events = $eventsModel
@@ -1772,7 +1808,7 @@ class APIController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(intval(getConfigData("queryLimitDefault")))
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
             ->findAll();
 
         // Transform and combine results
@@ -1908,7 +1944,7 @@ class APIController extends BaseController
         $results = $model
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(intval(getConfigData("queryLimitDefault")))
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
             ->findAll();
 
         // Return the search results
@@ -1954,7 +1990,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitVeryHigh")))
+                ->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))
                 ->findAll();
         } 
         elseif (strcasecmp($type, 'tag') === 0) {
@@ -1964,7 +2000,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitVeryHigh")))
+                ->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))
                 ->findAll();
         } 
         elseif (strcasecmp($type, 'author') === 0) {
@@ -1985,7 +2021,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitVeryHigh")))
+                ->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))
                 ->findAll();
 
             // Pages search
@@ -1995,7 +2031,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitDefault")))
+                ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
                 ->findAll();
     
             // Events search
@@ -2005,7 +2041,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitDefault")))
+                ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
                 ->findAll();
             
             // Portfolios search
@@ -2015,7 +2051,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitDefault")))
+                ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
                 ->findAll();
             
             // Shop search
@@ -2025,7 +2061,7 @@ class APIController extends BaseController
                 ->groupEnd()
                 ->where('status', '1')
                 ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitDefault")))
+                ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
                 ->findAll();
         } 
         else {

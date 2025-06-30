@@ -10,6 +10,11 @@ $session = session();
     <?= $this->include('back-end/layout/assets/header_assets.php'); ?>
 </head>
 <body class="sb-nav-fixed">
+    
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader"></div>
+  </div>
 
 <!-- Include the nav -->
 <?=  $this->include('back-end/layout/back_end_nav.php'); ?>

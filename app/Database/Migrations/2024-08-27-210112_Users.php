@@ -8,6 +8,9 @@ class Users extends Migration
 {
     public function up()
     {
+        // Load the CustomConfig
+        $customConfig = config('CustomConfig');
+
         $this->forge->addField([
             'user_id' => [
                 'type' => 'VARCHAR',
@@ -49,31 +52,37 @@ class Users extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'default' => '',
+                'null' => true,
             ],
             'twitter_link' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'default' => null,
+                'null' => true,
             ],
             'facebook_link' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'default' => null,
+                'null' => true,
             ],
             'instagram_link' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'default' => null,
+                'null' => true,
             ],
             'linkedin_link' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'default' => null,
+                'null' => true,
             ],
             'about_summary' => [
                 'type' => 'VARCHAR',
                 'constraint' => '500',
                 'default' => null,
+                'null' => true,
             ],
             'upload_directory' => [
                 'type' => 'VARCHAR',
@@ -111,7 +120,7 @@ class Users extends Migration
                 'email'    => 'admin@example.com',
                 'password' => password_hash('Admin@1', PASSWORD_DEFAULT),
                 'status'    => 1,
-                'role'    => 'Admin',
+                'role'    => $customConfig->userRoles['Admin'],
                 'profile_picture'    => getDefaultProfileImagePath(),
                 'twitter_link'    => 'https://twitter.com/?admin-user',
                 'facebook_link'    => 'https://www.facebook..com/?admin-user',
@@ -129,7 +138,7 @@ class Users extends Migration
                 'email'    => 'manager@example.com',
                 'password' => password_hash('Manager@1', PASSWORD_DEFAULT),
                 'status'    => 1,
-                'role'    => 'Manager',
+                'role'    => $customConfig->userRoles['Manager'],
                 'profile_picture'    => getDefaultProfileImagePath(),
                 'twitter_link'    => 'https://twitter..com/?manager-user',
                 'facebook_link'    => 'https://www.facebook..com/?manager-user',
@@ -146,8 +155,8 @@ class Users extends Migration
                 'username'    => 'test',
                 'email'    => 'test@example.com',
                 'password' => password_hash('Test@1', PASSWORD_DEFAULT),
-                'status'    => 0,
-                'role'    => 'Manager',
+                'status'    => 1,
+                'role'    => $customConfig->userRoles['User'],
                 'profile_picture'    => getDefaultProfileImagePath(),
                 'twitter_link'    => 'https://twitter..com/?test-user',
                 'facebook_link'    => 'https://www.facebook..com/?test-user',

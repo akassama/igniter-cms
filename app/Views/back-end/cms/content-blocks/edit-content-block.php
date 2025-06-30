@@ -174,7 +174,10 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="group" class="form-label">
                     Group
                 </label>
-                <input type="text" class="form-control alphanumeric" id="group" name="group" data-show-err="true" maxlength="100" value="<?= $content_block_data['group'] ?>">
+                <select class="form-select" aria-label="group" id="group" name="group">
+                    <option value="">Select group</option>
+                    <?=getDataGroupOptions($content_block_data['group'], "ContentBlock")?>
+                </select>
                 <!-- Error -->
                 <?php if($validation->getError('group')) {?>
                     <div class='text-danger mt-2'>
@@ -212,10 +215,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>
-                <button type="submit" class="btn btn-outline-primary float-end" id="submit-btn">
-                    <i class="ri-edit-box-line"></i>
-                    Update
-                </button>
+                <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>
         </div>
         <?php echo form_close(); ?>

@@ -45,6 +45,11 @@ echo generateBreadcrumb($breadcrumb_links);
                 <input type="text" class="form-control" id="phone" name="phone" data-show-err="true" maxlength="250" value="<?= $resume_data['phone'] ?>" readonly>
             </div>
 
+            <div class="col-sm-12 col-md-6 mb-3">
+                <label for="dob" class="form-label">Date of Birth</label>
+                <input type="text" class="form-control" id="dob" name="dob" data-show-err="true" maxlength="250" value="<?= $resume_data['dob'] ?>" readonly>
+            </div>
+
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="address" class="form-label">Address</label>
                 <textarea rows="1" class="form-control" id="address" name="address" readonly><?= $resume_data['address'] ?></textarea>
@@ -107,6 +112,35 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12" id="display-preview-additional-image">
+                        <div class="float-end">         
+                        <img loading="lazy" src="<?= base_url(getDefaultImagePath())?>" class="img-thumbnail" alt="Additional image" width="150" height="150"> 
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 mb-3">
+                        <label for="additional_image" class="form-label">Additional Image</label>
+                            <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="additional_image" name="additional_image" placeholder="select additional_image" value="<?= $resume_data['additional_image'] ?>"
+                                hx-post="<?=base_url()?>/htmx/set-image-display"
+                                hx-trigger="keyup, load, changed delay:250ms"
+                                hx-target="#display-preview-image"
+                                hx-swap="innerHTML" 
+                                readonly>
+                            <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                                <i class="ri-image-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 mb-3">
+                <label for="certifications" class="form-label">Certifications</label>
+                <textarea rows="1" class="form-control" id="certifications" name="certifications" readonly><?= $resume_data['certifications'] ?></textarea>
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">

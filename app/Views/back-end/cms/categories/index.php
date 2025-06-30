@@ -49,6 +49,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>Status</th>
                             <th>Link</th>
                             <th>New Tab</th>
+                            <th>Group</th>
                             <th>Created By</th>
                             <th>Updated By</th>
                             <th>Actions</th>
@@ -68,6 +69,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <?= getInputLinkTag($category['category_id'], $category['link']); ?>
                                     </td>
                                     <td><?= $category['new_tab'] == "1" ? "Yes" : "No" ?></td>
+                                    <td><?= $category['group']; ?></td>
                                     <td><?= getActivityBy(esc($category['created_by']) , ""); ?></td>
                                     <td><?= getActivityBy(esc($category['updated_by']) , ""); ?></td>
                                     <td>

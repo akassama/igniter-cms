@@ -1,0 +1,16 @@
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}
+
+.carousel-inner .carousel-item {
+  height: 27rem;
+}
+
+.carousel-item img {
+  height: 100%;
+  object-fit: cover;
+}

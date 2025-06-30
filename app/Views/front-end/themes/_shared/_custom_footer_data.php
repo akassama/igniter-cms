@@ -18,6 +18,10 @@ $googleAnalyticsCode = getConfigData("GoogleAnalyticsCode");
 //posthog analytics
 $usePostHog = getConfigData("UsePostHog");
 $postHogCode = getConfigData("PostHogCode");
+
+//disqus comments
+$enableDisqusCommentCount = getConfigData("EnableDisqusCommentCount");
+$disqusShortName = rtrim(getConfigData("DisqusShortName"), '/');
 ?>
 
 <?php
@@ -41,6 +45,14 @@ if (strtolower($useGoogleAnalytics) === "yes") {
 <?php
 if (strtolower($usePostHog) === "yes") {
     echo $postHogCode;
+}
+?>
+
+<?php
+if (strtolower($enableDisqusCommentCount) === "yes") {
+?>
+    <script id="dsq-count-scr" src="<?= $disqusShortName ?>/count.js" async></script>
+<?php
 }
 ?>
 

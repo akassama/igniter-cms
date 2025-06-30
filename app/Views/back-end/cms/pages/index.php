@@ -45,6 +45,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>#</th>
                             <th>Title</th>
                             <th>Slug</th>
+                            <th>Group</th>
                             <th>Author</th>
                             <th>Views</th>
                             <th>Actions</th>
@@ -58,6 +59,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= $rowCount; ?></td>
                                     <td><?= $page['title']; ?></td>
                                     <td><?= $page['slug']; ?></td>
+                                    <td><?= $page['group']; ?></td>
                                     <td>
                                         <span class="text-primary">
                                             <?= getActivityBy(esc($page['created_by'])) ?>

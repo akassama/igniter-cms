@@ -22,7 +22,9 @@ class AnnouncementPopups extends Migration
                 'constraint' => 1,
             ],
             'title' => [
-                'type' => 'TEXT',
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true
             ],
             'text' => [
                 'type' => 'TEXT',
@@ -191,7 +193,6 @@ class AnnouncementPopups extends Migration
         // Custom Optimization - Indexing
         $this->forge->addKey('name');
         $this->forge->addKey('title');
-        $this->forge->addKey('text');
 
         $this->forge->createTable('announcement_popups');
 

@@ -7,31 +7,6 @@ use CodeIgniter\Config\BaseConfig;
 class CustomConfig extends BaseConfig
 {
     #--------------------------------------------------------------------
-    # SETTINGS
-    #--------------------------------------------------------------------
-    public $useCaptcha = "No";
-    public $appApiKey = "default";
-    //query limits
-    public $queryLimitSingle = 1;
-    public $queryLimitVeryLow = 3;
-    public $queryLimitLow = 6;
-    public $queryLimitMedium = 12;
-    public $queryLimitDefault = 25;
-    public $queryLimitHigh = 50;
-    public $queryLimitVeryHigh = 100;
-    public $queryLimit200 = 200;
-    public $queryLimit500 = 500;
-    public $queryLimitMax = 1000;
-    public $queryLimitUltraMax = 10000;
-    //paginations
-    public $paginateVeryLow = 10;
-    public $paginateLow = 20;
-    public $paginateDefault = 50;
-    public $paginateHigh = 100;
-    public $paginateVeryHigh = 500;
-    public $paginateMax = 1000;
-
-    #--------------------------------------------------------------------
     # MESSAGES
     #--------------------------------------------------------------------
     public $wrongCredentialsMsg = 'Sign In Failed. The provided username/email or password is incorrect.';
@@ -58,6 +33,8 @@ class CustomConfig extends BaseConfig
     public $exceptionMsg = 'There was an error processing your request. Please try again. If this error persists, please see or send an email to system administrator.';
     public $contactMessageSuccessful = 'Your message has been sent successfully.';
     public $contactMessageFailed = 'Oops! Something went wrong with your message submission. Please try again later.';
+    public $bookingSuccessful = 'Your booking has been made successfully.';
+    public $bookingFailed = 'Oops! Something went wrong with your booking submission. Please try again later.';
     public $subscriptionSuccessful = 'You have successfully subscribed!';
     public $subscriptionFailed = 'Sorry, something went wrong with your subscription. Please try again.';
 
@@ -65,17 +42,25 @@ class CustomConfig extends BaseConfig
     # THEME CATEGORIES
     #--------------------------------------------------------------------
     public $themeCategories = [
-        'General' => 'General',
-        'BusinessCorporate' => 'Business & Corporate',
-        'PortfolioResume' => 'Portfolio & Resume',
-        'BlogNews' => 'Blog & News',
-        'LandingPages' => 'Landing Pages',
+        'Business' => 'Business & Corporate',
         'Ecommerce' => 'Ecommerce',
-        'CharityNGO' => 'Charity & NGO',
-        'RealEstate' => 'Real Estate & Construction',
-        'Classifieds' => 'Classifieds',
-        'Healthcare' => 'Healthcare',
-        'VideoPhotography' => 'Video & Photography',
-        'Education' => 'Education',
+        'Portfolio' => 'Portfolio & Resume',
+        'News' => 'Blog & News',
+        'Events' => 'Event & Booking Websites',
+        'Educational' => 'Educational & Membership Websites',
+        'Restaurant' => 'Restaurant & Hospitality Websites',
+        'Health' => 'Health & Wellness Websites',
+        'Directory' => 'Directory & Listing Websites',
+        'Entertainment' => 'Entertainment Websites',
+        'General' => 'General',
+    ];
+    
+    #--------------------------------------------------------------------
+    # USER ROLES
+    #--------------------------------------------------------------------
+    public $userRoles = [
+        'Admin' => 'Admin',
+        'Manager' => 'Manager',
+        'User' => 'User',
     ];
 }

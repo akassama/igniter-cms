@@ -23,9 +23,10 @@ class ProductCategories extends Migration
                 'null' => true,
                 'default' => null,
             ],
+            
             'group' => [
                 'type' => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 100,
                 'null' => true,
             ],
             'parent' => [
@@ -69,7 +70,6 @@ class ProductCategories extends Migration
 
         // Custom Optimization - Indexing
         $this->forge->addKey('title');
-        $this->forge->addKey('description');
 
         $this->forge->createTable('product_categories');
         

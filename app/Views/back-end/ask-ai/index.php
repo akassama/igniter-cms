@@ -30,7 +30,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="col-md-9 mb-3">
                     <label for="ai_question" class="form-label">Your Question</label>
                     <textarea class="form-control" id="ai_question" name="ai_question" rows="2" 
-                        placeholder="Ask me anything about your CMS, content strategy, or technical issues..." required></textarea>
+                        placeholder="Ask me anything about your CMS, configurations, or technical issues..." required></textarea>
                     <div class="invalid-feedback">
                         Please enter your question.
                     </div>
@@ -41,7 +41,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         hx-post="<?=base_url()?>/htmx/get-ai-help-answer"
                         hx-trigger="click delay:250ms"
                         hx-target="#ai-help-response-div"
-                        hx-swap="innerHTML">
+                        hx-swap="innerHTML" hx-indicator="#spinner">
                         <i class="ri-send-plane-2-line"></i> Ask AI
                     </button>
                 </div>
@@ -61,6 +61,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <div class="card-body" id="ai-help-response-div">
                             <div class="ai-response-placeholder text-muted">
                                 <p class="mb-0">Your AI response will appear here after you ask a question.</p>
+                                <img  id="spinner" class="htmx-indicator" src="<?=base_url('public/uploads/file-uploads/default/loading.gif')?>" style="height: 75px"/>
                             </div>
                         </div>
                     </div>
@@ -90,5 +91,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+
+
 <!-- end main content -->
 <?= $this->endSection() ?>
+
+

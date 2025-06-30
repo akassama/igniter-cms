@@ -22,7 +22,7 @@ class FileManagerController extends BaseController
         $fileUploadsModel = new FileUploadModel();
 
         // Get file uploads for the logged-in user
-        $fileUploads = $fileUploadsModel->where('user_id', $loggedInUserId)->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitUltraMax")))->findAll();
+        $fileUploads = $fileUploadsModel->where('user_id', $loggedInUserId)->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_ULTRA_MAX', 10000)))->findAll();
         $userRole = getUserRole(getLoggedInUserId());
         //check if admin to view all images
         if ($userRole == "Admin"){
@@ -32,7 +32,7 @@ class FileManagerController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'file_uploads' => $fileUploadsModel->where('user_id', $loggedInUserId)->orderBy('created_at', 'DESC')->paginate(100),
+            'file_uploads' => $fileUploadsModel->where('user_id', $loggedInUserId)->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_VERY_HIGH', 100))),
             'pager' => $fileUploadsModel->pager,
             'total_file_uploads' => $fileUploadsModel->pager->getTotal()
         ];

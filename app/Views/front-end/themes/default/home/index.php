@@ -7,6 +7,7 @@ $companyName = getConfigData("CompanyName");
 $companyAddress = getConfigData("CompanyAddress");
 $companyEmail = getConfigData("CompanyEmail");
 $companyNumber = getConfigData("CompanyNumber");
+$companyOpeningHours = getConfigData("CompanyOpeningHours");
 $metaAuthor = getConfigData("MetaAuthor");
 $metaTitle = getConfigData("MetaTitle");
 $metaDescription = getConfigData("MetaDescription");
@@ -24,11 +25,9 @@ $popUpWhereClause = ['status' => 1];
 $showOnPages = getTableData('announcement_popups', $popUpWhereClause, 'show_on_pages');
 $enablePopupAds = getConfigData("EnablePopupAds");
 
-//check for right theme format
-if(empty($home_pages)){
-    echo "The current HomePageFormat is of the wrong type. Please set to 'Home Page'";
-    exit();
-}
+//Get social model lists
+$socialsModel = new \App\Models\SocialsModel();
+$socialLinksQuery = $socialsModel->orderBy('order', 'ASC')->findAll();
 ?>
 
 <!-- include theme layout -->
@@ -43,6 +42,7 @@ if(empty($home_pages)){
             $section = $home_page['section'];
             $sectionTitle = $home_page['section_title'];
             $sectionDescription = $home_page['section_description'];
+            $contentBlocks = $home_page['content_blocks'];
     
             // Display different HTML sections based on the 'section' field
             if ($section === "HomeHero") {
@@ -63,6 +63,12 @@ if(empty($home_pages)){
                                 </div>
                                 <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="<?=getImageUrl($home_page['section_image'] ?? getDefaultImagePath())?>" alt="Header image" /></div>
                             </div>
+                            <?php
+                                //display content block if it exists
+                                if(!empty($contentBlocks)){
+                                    renderContentBlocks($contentBlocks);
+                                }
+                            ?>
                         </div>
                     </header>
                   <!-- /Hero Section -->
@@ -80,6 +86,12 @@ if(empty($home_pages)){
                                     <a class="btn btn-primary text-white btn-lg px-4" href="<?=base_url('/about-us')?>">Learn More</a>
                                 </div>
                             </div>
+                            <?php
+                                //display content block if it exists
+                                if(!empty($contentBlocks)){
+                                    renderContentBlocks($contentBlocks);
+                                }
+                            ?>
                         </div>
                     </section>
                 <!-- /About Section -->
@@ -112,12 +124,18 @@ if(empty($home_pages)){
                                                     }
                                                 ?>
                                             </div>
-                                        <!-- End Service Item -->
-                                        <?php endforeach; ?>
+                                            <!-- End Service Item -->
+                                            <?php endforeach; ?>
                                         <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                                //display content block if it exists
+                                if(!empty($contentBlocks)){
+                                    renderContentBlocks($contentBlocks);
+                                }
+                            ?>
                         </div>
                     </section>
                   <!-- /Services Section -->
@@ -138,6 +156,12 @@ if(empty($home_pages)){
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
+                        <?php
+                            //display content block if it exists
+                            if(!empty($contentBlocks)){
+                                renderContentBlocks($contentBlocks);
+                            }
+                        ?>
                     </div>
                 </section>
                 <!-- /Stats Section -->
@@ -163,7 +187,7 @@ if(empty($home_pages)){
                                                 </div>
                                                 <div class="mb-3">
                                                     <span class="display-4 fw-bold">$<?= $pricing['amount'] ?></span>
-                                                    <span class="text-muted">/ mo.</span>
+                                                    <span class="text-muted">/ <?= $pricing['period'] ?></span>
                                                 </div>
                                                 <ul class="list-unstyled mb-4">
                                                     <?php
@@ -198,6 +222,12 @@ if(empty($home_pages)){
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
+                        <?php
+                            //display content block if it exists
+                            if(!empty($contentBlocks)){
+                                renderContentBlocks($contentBlocks);
+                            }
+                        ?>
                     </div>
                 </section>
                 <!-- /Pricing Section -->
@@ -233,6 +263,12 @@ if(empty($home_pages)){
                                 </div>
                             </div>
                         </div>
+                        <?php
+                            //display content block if it exists
+                            if(!empty($contentBlocks)){
+                                renderContentBlocks($contentBlocks);
+                            }
+                        ?>
                     </div>
                 </section>
                 <!-- /Faq Section -->
@@ -308,6 +344,12 @@ if(empty($home_pages)){
                                 </div>
                             </div>
                         </div>
+                        <?php
+                            //display content block if it exists
+                            if(!empty($contentBlocks)){
+                                renderContentBlocks($contentBlocks);
+                            }
+                        ?>
                     </div>
                 </div>
                 <!-- /Testimonials Section -->
@@ -324,16 +366,28 @@ if(empty($home_pages)){
                         <div class="row gx-5" data-aos="zoom-in">
                             <?php if($portfolios): ?>
                                 <?php foreach($portfolios as $portfolio): ?>
-                                    <div class="col-lg-6">
-                                        <div class="position-relative mb-5">
-                                            <img class="img-fluid rounded-3 mb-3" src="<?=getImageUrl($portfolio['featured_image'] ?? getDefaultImagePath())?>" alt="<?= $portfolio['title']; ?>" />
-                                            <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="<?= base_url('portfolio/'.$portfolio['slug']) ?>"><?= $portfolio['title']; ?></a>
-                                        </div>
-                                    </div>
+                                    <?php
+                                        if(strtolower($portfolio['group']) === "portfolio"){
+                                            ?>
+                                            <div class="col-lg-6">
+                                                <div class="position-relative mb-5">
+                                                    <img class="img-fluid rounded-3 mb-3" src="<?=getImageUrl($portfolio['featured_image'] ?? getDefaultImagePath())?>" alt="<?= $portfolio['title']; ?>" />
+                                                    <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="<?= base_url('portfolio/'.$portfolio['slug']) ?>"><?= $portfolio['title']; ?></a>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }    
+                                    ?>
                                 <!-- End Portfolio Item -->
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
+                        <?php
+                            //display content block if it exists
+                            if(!empty($contentBlocks)){
+                                renderContentBlocks($contentBlocks);
+                            }
+                        ?>
                     </div>
                 </section>
                 <!-- End Portfolio Section -->
@@ -361,6 +415,12 @@ if(empty($home_pages)){
                                 <?php endforeach; ?>
                             <?php endif; ?>
                             </div>
+                            <?php
+                                //display content block if it exists
+                                if(!empty($contentBlocks)){
+                                    renderContentBlocks($contentBlocks);
+                                }
+                            ?>
                         </div>
                     </section>
                 <!-- /Team Section -->
@@ -386,6 +446,12 @@ if(empty($home_pages)){
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
+                        <?php
+                            //display content block if it exists
+                            if(!empty($contentBlocks)){
+                                renderContentBlocks($contentBlocks);
+                            }
+                        ?>
                     </div>
                 </section>
                 <!-- /Clients Section -->
@@ -436,6 +502,12 @@ if(empty($home_pages)){
                             }
                             ?>
                     </div>
+                    <?php
+                        //display content block if it exists
+                        if(!empty($contentBlocks)){
+                            renderContentBlocks($contentBlocks);
+                        }
+                    ?>
                 </section>
                 <!-- /Call To Action Section -->
                 <?php
@@ -480,6 +552,12 @@ if(empty($home_pages)){
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
+                        <?php
+                            //display content block if it exists
+                            if(!empty($contentBlocks)){
+                                renderContentBlocks($contentBlocks);
+                            }
+                        ?>
                     </div>
                 </section>
                 <!-- /Recent Posts Section -->
@@ -496,7 +574,7 @@ if(empty($home_pages)){
 									<div class="text-white-50"><?=$sectionDescription?></div>
 								</div>
 								<div class="ms-xl-4">
-                                    <form action="<?= base_url('/api/add-subscriber') ?>" method="post" class="g-3 needs-validation" id="subscribeForm">
+                                    <form action="<?= base_url('/api-form/add-subscriber') ?>" method="post" class="g-3 needs-validation" id="subscribeForm">
                                         <?= csrf_field() ?>
                                         <?=getHoneypotInput()?>
                                         <div class="input-group mb-2">
@@ -517,6 +595,35 @@ if(empty($home_pages)){
 							</div>
 						</aside>
 					</div>
+                    <?php
+                        //display content block if it exists
+                        if(!empty($contentBlocks)){
+                            renderContentBlocks($contentBlocks);
+                        }
+                    ?>
+				</section>
+                <!-- /Subscribe Section -->
+                <?php
+            }elseif ($section === "Custom") {
+                ?>
+                <!-- Custom Section -->
+				<section class="py-2" id="custom" data-aos="fade-up">
+                    <div class="container">
+                        <div class="row gx-5 justify-content-center">
+                            <div class="col-lg-8 col-xl-6">
+                                <div class="text-center">
+                                    <h2 class="fw-bolder"><?=$sectionTitle?></h2>
+                                    <p class="lead fw-normal text-muted mb-5"><?=$sectionDescription?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                            //display content block if it exists
+                            if(!empty($contentBlocks)){
+                                renderContentBlocks($contentBlocks);
+                            }
+                        ?>
+                    </div>
 				</section>
                 <!-- /Subscribe Section -->
                 <?php
@@ -541,7 +648,7 @@ if(empty($home_pages)){
                                     <!-- To make this form functional, sign up at-->
                                     <!-- https://startbootstrap.com/solution/contact-forms-->
                                     <!-- to get an API token!-->
-                                    <form action="<?= base_url('/api/send-contact-message') ?>" method="post" class="g-3 needs-validation" id="contactForm">
+                                    <form action="<?= base_url('/api-form/send-contact-message') ?>" method="post" class="g-3 needs-validation" id="contactForm">
                                         <?= csrf_field() ?>
                                         <?=getHoneypotInput()?>
                                         <!-- Name input-->
@@ -616,6 +723,12 @@ if(empty($home_pages)){
                             </div>
                         </div>
                     </div>
+                    <?php
+                        //display content block if it exists
+                        if(!empty($contentBlocks)){
+                            renderContentBlocks($contentBlocks);
+                        }
+                    ?>
                     </section>
                   <!-- /Contact Section -->
                 <?php
@@ -637,3 +750,5 @@ if (strtolower($enablePopupAds) === "yes" && in_array($currentPage, explode(',',
 
 <!-- end main content -->
 <?= $this->endSection() ?>
+
+

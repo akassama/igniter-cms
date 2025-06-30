@@ -94,7 +94,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td>
                                         <div class="row text-center p-1">
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 mb-1 view-content" href="<?=base_url('account/admin/contact-messages/view-contact/'.$contact_message['contact_message_id'])?>">
+                                                <a class="text-dark td-none mr-1 mb-1 view-contact" href="<?=base_url('account/admin/contact-messages/view-contact/'.$contact_message['contact_message_id'])?>">
                                                     <i class="h5 ri-eye-line"></i>
                                                 </a>
                                             </div>

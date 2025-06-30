@@ -100,8 +100,25 @@ final class EmailService
             ]
         ];
 
-        $response = $this->client->post(Resources::$Email, ['body' => $body]);
-        return $response->success();
+        try {
+            $response = $this->client->post(Resources::$Email, ['body' => $body]);
+            
+            // Check if the response is valid before calling success()
+            if (!is_object($response) || !method_exists($response, 'success')) {
+                // Log error or handle invalid response
+                error_log('Mailjet API returned an invalid response');
+                return false;
+            }
+            
+            return $response->success();
+        } catch (\Exception $e) {
+            // Log the error details for debugging
+            error_log('Mailjet API error: ' . $e->getMessage());
+            
+            // error_log('Failed request: ' . json_encode($body));
+            
+            return false;
+        }
     }
 
     private function sendViaSMTP(string $to, string $name, string $subject, string $htmlContent, string $textContent, string $from): bool

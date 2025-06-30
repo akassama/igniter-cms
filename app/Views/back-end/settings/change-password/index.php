@@ -23,7 +23,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/settings/change-password/update-password'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <?php
             //check if password change is required and display message
-            if(passwordChangeRequired()){
+            if(passwordChangeRequired() && !boolval(env('DEMO_MODE', "false"))){
                 $passwordResetRequiredMsg = config('CustomConfig')->passwordResetRequiredMsg;
                 echo "<div class='alert alert-danger'>".$passwordResetRequiredMsg."</div>";
             }
@@ -83,10 +83,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>
-                <button type="submit" class="btn btn-outline-primary float-end" id="submit-btn">
-                    <i class="ri-edit-box-line"></i>
-                    Update
-                </button>
+                <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>
         </div>
         <?php echo form_close(); ?>

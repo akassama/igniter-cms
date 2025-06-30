@@ -25,7 +25,7 @@ class Categories extends Migration
             ],
             'group' => [
                 'type' => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 100,
                 'null' => true,
             ],
             'parent' => [
@@ -105,7 +105,7 @@ class Categories extends Migration
                 'updated_by' => null
             ],
             [
-                'category_id' => getGUID("4a886e81-a07d-4b7e-8750-25b5bd8f4e7a"),
+                'category_id' => getGUID("181dd10c-49d4-49bb-b3c0-f81ff69a35f6"),
                 'title'    => 'Miscellaneous',
                 'description'    => 'Miscellaneous category',
                 'group'    => null,
@@ -113,6 +113,71 @@ class Categories extends Migration
                 'link'    => 'miscellaneous',
                 'new_tab'    => false,
                 'order'    => 4,
+                'status'    => 1,
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null
+            ],
+            [
+                'category_id' => getGUID("6b3c5c3e-6235-4ffa-b0be-db10e6444df5"),
+                'title'    => 'Business & Career',
+                'description'    => 'Articles about business strategies, career development, and workplace trends',
+                'group'    => null,
+                'parent'    => null,
+                'link'    => 'business-career',
+                'new_tab'    => false,
+                'order'    => 1,
+                'status'    => 1,
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null
+            ],
+            [
+                'category_id' => getGUID("5fc4f2e3-cbd7-410d-b8d3-195c6a5179ab"),
+                'title'    => 'Technology & Innovation',
+                'description'    => 'Cutting-edge technology trends, AI developments, and digital innovations',
+                'group'    => null,
+                'parent'    => null,
+                'link'    => 'technology-innovation',
+                'new_tab'    => false,
+                'order'    => 2,
+                'status'    => 1,
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null
+            ],
+            [
+                'category_id' => getGUID("4a886e81-a07d-4b7e-8750-25b5bd8f4e7a"),
+                'title'    => 'Lifestyle & Wellness',
+                'description'    => 'Tips for healthy living, mindfulness practices, and personal development',
+                'group'    => null,
+                'parent'    => null,
+                'link'    => 'lifestyle-wellness',
+                'new_tab'    => false,
+                'order'    => 3,
+                'status'    => 1,
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null
+            ],
+            [
+                'category_id' => getGUID("a1b2c3d4-e5f6-7890-1234-567890abcdef"), // New GUID for Sustainability
+                'title'    => 'Sustainability',
+                'description'    => 'Eco-friendly living, environmental awareness, and sustainable practices',
+                'group'    => null,
+                'parent'    => null,
+                'link'    => 'sustainability',
+                'new_tab'    => false,
+                'order'    => 4,
+                'status'    => 1,
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null
+            ],
+            [
+                'category_id' => getGUID("b2c3d4e5-f6a7-8901-2345-67890abcdef1"), // New GUID for Finance
+                'title'    => 'Personal Finance',
+                'description'    => 'Money management, investing tips, and financial planning strategies',
+                'group'    => null,
+                'parent'    => null,
+                'link'    => 'personal-finance',
+                'new_tab'    => false,
+                'order'    => 5,
                 'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null

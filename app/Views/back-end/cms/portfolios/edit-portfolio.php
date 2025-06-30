@@ -80,7 +80,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php }?>
             </div>
 
-            <div class="col-sm-12 col-md-6 mb-3">
+            <div class="col-sm-12 col-md-4 mb-3">
                 <label for="category" class="form-label">Category</label>
                 <input type="text" class="form-control letters-only-plus-space" id="category" name="category" maxlength="100" value="<?= $portfolio_data['category'] ?>">
                 <!-- Error -->
@@ -94,7 +94,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-6 mb-3">
+            <div class="col-sm-12 col-md-4 mb-3">
                 <label for="category_filter" class="form-label">Category Filter</label>
                 <input type="text" class="form-control letters-only" id="category_filter" name="category_filter" maxlength="100" value="<?= $portfolio_data['category_filter'] ?>">
                 <!-- Error -->
@@ -105,6 +105,26 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php }?>
                 <div class="invalid-feedback">
                     Please provide category_filter
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-4 mb-3">
+                <label for="group" class="form-label">
+                    Group
+                    <small class="text-muted">(Optional - use this if you want to filter data by group)</small>
+                </label>
+                <select class="form-select" aria-label="group" id="group" name="group">
+                    <option value="">Select group</option>
+                    <?=getDataGroupOptions($portfolio_data['group'], "Portfolio")?>
+                </select>
+                <!-- Error -->
+                <?php if($validation->getError('group')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('group'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide group
                 </div>
             </div>
 
@@ -358,10 +378,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>
-                <button type="submit" class="btn btn-outline-primary float-end" id="submit-btn">
-                    <i class="ri-edit-box-line"></i>
-                    Update
-                </button>
+                <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>
         </div>
         <?php echo form_close(); ?>

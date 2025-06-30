@@ -48,13 +48,14 @@ echo generateBreadcrumb($breadcrumb_links);
                 <input type="hidden" class="form-control" id="path" name="path" value="<?= $theme_data['path']; ?>" />
                 <input type="hidden" class="form-control" id="primary_color" name="primary_color" value="<?= $theme_data['primary_color']; ?>" />
                 <input type="hidden" class="form-control" id="secondary_color" name="secondary_color" value="<?= $theme_data['secondary_color']; ?>" />
-                <input type="hidden" class="form-control" id="other_color" name="other_color" value="<?= $theme_data['other_color']; ?>" />
+                <input type="hidden" class="form-control" id="background_color" name="background_color" value="<?= $theme_data['background_color']; ?>" />
                 <input type="hidden" class="form-control" id="image" name="image" value="<?= $theme_data['image']; ?>" />
                 <input type="hidden" class="form-control" id="theme_url" name="theme_url" value="<?= $theme_data['theme_url']; ?>" />
                 <input type="hidden" class="form-control" id="theme_bg_image" name="theme_bg_image" value="<?= $theme_data['theme_bg_image']; ?>" />
                 <input type="hidden" class="form-control" id="theme_bg_video" name="theme_bg_video" value="<?= $theme_data['theme_bg_video']; ?>" />
                 <textarea style="display:none;" class="form-control" id="footer_copyright" name="footer_copyright"><?= $theme_data['footer_copyright']; ?></textarea>
                 <input type="hidden" class="form-control" id="selected" name="selected" value="<?= $theme_data['selected']; ?>" />
+                <input type="hidden" class="form-control" id="override_default_style" name="override_default_style" value="<?= $theme_data['override_default_style']; ?>" />
                 <input type="hidden" class="form-control" id="home_page" name="home_page" value="<?= $theme_data['home_page']; ?>" />
                 <input type="hidden" class="form-control" id="deletable" name="deletable" value="<?= $theme_data['deletable']; ?>" />
                 <input type="hidden" class="form-control" id="created_by" name="created_by" value="<?= $theme_data['created_by']; ?>" />
@@ -65,10 +66,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>
-                <button type="submit" class="btn btn-outline-primary float-end" id="submit-btn">
-                    <i class="ri-edit-box-line"></i>
-                    Update
-                </button>
+                <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>
         </div>
         <?php echo form_close(); ?>

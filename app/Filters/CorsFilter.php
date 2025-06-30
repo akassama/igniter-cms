@@ -36,7 +36,7 @@ class CorsFilter implements FilterInterface
         }
 
         // Restrict disallowed methods
-        $allowedMethods = ['GET']; // Add allowed methods here.  Modify accordingly (GET, POST, OPTIONS, PUT, DELETE)
+        $allowedMethods = ['GET', 'POST']; // Add allowed methods here.  Modify accordingly (GET, POST, OPTIONS, PUT, DELETE)
         $currentMethod = $request->getMethod(true); // Get method in uppercase
 
         if (!in_array($currentMethod, $allowedMethods)) {

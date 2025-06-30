@@ -7,7 +7,7 @@
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h1 class="mt-4">Dashboard</h1>
+<h1 class="mt-4">Dashboard </h1>
 <?php
     // Breadcrumbs
     $breadcrumb_links = array(
@@ -86,73 +86,76 @@
             </div>
             <div class="col-sm-12 col-xl-6">
                 <div class="card mb-4">
-                    <div class="card-header">
+                    <div class="card-header fw-bold">
                         <i class="fas fa-chart-area me-1"></i>
                         Recent Visits (Last 7 Days)
                     </div>
                     <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
                     <script>
-                        // Set new default font family and font color to mimic Bootstrap's default styling
-                        Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-                        Chart.defaults.global.defaultFontColor = '#292b2c';
+                        $(document).ready(function(){
+                            // Set new default font family and font color to mimic Bootstrap's default styling
+                            Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+                            Chart.defaults.global.defaultFontColor = '#292b2c';
 
-                        // Data for the chart
-                        const labels = [<?= getLastSevenDaysList() ?>]; // Last 7 days
-                        const data = [<?= getLastSevenDaysListCount() ?>]; // Dynamic visit counts
+                            // Data for the chart
+                            const labels = [<?= getLastSevenDaysList() ?>]; // Last 7 days
+                            const data = [<?= getLastSevenDaysListCount() ?>]; // Dynamic visit counts
 
-                        // Calculate dynamic max value for the y-axis
-                        const maxDataValue = Math.max(...data);
-                        const dynamicMax = Math.ceil(maxDataValue * 1.2); // Add 20% buffer above the maximum value
+                            // Calculate dynamic max value for the y-axis
+                            const maxDataValue = Math.max(...data);
+                            const dynamicMax = Math.ceil(maxDataValue * 1.2); // Add 20% buffer above the maximum value
 
-                        // Area Chart
-                        var ctx = document.getElementById("myAreaChart");
-                        var myLineChart = new Chart(ctx, {
-                            type: 'line',
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: "Sessions",
-                                    lineTension: 0.3,
-                                    backgroundColor: "rgba(2,117,216,0.2)",
-                                    borderColor: "rgba(2,117,216,1)",
-                                    pointRadius: 5,
-                                    pointBackgroundColor: "rgba(2,117,216,1)",
-                                    pointBorderColor: "rgba(255,255,255,0.8)",
-                                    pointHoverRadius: 5,
-                                    pointHoverBackgroundColor: "rgba(2,117,216,1)",
-                                    pointHitRadius: 50,
-                                    pointBorderWidth: 2,
-                                    data: data,
-                                }],
-                            },
-                            options: {
-                                scales: {
-                                    xAxes: [{
-                                        time: {
-                                            unit: 'date'
-                                        },
-                                        gridLines: {
-                                            display: false
-                                        },
-                                        ticks: {
-                                            maxTicksLimit: 7
-                                        }
-                                    }],
-                                    yAxes: [{
-                                        ticks: {
-                                            min: 0,
-                                            max: dynamicMax, // Dynamically set max value
-                                            maxTicksLimit: 5
-                                        },
-                                        gridLines: {
-                                            color: "rgba(0, 0, 0, .125)",
-                                        }
+                            // Area Chart
+                            var ctx = document.getElementById("myAreaChart");
+                            var myLineChart = new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: "Sessions",
+                                        lineTension: 0.3,
+                                        backgroundColor: "rgba(2,117,216,0.2)",
+                                        borderColor: "rgba(2,117,216,1)",
+                                        pointRadius: 5,
+                                        pointBackgroundColor: "rgba(2,117,216,1)",
+                                        pointBorderColor: "rgba(255,255,255,0.8)",
+                                        pointHoverRadius: 5,
+                                        pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                                        pointHitRadius: 50,
+                                        pointBorderWidth: 2,
+                                        data: data,
                                     }],
                                 },
-                                legend: {
-                                    display: false
+                                options: {
+                                    scales: {
+                                        xAxes: [{
+                                            time: {
+                                                unit: 'date'
+                                            },
+                                            gridLines: {
+                                                display: false
+                                            },
+                                            ticks: {
+                                                maxTicksLimit: 7
+                                            }
+                                        }],
+                                        yAxes: [{
+                                            ticks: {
+                                                min: 0,
+                                                max: dynamicMax, // Dynamically set max value
+                                                maxTicksLimit: 5
+                                            },
+                                            gridLines: {
+                                                color: "rgba(0, 0, 0, .125)",
+                                            }
+                                        }],
+                                    },
+                                    legend: {
+                                        display: false
+                                    }
                                 }
-                            }
+                            });
+
                         });
                     </script>
 
@@ -160,65 +163,67 @@
             </div>
             <div class="col-sm-12 col-xl-6">
                 <div class="card mb-4">
-                    <div class="card-header">
+                    <div class="card-header fw-bold">
                         <i class="fas fa-chart-bar me-1"></i>
                         Recent Visits (Last 6 Months)
                     </div>
                     <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                     <script>
-                        // Set new default font family and font color to mimic Bootstrap's default styling
-                        Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-                        Chart.defaults.global.defaultFontColor = '#292b2c';
+                        $(document).ready(function(){
+                            // Set new default font family and font color to mimic Bootstrap's default styling
+                            Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+                            Chart.defaults.global.defaultFontColor = '#292b2c';
 
-                        // Data for the chart
-                        const labels2 = [<?=getLastMonthsList()?>]; // Last 6 months
-                        const data2 = [<?= getLastMonthsListCount() ?>]; // Dynamic visit counts
+                            // Data for the chart
+                            const labels2 = [<?=getLastMonthsList()?>]; // Last 6 months
+                            const data2 = [<?= getLastMonthsListCount() ?>]; // Dynamic visit counts
 
-                        // Calculate dynamic max value for the y-axis
-                        const maxDataValue2 = Math.max(...data2);
-                        const dynamicMax2 = Math.ceil(maxDataValue2 * 1.2); // Add 20% buffer above the maximum value
+                            // Calculate dynamic max value for the y-axis
+                            const maxDataValue2 = Math.max(...data2);
+                            const dynamicMax2 = Math.ceil(maxDataValue2 * 1.2); // Add 20% buffer above the maximum value
 
-                        // Bar Chart
-                        var ctx = document.getElementById("myBarChart");
-                        var myLineChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: labels2,
-                            datasets: [{
-                            label: "Revenue",
-                            backgroundColor: "rgba(2,117,216,1)",
-                            borderColor: "rgba(2,117,216,1)",
-                            data: data2,
-                            }],
-                        },
-                        options: {
-                            scales: {
-                            xAxes: [{
-                                time: {
-                                unit: 'month'
-                                },
-                                gridLines: {
-                                display: false
-                                },
-                                ticks: {
-                                maxTicksLimit: 6
-                                }
-                            }],
-                            yAxes: [{
-                                ticks: {
-                                min: 0,
-                                max: dynamicMax2,
-                                maxTicksLimit: 5
-                                },
-                                gridLines: {
-                                display: true
-                                }
-                            }],
+                            // Bar Chart
+                            var ctx = document.getElementById("myBarChart");
+                            var myLineChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: labels2,
+                                datasets: [{
+                                label: "Visits",
+                                backgroundColor: "rgba(2,117,216,1)",
+                                borderColor: "rgba(2,117,216,1)",
+                                data: data2,
+                                }],
                             },
-                            legend: {
-                            display: false
+                            options: {
+                                scales: {
+                                xAxes: [{
+                                    time: {
+                                    unit: 'month'
+                                    },
+                                    gridLines: {
+                                    display: false
+                                    },
+                                    ticks: {
+                                    maxTicksLimit: 6
+                                    }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                    min: 0,
+                                    max: dynamicMax2,
+                                    maxTicksLimit: 5
+                                    },
+                                    gridLines: {
+                                    display: true
+                                    }
+                                }],
+                                },
+                                legend: {
+                                display: false
+                                }
                             }
-                        }
+                            });
                         });
                     </script>
                 </div>
@@ -229,7 +234,7 @@
         <div class="row">
             <div class="col-sm-12 col-xl-6">
                 <div class="card mb-4">
-                    <div class="card-header">
+                    <div class="card-header fw-bold">
                         <i class="fas fa-chart-area me-1"></i>
                         Most Pages Visited
                     </div>
@@ -240,7 +245,7 @@
             </div>
             <div class="col-sm-12 col-xl-6">
                 <div class="card mb-4">
-                    <div class="card-header">
+                    <div class="card-header fw-bold">
                         <i class="fas fa-chart-bar me-1"></i>
                         Top Browsers
                     </div>
@@ -253,7 +258,7 @@
 
         <!--Recent Posts-->
         <div class="card mb-4">
-            <div class="card-header">
+            <div class="card-header fw-bold">
                 <i class="fas fa-table me-1"></i>
                 Recent Posts
             </div>
@@ -261,6 +266,69 @@
                 <?=getRecentPosts()?>
             </div>
         </div>
+
+        <!--News Feed-->
+        <div class="card mb-4">
+            <?php
+                $newsFeedUrl = "https://ignitercms.com/api/igniter-cms-news-feed";
+                try {
+                    // Attempt to fetch the news feed
+                    $newsFeedJson = @file_get_contents($newsFeedUrl);
+                    
+                    if ($newsFeedJson === false) {
+                        throw new Exception("Failed to fetch news feed. Please try again later.");
+                    }
+                    
+                    $newsFeed = json_decode($newsFeedJson, true);
+                    
+                    if (json_last_error() !== JSON_ERROR_NONE) {
+                        throw new Exception("Failed to parse news feed data.");
+                    }
+                    
+                    if (empty($newsFeed)) {
+                        throw new Exception("No news items available at this time.");
+                    }
+                ?>
+                <div class="card-header fw-bold">
+                    <i class="fas fa-table me-1"></i>
+                    News Feed
+                </div>
+                <div class="card-body">
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <?php foreach ($newsFeed as $news) { ?>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img src="<?php echo htmlspecialchars($news['image']); ?>" class="card-img-top" alt="News Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <?php echo htmlspecialchars($news['title']); ?>
+                                            <?php if ($news['category'] === "Security") { ?>
+                                                <i class="ri-shield-keyhole-line text-danger security-news-feed"></i>
+                                            <?php } ?>
+                                        </h5>
+                                        <p class="card-text"><small class="text-muted"><?php echo htmlspecialchars($news['date']); ?></small></p>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <a href="<?php echo htmlspecialchars($news['link']); ?>" target="_blank" class="btn btn-outline-primary">
+                                            Read More <i class="ri-arrow-right-fill"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php
+            } catch (Exception $e) {
+                // Display error message if something goes wrong
+                echo '<div class="card-body text-center text-muted py-5">';
+                echo '<i class="ri-error-warning-line display-6 mb-3"></i>';
+                echo '<p class="mb-0">' . htmlspecialchars($e->getMessage()) . '</p>';
+                echo '</div>';
+            }
+            ?>
+        </div>
+
     </div>
 </div>
 

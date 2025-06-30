@@ -23,6 +23,13 @@ class ForgotPasswordController extends BaseController
 
     public function sendResetLinkEmail()
     {
+        //show demo message
+        if(boolval(env('DEMO_MODE', "false"))){
+            $errorMsg = "Reset password not available in the demo mode.";
+            session()->setFlashdata('errorAlert', $errorMsg);
+            return view('front-end/sign-up/index');
+        }
+
         // Retrieve the honeypot and timestamp values
         $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
         $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));

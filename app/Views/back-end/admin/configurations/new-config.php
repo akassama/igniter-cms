@@ -95,6 +95,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <option value="Textarea">Textarea</option>
                     <option value="Code">Code</option>
                     <option value="Select">Select</option>
+                    <option value="Secret">Secret <small>(Would be stored encrypted)</small></option>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('data_type')) {?>
@@ -190,10 +191,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>
-                <button type="submit" class="btn btn-outline-primary float-end" id="submit-btn">
-                    <i class="ri-send-plane-fill"></i>
-                    Submit
-                </button>
+                <?= $this->include('back-end/_shared/_submit_buttons.php'); ?>
             </div>
         </div>
         <?php echo form_close(); ?>

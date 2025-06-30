@@ -41,9 +41,6 @@ class Codes extends Migration
         ]);
         $this->forge->addKey('code_id', true);
 
-        // Custom Optimization - Indexing
-        $this->forge->addKey('code');
-
         $this->forge->createTable('codes');
 
         //Insert default record

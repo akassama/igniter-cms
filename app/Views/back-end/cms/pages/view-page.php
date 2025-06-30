@@ -44,6 +44,11 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
+                <label for="status" class="form-label">Group</label>
+                <input type="text" class="form-control" id="group" name="group" value="<?= $page_data['group'] ?>" readonly>
+            </div>
+
+            <div class="col-sm-12 col-md-12 mb-3">
                 <label for="status" class="form-label">Status</label>
                 <input type="text" class="form-control" id="status" name="status" value="<?= ($page_data['status'] == '0') ? 'Unpublished' : 'Published'?>" readonly>
             </div>

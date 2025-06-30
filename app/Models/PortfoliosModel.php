@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 /**
  * PortfoliosModel class
  *
- * Represents the model for the projects table in the database.
+ * Represents the model for the portfolios table in the database.
  */
 class PortfoliosModel extends Model
 {
@@ -30,6 +30,7 @@ class PortfoliosModel extends Model
         'slug',
         'category',
         'category_filter',
+        'group',
         'client',
         'project_date',
         'project_url',
@@ -94,6 +95,7 @@ class PortfoliosModel extends Model
             'slug' => $param['slug'],
             'category' => $param['category'],
             'category_filter' => $param['category_filter'],
+            'group' => $param['group'],
             'client' => $param['client'],
             'project_date' => $param['project_date'],
             'project_url' => $param['project_url'],
@@ -129,6 +131,7 @@ class PortfoliosModel extends Model
         $existingPortfolio['slug'] = $param['slug'];
         $existingPortfolio['category'] = $param['category'];
         $existingPortfolio['category_filter'] = $param['category_filter'];
+        $existingPortfolio['group'] = $param['group'];
         $existingPortfolio['client'] = $param['client'];
         $existingPortfolio['project_date'] = $param['project_date'];
         $existingPortfolio['project_url'] = $param['project_url'];

@@ -83,7 +83,21 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-12 mb-3">
+            <div class="col-sm-12 col-md-6 mb-3">
+                <label for="dob" class="form-label">Date of Birth</label>
+                <input type="text" class="form-control past-datepicker" id="dob" name="dob" autocomplete="off" value="<?= set_value('dob') ?>">
+                <!-- Error -->
+                <?php if($validation->getError('dob')) {?>
+                <div class='text-danger mt-2'>
+                <?= $error = $validation->getError('dob'); ?>
+                </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                Please provide dob
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 mb-3">
                 <label for="address" class="form-label">Address</label>
                 <textarea rows="1" class="form-control" id="address" name="address" required><?= set_value('address') ?></textarea>
                 <!-- Error -->
@@ -222,6 +236,53 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12" id="display-preview-additional-image">
+                        <div class="float-end">         
+                        <img loading="lazy" src="<?= base_url(getDefaultImagePath())?>" class="img-thumbnail" alt="Additional image" width="150" height="150"> 
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 mb-3">
+                        <label for="additional_image" class="form-label">Image</label>
+                        <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="additional_image" name="additional_image" placeholder="select additional_image" value="<?= set_value('additional_image') ?>"
+                            hx-post="<?=base_url()?>/htmx/set-image-display"
+                            hx-trigger="keyup, changed delay:250ms"
+                            hx-target="#display-preview-additional-image"
+                            hx-swap="innerHTML">
+                        <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                        <i class="ri-image-fill"></i>
+                        </button>
+                        <div class="invalid-feedback">
+                            Please provide additional_image
+                        </div>
+                        </div>
+                        <!-- Error -->
+                        <?php if($validation->getError('additional_image')) {?>
+                        <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('additional_image'); ?>
+                        </div>
+                        <?php }?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                <label for="certifications" class="form-label">Certifications</label>
+                <textarea rows="1" class="form-control tags-input" id="certifications" name="certifications"><?= set_value('certifications') ?></textarea>
+                <!-- Error -->
+                <?php if($validation->getError('certifications')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('certifications'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide certifications
+                </div>
+            </div>
+
             <div class="col-sm-12 col-md-12 mb-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <label for="summary" class="form-label">Summary</label>
@@ -331,10 +392,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>
-                <button type="submit" class="btn btn-outline-primary float-end" id="submit-btn">
-                    <i class="ri-send-plane-fill"></i>
-                    Submit
-                </button>
+                <?= $this->include('back-end/_shared/_submit_buttons.php'); ?>
             </div>
         </div>
         <?php echo form_close(); ?>

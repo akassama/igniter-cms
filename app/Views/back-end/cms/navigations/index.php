@@ -49,6 +49,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>Order</th>
                             <th>Parent</th>
                             <th>Link</th>
+                            <th>Status</th>
                             <th>Created By</th>
                             <th>Updated By</th>
                             <th>Actions</th>
@@ -67,7 +68,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= !empty($navigation['parent']) ? getTableData("navigations", ['navigation_id' => $navigation['navigation_id']], 'title') : "" ?></td>
                                     <td>
                                         <?= getInputLinkTag($navigation['navigation_id'], $navigation['link']); ?>
-                                    </td>
+                                    </td><td><?= $navigation['status'] == "1" ? "<span class='badge bg-success'>Published</span>" : "<span class='badge bg-secondary'>Unpublished</span>" ?></td> 
                                     <td><?= getActivityBy(esc($navigation['created_by']) , ""); ?></td>
                                     <td><?= getActivityBy(esc($navigation['updated_by']) , ""); ?></td>
                                     <td>

@@ -33,7 +33,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <i class="ri-grid-line me-1"></i>
                 Pricings
                 <span class="badge rounded-pill bg-dark">
-                    <?= $total_pricings = 0 ?><!--TODO Remove-->
+                    <?= $total_pricings ?>
                 </span>
             </div>
             <div class="card-body">

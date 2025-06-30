@@ -34,6 +34,10 @@ class Resumes extends Migration
                 'constraint' => 50,
                 'null' => true
             ],
+            'dob' => [
+                'type' => 'DATE',
+                'null' => true,
+            ],
             'address' => [
                 'type' => 'TEXT',
                 'null' => true
@@ -61,6 +65,16 @@ class Resumes extends Migration
             'image' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
+                'null' => true
+            ],
+            'additional_image' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true
+            ],
+            'certifications' => [
+                'type' => 'TEXT',
+                'constraint' => 1000,
                 'null' => true
             ],
             'cv_file' => [
@@ -115,7 +129,6 @@ class Resumes extends Migration
         // Custom Optimization - Indexing
         $this->forge->addKey('full_name');
         $this->forge->addKey('title');
-        $this->forge->addKey('summary');
 
         $this->forge->createTable('resumes');
 
@@ -127,13 +140,16 @@ class Resumes extends Migration
             'summary' => 'Experienced software engineer with a passion for developing innovative programs that expedite the efficiency and effectiveness of organizational success.',
             'email' => 'john.doe@example.com',
             'phone' => '123-456-7890',
+            'dob' => '2000-09-19',
             'address' => '123 Main St, Anytown, USA',
             'website' => 'https://example.com?johndoe',
             'linkedin_url' => 'https://www.linkedin.com/in/?johndoe',
             'github_url' => 'https://github.com/?johndoe',
             'twitter_url' => 'https://twitter.com/?johndoe',
             'image' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/resume-profile.jpg',
+            'additional_image' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/resume-portrait.jpg',
             'cv_file' => 'public/uploads/cv_files/john_doe_cv.pdf',
+            'certifications' => 'AWS Certified Developer,Google Cloud Professional,MongoDB Certified Developer',
             'status' => 1,
             'created_by' => getGUID(getDefaultAdminGUID()),
             'updated_by' => getGUID(getDefaultAdminGUID()),

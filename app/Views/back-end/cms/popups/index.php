@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <i class="ri-grid-line me-1"></i>
                 Popups
                 <span class="badge rounded-pill bg-dark">
-                    <?= $total_popups = 0 ?>
+                    <?= $total_popups ?>
                 </span>
             </div>
             <div class="card-body">

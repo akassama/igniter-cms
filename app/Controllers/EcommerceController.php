@@ -33,7 +33,7 @@ class EcommerceController extends BaseController
         // Set data to pass in view
         $data = [
             'products' => $productsModel->orderBy('created_at', 'DESC')->findAll(),
-            'total_product' => getTotalRecords($tableName)
+            'total_products' => getTotalRecords($tableName)
         ];
 
         return view('back-end/ecommerce/products/index', $data);

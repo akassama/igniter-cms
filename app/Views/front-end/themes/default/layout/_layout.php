@@ -45,19 +45,22 @@ $themeData = [
     'copyRight' => getThemeData($theme, "footer_copyright"),
     'primaryColor' => getThemeData($theme, "primary_color"),
     'secondaryColor' => getThemeData($theme, "secondary_color"),
-    'otherColor' => getThemeData($theme, "other_color"),
+    'backgroundColor' => getThemeData($theme, "background_color"),
     'backgroundImage' => getThemeData($theme, "theme_bg_image"),
     'backgroundVideo' => getThemeData($theme, "theme_bg_video"),
+    'sliderImage1' => getThemeData($theme, "theme_bg_slider_image_1"),
+    'sliderImage2' => getThemeData($theme, "theme_bg_slider_image_2"),
+    'sliderImage3' => getThemeData($theme, "theme_bg_slider_image_3"),
 ];
 
 // Get navigation and social model lists
 $navigationsModel = new \App\Models\NavigationsModel();
-$topNavLists = $navigationsModel->where('group', 'top_nav')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
-$footerNavLists = $navigationsModel->where('group', 'footer_nav')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
-$servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll();
+$topNavLists = $navigationsModel->where('group', 'top_nav')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
+$footerNavLists = $navigationsModel->where('group', 'footer_nav')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
+$servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
 
 $socialsModel = new \App\Models\SocialsModel();
-$socialsLists = $socialsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitMedium")))->findAll();
+$socialLinksQuery = $socialsModel->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_MEDIUM', 12)))->findAll();
 
 // Maintenance mode
 if (strtolower($configData['maintenanceMode']) === "yes") {
@@ -150,8 +153,11 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <!-- Animate Library CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
+    <!--flag-icon-css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"/>
+
     <!-- Core theme CSS (includes Bootstrap) -->
-    <link href="<?= minifyCSS('public/front-end/themes/' . $theme . '/assets/css/styles.css') ?>" rel="stylesheet">
+    <link href="<?= minifyCSS('public/front-end/themes/' . $theme . '/assets/css/style.css') ?>" rel="stylesheet">
     <link href="<?= minifyCSS('public/front-end/themes/' . $theme . '/assets/css/custom.css') ?>" rel="stylesheet">
 
     <!-- Custom CSS -->
@@ -160,17 +166,13 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <?php endif; ?>
 
     <!-- Custom Theme CSS -->
-    <style>   
-        .bg-dark { background-color: <?= $themeData['primaryColor'] ?? '#000000' ?> !important; }
-        .bg-dark-subtle { background-color: <?= $themeData['primaryColor'] ?? '#000000' ?> !important; }
-        .bg-primary { background-color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }
-        .btn-primary { background-color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; border-color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }
-        .btn-outline-primary { color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; border-color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }
-        .text-primary { color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }
-        .border-primary { border-color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?> !important; }
-        .link-primary { color: <?= $themeData['secondaryColor'] ?? '#0d6efd' ?>; }
-        .fw-bolder { font-weight: bolder !important; color: <?= adjustColorShade($themeData['otherColor'], "darker", 10) ?? '#000000' ?> !important; }
-        .h3.fw-bolder { color: <?= adjustColorShade($themeData['otherColor'], "darker", 10) ?? '#000000' ?> !important; }
+    <style>
+        <?php
+            $overrideStyle = getThemeData($theme, "override_default_style");
+            if($overrideStyle === "1"){
+                echo $this->include('front-end/themes/_shared/_theme_style_override.php');
+            }
+        ?>
     </style>
 
     <!-- Custom JavaScript in the head -->
@@ -181,11 +183,16 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <!-- Custom Head Data -->
     <?= $this->include('front-end/themes/_shared/_custom_head_data.php'); ?>
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column min-vh-100">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container px-5">
-            <a class="navbar-brand" href="<?= $configData['baseUrl'] ?>">
+            <a class="navbar-brand" href="<?= base_url('/')?>">
                 <img src="<?=getImageUrl($configData['siteLogoTwoLink'] ?? getDefaultImagePath())?>" alt="<?=$configData['companyName']?> Logo" class="border border-dark rounded" height="45">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -253,7 +260,7 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     </script>
 
     <!-- Core theme JS -->
-    <script defer src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/js/scripts.js') ?>"></script>
+    <script defer src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/js/script.js') ?>"></script>
 
     <!-- Custom JavaScript in the footer -->
     <?php if (!empty($themeData['customJSFooter'])): ?>
@@ -262,6 +269,9 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
 
     <!-- Custom Footer Data -->
     <?= $this->include('front-end/themes/_shared/_custom_footer_data.php'); ?>
+    
+    <!-- Global modal for search -->
+    <?=$this->include('front-end/themes/_shared/_global_search_modal.php'); ?>
 
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>

@@ -15,7 +15,7 @@ class Skills extends Migration
             ],
             'group' => [
                 'type' => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 100,
                 'null' => true
             ],
             'category' => [
@@ -79,7 +79,6 @@ class Skills extends Migration
 
         // Custom Optimization - Indexing
         $this->forge->addKey('name');
-        $this->forge->addKey('description');
 
         $this->forge->createTable('skills');
 
@@ -90,7 +89,7 @@ class Skills extends Migration
                 'group' => 'Technical',
                 'category' => 'Programming Languages',
                 'name' => 'JavaScript',
-                'proficiency_level' => 'Advanced',
+                'proficiency_level' => 95,
                 'years_experience' => 5,
                 'description' => 'Experienced in developing web applications using JavaScript.',
                 'icon' => 'ri-robot-2-line',
@@ -104,7 +103,7 @@ class Skills extends Migration
                 'group' => 'Technical',
                 'category' => 'Programming Languages',
                 'name' => 'Python',
-                'proficiency_level' => 'Advanced',
+                'proficiency_level' => 80,
                 'years_experience' => 4,
                 'description' => 'Proficient in developing data analysis and machine learning applications using Python.',
                 'icon' => 'ri-python-line',
@@ -116,9 +115,9 @@ class Skills extends Migration
             [
                 'skill_id' => getGUID(),
                 'group' => 'Technical',
-                'category' => 'Web Development',
+                'category' => 90,
                 'name' => 'HTML & CSS',
-                'proficiency_level' => 'Expert',
+                'proficiency_level' => 95,
                 'years_experience' => 6,
                 'description' => 'Expert in creating responsive and accessible web designs using HTML and CSS.',
                 'icon' => 'ri-html5-line',
@@ -132,7 +131,7 @@ class Skills extends Migration
                 'group' => 'Technical',
                 'category' => 'Frameworks',
                 'name' => 'React',
-                'proficiency_level' => 'Advanced',
+                'proficiency_level' => 90,
                 'years_experience' => 3,
                 'description' => 'Skilled in building dynamic and high-performance web applications using React.',
                 'icon' => 'ri-reactjs-line',
@@ -146,7 +145,7 @@ class Skills extends Migration
                 'group' => 'Technical',
                 'category' => 'Databases',
                 'name' => 'SQL',
-                'proficiency_level' => 'Intermediate',
+                'proficiency_level' => 85,
                 'years_experience' => 4,
                 'description' => 'Experienced in designing and managing relational databases using SQL.',
                 'icon' => 'ri-database-2-line',
@@ -160,7 +159,7 @@ class Skills extends Migration
                 'group' => 'Technical',
                 'category' => 'DevOps',
                 'name' => 'Docker',
-                'proficiency_level' => 'Intermediate',
+                'proficiency_level' => 85,
                 'years_experience' => 2,
                 'description' => 'Proficient in containerizing applications and managing containerized environments using Docker.',
                 'icon' => 'ri-docker-line',

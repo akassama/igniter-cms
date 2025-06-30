@@ -49,7 +49,7 @@ echo generateBreadcrumb($breadcrumb_links);
         ?>
     </div>
     <div class="col-12">
-        <div class="card mb-4">
+        <div class="card mb-2">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
                 Themes
@@ -67,7 +67,6 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>Name</th>
                             <th>Category</th>
                             <th>Active</th>
-                            <th>HomePage</th>
                             <th>Last Modified</th>
                             <th>Created By</th>
                             <th>Updated By</th>
@@ -88,7 +87,6 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= $theme['name']; ?></td>
                                     <td><?= $theme['category']; ?></td>
                                     <td><?= $theme['selected'] == "1" ? "<span class='badge bg-success'>Active</span>" : "<span class='badge bg-secondary'>Not Active</span>" ?></td>
-                                    <td><?= $theme['home_page']; ?></td>
                                     <td><?= $theme['updated_at']; ?></td>
                                     <td><?= getActivityBy(esc($theme['created_by']) , ""); ?></td>
                                     <td><?= getActivityBy(esc($theme['updated_by']) , ""); ?></td>
@@ -124,6 +122,14 @@ echo generateBreadcrumb($breadcrumb_links);
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="alert alert-info text-center mt-4 mb-0 small" role="alert">
+            <strong>Note:</strong> Remember to enable/disable (publish/unpublish) sections in the homepage that may not be needed or are not used in your theme.
+            You can set it <a href="<?=base_url('/account/cms/home-page')?>" class="alert-link">here</a>.
+
+            <p>You can also enable or disable the following pages [Appointments, Donations, Events, Portfolios, Shop, and Registration] via the <a href="<?=base_url('account/admin/configurations')?>" class="alert-link">configuration</a></p>
         </div>
     </div>
 </div>

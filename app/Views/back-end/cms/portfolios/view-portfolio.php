@@ -43,9 +43,19 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-6 mb-3">
+            <div class="col-sm-12 col-md-4 mb-3">
                 <label for="category" class="form-label">Category</label>
                 <input type="text" class="form-control" id="category" name="category" value="<?= $portfolio_data['category'] ?>" readonly>
+            </div>
+
+            <div class="col-sm-12 col-md-4 mb-3">
+                <label for="category_filter" class="form-label">Category Filter</label>
+                <input type="text" class="form-control" id="category_filter" name="category_filter" value="<?= $portfolio_data['category_filter'] ?>" readonly>
+            </div>
+
+            <div class="col-sm-12 col-md-4 mb-3">
+                <label for="group" class="form-label">Group</label>
+                <input type="text" class="form-control" id="group" name="group" value="<?= $portfolio_data['group'] ?>" readonly>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
@@ -58,7 +68,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <input type="text" class="form-control future-datepicker" id="project_date" name="project_date" autocomplete="off" value="<?= $portfolio_data['project_date'] ?>" readonly>
             </div>
 
-            <div class="col-sm-12 col-md-6 mb-3">
+            <div class="col-sm-12 col-md-12 mb-3">
                 <label for="project_url" class="form-label">Portfolio URL</label>
                 <input type="text" class="form-control" id="project_url" name="project_url" value="<?= $portfolio_data['project_url'] ?>" readonly>
             </div>

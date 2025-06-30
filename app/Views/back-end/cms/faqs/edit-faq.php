@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>New FAQ<?= $this->endSection() ?>
+<?= $this->section('title') ?>Edit FAQ<?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -13,7 +13,7 @@ $breadcrumb_links = array(
     array('title' => 'Dashboard', 'url' => '/account'),
     array('title' => 'CMS', 'url' => '/account/cms'),
     array('title' => 'FAQS', 'url' => '/account/cms/faqs'),
-    array('title' => 'New FAQ')
+    array('title' => 'Edit FAQ')
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,7 +21,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>New FAQ</h3>
+        <h3>Edit FAQ</h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
@@ -72,7 +72,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <!--hidden inputs -->
             <div class="col-12">
                 <input type="hidden" class="form-control" id="faq_id" name="faq_id" value="<?= $faq_data['faq_id']; ?>" />
-                <input type="hidden" class="form-control" id="created_by" name="created_by" value="<?= $faq_data['faq_id']; ?>" />
+                <input type="hidden" class="form-control" id="created_by" name="created_by" value="<?= $faq_data['created_by']; ?>" />
             </div>
 
             <div class="mb-3 mt-3">
@@ -80,10 +80,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>
-                <button type="submit" class="btn btn-outline-primary float-end" id="submit-btn">
-                    <i class="ri-edit-box-line"></i>
-                    Update
-                </button>
+                <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>
         </div>
         <?php echo form_close(); ?>

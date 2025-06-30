@@ -47,7 +47,7 @@ class FileUploads extends Migration
             'group' => [
                 'type' => 'VARCHAR',
                 'default' => null,
-                'constraint' => '255',
+                'constraint' => '100',
             ],
             'deletable' => [
                 'type' => 'INT',
@@ -136,7 +136,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('portfolio-image-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '65000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio-image-1.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/portfolio-image-1.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -146,7 +146,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('portfolio-image-2.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '72000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio-image-2.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/portfolio-image-2.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -156,7 +156,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('portfolio-image-3.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '41000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio-image-3.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/portfolio-image-3.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -166,7 +166,87 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('portfolio-image-4.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '60500',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio-image-4.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/portfolio-image-4.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('portfolio-image-5.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '65000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/portfolio-image-5.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('portfolio-image-6.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '72000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/portfolio-image-6.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('portfolio-image-7.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '41000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/portfolio-image-7.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('portfolio-image-8.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '60500',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/portfolio-image-8.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+                        [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('portfolio-image-9.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '65000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/portfolio-image-9.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('portfolio-image-10.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '72000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/portfolio-image-10.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('portfolio-image-11.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '41000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/portfolio-image-11.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('portfolio-image-12.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '60500',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/portfolio-image-12.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -256,7 +336,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('gallery-1.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '64000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/gallery-1.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/gallery-1.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -266,7 +346,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('gallery-2.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '62000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/gallery-2.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/gallery-2.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -276,7 +356,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('gallery-3.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '112000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/gallery-3.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/gallery-3.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -286,7 +366,7 @@ class FileUploads extends Migration
                 'file_name' => getRandomFileName('gallery-4.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '72000',
-                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/gallery-4.jpg',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/portfolio/gallery-4.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -357,6 +437,136 @@ class FileUploads extends Migration
                 'file_type'    => 'jpg',
                 'file_size'    => '89000',
                 'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-3.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-4.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '89000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-4.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-5.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '89000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-5.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-6.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '89000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-6.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-7.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '89000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-7.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-8.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '89000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-8.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-9.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '89000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-9.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-10.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '89000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-10.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-11.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '89000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-11.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-12.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '89000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-12.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-13.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '89000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-13.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-14.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '89000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-14.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-15.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '89000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-15.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('blog-16.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '40000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/blog-16.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
@@ -841,6 +1051,429 @@ class FileUploads extends Migration
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],
+            // Yoga Mat
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('yogamat.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '450000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/yogamat.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('yogamat_rolled.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '420000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/yogamat_rolled.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('yogamat_texture.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '480000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/yogamat_texture.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+
+            // Stainless Steel Water Bottle
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('waterbottle.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '380000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/waterbottle.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('waterbottle_open.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '360000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/waterbottle_open.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('waterbottle_cap.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '320000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/waterbottle_cap.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+
+            // Wireless Charging Pad
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('wirelesscharger.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '290000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/wirelesscharger.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('wirelesscharger_side.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '310000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/wirelesscharger_side.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('wirelesscharger_phone.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '350000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/wirelesscharger_phone.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+
+            // Organic Cotton T-Shirt
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('tshirt.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '370000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/tshirt.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('tshirt_back.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '360000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/tshirt_back.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('tshirt_detail.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '420000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/tshirt_detail.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+
+            // Digital Kitchen Scale
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('kitchenscale.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '310000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/kitchenscale.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('kitchenscale_measure.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '290000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/kitchenscale_measure.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('kitchenscale_units.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '280000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/kitchenscale_units.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+
+            // Noise Cancelling Headphones
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('headphones.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '480000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/headphones.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('headphones_case.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '420000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/headphones_case.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('headphones_folded.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '410000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/headphones_folded.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('headphones_demo.mp4'),
+                'file_type' => 'mp4',
+                'file_size' => '3200000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/headphones_demo.mp4',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+
+            // Smart LED Light Bulb
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('smartbulb.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '270000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/smartbulb.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('smartbulb_colors.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '310000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/smartbulb_colors.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('smartbulb_app.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '290000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/smartbulb_app.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+
+            // Stainless Steel Cookware Set
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('cookware.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '520000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/cookware.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('cookware_pieces.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '580000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/cookware_pieces.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('cookware_detail.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '490000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/cookware_detail.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+
+            // Fitness Tracker Watch
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('fitnesstracker.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '380000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/fitnesstracker.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('fitnesstracker_screen.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '350000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/fitnesstracker_screen.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('fitnesstracker_app.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '310000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/fitnesstracker_app.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('fitnesstracker_demo.mp4'),
+                'file_type' => 'mp4',
+                'file_size' => '3800000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/fitnesstracker_demo.mp4',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+
+            // Ergonomic Office Chair
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('officechair.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '520000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/officechair.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('officechair_side.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '480000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/officechair_side.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('officechair_adjustments.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '450000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/officechair_adjustments.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('officechair_back.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '490000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/officechair_back.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+
+            // Electric Toothbrush
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('toothbrush.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '320000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/toothbrush.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('toothbrush_modes.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '310000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/toothbrush_modes.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('toothbrush_charging.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '290000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/toothbrush_charging.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+
+            // Compact Travel Backpack
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('backpack.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '410000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/backpack.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('backpack_compartments.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '380000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/backpack_compartments.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('backpack_usb.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '350000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/backpack_usb.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id' => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('backpack_wearing.jpg'),
+                'file_type' => 'jpg',
+                'file_size' => '420000',
+                'upload_path' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/products/backpack_wearing.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable' => 0
+            ],
             [
                 'file_id' => getGUID(),
                 'user_id'    => getGUID(getDefaultAdminGUID()),
@@ -1004,6 +1637,16 @@ class FileUploads extends Migration
             [
                 'file_id' => getGUID(),
                 'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('resume-profile.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '236000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/resume-portrait.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
                 'file_name' => getRandomFileName('company-logo.jpg'),
                 'file_type'    => 'jpg',
                 'file_size'    => '8000',
@@ -1028,6 +1671,146 @@ class FileUploads extends Migration
                 'file_type'    => 'jpg',
                 'file_size'    => '24000',
                 'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/university-education-logo.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('appointment-1.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '29000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/appointment-1.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('appointment-2.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '20000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/appointment-2.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('appointment-3.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '43000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/appointment-3.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('subscribe-1.png'),
+                'file_type'    => 'jpg',
+                'file_size'    => '444000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/subscribe-1.png',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('hero-restaurant-1.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '44000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/hero-restaurant-1.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('hero-restaurant-2.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '34000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/hero-restaurant-2.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('hero-restaurant-3.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '53000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/hero-restaurant-3.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('hero-restaurant-4.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '49000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/hero-restaurant-4.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('gallery-1.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '57000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/galleries/gallery-1.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('gallery-2.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '32000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/galleries/gallery-2.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('gallery-3.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '26000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/galleries/gallery-3.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('gallery-4.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '32000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/galleries/gallery-4.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('gallery-5.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '54000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/galleries/gallery-5.jpg',
+                'unique_identifier' => generateContentIdentifier("file"),
+                'deletable'    => 0
+            ],
+            [
+                'file_id' => getGUID(),
+                'user_id'    => getGUID(getDefaultAdminGUID()),
+                'file_name' => getRandomFileName('gallery-6.jpg'),
+                'file_type'    => 'jpg',
+                'file_size'    => '38000',
+                'upload_path'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/galleries/gallery-6.jpg',
                 'unique_identifier' => generateContentIdentifier("file"),
                 'deletable'    => 0
             ],

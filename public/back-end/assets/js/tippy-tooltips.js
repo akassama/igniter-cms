@@ -75,6 +75,10 @@ tippy('.remove-contact', {
     content: 'Remove contact',
     placement: 'top',
 });
+tippy('.email-subscriber', {
+    content: 'Send reply',
+    placement: 'top',
+});
 //Users
 tippy('.edit-user', {
     content: 'Edit user',
@@ -381,5 +385,36 @@ tippy('.edit-backup', {
 });
 tippy('.remove-backup', {
     content: 'Remove backup',
+    placement: 'top',
+});
+//Appointments
+tippy('.view-appointment', {
+    content: 'View appointment',
+    placement: 'top',
+});
+tippy('.edit-appointment', {
+    content: 'Edit appointment',
+    placement: 'top',
+});
+tippy('.remove-appointment', {
+    content: 'Remove appointment',
+    placement: 'top',
+});
+//News Feed
+tippy('.security-news-feed', {
+    content: 'Security update',
+    placement: 'top',
+});
+//Bookings
+tippy('.edit-booking', {
+    content: 'Edit booking',
+    placement: 'top',
+});
+tippy('.remove-booking', {
+    content: 'Remove booking',
+    placement: 'top',
+});
+tippy('.view-booking', {
+    content: 'View booking',
     placement: 'top',
 });

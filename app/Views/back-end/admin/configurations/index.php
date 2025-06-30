@@ -63,6 +63,9 @@ echo generateBreadcrumb($breadcrumb_links);
                         <?php $rowCount = 1; ?>
                         <?php if($configurations): ?>
                             <?php foreach($configurations as $config): ?>
+                                <?php 
+                                    $encryptedLabel = strtolower($config['data_type']) === "secret" ? "<small>(Encrtpted)</small>" : "";    
+                                ?>
                                 <tr>
                                     <td><?= $rowCount; ?></td>
                                     <td>
@@ -73,7 +76,8 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </td>
                                     <td class="text-break text-wrap">
                                         <?php $configValue = !empty($config['config_value']) ? $config['config_value'] : "--"?>
-                                        <?= htmlspecialchars($configValue); ?>
+                                        <?= htmlspecialchars($configValue);?>
+                                        <?= $encryptedLabel ?>
                                         <div class="alert alert-light">
                                             <span class="text-muted small"><i class="ri-information-line description-icon"></i> <?= $config['description']; ?></span>
                                         </div>

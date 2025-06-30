@@ -45,25 +45,29 @@ echo generateBreadcrumb($breadcrumb_links);
             <?php
                 $dataType = $config_data['data_type'];
                 $options = $config_data['options'];
+                $configValue = getConfigData($config_data['config_for']);
             ?>
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="config_value" class="form-label">Config value</label>
                 
                 <?php if ($dataType === 'Text'): ?>
-                    <input type="text" class="form-control" id="config_value" name="config_value" value="<?= $config_data['config_value'] ?>" readonly>
+                    <input type="text" class="form-control" id="config_value" name="config_value" value="<?= $configValue ?>" readonly>
                 
                 <?php elseif ($dataType === 'Textarea'): ?>
-                    <textarea rows="1" class="form-control" id="config_value" name="config_value" readonly><?= $config_data['config_value'] ?></textarea>
+                    <textarea rows="1" class="form-control" id="config_value" name="config_value" readonly><?= $configValue ?></textarea>
+                
+                <?php elseif ($dataType === 'Secret'): ?>
+                    <textarea rows="1" class="form-control" id="config_value" name="config_value" readonly><?= $configValue ?></textarea>
                 
                 <?php elseif ($dataType === 'Code'): ?>
-                    <textarea rows="2" class="form-control js-editor" id="config_value" name="config_value" readonly><?= $config_data['config_value'] ?></textarea>
+                    <textarea rows="2" class="form-control js-editor" id="config_value" name="config_value" readonly><?= $configValue ?></textarea>
                 
                 <?php elseif ($dataType === 'Select'): ?>
                     <select class="form-control" id="config_value" name="config_value" readonly>
                         <?php if (!empty($options)): ?>
                             <?php $optionValues = explode(',', $options); ?>
                             <?php foreach ($optionValues as $option): ?>
-                                <option value="<?= trim($option) ?>" <?= ($config_data['config_value'] == trim($option) ? 'selected' : '') ?>>
+                                <option value="<?= trim($option) ?>" <?= ($configValue == trim($option) ? 'selected' : '') ?>>
                                     <?= trim($option) ?>
                                 </option>
                             <?php endforeach; ?>

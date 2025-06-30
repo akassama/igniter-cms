@@ -67,7 +67,6 @@ class Testimonials extends Migration
         // Custom Optimization - Indexing
         $this->forge->addKey('name');
         $this->forge->addKey('title');
-        $this->forge->addKey('testimonial');
 
         $this->forge->createTable('testimonials');
 

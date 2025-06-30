@@ -32,6 +32,8 @@ use App\Models\EducationsModel;
 use App\Models\ExperiencesModel;
 use App\Models\AnnouncementPopupsModel;
 use App\Models\DonationCausesModel;
+use App\Models\AppointmentsModel;
+use App\Models\BookingsModel;
 use App\Services\EmailService;
 use Gregwar\Captcha\CaptchaBuilder;
 use App\Constants\ActivityTypes;
@@ -44,6 +46,7 @@ class FrontEndController extends BaseController
     public function __construct()
     {
         $this->emailService = new EmailService();
+        $this->curlrequest = \Config\Services::curlrequest();
     }
 
     //############################//
@@ -68,6 +71,8 @@ class FrontEndController extends BaseController
             'faqs'         => [],
             'testimonials' => [],
             'donations'    => [],
+            'appointments'    => [],
+            'bookings'    => [],
         ];
 
         $homePageModel = new HomePageModel();
@@ -76,6 +81,7 @@ class FrontEndController extends BaseController
         $navigationsModel = new NavigationsModel();
         $eventsModel = new EventsModel();
         $portfoliosModel = new PortfoliosModel();
+        $galleriesModel = new GalleryModel();
         $socialsModel = new SocialsModel();
         $countersModel = new CountersModel();
         $partnersModel = new PartnersModel();
@@ -91,49 +97,51 @@ class FrontEndController extends BaseController
         $skillsModel = new SkillsModel();
         $educationsModel = new EducationsModel();
         $experiencesModel = new ExperiencesModel();
+        $appointmentsModel = new AppointmentsModel();
+        $bookingsModel = new BookingsModel();
 
         $homePageFormat = getConfigData("HomePageFormat");
-        if(strtolower($homePageFormat) === "homepage"){
-    
-            // Set data to pass in view
+
+        // Set data to pass in view
+        $data = [
+            'home_pages'    => $homePageModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+            'blogs'         => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_LOW', 6)))->findAll(),
+            'categories'    => $categoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+            'navigations'   => $navigationsModel->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+            'events'        => $eventsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_MEDIUM', 12)))->findAll(),
+            'portfolios'    => $portfoliosModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_MEDIUM', 12)))->findAll(),
+            'galleries'    => $galleriesModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_MEDIUM', 12)))->findAll(),
+            'socials'       => $socialsModel->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_MEDIUM', 12)))->findAll(),
+            'counters'      => $countersModel->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_MEDIUM', 12)))->findAll(),
+            'partners'      => $partnersModel->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+            'services'      => $servicesModel->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+            'pricings'      => $pricingsModel->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_MEDIUM', 12)))->findAll(),
+            'teams'         => $teamsModel->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_MEDIUM', 12)))->findAll(),
+            'faqs'          => $faqsModel->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+            'testimonials'  => $testimonialsModel->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_MEDIUM', 12)))->findAll(),
+            'donations'     => $donationsModel->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_MEDIUM', 12)))->findAll(),
+            'appointments'    => $appointmentsModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+            'bookings'    => $bookingsModel->where('booking_date <', date('Y-m-d'))->orderBy('name', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+            'resume' => $resumesModel->where('status', 1)->first(),
+            'resume_skills'    => $skillsModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+            'resume_educations'    => $educationsModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+            'resume_experiences'    => $experiencesModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+            'products' => $productsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+            'product_categories'    => $productCategoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
+        ];  
+
+        if(strtolower($homePageFormat) === "blog"){
             $data = [
-                'home_pages'    => $homePageModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-                'blogs'         => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-                'categories'    => $categoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-                'navigations'   => $navigationsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-                'events'        => $eventsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-                'portfolios'    => $portfoliosModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-                'socials'       => $socialsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-                'counters'      => $countersModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-                'partners'      => $partnersModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-                'services'      => $servicesModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-                'pricings'      => $pricingsModel->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-                'teams'         => $teamsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-                'faqs'          => $faqsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-                'testimonials'  => $testimonialsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-                'donations'     => $donationsModel->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitMedium")))->findAll(),
-            ];       
-        }
-        else if(strtolower($homePageFormat) === "blog"){
-            $data = [
-                'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitVeryHigh")))->findAll(),
-                'categories'    => $categoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+                'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))->findAll(),
+                'categories'    => $categoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
             ];
         }
-        else if(strtolower($homePageFormat) === "shop"){
+        
+        if(strtolower($homePageFormat) === "shop"){
             $data = [
-                'products' => $productsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitVeryHigh")))->findAll(),
-                'product_categories'    => $productCategoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
+                'products' => $productsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))->findAll(),
+                'product_categories'    => $productCategoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
             ];
-        }
-        else if(strtolower($homePageFormat) === "portfolio"){
-            $data = [
-                'resume' => $resumesModel->where('status', 1)->first(),
-                'resume_skills'    => $skillsModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-                'resume_educations'    => $educationsModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-                'resume_experiences'    => $experiencesModel->where('status', '1')->orderBy('order', 'ASC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-                'portfolios'    => $portfoliosModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitDefault")))->findAll(),
-            ];        
         }
 
         //load home view
@@ -150,7 +158,7 @@ class FrontEndController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'blogs' => $blogsModel->orderBy('created_at', 'DESC')->paginate(20),
+            'blogs' => $blogsModel->orderBy('created_at', 'DESC')->paginate(intval(env('PAGINATE_LOW', 20))),
             'pager' => $blogsModel->pager,
             'total_blogs' => $blogsModel->pager->getTotal()
         ];
@@ -174,7 +182,7 @@ class FrontEndController extends BaseController
 		$categoriesModel = new CategoriesModel();
         $data = [
             'blog_data' => $blogsModel->find($blogId),
-            'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitLow")))->findAll(),
+            'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_LOW', 6)))->findAll(),
             'categories' => $categoriesModel->orderBy('title', 'ASC')->findAll(),
         ];
         return view('front-end/themes/'.getCurrentTheme().'/blogs/view-blog', $data);
@@ -221,7 +229,7 @@ class FrontEndController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'events' => $eventsModel->orderBy('created_at', 'DESC')->paginate(20),
+            'events' => $eventsModel->orderBy('created_at', 'DESC')->paginate(intval(env('PAGINATE_LOW', 20))),
             'pager' => $eventsModel->pager,
             'total_events' => $eventsModel->pager->getTotal()
         ];
@@ -253,7 +261,7 @@ class FrontEndController extends BaseController
         $eventsModel = new EventsModel();
         $data = [
             'event_data' => $eventsModel->find($eventId),
-            'events' => $eventsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitLow")))->findAll()
+            'events' => $eventsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_LOW', 6)))->findAll()
         ];
         return view('front-end/themes/'.getCurrentTheme().'/events/view-event', $data);
     }
@@ -277,7 +285,7 @@ class FrontEndController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'portfolios' => $portfoliosModel->orderBy('created_at', 'DESC')->paginate(20),
+            'portfolios' => $portfoliosModel->orderBy('created_at', 'DESC')->paginate(intval(env('PAGINATE_LOW', 20))),
             'pager' => $portfoliosModel->pager,
             'total_portfolios' => $portfoliosModel->pager->getTotal()
         ];
@@ -325,7 +333,7 @@ class FrontEndController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'donation_causes' => $donationCausesModel->orderBy('created_at', 'DESC')->paginate(20),
+            'donation_causes' => $donationCausesModel->orderBy('created_at', 'DESC')->paginate(intval(env('PAGINATE_LOW', 20))),
             'pager' => $donationCausesModel->pager,
             'total_donation_causes' => $donationCausesModel->pager->getTotal()
         ];
@@ -357,7 +365,7 @@ class FrontEndController extends BaseController
         $donationCausesModel = new DonationCausesModel();
         $data = [
             'donation_cause_data' => $donationCausesModel->find($donationCauseId),
-            'donation_causes' => $donationCausesModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitLow")))->findAll(),
+            'donation_causes' => $donationCausesModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_LOW', 6)))->findAll(),
         ];
         return view('front-end/themes/'.getCurrentTheme().'/donate/view-donation-campaign', $data);
     }
@@ -381,7 +389,7 @@ class FrontEndController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'products' => $productsModel->orderBy('created_at', 'DESC')->paginate(20),
+            'products' => $productsModel->orderBy('created_at', 'DESC')->paginate(intval(env('PAGINATE_LOW', 20))),
             'pager' => $productsModel->pager,
             'total_products' => $productsModel->pager->getTotal()
         ];
@@ -414,10 +422,66 @@ class FrontEndController extends BaseController
 		$categoriesModel = new ProductCategoriesModel();
         $data = [
             'product_data' => $productsModel->find($productId),
-            'products' => $productsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(getConfigData("queryLimitLow")))->findAll(),
+            'products' => $productsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_LOW', 6)))->findAll(),
             'categories' => $categoriesModel->orderBy('title', 'ASC')->findAll(),
         ];
         return view('front-end/themes/'.getCurrentTheme().'/shop/view-product', $data);
+    }
+
+    //############################//
+    //        Appointments        //
+    //############################//
+    public function getAppointments()
+    {
+        //get enable appointments page
+        $enableAppointmentsPage = getConfigData("EnableAppointmentsPage");
+        if(strtolower($enableAppointmentsPage) === "no"){
+            // Not allowed to access page
+            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            session()->setFlashdata('errorAlert', $invalidAccessMsg);
+            return redirect()->to('/');
+        }
+
+        $tableName = 'appointments';
+        $appointmentsModel = new AppointmentsModel();
+
+        // Set data to pass in view
+        $data = [
+            'appointments' => $appointmentsModel->orderBy('created_at', 'DESC')->paginate(intval(env('PAGINATE_LOW', 20))),
+            'pager' => $appointmentsModel->pager,
+            'total_appointments' => $appointmentsModel->pager->getTotal()
+        ];
+
+        return view('front-end/themes/'.getCurrentTheme().'/appointments/index', $data);
+    }
+
+    public function getAppointmentDetails($slug)
+    {
+        //get enable appointments page
+        $enableAppointmentsPage = getConfigData("EnableAppointmentsPage");
+        if(strtolower($enableAppointmentsPage) === "no"){
+            // Not allowed to access page
+            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            session()->setFlashdata('errorAlert', $invalidAccessMsg);
+            return redirect()->to('/');
+        }
+
+        $tableName = 'appointments';
+        //Check if record exists
+        if (!recordExists($tableName, "slug", $slug)) {
+            $errorMsg = config('CustomConfig')->notFoundMsg;
+            session()->setFlashdata('errorAlert', $errorMsg);
+            return redirect()->to('/');
+        }
+
+        $whereClause = ['slug' => $slug];
+        $appointmentId = getTableData($tableName, $whereClause, 'appointment_id');
+        $appointmentsModel = new AppointmentsModel();
+        $data = [
+            'appointment_data' => $appointmentsModel->find($appointmentId),
+            'appointments' => $appointmentsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_LOW', 6)))->findAll()
+        ];
+        return view('front-end/themes/'.getCurrentTheme().'/appointments/view-appointment', $data);
     }
 
     //############################//
@@ -448,6 +512,7 @@ class FrontEndController extends BaseController
         $portfoliosModel = new PortfoliosModel();
         $donationCausesModel = new DonationCausesModel();
         $shopModel = new ProductsModel();
+        $appointmentsModel = new AppointmentsModel();
         
         $data["searchQuery"] = $searchQuery;
         
@@ -464,7 +529,7 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(intval(getConfigData("queryLimitDefault")))
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
             ->findAll();
         
         // Pages search
@@ -478,7 +543,7 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(intval(getConfigData("queryLimitDefault")))
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
             ->findAll();
 
         // Events search
@@ -499,7 +564,7 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(intval(getConfigData("queryLimitDefault")))
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
             ->findAll();
         }
         
@@ -521,7 +586,7 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(intval(getConfigData("queryLimitDefault")))
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
             ->findAll();
         }
            
@@ -542,7 +607,7 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(intval(getConfigData("queryLimitDefault")))
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
             ->findAll();
         }  
         
@@ -565,9 +630,29 @@ class FrontEndController extends BaseController
             ->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(intval(getConfigData("queryLimitDefault")))
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
             ->findAll();
-        }  
+        }
+
+        // Appointments search
+        $enableAppointmentsPage = getConfigData("EnableAppointmentsPage");
+
+        if (strtolower($enableAppointmentsPage) === "no") {
+            $data['appointmentsSearchResults'] = []; // Make the array empty
+        } else {
+            $data['appointmentsSearchResults'] = $appointmentsModel
+            ->groupStart()
+                ->like('title', $searchQuery)
+                ->orLike('description', $searchQuery)
+                ->orLike('meta_title', $searchQuery)
+                ->orLike('meta_description', $searchQuery)
+                ->orLike('meta_keywords', $searchQuery)
+            ->groupEnd()
+            ->where('status', '1')
+            ->orderBy('created_at', 'DESC')
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
+            ->findAll();
+        }
         
         // Log activity
         logActivity(null, ActivityTypes::SEARCH, 'Search made for: ' . $searchQuery);
@@ -591,7 +676,8 @@ class FrontEndController extends BaseController
                 'eventsSearchResults' => null,
                 'portfoliosSearchResults' => null,
                 'donationsSearchResults' => null,
-                'shopSearchResults' => null
+                'shopSearchResults' => null,
+                'appointmentsSearchResults' => null
             ];
     
             try {
@@ -602,6 +688,7 @@ class FrontEndController extends BaseController
                 $portfoliosModel = new PortfoliosModel();
                 $donationCausesModel = new DonationCausesModel();
                 $shopModel = new ProductsModel();
+                $appointmentsModel = new AppointmentsModel();
     
                 if (strcasecmp($type, 'category') === 0) {
                     try {
@@ -614,7 +701,7 @@ class FrontEndController extends BaseController
                             ->groupEnd()
                             ->where('status', '1')
                             ->orderBy('created_at', 'DESC')
-                            ->limit(intval(getConfigData("queryLimitVeryHigh")))
+                            ->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))
                             ->findAll();
                     } catch (\Exception $e) {
                         $data['blogsSearchResults'] = null;
@@ -631,7 +718,7 @@ class FrontEndController extends BaseController
                             ->groupEnd()
                             ->where('status', '1')
                             ->orderBy('created_at', 'DESC')
-                            ->limit(intval(getConfigData("queryLimitVeryHigh")))
+                            ->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))
                             ->findAll();
                     } catch (\Exception $e) {
                         $data['blogsSearchResults'] = null;
@@ -650,7 +737,7 @@ class FrontEndController extends BaseController
                             ->groupEnd()
                             ->where('status', '1')
                             ->orderBy('created_at', 'DESC')
-                            ->limit(intval(getConfigData("queryLimitVeryHigh")))
+                            ->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))
                             ->findAll();
                     } catch (\Exception $e) {
                         $data['blogsSearchResults'] = null;
@@ -665,7 +752,7 @@ class FrontEndController extends BaseController
                             ->groupEnd()
                             ->where('status', '1')
                             ->orderBy('created_at', 'DESC')
-                            ->limit(intval(getConfigData("queryLimitDefault")))
+                            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
                             ->findAll();
                     } catch (\Exception $e) {
                         $data['pagesSearchResults'] = null;
@@ -684,7 +771,7 @@ class FrontEndController extends BaseController
                                 ->groupEnd()
                                 ->where('status', '1')
                                 ->orderBy('created_at', 'DESC')
-                                ->limit(intval(getConfigData("queryLimitDefault")))
+                                ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
                                 ->findAll();
                         } catch (\Exception $e) {
                             $data['eventsSearchResults'] = null;
@@ -704,7 +791,7 @@ class FrontEndController extends BaseController
                                 ->groupEnd()
                                 ->where('status', '1')
                                 ->orderBy('created_at', 'DESC')
-                                ->limit(intval(getConfigData("queryLimitDefault")))
+                                ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
                                 ->findAll();
                         } catch (\Exception $e) {
                             $data['portfoliosSearchResults'] = null;
@@ -724,13 +811,33 @@ class FrontEndController extends BaseController
                                 ->groupEnd()
                                 ->where('status', '1')
                                 ->orderBy('created_at', 'DESC')
-                                ->limit(intval(getConfigData("queryLimitDefault")))
+                                ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
                                 ->findAll();
                         } catch (\Exception $e) {
                             $data['donationsSearchResults'] = null;
                             log_message('error', 'Author donations search error: ' . $e->getMessage());
                         }
-                    } 
+                    }
+        
+                    // Appointments search
+                    $enableAppointmentsPage = getConfigData("EnableAppointmentsPage");
+                    if (strtolower($enableAppointmentsPage) === "no") {
+                        $data['appointmentsSearchResults'] = [];
+                    } else {
+                        try {
+                            $data['appointmentsSearchResults'] = $appointmentsModel
+                                ->groupStart()
+                                    ->like('created_by', $userId)
+                                ->groupEnd()
+                                ->where('status', '1')
+                                ->orderBy('created_at', 'DESC')
+                                ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
+                                ->findAll();
+                        } catch (\Exception $e) {
+                            $data['appointmentsSearchResults'] = null;
+                            log_message('error', 'Author appointments search error: ' . $e->getMessage());
+                        }
+                    }
     
                     // Shop search
                     $enableShopFront = getConfigData("EnableShopFront");
@@ -744,7 +851,7 @@ class FrontEndController extends BaseController
                                 ->groupEnd()
                                 ->where('status', '1')
                                 ->orderBy('created_at', 'DESC')
-                                ->limit(intval(getConfigData("queryLimitDefault")))
+                                ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
                                 ->findAll();
                         } catch (\Exception $e) {
                             $data['shopSearchResults'] = null;
@@ -770,7 +877,8 @@ class FrontEndController extends BaseController
                 'eventsSearchResults' => null,
                 'portfoliosSearchResults' => null,
                 'donationsSearchResults' => null,
-                'shopSearchResults' => null
+                'shopSearchResults' => null,
+                'appointmentsSearchResults' => null
             ]);
         }
     }
@@ -785,6 +893,7 @@ class FrontEndController extends BaseController
         $enablePortfoliosPage = getConfigData("EnablePortfoliosPage");
         $enableDonationsPage = getConfigData("EnableDonationsPage");
         $enableShopFront = getConfigData("EnableShopFront");
+        $enableAppointmentsPage = getConfigData("EnableAppointmentsPage");
 
         // Models to query
         $models = [
@@ -805,6 +914,9 @@ class FrontEndController extends BaseController
         if (strtolower($enableShopFront) !== "no") {
             $models['shop'] = new ProductsModel();
         }
+        if (strtolower($enableAppointmentsPage) !== "no") {
+            $models['appointment'] = new AppointmentsModel();
+        }
 
         // Fetch data from each model
         $sitemapData = [];
@@ -812,7 +924,7 @@ class FrontEndController extends BaseController
             $sitemapData[$key] = $model->select('slug, updated_at, created_at')
                 ->where('status', '1') // Only active records
                 ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitHigh"))) 
+                ->limit(intval(env('QUERY_LIMIT_HIGH', 50))) 
                 ->findAll();
         }
 
@@ -891,10 +1003,12 @@ class FrontEndController extends BaseController
                 return '0.70';
             case 'event':
                 return '0.60';
+            case 'appointment':
+                return '0.60';
             case 'donate':
                 return '0.50';
             case 'shop':
-                return '0.40';
+                return '0.50';
             default:
                 return '0.50';
         }
@@ -960,6 +1074,7 @@ class FrontEndController extends BaseController
         $enablePortfoliosPage = getConfigData("EnablePortfoliosPage");
         $enableDonationsPage = getConfigData("EnableDonationsPage");
         $enableShopFront = getConfigData("EnableShopFront");
+        $enableAppointmentsPage = getConfigData("EnableAppointmentsPage");
 
         // Models to query (same as sitemap)
         $models = [
@@ -980,6 +1095,9 @@ class FrontEndController extends BaseController
         if (strtolower($enableShopFront) !== "no") {
             $models['shop'] = new ProductsModel();
         }
+        if (strtolower($enableAppointmentsPage) !== "no") {
+            $models['appointment'] = new AppointmentsModel();
+        }
     
         // Fetch data from each model
         $rssData = [];
@@ -997,7 +1115,7 @@ class FrontEndController extends BaseController
             $rssData[$key] = $model->select($fields)
                 ->where('status', '1') // Only active records
                 ->orderBy('created_at', 'DESC')
-                ->limit(intval(getConfigData("queryLimitHigh"))) 
+                ->limit(intval(env('QUERY_LIMIT_HIGH', 50)))
                 ->findAll();
         }
     
@@ -1058,7 +1176,8 @@ class FrontEndController extends BaseController
             case 'donate':
             case 'portfolio':
             case 'shop':
-                return 'description'; // Events, donations, portfolios, and products use "description"
+            case 'appointment':
+                return 'description'; // Events, donations, portfolios, appointments, and products use "description"
             case 'page':
             default:
                 return null; // Pages do not have a summary/description field

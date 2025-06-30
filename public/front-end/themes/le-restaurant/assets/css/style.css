@@ -1,0 +1,672 @@
+/* Write any custom CSS here */
+:root {
+  --primary-color: #ce1212;
+  --secondary-color: #37343b;
+  --background-color: #ffffff;
+  --dark-color: #212529;
+  --light-color: #f8f9fa;
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #0dcaf0;
+  --gold-color: #d4af37;
+  --primary-light-color: color-mix(
+    in srgb,
+    var(--primary-color) 50%,
+    var(--warning-color)
+  );
+}
+
+/* Theme backgroung */
+.theme-bg {
+  background-color: var(--primary-color);
+}
+
+.theme-light-bg {
+  background-color: var(--primary-light-color);
+}
+
+/*--------------------------------------------------------------
+  # Global Sections
+  --------------------------------------------------------------*/
+section,
+.section {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  padding: 60px 0;
+  scroll-margin-top: 98px;
+  overflow: clip;
+}
+
+@media (max-width: 1199px) {
+  section,
+  .section {
+    scroll-margin-top: 64px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+.hero {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  text-align: center;
+  color: white;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  padding: 12px 30px;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #a00d0d;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(206, 18, 18, 0.4);
+}
+
+.btn-outline-light {
+  border: 2px solid white;
+  padding: 12px 30px;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background-color: white;
+  color: var(--dark-color);
+  transform: translateY(-2px);
+}
+
+/*--------------------------------------------------------------
+# About Section
+--------------------------------------------------------------*/
+.about-img {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.about-img img {
+  transition: transform 0.3s ease;
+}
+
+.about-img:hover img {
+  transform: scale(1.05);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 15px;
+}
+
+.section-title p {
+  color: var(--secondary-color);
+  font-size: 1.1rem;
+}
+
+/*--------------------------------------------------------------
+# Menu Section
+--------------------------------------------------------------*/
+.menu-item {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.menu-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.menu-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.menu-item h4 {
+  color: var(--dark-color);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.menu-item .price {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  font-weight: 700;
+  float: right;
+}
+
+.menu-tabs .nav-link {
+  border: none;
+  background: transparent;
+  color: var(--secondary-color);
+  font-weight: 600;
+  padding: 15px 25px;
+  border-radius: 50px;
+  margin: 0 5px;
+  transition: all 0.3s ease;
+}
+
+.menu-tabs .nav-link.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/*--------------------------------------------------------------
+# Events Section
+--------------------------------------------------------------*/
+.event-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.event-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.event-card-body {
+  padding: 25px;
+}
+
+.event-date {
+  background: var(--primary-color);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+/*--------------------------------------------------------------
+# Chefs Section
+--------------------------------------------------------------*/
+.chef-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+}
+
+.chef-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.chef-card img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 5px solid var(--light-color);
+}
+
+.chef-social {
+  margin-top: 20px;
+}
+
+.chef-social a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background: var(--light-color);
+  color: var(--secondary-color);
+  border-radius: 50%;
+  margin: 0 5px;
+  transition: all 0.3s ease;
+}
+
+.chef-social a:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/*--------------------------------------------------------------
+        # Gallery Section
+--------------------------------------------------------------*/
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(206, 18, 18, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-overlay i {
+  color: white;
+  font-size: 2rem;
+}
+
+/*--------------------------------------------------------------
+        # Book Table Section
+--------------------------------------------------------------*/
+.book-table {
+  background:
+    linear-gradient(rgba(206, 18, 18, 0.9), rgba(206, 18, 18, 0.9)),
+    url("https://placehold.co/1920x1080/2c3e50/ffffff?text=Restaurant+Dining");
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.book-table .form-control {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 10px;
+  padding: 12px 15px;
+}
+
+.book-table .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.book-table .form-control:focus {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: none;
+}
+
+/*--------------------------------------------------------------
+        # Contact Section
+--------------------------------------------------------------*/
+.contact-info {
+  background: var(--light-color);
+  padding: 40px;
+  border-radius: 15px;
+  height: 100%;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-item i {
+  background: var(--primary-color);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  font-size: 1.2rem;
+}
+
+/*--------------------------------------------------------------
+        # Stats Section
+--------------------------------------------------------------*/
+.stats {
+  background: var(--primary-color);
+  color: white;
+  padding: 80px 0;
+}
+
+.stats-item {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.stats-item i {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.stats-item .counter {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/*--------------------------------------------------------------
+        # Testimonials Section
+--------------------------------------------------------------*/
+.testimonial-item {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 20px;
+}
+
+.testimonial-item img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.testimonial-item .stars {
+  color: var(--warning-color);
+  margin-bottom: 15px;
+}
+
+/*--------------------------------------------------------------
+        # Footer
+--------------------------------------------------------------*/
+footer {
+  background: var(--dark-color);
+  color: white;
+}
+
+.footer-widget h5 {
+  color: white;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.footer-widget ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-widget ul li {
+  margin-bottom: 10px;
+}
+
+.footer-widget ul li a {
+  color: #adb5bd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-widget ul li a:hover {
+  color: var(--primary-color);
+}
+
+.social-links a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: white;
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* Services Section */
+.service-card {
+  background: white;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  height: 100%;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-icon i {
+  transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon i {
+  transform: scale(1.2);
+}
+
+/* Pricing Section */
+.pricing-card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-card .price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.pricing-card .period {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+/* FAQ Section */
+.accordion-button:not(.collapsed) {
+  background-color: rgba(206, 18, 18, 0.1);
+  color: var(--primary-color);
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  border-color: rgba(206, 18, 18, 0.25);
+}
+
+/* Partners Section */
+.grayscale {
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.grayscale:hover {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+/* Posts Section */
+.post-card {
+  transition: all 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+}
+
+.post-card:hover h4 a {
+  color: var(--primary-color);
+}
+
+/* CTA Section */
+.cta {
+  background-color: var(--primary-color);
+}
+
+/* Subscribe Section */
+.subscribe-form .form-control {
+  height: calc(3.5rem + 2px);
+  border-radius: 10px;
+}
+
+/*--------------------------------------------------------------
+        # Scroll to Top Button
+--------------------------------------------------------------*/
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  z-index: 1000;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.scroll-to-top.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/*--------------------------------------------------------------
+        # Preloader
+--------------------------------------------------------------*/
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#preloader:before {
+  content: "";
+  width: 60px;
+  height: 60px;
+  border: 6px solid var(--light-color);
+  border-top: 6px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*--------------------------------------------------------------
+        # Responsive
+--------------------------------------------------------------*/
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .section-title h2 {
+    font-size: 2rem;
+  }
+
+  .menu-item {
+    margin-bottom: 20px;
+  }
+}

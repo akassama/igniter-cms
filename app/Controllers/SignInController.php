@@ -13,7 +13,7 @@ class SignInController extends BaseController
     public function index()
     {
         //get use captcha config
-        $useCaptcha = getConfigData("UseCaptcha");
+        $useCaptcha = env('APP_USE_CAPTCHA', "No");
         if(strtolower($useCaptcha) === "yes"){
             // Generate captcha
             $builder = new CaptchaBuilder;
@@ -38,7 +38,7 @@ class SignInController extends BaseController
         validateHoneypotInput($honeypotInput, $submittedTimestamp);
 
         // Get use captcha config
-        $useCaptcha = getConfigData("UseCaptcha");
+        $useCaptcha = env('APP_USE_CAPTCHA', "No");
 
         // Set validation rules
         $rules = [
@@ -77,6 +77,17 @@ class SignInController extends BaseController
                     return redirect()->to('/sign-in');
                 }
 
+                //check if remember me selected
+                $rememberMe = !empty($this->request->getPost('remember_me')) ? boolval($this->request->getPost('remember_me')) : false;
+                // If 'remember me' is true, extend the session expiration to 3 days
+                if ($rememberMe) {
+                    $threeDaysInSeconds = 3 * 24 * 60 * 60;
+
+                    config('App')->sessionExpiration = $threeDaysInSeconds;
+
+                    session()->regenerate(true);
+                }
+    
                 // User logged in successfully. Store user data in session
                 session()->set([
                     'user_id' => $user['user_id'],

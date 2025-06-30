@@ -12,6 +12,13 @@ class SignUpController extends BaseController
 {
     public function index()
     {
+        //show demo message
+        if(boolval(env('DEMO_MODE', "false"))){
+            $errorMsg = "Registration not available in the demo mode.";
+            session()->setFlashdata('errorAlert', $errorMsg);
+            return view('front-end/sign-up/index');
+        }
+
         //get allow registration
         $allowRegistration = getConfigData("EnableRegistration");
         if(strtolower($allowRegistration) === "no"){
@@ -22,7 +29,7 @@ class SignUpController extends BaseController
         }
         
         //get use captcha config
-        $useCaptcha = getConfigData("UseCaptcha");
+        $useCaptcha = env('APP_USE_CAPTCHA', "No");
         if(strtolower($useCaptcha) === "yes"){
             // Generate captcha
             $builder = new CaptchaBuilder;
@@ -67,7 +74,7 @@ class SignUpController extends BaseController
         }
 
         //get use captcha config
-        $useCaptcha = getConfigData("UseCaptcha");
+        $useCaptcha = env('APP_USE_CAPTCHA', "No");
 
         if(strtolower($useCaptcha) === "yes"){
             $captcha = $this->request->getPost('captcha');

@@ -64,7 +64,7 @@ class ContactMessages extends Migration
         //Insert default record
         $data = [
             [
-                'contact_message_id' => getGUID(),
+                'contact_message_id' => getGUID("7b7978d1-0fb5-442e-8f24-de1a2fd560f5"),
                 'name'             => 'John Doe',
                 'email'            => 'john.doe@example.com',
                 'subject'          => 'Website Inquiry',
@@ -75,7 +75,7 @@ class ContactMessages extends Migration
                 'device'           => 'Desktop',
             ],
             [
-                'contact_message_id' => getGUID(),
+                'contact_message_id' => getGUID("9b7b0332-bd6f-4f2b-b003-0c9caf96119c"),
                 'name'             => 'Jane Smith',
                 'email'            => 'jane.smith@example.com',
                 'subject'          => 'Product Question',
@@ -86,7 +86,7 @@ class ContactMessages extends Migration
                 'device'           => 'Mobile',
             ],
             [
-                'contact_message_id' => getGUID(),
+                'contact_message_id' => getGUID("dbed80e0-eb45-4bff-862c-46bd7587e892"),
                 'name'             => 'Peter Jones',
                 'email'            => 'peter.jones@example.com',
                 'subject'          => 'Feedback',

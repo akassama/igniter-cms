@@ -15,7 +15,7 @@ class Experiences extends Migration
             ],
             'group' => [
                 'type' => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 100,
                 'null' => true
             ],
             'company_name' => [
@@ -101,26 +101,65 @@ class Experiences extends Migration
 
         //Insert default record
         $data = [
-            'experience_id' => getGUID(),
-            'group' => 'Professional',
-            'company_name' => 'Example Corp',
-            'position' => 'Software Engineer',
-            'start_date' => '2019-07-01',
-            'end_date' => '2023-01-01',
-            'current_job' => false,
-            'location' => 'New York, NY',
-            'description' => 'Developed and maintained web applications.',
-            'achievements' => 'Implemented a new feature that increased user engagement by 20%.',
-            'company_logo' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/company-logo.jpg',
-            'company_url' => 'https://example.com',
-            'order' => 1,
-            'status' => 1,
-            'created_by' => getGUID(getDefaultAdminGUID()),
-            'updated_by' => getGUID(getDefaultAdminGUID())
+            [
+                'experience_id' => getGUID(),
+                'group' => 'Professional',
+                'company_name' => 'Example Corp',
+                'position' => 'Software Engineer',
+                'start_date' => '2019-07-01',
+                'end_date' => '2023-01-01',
+                'current_job' => false,
+                'location' => 'New York, NY',
+                'description' => 'Developed and maintained scalable web applications using modern frameworks.',
+                'achievements' => 'Implemented a new feature that increased user engagement by 20%.',
+                'company_logo' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/company-logo.jpg',
+                'company_url' => 'https://example.com', 
+                'order' => 1,
+                'status' => 1,
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => getGUID(getDefaultAdminGUID())
+            ],
+            [
+                'experience_id' => getGUID(),
+                'group' => 'Professional',
+                'company_name' => 'TechNova Inc.',
+                'position' => 'Senior Developer',
+                'start_date' => '2017-03-15',
+                'end_date' => '2019-06-30',
+                'current_job' => false,
+                'location' => 'San Francisco, CA',
+                'description' => 'Led frontend development for enterprise-level clients, focusing on performance and scalability.',
+                'achievements' => 'Optimized application load time by 35%, improving overall client satisfaction.',
+                'company_logo' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/technova-logo.png',
+                'company_url' => 'https://technova.com', 
+                'order' => 2,
+                'status' => 1,
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => getGUID(getDefaultAdminGUID())
+            ],
+            [
+                'experience_id' => getGUID(),
+                'group' => 'Professional',
+                'company_name' => 'InnovateX Solutions',
+                'position' => 'Full Stack Developer',
+                'start_date' => '2023-02-01',
+                'end_date' => '',
+                'current_job' => true,
+                'location' => 'Remote',
+                'description' => 'Building cloud-native applications with React, Node.js, and AWS services.',
+                'achievements' => 'Launched an internal tool that reduced deployment times by 50%.',
+                'company_logo' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/innovatex-logo.png',
+                'company_url' => 'https://innovatex.io', 
+                'order' => 3,
+                'status' => 1,
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => getGUID(getDefaultAdminGUID())
+            ]
         ];
 
+
         // Using Query Builder
-        $this->db->table('experiences')->insert($data);
+        $this->db->table('experiences')->insertBatch($data);
     }
 
     public function down()

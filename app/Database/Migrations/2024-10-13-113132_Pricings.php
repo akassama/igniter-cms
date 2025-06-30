@@ -90,7 +90,6 @@ class Pricings extends Migration
         
         // Custom Optimization - Indexing
         $this->forge->addKey('title');
-        $this->forge->addKey('description');
 
         $this->forge->createTable('pricings');
 

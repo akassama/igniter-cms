@@ -116,8 +116,9 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php else : ?>
                     <select class="form-select" id="role" name="role" required>
                         <option value="">Select role</option>
-                        <option value="User" <?= ($user_data['role'] == 'User') ? 'selected' : '' ?>>User</option>
-                        <option value="Admin" <?= ($user_data['role'] == 'Admin') ? 'selected' : '' ?>>Admin</option>
+                        <?php foreach (config('CustomConfig')->userRoles as $key => $value): ?>
+                            <option value="<?= $value ?>" <?= ($user_data['role'] == $value) ? 'selected' : '' ?>><?= $value ?></option>
+                        <?php endforeach; ?>
                     </select>
                     <!-- Error Handling -->
                     <?php if ($validation->getError('role')) : ?>
@@ -242,10 +243,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>
-                <button type="submit" class="btn btn-outline-primary float-end" id="submit-btn">
-                    <i class="ri-edit-box-line"></i>
-                    Update
-                </button>
+                <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>
         </div>
         <?php echo form_close(); ?>

@@ -26,6 +26,8 @@ class ApiAccessFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
+        $checkApiKey = true;
+
         // Extract the API key from the second URL segment (immediately after 'api/')
         $uri = $request->getUri();
         $segments = $uri->getSegments();
@@ -34,27 +36,41 @@ class ApiAccessFilter implements FilterInterface
         $apiKey = $segments[1] ?? null;
         $resource = $segments[2] ?? null;
 
+        var_dump($apiKey);
+
+
+        $excludeArr = array("add-booking", "add-subscriber", "send-contact-message");
+        if (in_array($apiKey, $excludeArr))
+        {
+           $checkApiKey = false;
+        }
+
         // Debug: Check the extracted API key
         // var_dump($apiKey); exit();
 
         // Validate the API key using the helper function
-        if (!$apiKey || !isValidApiKey($apiKey)) {
-            return Services::response()
-                ->setStatusCode(401)
-                ->setJSON([
-                    'status' => 'error',
-                    'message' => 'Invalid API key.'
-                ]);
+        if($checkApiKey){
+            if (!$apiKey || !isValidApiKey($apiKey)) {
+                return Services::response()
+                    ->setStatusCode(401)
+                    ->setJSON([
+                        'status' => 'error',
+                        'message' => 'Invalid API key.'
+                    ]);
+            }
         }
 
-         // Validate the API key using the helper function
-         if (!isAllowedModel($resource)) {
-            return Services::response()
-                ->setStatusCode(401)
-                ->setJSON([
-                    'status' => 'error',
-                    'message' => 'Invalid model access.'
-                ]);
+
+        // Validate the API key using the helper function
+        if($checkApiKey){
+            if (!isAllowedModel($resource)) {
+                return Services::response()
+                    ->setStatusCode(401)
+                    ->setJSON([
+                        'status' => 'error',
+                        'message' => 'Invalid model access.'
+                    ]);
+            }
         }
 
         // Continue to the next filter or controller

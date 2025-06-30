@@ -45,6 +45,8 @@ class Filters extends BaseFilters
         'cacheHeadersFilter' => \App\Filters\CacheHeadersFilter::class,
         'corsFilter' => \App\Filters\CorsFilter::class,
         'apiAccessFilter'   => \App\Filters\ApiAccessFilter::class,
+        'demoCheckFilter'   => \App\Filters\DemoCheckFilter::class,
+        'featureCheckFilter'   => \App\Filters\FeatureCheckFilter::class,
     ];
 
     /**

@@ -23,15 +23,21 @@ class ThemesModel extends Model
         'path', 
         'primary_color',
         'secondary_color',
-        'other_color',
+        'background_color',
         'image',
         'theme_url',
         'theme_bg_image',
         'theme_bg_video',
+        'theme_bg_slider_image_1',
+        'theme_bg_slider_image_2',
+        'theme_bg_slider_image_3',
+        'theme_css',
+        'theme_js',
         'footer_copyright',
         'category',
         'sub_category',
         'selected',
+        'override_default_style',
         'deletable',
         'home_page',
         'created_by',
@@ -82,15 +88,21 @@ class ThemesModel extends Model
             'path' => $param['path'],
             'primary_color' => $param['primary_color'],
             'secondary_color' => $param['secondary_color'],
-            'other_color' => $param['other_color'],
+            'background_color' => $param['background_color'],
             'image' => $param['image'],
             'theme_url' => $param['theme_url'],
             'theme_bg_image' => $param['theme_bg_image'],
             'theme_bg_video' => $param['theme_bg_video'],
+            'theme_bg_slider_image_1' => $param['theme_bg_slider_image_1'],
+            'theme_bg_slider_image_2' => $param['theme_bg_slider_image_2'],
+            'theme_bg_slider_image_3' => $param['theme_bg_slider_image_3'],
+            'theme_css' => $param['theme_css'],
+            'theme_js' => $param['theme_js'],
             'footer_copyright' => $param['footer_copyright'],
             'category' => $param['category'],
             'sub_category' => $param['sub_category'],
             'selected' => $param['selected'],
+            'override_default_style' => $param['override_default_style'],
             'deletable' => $param['deletable'],
             'home_page' => $param['home_page'],
             'created_by' => $param['created_by'],
@@ -114,15 +126,21 @@ class ThemesModel extends Model
         $existingTheme['path'] = $param['path'];
         $existingTheme['primary_color'] = $param['primary_color'];
         $existingTheme['secondary_color'] = $param['secondary_color'];
-        $existingTheme['other_color'] = $param['other_color'];
+        $existingTheme['background_color'] = $param['background_color'];
         $existingTheme['image'] = $param['image'];
         $existingTheme['theme_url'] = $param['theme_url'];
         $existingTheme['theme_bg_image'] = $param['theme_bg_image'];
         $existingTheme['theme_bg_video'] = $param['theme_bg_video'];
+        $existingTheme['theme_bg_slider_image_1'] = $param['theme_bg_slider_image_1'];
+        $existingTheme['theme_bg_slider_image_2'] = $param['theme_bg_slider_image_2'];
+        $existingTheme['theme_bg_slider_image_3'] = $param['theme_bg_slider_image_3'];
+        $existingTheme['theme_css'] = $param['theme_css'];
+        $existingTheme['theme_js'] = $param['theme_js'];
         $existingTheme['footer_copyright'] = $param['footer_copyright'];
         $existingTheme['category'] = $param['category'];
         $existingTheme['sub_category'] = $param['sub_category'];
         $existingTheme['selected'] = $param['selected'];
+        $existingTheme['override_default_style'] = $param['override_default_style'];
         $existingTheme['deletable'] = $param['deletable'];
         $existingTheme['home_page'] = $param['home_page'];
         $existingTheme['created_by'] = $param['created_by'];

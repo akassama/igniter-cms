@@ -46,6 +46,48 @@ class DeleteTables extends BaseCommand
             }
         }
 
+        // Delete cached CSS and JS files
+        $this->clearCacheFiles();
+
         CLI::write('All tables have been deleted.', 'green');
+    }
+
+    /**
+     * Deletes all CSS and JS cache files from specific directories.
+     */
+    protected function clearCacheFiles()
+    {
+        $directories = [
+            FCPATH . 'cache/assets/css/',
+            FCPATH . 'cache/assets/js/',
+        ];
+
+        foreach ($directories as $dir) {
+            CLI::write("Looking in: {$dir}", 'yellow'); // Debug log
+
+            if (!is_dir($dir)) {
+                CLI::write("Directory not found: $dir", 'red');
+                continue;
+            }
+
+            $files = glob($dir . '*.{css,js}', GLOB_BRACE);
+            if (empty($files)) {
+                CLI::write("No cache files found in: $dir", 'yellow');
+                continue;
+            }
+
+            foreach ($files as $file) {
+                if (is_file($file)) {
+                    try {
+                        unlink($file);
+                        CLI::write("Deleted cache file: " . basename($file), 'cyan');
+                    } catch (\Exception $e) {
+                        CLI::error("Failed to delete file {$file}: " . $e->getMessage());
+                    }
+                }
+            }
+        }
+
+        CLI::write('Cache cleared.', 'green');
     }
 }

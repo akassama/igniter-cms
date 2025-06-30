@@ -22,16 +22,15 @@ CI_ENVIRONMENT = development
 
 # app.baseURL = ''
 # If you have trouble with `.`, you could also use `_`.
-# app_baseURL = ''
+# app_baseURL = 'http://localhost/apps/igniter-cms-pro/'
 # app.forceGlobalSecureRequests = false
 # app.CSPEnabled = false
 
 #--------------------------------------------------------------------
 # DATABASE
 #--------------------------------------------------------------------
-# Uncomment
 # database.default.hostname = localhost
-# database.default.database = igniter_db
+# database.default.database = igniter_cms_pro_db
 # database.default.username = root
 # database.default.password = 
 # database.default.DBDriver = MySQLi
@@ -68,12 +67,81 @@ CI_ENVIRONMENT = development
 
 # logger.threshold = 4
 
+# Query Limits
+QUERY_LIMIT_SINGLE = 1
+QUERY_LIMIT_VERY_LOW = 3
+QUERY_LIMIT_LOW = 6
+QUERY_LIMIT_MEDIUM = 12
+QUERY_LIMIT_DEFAULT = 25
+QUERY_LIMIT_HIGH = 50
+QUERY_LIMIT_VERY_HIGH = 100
+QUERY_LIMIT_200 = 200
+QUERY_LIMIT_500 = 500
+QUERY_LIMIT_MAX = 1000
+QUERY_LIMIT_ULTRA_MAX = 10000
+
+# Paginations
+PAGINATE_VERY_LOW = 10
+PAGINATE_LOW = 20
+PAGINATE_DEFAULT = 50
+PAGINATE_HIGH = 100
+PAGINATE_VERY_HIGH = 500
+PAGINATE_MAX = 1000
+
 #--------------------------------------------------------------------
-# SETTINGS
+# MESSAGES
 #--------------------------------------------------------------------
+MESSAGE_WRONG_CREDENTIALS = "Sign In Failed. The provided username/email or password is incorrect."
+MESSAGE_LOGIN_SUCCESS = "Login successful."
+MESSAGE_LOGOUT_SUCCESS = "You have been successfully logged out."
+MESSAGE_PENDING_ACTIVATION = "Your account has not been activated yet or is no longer active. Please contact the administrator."
+MESSAGE_TOO_MANY_FAILED_LOGINS = "Too many failed login attempts. Your IP has been blocked for 1 hour."
+MESSAGE_INVALID_ACCESS = "You do not have access to this area."
+MESSAGE_CREATE_SUCCESS = "Record created successfully."
+MESSAGE_EDIT_SUCCESS = "Record updated successfully."
+MESSAGE_DELETE_SUCCESS = "Record removed successfully."
+MESSAGE_MISSING_REQUIRED_INPUTS = "There are validation errors. Possible missing required inputs."
+MESSAGE_SENT_CONTACT = "Message sent successfully."
+MESSAGE_FAILED_CONTACT = "Form submission failed."
+MESSAGE_NOT_FOUND = "Record not found."
+MESSAGE_ALREADY_EXIST = "[Record] already exists in table."
+MESSAGE_ERROR = "Oops! Something went wrong. Please try again later."
+MESSAGE_RESET_LINK = "A password reset link has been sent to your email address. Please check your inbox and follow the instructions to reset your password. If you do not see the email in your inbox, please check your spam or junk folder."
+MESSAGE_INVALID_RESET_LINK = "Invalid or expired password reset link."
+MESSAGE_PASSWORD_RESET_REQUIRED = "For security reasons, you need to change your password before continuing. Your current password was either set by an administrator or is a default password."
+MESSAGE_PASSWORD_RESET_SUCCESSFUL = "Your password has been reset successfully. You can now log in with your new password."
+MESSAGE_PASSWORD_RESET_FAILED = "Unable to reset password. Please try again"
+MESSAGE_NON_EXISTING_RESET_EMAIL = "We are sorry, but the email address you entered is not associated with any account. Please check the email address and try again."
+MESSAGE_EXCEPTION = "There was an error processing your request. Please try again. If this error persists, please see or send an email to system administrator."
+MESSAGE_CONTACT_SUCCESSFUL = "Your message has been sent successfully."
+MESSAGE_CONTACT_FAILED = "Oops! Something went wrong with your message submission. Please try again later."
+MESSAGE_SUBSCRIPTION_SUCCESSFUL = "You have successfully subscribed!"
+MESSAGE_SUBSCRIPTION_FAILED = "Sorry, something went wrong with your subscription. Please try again."
+
+#--------------------------------------------------------------------
+# FAETURE FLAGS
+#--------------------------------------------------------------------
+FEATURE_FLAG_EXEMPTIONS="exempt-user1@example.com,exempt-user2@example.com"
+FEATURE_BACK_END=true
+FEATURE_FRONT_END=true
+FEATURE_CMS=true
+FEATURE_ECOMMERCE=true
+FEATURE_RESUMES=true
+FEATURE_FILE_MANAGER=true
+FEATURE_SETTINGS=true
+FEATURE_ADMIN=true
+FEATURE_ASK_AI=true
+FEATURE_PLUGINS=true
+
+#--------------------------------------------------------------------
+# OTHER SETTINGS
+#--------------------------------------------------------------------
+APP_NAME = "Igniter CMS App"
+APP_VERSION = 1.2.0
+APP_KEY=your-app-id
+APP_USE_CAPTCHA = "No"
+APP_API_KEY = "default"
 DEMO_MODE = false
-CRON_SECURITY_KEY = 42b619bd-bdc3-4ffd-8c69-8e70632f96ae
-CUSTOM_GEMINI_REQUEST_URL = https://igniter-cms.aktools.net/process-gemini-request.php?key=
-PUBLIC_GEMINI_REQUEST_KEY = gHDJyVTKP3BsVjgcF8DpzsmCfWRQLoWIoaTBsszZLyvRPWW0rXh7e9R7PnRsRtdB7F8FRm4w0uYXlcPxlErCXmwswd5i6qnSeSh1u56FUzzIyLgaMiUyDx1eb8sSHppv
-
-
+CRON_SECURITY_KEY = your-cron-secret-key
+CUSTOM_GEMINI_REQUEST_URL = https://api.ignitercms.com/ai/get-ai-response/
+PUBLIC_GEMINI_REQUEST_KEY = HL3SG0Q3Fm9mDDK57raurKnQ5Pfs1LJm0UgR1RXS1EeIFraw6oPE3p2o9OLo8MwKX0loW6EXGELhXP0aB3k48PYSZTpYM82JlyE2RZlVYfNZvWOgoeMOmVBHVIAz1xaB

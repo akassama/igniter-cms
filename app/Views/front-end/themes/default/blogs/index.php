@@ -62,7 +62,7 @@ $sectionDescription = getHomePageData("RecentPosts", "section_description");
             </div>
             <div class="text-start mb-5 mb-xl-0">
                 <?php
-                    if($total_blogs > 20){
+                    if($total_blogs > intval(env('PAGINATE_LOW', 20))){
                         ?>
                             <!--Show pagination if more than 100 records-->
                             <div class="col-12 text-start">

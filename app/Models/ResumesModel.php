@@ -30,13 +30,16 @@ class ResumesModel extends Model
             'summary',
             'email',
             'phone',
+            'dob',
             'address',
             'website',
             'linkedin_url',
             'github_url',
             'twitter_url',
             'image',
+            'additional_image',
             'cv_file',
+            'certifications',
             'status',
             'total_views',
             'created_by',
@@ -94,13 +97,16 @@ class ResumesModel extends Model
             'summary' => $param['summary'],
             'email' => $param['email'],
             'phone' => $param['phone'],
+            'dob' => $param['dob'],
             'address' => $param['address'],
             'website' => $param['website'],
             'linkedin_url' => $param['linkedin_url'],
             'github_url' => $param['github_url'],
             'twitter_url' => $param['twitter_url'],
             'image' => $param['image'],
+            'additional_image' => $param['additional_image'],
             'cv_file' => $param['cv_file'],
+            'certifications' => $param['certifications'],
             'status' => $param['status'],
             'created_by' => $param['created_by'],
             'updated_by' => $param['updated_by'],
@@ -126,13 +132,16 @@ class ResumesModel extends Model
         $existingResume['summary'] = $param['summary'];
         $existingResume['email'] = $param['email'];
         $existingResume['phone'] = $param['phone'];
+        $existingResume['dob'] = $param['dob'];
         $existingResume['address'] = $param['address'];
         $existingResume['website'] = $param['website'];
         $existingResume['linkedin_url'] = $param['linkedin_url'];
         $existingResume['github_url'] = $param['github_url'];
         $existingResume['twitter_url'] = $param['twitter_url'];
         $existingResume['image'] = $param['image'];
+        $existingResume['additional_image'] = $param['additional_image'];
         $existingResume['cv_file'] = $param['cv_file'];
+        $existingResume['certifications'] = $param['certifications'];
         $existingResume['status'] = $param['status'];
         $existingResume['created_by'] = $param['created_by'];
         $existingResume['updated_by'] = $param['updated_by'];

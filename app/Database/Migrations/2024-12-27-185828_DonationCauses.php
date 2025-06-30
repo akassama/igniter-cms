@@ -99,7 +99,6 @@ class DonationCauses extends Migration
 
         // Custom Optimization - Indexing
         $this->forge->addKey('slug');
-
         $this->forge->createTable('donation_causes');
 
         //insert default records

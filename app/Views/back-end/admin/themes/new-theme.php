@@ -105,22 +105,39 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-4 mb-4">
-                <label for="other_color" class="form-label">Other Color</label>
-                <input type="color" class="form-control form-control-color" id="other_color" name="other_color" value="<?= set_value('other_color') ?? '#CCCCCC' ?>"
+                <label for="background_color" class="form-label">Background Color</label>
+                <input type="color" class="form-control form-control-color" id="background_color" name="background_color" value="<?= set_value('background_color') ?? '#CCCCCC' ?>"
                        hx-post="<?=base_url()?>/htmx/get-other-color-name"
                        hx-trigger="load, change delay:100ms"
                        hx-target="#set-other-color-name"
                        hx-swap="innerHTML">
                 <!-- Error -->
-                <?php if($validation->getError('other_color')) {?>
+                <?php if($validation->getError('background_color')) {?>
                     <div class='text-danger mt-2'>
-                        <?= $error = $validation->getError('other_color'); ?>
+                        <?= $error = $validation->getError('background_color'); ?>
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
                     Please provide other color
                 </div>
                 <div class="mt-2" id="set-other-color-name">
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 mb-3">
+                <label for="override_default_style" class="form-label">Override Default Style</label>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="override_default_style" name="override_default_style" value="1">
+                    <label class="form-check-label small" for="override_default_style">Toggle to override default style</label>
+                </div>
+                <!-- Error -->
+                <?php if($validation->getError('override_default_style')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('override_default_style'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide override_default_style
                 </div>
             </div>
 
@@ -192,6 +209,64 @@ echo generateBreadcrumb($breadcrumb_links);
                     Please provide theme_bg_video
                 </div>
             </div>
+                        
+            <div class="col-sm-12 col-md-4 mb-3">
+                <label for="theme_bg_slider_image_1" class="form-label">Theme Slider Image 1</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="theme_bg_slider_image_1" name="theme_bg_slider_image_1" maxlength="250" placeholder="select image" value="<?= set_value('theme_bg_slider_image_1') ?>">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                        <i class="ri-image-fill"></i>
+                    </button>
+                </div>
+                <!-- Error -->
+                <?php if($validation->getError('theme_bg_slider_image_1')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('theme_bg_slider_image_1'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide theme_bg_slider_image_1
+                </div>
+            </div>
+            
+            <div class="col-sm-12 col-md-4 mb-3">
+                <label for="theme_bg_slider_image_2" class="form-label">Theme Slider Image 2</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="theme_bg_slider_image_2" name="theme_bg_slider_image_2" maxlength="250" placeholder="select image" value="<?= set_value('theme_bg_slider_image_2') ?>">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                        <i class="ri-image-fill"></i>
+                    </button>
+                </div>
+                <!-- Error -->
+                <?php if($validation->getError('theme_bg_slider_image_2')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('theme_bg_slider_image_2'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide theme_bg_slider_image_2
+                </div>
+            </div>
+            
+            <div class="col-sm-12 col-md-4 mb-3">
+                <label for="theme_bg_slider_image_3" class="form-label">Theme Slider Image 3</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="theme_bg_slider_image_3" name="theme_bg_slider_image_3" maxlength="250" placeholder="select image" value="<?= set_value('theme_bg_slider_image_3') ?>">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                        <i class="ri-image-fill"></i>
+                    </button>
+                </div>
+                <!-- Error -->
+                <?php if($validation->getError('theme_bg_slider_image_3')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('theme_bg_slider_image_3'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide theme_bg_slider_image_3
+                </div>
+            </div>
+            
             
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="footer_copyright" class="form-label">Footer Copyright</label>
@@ -288,10 +363,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>
-                <button type="submit" class="btn btn-outline-primary float-end" id="submit-btn">
-                    <i class="ri-send-plane-fill"></i>
-                    Submit
-                </button>
+                <?= $this->include('back-end/_shared/_submit_buttons.php'); ?>
             </div>
         </div>
         <?php echo form_close(); ?>

@@ -4,6 +4,9 @@ $session = session();
 $sessionName = $session->get('first_name').' '.$session->get('last_name');
 $sessionEmail = $session->get('email');
 $userRole = getUserRole($sessionEmail);
+
+// Load the CustomConfig
+$customConfig = config('CustomConfig');
 ?>
 
 <!-- include layout -->
@@ -30,7 +33,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <h3>
             Edit Theme Files
         </h3>
-        <h6 class="float-end">
+        <h6 class="float-start">
             Theme: <?=getCurrentTheme()?>
         </h6>
     </div>
@@ -59,6 +62,34 @@ echo generateBreadcrumb($breadcrumb_links);
                             <h5 class="card-title mt-2">home/index.php</h5>
                             <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/home/index.php">
                                 app/Views/front-end/themes/<?=getCurrentTheme()?>/home/index.php
+                            </small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-6">
+                <a href="<?= base_url('account/admin/file-editor/appointments') ?>" class="text-decoration-none">
+                    <div class="card text-center h-100 shadow-sm">
+                        <h6 class="card-title text-dark mt-2">Appointments</h6>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
+                            <h5 class="card-title mt-2">appointments/index.php</h5>
+                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/appointments/index.php">
+                                app/Views/front-end/themes/<?=getCurrentTheme()?>/appointments/index.php
+                            </small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-6">
+                <a href="<?= base_url('account/admin/file-editor/view-appointment') ?>" class="text-decoration-none">
+                    <div class="card text-center h-100 shadow-sm">
+                        <h6 class="card-title text-dark mt-2">View Appointment</h6>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
+                            <h5 class="card-title mt-2">appointments/view-appointment.php</h5>
+                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/appointments/view-appointment.php">
+                                app/Views/front-end/themes/<?=getCurrentTheme()?>/appointments/view-appointment.php
                             </small>
                         </div>
                     </div>

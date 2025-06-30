@@ -16,6 +16,7 @@ use App\Models\CodesModel;
 use App\Models\ThemesModel;
 use App\Models\SubscribersModel;
 use App\Models\ContactMessagesModel;
+use App\Models\BookingsModel;
 use App\Models\SiteStatsModel;
 use App\Models\BlockedIPsModel;
 use App\Models\WhitelistedIPsModel;
@@ -160,19 +161,19 @@ class AdminController extends BaseController
             'role' => 'required',
         ];
 
-        $userId = $this->request->getVar('user_id');
+        $userId = $this->request->getPost('user_id');
         $data['user_data'] = $usersModel->where('user_id', $userId)->first();
 
         if($this->validate($rules)){
-            $userId = $this->request->getVar('user_id');
+            $userId = $this->request->getPost('user_id');
 
             $db = \Config\Database::connect();
             $builder = $db->table('users');
             $data = [
-                'first_name' => $this->request->getVar('first_name'),
-                'last_name'  => $this->request->getVar('last_name'),
-                'status'  => $this->request->getVar('status'),
-                'role'  => $this->request->getVar('role'),
+                'first_name' => $this->request->getPost('first_name'),
+                'last_name'  => $this->request->getPost('last_name'),
+                'status'  => $this->request->getPost('status'),
+                'role'  => $this->request->getPost('role'),
                 'profile_picture' => $this->request->getPost('profile_picture') ?? getDefaultProfileImagePath(),
                 'twitter_link' => $this->request->getPost('twitter_link'),
                 'facebook_link' => $this->request->getPost('facebook_link'),
@@ -237,7 +238,7 @@ class AdminController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'subscribers' => $subscribersModel->orderBy('created_at', 'DESC')->paginate(500),
+            'subscribers' => $subscribersModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_500', 500))),
             'pager' => $subscribersModel->pager,
             'total_subscribers' => $subscribersModel->pager->getTotal()
         ];
@@ -255,7 +256,7 @@ class AdminController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'contact_messages' => $contactMessagesModel->orderBy('created_at', 'DESC')->paginate(500),
+            'contact_messages' => $contactMessagesModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_500', 500))),
             'pager' => $contactMessagesModel->pager,
             'total_contact_messages' => $contactMessagesModel->pager->getTotal()
         ];
@@ -287,6 +288,45 @@ class AdminController extends BaseController
         ];
 
         return view('back-end/admin/contact-messages/view-contact', $data);
+    }
+
+    //############################//
+    //          Bookings          //
+    //############################//
+    public function bookings()
+    {
+        $tableName = 'bookings';
+        $bookingsModel = new BookingsModel();
+
+        // Set data to pass in view
+        $data = [
+            'bookings' => $bookingsModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_500', 500))),
+            'pager' => $bookingsModel->pager,
+            'total_bookings' => $bookingsModel->pager->getTotal()
+        ];
+
+        return view('back-end/admin/bookings/index', $data);
+    }
+
+    public function viewBooking($bookingId)
+    {
+        $bookingsModel = new BookingsModel();
+
+        // Fetch the data based on the id
+        $booking = $bookingsModel->where('booking_id', $bookingId)->first();
+
+        if (!$booking) {
+            $errorMsg = config('CustomConfig')->notFoundMsg;
+            session()->setFlashdata('errorAlert', $errorMsg);
+            return redirect()->to('/account/admin/bookings');
+        }
+
+        // Set data to pass in view
+        $data = [
+            'booking_data' => $booking
+        ];
+
+        return view('back-end/admin/bookings/view-booking', $data);
     }
 
     //############################//
@@ -470,7 +510,7 @@ class AdminController extends BaseController
             'status' => 'required'
         ];
 
-        $apiId = $this->request->getVar('api_id');
+        $apiId = $this->request->getPost('api_id');
         $data['api_key_data'] = $apiKeysModel->where('api_id', $apiId)->first();
 
         if($this->validate($rules)){
@@ -549,13 +589,15 @@ class AdminController extends BaseController
         }
 
         // If validation passes, create the config
+        $dataType = $this->request->getPost('data_type') ;
+        $configValue = $this->request->getPost('config_value') ?? $this->request->getPost('default_value');
         $configData = [
             'config_for' => removeTextSpace($this->request->getPost('config_for')),
             'description' => $this->request->getPost('description'),
-            'config_value' => $this->request->getPost('config_value') ?? $this->request->getPost('default_value'),
+            'config_value' => strtolower($dataType) === "secret" ? configDataEncryption($configValue) : $configValue,
             'group' => $this->request->getPost('group'),
             'icon' => $this->request->getPost('icon'),
-            'data_type' => $this->request->getPost('data_type'),
+            'data_type' => $dataType,
             'options' => $this->request->getPost('options'),
             'default_value' => $this->request->getPost('default_value'),
             'custom_class' => $this->request->getPost('custom_class'),
@@ -646,19 +688,21 @@ class AdminController extends BaseController
             'config_value' => 'required',
         ];
 
-        $configId = $this->request->getVar('config_id');
+        $configId = $this->request->getPost('config_id');
         $data['config_data'] = $configModel->where('config_id', $configId)->first();
 
+        $dataType = $this->request->getPost('data_type') ;
+        $configValue = $this->request->getPost('config_value') ?? $this->request->getPost('default_value');
         if($this->validate($rules)){
             $db = \Config\Database::connect();
             $builder = $db->table('configurations');
             $data = [
-                'config_for' => removeTextSpace($this->request->getVar('config_for')),
+                'config_for' => removeTextSpace($this->request->getPost('config_for')),
                 'description' => $this->request->getPost('description'),
-                'config_value'  => $this->request->getVar('config_value') ?? $this->request->getPost('default_value'),
+                'config_value'  => strtolower($dataType) === "secret" ? configDataEncryption($configValue) : $configValue,
                 'group' => $this->request->getPost('group'),
                 'icon' => $this->request->getPost('icon'),
-                'data_type' => $this->request->getPost('data_type'),
+                'data_type' => $dataType,
                 'options' => $this->request->getPost('options'),
                 'default_value' => $this->request->getPost('default_value'),
                 'custom_class' => $this->request->getPost('custom_class'),
@@ -801,15 +845,15 @@ class AdminController extends BaseController
             'code' => 'required',
         ];
     
-        $codeId = $this->request->getVar('code_id');
+        $codeId = $this->request->getPost('code_id');
         $data['code_data'] = $codesModel->where('code_id', $codeId)->first();
     
         if($this->validate($rules)){
             $db = \Config\Database::connect();
             $builder = $db->table('codes');
             $data = [
-                'code_for' => $this->request->getVar('code_for'),
-                'code'  => $this->request->getVar('code'),
+                'code_for' => $this->request->getPost('code_for'),
+                'code'  => $this->request->getPost('code'),
                 'deletable' => $this->request->getPost('deletable'),
             ];
     
@@ -881,19 +925,25 @@ class AdminController extends BaseController
         $themeData = [
             'name' => $this->request->getPost('name'),
             'path' => $this->request->getPost('path'),
-            'primary_color'  => $this->request->getVar('primary_color'),
-            'secondary_color'  => $this->request->getVar('secondary_color'),
-            'other_color'  => $this->request->getVar('other_color'),
-            'image'  => $this->request->getVar('image'),
-            'theme_url'  => $this->request->getVar('theme_url'),
-            'theme_bg_image'  => $this->request->getVar('theme_bg_image'),
-            'theme_bg_video'  => $this->request->getVar('theme_bg_video'),
-            'footer_copyright'  => $this->request->getVar('footer_copyright'),
-            'category'  => $this->request->getVar('category'),
-            'sub_category'  => $this->request->getVar('sub_category'),
-            'selected'  => $this->request->getVar('selected') ?? 0,
-            'deletable' => $this->request->getVar('deletable') ?? 1,
-            'home_page'  => $this->request->getVar('home_page') ?? 'HomePage',
+            'primary_color'  => $this->request->getPost('primary_color'),
+            'secondary_color'  => $this->request->getPost('secondary_color'),
+            'background_color'  => $this->request->getPost('background_color'),
+            'image'  => $this->request->getPost('image'),
+            'theme_url'  => $this->request->getPost('theme_url'),
+            'theme_bg_image'  => $this->request->getPost('theme_bg_image'),
+            'theme_bg_video'  => $this->request->getPost('theme_bg_video'),
+            'theme_bg_slider_image_1'  => $this->request->getPost('theme_bg_slider_image_1'),
+            'theme_bg_slider_image_2'  => $this->request->getPost('theme_bg_slider_image_2'),
+            'theme_bg_slider_image_3'  => $this->request->getPost('theme_bg_slider_image_3'),
+            'theme_js'  => $this->request->getPost('theme_js'),
+            'theme_css'  => $this->request->getPost('theme_css'),
+            'footer_copyright'  => $this->request->getPost('footer_copyright'),
+            'category'  => $this->request->getPost('category'),
+            'sub_category'  => $this->request->getPost('sub_category'),
+            'selected'  => $this->request->getPost('selected') ?? 0,
+            'override_default_style'  => $this->request->getPost('override_default_style') ?? 0,
+            'deletable' => $this->request->getPost('deletable') ?? 1,
+            'home_page'  => $this->request->getPost('home_page') ?? 'HomePage',
             'created_by' => $loggedInUserId,
             'updated_by' => null
         ];
@@ -975,13 +1025,13 @@ class AdminController extends BaseController
             'path' => 'required',
         ];
     
-        $themeId = $this->request->getVar('theme_id');
+        $themeId = $this->request->getPost('theme_id');
         $data['theme_data'] = $themesModel->where('theme_id', $themeId)->first();
     
         if($this->validate($rules)){       
 
             //if selected, set the rest as not selected
-            if($this->request->getVar('selected') == "1"){
+            if($this->request->getPost('selected') == "1"){
                 $updatedData = [
                     'selected' => 0
                 ];
@@ -991,7 +1041,7 @@ class AdminController extends BaseController
                 updateRecord('themes', $updatedData, $updateWhereClause);
 
                 //update home_page config value
-                $homePage = $this->request->getVar('home_page');
+                $homePage = $this->request->getPost('home_page');
                 $updateColumn = "'config_value' = '$homePage'";
                 $updateWhereClause = "config_for = 'HomePageFormat'";
                 updateRecordColumn("configurations", $updateColumn, $updateWhereClause);
@@ -1000,22 +1050,28 @@ class AdminController extends BaseController
             $db = \Config\Database::connect();
             $builder = $db->table('themes');
             $data = [
-                'name' => $this->request->getVar('name'),
-                'path'  => $this->request->getVar('path'),
-                'primary_color'  => $this->request->getVar('primary_color'),
-                'secondary_color'  => $this->request->getVar('secondary_color'),
-                'other_color'  => $this->request->getVar('other_color'),
-                'image'  => $this->request->getVar('image'),
-                'theme_url'  => $this->request->getVar('theme_url'),
-                'theme_bg_image'  => $this->request->getVar('theme_bg_image'),
-                'theme_bg_video'  => $this->request->getVar('theme_bg_video'),
-                'footer_copyright'  => $this->request->getVar('footer_copyright'),
-                'category'  => $this->request->getVar('category'),
-                'sub_category'  => $this->request->getVar('sub_category'),
-                'selected'  => $this->request->getVar('selected') ?? 0,
-                'deletable' => $this->request->getVar('deletable') ?? 1,
-                'home_page'  => $this->request->getVar('home_page') ?? 'HomePage',
-                'created_by' => $this->request->getVar('created_by'),
+                'name' => $this->request->getPost('name'),
+                'path'  => $this->request->getPost('path'),
+                'primary_color'  => $this->request->getPost('primary_color'),
+                'secondary_color'  => $this->request->getPost('secondary_color'),
+                'background_color'  => $this->request->getPost('background_color'),
+                'image'  => $this->request->getPost('image'),
+                'theme_url'  => $this->request->getPost('theme_url'),
+                'theme_bg_image'  => $this->request->getPost('theme_bg_image'),
+                'theme_bg_video'  => $this->request->getPost('theme_bg_video'),
+                'theme_bg_slider_image_1'  => $this->request->getPost('theme_bg_slider_image_1'),
+                'theme_bg_slider_image_2'  => $this->request->getPost('theme_bg_slider_image_2'),
+                'theme_bg_slider_image_3'  => $this->request->getPost('theme_bg_slider_image_3'),
+                'theme_js'  => $this->request->getPost('theme_js'),
+                'theme_css'  => $this->request->getPost('theme_css'),
+                'footer_copyright'  => $this->request->getPost('footer_copyright'),
+                'category'  => $this->request->getPost('category'),
+                'sub_category'  => $this->request->getPost('sub_category'),
+                'selected'  => $this->request->getPost('selected') ?? 0,
+                'override_default_style'  => $this->request->getPost('override_default_style') ?? 0,
+                'deletable' => $this->request->getPost('deletable') ?? 1,
+                'home_page'  => $this->request->getPost('home_page') ?? 'HomePage',
+                'created_by' => $this->request->getPost('created_by'),
                 'updated_by' => $loggedInUserId
             ];
     
@@ -1074,7 +1130,7 @@ class AdminController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'activity_logs' => $activityLogsModel->orderBy('created_at', 'DESC')->paginate(1000),
+            'activity_logs' => $activityLogsModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_MAX', 1000))),
             'pager' => $activityLogsModel->pager,
             'total_activities' => $activityLogsModel->pager->getTotal()
         ];
@@ -1156,7 +1212,7 @@ class AdminController extends BaseController
         // Paginate the log data
         $pager = \Config\Services::pager();
         $perPage = 50; // Number of entries per page
-        $currentPage = $this->request->getVar('page') ?? 1; // Get current page from query string
+        $currentPage = $this->request->getPost('page') ?? 1; // Get current page from query string
 
         // Slice the log data for the current page
         $totalEntries = count($logData);
@@ -1211,7 +1267,7 @@ class AdminController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'visit_stats' => $visitStatsModel->orderBy('created_at', 'DESC')->paginate(1000),
+            'visit_stats' => $visitStatsModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_MAX', 1000))),
             'pager' => $visitStatsModel->pager,
             'total_stats' => $visitStatsModel->pager->getTotal()
         ];
@@ -1250,7 +1306,7 @@ class AdminController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'blocked_ips' => $blockedIPsModel->orderBy('created_at', 'DESC')->paginate(100),
+            'blocked_ips' => $blockedIPsModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_VERY_HIGH', 100))),
             'pager' => $blockedIPsModel->pager,
             'total_blocked_ips' => $blockedIPsModel->pager->getTotal()
         ];
@@ -1327,7 +1383,7 @@ class AdminController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'whitelisted_ips' => $whitelistedIPsModel->orderBy('created_at', 'DESC')->paginate(100),
+            'whitelisted_ips' => $whitelistedIPsModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_VERY_HIGH', 100))),
             'pager' => $whitelistedIPsModel->pager,
             'total_whitelisted_ips' => $whitelistedIPsModel->pager->getTotal()
         ];
@@ -1417,7 +1473,7 @@ class AdminController extends BaseController
         try {
             // Get database configuration
             $hostname = env('database.default.hostname', 'localhost');
-            $databaseName = env('database.default.database', 'igniter_db');
+            $databaseName = env('database.default.database', 'igniter_cms_pro_db');
             
             // Generate file name with date and time
             $fileName = 'backup_' . date('Y-m-d_H-i-s') .'-'. rand(). '.sql';
@@ -1629,8 +1685,8 @@ class AdminController extends BaseController
         $homeFileContent = file_get_contents($homeFilePath);
         
         $data = [
-            'homeFilename' => $homeFilename, // This is just for display
-            'homeFilePath' => $homeFilePath,  // This is used for saving the file
+            'homeFilename' => $homeFilename,
+            'homeFilePath' => $homeFilePath,
             'homeFileContent' => $homeFileContent
         ];
 
@@ -1653,12 +1709,60 @@ class AdminController extends BaseController
         $layoutFileContent = file_get_contents($layoutFilePath);
         
         $data = [
-            'layoutFilename' => $layoutFilename, // This is just for display
-            'layoutFilePath' => $layoutFilePath,  // This is used for saving the file
+            'layoutFilename' => $layoutFilename,
+            'layoutFilePath' => $layoutFilePath,
             'layoutFileContent' => $layoutFileContent
         ];
 
         return view('back-end/admin/file-editor/layout', $data);
+    }
+
+    public function appointmentsFileEditor()
+    {
+        // Get the file you want to edit
+        $appointmentsFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/appointments/index.php';
+        
+        // Get only the file name (not the whole path) to display it
+        $appointmentsFilename = basename($appointmentsFilePath);
+
+        if (!file_exists($appointmentsFilePath)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
+        }
+
+        // Load the file content
+        $appointmentsFileContent = file_get_contents($appointmentsFilePath);
+        
+        $data = [
+            'appointmentsFilename' => $appointmentsFilename,
+            'appointmentsFilePath' => $appointmentsFilePath,
+            'appointmentsFileContent' => $appointmentsFileContent
+        ];
+
+        return view('back-end/admin/file-editor/appointments', $data);
+    }
+
+    public function viewAppointmentFileEditor()
+    {
+        // Get the file you want to edit
+        $viewAppointmentFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/appointments/view-appointment.php';
+        
+        // Get only the file name (not the whole path) to display it
+        $viewAppointmentFilename = basename($viewAppointmentFilePath);
+
+        if (!file_exists($viewAppointmentFilePath)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
+        }
+
+        // Load the file content
+        $viewAppointmentFileContent = file_get_contents($viewAppointmentFilePath);
+        
+        $data = [
+            'viewAppointmentFilename' => $viewAppointmentFilename,
+            'viewAppointmentFilePath' => $viewAppointmentFilePath,
+            'viewAppointmentFileContent' => $viewAppointmentFileContent
+        ];
+
+        return view('back-end/admin/file-editor/view-appointment', $data);
     }
 
     public function blogsFileEditor()
@@ -1677,8 +1781,8 @@ class AdminController extends BaseController
         $blogsFileContent = file_get_contents($blogsFilePath);
         
         $data = [
-            'blogsFilename' => $blogsFilename, // This is just for display
-            'blogsFilePath' => $blogsFilePath,  // This is used for saving the file
+            'blogsFilename' => $blogsFilename,
+            'blogsFilePath' => $blogsFilePath,
             'blogsFileContent' => $blogsFileContent
         ];
 
@@ -1701,8 +1805,8 @@ class AdminController extends BaseController
         $viewBlogFileContent = file_get_contents($viewBlogFilePath);
         
         $data = [
-            'viewBlogFilename' => $viewBlogFilename, // This is just for display
-            'viewBlogFilePath' => $viewBlogFilePath,  // This is used for saving the file
+            'viewBlogFilename' => $viewBlogFilename,
+            'viewBlogFilePath' => $viewBlogFilePath,
             'viewBlogFileContent' => $viewBlogFileContent
         ];
 
@@ -1725,8 +1829,8 @@ class AdminController extends BaseController
         $contactFileContent = file_get_contents($contactFilePath);
         
         $data = [
-            'contactFilename' => $contactFilename, // This is just for display
-            'contactFilePath' => $contactFilePath,  // This is used for saving the file
+            'contactFilename' => $contactFilename,
+            'contactFilePath' => $contactFilePath,
             'contactFileContent' => $contactFileContent
         ];
 
@@ -1749,8 +1853,8 @@ class AdminController extends BaseController
         $eventsFileContent = file_get_contents($eventsFilePath);
         
         $data = [
-            'eventsFilename' => $eventsFilename, // This is just for display
-            'eventsFilePath' => $eventsFilePath,  // This is used for saving the file
+            'eventsFilename' => $eventsFilename,
+            'eventsFilePath' => $eventsFilePath,
             'eventsFileContent' => $eventsFileContent
         ];
 
@@ -1773,8 +1877,8 @@ class AdminController extends BaseController
         $viewEventFileContent = file_get_contents($viewEventFilePath);
         
         $data = [
-            'viewEventFilename' => $viewEventFilename, // This is just for display
-            'viewEventFilePath' => $viewEventFilePath,  // This is used for saving the file
+            'viewEventFilename' => $viewEventFilename,
+            'viewEventFilePath' => $viewEventFilePath,
             'viewEventFileContent' => $viewEventFileContent
         ];
 
@@ -1797,8 +1901,8 @@ class AdminController extends BaseController
         $viewPageFileContent = file_get_contents($viewPageFilePath);
         
         $data = [
-            'viewPageFilename' => $viewPageFilename, // This is just for display
-            'viewPageFilePath' => $viewPageFilePath,  // This is used for saving the file
+            'viewPageFilename' => $viewPageFilename,
+            'viewPageFilePath' => $viewPageFilePath,
             'viewPageFileContent' => $viewPageFileContent
         ];
 
@@ -1821,8 +1925,8 @@ class AdminController extends BaseController
         $portfoliosFileContent = file_get_contents($portfoliosFilePath);
         
         $data = [
-            'portfoliosFilename' => $portfoliosFilename, // This is just for display
-            'portfoliosFilePath' => $portfoliosFilePath,  // This is used for saving the file
+            'portfoliosFilename' => $portfoliosFilename,
+            'portfoliosFilePath' => $portfoliosFilePath,
             'portfoliosFileContent' => $portfoliosFileContent
         ];
 
@@ -1845,8 +1949,8 @@ class AdminController extends BaseController
         $viewPortfolioFileContent = file_get_contents($viewPortfolioFilePath);
         
         $data = [
-            'viewPortfolioFilename' => $viewPortfolioFilename, // This is just for display
-            'viewPortfolioFilePath' => $viewPortfolioFilePath,  // This is used for saving the file
+            'viewPortfolioFilename' => $viewPortfolioFilename,
+            'viewPortfolioFilePath' => $viewPortfolioFilePath,
             'viewPortfolioFileContent' => $viewPortfolioFileContent
         ];
 
@@ -1869,8 +1973,8 @@ class AdminController extends BaseController
         $donationsFileContent = file_get_contents($donationsFilePath);
         
         $data = [
-            'donationsFilename' => $donationsFilename, // This is just for display
-            'donationsFilePath' => $donationsFilePath,  // This is used for saving the file
+            'donationsFilename' => $donationsFilename,
+            'donationsFilePath' => $donationsFilePath,
             'donationsFileContent' => $donationsFileContent
         ];
 
@@ -1893,8 +1997,8 @@ class AdminController extends BaseController
         $viewDonationFileContent = file_get_contents($viewDonationFilePath);
         
         $data = [
-            'viewDonationFilename' => $viewDonationFilename, // This is just for display
-            'viewDonationFilePath' => $viewDonationFilePath,  // This is used for saving the file
+            'viewDonationFilename' => $viewDonationFilename,
+            'viewDonationFilePath' => $viewDonationFilePath,
             'viewDonationFileContent' => $viewDonationFileContent
         ];
 
@@ -1917,8 +2021,8 @@ class AdminController extends BaseController
         $shopsFileContent = file_get_contents($shopsFilePath);
         
         $data = [
-            'shopsFilename' => $shopsFilename, // This is just for display
-            'shopsFilePath' => $shopsFilePath,  // This is used for saving the file
+            'shopsFilename' => $shopsFilename,
+            'shopsFilePath' => $shopsFilePath,
             'shopsFileContent' => $shopsFileContent
         ];
 
@@ -1941,8 +2045,8 @@ class AdminController extends BaseController
         $viewshopFileContent = file_get_contents($viewshopFilePath);
         
         $data = [
-            'viewshopFilename' => $viewshopFilename, // This is just for display
-            'viewshopFilePath' => $viewshopFilePath,  // This is used for saving the file
+            'viewshopFilename' => $viewshopFilename,
+            'viewshopFilePath' => $viewshopFilePath,
             'viewshopFileContent' => $viewshopFileContent
         ];
 
@@ -1965,8 +2069,8 @@ class AdminController extends BaseController
         $searchFileContent = file_get_contents($searchFilePath);
         
         $data = [
-            'searchFilename' => $searchFilename, // This is just for display
-            'searchFilePath' => $searchFilePath,  // This is used for saving the file
+            'searchFilename' => $searchFilename,
+            'searchFilePath' => $searchFilePath,
             'searchFileContent' => $searchFileContent
         ];
 
@@ -1989,8 +2093,8 @@ class AdminController extends BaseController
         $searchFilterFileContent = file_get_contents($searchFilterFilePath);
         
         $data = [
-            'searchFilterFilename' => $searchFilterFilename, // This is just for display
-            'searchFilterFilePath' => $searchFilterFilePath,  // This is used for saving the file
+            'searchFilterFilename' => $searchFilterFilename,
+            'searchFilterFilePath' => $searchFilterFilePath,
             'searchFilterFileContent' => $searchFilterFileContent
         ];
 
@@ -2013,8 +2117,8 @@ class AdminController extends BaseController
         $sitemapFileContent = file_get_contents($sitemapFilePath);
         
         $data = [
-            'sitemapFilename' => $sitemapFilename, // This is just for display
-            'sitemapFilePath' => $sitemapFilePath,  // This is used for saving the file
+            'sitemapFilename' => $sitemapFilename,
+            'sitemapFilePath' => $sitemapFilePath,
             'sitemapFileContent' => $sitemapFileContent
         ];
 

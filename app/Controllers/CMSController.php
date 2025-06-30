@@ -18,6 +18,7 @@ use App\Models\HomePageModel;
 use App\Models\PagesModel;
 use App\Models\PricingsModel;
 use App\Models\PortfoliosModel;
+use App\Models\GalleryModel;
 use App\Models\SlidersModel;
 use App\Models\SocialsModel;
 use App\Models\TeamsModel;
@@ -28,6 +29,8 @@ use App\Models\PartnersModel;
 use App\Models\ServicesModel;
 use App\Models\DonationCausesModel;
 use App\Models\ResumesModel;
+use App\Models\AppointmentsModel;
+use App\Models\DataGroupsModel;
 
 class CMSController extends BaseController
 {
@@ -53,7 +56,7 @@ class CMSController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'blogs' => $blogsModel->orderBy('created_at', 'DESC')->paginate(100),
+            'blogs' => $blogsModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_VERY_HIGH', 100))),
             'pager' => $blogsModel->pager,
             'total_blogs' => $blogsModel->pager->getTotal()
         ];
@@ -71,8 +74,6 @@ class CMSController extends BaseController
         $loggedInUserId = $this->session->get('user_id');
 
         $blogsModel = new BlogsModel();
-
-        //TODO : Add unique slug validation
 
         if (!$this->validate($blogsModel->getValidationRules())) {
             return view('back-end/cms/blogs/new-blog', ['validation' => $this->validator]);
@@ -322,6 +323,7 @@ class CMSController extends BaseController
             'parent' => $this->request->getPost('parent'),
             'link' => $this->request->getPost('link'),
             'new_tab' => $this->request->getPost('new_tab') ?? 0,
+            'status' => $this->request->getPost('status') ?? 1,
             'slug' => $this->request->getPost('slug'),
 			'created_by' => $loggedInUserId,
             'updated_by' => null
@@ -387,6 +389,7 @@ class CMSController extends BaseController
             'parent' => $this->request->getPost('parent'),
             'link' => $this->request->getPost('link'),
             'new_tab' => $this->request->getPost('new_tab') ?? 0,
+            'status' => $this->request->getPost('status') ?? 1,
             'slug' => $this->request->getPost('slug'),
             'created_by' => $this->request->getPost('created_by'),
             'updated_by' => $loggedInUserId
@@ -476,7 +479,7 @@ class CMSController extends BaseController
 			'order' => 'required',
 		];
 
-		$homePageId = $this->request->getVar('home_page_id');
+		$homePageId = $this->request->getPost('home_page_id');
 		$data['home_page_data'] = $homePageModel->where('home_page_id', $homePageId)->first();
 
 		if($this->validate($rules)){
@@ -496,8 +499,8 @@ class CMSController extends BaseController
                 'content_blocks' => arrayToCommaString($this->request->getPost('content_blocks')) ?? $this->request->getPost('current_content_blocks'),
                 'section_link' => $this->request->getPost('section_link'),
                 'new_tab' => $this->request->getPost('new_tab'),
-				'status'  => $this->request->getVar('status'),
-				'order'  => $this->request->getVar('order') ?? 10,
+				'status'  => $this->request->getPost('status'),
+				'order'  => $this->request->getPost('order') ?? 10,
 				'deletable' => $this->request->getPost('deletable') ?? 1,
                 'created_by' => $this->request->getPost('created_by'),
                 'updated_by' => $loggedInUserId,
@@ -562,6 +565,7 @@ class CMSController extends BaseController
             'title' => $this->request->getPost('title'),
             'slug' => $this->request->getPost('slug'),
             'content' => $this->request->getPost('content'),
+            'group' => $this->request->getPost('group'),
             'status' => $this->request->getPost('status'),
             'created_by' => $loggedInUserId,
             'updated_by' => null,
@@ -626,6 +630,7 @@ class CMSController extends BaseController
             'title' => $this->request->getPost('title'),
             'slug' => $this->request->getPost('slug'),
             'content' => $this->request->getPost('content'),
+            'group' => $this->request->getPost('group'),
             'status' => $this->request->getPost('status'),
             'created_by' => $this->request->getPost('created_by'),
             'updated_by' => $loggedInUserId,
@@ -949,6 +954,7 @@ class CMSController extends BaseController
             'slug' => $this->request->getPost('slug'),
             'category' => $this->request->getPost('category'),
             'category_filter' => $this->request->getPost('category_filter'),
+            'group' => $this->request->getPost('group'),
             'client' => $this->request->getPost('client'),
             'project_date' => $this->request->getPost('project_date'),
             'project_url' => $this->request->getPost('project_url'),
@@ -1028,6 +1034,7 @@ class CMSController extends BaseController
             'slug' => $this->request->getPost('slug'),
             'category' => $this->request->getPost('category'),
             'category_filter' => $this->request->getPost('category_filter'),
+            'group' => $this->request->getPost('group'),
             'client' => $this->request->getPost('client'),
             'project_date' => $this->request->getPost('project_date'),
             'project_url' => $this->request->getPost('project_url'),
@@ -1056,6 +1063,125 @@ class CMSController extends BaseController
         }
     }
 
+    //############################//
+    //          Gallery           //
+    //############################//
+    public function galleries()
+    {
+        $tableName = 'galleries';
+        $galleriesModel = new GalleryModel();
+
+        // Set data to pass in view
+        $data = [
+            'galleries' => $galleriesModel->orderBy('created_at', 'DESC')->findAll(),
+            'total_galleries' => getTotalRecords($tableName)
+        ];
+
+        return view('back-end/cms/galleries/index', $data);
+    }
+
+    public function newGallery()
+    {
+        return view('back-end/cms/galleries/new-gallery');
+    }
+
+    public function addGallery()
+    {
+        $loggedInUserId = $this->session->get('user_id');
+        $galleriesModel = new GalleryModel();
+
+        if (!$this->validate($galleriesModel->getValidationRules())) {
+            return view('back-end/cms/galleries/new-gallery', ['validation' => $this->validator]);
+        }
+
+        $data = [
+            'title' => $this->request->getPost('title'),
+            'caption' => $this->request->getPost('caption'),
+            'category_filter' => $this->request->getPost('category_filter'),
+            'group' => $this->request->getPost('group'),
+            'image' => $this->request->getPost('image'),
+            'status' => $this->request->getPost('status'),
+            'created_by' => $loggedInUserId,
+            'updated_by' => null,
+        ];
+
+        if ($galleriesModel->createGallery($data)) {
+            $insertedId = $galleriesModel->getInsertID();
+            session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
+            logActivity($loggedInUserId, ActivityTypes::GALLERY_CREATION, 'Gallery created with id: ' . $insertedId);
+            return redirect()->to('/account/cms/galleries');
+        } else {
+            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_GALLERY_CREATION, 'Failed to create gallery with title: ' . $data['title']);
+            return view('back-end/cms/galleries/new-gallery');
+        }
+    }
+
+    public function viewGallery($galleryId)
+    {
+        $tableName = 'galleries';
+        //Check if record exists
+        if (!recordExists($tableName, "gallery_id", $galleryId)) {
+            $errorMsg = config('CustomConfig')->notFoundMsg;
+            session()->setFlashdata('errorAlert', $errorMsg);
+            return redirect()->to('/account/cms/galleries');
+        }
+
+        $galleriesModel = new GalleryModel();
+        $data = ['gallery_data' => $galleriesModel->find($galleryId)];
+        return view('back-end/cms/galleries/view-gallery', $data);
+    }
+
+    public function editGallery($galleryId)
+    {
+        $tableName = 'galleries';
+        //Check if record exists
+        if (!recordExists($tableName, "gallery_id", $galleryId)) {
+            $errorMsg = config('CustomConfig')->notFoundMsg;
+            session()->setFlashdata('errorAlert', $errorMsg);
+            return redirect()->to('/account/cms/galleries');
+        }
+
+        $galleriesModel = new GalleryModel();
+        $data = ['gallery_data' => $galleriesModel->find($galleryId)];
+        return view('back-end/cms/galleries/edit-gallery', $data);
+    }
+
+    public function updateGallery()
+    {
+        $loggedInUserId = $this->session->get('user_id');
+        $galleriesModel = new GalleryModel();
+        $galleryId = $this->request->getPost('gallery_id');
+
+        $rules = $galleriesModel->getValidationRules();
+        if (!$this->validate($rules)) {
+            return view('back-end/cms/galleries/edit-gallery', [
+                'validation' => $this->validator,
+                'gallery_data' => $galleriesModel->find($galleryId)
+            ]);
+        }
+
+        $data = [
+            'title' => $this->request->getPost('title'),
+            'caption' => $this->request->getPost('caption'),
+            'category_filter' => $this->request->getPost('category_filter'),
+            'group' => $this->request->getPost('group'),
+            'image' => $this->request->getPost('image'),
+            'status' => $this->request->getPost('status'),
+            'created_by' => $this->request->getPost('created_by'),
+            'updated_by' => $loggedInUserId,
+        ];
+
+        if ($galleriesModel->updateGallery($galleryId, $data)) {
+            session()->setFlashdata('successAlert', config('CustomConfig')->editSuccessMsg);
+            logActivity($loggedInUserId, ActivityTypes::GALLERY_UPDATE, 'Gallery updated with id' . $galleryId);
+            return redirect()->to('/account/cms/galleries');
+        } else {
+            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_GALLERY_UPDATE, 'Failed to update gallery with id' . $galleryId);
+            return redirect()->to('/account/cms/galleries/edit-gallery/' . $galleryId);
+        }
+    }
     
     //############################//
     //         Services           //
@@ -1917,7 +2043,7 @@ class CMSController extends BaseController
         // Set data to pass in view
         $data = [
             'faqs' => $faqsModel->orderBy('created_at', 'DESC')->findAll(),
-            'total_faq' => getTotalRecords($tableName)
+            'total_faqs' => getTotalRecords($tableName)
         ];
 
         return view('back-end/cms/faqs/index', $data);
@@ -2460,6 +2586,285 @@ class CMSController extends BaseController
             session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
             logActivity($loggedInUserId, ActivityTypes::FAILED_POPUP_UPDATE, 'Failed to update popup with id: ' . $popupId);
             return redirect()->to('/account/cms/edit-popup/' . $popupId);
+        }
+    }
+
+    //############################//
+    //        Appointments        //
+    //############################//
+    public function appointments()
+    {
+        $tableName = 'appointments';
+        $appointmentsModel = new AppointmentsModel();
+
+        // Set data to pass in view
+        $data = [
+            'appointments' => $appointmentsModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_VERY_HIGH', 100))),
+            'pager' => $appointmentsModel->pager,
+            'total_appointments' => $appointmentsModel->pager->getTotal()
+        ];
+
+        return view('back-end/cms/appointments/index', $data);
+    }
+    
+    public function newAppointment()
+    {
+        return view('back-end/cms/appointments/new-appointment');
+    }
+
+    public function addAppointment()
+    {
+        $loggedInUserId = $this->session->get('user_id');
+
+        $appointmentsModel = new AppointmentsModel();
+
+        if (!$this->validate($appointmentsModel->getValidationRules())) {
+            return view('back-end/cms/appointments/new-appointment', ['validation' => $this->validator]);
+        }
+
+        $data = [
+            'title' => $this->request->getPost('title'),
+            'description' => $this->request->getPost('description'),
+            'slug' => $this->request->getPost('slug'),
+            'image' => $this->request->getPost('image'),
+            'appointment_type' => $this->request->getPost('appointment_type'),
+            'embed_url' => $this->request->getPost('embed_url'),
+            'embed_script' => $this->request->getPost('embed_script'),
+            'widget_height' => $this->request->getPost('widget_height'),
+            'widget_min_width' => $this->request->getPost('widget_min_width'),
+            'status' => $this->request->getPost('status'),
+            'created_by' => $loggedInUserId,
+            'updated_by' => null,
+            'meta_title' => !empty($this->request->getPost('meta_title')) ? $this->request->getPost('meta_title') : $this->request->getPost('title'),
+            'meta_description' => !empty($this->request->getPost('meta_description')) ? $this->request->getPost('meta_description') : $this->request->getPost('description'),
+            'meta_keywords' => !empty($this->request->getPost('meta_keywords')) ? getCsvFromJsonList($this->request->getPost('meta_keywords')) : "booking,appointment,schedule",
+        ];
+
+        if ($appointmentsModel->createAppointment($data)) {
+            $insertedId = $appointmentsModel->getInsertID();
+            session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
+            logActivity($loggedInUserId, ActivityTypes::APPOINTMENT_CREATION, 'Appointment created: with id' . $insertedId);
+            return redirect()->to('/account/cms/appointments');
+        } else {
+            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_APPOINTMENT_CREATION, 'Failed to create appointment with title: ' . $data['title']);
+            return view('back-end/cms/appointments/new-appointment');
+        }
+    }
+
+    public function viewAppointment($appointmentId)
+    {
+        $tableName = 'appointments';
+        //Check if record exists
+        if (!recordExists($tableName, "appointment_id", $appointmentId)) {
+            $errorMsg = config('CustomConfig')->notFoundMsg;
+            session()->setFlashdata('errorAlert', $errorMsg);
+            return redirect()->to('/account/cms/appointments');
+        }
+
+        $appointmentsModel = new AppointmentsModel();
+        $data = ['appointment_data' => $appointmentsModel->find($appointmentId)];
+        return view('back-end/cms/appointments/view-appointment', $data);
+    }
+
+    public function editAppointment($appointmentId)
+    {
+        $tableName = 'appointments';
+        //Check if record exists
+        if (!recordExists($tableName, "appointment_id", $appointmentId)) {
+            $errorMsg = config('CustomConfig')->notFoundMsg;
+            session()->setFlashdata('errorAlert', $errorMsg);
+            return redirect()->to('/account/cms/appointments');
+        }
+
+        $appointmentsModel = new AppointmentsModel();
+        $data = ['appointment_data' => $appointmentsModel->find($appointmentId)];
+        return view('back-end/cms/appointments/edit-appointment', $data);
+    }
+
+    public function updateAppointment()
+    {
+        $loggedInUserId = $this->session->get('user_id');
+        $appointmentsModel = new AppointmentsModel();
+        $appointmentId = $this->request->getPost('appointment_id');
+
+        //TODO : Add unique slug validation except current
+
+        if (!$this->validate($appointmentsModel->getValidationRules())) {
+            return view('back-end/cms/appointments/edit-appointment', ['validation' => $this->validator, 'appointment_data' => $appointmentsModel->find($appointmentId)]);
+        }
+
+        $data = [
+            'title' => $this->request->getPost('title'),
+            'description' => $this->request->getPost('description'),
+            'slug' => $this->request->getPost('slug'),
+            'image' => $this->request->getPost('image'),
+            'appointment_type' => $this->request->getPost('appointment_type'),
+            'embed_url' => $this->request->getPost('embed_url'),
+            'embed_script' => $this->request->getPost('embed_script'),
+            'widget_height' => $this->request->getPost('widget_height'),
+            'widget_min_width' => $this->request->getPost('widget_min_width'),
+            'status' => $this->request->getPost('status'),
+            'created_by' => $this->request->getPost('created_by'),
+            'updated_by' => $loggedInUserId,
+            'meta_title' => $this->request->getPost('meta_title'),
+            'meta_description' => $this->request->getPost('meta_description'),
+            'meta_keywords' => getCsvFromJsonList($this->request->getPost('meta_keywords'))
+        ];
+
+        if ($appointmentsModel->updateAppointment($appointmentId, $data)) {
+            session()->setFlashdata('successAlert', config('CustomConfig')->editSuccessMsg);
+            logActivity($loggedInUserId, ActivityTypes::APPOINTMENT_UPDATE, 'Appointment updated with id: ' . $appointmentId);
+            return redirect()->to('/account/cms/appointments');
+        } else {
+            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_APPOINTMENT_UPDATE, 'Failed to update appointment with id: ' . $appointmentId);
+            return redirect()->to('/account/cms/edit-appointment/' . $appointmentId);
+        }
+    }
+
+    //############################//
+    //         DataGroups         //
+    //############################//
+    public function dataGroups()
+    {
+        $tableName = 'data_groups';
+        $dataGroupsModel = new DataGroupsModel();
+    
+        // Set data to pass in view
+        $data = [
+            'data_groups' => $dataGroupsModel->orderBy('data_group_for', 'ASC')->findAll(),
+            'total_data_groups' => getTotalRecords($tableName)
+        ];
+    
+        return view('back-end/cms/data-groups/index', $data);
+    }
+    
+    public function newDataGroup()
+    {
+        return view('back-end/cms/data-groups/new-data-group');
+    }
+    
+    public function addDataGroup()
+    {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+    
+        // Load the DataGroupsModel
+        $dataGroupsModel = new DataGroupsModel();
+    
+        // Validation rules from the model
+        $validationRules = $dataGroupsModel->getValidationRules();
+    
+        // Validate the incoming data
+        if (!$this->validate($validationRules)) {
+            // If validation fails, return validation errors
+            $data['validation'] = $this->validator;
+            return view('back-end/cms/data-groups/new-data-group');
+        }
+    
+        // If validation passes, create the code
+        $dataGroupData = [
+            'data_group_for' => $this->request->getPost('data_group_for'),
+            'data_group_list' => $this->request->getPost('data_group_list'),
+            'deletable' => 1,
+            'created_by' => $loggedInUserId,
+            'updated_by' => ""
+        ];
+    
+        // Call createDataGroup method from the DataGroupModel
+        if ($dataGroupsModel->createDataGroup($dataGroupData)) {
+            //inserted user_id
+            $insertedId = $dataGroupsModel ->getInsertID();
+    
+            // Record created successfully. Redirect to dashboard
+            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
+            session()->setFlashdata('successAlert', $createSuccessMsg);
+    
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::DATA_GROUP_CREATION, 'Data group created with id: ' . $insertedId);
+    
+            return redirect()->to('/account/cms/data-groups');
+        } else {
+            // Failed to create record. Redirect to dashboard
+            $errorMsg = config('CustomConfig')->errorMsg;
+            session()->setFlashdata('errorAlert', $errorMsg);
+    
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::FAILED_DATA_GROUP_CREATION, 'Failed to create data group with data_group_for: ' .$this->request->getPost('data_groups'));
+    
+            return view('back-end/cms/data-groups/new-data-group');
+        }
+    }
+    
+    public function editDataGroup($dataGroupId)
+    {
+        $dataGroupsModel = new DataGroupsModel();
+    
+        // Fetch the data based on the id
+        $dataGroup = $dataGroupsModel->where('data_group_id', $dataGroupId)->first();
+    
+        if (!$dataGroup) {
+            $errorMsg = config('CustomConfig')->notFoundMsg;
+            session()->setFlashdata('errorAlert', $errorMsg);
+            return redirect()->to('/account/cms/data-groups');
+        }
+    
+        // Set data to pass in view
+        $data = [
+            'data_group_data' => $dataGroup
+        ];
+    
+        return view('back-end/cms/data-groups/edit-data-group', $data);
+    }
+    
+    public function updateDataGroup()
+    {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+    
+        $dataGroupsModel = new DataGroupsModel();
+    
+        // Custom validation rules
+        $rules = [
+            'data_group_id' => 'required',
+            'data_group_for' => 'required',
+            'data_group_list' => 'required',
+        ];
+    
+        $codeId = $this->request->getPost('data_group_id');
+        $data['data_group_data'] = $dataGroupsModel->where('data_group_id', $dataGroupId)->first();
+    
+        if($this->validate($rules)){
+            $db = \Config\Database::connect();
+            $builder = $db->table('data_groups');
+            $data = [
+                'data_group_for' => $this->request->getPost('data_group_for'),
+                'data_group_list'  => $this->request->getPost('data_group_list'),
+                'deletable' => $this->request->getPost('deletable') ?? 1,
+            ];
+    
+            $builder->where('data_group_id', $dataGroupId);
+            $builder->update($data);
+    
+            // Record updated successfully. Redirect to dashboard
+            $createSuccessMsg = config('CustomConfig')->editSuccessMsg;
+            session()->setFlashdata('successAlert', $createSuccessMsg);
+    
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::DATA_GROUP_UPDATE, 'Data group updated with id: ' . $codeId);
+    
+            return redirect()->to('/account/cms/data-groups');
+        }
+        else{
+            $data['validation'] = $this->validator;
+            $errorMsg = config('CustomConfig')->missingRequiredInputsMsg;
+            session()->setFlashdata('errorAlert', $errorMsg);
+    
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::FAILED_DATA_GROUP_UPDATE, 'Failed to update data group with id: ' . $dataGroupId);
+    
+            return view('back-end/admin/cms/edit-data-group', $data);
         }
     }
 }

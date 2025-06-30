@@ -1,87 +1,146 @@
 /* Custom toastr style */
 #toast-container > .toast {
-    background-color: rgba(0, 123, 255, 0.8); /* Adjust color and opacity as needed */
-    color: #fff; /* Text color */
+  background-color: rgba(
+    0,
+    123,
+    255,
+    0.8
+  ); /* Adjust color and opacity as needed */
+  color: #fff; /* Text color */
 }
 
 #toast-container > .toast-success {
-    background-color: rgba(40, 167, 69, 0.8);
+  background-color: rgba(40, 167, 69, 0.8);
 }
 
 #toast-container > .toast-error {
-    background-color: rgba(220, 53, 69, 0.8);
+  background-color: rgba(220, 53, 69, 0.8);
 }
 
 #toast-container > .toast-info {
-    background-color: rgba(23, 162, 184, 0.8);
+  background-color: rgba(23, 162, 184, 0.8);
 }
 
 #toast-container > .toast-warning {
-    background-color: rgba(255, 193, 7, 0.8);
+  background-color: rgba(255, 193, 7, 0.8);
 }
 
 /* Remove text decoration */
-.td-none{
- text-decoration: none;
+.td-none {
+  text-decoration: none;
 }
 
 /* Set CodeMirror height */
 .CodeMirror {
-    height: auto;
+  height: auto;
 }
 
 /* htmx indicator */
-.htmx-indicator{
-    opacity:0;
-    transition: opacity 500ms ease-in;
+.htmx-indicator {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
 }
-.htmx-request .htmx-indicator{
-    opacity:1;
+.htmx-request .htmx-indicator {
+  opacity: 1;
 }
-.htmx-request.htmx-indicator{
-    opacity:1;
+.htmx-request.htmx-indicator {
+  opacity: 1;
+}
+
+#spinner {
+  display: block;
+  margin: auto;
 }
 
 /* custom bootstrap 5 text colors */
 .text-purple {
-    color: #8a2be2 !important;
+  color: #8a2be2 !important;
 }
 
 .text-pink {
-    color: #ff69b4 !important;
+  color: #ff69b4 !important;
 }
 
 .text-orange {
-    color: #ffa500 !important;
+  color: #ffa500 !important;
 }
 
 .text-teal {
-    color: #008080 !important;
+  color: #008080 !important;
 }
 
 .text-lime {
-    color: #90ee90 !important;
+  color: #90ee90 !important;
 }
 
 .text-brown {
-    color: #a0522d !important;
+  color: #a0522d !important;
 }
 
 .text-maroon {
-    color: #800000 !important;
+  color: #800000 !important;
 }
 
 .text-olive {
-    color: #808000 !important;
+  color: #808000 !important;
 }
 
 /* remix ixon spinner */
 .ri-spin {
-    animation: ri-spin 1s linear infinite;
+  animation: ri-spin 1s linear infinite;
 }
 
 @keyframes ri-spin {
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Preloader styles */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #0d6efd;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.content {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.loaded .content {
+  opacity: 1;
+}
+
+.loaded #preloader {
+  opacity: 0;
+  pointer-events: none;
 }

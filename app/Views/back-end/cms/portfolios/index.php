@@ -62,7 +62,12 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <img loading="lazy" src="<?=getImageUrl($portfolio['featured_image'] ?? getDefaultImagePath())?>" class="img-thumbnail" alt="<?= $portfolio['title']; ?>" width="100" height="100">
                                     </td>
                                     <td><?= $portfolio['title']; ?></td>
-                                    <td><?= $portfolio['category']; ?></td>
+                                    <td>
+                                        <?= $portfolio['category']; ?>
+                                        <span class="small mt-1">
+                                            <p>Group: <?= $portfolio['group']; ?></p>
+                                        </span>
+                                    </td>
                                     <td><?= $portfolio['status'] == "1" ? "<span class='badge bg-success'>Published</span>" : "<span class='badge bg-secondary'>Unpublished</span>" ?></td>
                                     <td>
                                         <span class="text-primary">

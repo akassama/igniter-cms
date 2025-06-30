@@ -1,3 +1,4 @@
+
 <!--bootstrap.bundle js-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -79,6 +80,39 @@
 <script src="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/languages/syntax.javascript.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/languages/syntax.html.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/williamtroup/Syntax.js@3.1.0/dist/languages/syntax.css.js"></script>
+
+<!-- Check for showing demo message -->
+<?php 
+$currentUrl = current_url();
+$demoMode = isset($_GET['demo']) && $_GET['demo'] === 'true';
+?>
+<?php if($demoMode):?>
+<script>
+    // Show demo message
+    Swal.fire({
+        title: 'Warning!',
+        text: 'You are a demo user and not authorised for this action.',
+        icon: 'warning',
+        confirmButtonColor: '#ffc107',
+        timer: 5000
+    });
+</script>
+<?php endif;?>
+
+<script>
+$(document).ready(function(){
+  $(".demo-submit-btn").click(function(){
+    //Show demo message
+    swal.fire({
+        title: 'Warning!',
+        text: 'You are a demo user and not authorised for this action.',
+        icon: 'warning',
+        confirmButtonColor: '#ffc107',
+        timer: 5000
+    });
+  });
+});
+</script>
 
 <script>
     //Set max file size upload

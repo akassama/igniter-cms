@@ -42,6 +42,10 @@ Igniter CMS is a light but powerful, versatile Content Management System built o
 - **Themes:** Support for managing and switching between website themes.
 - **Translations:** Manage translations for different languages.
 - **Customizable:** Easily customize app messages, activity types, and more.
+- **AI Powered Content Generation:** Extended e-commerce functionalities with detailed product variations, shipping options, payment gateway integrations, and order management.
+- **Appointment and Bookings Support:** Robust translation management for truly multilingual websites, allowing content in various languages.
+- **SEO Tools:** Integrated SEO tools for optimizing your website's search engine visibility, including sitemap generation, meta tag management, and analytics integration.
+- **AI Powered Reporting & Analytics:** Detailed insights into website performance, user behavior, and e-commerce metrics through integrated reporting tools.
 
 ## Example Sites
 
@@ -137,25 +141,6 @@ Here are some websites built with Igniter CMS:
 
 4. **Email Configuration:** To enable email functionality, you need to configure your `EmailConfigType` in configurations (`account/admin/configurations`):
 
-## Igniter CMS Pro
-
-Igniter CMS Pro extends the capabilities of the core CMS with advanced features designed for more complex and demanding web projects.
-
-**Key Pro Features Include:**
-
-- **AI Powered Content Generation:** Extended e-commerce functionalities with detailed product variations, shipping options, payment gateway integrations, and order management.
-- **Appointment and Bookings Support:** Robust translation management for truly multilingual websites, allowing content in various languages.
-- **SEO Tools:** Integrated SEO tools for optimizing your website's search engine visibility, including sitemap generation, meta tag management, and analytics integration.
-- **AI Powered Reporting & Analytics:** Detailed insights into website performance, user behavior, and e-commerce metrics through integrated reporting tools.
-- **[Get Igniter CMS Pro](https://themes.ignitercms.com/)**
-
-<table>
-    <tr>
-        <td align="center">
-            <img src="https://i.ibb.co/KxkkfZKn/preview.png" alt="Pro Dashboard Preview" width="500">
-        </td>
-    </tr>
-</table>
 
 **[🔗 Live Demo](https://demo.ignitercms.com/)** | [Documentation](https://docs.ignitercms.com/)
 

@@ -32,6 +32,7 @@ class NavigationsModel extends Model
         'parent', 
         'link', 
         'new_tab',
+        'status',
         'created_by', 
         'updated_by'
     ];
@@ -83,6 +84,7 @@ class NavigationsModel extends Model
             'parent' => $param['parent'],
             'link' => $param['link'],
             'new_tab' => $param['new_tab'],
+            'status' => $param['status'],
             'created_by' => $param['created_by'],
             'updated_by' => $param['updated_by']
         ];
@@ -107,6 +109,7 @@ class NavigationsModel extends Model
         $existingNavigation['parent'] = $param['parent'];
         $existingNavigation['link'] = $param['link'];
         $existingNavigation['new_tab'] = $param['new_tab'];
+        $existingNavigation['status'] = $param['status'];
         $existingNavigation['created_by'] = $param['created_by'];
         $existingNavigation['updated_by'] = $param['updated_by'];
     
