@@ -36,6 +36,7 @@ class AdminController extends BaseController
     //############################//
     //           Admin            //
     //############################//
+    
     public function index()
     {
         return view('back-end/admin/index');
@@ -2140,5 +2141,13 @@ class AdminController extends BaseController
         }
     
         return redirect()->to('/account/admin/file-editor/'.$filePage)->with('success', 'File saved successfully.');
+    }
+
+    //############################//
+    //        File Manager        //
+    //############################//
+    public function fileManager()
+    {
+        return view('back-end/admin/file-manager');
     }
 }
