@@ -344,44 +344,6 @@ class HtmxController extends BaseController
         exit();
     }
 
-    public function getFileDataForm($fileId)
-    {
-        echo getFileDetailsInput($fileId);
-
-        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
-        exit();
-    }
-
-    public function updateFileDataList($fileId)
-    {
-        $caption = $this->request->getPost($fileId.'_caption');
-        $uniqueIdentifier = $this->request->getPost($fileId.'_unique_identifier');
-        $group = $this->request->getPost($fileId.'_group');
-
-        $updatedFileData = [
-            'caption' => $caption,
-            'unique_identifier' => $uniqueIdentifier,
-            'group' => $group
-        ];
-
-        $updateWhereClause = "file_id = '$fileId'";
-
-        updateRecord('file_uploads', $updatedFileData, $updateWhereClause);
-
-        echo getFileDetailsList($fileId);
-
-        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
-        exit();
-    }
-
-    public function getFileDataList($fileId)
-    {
-        echo getFileDetailsList($fileId);
-
-        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
-        exit();
-    }
-
     public function getPrimaryColorName()
     {
         $primaryColor = $this->request->getPost('primary_color');

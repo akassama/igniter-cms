@@ -176,7 +176,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="theme_bg_image" class="form-label">Theme Background Image</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="theme_bg_image" name="theme_bg_image" maxlength="250" placeholder="select image" value="<?= set_value('theme_bg_image') ?>">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>
@@ -195,7 +195,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="theme_bg_video" class="form-label">Theme Background Video</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="theme_bg_video" name="theme_bg_video" maxlength="250" placeholder="select video" value="<?= set_value('theme_bg_video') ?>">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#videoFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-youtube-fill"></i>
                     </button>
                 </div>
@@ -214,7 +214,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="theme_bg_slider_image_1" class="form-label">Theme Slider Image 1</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="theme_bg_slider_image_1" name="theme_bg_slider_image_1" maxlength="250" placeholder="select image" value="<?= set_value('theme_bg_slider_image_1') ?>">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>
@@ -233,7 +233,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="theme_bg_slider_image_2" class="form-label">Theme Slider Image 2</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="theme_bg_slider_image_2" name="theme_bg_slider_image_2" maxlength="250" placeholder="select image" value="<?= set_value('theme_bg_slider_image_2') ?>">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>
@@ -252,7 +252,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="theme_bg_slider_image_3" class="form-label">Theme Slider Image 3</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="theme_bg_slider_image_3" name="theme_bg_slider_image_3" maxlength="250" placeholder="select image" value="<?= set_value('theme_bg_slider_image_3') ?>">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>

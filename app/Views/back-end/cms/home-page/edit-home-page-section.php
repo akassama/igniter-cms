@@ -109,7 +109,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="section_image" class="form-label">Section Image</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="section_image" name="section_image" value="<?= $home_page_data['section_image'] ?>" placeholder="select image">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>
@@ -127,7 +127,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="section_image_2" class="form-label">Section Image 2</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="section_image_2" name="section_image_2" value="<?= $home_page_data['section_image_2'] ?>" placeholder="select image">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>
@@ -145,7 +145,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="section_image_3" class="form-label">Section Image 3</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="section_image_3" name="section_image_3" value="<?= $home_page_data['section_image_3'] ?>" placeholder="select image">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>
@@ -163,7 +163,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="section_image_4" class="form-label">Section Image 4</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="section_image_4" name="section_image_4" value="<?= $home_page_data['section_image_4'] ?>" placeholder="select image">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>
@@ -181,7 +181,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="section_video" class="form-label">Section Video</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="section_video" name="section_video" value="<?= $home_page_data['section_video'] ?>" placeholder="select video">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#videoFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-youtube-fill"></i>
                     </button>
                 </div>
@@ -199,7 +199,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="section_audio" class="form-label">Section Audio</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="section_audio" name="section_audio" value="<?= $home_page_data['section_audio'] ?>" placeholder="select audio">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#audioFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-mv-line"></i>
                     </button>
                 </div>
@@ -217,7 +217,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="section_file" class="form-label">Section File</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="section_file" name="section_file" value="<?= $home_page_data['section_file'] ?>" placeholder="select file">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#allFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-folder-2-line"></i>
                     </button>
                 </div>

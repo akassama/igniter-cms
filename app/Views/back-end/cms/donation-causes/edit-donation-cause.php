@@ -95,7 +95,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             hx-trigger="keyup, load, changed delay:250ms"
                             hx-target="#display-preview-image"
                             hx-swap="innerHTML" required>
-                            <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                            <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                                 <i class="ri-image-fill"></i>
                             </button>
                             <div class="invalid-feedback">

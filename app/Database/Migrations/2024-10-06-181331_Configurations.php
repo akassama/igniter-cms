@@ -754,7 +754,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'MetaOgImage',
-                'config_value' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/ci-cms-logo.jpg',
+                'config_value' => 'public/uploads/files/ci-cms-logo.jpg',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,
@@ -1059,7 +1059,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for'    => 'BackendLogoLink',
-                'config_value'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/ci-cms-logo.png',
+                'config_value'    => 'public/uploads/files/ci-cms-logo.png',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,
@@ -1075,7 +1075,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'BackendFaviconLink',
-                'config_value' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/favicon/favicon.ico',
+                'config_value' => 'public/uploads/files/favicon/favicon.ico',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,
@@ -1091,7 +1091,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for'    => 'SiteLogoLink',
-                'config_value'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/ci-cms-logo.png',
+                'config_value'    => 'public/uploads/files/ci-cms-logo.png',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,
@@ -1107,7 +1107,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for'    => 'SiteLogoTwoLink',
-                'config_value'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/ci-cms-logo-horizontal.jpg',
+                'config_value'    => 'public/uploads/files/ci-cms-logo-horizontal.jpg',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,
@@ -1123,7 +1123,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'SiteFaviconLink',
-                'config_value' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/favicon/favicon.ico',
+                'config_value' => 'public/uploads/files/favicon/favicon.ico',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,
@@ -1139,7 +1139,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'SiteFaviconLink96',
-                'config_value' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/favicon/favicon-96x96.png',
+                'config_value' => 'public/uploads/files/favicon/favicon-96x96.png',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,
@@ -1155,7 +1155,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'SiteFaviconLinkAppleTouch',
-                'config_value' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/favicon/apple-touch-icon.png',
+                'config_value' => 'public/uploads/files/favicon/apple-touch-icon.png',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,
@@ -1171,7 +1171,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'SiteFaviconManifestLink',
-                'config_value' => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/logo/favicon/site.webmanifest',
+                'config_value' => 'public/uploads/files/favicon/site.webmanifest',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,

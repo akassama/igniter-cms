@@ -106,7 +106,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 hx-target="#display-preview-image"
                                 hx-swap="innerHTML" 
                                 readonly>
-                            <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                            <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                                 <i class="ri-image-fill"></i>
                             </button>
                         </div>
@@ -130,7 +130,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 hx-target="#display-preview-image"
                                 hx-swap="innerHTML" 
                                 readonly>
-                            <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                            <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                                 <i class="ri-image-fill"></i>
                             </button>
                         </div>

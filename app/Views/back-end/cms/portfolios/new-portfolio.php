@@ -190,7 +190,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             hx-trigger="keyup, changed delay:250ms"
                             hx-target="#display-preview-image"
                             hx-swap="innerHTML" required>
-                            <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                            <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                                 <i class="ri-image-fill"></i>
                             </button>
                             <div class="invalid-feedback">
@@ -211,7 +211,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="details_image_1" class="form-label">Details Picture 1</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="details_image_1" name="details_image_1" maxlength="250" placeholder="select picture" value="<?= set_value('details_image_1') ?>">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>
@@ -230,7 +230,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="details_image_2" class="form-label">Details Picture 2</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="details_image_2" name="details_image_2" maxlength="250" placeholder="select picture" value="<?= set_value('details_image_2') ?>">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>
@@ -249,7 +249,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="details_image_3" class="form-label">Details Picture 3</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="details_image_3" name="details_image_3" maxlength="250" placeholder="select picture" value="<?= set_value('details_image_3') ?>">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>
@@ -268,7 +268,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="details_image_4" class="form-label">Details Picture 4</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="details_image_4" name="details_image_4" maxlength="250" placeholder="select picture" value="<?= set_value('details_image_4') ?>">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>

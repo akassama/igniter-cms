@@ -134,7 +134,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="profile_picture" class="form-label">Profile Picture</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="profile_picture" name="profile_picture" placeholder="select picture">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                     </button>
                 </div>

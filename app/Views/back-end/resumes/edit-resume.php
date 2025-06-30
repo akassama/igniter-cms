@@ -173,7 +173,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="cv_file" class="form-label">CV File</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="cv_file" name="cv_file" placeholder="select file" maxlength="250" value="<?= $resume_data['cv_file'] ?>">
-                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#documentFilesModal">
+                    <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-file-text-line"></i>
                     </button>
                 </div>
@@ -221,7 +221,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             hx-trigger="keyup, load, changed delay:250ms"
                             hx-target="#display-preview-image"
                             hx-swap="innerHTML">
-                        <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                        <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                         </button>
                         <div class="invalid-feedback">
@@ -253,7 +253,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             hx-trigger="keyup, load, changed delay:250ms"
                             hx-target="#display-preview-additional-image"
                             hx-swap="innerHTML">
-                        <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#imageFilesModal">
+                        <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                         <i class="ri-image-fill"></i>
                         </button>
                         <div class="invalid-feedback">

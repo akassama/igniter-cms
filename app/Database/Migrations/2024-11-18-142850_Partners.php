@@ -59,7 +59,7 @@ class Partners extends Migration
             [
                 'partner_id' => getGUID(),
                 'title'    => 'Trustly',
-                'logo'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/client-1.png',
+                'logo'    => 'public/uploads/files/client-1.png',
                 'link'    => null,
                 'new_tab'    => null,
                 'created_by'    => getGUID(getDefaultAdminGUID()),
@@ -68,7 +68,7 @@ class Partners extends Migration
             [
                 'partner_id' => getGUID(),
                 'title'    => 'Myob',
-                'logo'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/client-2.png',
+                'logo'    => 'public/uploads/files/client-2.png',
                 'link'    => null,
                 'new_tab'    => null,
                 'created_by'    => getGUID(getDefaultAdminGUID()),
@@ -77,7 +77,7 @@ class Partners extends Migration
             [
                 'partner_id' => getGUID(),
                 'title'    => 'Citrus',
-                'logo'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/client-3.png',
+                'logo'    => 'public/uploads/files/client-3.png',
                 'link'    => null,
                 'new_tab'    => null,
                 'created_by'    => getGUID(getDefaultAdminGUID()),
@@ -86,7 +86,7 @@ class Partners extends Migration
             [
                 'partner_id' => getGUID(),
                 'title'    => 'Grabyo',
-                'logo'    => 'public/uploads/file-uploads/admin_8J0IM/01-12-2024/client-4.png',
+                'logo'    => 'public/uploads/files/client-4.png',
                 'link'    => null,
                 'new_tab'    => null,
                 'created_by'    => getGUID(getDefaultAdminGUID()),
