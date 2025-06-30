@@ -284,10 +284,10 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         #####============================= FILE MANAGER MODULE =============================#####
         #FILE MANAGER
         $routes->get('file-manager/', 'FileManagerController::index');
-        $routes->post('renameFile', 'FileManagerController::renameFile');
-        $routes->post('deleteFile', 'FileManagerController::deleteFile');
-        $routes->post('uploadFiles', 'FileManagerController::uploadFiles');
-        $routes->post('bulkDelete', 'FileManagerController::bulkDelete');
+        $routes->post('file-manager/renameFile', 'FileManagerController::renameFile');
+        $routes->post('file-manager/deleteFile', 'FileManagerController::deleteFile');
+        $routes->post('file-manager/uploadFiles', 'FileManagerController::uploadFiles');
+        $routes->post('file-manager/bulkDelete', 'FileManagerController::bulkDelete');
     }
 
 
