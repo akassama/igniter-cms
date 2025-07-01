@@ -22,7 +22,7 @@ class CustomConfig extends BaseConfig
     public $sentContactMsg = 'Message sent successfully.';
     public $failedContactMsg = 'Form submission failed.';
     public $notFoundMsg = 'Record not found.';
-    public $alreadyExistMsg = '[Record] already exists in table.';
+    public $alreadyExistMsg = '[Record] already exists.';
     public $errorMsg = 'Oops! Something went wrong. Please try again later.';
     public $resetLinkMsg = 'A password reset link has been sent to your email address. Please check your inbox and follow the instructions to reset your password. If you do not see the email in your inbox, please check your spam or junk folder.';
     public $invalidResetLinkMsg = 'Invalid or expired password reset link.';

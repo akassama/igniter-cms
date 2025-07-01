@@ -419,6 +419,9 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         #PLUGINS
         $routes->get('plugins', 'PluginsController::index');
         $routes->get('plugins/install-plugins', 'PluginsController::installPlugins');
+        $routes->get('plugins/upload-plugin', 'PluginsController::uploadPlugin');
+        $routes->post('plugins/upload-plugin', 'PluginsController::addPlugin');
+        $routes->get('plugins/manage/(:any)', 'PluginsController::managePlugin/$1');
     }
 }
 

@@ -1,5 +1,6 @@
 {
   "name": "Easy Hide Login",
+  "slug": "easy-hide-login",
   "description": "Hide / file, prevent attacks on login form, hide login & increase security. No files are changed.",
   "version": "1.2.1",
   "author": "Ablie Kassama",

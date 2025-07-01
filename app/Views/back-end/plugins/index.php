@@ -21,6 +21,9 @@
         <h3>Manage Plugins</h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
+        <a href="<?=base_url('/account/plugins/upload-plugin')?>" class="btn btn-outline-success mx-1">
+            <i class="ri-upload-2-fill"></i> Upload Plugin
+        </a>
         <a href="<?=base_url('/account/plugins/install-plugins')?>" class="btn btn-outline-dark mx-1">
             <i class="ri-add-fill"></i> Add Plugin
         </a>
@@ -39,47 +42,52 @@
             </select>
             <button class="btn btn-primary">Apply</button>
          </div>
-         <!-- Plugins Table -->
-         <table class="table table-bordered">
-            <thead class="table-light">
-               <tr>
-                    <th>
-                        <input class="form-check-input" type="checkbox" id="select-all">
-                    </th>
-                    <th>
-                        Plugin
-                    </th>
-                    <th>
-                        Description
-                    </th>
-                    <th>
-                        Actions
-                    </th>
-               </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($plugins as $plugin): ?>
-                    <tr>
-                        <td><input class="form-check-input row-checkbox" type="checkbox"></td>
-                        <td><?= esc($plugin['name']) ?></td>
-                        <td>
-                            <p><?= esc($plugin['description']) ?></p>
-                            <small class="text-muted">
-                                Version <?= esc($plugin['version']) ?> | 
-                                By <?= esc($plugin['author']) ?> | 
-                                <a href="<?= esc($plugin['plugin_url']) ?>" target="_blank">View details</a>
-                            </small>
-                        </td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-outline-primary me-1">Manage</a>
-                            <a href="#" class="btn btn-sm btn-outline-secondary me-1">Update</a>
-                            <a href="#" class="btn btn-sm btn-outline-success me-1">Activate</a>
-                            <a href="#" class="btn btn-sm btn-outline-danger me-1">Delete</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-         </table>
+         <?php if ($plugins): ?>
+            <!-- Plugins Table -->
+            <table class="table table-bordered">
+                <thead class="table-light">
+                <tr>
+                        <th>
+                            <input class="form-check-input" type="checkbox" id="select-all">
+                        </th>
+                        <th>
+                            Plugin
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($plugins as $plugin): ?>
+                        <tr>
+                            <td><input class="form-check-input row-checkbox" type="checkbox"></td>
+                            <td><?= esc($plugin['name']) ?></td>
+                            <td>
+                                <p><?= esc($plugin['description']) ?></p>
+                                <small class="text-muted">
+                                    Version <?= esc($plugin['version']) ?> | 
+                                    By <?= esc($plugin['author']) ?> | 
+                                    <a href="<?= esc($plugin['plugin_url']) ?>" target="_blank">View details</a>
+                                </small>
+                            </td>
+                            <td>
+                                <a href="<?=base_url('account/plugins/manage/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-primary me-1">Manage</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary me-1">Update</a>
+                                <a href="#" class="btn btn-sm btn-outline-success me-1">Activate</a>
+                                <a href="#" class="btn btn-sm btn-outline-danger me-1">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+         <?php else : ?>
+            <p>No plugins are currently available.</p>
+         <?php endif; ?>
+
          <!-- jQuery for "Select All" -->
          <script>
             $('#select-all').on('change', function () {

@@ -1,12 +1,21 @@
 <?php
 
 namespace App\Controllers;
-
+use App\Constants\ActivityTypes;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class PluginsController extends BaseController
 {
+    protected $session;
+    protected $db;
+
+    public function __construct()
+    {
+        $this->session = session();
+        $this->db = \Config\Database::connect();
+    }
+
     public function index()
     {
         $pluginDir = APPPATH . 'Plugins/';
@@ -34,48 +43,22 @@ class PluginsController extends BaseController
         return view('back-end/plugins/index', ['plugins' => $plugins]);
     }
 
+    public function managePlugin($slug)
+    {
+        $data = ['pluginName' => $slug];
+        
+        // Set the path to the plugin's manage file
+        $manageFile = APPPATH . "Plugins/$slug/manage.php";
+        
+        // Store the file path in data (we'll check it in the view)
+        $data['pluginManageFile'] = file_exists($manageFile) ? $manageFile : false;
+        
+        return view('back-end/plugins/manage-plugin', $data);
+    }
+
     public function installPlugins()
     {
-        // Fetch plugins from API with better error handling
-        $apiUrl = 'https://api.ignitercms.com/api/get-plugins/';
-        $client = \Config\Services::curlrequest();
-        
-        // Try to get from cache first
-        $cache = \Config\Services::cache();
-        $plugins = $cache->get('plugins_list');
-        
-        if ($plugins === null) {
-            try {
-                $response = $client->get($apiUrl, [
-                    'timeout' => 10,
-                    'connect_timeout' => 5,
-                    'verify' => false // Only for development, remove in production
-                ]);
-                
-                if ($response->getStatusCode() !== 200) {
-                    throw new \Exception('API returned status: '.$response->getStatusCode());
-                }
-                
-                $result = json_decode($response->getBody(), true);
-                
-                if (json_last_error() !== JSON_ERROR_NONE) {
-                    throw new \Exception('Invalid JSON response');
-                }
-                
-                if (!isset($result['status']) || $result['status'] !== 'success') {
-                    throw new \Exception('API returned error: '.($result['message'] ?? 'Unknown error'));
-                }
-                
-                $plugins = $result['data'] ?? [];
-                $cache->save('plugins_list', $plugins, 3600); // Cache for 1 hour
-            } catch (\Exception $e) {
-                log_message('error', 'Failed to fetch plugins: '.$e->getMessage());
-                
-                // Fallback to local sample data if API fails
-                $plugins = $this->getSamplePlugins();
-                session()->setFlashdata('warning', 'Using cached plugin data. Could not connect to plugin repository.');
-            }
-        }
+        $plugins = $this->getPluginsData();
         
         $data = [
             'plugins' => $plugins,
@@ -84,17 +67,152 @@ class PluginsController extends BaseController
         
         return view('back-end/plugins/install-plugins', $data);
     }
+    
 
-    protected function getSamplePlugins()
+    public function uploadPlugin()
     {
+        return view('back-end/plugins/upload-plugin');
+    }
+
+    public function addPlugin()
+    {
+        // Get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+        $validation = \Config\Services::validation();
+
+        // Validate the file upload
+        $validation->setRules([
+            'plugin_file' => [
+                'label' => 'Plugin File',
+                'rules' => 'uploaded[plugin_file]|ext_in[plugin_file,zip]|max_size[plugin_file,10240]', // 10MB max
+                'errors' => [
+                    'uploaded' => 'Please select a plugin file to upload',
+                    'ext_in' => 'Only ZIP files are allowed',
+                    'max_size' => 'Maximum file size is 10MB'
+                ]
+            ]
+        ]);
+
+        if (!$validation->withRequest($this->request)->run()) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
+
+        $pluginFile = $this->request->getFile('plugin_file');
+        $override = boolval($this->request->getPost('override_if_exists'));
+
+        if ($pluginFile->isValid() && !$pluginFile->hasMoved()) {
+            // Get the filename without extension
+            $filename = pathinfo($pluginFile->getName(), PATHINFO_FILENAME);
+            $pluginDir = APPPATH . 'Plugins/' . $filename;
+
+            // Check if plugin directory already exists
+            if (is_dir($pluginDir)) {
+                if (!$override) {
+                    $alreadyExistMsg = config('CustomConfig')->alreadyExistMsg;
+                    $alreadyExistMsg = str_replace('[Record]', 'Plugin', $alreadyExistMsg);
+                    session()->setFlashdata('errorAlert', $alreadyExistMsg);
+                    return redirect()->to('/account/plugins/upload-plugin');
+                }
+                
+                // Remove existing directory recursively
+                $this->deleteDirectory($pluginDir);
+            }
+
+            // Create plugins directory if it doesn't exist
+            if (!is_dir(APPPATH . 'Plugins')) {
+                mkdir(APPPATH . 'Plugins', 0755, true);
+            }
+
+            // Move the uploaded file to temp directory
+            $tempPath = WRITEPATH . 'uploads/' . $pluginFile->store();
+            
+            // Extract the archive
+            $zip = new \ZipArchive();
+            if ($zip->open($tempPath)) {
+                // Create plugin directory
+                mkdir($pluginDir, 0755, true);
+                
+                // Extract files
+                $zip->extractTo($pluginDir);
+                $zip->close();
+                
+                // Delete the temp archive
+                unlink($tempPath);
+                
+                // Verify the extracted structure
+                if (!file_exists($pluginDir . '/manage.php')) {
+                    $this->deleteDirectory($pluginDir);
+                    session()->setFlashdata('errorAlert', 'Invalid plugin structure - manage.php not found');
+                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Invalid plugin structure: ' . $filename);
+                    return redirect()->to('/account/plugins/upload-plugin');
+                }
+                
+                // Success
+                session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
+                logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin uploaded: ' . $filename);
+                return redirect()->to('/account/plugins');
+            } else {
+                session()->setFlashdata('errorAlert', 'Failed to extract plugin archive');
+                logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to extract plugin: ' . $filename);
+                return redirect()->to('/account/plugins/upload-plugin');
+            }
+        } else {
+            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to upload plugin: ' . $pluginFile->getErrorString());
+            return redirect()->to('/account/plugins/upload-plugin');
+        }
+    }
+
+    /**
+     * Helper method to recursively delete a directory
+     */
+    protected function deleteDirectory($dir) 
+    {
+        if (!file_exists($dir)) {
+            return true;
+        }
+
+        if (!is_dir($dir)) {
+            return unlink($dir);
+        }
+
+        foreach (scandir($dir) as $item) {
+            if ($item == '.' || $item == '..') {
+                continue;
+            }
+
+            if (!$this->deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
+                return false;
+            }
+        }
+
+        return rmdir($dir);
+    }
+
+    protected function getPluginsData()
+    {
+        //TODO - Implement
         return [
+            [
+                "name" => "Easy Hide Login",
+                "description" => "Hide / file, prevent attacks on login form, hide login & increase security. No files are changed.",
+                "author" => "Ablie Kassama",
+                "version" => "1.0.0",
+                "plugin_url" => "https://example.com/plugins/easy-hide-login",
+                "download_url" => "https://ignitercms.com/plugins/easy-hide-login.zip",
+                "image" => "https://ps.w.org/easy-hide-login/assets/icon-256x256.png",
+                "last_updated" => "2023-10-15",
+                "min_php_requirement" => "7.4",
+                "min_igniter_requirement" => "1.0.0",
+                "rating" => "4/5"
+            ],
             [
                 "name" => "SEO Optimizer",
                 "description" => "Improves your website search engine optimization with advanced tools",
                 "author" => "Ablie Kassama",
                 "version" => "1.2.0",
                 "plugin_url" => "https://example.com/plugins/seo-optimizer",
-                "download_url" => "https://example.com/downloads/seo-optimizer.zip",
+                "download_url" => "https://ignitercms.com/plugins/seo-optimizer.zip",
                 "image" => "https://ps.w.org/mihdan-index-now/assets/icon.svg?rev=3190776",
                 "last_updated" => "2023-10-15",
                 "min_php_requirement" => "8.0",
@@ -107,7 +225,7 @@ class PluginsController extends BaseController
                 "author" => "Ablie Kassama",
                 "version" => "2.1.3",
                 "plugin_url" => "https://example.com/plugins/cache-manager",
-                "download_url" => "https://example.com/downloads/cache-manager.zip",
+                "download_url" => "https://ignitercms.com/plugins/cache-manager.zip",
                 "image" => "https://ps.w.org/w3-total-cache/assets/icon-256x256.png?rev=1041806",
                 "last_updated" => "2023-09-28",
                 "min_php_requirement" => "7.4",
@@ -120,7 +238,7 @@ class PluginsController extends BaseController
                 "author" => "Ablie Kassama",
                 "version" => "1.5.2",
                 "plugin_url" => "https://example.com/plugins/security-scanner",
-                "download_url" => "https://example.com/downloads/security-scanner.zip",
+                "download_url" => "https://ignitercms.com/plugins/security-scanner.zip",
                 "image" => "https://ps.w.org/security-malware-firewall/assets/icon-256x256.gif?rev=2295231",
                 "last_updated" => "2023-11-05",
                 "min_php_requirement" => "8.1",
@@ -133,7 +251,7 @@ class PluginsController extends BaseController
                 "author" => "Ablie Kassama",
                 "version" => "3.0.1",
                 "plugin_url" => "https://example.com/plugins/contact-form-pro",
-                "download_url" => "https://example.com/downloads/contact-form-pro.zip",
+                "download_url" => "https://ignitercms.com/plugins/contact-form-pro.zip",
                 "image" => "https://ps.w.org/ninja-forms/assets/icon-256x256.png?rev=1649747",
                 "last_updated" => "2023-10-30",
                 "min_php_requirement" => "8.0",

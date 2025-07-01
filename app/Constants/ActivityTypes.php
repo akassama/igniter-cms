@@ -341,6 +341,12 @@ class ActivityTypes
     const WHITELISTED_IP_CREATION = 'whitelisted_ip_created';
     const FAILED_WHITELISTED_IP_CREATION = 'failed_whitelisted_ip_creation';
 
+    // PLUGIN
+    const PLUGIN_CREATION = 'plugin_created';
+    const FAILED_PLUGIN_CREATION = 'failed_plugin_creation';
+    const PLUGIN_UPDATE = 'plugin_updated';
+    const FAILED_PLUGIN_UPDATE = 'failed_plugin_update';
+    const PLUGIN_DELETION = 'plugin_delete';
 
     // Add more activity types as needed
 
@@ -676,6 +682,14 @@ class ActivityTypes
             // BLOCKED IP REASONS
             self::WHITELISTED_IP_CREATION => 'Whitelisted IP Created',
             self::FAILED_WHITELISTED_IP_CREATION => 'Whitelisted IP Creation Failed',
+
+            // Plugins
+            self::PLUGIN_CREATION => 'Plugin Created',
+            self::FAILED_PLUGIN_CREATION => 'Plugin Creation Failed',
+            self::PLUGIN_UPDATE => 'Plugin Updated',
+            self::FAILED_PLUGIN_UPDATE => 'Plugin Update Failed',
+            self::PLUGIN_CREATION => 'Plugin Deletion',
+
 
             // Add more descriptions as needed
         ];
