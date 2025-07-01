@@ -57,6 +57,45 @@ class PluginsController extends BaseController
         return view('back-end/plugins/plugin-configurations', $data);
     }
 
+    public function updatePluginConfig()
+    {
+        // Get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+        $pluginId = $this->request->getPost('plugin_id');
+        $configValue = $this->request->getPost('config_value');
+        $configKey = $this->request->getPost('config_key');
+
+        // Validate input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'plugin_id' => 'required',
+            'config_key' => 'required',
+            'config_value' => 'required'
+        ]);
+
+        if (!$validation->run([
+            'plugin_id' => $pluginId,
+            'config_key' => $configKey,
+            'config_value' => $configValue
+        ])) {
+            session()->setFlashdata('errorAlert', 'Invalid input: ' . implode(', ', $validation->getErrors()));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin config update failed: Invalid input');
+            return redirect()->to('/account/plugins/configurations');
+        }
+
+        try {
+            // Update plugin config
+            $db = \Config\Database::connect();
+            $db->query("UPDATE plugin_configs SET config_value = ? WHERE id = ?", [$configValue, $pluginId]);
+            session()->setFlashdata('successAlert', config('CustomConfig')->editSuccessMsg);
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin config ' . $configKey . ' updated.');
+        } catch (\Exception $e) {
+            session()->setFlashdata('errorAlert', 'Failed to update plugin config: ' . $e->getMessage());
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin config ' . $configKey . ' update failed: ' . $e->getMessage());
+        }
+        return redirect()->to('/account/plugins/configurations');
+    }
+
     public function managePlugin($slug)
     {
         $data = ['pluginName' => $slug];
