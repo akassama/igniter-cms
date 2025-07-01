@@ -37,7 +37,8 @@
       "app/Helpers/global_functions_helper.php",
       "app/Helpers/auth_helper.php",
       "app/Helpers/cms_helper.php",
-      "app/Helpers/tracking_helper.php"
+      "app/Helpers/tracking_helper.php",
+      "app/Helpers/plugins_helper.php"
     ],
     "classmap": [
       "app/Models",

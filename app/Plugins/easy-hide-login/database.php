@@ -3,9 +3,10 @@ $pluginKey = "easy-hide-login";
 
 // Create table easy_hide_login_config
 $createTablesQuery = "
-CREATE TABLE easy_hide_login_config (
+CREATE TABLE icp_easy_hide_login_config (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     unique_identifier VARCHAR(100) NOT NULL,
+    enable_redirect TINYINT(1) NOT NULL DEFAULT 0,
     redirect_url VARCHAR(255) NOT NULL,
     custom_error_message TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -14,9 +15,16 @@ CREATE TABLE easy_hide_login_config (
 
 // Insert sample data for plugin_configs
 $createConfigQuery = "
-INSERT INTO plugin_configs (plugin_slug, config_key, config_value) VALUES
-('$pluginKey', 'login_path', '/wp-login'),
-('$pluginKey', 'enabled', '1'),
-('$pluginKey', 'redirect_404', '/404');
+INSERT INTO icp_easy_hide_login_config (
+    unique_identifier,
+    enable_redirect,
+    redirect_url,
+    custom_error_message
+) VALUES (
+    'admin-login-guard',
+    1,
+    'http://localhost/apps/igniter-cms/sign-up',
+    'You are not authorized to access this page.'
+);
 ";
 ?>
