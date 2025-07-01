@@ -56,9 +56,6 @@ echo generateBreadcrumb($breadcrumb_links);
                         <?php $rowCount = 1; ?>
                         <?php if($plugin_configs): ?>
                             <?php foreach($plugin_configs as $config): ?>
-                                <?php 
-                                    $encryptedLabel = strtolower($config['data_type']) === "secret" ? "<small>(Encrtpted)</small>" : "";    
-                                ?>
                                 <tr>
                                     <td><?= $rowCount; ?></td>
                                     <td><?= $config['plugin_slug']; ?></td>
@@ -68,7 +65,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td>
                                         <div class="row text-center p-1">
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 remove-config" href="javascript:void(0)" onclick="deleteRecord('plugin_configs', 'id', '<?=$appointment['id'];?>', '', 'account/plugins/plugin-configurations')">
+                                                <a class="text-dark td-none mr-1 remove-config" href="javascript:void(0)" onclick="deleteRecord('plugin_configs', 'id', '<?=$config['id'];?>', '', 'account/plugins/configurations')">
                                                     <i class="h5 ri-close-circle-fill"></i>
                                                 </a>
                                             </div>

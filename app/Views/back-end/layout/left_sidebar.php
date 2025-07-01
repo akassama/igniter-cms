@@ -43,6 +43,10 @@ $userRole = getUserRole($sessionEmail);
                 // Click the button with id "adminButton"
                 document.getElementById("adminButton").click();
             }
+            else if (current_url.includes("account/plugins")) {
+                // Click the button with id "pluginsButton"
+                document.getElementById("pluginsButton").click();
+            }
         }, 200);
     });
 </script>
@@ -283,7 +287,7 @@ $userRole = getUserRole($sessionEmail);
 
                         <?php if (isFeatureEnabled('FEATURE_PLUGINS')): ?>
                             <!--Plugins Feature Nav Links-->
-                            <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/plugins')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePlugins" aria-expanded="false" aria-controls="collapsePlugins" id="settingsButton">
+                            <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/plugins')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePlugins" aria-expanded="false" aria-controls="collapsePlugins" id="pluginsButton">
                                 <div class="sb-nav-link-icon"><i class="ri-plug-fill h5"></i></div>
                                 Plugins
                                 <div class="sb-sidenav-collapse-arrow"><i class="ri-arrow-down-s-fill"></i></div>

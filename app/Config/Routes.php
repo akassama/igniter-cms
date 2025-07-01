@@ -422,8 +422,8 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('plugins/install-plugins', 'PluginsController::installPlugins');
         $routes->get('plugins/upload-plugin', 'PluginsController::uploadPlugin');
         $routes->post('plugins/upload-plugin', 'PluginsController::addPlugin');
-        $routes->post('plugins/activate-plugin', 'PluginsController::activatePlugin');
-        $routes->post('plugins/deactivate-plugin', 'PluginsController::deactivatePlugin');
+        $routes->get('plugins/activate-plugin/(:any)', 'PluginsController::activatePlugin/$1');
+        $routes->get('plugins/deactivate-plugin/(:any)', 'PluginsController::deactivatePlugin/$1');
         $routes->post('plugins/delete-plugin', 'PluginsController::deletePlugin');
         $routes->get('plugins/manage/(:any)', 'PluginsController::managePlugin/$1');
     }

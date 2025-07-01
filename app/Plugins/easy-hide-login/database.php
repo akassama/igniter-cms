@@ -3,7 +3,7 @@ $pluginKey = "easy-hide-login";
 
 // Create table easy_hide_login_config
 $createTablesQuery = "
-CREATE TABLE icp_easy_hide_login_config (
+CREATE TABLE easy_hide_login_config (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     unique_identifier VARCHAR(100) NOT NULL,
     redirect_url VARCHAR(255) NOT NULL,
