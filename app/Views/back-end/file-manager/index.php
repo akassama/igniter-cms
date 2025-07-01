@@ -14,6 +14,17 @@ $breadcrumb_links = array(
     array('title' => 'File Manager')
 );
 echo generateBreadcrumb($breadcrumb_links);
+
+//remove sidebar if embedded as modal
+if(boolval($filterQuery)){
+    ?>
+    <script>
+        const element = document.getElementById("layoutSidenav_nav");
+        element.remove();
+        document.body.classList.toggle("sb-sidenav-toggled");
+    </script>
+    <?php
+}
 ?>
 
 <div class="row">

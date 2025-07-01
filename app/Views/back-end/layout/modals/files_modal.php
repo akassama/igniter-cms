@@ -19,7 +19,7 @@ $sessionUserId = $session->get('user_id');
                     <div class="cifm-spinner"></div>
                     <span class="cifm-preloader-text">Loading File Manager...</span>
                 </div>
-                <embed class="w-100 h-100 cifm-embed" type="text/html" src="<?=base_url(env("CI_FM_ROUTE"))?>">
+                <embed class="w-100 h-100 cifm-embed" type="text/html" src="<?=base_url(env("CI_FM_ROUTE"))."?modal=true"?>">
             </div>
 
             <!-- Modal footer -->
