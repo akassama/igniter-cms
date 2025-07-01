@@ -16,7 +16,7 @@ class PluginsModel extends Model
         'plugin_id', 
         'plugin_key', 
         'status',
-        'auto_update',
+        'update_available',
         'created_by',
         'updated_by',
     ];
@@ -62,7 +62,7 @@ class PluginsModel extends Model
             'plugin_id' => $pluginId,
             'plugin_key' => $param['plugin_key'],
             'status' => $param['status'] ?? 0,
-            'auto_update' => $param['auto_update'] ?? 0,
+            'update_available' => $param['update_available'] ?? 0,
             'created_by' => $param['created_by'],
             'updated_by' => $param['updated_by']
         ];

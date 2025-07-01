@@ -23,7 +23,7 @@ class Plugins extends Migration
                 'default' => 0,
                 'null' => true,
             ],
-            'auto_update' => [
+            'update_available' => [
                 'type' => 'INT',
                 'default' => 0,
                 'null' => true,

@@ -37,7 +37,6 @@
                <option selected>Bulk Actions</option>
                <option value="update">Activate Selected</option>
                <option value="update">Dectivate Selected</option>
-               <option value="update">Update Selected</option>
                <option value="delete">Delete Selected</option>
             </select>
             <button class="btn btn-primary">Apply</button>
@@ -76,7 +75,6 @@
                             </td>
                             <td>
                                 <a href="<?=base_url('account/plugins/manage/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-primary me-1">Manage</a>
-                                <a href="#" class="btn btn-sm btn-outline-secondary me-1">Update</a>
                                 <a href="#" class="btn btn-sm btn-outline-success me-1">Activate</a>
                                 <a href="#" class="btn btn-sm btn-outline-danger me-1">Delete</a>
                             </td>

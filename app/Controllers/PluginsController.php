@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Constants\ActivityTypes;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\PluginConfigModel;
 
 class PluginsController extends BaseController
 {
@@ -41,6 +42,21 @@ class PluginsController extends BaseController
         }
 
         return view('back-end/plugins/index', ['plugins' => $plugins]);
+    }
+
+    public function pluginConfigurations()
+    {
+        $tableName = 'plugin_configs';
+        $configModel = new PluginConfigModel();
+
+        // Set data to pass in view
+        $data = [
+            'plugin_configs' => $configModel->orderBy('plugin_slug', 'ASC')->findAll(),
+            'total_configurations' => getTotalRecords($tableName)
+        ];
+
+
+        return view('back-end/plugins/plugin-configurations', $data);
     }
 
     public function managePlugin($slug)
@@ -150,6 +166,27 @@ class PluginsController extends BaseController
                 // Success
                 session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
                 logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin uploaded: ' . $filename);
+
+                //Add plugin to database
+                //TODO - Improve Process
+                $tableName = "plugins";
+                $pluginsData = [
+                    'plugin_id' =>  getGUID(),
+                    'plugin_key' => $filename,
+                    'status' => 0,
+                    'update_available' => 0,
+                    'created_by' => $loggedInUserId,
+                    'updated_by' => null
+                ];
+                $pluginExists = recordExists($tableName, 'plugin_key', $filename);
+                if (!$pluginExists) {
+                    addRecord($tableName, $pluginsData);
+                }
+                else{
+                    deleteRecord($tableName, 'plugin_key', $filename);
+                    addRecord($tableName, $pluginsData);
+                }
+
                 return redirect()->to('/account/plugins');
             } else {
                 session()->setFlashdata('errorAlert', 'Failed to extract plugin archive');
