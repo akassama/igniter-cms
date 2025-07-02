@@ -111,50 +111,32 @@ class PluginsController extends BaseController
 
     public function managePluginPost($pluginKey)
     {
-        $loggedInUserId = $this->session->get('user_id');
-
         try {
-            // Sanitize and validate input
-            $uniqueId = trim($this->request->getPost('uniqueId'));
-            $enableRedirect = (int) ($this->request->getPost('enableRedirect') !== null);
-            $redirectUrl = filter_var(trim($this->request->getPost('redirectUrl')), FILTER_VALIDATE_URL) ? trim($this->request->getPost('redirectUrl')) : '';
-            $customErrorMessage = trim($this->request->getPost('errorMessage'));
-
-            if (empty($uniqueId)) {
-                throw new \Exception("Unique ID is required.");
+            // Load the processor.php file for the plugin
+            $processorFile = APPPATH . 'Plugins/' . $pluginKey . '/processor.php';
+            if (!file_exists($processorFile)) {
+                throw new \Exception("Processor file not found for plugin: {$pluginKey}");
             }
 
-            // Table name based on plugin key
-            $configTableName = "icp_easy_hide_login_config";
+            // Include the processor file
+            include_once $processorFile;
 
-            // Check if table exists
-            $db = \Config\Database::connect();
-            $tables = $db->listTables();
-            if (!in_array($configTableName, $tables)) {
-                throw new \Exception("Configuration table does not exist: {$configTableName}");
+            // Check if the processor function exists
+            if (!function_exists('process_plugin_form_data')) {
+                throw new \Exception("Processor function process_plugin_form_data not defined for plugin: {$pluginKey}");
             }
 
-            // Prepare data
-            $data = [
-                'unique_identifier' => $uniqueId,
-                'enable_redirect'   => $enableRedirect,
-                'redirect_url'      => $redirectUrl,
-                'custom_error_message' => $customErrorMessage
-            ];
+            // Get all POST data
+            $postData = $this->request->getPost();
 
-            // Update the configuration table
-            $db->table($configTableName)
-            ->where('id IS NOT NULL')
-            ->update($data);
-
-            // Log success
-            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, "Updated data for plugin: {$pluginKey}");
+            // Call the plugin's form processor function
+            process_plugin_form_data($postData, $pluginKey);
 
             // Set flash message
             session()->setFlashdata('successAlert', 'Settings saved successfully.');
         } catch (\Exception $e) {
             // Log error
-            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, "Failed to update data for plugin: {$pluginKey} - " . $e->getMessage());
+            log_message('error', "Failed to update data for plugin: {$pluginKey} - " . $e->getMessage());
             session()->setFlashdata('errorAlert', 'Failed to save settings: ' . $e->getMessage());
         }
 
