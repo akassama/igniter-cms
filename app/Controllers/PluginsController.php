@@ -111,7 +111,13 @@ class PluginsController extends BaseController
 
     public function managePluginPost($pluginKey)
     {
+        // Get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
         try {
+            //use for any return parameter
+            $urlParameter = trim($this->request->getPost('plugin_url_parameter'));
+
             // Load the processor.php file for the plugin
             $processorFile = APPPATH . 'Plugins/' . $pluginKey . '/processor.php';
             if (!file_exists($processorFile)) {
@@ -134,13 +140,19 @@ class PluginsController extends BaseController
 
             // Set flash message
             session()->setFlashdata('successAlert', 'Settings saved successfully.');
+
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin data for ' . $pluginKey . ' updated.');
         } catch (\Exception $e) {
             // Log error
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin update data for ' . $pluginKey . ' failed: ' . $e->getMessage());
             log_message('error', "Failed to update data for plugin: {$pluginKey} - " . $e->getMessage());
             session()->setFlashdata('errorAlert', 'Failed to save settings: ' . $e->getMessage());
         }
 
         // Redirect back to the same page
+        if(!empty($urlParameter)){
+            return redirect()->to("/account/plugins/manage/{$pluginKey}?{$urlParameter}");
+        }
         return redirect()->to("/account/plugins/manage/{$pluginKey}");
     }
 

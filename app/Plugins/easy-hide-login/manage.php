@@ -69,6 +69,13 @@ $randomId = bin2hex(random_bytes(4)); // 8-character random string
                     </div>
                 </div>
 
+                <!-- Hidden Inputs -->
+                <div class="row" style="display:none;">
+                    <div class="col-12">
+                        <input type="text" class="form-control" id="plugin_url_parameter" name="plugin_url_parameter" placeholder="e.g. tab=home" value="">
+                    </div>
+                </div>
+
                 <!-- Form Actions -->
                 <div class="row mt-4">
                     <div class="col-md-12">
