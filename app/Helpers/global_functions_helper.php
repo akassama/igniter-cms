@@ -436,7 +436,7 @@ if(!function_exists('getDefaultProfileImagePath'))
 {
     function getDefaultProfileImagePath()
     {
-        return 'public/uploads/file-uploads/default/default-profile.png';
+        return 'public/uploads/files/default/default-profile.png';
     }
 }
 
