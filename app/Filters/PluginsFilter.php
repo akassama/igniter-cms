@@ -27,7 +27,7 @@ class PluginsFilter implements FilterInterface
     {
         try {
             // Load plugin helpers for active plugins
-            //loadPluginFilterHelpers();
+            loadPluginFilterHelpers();
         } catch (\Exception $e) {
             // Log error
             log_message('error', 'Failed to load plugins in filter: ' . $e->getMessage());

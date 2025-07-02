@@ -5,6 +5,7 @@
   "version": "1.2.1",
   "author": "Ablie Kassama",
   "email": "ablie@example.com",
+  "load": "view,filter",
   "author_url": "https://github.com/akassama",
   "plugin_url": "https://github.com/akassama/igniter-cms-hide-login",
   "icon_url": "https://ps.w.org/easy-hide-login/assets/icon-256x256.png",

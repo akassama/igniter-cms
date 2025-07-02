@@ -28,6 +28,11 @@ class Plugins extends Migration
                 'default' => 0,
                 'null' => true,
             ],
+            'load' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'null' => true,
+            ],
             'created_by' => [
                 'type' => 'VARCHAR',
                 'constraint' => '50',

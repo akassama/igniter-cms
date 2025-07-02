@@ -21,7 +21,7 @@ INSERT INTO icp_easy_hide_login_config (
     redirect_url,
     custom_error_message
 ) VALUES (
-    'admin-login-guard',
+    'fc143bec',
     1,
     'http://localhost/apps/igniter-cms/sign-up',
     'You are not authorized to access this page.'

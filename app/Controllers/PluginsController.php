@@ -294,6 +294,17 @@ class PluginsController extends BaseController
                 session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
                 logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin uploaded: ' . $filename);
 
+                // Load plugin.json
+                $loadPlugins = "";
+                $pluginPath = $pluginDir . '/plugin.json';
+                if (is_file($pluginPath)) {
+                    $json = file_get_contents($pluginPath);
+                    $meta = json_decode($json, true);
+                    if ($meta && isset($meta['load'])) {
+                        $loadPlugins = $meta['load'];
+                    }
+                }
+
                 // Add plugin to database
                 $tableName = "plugins";
                 $pluginsData = [
@@ -301,6 +312,7 @@ class PluginsController extends BaseController
                     'plugin_key' => $filename,
                     'status' => 0,
                     'update_available' => 0,
+                    'load' => $loadPlugins,
                     'created_by' => $loggedInUserId,
                     'updated_by' => null
                 ];
