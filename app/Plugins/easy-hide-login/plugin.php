@@ -25,6 +25,12 @@ if (!function_exists('easy_hide_login_check_url')) {
 
             // Check if the URL path contains 'sign-in'
             if (strpos($uriString, 'sign-in') !== false) {
+
+                $errorMessage = !empty($customErrorMessage) ? esc($customErrorMessage) : $defaultErrorMessage;
+                if(!empty($errorMessage)){
+                    session()->setFlashdata('errorAlert', $errorMessage);
+                }
+
                 // Check if unique_identifier is not set or id parameter is missing
                 if ($uniqueIdentifier === null || empty($idParam)) {
                     // Log error
@@ -33,7 +39,7 @@ if (!function_exists('easy_hide_login_check_url')) {
                         redirect()->to($redirectUrl)->send();
                         exit;
                     } else {
-                        echo !empty($customErrorMessage) ? esc($customErrorMessage) : $defaultErrorMessage;
+                        redirect()->to(base_url())->send();
                         exit;
                     }
                 }
@@ -46,7 +52,7 @@ if (!function_exists('easy_hide_login_check_url')) {
                         redirect()->to($redirectUrl)->send();
                         exit;
                     } else {
-                        echo !empty($customErrorMessage) ? esc($customErrorMessage) : $defaultErrorMessage;
+                        redirect()->to(base_url())->send();
                         exit;
                     }
                 }

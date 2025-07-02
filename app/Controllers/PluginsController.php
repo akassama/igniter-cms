@@ -109,6 +109,59 @@ class PluginsController extends BaseController
         return view('back-end/plugins/manage-plugin', $data);
     }
 
+    public function managePluginPost($pluginKey)
+    {
+        $loggedInUserId = $this->session->get('user_id');
+
+        try {
+            // Sanitize and validate input
+            $uniqueId = trim($this->request->getPost('uniqueId'));
+            $enableRedirect = (int) ($this->request->getPost('enableRedirect') !== null);
+            $redirectUrl = filter_var(trim($this->request->getPost('redirectUrl')), FILTER_VALIDATE_URL) ? trim($this->request->getPost('redirectUrl')) : '';
+            $customErrorMessage = trim($this->request->getPost('errorMessage'));
+
+            if (empty($uniqueId)) {
+                throw new \Exception("Unique ID is required.");
+            }
+
+            // Table name based on plugin key
+            $configTableName = "icp_easy_hide_login_config";
+
+            // Check if table exists
+            $db = \Config\Database::connect();
+            $tables = $db->listTables();
+            if (!in_array($configTableName, $tables)) {
+                throw new \Exception("Configuration table does not exist: {$configTableName}");
+            }
+
+            // Prepare data
+            $data = [
+                'unique_identifier' => $uniqueId,
+                'enable_redirect'   => $enableRedirect,
+                'redirect_url'      => $redirectUrl,
+                'custom_error_message' => $customErrorMessage
+            ];
+
+            // Update the configuration table
+            $db->table($configTableName)
+            ->where('id IS NOT NULL')
+            ->update($data);
+
+            // Log success
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, "Updated data for plugin: {$pluginKey}");
+
+            // Set flash message
+            session()->setFlashdata('successAlert', 'Settings saved successfully.');
+        } catch (\Exception $e) {
+            // Log error
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, "Failed to update data for plugin: {$pluginKey} - " . $e->getMessage());
+            session()->setFlashdata('errorAlert', 'Failed to save settings: ' . $e->getMessage());
+        }
+
+        // Redirect back to the same page
+        return redirect()->to("/account/plugins/manage/{$pluginKey}");
+    }
+
     public function installPlugins()
     {
         $plugins = $this->getPluginsData();
