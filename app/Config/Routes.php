@@ -7,13 +7,13 @@ use CodeIgniter\Router\RouteCollection;
 */
 
 //SIGN-IN
-$routes->group('sign-in', ['filter' => ['siteStatsFilter','guestFilter']], function($routes) {
+$routes->group('sign-in', ['filter' => ['siteStatsFilter','guestFilter','pluginsFilter']], function($routes) {
     $routes->get('/', 'SignInController::index');
     $routes->post('/', 'SignInController::login');
 });
 
 //SIGN-UP
-$routes->group('sign-up', ['filter' => ['siteStatsFilter']], function($routes) {
+$routes->group('sign-up', ['filter' => ['siteStatsFilter','pluginsFilter']], function($routes) {
     $routes->get('/', 'SignUpController::index');
     $routes->post('/', 'SignUpController::addRegistration');
 });
@@ -22,13 +22,13 @@ $routes->group('sign-up', ['filter' => ['siteStatsFilter']], function($routes) {
 $routes->get('/sign-out', 'SignOutController::index');
 
 //FORGOT-PASSWORD
-$routes->group('forgot-password', ['filter' => ['siteStatsFilter','guestFilter']], function($routes) {
+$routes->group('forgot-password', ['filter' => ['siteStatsFilter','guestFilter','pluginsFilter']], function($routes) {
     $routes->get('/', 'ForgotPasswordController::index');
     $routes->post('/', 'ForgotPasswordController::sendResetLinkEmail');
 });
 
 //PASSWORD-RESET
-$routes->group('password-reset', ['filter' => ['siteStatsFilter','guestFilter']], function($routes) {
+$routes->group('password-reset', ['filter' => ['siteStatsFilter','guestFilter','pluginsFilter']], function($routes) {
     $routes->get('(:segment)', 'PasswordResetController::index/$1');
     $routes->post('/', 'PasswordResetController::resetPassword');
 });
@@ -418,10 +418,16 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         #####============================= PLUGINS MODULE =============================#####
         #PLUGINS
         $routes->get('plugins', 'PluginsController::index');
+        $routes->get('plugins/configurations', 'PluginsController::pluginConfigurations');
+        $routes->post('plugins/update-plugin-config', 'PluginsController::updatePluginConfig');
         $routes->get('plugins/install-plugins', 'PluginsController::installPlugins');
         $routes->get('plugins/upload-plugin', 'PluginsController::uploadPlugin');
         $routes->post('plugins/upload-plugin', 'PluginsController::addPlugin');
+        $routes->get('plugins/activate-plugin/(:any)', 'PluginsController::activatePlugin/$1');
+        $routes->get('plugins/deactivate-plugin/(:any)', 'PluginsController::deactivatePlugin/$1');
+        $routes->post('plugins/delete-plugin', 'PluginsController::deletePlugin');
         $routes->get('plugins/manage/(:any)', 'PluginsController::managePlugin/$1');
+        $routes->post('plugins/manage/(:any)', 'PluginsController::managePluginPost/$1');
     }
 }
 
@@ -744,61 +750,61 @@ if(strtolower($frontEndFormat) === "mvc")
 {
     if (isFeatureEnabled('FEATURE_FRONT_END')) {
         //FRONT END CONTROLLER
-        $routes->get('/', 'FrontEndController::index', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/', 'FrontEndController::index', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
         //HOME
-        $routes->group('home', ['filter' => 'siteStatsFilter'], function($routes) {
+        $routes->group('home', ['filter' => ['siteStatsFilter','pluginsFilter']], function($routes) {
             $routes->get('/', 'FrontEndController::index');
         });
 
         #Blogs
-        $routes->get('/blog/(:any)', 'FrontEndController::getBlogDetails/$1', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/blog/(:any)', 'FrontEndController::getBlogDetails/$1', ['filter' => ['siteStatsFilter','pluginsFilter']]);
         $routes->get('/blog', function() {
             return redirect()->to('/blogs'); 
         });
-        $routes->get('/blogs', 'FrontEndController::getBlogs', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/blogs', 'FrontEndController::getBlogs', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
         #Event
-        $routes->get('/event/(:segment)', 'FrontEndController::getEventDetails/$1', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/event/(:segment)', 'FrontEndController::getEventDetails/$1', ['filter' => ['siteStatsFilter','pluginsFilter']]);
         $routes->get('/event', function() {
             return redirect()->to('/events'); 
         });
-        $routes->get('/events', 'FrontEndController::getEvents', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/events', 'FrontEndController::getEvents', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
         #Portfolio
-        $routes->get('/portfolio/(:segment)', 'FrontEndController::getPortfolioDetails/$1', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/portfolio/(:segment)', 'FrontEndController::getPortfolioDetails/$1', ['filter' => ['siteStatsFilter','pluginsFilter']]);
         $routes->get('/portfolio', function() {
             return redirect()->to('/portfolios'); 
         });
-        $routes->get('/portfolios', 'FrontEndController::getPortfolios', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/portfolios', 'FrontEndController::getPortfolios', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
         #Donate
-        $routes->get('/donate/(:any)', 'FrontEndController::getDonationCampaingDetails/$1', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/donate/(:any)', 'FrontEndController::getDonationCampaingDetails/$1', ['filter' => ['siteStatsFilter','pluginsFilter']]);
         $routes->get('/campaings', function() {
             return redirect()->to('/donate'); 
         });
-        $routes->get('/donate', 'FrontEndController::getDonationCampaings', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/donate', 'FrontEndController::getDonationCampaings', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
         #Shop
-        $routes->get('/shop/(:segment)', 'FrontEndController::getProductDetails/$1', ['filter' => ['siteStatsFilter']]);
-        $routes->get('/shop', 'FrontEndController::getProducts', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/shop/(:segment)', 'FrontEndController::getProductDetails/$1', ['filter' => ['siteStatsFilter','pluginsFilter']]);
+        $routes->get('/shop', 'FrontEndController::getProducts', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
         #Appointment
-        $routes->get('/appointment/(:segment)', 'FrontEndController::getAppointmentDetails/$1', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/appointment/(:segment)', 'FrontEndController::getAppointmentDetails/$1', ['filter' => ['siteStatsFilter','pluginsFilter']]);
         $routes->get('/appointment', function() {
             return redirect()->to('/appointments'); 
         });
-        $routes->get('/appointments', 'FrontEndController::getAppointments', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/appointments', 'FrontEndController::getAppointments', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
         #Contact
-        $routes->get('/contact', 'FrontEndController::getContactForm', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/contact', 'FrontEndController::getContactForm', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
         #Search
-        $routes->get('search', 'FrontEndController::searchResults', ['filter' => ['siteStatsFilter']]);
-        $routes->get('/search/filter', 'FrontEndController::getSearchFilter', ['filter' => ['siteStatsFilter']]);
+        $routes->get('search', 'FrontEndController::searchResults', ['filter' => ['siteStatsFilter','pluginsFilter']]);
+        $routes->get('/search/filter', 'FrontEndController::getSearchFilter', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
         #Sitemap
-        $routes->get('sitemap.xml', 'FrontEndController::getSitemaps', ['filter' => ['siteStatsFilter']]);
+        $routes->get('sitemap.xml', 'FrontEndController::getSitemaps', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
         // Redirect other sitemap URLs to 'sitemap.xml'
         $routes->get('sitemap', function() {
@@ -814,18 +820,18 @@ if(strtolower($frontEndFormat) === "mvc")
         });
 
         #Robots.txt
-        $routes->get('robots.txt', 'FrontEndController::getRobotsTxt', ['filter' => ['siteStatsFilter']]);
+        $routes->get('robots.txt', 'FrontEndController::getRobotsTxt', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
         #RSS
-        $routes->get('rss', 'FrontEndController::getRssFeed', ['filter' => ['siteStatsFilter']]);
+        $routes->get('rss', 'FrontEndController::getRssFeed', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
         #Pages - Placed button to avoid conflict with '/blogs', '/events', '/portfolios', '/search'
-        $routes->get('/(:segment)', 'FrontEndController::getPageDetails/$1', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/(:segment)', 'FrontEndController::getPageDetails/$1', ['filter' => ['siteStatsFilter','pluginsFilter']]);
     }
 }
 else{
     if (isFeatureEnabled('FEATURE_FRONT_END')) {
         //Get Homepage as JSON
-        $routes->get('/', 'APIController::getHomePageData', ['filter' => ['siteStatsFilter']]);
+        $routes->get('/', 'APIController::getHomePageData', ['filter' => ['siteStatsFilter','pluginsFilter']]);
     }
 }

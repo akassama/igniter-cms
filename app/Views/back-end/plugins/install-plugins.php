@@ -53,7 +53,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <?php endif; ?>
                         
                         <div class="card-body">
-                            <h5 class="card-title"><?= esc($plugin['name']) ?></h5>
+                            <h5 class="card-title"><?= esc($plugin['name']) ?> <span class="d-none"><?= esc($plugin['slug']) ?></span> </h5>
                             <h6 class="card-subtitle mb-2 text-muted">v<?= esc($plugin['version']) ?></h6>
                             <p class="card-text"><?= esc($plugin['description']) ?></p>
                             <p class="text-muted small mb-2">
@@ -109,6 +109,30 @@ $(document).ready(function() {
 
 });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('q');
+
+    if (query) {
+        const input = document.getElementById('pluginSearch');
+        const searchButton = document.querySelector('button[type="submit"].btn-outline-success');
+
+        if (input) {
+            input.value = decodeURIComponent(query);
+        }
+
+        // Optional delay to ensure input is populated before clicking
+        if (searchButton) {
+            setTimeout(() => {
+                searchButton.click();
+            }, 250); // 250ms delay
+        }
+    }
+});
+</script>
+
 
 <!-- end main content -->
 <?= $this->endSection() ?>

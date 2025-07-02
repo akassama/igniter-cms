@@ -252,6 +252,9 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
 <!-- Global modal for search -->
 <?=$this->include('front-end/themes/_shared/_global_search_modal.php'); ?>
 
+<!--Load Plugin Helpers-->
+<?=$this->include('front-end/themes/_shared/_load_plugin_helpers.php'); ?>
+
 <!-- SweetAlert JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
 <?= $this->include('front-end/layout/assets/sweet_alerts.php'); ?>

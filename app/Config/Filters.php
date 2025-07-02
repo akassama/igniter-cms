@@ -47,6 +47,7 @@ class Filters extends BaseFilters
         'apiAccessFilter'   => \App\Filters\ApiAccessFilter::class,
         'demoCheckFilter'   => \App\Filters\DemoCheckFilter::class,
         'featureCheckFilter'   => \App\Filters\FeatureCheckFilter::class,
+        'pluginsFilter' => \App\Filters\PluginsFilter::class,
     ];
 
     /**

@@ -787,7 +787,7 @@ if(!function_exists('getPaginatedRecords')) {
 }
 
 /**
- * Retrieves data from a specified database table based on the given conditions.
+ * Retrieves data from a specified database table based on the given conditions. GetTableData
  *
  * @param {string} $tableName - The name of the database table.
  * @param {array} $whereClause - An associative array representing the WHERE clause conditions (e.g., ['column_name' => 'value']).
