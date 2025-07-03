@@ -17,8 +17,8 @@ final class EmailService
     public function __construct()
     {
         // Initialize Mailjet client with API key and secret from .env
-        $apiKey = env('MAILJET_API_KEY', '2854442df1ec0ad2c468a2a33c02893e');
-        $secretKey = env('MAILJET_SECRET_KEY', 'ea02ad147ce34365ec3a7bd6f31d8dbe');
+        $apiKey = env('MAILJET_API_KEY', '');
+        $secretKey = env('MAILJET_SECRET_KEY', '');
         if (empty($apiKey) || empty($secretKey)) {
             throw new \Exception('Mailjet API key or secret key is not configured.');
         }
