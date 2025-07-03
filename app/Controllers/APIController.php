@@ -42,13 +42,6 @@ use App\Services\EmailService;
 
 class APIController extends BaseController
 {
-    private EmailService $emailService;
-
-    public function __construct()
-    {
-        $this->emailService = new EmailService();
-    }
-
     //GENERIC GET METHODS
     public function getModelData($apiKey)
     {
