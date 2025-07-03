@@ -17,8 +17,7 @@
     "mailjet/mailjet-apiv3-php": "^1.6",
     "matthiasmullie/minify": "^1.3",
     "nyholm/psr7": "^1.8",
-    "predis/predis": "^2.3",
-    "resend/resend-php": "^0.18.0"
+    "predis/predis": "^2.3"
   },
   "require-dev": {
     "fakerphp/faker": "^1.9",

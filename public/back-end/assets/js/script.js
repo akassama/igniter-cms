@@ -73,6 +73,18 @@ window.addEventListener("DOMContentLoaded", (event) => {
 $(document).ready(function () {
   setTimeout(function () {
     $(".datatable").DataTable({
+      lengthMenu: [10, 25, 50, 100],
+    });
+
+    $(".datatable-200").DataTable({
+      lengthMenu: [10, 25, 50, 100, 200],
+    });
+
+    $(".datatable-500").DataTable({
+      lengthMenu: [10, 25, 50, 100, 200, 500],
+    });
+
+    $(".datatable-1000").DataTable({
       lengthMenu: [10, 25, 50, 100, 200, 500, 1000],
     });
   }, 500);

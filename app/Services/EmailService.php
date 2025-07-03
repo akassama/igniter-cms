@@ -27,12 +27,14 @@ final class EmailService
 
     public function sendHtmlEmail(string $to, string $name, string $subject, array $templateData, string $from): bool
     {
+        $from = env("EMAIL_FROM");
         $htmlContent = $this->generateHtmlContent($templateData);
         return $this->sendEmail($to, $name, $subject, $htmlContent, strip_tags($htmlContent), $from);
     }
 
     public function sendPasswordRecoveryHtmlEmail(string $toEmail, string $toName, string $subject, array $templateData, string $from): bool
     {
+        $from = env("EMAIL_FROM");
         $htmlContent = $this->generateHtmlContent($templateData);
         return $this->sendEmail($toEmail, $toName, $subject, $htmlContent, strip_tags($htmlContent), $from);
     }

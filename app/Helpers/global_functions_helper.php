@@ -1903,6 +1903,10 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "question" => "How do I set, customize the theme colors, set background/slider images, or footer copyright of the themes?",
                     "answer" => "To change any of these (colors, background, copyright) for the theme, go to admin/edit-theme and set it there."
                 ],
+                [
+                    "question" => "How do I configure the email?",
+                    "answer" => "In the .env file, see MAILJET_API_KEY, MAILJET_SECRET_KEY, anbd EMAIL_FROM. Default is Mailjet. The EmailService.php is in Services folder."
+                ],
             ],
             "image_assets" => [
                 [
@@ -2034,11 +2038,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "config_for" => "EnablePopupAds",
                     "data_type" => "Select",
                     "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "ResendAPI",
-                    "data_type" => "Text",
-                    "options" => null
                 ],
                 [
                     "config_for" => "MetaTitle",

@@ -417,22 +417,6 @@ class Configurations extends Migration
             ], 
             [
                 'config_id' => getGUID(),
-                'config_for' => 'ResendAPI',
-                'config_value' => 'your-resend-api',
-                'group' => 'email',
-                'data_type' => 'Text',
-                'options' => null,
-                'default_value' => null,
-                'deletable' => 0,
-                'description' => 'API key for Resend email service.',
-                'created_by' => getGUID(getDefaultAdminGUID()),
-                'updated_by' => null,
-                'custom_class' => '',
-                'icon' => 'ri-lock-password-line',
-                'search_terms' => 'resend,api,secret,credentials'
-            ],
-            [
-                'config_id' => getGUID(),
                 'config_for' => 'MetaTitle',
                 'config_value' => 'CodeIgniter CMS | Powerful and Flexible Content Management',
                 'group' => 'meta_seo',
