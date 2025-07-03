@@ -1,6 +1,11 @@
 <?php
 
-if (!function_exists('process_plugin_form_data')) {
+namespace Plugins\EasyHideLogin;
+
+use Config\Database;
+
+class Processor
+{
     /**
      * Processes plugin configuration updates for the easy-hide-login plugin.
      *
@@ -9,7 +14,7 @@ if (!function_exists('process_plugin_form_data')) {
      * @return bool True on success, throws exception on failure
      * @throws \Exception If validation or database operation fails
      */
-    function process_plugin_form_data($postData, $pluginKey)
+    public function processPluginFormData($postData, $pluginKey)
     {
         // Sanitize and validate input
         $uniqueId = trim($postData['uniqueId'] ?? '');
@@ -25,7 +30,7 @@ if (!function_exists('process_plugin_form_data')) {
         $configTableName = "icp_easy_hide_login_config";
 
         // Check if table exists
-        $db = \Config\Database::connect();
+        $db = Database::connect();
         $tables = $db->listTables();
         if (!in_array($configTableName, $tables)) {
             throw new \Exception("Configuration table does not exist: {$configTableName}");
@@ -50,5 +55,3 @@ if (!function_exists('process_plugin_form_data')) {
         return true;
     }
 }
-
-?>

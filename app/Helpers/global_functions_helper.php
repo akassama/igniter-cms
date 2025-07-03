@@ -2321,16 +2321,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "options" => null
                 ],
                 [
-                    "config_for" => "UseFacebookPixel",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "FacebookPixelCode",
-                    "data_type" => "Code",
-                    "options" => null
-                ],
-                [
                     "config_for" => "UsePostHog",
                     "data_type" => "Select",
                     "options" => "Yes,No"
