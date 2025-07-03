@@ -7,7 +7,7 @@ if (!function_exists('database_reset_action')) {
      */
     function database_reset_action()
     {
-		//TODO
+		  //NO Action Required
     }
 }
 

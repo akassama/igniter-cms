@@ -67,7 +67,6 @@ updateTotalViewCount("appointments", "appointment_id", $appointment_data['appoin
                                     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
                                     <?php
                                     break;
-                                //TODO implement other calendars
                                 default:
                                     // Fallback for unsupported types or if no embed code is provided
                                     ?>

@@ -115,44 +115,6 @@ class AppointmentsModel extends Migration
                 'created_by'    => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
             ],
-            // [
-            //     'appointment_id' => getGUID("3385d3ca-ef57-4613-be6e-4193cb615e03"),
-            //     'title' => 'Consultation Booking',
-            //     'description' => 'Book a consultation slot with our experts using Setmore.',
-            //     'image' => 'public/uploads/files/appointment-2.jpg',
-            //     'slug' => 'consultation-setmore',
-            //     'appointment_type' => 'setmore',
-            //     'embed_url' => 'https://my.setmore.com/bookingpage/abcd1234',
-            //     'embed_script' => '<iframe src="https://my.setmore.com/bookingpage/abcd1234" width="100%" height="700px" frameborder="0"></iframe>',
-            //     'widget_height' => 700,
-            //     'widget_min_width' => 320,
-            //     'status' => 1,
-            //     'total_views' => 0,
-            //     'meta_title' => 'Book Your Consultation | Igniter CMS App ',
-            //     'meta_description' => 'Book a consultation with Igniter CMS App! Discuss your project needs & discover how our solutions can ignite your online success. Schedule yours today! ',
-            //     'meta_keywords' => 'consultation booking, online consultation, schedule consultation, book appointment, Setmore consultation',
-            //     'created_by'    => getGUID(getDefaultAdminGUID()),
-            //     'updated_by' => null
-            // ],
-            // [
-            //     'appointment_id' => getGUID("0b7d5dc6-cac7-42ce-9ed7-7fd7837fd5b5"),
-            //     'title' => 'Therapy Session',
-            //     'description' => 'Schedule a private session with our licensed therapist.',
-            //     'image' => 'public/uploads/files/appointment-3.jpg',
-            //     'slug' => 'therapy-simplybook',
-            //     'appointment_type' => 'simplybook',
-            //     'embed_url' => 'https://yourcompany.simplybook.me/v2/',
-            //     'embed_script' => '<script src="https://widget.simplybook.me/v2/widget/widget.js"></script><div class="simplybook-widget" data-url="https://yourcompany.simplybook.me/v2/" style="min-width:320px;height:700px;"></div>',
-            //     'widget_height' => 700,
-            //     'widget_min_width' => 320,
-            //     'status' => 1,
-            //     'total_views' => 0,
-            //     'meta_title' => 'Therapy Session | Find a Therapist Online ',
-            //     'meta_description' => 'Confidential therapy session. Improve mental well-being, address challenges & gain coping skills. Schedule yours today! ',
-            //     'meta_keywords' => 'booking, appointment, schedule, meeting ',
-            //     'created_by'    => getGUID(getDefaultAdminGUID()),
-            //     'updated_by' => null
-            // ]
         ];
 
         // Using Query Builder

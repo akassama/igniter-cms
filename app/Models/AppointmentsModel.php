@@ -53,7 +53,7 @@ class AppointmentsModel extends Model
     // Validation
     protected $validationRules = [
         'title'              => 'required|min_length[3]|max_length[255]',
-        'appointment_type'   => 'required|in_list[calendly,setmore,simplybook]', //TODO implement rest
+        'appointment_type'   => 'required|in_list[calendly]',
         'embed_url'          => 'permit_empty|valid_url',
         'embed_script'       => 'permit_empty',
         'widget_height'      => 'permit_empty|string|max_length[20]',

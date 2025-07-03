@@ -18,7 +18,7 @@ class BackgroundController extends BaseController
             ]);
         }
 
-        //TODO - Implement job here
+        //OPTIONAL - Implement job here
 
         try {
             return $this->response->setStatusCode(200)->setJSON([
@@ -45,7 +45,7 @@ class BackgroundController extends BaseController
         }
 
         try {
-            //TODO - Implement job here
+            //OPTIONAL - Implement job here
             return $this->response->setStatusCode(200)->setJSON([
                 'status' => 'success',
                 'message' => 'Job executed successfully'
