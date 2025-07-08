@@ -11,7 +11,6 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
     array('title' => 'Content Blocks')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -23,7 +22,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <h3>Manage Content Blocks</h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
-        <a href="<?=base_url('/account/cms/content-blocks/new-content-block')?>" class="btn btn-outline-dark mx-1">
+        <a href="<?=base_url('/account/content-blocks/new-content-block')?>" class="btn btn-outline-dark mx-1">
             <i class="ri-add-fill"></i> New Content Block
         </a>
     </div>
@@ -73,17 +72,17 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td>
                                         <div class="row text-center p-1">
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 mb-1 view-content" href="<?=base_url('account/cms/content-blocks/view-content-block/'.$content['content_id'])?>">
+                                                <a class="text-dark td-none mr-1 mb-1 view-content" href="<?=base_url('account/content-blocks/view-content-block/'.$content['content_id'])?>">
                                                     <i class="h5 ri-eye-line"></i>
                                                 </a>
                                             </div>
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 mb-1 edit-content-block" href="<?=base_url('account/cms/content-blocks/edit-content-block/'.$content['content_id'])?>">
+                                                <a class="text-dark td-none mr-1 mb-1 edit-content-block" href="<?=base_url('account/content-blocks/edit-content-block/'.$content['content_id'])?>">
                                                     <i class="h5 ri-edit-box-line"></i>
                                                 </a>
                                             </div>
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 remove-content-block" href="javascript:void(0)" onclick="deleteRecord('content_blocks', 'content_id ', '<?=$content['content_id'];?>', '', 'account/cms/content-blocks')">
+                                                <a class="text-dark td-none mr-1 remove-content-block" href="javascript:void(0)" onclick="deleteRecord('content_blocks', 'content_id ', '<?=$content['content_id'];?>', '', 'account/content-blocks')">
                                                     <i class="h5 ri-close-circle-fill"></i>
                                                 </a>
                                             </div>

@@ -92,14 +92,6 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('cms/home-page/edit-home-page-section/(:any)', 'CMSController::editHomePageSection/$1');
         $routes->post('cms/home-page/edit-home-page-section', 'CMSController::updateHomePageSection');
 
-        #CMS-CONTENT BLOCKS
-        $routes->get('cms/content-blocks', 'CMSController::contentBlocks');
-        $routes->get('cms/content-blocks/new-content-block', 'CMSController::newContentBlock');
-        $routes->post('cms/content-blocks/new-content-block', 'CMSController::addContentBlock');
-        $routes->get('cms/content-blocks/view-content-block/(:any)', 'CMSController::viewContentBlock/$1');
-        $routes->get('cms/content-blocks/edit-content-block/(:any)', 'CMSController::editContentBlock/$1');
-        $routes->post('cms/content-blocks/edit-content-block', 'CMSController::updateContentBlock');
-
         #CMS-EVENTS
         $routes->get('cms/events', 'CMSController::events');
         $routes->get('cms/events/new-event', 'CMSController::newEvent');
@@ -219,6 +211,16 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->post('cms/popups/edit-popup', 'CMSController::updatePopup');
 	}
 
+    if (isFeatureEnabled('FEATURE_CONTENT_BLOCKS')) {
+        #####============================= CMS-CONTENT BLOCKS MODULE =============================#####
+        #CMS-CONTENT BLOCKS
+        $routes->get('content-blocks', 'ContentBlocksController::contentBlocks');
+        $routes->get('content-blocks/new-content-block', 'ContentBlocksController::newContentBlock');
+        $routes->post('content-blocks/new-content-block', 'ContentBlocksController::addContentBlock');
+        $routes->get('content-blocks/view-content-block/(:any)', 'ContentBlocksController::viewContentBlock/$1');
+        $routes->get('content-blocks/edit-content-block/(:any)', 'ContentBlocksController::editContentBlock/$1');
+        $routes->post('content-blocks/edit-content-block', 'ContentBlocksController::updateContentBlock');
+    }
     
     if (isFeatureEnabled('FEATURE_ECOMMERCE')) {
         #####============================= ECOMMERCE MODULE =============================#####
@@ -290,8 +292,6 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->post('file-manager/bulkDelete', 'FileManagerController::bulkDelete');
     }
 
-
-
     if (isFeatureEnabled('FEATURE_SETTINGS')) {
         #####============================= SETTINGS MODULE =============================#####
         #SETTINGS
@@ -302,6 +302,17 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->post('settings/change-password/update-password', 'SettingsController::updatePassword');    
     }
 
+    if (isFeatureEnabled('FEATURE_THEMES')) {
+        #####============================= THEMES MODULE =============================#####
+        #THEMES
+        $routes->get('themes', 'ThemesController::themes');
+        $routes->get('themes/new-theme', 'ThemesController::newTheme');
+        $routes->post('themes/new-theme', 'ThemesController::addTheme');
+        $routes->get('themes/edit-theme/(:any)', 'ThemesController::editTheme/$1');
+        $routes->post('themes/edit-theme', 'ThemesController::updateTheme');
+        $routes->get('themes/edit-theme-home-page/(:any)', 'ThemesController::editThemeHomePage/$1');
+        $routes->get('themes/activate/(:any)', 'ThemesController::activateTheme/$1');
+    }
 
     if (isFeatureEnabled('FEATURE_ADMIN')) {
         #####============================= ADMIN MODULE =============================#####
@@ -357,14 +368,6 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->post('admin/codes/new-code', 'AdminController::addCode');
         $routes->get('admin/codes/edit-code/(:any)', 'AdminController::editCode/$1', ['filter' => 'adminRoleFilter']);
         $routes->post('admin/codes/edit-code', 'AdminController::updateCode');
-        
-        #THEMES
-        $routes->get('admin/themes', 'AdminController::themes', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/themes/new-theme', 'AdminController::newTheme', ['filter' => 'adminRoleFilter']);
-        $routes->post('admin/themes/new-theme', 'AdminController::addTheme');
-        $routes->get('admin/themes/edit-theme/(:any)', 'AdminController::editTheme/$1', ['filter' => 'adminRoleFilter']);
-        $routes->post('admin/themes/edit-theme', 'AdminController::updateTheme');
-        $routes->get('admin/themes/edit-theme-home-page/(:any)', 'AdminController::editThemeHomePage/$1', ['filter' => 'adminRoleFilter']);
         
         #API-KEYS
         $routes->get('admin/api-keys', 'AdminController::apiKeys', ['filter' => 'adminRoleFilter']);

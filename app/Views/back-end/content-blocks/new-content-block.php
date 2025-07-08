@@ -11,8 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
-    array('title' => 'Content Blocks', 'url' => '/account/cms/content-blocks'),
+    array('title' => 'Content Blocks', 'url' => '/account/content-blocks'),
     array('title' => 'New Content Block')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -25,7 +24,7 @@ echo generateBreadcrumb($breadcrumb_links);
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
-        <?php echo form_open(base_url('account/cms/content-blocks/new-content-block'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
+        <?php echo form_open(base_url('account/content-blocks/new-content-block'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -225,7 +224,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="mb-3 mt-3">
-                <a href="<?= base_url('/account/cms/content-blocks') ?>" class="btn btn-outline-danger">
+                <a href="<?= base_url('/account/content-blocks') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>

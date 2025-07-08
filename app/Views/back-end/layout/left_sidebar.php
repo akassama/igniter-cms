@@ -86,9 +86,6 @@ $userRole = getUserRole($sessionEmail);
                                 <a class="nav-link <?= (str_contains(current_url(), 'account/cms/home-page')) ? 'active' : ''; ?>" href="<?= base_url('/account/cms/home-page'); ?>">
                                     <i class="ri-arrow-drop-right-fill"></i> Home Page
                                 </a>
-                                <a class="nav-link <?= (str_contains(current_url(), 'account/cms/content-blocks')) ? 'active' : ''; ?>" href="<?= base_url('/account/cms/content-blocks'); ?>">
-                                    <i class="ri-arrow-drop-right-fill"></i> Content Blocks
-                                </a>
                                 <a class="nav-link <?= (str_contains(current_url(), 'account/cms/events')) ? 'active' : ''; ?>" href="<?= base_url('/account/cms/events'); ?>">
                                     <i class="ri-arrow-drop-right-fill"></i> Events
                                 </a>
@@ -190,6 +187,23 @@ $userRole = getUserRole($sessionEmail);
                         </a>
                     <?php endif; ?>
 
+                    <?php if (isFeatureEnabled('FEATURE_CONTENT_BLOCKS')): ?>
+                        <!--Content Blocks Feature Nav Link-->
+                        <a class="nav-link <?= (str_contains(current_url(), 'account/content-blocks')) ? 'active' : ''; ?>" href="<?= base_url('/account/content-blocks'); ?>">
+                            <div class="sb-nav-link-icon"><i class="ri-window-fill h5"></i></div>
+                            Content Blocks
+                        </a>
+                    <?php endif; ?>
+
+                    
+                    <?php if (isFeatureEnabled('FEATURE_THEMES')): ?>
+                        <!--Themes Feature Nav Link-->
+                        <a class="nav-link <?= (str_contains(current_url(), 'account/themes')) ? 'active' : ''; ?>" href="<?= base_url('/account/themes'); ?>">
+                            <div class="sb-nav-link-icon"><i class="ri-paint-brush-line h5"></i></div>
+                            Themes
+                        </a>
+                    <?php endif; ?>
+
                     <?php if (isFeatureEnabled('FEATURE_SETTINGS')): ?>
                         <!--Settings Feature Nav Links-->
                         <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/settings')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings" id="settingsButton">
@@ -231,9 +245,6 @@ $userRole = getUserRole($sessionEmail);
                                     </a>
                                     <a class="nav-link <?= (str_contains(current_url(), 'account/admin/codes')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/codes'); ?>">
                                         <i class="ri-arrow-drop-right-fill"></i> Codes
-                                    </a>
-                                    <a class="nav-link <?= (str_contains(current_url(), 'account/admin/themes')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/themes'); ?>">
-                                        <i class="ri-arrow-drop-right-fill"></i> Themes
                                     </a>
                                     <a class="nav-link <?= (str_contains(current_url(), 'account/admin/api-keys')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/api-keys'); ?>">
                                         <i class="ri-arrow-drop-right-fill"></i> API Keys

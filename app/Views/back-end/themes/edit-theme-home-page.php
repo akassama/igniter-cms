@@ -11,8 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'Themes', 'url' => '/account/admin/themes'),
+    array('title' => 'Themes', 'url' => '/account/themes'),
     array('title' => 'Edit Theme Files')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -25,7 +24,7 @@ echo generateBreadcrumb($breadcrumb_links);
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
-        <?php echo form_open(base_url('account/admin/themes/edit-theme-home-page'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
+        <?php echo form_open(base_url('account/themes/edit-theme-home-page'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row"> 
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="home_page" class="form-label">Home Page</label>

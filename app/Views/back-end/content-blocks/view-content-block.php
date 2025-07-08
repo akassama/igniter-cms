@@ -11,8 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
-    array('title' => 'Content Blocks', 'url' => '/account/cms/content-blocks'),
+    array('title' => 'Content Blocks', 'url' => '/account/content-blocks'),
     array('title' => 'View Content Block')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -112,7 +111,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
             
             <div class="mb-3 mt-3">
-                <a href="<?= base_url('/account/cms/content-blocks') ?>" class="btn btn-outline-danger">
+                <a href="<?= base_url('/account/content-blocks') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>

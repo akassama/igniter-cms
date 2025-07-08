@@ -130,20 +130,6 @@ class FrontEndController extends BaseController
             'product_categories'    => $productCategoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
         ];  
 
-        if(strtolower($homePageFormat) === "blog"){
-            $data = [
-                'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))->findAll(),
-                'categories'    => $categoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
-            ];
-        }
-        
-        if(strtolower($homePageFormat) === "shop"){
-            $data = [
-                'products' => $productsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))->findAll(),
-                'product_categories'    => $productCategoriesModel->where('status', '1')->orderBy('title', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll(),
-            ];
-        }
-
         //load home view
         return view('front-end/themes/'.getCurrentTheme().'/home/index', $data);
     }

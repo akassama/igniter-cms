@@ -542,7 +542,6 @@ if (!function_exists('checkRecordExists')) {
     }
 }
 
-//TODO : Implement transStart for all
 /**
  * Delete a record if it exists.
  *
@@ -669,7 +668,7 @@ if (!function_exists('addRecord')) {
 }
 
 /**
- * Update a data record.
+ * Update a data record. updateTableData
  *
  * @param string $tableName   The name of the table.
  * @param array  $data        Associative array of data to update.
