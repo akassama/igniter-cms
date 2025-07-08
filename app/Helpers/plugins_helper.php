@@ -69,3 +69,38 @@ if (!function_exists('loadPluginFilterHelpers')) {
         }
     }
 }
+
+if (!function_exists('loadPluginAdminHelpers')) {
+    /**
+     * Loads plugin.php files for all active plugins that should load in admin context.
+     *
+     * Reads from the 'plugins' table where:
+     * - status = 1 (active)
+     * - load includes 'admin'
+     *
+     * Includes the plugin.php file if it exists.
+     */
+    function loadPluginAdminHelpers()
+    {
+        $db = \Config\Database::connect();
+
+        try {
+            // Query plugins where status is active and load includes 'admin'
+            $query = $db->query("SELECT plugin_key FROM plugins WHERE status = 1 AND `load` LIKE '%admin%'");
+            $activePlugins = $query->getResultArray();
+
+            foreach ($activePlugins as $plugin) {
+                $pluginKey = $plugin['plugin_key'];
+                $pluginFile = APPPATH . 'Plugins/' . $pluginKey . '/plugin.php';
+
+                if (file_exists($pluginFile)) {
+                    include_once $pluginFile;
+                } else {
+                    log_message('error', 'Plugin file not found: ' . $pluginFile);
+                }
+            }
+        } catch (\Exception $e) {
+            log_message('error', 'Failed to load admin plugins: ' . $e->getMessage());
+        }
+    }
+}

@@ -122,8 +122,6 @@ echo generateBreadcrumb($breadcrumb_links);
                 <select class="form-select" id="appointment_type" name="appointment_type" required>
                     <option value="">Select appointment type</option>
                     <option value="calendly">Calendly</option>
-                    <!-- <option value="setmore">Setmore</option>
-                    <option value="simplybook">Simplybook</option> -->
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('appointment_type')) {?>

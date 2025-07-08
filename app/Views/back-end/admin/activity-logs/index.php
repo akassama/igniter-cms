@@ -33,7 +33,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered datatable">
+                    <table class="table table-bordered datatable-1000">
                         <thead>
                         <tr>
                             <th>#</th>

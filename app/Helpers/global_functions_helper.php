@@ -1903,6 +1903,10 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "question" => "How do I set, customize the theme colors, set background/slider images, or footer copyright of the themes?",
                     "answer" => "To change any of these (colors, background, copyright) for the theme, go to admin/edit-theme and set it there."
                 ],
+                [
+                    "question" => "How do I configure the email?",
+                    "answer" => "In the .env file, see MAILJET_API_KEY, MAILJET_SECRET_KEY, anbd EMAIL_FROM. Default is Mailjet. The EmailService.php is in Services folder."
+                ],
             ],
             "image_assets" => [
                 [
@@ -2034,91 +2038,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "config_for" => "EnablePopupAds",
                     "data_type" => "Select",
                     "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "EmailConfigType",
-                    "data_type" => "Select",
-                    "options" => "SMTP,Mailjet,Mailgun,SendGrid,Postmark"
-                ],
-                [
-                    "config_for" => "SMTPHost",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SMTPPort",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SMTPUsername",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SMTPPassword",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SMTPEncryption",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MailgunApiKey",
-                    "data_type" => "Secret",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MailgunDomain",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MailgunSenderDomain",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MailgunRegion",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SendGridApiKey",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SendGridSenderEmail",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SendGridSenderName",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "PostmarkApiToken",
-                    "data_type" => "Secret",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "PostmarkSenderSignature",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MailjetApiKey",
-                    "data_type" => "Secret",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MailjetApiSecret",
-                    "data_type" => "Text",
-                    "options" => null
                 ],
                 [
                     "config_for" => "MetaTitle",
@@ -2317,16 +2236,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                 ],
                 [
                     "config_for" => "GoogleAnalyticsCode",
-                    "data_type" => "Code",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "UseFacebookPixel",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "FacebookPixelCode",
                     "data_type" => "Code",
                     "options" => null
                 ],

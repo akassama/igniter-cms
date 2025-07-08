@@ -18,6 +18,8 @@ class ForgotPasswordController extends BaseController
 
     public function index()
     {
+        $result = $this->emailService->sendHtmlEmail($toEmail, $name, $subject, $templateData, $fromEmail);
+
         return view('front-end/forgot-password/index');
     }
 

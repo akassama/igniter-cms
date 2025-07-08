@@ -1212,7 +1212,7 @@ class AdminController extends BaseController
 
         // Paginate the log data
         $pager = \Config\Services::pager();
-        $perPage = 50; // Number of entries per page
+        $perPage = 100; // Number of entries per page
         $currentPage = $this->request->getPost('page') ?? 1; // Get current page from query string
 
         // Slice the log data for the current page
@@ -1220,6 +1220,7 @@ class AdminController extends BaseController
         $paginatedData = array_slice($logData, ($currentPage - 1) * $perPage, $perPage);
 
         // Pass the paginated data and pager to the view
+        $data['total_logs'] = $totalEntries;
         $data['logData'] = $paginatedData;
         $data['pager'] = $pager->makeLinks($currentPage, $perPage, $totalEntries, 'bootstrap'); // Use custom template
 

@@ -81,8 +81,9 @@
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <a href="<?=base_url('account/plugins/manage/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-primary me-1">Manage</a>
-                                
+                                <?php if ($pluginStatus == "1"): ?>
+                                    <a href="<?=base_url('account/plugins/manage/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-primary me-1">Manage</a>
+                                <?php endif; ?>
                                 <?php if ($pluginStatus == "0"): ?>
                                     <a href="<?=base_url('account/plugins/activate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-success me-1">Activate</a>
                                 <?php elseif ($pluginStatus == "1"): ?>

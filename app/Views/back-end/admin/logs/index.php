@@ -27,6 +27,9 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
                 Logs
+                <span class="badge rounded-pill bg-dark">
+                    <?= $total_logs ?>
+                </span>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -66,9 +69,16 @@ echo generateBreadcrumb($breadcrumb_links);
     </div>
 </div>
 
-<!-- Pagination Links -->
-<div class="d-flex justify-content-center mt-4">
-    <?= $pager ?>
-</div>
+    <?php
+        if($total_logs > 100){
+            ?>
+                <!--Show pagination if more than 100 records-->
+                <div class="col-12 text-start">
+                    <p>Pagination</p>
+                    <?= $pager ?>
+                </div>
+            <?php
+        }
+    ?>
 <!-- end main content -->
 <?= $this->endSection() ?>

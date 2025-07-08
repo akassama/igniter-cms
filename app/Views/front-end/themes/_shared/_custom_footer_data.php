@@ -3,10 +3,6 @@
 $enableChatbot = getConfigData("EnableChatbot");
 $chatbotCode = getConfigData("ChatbotCode");
 
-//payment gateway (TODO)
-$enablePaymentGateway = getConfigData("EnablePaymentGateway");
-$stripeAPIKey = getConfigData("StripeAPIKey");
-
 //share this
 $useShareThis = getConfigData("UseShareThis");
 $ShareThisCode = getConfigData("ShareThisCode");

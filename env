@@ -146,6 +146,13 @@ CI_FM_LAST_MODIFIED_DATE_FORMAT="d/m/Y g:i A"
 CI_FM_LAST_UPDATED_DATE_FORMAT="F j, Y, g:i A"
 
 #--------------------------------------------------------------------
+# EMAIL
+#--------------------------------------------------------------------
+EMAIL_FROM = "example@email.com"
+MAILJET_API_KEY= "your-mailjet-api-key"
+MAILJET_SECRET_KEY = "your-mailjet-secret-key"
+
+#--------------------------------------------------------------------
 # OTHER SETTINGS
 #--------------------------------------------------------------------
 APP_NAME = "Igniter CMS App"

@@ -3,10 +3,6 @@
 $useCookieConcent = getConfigData("UseCookieConcent");
 $cookieConcentCode = getConfigData("CookieConcentCode");
 
-//facebook pixel settings
-$useFacebookPixel = getConfigData("UseFacebookPixel");
-$facebookPixelCode = getConfigData("FacebookPixelCode");
-
 //google translate
 $enableGoogleTranslate = getConfigData("EnableGoogleTranslate");
 ?>
@@ -17,11 +13,6 @@ if (strtolower($useCookieConcent) === "yes") {
 }
 ?>
 
-<?php
-if (strtolower($useFacebookPixel) === "yes") {
-    echo $facebookPixelCode;
-}
-?>
 
 <?php
 if (strtolower($enableGoogleTranslate) === "yes" && !empty(getLanguagesList())) {

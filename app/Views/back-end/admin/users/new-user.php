@@ -55,7 +55,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" minlength="6" maxlength="20" value="<?= set_value('username') ?>" required
+                <input type="text" class="form-control" id="username" name="username" minlength="6" maxlength="50" value="<?= set_value('username') ?>" required
                        hx-post="<?=base_url()?>/htmx/check-contact-number-exists"
                        hx-trigger="keyup, changed delay:250ms"
                        hx-target="#existing-username-error"
@@ -74,7 +74,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" minlength="6" maxlength="20" value="<?= set_value('email') ?>" required
+                <input type="email" class="form-control" id="email" name="email" minlength="6" maxlength="50" value="<?= set_value('email') ?>" required
                        hx-post="<?=base_url()?>/htmx/check-contact-number-exists"
                        hx-trigger="keyup, changed delay:250ms"
                        hx-target="#existing-user-email-error"

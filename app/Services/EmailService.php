@@ -4,202 +4,96 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use Mailjet\Client;
 use Mailjet\Resources;
-use Mailjet\Client as MailjetClient;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use Mailgun\Mailgun;
-use SendGrid;
-use SendGrid\Mail\Mail;
-use Postmark\PostmarkClient;
 
 /**
- * The EmailService class handles sending different types of emails using multiple providers.
+ * The EmailService class handles sending different types of emails using Mailjet provider.
  */
 final class EmailService
 {
-    private string $emailConfigType;
-    private mixed $client;
+    private $mailjet;
 
     public function __construct()
-    {        
-        $this->emailConfigType = getConfigData("EmailConfigType");
-
-        switch ($this->emailConfigType) {
-            case 'Mailjet':
-                $mailjetApiKey = getConfigData("MailjetApiKey");
-                $mailjetApiSecret = getConfigData("MailjetApiSecret");
-                $this->client = new MailjetClient($mailjetApiKey, $mailjetApiSecret, true, ['version' => 'v3.1']);
-                break;
-
-            case 'SMTP':
-                $this->client = new PHPMailer(true);
-                break;
-
-            case 'Mailgun':
-                $mailgunApiKey = getConfigData("MailgunApiKey");
-                $this->client = Mailgun::create($mailgunApiKey);
-                break;
-
-            case 'SendGrid':
-                $sendGridApiKey = getConfigData("SendGridApiKey");
-                $this->client = new SendGrid($sendGridApiKey);
-                break;
-
-            case 'Postmark':
-                $postmarkApiToken = getConfigData("PostmarkApiToken");
-                $this->client = new PostmarkClient($postmarkApiToken);
-                break;
-
-            default:
-                throw new \Exception("Invalid email configuration type.");
+    {
+        // Initialize Mailjet client with API key and secret from .env
+        $apiKey = env('MAILJET_API_KEY', '');
+        $secretKey = env('MAILJET_SECRET_KEY', '');
+        if (empty($apiKey) || empty($secretKey)) {
+            throw new \Exception('Mailjet API key or secret key is not configured.');
         }
+        $this->mailjet = new Client($apiKey, $secretKey, true, ['version' => 'v3.1']);
     }
 
-    public function sendHtmlEmail(string $to, string $name, string $subject, array $templateData, string $from = 'example@mail.com'): bool
+    public function sendHtmlEmail(string $to, string $name, string $subject, array $templateData, string $from): bool
     {
+        $from = env("EMAIL_FROM");
         $htmlContent = $this->generateHtmlContent($templateData);
         return $this->sendEmail($to, $name, $subject, $htmlContent, strip_tags($htmlContent), $from);
     }
 
-    public function sendPasswordRecoveryHtmlEmail(string $toEmail, string $toName, string $subject, array $templateData, string $from = 'example@mail.com'): bool
+    public function sendPasswordRecoveryHtmlEmail(string $toEmail, string $toName, string $subject, array $templateData, string $from): bool
     {
+        $from = env("EMAIL_FROM");
         $htmlContent = $this->generateHtmlContent($templateData);
         return $this->sendEmail($toEmail, $toName, $subject, $htmlContent, strip_tags($htmlContent), $from);
     }
 
     private function sendEmail(string $to, string $name, string $subject, string $htmlContent, string $textContent, string $from): bool
     {
-        switch ($this->emailConfigType) {
-            case 'Mailjet':
-                return $this->sendViaMailjet($to, $name, $subject, $htmlContent, $textContent, $from);
-            case 'SMTP':
-                return $this->sendViaSMTP($to, $name, $subject, $htmlContent, $textContent, $from);
-            case 'Mailgun':
-                return $this->sendViaMailgun($to, $subject, $htmlContent, $textContent, $from);
-            case 'SendGrid':
-                return $this->sendViaSendGrid($to, $name, $subject, $htmlContent, $textContent, $from);
-            case 'Postmark':
-                return $this->sendViaPostmark($to, $name, $subject, $htmlContent, $textContent, $from);
-            default:
-                return false;
+        if (empty($to) || empty($subject) || empty($from)) {
+            log_message('error', 'Invalid email parameters: to, subject, or from is empty.');
+            return false;
         }
-    }
-
-    private function sendViaMailjet(string $to, string $name, string $subject, string $htmlContent, string $textContent, string $from): bool
-    {
-        $body = [
-            'Messages' => [
-                [
-                    'From' => ['Email' => $from, 'Name' => $name],
-                    'To' => [['Email' => $to]],
-                    'Subject' => $subject,
-                    'HTMLPart' => $htmlContent,
-                    'TextPart' => $textContent
-                ]
-            ]
-        ];
 
         try {
-            $response = $this->client->post(Resources::$Email, ['body' => $body]);
-            
-            // Check if the response is valid before calling success()
-            if (!is_object($response) || !method_exists($response, 'success')) {
-                // Log error or handle invalid response
-                error_log('Mailjet API returned an invalid response');
+            // Parse the from field to extract name and email (e.g., "Test Company <onboarding@test.yourdomain.com>")
+            preg_match('/^(.*)<(.*)>$/', $from, $matches);
+            $fromName = trim($matches[1] ?? '') ?: 'Default Sender';
+            $fromEmail = trim($matches[2] ?? $from);
+
+            $body = [
+                'Messages' => [
+                    [
+                        'From' => [
+                            'Email' => $fromEmail,
+                            'Name' => $fromName,
+                        ],
+                        'To' => [
+                            [
+                                'Email' => $to,
+                                'Name' => $name,
+                            ],
+                        ],
+                        'Subject' => $subject,
+                        'TextPart' => $textContent,
+                        'HTMLPart' => $htmlContent,
+                    ],
+                ],
+            ];
+
+            $response = $this->mailjet->post(Resources::$Email, ['body' => $body]);
+
+            if ($response->success()) {
+                log_message('info', 'Email sent successfully to: ' . $to);
+                return true;
+            } else {
+                log_message('error', 'Failed to send email via Mailjet: ' . json_encode($response->getData()));
                 return false;
             }
-            
-            return $response->success();
         } catch (\Exception $e) {
-            // Log the error details for debugging
-            error_log('Mailjet API error: ' . $e->getMessage());
-            
-            // error_log('Failed request: ' . json_encode($body));
-            
-            return false;
-        }
-    }
-
-    private function sendViaSMTP(string $to, string $name, string $subject, string $htmlContent, string $textContent, string $from): bool
-    {
-        try {
-            $this->client->isSMTP();
-            $this->client->Host = getConfigData("SMTPHost");
-            $this->client->SMTPAuth = true;
-            $this->client->Username = getConfigData("SMTPUsername");
-            $this->client->Password = getConfigData("SMTPPassword");
-            $this->client->SMTPSecure = getConfigData("SMTPEncryption");
-            $this->client->Port = (int)getConfigData("SMTPPort");
-
-            $this->client->setFrom($from, $name);
-            $this->client->addAddress($to);
-
-            $this->client->isHTML(true);
-            $this->client->Subject = $subject;
-            $this->client->Body = $htmlContent;
-            $this->client->AltBody = $textContent;
-
-            return $this->client->send();
-        } catch (Exception $e) {
-            return false;
-        }
-    }
-
-    private function sendViaMailgun(string $to, string $subject, string $htmlContent, string $textContent, string $from): bool
-    {
-        $mailgunDomain = getConfigData("MailgunDomain");
-
-        try {
-            $this->client->messages()->send($mailgunDomain, [
-                'from' => $from,
-                'to' => $to,
-                'subject' => $subject,
-                'html' => $htmlContent,
-                'text' => $textContent
-            ]);
-            return true;
-        } catch (\Exception $e) {
-            return false;
-        }
-    }
-
-    private function sendViaSendGrid(string $to, string $name, string $subject, string $htmlContent, string $textContent, string $from): bool
-    {
-        try {
-            $email = new Mail();
-            $email->setFrom($from, $name);
-            $email->setSubject($subject);
-            $email->addTo($to);
-            $email->addContent("text/plain", $textContent);
-            $email->addContent("text/html", $htmlContent);
-
-            $response = $this->client->send($email);
-            return $response->statusCode() >= 200 && $response->statusCode() < 300;
-        } catch (\Exception $e) {
-            return false;
-        }
-    }
-
-    private function sendViaPostmark(string $to, string $name, string $subject, string $htmlContent, string $textContent, string $from): bool
-    {
-        try {
-            $response = $this->client->sendEmail([
-                'From' => $from,
-                'To' => $to,
-                'Subject' => $subject,
-                'HtmlBody' => $htmlContent,
-                'TextBody' => $textContent
-            ]);
-            return $response['ErrorCode'] === 0;
-        } catch (\Exception $e) {
+            log_message('error', 'Failed to send email via Mailjet: ' . $e->getMessage());
             return false;
         }
     }
 
     private function generateHtmlContent(array $data): string
     {
-        $template = file_get_contents(APPPATH . 'Views/back-end/emails/template.php');
+        $templatePath = APPPATH . 'Views/back-end/emails/template.php';
+        if (!file_exists($templatePath)) {
+            throw new \Exception('Email template not found at: ' . $templatePath);
+        }
+        $template = file_get_contents($templatePath);
 
         $placeholders = [
             '{{SUBJECT}}' => $data['subject'] ?? '',

@@ -428,6 +428,7 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->post('plugins/delete-plugin', 'PluginsController::deletePlugin');
         $routes->get('plugins/manage/(:any)', 'PluginsController::managePlugin/$1');
         $routes->post('plugins/manage/(:any)', 'PluginsController::managePluginPost/$1');
+        //$routes->post('plugins/manage/process-form-data', 'PluginsController::processFormData');
     }
 }
 

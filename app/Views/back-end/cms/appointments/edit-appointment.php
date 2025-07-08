@@ -109,8 +109,6 @@ echo generateBreadcrumb($breadcrumb_links);
                 <select class="form-select" id="appointment_type" name="appointment_type" required>
                     <option value="">Select appointment type</option>
                     <option value="calendly" <?= (strtolower($appointment_data['appointment_type']) == 'calendly') ? 'selected' : '' ?>>Calendly</option>
-                    <!-- <option value="setmore" <?= (strtolower($appointment_data['appointment_type']) == 'setmore') ? 'selected' : '' ?>>Setmore</option>
-                    <option value="simplybook" <?= (strtolower($appointment_data['appointment_type']) == 'simplybook') ? 'selected' : '' ?>>Simplybook</option> -->
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('appointment_type')) {?>

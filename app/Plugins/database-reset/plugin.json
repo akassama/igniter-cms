@@ -1,0 +1,17 @@
+{
+  "name": "Database Reset",
+  "slug": "database-reset",
+  "description": "DB Reset resets the entire site or selected parts using advanced reset options to default values.",
+  "version": "1.0.0",
+  "author": "Abdoulie Kassama",
+  "email": "info@akassama.dev",
+  "load": "admin",
+  "author_url": "https://github.com/akassama",
+  "plugin_url": "https://github.com/akassama/database-reset",
+  "icon_url": "https://ps.w.org/wordpress-database-reset/assets/icon-256x256.png",
+  "license": "MIT",
+  "requires": {
+    "php": ">=8.0",
+    "codeigniter": ">=4.3"
+  }
+}

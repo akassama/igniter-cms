@@ -115,7 +115,7 @@ class PluginsController extends BaseController
         $loggedInUserId = $this->session->get('user_id');
 
         try {
-            //use for any return parameter
+            // Use for any return parameter
             $urlParameter = trim($this->request->getPost('plugin_url_parameter'));
 
             // Load the processor.php file for the plugin
@@ -127,30 +127,37 @@ class PluginsController extends BaseController
             // Include the processor file
             include_once $processorFile;
 
-            // Check if the processor function exists
-            if (!function_exists('process_plugin_form_data')) {
-                throw new \Exception("Processor function process_plugin_form_data not defined for plugin: {$pluginKey}");
+            // Convert pluginKey to a valid namespace (e.g., easy-hide-login to EasyHideLogin)
+            $namespaceKey = str_replace('-', '', ucwords($pluginKey, '-'));
+            $namespace = "Plugins\\{$namespaceKey}\\Processor";
+
+            // Check if the processor class exists
+            if (!class_exists($namespace)) {
+                throw new \Exception("Processor class not found for plugin: {$pluginKey}");
             }
+
+            // Instantiate the processor
+            $processor = new $namespace();
 
             // Get all POST data
             $postData = $this->request->getPost();
 
-            // Call the plugin's form processor function
-            process_plugin_form_data($postData, $pluginKey);
+            // Call the plugin's form processor method
+            $processor->processPluginFormData($postData, $pluginKey);
 
             // Set flash message
             session()->setFlashdata('successAlert', 'Settings saved successfully.');
 
-            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin data for ' . $pluginKey . ' updated.');
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, "Plugin data for {$pluginKey} updated.");
         } catch (\Exception $e) {
             // Log error
-            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin update data for ' . $pluginKey . ' failed: ' . $e->getMessage());
-            log_message('error', "Failed to update data for plugin: {$pluginKey} - " . $e->getMessage());
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, "Plugin update data for {$pluginKey} failed: {$e->getMessage()}");
+            log_message('error', "Failed to update data for plugin: {$pluginKey} - {$e->getMessage()}");
             session()->setFlashdata('errorAlert', 'Failed to save settings: ' . $e->getMessage());
         }
 
         // Redirect back to the same page
-        if(!empty($urlParameter)){
+        if (!empty($urlParameter)) {
             return redirect()->to("/account/plugins/manage/{$pluginKey}?{$urlParameter}");
         }
         return redirect()->to("/account/plugins/manage/{$pluginKey}");
