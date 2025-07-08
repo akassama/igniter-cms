@@ -97,28 +97,6 @@ class HtmxController extends BaseController
     }
 
     /**
-     * Checks if a contact number exists in the database.
-     * Echoes a message if the contact number already exists.
-     * @return void
-     */
-    public function contactNumberExists()
-    {
-        $contactNumber = $this->request->getPost('contact_number');
-        $tableName = 'contacts';
-        $primaryKey = 'contact_number';
-
-        if(!empty($contactNumber)){
-            if (recordExists($tableName, $primaryKey, $contactNumber)) {
-                // Record already exists
-                echo '<span class="text-danger">Contact with number ('.$contactNumber.') already exists</span>';
-            }
-        }
-
-        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
-        exit();
-    }
-
-    /**
      * Checks if a configuration with a specific identifier exists in the database.
      * Echoes a message if the configuration already exists.
      * @return void

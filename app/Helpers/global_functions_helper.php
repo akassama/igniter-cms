@@ -1464,15 +1464,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                         "/account/admin/file-editor/search",
                         "/account/admin/file-editor/search-filter",
                         "/account/admin/file-editor/sitemap",
-
-                        // Contact Messages (Only View, Reply or Delete)
-                        "/account/admin/contact-messages",
-
-                        // Bookings (Add, Edit, View, or Delete)
-                        "/account/admin/bookings",
-
-                        // Subscribers (Only Delete)
-                        "/account/admin/subscribers",
                     ],
                     "management" => "All Admin sub-modules can be manage from '/account/admin/{module-name}'",
                     "deletion" => "To delete any record, go to the management page ('/account/admin/{module-name}'), e.g. '/account/admin/users' and click on the delete (x) button, then confirm deletion prompt.",
@@ -1485,7 +1476,7 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "Multi-language support",
                     "Theme customization",
                 ],
-                "customization" => "To customize your theme, manage theme files in '/your-app/app/Views/front-end/themes/{theme-name}/'. The themes folder has the following directories and files: appointments (index.php, view-appointment.php), blogs (index.php, view-blog.php), contact (index.php), donate (index.php, view-donation-campaign.php), events (index.php, view-event.php), home (index.php), includes (_functions.php), layout (_layout.php), pages (view-page.php), portfolios (index.php, view-portfolio.php), search (index.php, filter.php), and shop (index.php, view-product.php)",
+                "customization" => "To customize your theme, manage theme files in '/your-app/app/Views/front-end/themes/{theme-name}/'. The themes folder has the following directories and files: blogs (index.php, view-blog.php), home (index.php), includes (_functions.php), layout (_layout.php), pages (view-page.php), search (index.php, filter.php)",
                 "endpoints" => [
                     // Home Page
                     "/api/{api-key}/get-home-pages", // Retrieves the main homepage content and layout configuration.
@@ -1667,14 +1658,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "image_description" => "CMS management image"
                 ],
                 [
-                    "image_url" => "https://docs.ignitercms.com/images/upload/41-ecommerce.png",
-                    "image_description" => "Ecommerce management image"
-                ],
-                [
-                    "image_url" => "https://docs.ignitercms.com/images/upload/46-resumes.png",
-                    "image_description" => "Resumes management image"
-                ],
-                [
                     "image_url" => "https://docs.ignitercms.com/images/upload/48-files.png",
                     "image_description" => "File manager image"
                 ],
@@ -1688,11 +1671,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                 ],
             ],
             "configurations" => [
-                [
-                    "config_for" => "HomePageFormat",
-                    "data_type" => "Select",
-                    "options" => "HomePage,Blog,Shop,Portfolio,None"
-                ],
                 [
                     "config_for" => "CompanyName",
                     "data_type" => "Text",

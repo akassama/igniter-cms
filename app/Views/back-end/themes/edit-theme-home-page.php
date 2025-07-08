@@ -26,20 +26,6 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php $validation = \Config\Services::validation(); ?>
         <?php echo form_open(base_url('account/themes/edit-theme-home-page'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row"> 
-            <div class="col-sm-12 col-md-12 mb-3">
-                <label for="home_page" class="form-label">Home Page</label>
-                <!-- <textarea rows="2" class="form-control html-editor" id="home_page" name="home_page" required><?= htmlspecialchars($theme_data['home_page']) ?></textarea> -->
-                <!-- Error -->
-                <?php if($validation->getError('home_page')) {?>
-                    <div class='text-danger mt-2'>
-                        <?= $error = $validation->getError('home_page'); ?>
-                    </div>
-                <?php }?>
-                <div class="invalid-feedback">
-                    Please provide home_page
-                </div>
-            </div> 
-
             <!--hidden inputs -->
             <div class="col-12">
                 <input type="hidden" class="form-control" id="theme_id" name="theme_id" value="<?= $theme_data['theme_id']; ?>" />
@@ -55,7 +41,6 @@ echo generateBreadcrumb($breadcrumb_links);
                 <textarea style="display:none;" class="form-control" id="footer_copyright" name="footer_copyright"><?= $theme_data['footer_copyright']; ?></textarea>
                 <input type="hidden" class="form-control" id="selected" name="selected" value="<?= $theme_data['selected']; ?>" />
                 <input type="hidden" class="form-control" id="override_default_style" name="override_default_style" value="<?= $theme_data['override_default_style']; ?>" />
-                <input type="hidden" class="form-control" id="home_page" name="home_page" value="<?= $theme_data['home_page']; ?>" />
                 <input type="hidden" class="form-control" id="deletable" name="deletable" value="<?= $theme_data['deletable']; ?>" />
                 <input type="hidden" class="form-control" id="created_by" name="created_by" value="<?= $theme_data['created_by']; ?>" />
             </div>

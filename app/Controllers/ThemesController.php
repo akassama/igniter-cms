@@ -94,12 +94,6 @@ class ThemesController extends BaseController
             $updateWhereClause = "theme_id != 'NULL'";
 
             updateRecord('themes', $updatedData, $updateWhereClause);
-
-            //update home_page config value
-            $homePage = $themeData["selected"];
-            $updateColumn = "'config_value' = '$homePage'";
-            $updateWhereClause = "config_for = 'HomePageFormat'";
-            updateRecordColumn("configurations", $updateColumn, $updateWhereClause);
         }
     
         // Call createTheme method from the ThemeModel
@@ -176,12 +170,6 @@ class ThemesController extends BaseController
                 $updateWhereClause = "theme_id != 'NULL'";
 
                 updateRecord('themes', $updatedData, $updateWhereClause);
-
-                //update home_page config value
-                $homePage = $this->request->getPost('home_page');
-                $updateColumn = "'config_value' = '$homePage'";
-                $updateWhereClause = "config_for = 'HomePageFormat'";
-                updateRecordColumn("configurations", $updateColumn, $updateWhereClause);
             }
 
             $db = \Config\Database::connect();

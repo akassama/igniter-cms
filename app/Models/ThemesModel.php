@@ -39,7 +39,6 @@ class ThemesModel extends Model
         'selected',
         'override_default_style',
         'deletable',
-        'home_page',
         'created_by',
         'updated_by'
     ];
@@ -104,7 +103,6 @@ class ThemesModel extends Model
             'selected' => $param['selected'],
             'override_default_style' => $param['override_default_style'],
             'deletable' => $param['deletable'],
-            'home_page' => $param['home_page'],
             'created_by' => $param['created_by'],
             'updated_by' => $param['updated_by']
         ];
@@ -142,7 +140,6 @@ class ThemesModel extends Model
         $existingTheme['selected'] = $param['selected'];
         $existingTheme['override_default_style'] = $param['override_default_style'];
         $existingTheme['deletable'] = $param['deletable'];
-        $existingTheme['home_page'] = $param['home_page'];
         $existingTheme['created_by'] = $param['created_by'];
         $existingTheme['updated_by'] = $param['updated_by'];
 

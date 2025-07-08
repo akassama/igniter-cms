@@ -322,27 +322,6 @@ echo generateBreadcrumb($breadcrumb_links);
                     Please provide sub_category
                 </div>
             </div>
-            
-            <div class="col-sm-12 col-md-6 mb-3">
-                <label for="home_page" class="form-label">Home Page Format</label>
-                <select class="form-select" id="home_page" name="home_page" required>
-                    <option value="">Select format</option>
-                    <option value="HomePage" <?= ($theme_data['home_page'] == 'HomePage') ? 'selected' : '' ?>>HomePage</option>
-                    <option value="Blog" <?= ($theme_data['home_page'] == 'Blog') ? 'selected' : '' ?>>Blog</option>
-                    <option value="Shop" <?= ($theme_data['home_page'] == 'Shop') ? 'selected' : '' ?>>Shop</option>
-                    <option value="Portfolio" <?= ($theme_data['home_page'] == 'Portfolio') ? 'selected' : '' ?>>Portfolio</option>
-                    <option value="None" <?= ($theme_data['home_page'] == 'None') ? 'selected' : '' ?>>None</option>
-                </select>
-                <!-- Error -->
-                <?php if($validation->getError('home_page')) {?>
-                    <div class='text-danger mt-2'>
-                        <?= $error = $validation->getError('home_page'); ?>
-                    </div>
-                <?php }?>
-                <div class="invalid-feedback">
-                    Please provide home_page
-                </div>
-            </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="selected" class="form-label">Selected</label>

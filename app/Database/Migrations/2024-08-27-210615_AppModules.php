@@ -193,14 +193,6 @@ class AppModules extends Migration
                 'module_link'    => 'account/admin/file-editor',
                 'module_search_terms' => 'themes,customize,ui'
             ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Subcribers',
-                'module_description'  => 'Manage email subcribers',
-                'module_roles'    => 'Admin',
-                'module_link'    => 'account/admin/subscribers',
-                'module_search_terms' => 'subcribe,notification'
-            ],
             //CMS
             [
                 'app_module_id' => getGUID(),

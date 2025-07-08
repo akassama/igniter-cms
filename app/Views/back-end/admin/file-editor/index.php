@@ -68,34 +68,6 @@ echo generateBreadcrumb($breadcrumb_links);
                 </a>
             </div>
             <div class="col-md-3 col-sm-4 col-6">
-                <a href="<?= base_url('account/admin/file-editor/appointments') ?>" class="text-decoration-none">
-                    <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">Appointments</h6>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
-                            <h5 class="card-title mt-2">appointments/index.php</h5>
-                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/appointments/index.php">
-                                app/Views/front-end/themes/<?=getCurrentTheme()?>/appointments/index.php
-                            </small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-4 col-6">
-                <a href="<?= base_url('account/admin/file-editor/view-appointment') ?>" class="text-decoration-none">
-                    <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">View Appointment</h6>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
-                            <h5 class="card-title mt-2">appointments/view-appointment.php</h5>
-                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/appointments/view-appointment.php">
-                                app/Views/front-end/themes/<?=getCurrentTheme()?>/appointments/view-appointment.php
-                            </small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-4 col-6">
                 <a href="<?= base_url('account/admin/file-editor/blogs') ?>" class="text-decoration-none">
                     <div class="card text-center h-100 shadow-sm">
                         <h6 class="card-title text-dark mt-2">Blogs</h6>
@@ -124,48 +96,6 @@ echo generateBreadcrumb($breadcrumb_links);
                 </a>
             </div>
             <div class="col-md-3 col-sm-4 col-6">
-                <a href="<?= base_url('account/admin/file-editor/contact') ?>" class="text-decoration-none">
-                    <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">Contact</h6>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
-                            <h5 class="card-title mt-2">contact/index.php</h5>
-                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/contact/index.php">
-                                app/Views/front-end/themes/<?=getCurrentTheme()?>/contact/index.php
-                            </small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-4 col-6">
-                <a href="<?= base_url('account/admin/file-editor/events') ?>" class="text-decoration-none">
-                    <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">Events</h6>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
-                            <h5 class="card-title mt-2">events/index.php</h5>
-                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/events/index.php">
-                                app/Views/front-end/themes/<?=getCurrentTheme()?>/events/index.php
-                            </small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-4 col-6">
-                <a href="<?= base_url('account/admin/file-editor/view-event') ?>" class="text-decoration-none">
-                    <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">View Event</h6>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
-                            <h5 class="card-title mt-2">events/view-event.php</h5>
-                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/events/view-event.php">
-                                app/Views/front-end/themes/<?=getCurrentTheme()?>/events/view-event.php
-                            </small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-4 col-6">
                 <a href="<?= base_url('account/admin/file-editor/view-page') ?>" class="text-decoration-none">
                     <div class="card text-center h-100 shadow-sm">
                         <h6 class="card-title text-dark mt-2">View Page</h6>
@@ -174,90 +104,6 @@ echo generateBreadcrumb($breadcrumb_links);
                             <h5 class="card-title mt-2">pages/view-page.php</h5>
                             <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/pages/view-page.php">
                                 app/Views/front-end/themes/<?=getCurrentTheme()?>/pages/view-page.php
-                            </small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-4 col-6">
-                <a href="<?= base_url('account/admin/file-editor/portfolios') ?>" class="text-decoration-none">
-                    <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">Portfolios</h6>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
-                            <h5 class="card-title mt-2">portfolios/index.php</h5>
-                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/portfolios/index.php">
-                                app/Views/front-end/themes/<?=getCurrentTheme()?>/portfolios/index.php
-                            </small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-4 col-6">
-                <a href="<?= base_url('account/admin/file-editor/view-portfolio') ?>" class="text-decoration-none">
-                    <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">View Portfolio</h6>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
-                            <h5 class="card-title mt-2">portfolios/view-portfolio.php</h5>
-                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/portfolios/view-portfolio.php">
-                                app/Views/front-end/themes/<?=getCurrentTheme()?>/portfolios/view-portfolio.php
-                            </small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-4 col-6">
-                <a href="<?= base_url('account/admin/file-editor/donations') ?>" class="text-decoration-none">
-                    <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">Donations & Campaings</h6>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
-                            <h5 class="card-title mt-2">donations/index.php</h5>
-                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/donations/index.php">
-                                app/Views/front-end/themes/<?=getCurrentTheme()?>/donations/index.php
-                            </small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-4 col-6">
-                <a href="<?= base_url('account/admin/file-editor/view-donation') ?>" class="text-decoration-none">
-                    <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">View Donation</h6>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
-                            <h5 class="card-title mt-2">donations/view-donation.php</h5>
-                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/donations/view-donation.php">
-                                app/Views/front-end/themes/<?=getCurrentTheme()?>/donations/view-donation.php
-                            </small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-4 col-6">
-                <a href="<?= base_url('account/admin/file-editor/shops') ?>" class="text-decoration-none">
-                    <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">Shop</h6>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
-                            <h5 class="card-title mt-2">shops/index.php</h5>
-                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/shops/index.php">
-                                app/Views/front-end/themes/<?=getCurrentTheme()?>/shops/index.php
-                            </small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-4 col-6">
-                <a href="<?= base_url('account/admin/file-editor/view-shop') ?>" class="text-decoration-none">
-                    <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">View Shop</h6>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
-                            <h5 class="card-title mt-2">shops/view-shop.php</h5>
-                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: app/Views/front-end/themes/<?=getCurrentTheme()?>/shops/view-shop.php">
-                                app/Views/front-end/themes/<?=getCurrentTheme()?>/shops/view-shop.php
                             </small>
                         </div>
                     </div>

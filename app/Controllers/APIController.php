@@ -9,13 +9,10 @@ use App\Models\BlogsModel;
 use App\Models\CodesModel;
 use App\Models\CategoriesModel;
 use App\Models\NavigationsModel;
-use App\Models\ContactMessagesModel;
 use App\Models\ContentBlocksModel;
 use App\Models\TranslationsModel;
 use App\Models\CountriesModel;
 use App\Models\ThemesModel;
-use App\Models\SubscribersModel;
-use App\Models\AnnouncementPopupsModel;
 use App\Models\DataGroupsModel;
 use App\Services\EmailService;
 
@@ -787,18 +784,6 @@ class APIController extends BaseController
                     'created_at' => $item['created_at'] ?? null
                 ];
             }, $pages),
-            array_map(function($item) {
-                return [
-                    'type' => 'portfolio',
-                    'id' => $item['portfolio_id'] ?? null,
-                    'title' => $item['title'] ?? null,
-                    'excerpt' => $item['description'] ?? substr(strip_tags($item['content'] ?? ''), 0, 200),
-                    'slug' => $item['slug'] ?? null,
-                    'created_at' => $item['created_at'] ?? null,
-                    'category' => $item['category'] ?? null,
-                    'client' => $item['client'] ?? null
-                ];
-            }, $portfolios),
         );
 
         // Sort combined results by created_at in descending order

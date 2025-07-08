@@ -36,18 +36,6 @@ class ApiAccessFilter implements FilterInterface
         $apiKey = $segments[1] ?? null;
         $resource = $segments[2] ?? null;
 
-        var_dump($apiKey);
-
-
-        $excludeArr = array("add-booking", "add-subscriber", "send-contact-message");
-        if (in_array($apiKey, $excludeArr))
-        {
-           $checkApiKey = false;
-        }
-
-        // Debug: Check the extracted API key
-        // var_dump($apiKey); exit();
-
         // Validate the API key using the helper function
         if($checkApiKey){
             if (!$apiKey || !isValidApiKey($apiKey)) {
@@ -59,7 +47,6 @@ class ApiAccessFilter implements FilterInterface
                     ]);
             }
         }
-
 
         // Validate the API key using the helper function
         if($checkApiKey){

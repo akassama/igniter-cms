@@ -48,7 +48,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="mb-3 mt-3">
-                <a href="<?= base_url('/account/cms/faqs') ?>" class="btn btn-outline-danger">
+                <a href="<?= base_url('/account/plugins') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>

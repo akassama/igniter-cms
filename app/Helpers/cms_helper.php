@@ -1782,7 +1782,7 @@ if (!function_exists('generatePageTitleSlug')) {
         $slug = generateSlug($title);
 
         // List of excluded slugs that should not be used directly
-        $excludedSlugs = array("contact", "home", "blog", "blogs", "event", "events", "appointment", "appointments", "portfolio", "portfolios", "sitemap", "rss", "shop", "donate");
+        $excludedSlugs = array("home", "blog", "blogs", "sitemap", "rss");
 
         // Check if the slug exists in the 'pages' table or is in the excluded list
         $builder = $db->table('pages');
@@ -1790,35 +1790,6 @@ if (!function_exists('generatePageTitleSlug')) {
 
         if ($existingSlug || in_array($slug, $excludedSlugs)) {
             // If the slug exists or is in the excluded list, add a random 6-digit alphanumeric string
-            $randomString = substr(md5(uniqid(rand(), true)), 0, 6);
-            $slug .= '-' . $randomString;
-        }
-
-        return $slug;
-    }
-}
-
-/**
- * Generates a unique slug for a given portfolio title.
- *
- * @param {string} title - The portfolio title to generate a slug for.
- * @returns {string} The generated slug.
- */
-if (!function_exists('generatePortfolioTitleSlug')) {
-
-    function generatePortfolioTitleSlug(string $title)
-    {
-        $db = \Config\Database::connect();
-
-        // Convert the title to lower case, remove special characters, and replace spaces with dashes
-        $slug = generateSlug($title);
-
-        // Check if the slug exists in the 'portfolios' table
-        $builder = $db->table('portfolios');
-        $existingSlug = $builder->where('slug', $slug)->get()->getRow();
-
-        // If the slug exists, add a random 6-digit alphanumeric string
-        if ($existingSlug) {
             $randomString = substr(md5(uniqid(rand(), true)), 0, 6);
             $slug .= '-' . $randomString;
         }
@@ -2839,26 +2810,6 @@ if (!function_exists('getPageMetaInfo')) {
             return "NA";
         }
 
-    }
-}
-
-/**
- * Gets the HTML label for a subscriber's status.
- *
- * @param string $status The subscriber's status.
- * @return string The HTML label for the status.
- */
-if (!function_exists('getSubscriberStatusLabel')) {
-    function getSubscriberStatusLabel($status) {
-        if($status == '0'){
-            return "<span class='badge bg-secondary'>Unsubscribed</span>";
-        }
-        else if($status == '1'){
-            return "<span class='badge bg-success'>Subscribed</span>";
-        }
-        else {
-            return "<span class='badge bg-danger'>NA</span>";
-        }
     }
 }
 

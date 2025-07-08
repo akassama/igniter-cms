@@ -14,8 +14,6 @@ use App\Models\BackupsModel;
 use App\Models\ActivityLogsModel;
 use App\Models\CodesModel;
 use App\Models\ThemesModel;
-use App\Models\SubscribersModel;
-use App\Models\ContactMessagesModel;
 use App\Models\SiteStatsModel;
 use App\Models\BlockedIPsModel;
 use App\Models\WhitelistedIPsModel;
@@ -226,68 +224,6 @@ class AdminController extends BaseController
         ];
 
         return view('back-end/admin/users/view-user', $data);
-    }
-    
-    //############################//
-    //        Subscribers         //
-    //############################//
-    public function subscribers()
-    {
-        $tableName = 'subscribers';
-        $subscribersModel = new SubscribersModel();
-
-        // Set data to pass in view
-        $data = [
-            'subscribers' => $subscribersModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_500', 500))),
-            'pager' => $subscribersModel->pager,
-            'total_subscribers' => $subscribersModel->pager->getTotal()
-        ];
-
-        return view('back-end/admin/subscribers/index', $data);
-    }
-    
-    //############################//
-    //     Contact Messages       //
-    //############################//
-    public function contactMessages()
-    {
-        $tableName = 'contact_messages';
-        $contactMessagesModel = new ContactMessagesModel();
-
-        // Set data to pass in view
-        $data = [
-            'contact_messages' => $contactMessagesModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_500', 500))),
-            'pager' => $contactMessagesModel->pager,
-            'total_contact_messages' => $contactMessagesModel->pager->getTotal()
-        ];
-
-        return view('back-end/admin/contact-messages/index', $data);
-    }
-
-    public function viewContactMessage($contactMessageId)
-    {
-        //mark as read
-        $updateColumn =  "'is_read' = '1'";
-        $updateWhereClause = "contact_message_id = '$contactMessageId'";
-        $result = updateRecordColumn("contact_messages", $updateColumn, $updateWhereClause);
-
-        $contactMessagesModel = new ContactMessagesModel();
-
-        // Fetch the data based on the id
-        $contactMessage = $contactMessagesModel->where('contact_message_id', $contactMessageId)->first();
-
-        if (!$contactMessage) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
-            session()->setFlashdata('errorAlert', $errorMsg);
-            return redirect()->to('/account/admin/contact-messages');
-        }
-
-        // Set data to pass in view
-        $data = [
-            'contact_message_data' => $contactMessage
-        ];
-
-        return view('back-end/admin/contact-messages/view-contact', $data);
     }
 
 
@@ -1441,54 +1377,6 @@ class AdminController extends BaseController
         return view('back-end/admin/file-editor/layout', $data);
     }
 
-    public function appointmentsFileEditor()
-    {
-        // Get the file you want to edit
-        $appointmentsFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/appointments/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $appointmentsFilename = basename($appointmentsFilePath);
-
-        if (!file_exists($appointmentsFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $appointmentsFileContent = file_get_contents($appointmentsFilePath);
-        
-        $data = [
-            'appointmentsFilename' => $appointmentsFilename,
-            'appointmentsFilePath' => $appointmentsFilePath,
-            'appointmentsFileContent' => $appointmentsFileContent
-        ];
-
-        return view('back-end/admin/file-editor/appointments', $data);
-    }
-
-    public function viewAppointmentFileEditor()
-    {
-        // Get the file you want to edit
-        $viewAppointmentFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/appointments/view-appointment.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $viewAppointmentFilename = basename($viewAppointmentFilePath);
-
-        if (!file_exists($viewAppointmentFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $viewAppointmentFileContent = file_get_contents($viewAppointmentFilePath);
-        
-        $data = [
-            'viewAppointmentFilename' => $viewAppointmentFilename,
-            'viewAppointmentFilePath' => $viewAppointmentFilePath,
-            'viewAppointmentFileContent' => $viewAppointmentFileContent
-        ];
-
-        return view('back-end/admin/file-editor/view-appointment', $data);
-    }
-
     public function blogsFileEditor()
     {
         // Get the file you want to edit
@@ -1537,78 +1425,6 @@ class AdminController extends BaseController
         return view('back-end/admin/file-editor/view-blog', $data);
     }
 
-    public function contactFileEditor()
-    {
-        // Get the file you want to edit
-        $contactFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/contact/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $contactFilename = basename($contactFilePath);
-
-        if (!file_exists($contactFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $contactFileContent = file_get_contents($contactFilePath);
-        
-        $data = [
-            'contactFilename' => $contactFilename,
-            'contactFilePath' => $contactFilePath,
-            'contactFileContent' => $contactFileContent
-        ];
-
-        return view('back-end/admin/file-editor/contact', $data);
-    }
-
-    public function eventsFileEditor()
-    {
-        // Get the file you want to edit
-        $eventsFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/events/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $eventsFilename = basename($eventsFilePath);
-
-        if (!file_exists($eventsFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $eventsFileContent = file_get_contents($eventsFilePath);
-        
-        $data = [
-            'eventsFilename' => $eventsFilename,
-            'eventsFilePath' => $eventsFilePath,
-            'eventsFileContent' => $eventsFileContent
-        ];
-
-        return view('back-end/admin/file-editor/events', $data);
-    }
-
-    public function viewEventFileEditor()
-    {
-        // Get the file you want to edit
-        $viewEventFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/events/view-event.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $viewEventFilename = basename($viewEventFilePath);
-
-        if (!file_exists($viewEventFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $viewEventFileContent = file_get_contents($viewEventFilePath);
-        
-        $data = [
-            'viewEventFilename' => $viewEventFilename,
-            'viewEventFilePath' => $viewEventFilePath,
-            'viewEventFileContent' => $viewEventFileContent
-        ];
-
-        return view('back-end/admin/file-editor/view-event', $data);
-    }
-
     public function viewPageFileEditor()
     {
         // Get the file you want to edit
@@ -1631,150 +1447,6 @@ class AdminController extends BaseController
         ];
 
         return view('back-end/admin/file-editor/view-page', $data);
-    }
-
-    public function portfoliosFileEditor()
-    {
-        // Get the file you want to edit
-        $portfoliosFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/portfolios/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $portfoliosFilename = basename($portfoliosFilePath);
-
-        if (!file_exists($portfoliosFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $portfoliosFileContent = file_get_contents($portfoliosFilePath);
-        
-        $data = [
-            'portfoliosFilename' => $portfoliosFilename,
-            'portfoliosFilePath' => $portfoliosFilePath,
-            'portfoliosFileContent' => $portfoliosFileContent
-        ];
-
-        return view('back-end/admin/file-editor/portfolios', $data);
-    }
-
-    public function viewPortfolioFileEditor()
-    {
-        // Get the file you want to edit
-        $viewPortfolioFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/portfolios/view-portfolio.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $viewPortfolioFilename = basename($viewPortfolioFilePath);
-
-        if (!file_exists($viewPortfolioFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $viewPortfolioFileContent = file_get_contents($viewPortfolioFilePath);
-        
-        $data = [
-            'viewPortfolioFilename' => $viewPortfolioFilename,
-            'viewPortfolioFilePath' => $viewPortfolioFilePath,
-            'viewPortfolioFileContent' => $viewPortfolioFileContent
-        ];
-
-        return view('back-end/admin/file-editor/view-portfolio', $data);
-    }
-
-    public function donationsFileEditor()
-    {
-        // Get the file you want to edit
-        $donationsFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/donate/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $donationsFilename = basename($donationsFilePath);
-
-        if (!file_exists($donationsFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $donationsFileContent = file_get_contents($donationsFilePath);
-        
-        $data = [
-            'donationsFilename' => $donationsFilename,
-            'donationsFilePath' => $donationsFilePath,
-            'donationsFileContent' => $donationsFileContent
-        ];
-
-        return view('back-end/admin/file-editor/donations', $data);
-    }
-
-    public function viewDonationFileEditor()
-    {
-        // Get the file you want to edit
-        $viewDonationFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/donate/view-donation-campaign.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $viewDonationFilename = basename($viewDonationFilePath);
-
-        if (!file_exists($viewDonationFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $viewDonationFileContent = file_get_contents($viewDonationFilePath);
-        
-        $data = [
-            'viewDonationFilename' => $viewDonationFilename,
-            'viewDonationFilePath' => $viewDonationFilePath,
-            'viewDonationFileContent' => $viewDonationFileContent
-        ];
-
-        return view('back-end/admin/file-editor/view-donation', $data);
-    }
-
-    public function shopsFileEditor()
-    {
-        // Get the file you want to edit
-        $shopsFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/shop/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $shopsFilename = basename($shopsFilePath);
-
-        if (!file_exists($shopsFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $shopsFileContent = file_get_contents($shopsFilePath);
-        
-        $data = [
-            'shopsFilename' => $shopsFilename,
-            'shopsFilePath' => $shopsFilePath,
-            'shopsFileContent' => $shopsFileContent
-        ];
-
-        return view('back-end/admin/file-editor/shops', $data);
-    }
-
-    public function viewShopFileEditor()
-    {
-        // Get the file you want to edit
-        $viewshopFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/shop/view-product.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $viewshopFilename = basename($viewshopFilePath);
-
-        if (!file_exists($viewshopFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $viewshopFileContent = file_get_contents($viewshopFilePath);
-        
-        $data = [
-            'viewshopFilename' => $viewshopFilename,
-            'viewshopFilePath' => $viewshopFilePath,
-            'viewshopFileContent' => $viewshopFileContent
-        ];
-
-        return view('back-end/admin/file-editor/view-shop', $data);
     }
 
     public function searchFileEditor()
@@ -1864,13 +1536,5 @@ class AdminController extends BaseController
         }
     
         return redirect()->to('/account/admin/file-editor/'.$filePage)->with('success', 'File saved successfully.');
-    }
-
-    //############################//
-    //        File Manager        //
-    //############################//
-    public function fileManager()
-    {
-        return view('back-end/admin/file-manager');
     }
 }

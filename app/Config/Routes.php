@@ -148,18 +148,7 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('admin/users/edit-user/(:any)', 'AdminController::editUser/$1', ['filter' => 'adminRoleFilter']);
         $routes->post('admin/users/edit-user', 'AdminController::updateUser');
         $routes->get('admin/users/view-user/(:any)', 'AdminController::viewUser/$1', ['filter' => 'adminRoleFilter']);
-        
-        #SUBSCRIBERS
-        $routes->get('admin/subscribers', 'AdminController::subscribers', ['filter' => 'adminRoleFilter']);
-        
-        #CONTACT MESSAGES
-        $routes->get('admin/contact-messages', 'AdminController::contactMessages', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/contact-messages/view-contact/(:any)', 'AdminController::viewContactMessage/$1', ['filter' => 'adminRoleFilter']);
-        
-        #BOOKINGS
-        $routes->get('admin/bookings', 'AdminController::bookings', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/bookings/view-booking/(:any)', 'AdminController::viewBooking/$1', ['filter' => 'adminRoleFilter']);
-        
+
         #ACTIVITY LOGS
         $routes->get('admin/activity-logs', 'AdminController::activityLogs', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/activity-logs/view-activity/(:any)', 'AdminController::viewActivity/$1');
@@ -388,17 +377,6 @@ $routes->group('api', ['filter' => ['apiAccessFilter','corsFilter']],  function(
     $routes->get('(:segment)/filter-search-results', 'APIController::filterSearchResults/$1');
 });
 
-//API Form Endpoints
-$routes->group('api-form', ['filter' => ['corsFilter']],  function($routes) {
-    if (isFeatureEnabled('FEATURE_FRONT_END')) {
-	    // Add Contact Message
-        $routes->post('send-contact-message', 'APIFormController::sendContactMessage');
-        
-        // Add Subscription
-        $routes->post('add-subscriber', 'APIFormController::addSubscription');
-    }
-});
-
 
 $frontEndFormat = getConfigData("FrontEndFormat");
 if(strtolower($frontEndFormat) === "mvc")
@@ -418,7 +396,7 @@ if(strtolower($frontEndFormat) === "mvc")
             return redirect()->to('/blogs'); 
         });
         $routes->get('/blogs', 'FrontEndController::getBlogs', ['filter' => ['siteStatsFilter','pluginsFilter']]);
-        
+
         #Search
         $routes->get('search', 'FrontEndController::searchResults', ['filter' => ['siteStatsFilter','pluginsFilter']]);
         $routes->get('/search/filter', 'FrontEndController::getSearchFilter', ['filter' => ['siteStatsFilter','pluginsFilter']]);

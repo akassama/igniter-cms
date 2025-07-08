@@ -19,22 +19,6 @@ $userRole = getUserRole($sessionEmail);
                 // Click the button with id "cmsButton"
                 document.getElementById("cmsButton").click();
             }
-            else if (current_url.includes("account/policies")) {
-                // Click the button with id "policiesButton"
-                document.getElementById("policiesButton").click();
-            }
-            else if (current_url.includes("account/resumes")) {
-                // Click the button with id "resumesButton"
-                document.getElementById("resumesButton").click();
-            }
-            else if (current_url.includes("account/ecommerce")) {
-                // Click the button with id "ecommerceButton"
-                document.getElementById("ecommerceButton").click();
-            }
-            else if (current_url.includes("account/knowledge-base")) {
-                // Click the button with id "knowledgeBaseButton"
-                document.getElementById("knowledgeBaseButton").click();
-            }
             else if (current_url.includes("account/settings")) {
                 // Click the button with id "settingsButton"
                 document.getElementById("settingsButton").click();
@@ -180,12 +164,6 @@ $userRole = getUserRole($sessionEmail);
                                     </a>
                                     <a class="nav-link <?= (str_contains(current_url(), 'account/admin/file-editor')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/file-editor'); ?>">
                                         <i class="ri-arrow-drop-right-fill"></i> File Editor
-                                    </a>
-                                    <a class="nav-link <?= (str_contains(current_url(), 'account/admin/contact-messages')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/contact-messages'); ?>">
-                                        <i class="ri-arrow-drop-right-fill"></i> Contact Messages
-                                    </a>
-                                    <a class="nav-link <?= (str_contains(current_url(), 'account/admin/subscribers')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/subscribers'); ?>">
-                                        <i class="ri-arrow-drop-right-fill"></i> Subscribers
                                     </a>
                                 </nav>
                             </div>     

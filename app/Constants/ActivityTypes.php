@@ -264,13 +264,6 @@ class ActivityTypes
             self::FAILED_PAGE_UPDATE => 'Page Update Failed',
             self::PAGE_DELETION => 'Page Deletion',
 
-            // Contact Messages
-            self::CONTACT_MESSAGE_CREATION => 'Contact Message Created',
-            self::FAILED_CONTACT_MESSAGE_CREATION => 'Contact Message Creation Failed',
-            self::CONTACT_MESSAGE_UPDATE => 'Contact Message Updated',
-            self::FAILED_CONTACT_MESSAGE_UPDATE => 'Contact Message Update Failed',
-            self::CONTACT_MESSAGE_DELETION => 'Contact Message Deletion',
-
             // Content Blocks
             self::CONTENT_BLOCK_CREATION => 'Content Block Created',
             self::FAILED_CONTENT_BLOCK_CREATION => 'Content Block Creation Failed',
@@ -305,13 +298,6 @@ class ActivityTypes
             self::THEME_UPDATE => 'Theme Updated',
             self::FAILED_THEME_UPDATE => 'Theme Update Failed',
             self::THEME_DELETION => 'Theme Deletion',
-
-            // Subscriptions
-            self::SUBSCRIPTION_CREATION => 'Subscription Created',
-            self::FAILED_SUBSCRIPTION_CREATION => 'Subscription Creation Failed',
-            self::SUBSCRIPTION_UPDATE => 'Subscription Updated',
-            self::FAILED_SUBSCRIPTION_UPDATE => 'Subscription Update Failed',
-            self::SUBSCRIPTION_CREATION => 'Subscription Deletion',
 
             // BLOCKED IP REASONS
             self::BLOCKED_IP_CREATION => 'Blocked IP Created',

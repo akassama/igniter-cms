@@ -513,7 +513,6 @@ if (!function_exists('isAllowedModel')) {
     {
         //Mapping of request segments to their respective model names.
         $requestModels = [
-            'get-home-page' => 'HomePageModel',
             'get-all-blogs' => 'BlogsModel',
             'get-blog' => 'BlogsModel',
             'get-blogs' => 'BlogsModel',

@@ -26,11 +26,7 @@ $theme = getCurrentTheme();
                 <?php 
                 // Check if all search result arrays are empty
                 $noResults = empty($blogsSearchResults) &&
-                            empty($pagesSearchResults) &&
-                            empty($eventsSearchResults) &&
-                            empty($portfoliosSearchResults) &&
-                            empty($donationsSearchResults) &&
-                            empty($shopSearchResults);
+                            empty($pagesSearchResults);
                 
                 // If no results, display a message
                 if ($noResults): ?>
@@ -70,58 +66,6 @@ $theme = getCurrentTheme();
                             <div class="mb-4">
                             <div class="small text-muted"><?= dateFormat($page['created_at'], 'M j, Y'); ?></div>
                             <a class="link-dark" href="<?= base_url($page['slug']) ?>"><h3><?= $page['title']; ?></h3></a>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Events Results Widget -->
-                <?php if(!empty($eventsSearchResults)): ?>
-                    <div class="row">     
-                        <h4>Events</h4>  
-                        <?php foreach($eventsSearchResults as $event): ?>
-                            <div class="mb-4">
-                            <div class="small text-muted">Event Date: <?= dateFormat($event['start_date'], 'M j, Y'); ?></div>
-                            <a class="link-dark" href="<?= base_url('event/'.$event['slug']) ?>"><h3><?= $event['title']; ?></h3></a>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Portfolios Results Widget -->
-                <?php if(!empty($portfoliosSearchResults)): ?>
-                    <div class="row">     
-                        <h4>Portfolios</h4>  
-                        <?php foreach($portfoliosSearchResults as $portfolio): ?>
-                            <div class="mb-4">
-                                <div class="small text-muted"><?= dateFormat($portfolio['created_at'], 'M j, Y'); ?></div>
-                                <a class="link-dark" href="<?= base_url('portfolio/'.$portfolio['slug']) ?>"><h3><?= $portfolio['title']; ?></h3></a>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Donations Results Widget -->
-                <?php if(!empty($donationsSearchResults)): ?>
-                    <div class="row">     
-                        <h4>Donations & Campaigns</h4>  
-                        <?php foreach($donationsSearchResults as $donation): ?>
-                            <div class="mb-4">
-                                <div class="small text-muted"><?= dateFormat($donation['created_at'], 'M j, Y'); ?></div>
-                                <a class="link-dark" href="<?= base_url('donate/'.$donation['slug']) ?>"><h3><?= $donation['title']; ?></h3></a>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Shop Results Widget -->
-                <?php if(!empty($shopSearchResults)): ?>
-                    <div class="row">     
-                        <h4>Shop</h4>  
-                        <?php foreach($shopSearchResults as $shop): ?>
-                            <div class="mb-4">
-                                <div class="small text-muted"><?= dateFormat($shop['created_at'], 'M j, Y'); ?></div>
-                                <a class="link-dark" href="<?= base_url('shop/'.$shop['slug']) ?>"><h3><?= $shop['title']; ?></h3></a>
                             </div>
                         <?php endforeach; ?>
                     </div>

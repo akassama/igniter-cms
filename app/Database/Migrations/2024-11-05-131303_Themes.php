@@ -113,11 +113,6 @@ class Themes extends Migration
                 'type' => 'INT',
                 'default' => 1,
             ],
-            'home_page' => [
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'default' => 'HomePage', //Options : 'HomePage,Blog,Shop,Portfolio,None'
-            ],
             'created_by' => [
                 'type' => 'VARCHAR',
                 'constraint' => '50',
@@ -153,12 +148,11 @@ class Themes extends Migration
                 'theme_css' => "",
                 'theme_js' => '',
                 'footer_copyright' => "<p>Copyright &copy; Igniter CMS ". date('Y') ."</p>",
-                'selected' => false,
+                'selected' => true,
                 'override_default_style' => false,
                 'category' => $customConfig->themeCategories['Business'],
                 'sub_category' => $customConfig->themeCategories['Portfolio'],
                 'deletable' => 0,
-                'home_page' => 'HomePage',
                 'created_by' => getGUID(getDefaultAdminGUID())
             ],
         ];
