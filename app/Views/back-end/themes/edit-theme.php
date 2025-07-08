@@ -111,9 +111,9 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-4 mb-4">
                 <label for="background_color" class="form-label">Background Color</label>
                 <input type="color" class="form-control form-control-color" id="background_color" name="background_color" value="<?= $theme_data['background_color'];?>"
-                       hx-post="<?=base_url()?>/htmx/get-other-color-name"
+                       hx-post="<?=base_url()?>/htmx/get-background-color-name"
                        hx-trigger="load, change delay:100ms"
-                       hx-target="#set-other-color-name"
+                       hx-target="#set-background-color-name"
                        hx-swap="innerHTML">
                 <!-- Error -->
                 <?php if($validation->getError('background_color')) {?>
@@ -122,9 +122,9 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide other color
+                    Please provide background color
                 </div>
-                <div class="mt-2" id="set-other-color-name">
+                <div class="mt-2" id="set-background-color-name">
                 </div>
             </div>
 

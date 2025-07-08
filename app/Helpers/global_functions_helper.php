@@ -1366,157 +1366,14 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                         "/account/cms/pages/edit-page/{page-id}",
                         "/account/cms/pages/view-page/{page-id}",
 
-                        // Home Page
-                        "/account/cms/homepage",
-                        "/account/cms/homepage/edit",
-
                         // Content Blocks
                         "/account/cms/blocks",
                         "/account/cms/blocks/new-block",
                         "/account/cms/blocks/edit-block/{block-id}",
                         "/account/cms/blocks/view-block/{block-id}",
-
-                        // Events
-                        "/account/cms/events",
-                        "/account/cms/events/new-event",
-                        "/account/cms/events/edit-event/{event-id}",
-                        "/account/cms/events/view-event/{event-id}",
-
-                        // Appointments
-                        "/account/cms/appointments",
-                        "/account/cms/appointments/new-appointment",
-                        "/account/cms/appointments/edit-appointment/{appointment-id}",
-                        "/account/cms/appointments/view-appointment/{appointment-id}",
-
-                        // Portfolios
-                        "/account/cms/portfolios",
-                        "/account/cms/portfolios/new-portfolio",
-                        "/account/cms/portfolios/edit-portfolio/{portfolio-id}",
-                        "/account/cms/portfolios/view-portfolio/{portfolio-id}",
-
-                        // Gallery
-                        "/account/cms/galleries",
-                        "/account/cms/galleries/new-gallery",
-                        "/account/cms/galleries/edit-gallery/{gallery-id}",
-                        "/account/cms/galleries/view-gallery/{gallery-id}",
-
-                        // Services
-                        "/account/cms/services",
-                        "/account/cms/services/new-service",
-                        "/account/cms/services/edit-service/{service-id}",
-                        "/account/cms/services/view-service/{service-id}",
-
-                        // Partners
-                        "/account/cms/partners",
-                        "/account/cms/partners/new-partner",
-                        "/account/cms/partners/edit-partner/{partner-id}",
-                        "/account/cms/partners/view-partner/{partner-id}",
-
-                        // Counters
-                        "/account/cms/counters",
-                        "/account/cms/counters/new-counter",
-                        "/account/cms/counters/edit-counter/{counter-id}",
-                        "/account/cms/counters/view-counter/{counter-id}",
-
-                        // Socials
-                        "/account/cms/socials",
-                        "/account/cms/socials/new-social",
-                        "/account/cms/socials/edit-social/{social-id}",
-                        "/account/cms/socials/view-social/{social-id}",
-
-                        // Pricings
-                        "/account/cms/pricings",
-                        "/account/cms/pricings/new-pricing",
-                        "/account/cms/pricings/edit-pricing/{pricing-id}",
-                        "/account/cms/pricings/view-pricing/{pricing-id}",
-
-                        // Teams
-                        "/account/cms/teams",
-                        "/account/cms/teams/new-member",
-                        "/account/cms/teams/edit-member/{member-id}",
-                        "/account/cms/teams/view-member/{member-id}",
-
-                        // Testimonials
-                        "/account/cms/testimonials",
-                        "/account/cms/testimonials/new-testimonial",
-                        "/account/cms/testimonials/edit-testimonial/{testimonial-id}",
-                        "/account/cms/testimonials/view-testimonial/{testimonial-id}",
-
-                        // FAQs
-                        "/account/cms/faqs",
-                        "/account/cms/faqs/new-faq",
-                        "/account/cms/faqs/edit-faq/{faq-id}",
-                        "/account/cms/faqs/view-faq/{faq-id}",
-
-                        // Donations
-                        "/account/cms/donations",
-                        "/account/cms/donations/new-donation",
-                        "/account/cms/donations/edit-donation/{donation-id}",
-                        "/account/cms/donations/view-donation/{donation-id}",
-
-                        // Popups
-                        "/account/cms/popups",
-                        "/account/cms/popups/new-popup",
-                        "/account/cms/popups/edit-popup/{popup-id}",
-                        "/account/cms/popups/view-popup/{popup-id}",
                     ],
                     "management" => "All CMS sub-modules can be manage from '/account/cms/{module-name}'",
                     "deletion" => "To delete any record, go to the management page ('/account/cms/{module-name}'), e.g. '/account/cms/blogs' and click on the delete (x) button, then confirm deletion prompt.",
-                ],
-                [
-                    "name" => "E-Commerce",
-                    "description" => "This is the module for the simple ecommerce service including product management.",
-                    "endpoints" => [
-                        // E-Commerce Home
-                        "/account/ecommerce",
-
-                        // Products
-                        "/account/ecommerce/products",
-                        "/account/ecommerce/products/new-product",
-                        "/account/ecommerce/products/edit-product/{product-id}",
-                        "/account/ecommerce/products/view-product/{product-id}",
-
-                        // Product Categories
-                        "/account/ecommerce/product-categories",
-                        "/account/ecommerce/product-categories/new-product-category",
-                        "/account/ecommerce/product-categories/edit-product-category/{product-category-id}",
-                    ],
-                    "management" => "All E-Commerce sub-modules can be manage from '/account/ecommerce/{module-name}'",
-                    "deletion" => "To delete any record, go to the management page ('/account/ecommerce/{module-name}'), e.g. '/account/ecommerce/products' and click on the delete (x) button, then confirm deletion prompt.",
-                ],
-                [
-                    "name" => "Resume Data",
-                    "description" => "This is the module for managing the resumes data.",
-                    "endpoints" => [
-                        // Resume Home
-                        "/account/resumes",
-
-                        // Resumes
-                        "/account/resumes/manage-resumes",
-                        "/account/resumes/new-resume",
-                        "/account/resumes/edit-resume/{resume-id}",
-                        "/account/resumes/view-resume/{resume-id}",
-
-                        // Experiences
-                        "/account/resumes/manage-experiences",
-                        "/account/resumes/new-experience",
-                        "/account/resumes/edit-experience/{experience-id}",
-                        "/account/resumes/view-experience/{experience-id}",
-
-                        // Education
-                        "/account/resumes/manage-education",
-                        "/account/resumes/new-education",
-                        "/account/resumes/edit-education/{education-id}",
-                        "/account/resumes/view-education/{education-id}",
-
-                        // Skills
-                        "/account/resumes/manage-skills",
-                        "/account/resumes/new-skill",
-                        "/account/resumes/edit-skill/{skill-id}",
-                        "/account/resumes/view-skill/{skill-id}",
-                    ],
-                    "management" => "All Resume sub-modules can be manage from '/account/resumes/{manage-module-name}'",
-                    "deletion" => "To delete any record, go to the management page ('/account/resumes/{manage-module-name}'), e.g. '/account/resumes/manage-experiences' and click on the delete (x) button, then confirm deletion prompt.",
                 ],
                 [
                     "name" => "File Manager",
@@ -1575,11 +1432,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                         "/account/admin/codes/new-code",
                         "/account/admin/codes/edit-code/{code-id}",
 
-                        // Themes (No View)
-                        "/account/admin/themes",
-                        "/account/admin/themes/new-theme",
-                        "/account/admin/themes/edit-theme/{theme-id}",
-
                         // API Keys (No View)
                         "/account/admin/api-keys",
                         "/account/admin/api-keys/new-api-key",
@@ -1606,22 +1458,9 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                         // File Editor
                         "/account/admin/file-editor/layout",
                         "/account/admin/file-editor/home",
-                        "/account/admin/file-editor/appointments",
-                        "/account/admin/file-editor/view-appointment",
                         "/account/admin/file-editor/blogs",
                         "/account/admin/file-editor/view-blog",
-                        "/account/admin/file-editor/contact",
-                        "/account/admin/file-editor/events",
-                        "/account/admin/file-editor/view-event",
-                        "/account/admin/file-editor/appointments",
-                        "/account/admin/file-editor/view-appointment",
                         "/account/admin/file-editor/view-page",
-                        "/account/admin/file-editor/portfolios",
-                        "/account/admin/file-editor/view-portfolio",
-                        "/account/admin/file-editor/donations-campaigns",
-                        "/account/admin/file-editor/view-donation",
-                        "/account/admin/file-editor/shop",
-                        "/account/admin/file-editor/view-shop",
                         "/account/admin/file-editor/search",
                         "/account/admin/file-editor/search-filter",
                         "/account/admin/file-editor/sitemap",
@@ -1663,9 +1502,9 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "/api/{api-key}/get-blogs?take=10&skip=0", // Paginated blogs.
 
                     // Categories
-                    "/api/{api-key}/get-category/{category_id}", // Single category.
-                    "/api/{api-key}/get-categories", // All categories.
-                    "/api/{api-key}/get-categories?take=10&skip=0", // Paginated categories.
+                    "/api/{api-key}/get-category/{category_id}",
+                    "/api/{api-key}/get-categories",
+                    "/api/{api-key}/get-categories?take=10&skip=0",
 
                     // Codes
                     "/api/{api-key}/get-code/{code_id}",
@@ -1682,31 +1521,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "/api/{api-key}/get-countries",
                     "/api/{api-key}/get-countries?take=10&skip=0",
 
-                    // Counters
-                    "/api/{api-key}/get-counter/{counter_id}",
-                    "/api/{api-key}/get-counters",
-                    "/api/{api-key}/get-counters?take=10&skip=0",
-
-                    // Donation Causes
-                    "/api/{api-key}/get-donation-cause/{donation_cause_id}",
-                    "/api/{api-key}/get-donation-causes",
-                    "/api/{api-key}/get-donation-causes?take=10&skip=0",
-
-                    // Events
-                    "/api/{api-key}/get-event/{event_id}",
-                    "/api/{api-key}/get-events",
-                    "/api/{api-key}/get-events?take=10&skip=0",
-
-                    // Appointments
-                    "/api/{api-key}/get-appointment/{appointment_id}",
-                    "/api/{api-key}/get-appointments",
-                    "/api/{api-key}/get-appointments?take=10&skip=0",
-
-                    // FAQs
-                    "/api/{api-key}/get-faq/{faq_id}",
-                    "/api/{api-key}/get-faqs",
-                    "/api/{api-key}/get-faqs?take=10&skip=0",
-
                     // Languages
                     "/api/{api-key}/get-language/{language_id}",
                     "/api/{api-key}/get-languages",
@@ -1721,75 +1535,10 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "/api/{api-key}/get-page/{page_id}",
                     "/api/{api-key}/get-pages?take=10&skip=0",
 
-                    // Partners
-                    "/api/{api-key}/get-partner/{partner_id}",
-                    "/api/{api-key}/get-partners",
-                    "/api/{api-key}/get-partners?take=10&skip=0",
-
-                    // Portfolio
-                    "/api/{api-key}/get-portfolio/{portfolio_id}",
-                    "/api/{api-key}/get-portfolios",
-                    "/api/{api-key}/get-portfolios?take=10&skip=0",
-
-                    // Gallery
-                    "/api/{api-key}/get-gallery/{gallery_id}",
-                    "/api/{api-key}/get-galleries",
-                    "/api/{api-key}/get-galleries?take=10&skip=0",
-
-                    // Pricing
-                    "/api/{api-key}/get-pricing/{pricing_id}",
-                    "/api/{api-key}/get-pricings",
-                    "/api/{api-key}/get-pricings?take=10&skip=0",
-
-                    // Product Categories
-                    "/api/{api-key}/get-product-category/{product_category_id}",
-                    "/api/{api-key}/get-product-categories",
-                    "/api/{api-key}/get-product-categories?take=10&skip=0",
-
-                    // Products
-                    "/api/{api-key}/get-product/{product_id}",
-                    "/api/{api-key}/get-products",
-                    "/api/{api-key}/get-products?take=10&skip=0",
-
-                    // Appointment
-                    "/api/{api-key}/get-appointment/{appointment_id}",
-                    "/api/{api-key}/get-appointments",
-                    "/api/{api-key}/get-appointments?take=10&skip=0",
-
-                    // Bookings
-                    "/api/{api-key}/get-booking/{booking_id}",
-                    "/api/{api-key}/get-bookings",
-                    "/api/{api-key}/get-bookings?take=10&skip=0",
-
-                    // Resumes
-                    "/api/{api-key}/get-resume/{resume_id}",
-                    "/api/{api-key}/get-resumes",
-                    "/api/{api-key}/get-resumes?take=10&skip=0",
-
                     // Search
                     "/api/{api-key}/search-results?key=the",
                     "/api/{api-key}/model-search-results?type=blog&key=the",
                     "/api/{api-key}/filter-search-results?type=author&key=admin",
-
-                    // Services
-                    "/api/{api-key}/get-service/{service_id}",
-                    "/api/{api-key}/get-services",
-                    "/api/{api-key}/get-services?take=10&skip=0",
-
-                    // Social Media
-                    "/api/{api-key}/get-social/{social_id}",
-                    "/api/{api-key}/get-socials",
-                    "/api/{api-key}/get-socials?take=10&skip=0",
-
-                    // Team
-                    "/api/{api-key}/get-team/{team_id}",
-                    "/api/{api-key}/get-teams",
-                    "/api/{api-key}/get-teams?take=10&skip=0",
-
-                    // Testimonials
-                    "/api/{api-key}/get-testimonial/{testimonial_id}",
-                    "/api/{api-key}/get-testimonials",
-                    "/api/{api-key}/get-testimonials?take=10&skip=0",
 
                     // Themes
                     "/api/{api-key}/get-theme/{theme_id}",
@@ -2005,41 +1754,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "options" => null
                 ],
                 [
-                    "config_for" => "EnableRegistration",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "EnablePortfoliosPage",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "EnableShopFront",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "EnableEventsPage",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "EnableDonationsPage",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "EnableAppointmentsPage",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "EnablePopupAds",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
                     "config_for" => "MetaTitle",
                     "data_type" => "Text",
                     "options" => null
@@ -2076,51 +1790,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                 ],
                 [
                     "config_for" => "BlogsPageMetaKeywords",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "EventsPageMetaTitle",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "EventsPageMetaDescription",
-                    "data_type" => "Textarea",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "EventsPageMetaKeywords",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "ContactUsPageMetaTitle",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "ContactUsPageMetaDescription",
-                    "data_type" => "Textarea",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "ContactUsPageMetaKeywords",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "PortfoliosPageMetaTitle",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "PortfoliosPageMetaDescription",
-                    "data_type" => "Textarea",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "PortfoliosPageMetaKeywords",
                     "data_type" => "Text",
                     "options" => null
                 ],

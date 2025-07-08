@@ -827,7 +827,7 @@ if(!function_exists('executeCustomQuery')) {
     {
         $db = \Config\Database::connect();
         $query = $db->query($sql);
-        return $query->getResult(); // Adjust this based on your query result type
+        return $query->getResult();
     }
 }
 
@@ -1335,35 +1335,6 @@ if (!function_exists('getFileInputPreview')) {
 }
 
 /**
- * Get a badge indicating the booking date status.
- *
- * @param string $date Booking date in 'YYYY-MM-DD' format.
- * @return string Badge HTML string representing the booking date status.
- */
-if (!function_exists('getBookingDateBadge')) {
-    function getBookingDateBadge($date) {
-        // Get current date
-        $today = new DateTime();
-        $bookingDate = new DateTime($date);
-        
-        // Calculate the difference in days
-        $diff = $today->diff($bookingDate)->days;
-        $isPast = $bookingDate < $today;
-
-        // Determine badge based on booking date
-        if ($bookingDate->format('Y-m-d') == $today->format('Y-m-d')) {
-            return '<span class="badge bg-success">Today</span>';
-        } elseif ($bookingDate->format('Y-m-d') == $today->modify('+1 day')->format('Y-m-d')) {
-            return '<span class="badge bg-info">Tomorrow</span>';
-        } elseif ($isPast) {
-            return '<span class="badge bg-danger">Expired</span>';
-        } else {
-            return '<span class="badge bg-primary">In ' . $diff . ' days</span>';
-        }
-    }
-}
-
-/**
  * Fetches and displays data group options in a dropdown.
  *
  * @param int|null $data groupId The ID of the data group to be selected (optional).
@@ -1765,30 +1736,6 @@ if(!function_exists('getBlogCategories'))
 }
 
 /**
- * Fetches and displays product category options in a dropdown.
- *
- * @param int|null $categoryId The ID of the category to be selected (optional).
- * @return void
- */
-if(!function_exists('getProductCategories'))
-{
-    function getProductCategories($categoryId = null)
-    {
-        $tableName = "product_categories";
-        $db = \Config\Database::connect();
-        $query = $db->table($tableName)
-                     ->orderBy('title', 'DESC')
-                     ->get();
-
-        $selected = "";
-        foreach ($query->getResult() as $row) {
-            $selected = $row->category_id == $categoryId ? "selected" : "";
-            echo "<option value='$row->category_id' $selected>$row->title</option>";
-        }
-    }
-}
-
-/**
  * Generates a unique slug for a given blog title.
  *
  * @param {string} title - The blog title to generate a slug for.
@@ -1818,34 +1765,6 @@ if (!function_exists('generateBlogTitleSlug')) {
 }
 
 
-/**
- * Generates a unique slug for a given event title.
- *
- * @param {string} title - The event title to generate a slug for.
- * @returns {string} The generated slug.
- */
-if (!function_exists('generateEventTitleSlug')) {
-
-    function generateEventTitleSlug(string $title)
-    {
-        $db = \Config\Database::connect();
-
-        // Convert the title to lower case, remove special characters, and replace spaces with dashes
-        $slug = generateSlug($title);
-
-        // Check if the slug exists in the 'categories' table
-        $builder = $db->table('events');
-        $existingSlug = $builder->where('slug', $slug)->get()->getRow();
-
-        // If the slug exists, add a random 6-digit alphanumeric string
-        if ($existingSlug) {
-            $randomString = substr(md5(uniqid(rand(), true)), 0, 6);
-            $slug .= '-' . $randomString;
-        }
-
-        return $slug;
-    }
-}
 
 /**
  * Generates a unique slug for a given page title.
@@ -1908,92 +1827,6 @@ if (!function_exists('generatePortfolioTitleSlug')) {
     }
 }
 
-/**
- * Generates a unique slug for a given product title.
- *
- * @param {string} title - The product title to generate a slug for.
- * @returns {string} The generated slug.
- */
-if (!function_exists('generateProductTitleSlug')) {
-
-    function generateProductTitleSlug(string $title)
-    {
-        $db = \Config\Database::connect();
-
-        // Convert the title to lower case, remove special characters, and replace spaces with dashes
-        $slug = generateSlug($title);
-
-        // Check if the slug exists in the 'products' table
-        $builder = $db->table('products');
-        $existingSlug = $builder->where('slug', $slug)->get()->getRow();
-
-        // If the slug exists, add a random 6-digit alphanumeric string
-        if ($existingSlug) {
-            $randomString = substr(md5(uniqid(rand(), true)), 0, 6);
-            $slug .= '-' . $randomString;
-        }
-
-        return $slug;
-    }
-}
-
-/**
- * Generates a unique slug for a given donation title.
- *
- * @param {string} title - The donation title to generate a slug for.
- * @returns {string} The generated slug.
- */
-if (!function_exists('generateDonationTitleSlug')) {
-
-    function generateDonationTitleSlug(string $title)
-    {
-        $db = \Config\Database::connect();
-
-        // Convert the title to lower case, remove special characters, and replace spaces with dashes
-        $slug = generateSlug($title);
-
-        // Check if the slug exists in the 'donations' table
-        $builder = $db->table('donation_causes');
-        $existingSlug = $builder->where('slug', $slug)->get()->getRow();
-
-        // If the slug exists, add a random 6-digit alphanumeric string
-        if ($existingSlug) {
-            $randomString = substr(md5(uniqid(rand(), true)), 0, 6);
-            $slug .= '-' . $randomString;
-        }
-
-        return $slug;
-    }
-}
-
-/**
- * Generates a unique slug for a given appointment title.
- *
- * @param {string} title - The appointment title to generate a slug for.
- * @returns {string} The generated slug.
- */
-if (!function_exists('generateAppointmentTitleSlug')) {
-
-    function generateAppointmentTitleSlug(string $title)
-    {
-        $db = \Config\Database::connect();
-
-        // Convert the title to lower case, remove special characters, and replace spaces with dashes
-        $slug = generateSlug($title);
-
-        // Check if the slug exists in the 'appointments' table
-        $builder = $db->table('appointments');
-        $existingSlug = $builder->where('slug', $slug)->get()->getRow();
-
-        // If the slug exists, add a random 6-digit alphanumeric string
-        if ($existingSlug) {
-            $randomString = substr(md5(uniqid(rand(), true)), 0, 6);
-            $slug .= '-' . $randomString;
-        }
-
-        return $slug;
-    }
-}
 
 /**
  * Renders a list of tags as HTML badges.
@@ -2291,28 +2124,6 @@ if(!function_exists('getBlogCategoryName'))
 
         // Retrieve the category name from the 'categories' table
         $categoryName = getTableData('categories', ['category_id' => $categoryId], 'title');
-        
-        return $categoryName;
-    }
-}
-
-
-/**
- * Retrieves the name of a product category based on its ID.
- *
- * @param string $categoryId The unique identifier (GUID) of the category.
- * @return string The category name if found, or an empty string if the ID is invalid or the category does not exist.
- */
-if(!function_exists('getProductCategoryName'))
-{
-    function getProductCategoryName($categoryId) {
-        // Check if the category ID is empty or not a valid GUID
-        if (empty($categoryId) || !isValidGUID($categoryId)) {
-            return "";
-        }
-
-        // Retrieve the category name from the 'categories' table
-        $categoryName = getTableData('product_categories', ['category_id' => $categoryId], 'title');
         
         return $categoryName;
     }
@@ -2858,79 +2669,6 @@ if (!function_exists('getThemeData')) {
 }
 
 /**
- * Retrieves home-page data for a specific home-page type.
- * 
- * @param {string} $section - The type of home-page to retrieve.
- * @returns {string|null} The home-page value, or null if not found.
- */
-if(!function_exists('getHomePageData')) {
-    function getHomePageData($section, $returnColumn)
-    {
-        try {
-            // Connect to the database
-            $db = \Config\Database::connect();
-    
-            $tableName = "home_page";
-            $whereClause = ["section" => $section];
-            // Build the query
-            $query = $db->table($tableName)
-                ->select($returnColumn)
-                ->where($whereClause)
-                ->get();
-    
-            if ($query->getNumRows() > 0) {
-                // Retrieve the result
-                $row = $query->getRow();
-                return $row->$returnColumn;
-            } else {
-                // No record found, return null
-                return null;
-            }         
-        }
-            //catch exception
-        catch(Exception $e) {
-            return "";
-        }
-    }
-}
-
-/**
- * Generates HTML list items for unique project filters.
- *
- * Connects to the database, retrieves unique `category_filter` values from the `projects` table,
- * and formats them into HTML list items with a specified prefix.
- *
- * @param string $prefix The prefix to use for the filter classes. Default is "filter".
- * @return string The formatted HTML list items as a string.
- */
-if (!function_exists('getProjectFilters')) {
-    function getProjectFilters($prefix = "filter")
-    {
-        // Connect to the database
-        $db = \Config\Database::connect();
-
-        // Query to get unique category_filter values
-        $query = $db->table('portfolios')
-                    ->select('category,category_filter')
-                    ->distinct()
-                    ->get();
-
-        // Initialize an empty array to store filters
-        $filters = [];
-
-        // Loop through the results and format the filters
-        foreach ($query->getResult() as $row) {
-            $category = $row->category;
-            $filter = $row->category_filter;
-            $filters[] = '<li data-filter=".' . $prefix . '-' . $filter . '">' . $category . '</li>';
-        }
-
-        // Return the filters as a string
-        return implode("\n", $filters);
-    }
-}
-
-/**
  * Retrieves page meta information based on the given URL and meta type.
  * 
  * This function dynamically determines meta information for different page types
@@ -2979,36 +2717,6 @@ if (!function_exists('getPageMetaInfo')) {
                         'ogImage' => 'featured_image'
                     ]
                 ],
-                'portfolio/' => [
-                    'model' => 'portfolios',
-                    'metaFields' => [
-                        'author' => 'created_by',
-                        'title' => 'meta_title',
-                        'description' => 'meta_description',
-                        'keywords' => 'meta_keywords',
-                        'ogImage' => 'featured_image'
-                    ]
-                ],
-                'event/' => [
-                    'model' => 'events',
-                    'metaFields' => [
-                        'author' => 'created_by',
-                        'title' => 'meta_title',
-                        'description' => 'meta_description',
-                        'keywords' => 'meta_keywords',
-                        'ogImage' => 'image'
-                    ]
-                ],
-                'appointment/' => [
-                    'model' => 'appointments',
-                    'metaFields' => [
-                        'author' => 'created_by',
-                        'title' => 'meta_title',
-                        'description' => 'meta_description',
-                        'keywords' => 'meta_keywords',
-                        'ogImage' => 'image'
-                    ]
-                ]
             ];
 
             // Special page mappings
@@ -3018,30 +2726,6 @@ if (!function_exists('getPageMetaInfo')) {
                     'metaTitleConfig' => 'BlogsPageMetaTitle',
                     'metaDescConfig' => 'BlogsPageMetaDescription',
                     'metaKeywordsConfig' => 'BlogsPageMetaKeywords'
-                ],
-                'portfolios' => [
-                    'model' => 'portfoliosPage',
-                    'metaTitleConfig' => 'PortfoliosPageMetaTitle',
-                    'metaDescConfig' => 'PortfoliosPageMetaDescription',
-                    'metaKeywordsConfig' => 'PortfoliosPageMetaKeywords'
-                ],
-                'events' => [
-                    'model' => 'eventsPage',
-                    'metaTitleConfig' => 'EventsPageMetaTitle',
-                    'metaDescConfig' => 'EventsPageMetaDescription',
-                    'metaKeywordsConfig' => 'EventsPageMetaKeywords'
-                ],
-                'appointments' => [
-                    'model' => 'AppointmentsPage',
-                    'metaTitleConfig' => 'AppointmentsPageMetaTitle',
-                    'metaDescConfig' => 'AppointmentsPageMetaDescription',
-                    'metaKeywordsConfig' => 'AppointmentsPageMetaKeywords'
-                ],
-                'contact' => [
-                    'model' => 'contactsPage',
-                    'metaTitleConfig' => 'ContactUsPageMetaTitle',
-                    'metaDescConfig' => 'ContactUsPageMetaDescription',
-                    'metaKeywordsConfig' => 'ContactUsPageMetaTitle'
                 ],
                 'search' => [
                     'model' => 'searchPage',

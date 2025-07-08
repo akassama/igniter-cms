@@ -4,7 +4,6 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Constants\ActivityTypes;
-use App\Models\BookingsModel;
 use App\Models\ContactMessagesModel;
 use App\Models\SubscribersModel;
 use App\Services\EmailService;
@@ -207,107 +206,6 @@ class APIFormController extends BaseController
                 'status' => 'error',
                 'message' => $subscriptionFailed
             ]);
-        }
-    }
-
-    //BOOKINGS
-    public function addBooking()
-    {
-        // Retrieve the honeypot and timestamp values
-        $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
-        $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
-        //Honeypot validator - Validate the inputs
-        validateHoneypotInput($honeypotInput, $submittedTimestamp);
-
-        $returnUrl = $this->request->getPost('return_url');
-        $toEmail = getConfigData("CompanyEmail");
-        $name = $this->request->getPost('name');
-        $fromEmail = $this->request->getPost('email');
-        $phone = $this->request->getPost('phone');
-        $bookingDate = $this->request->getPost('booking_date');
-        $bookingTime = $this->request->getPost('booking_time');
-        $noOfPeople = $this->request->getPost('no_of_people');
-        $message = $this->request->getPost('message');
-        $other = $this->request->getPost('other');
-        $subject = "New Booking";
-        $companyName = getConfigData("CompanyName");
-        $companyAddress = getConfigData("CompanyAddress");
-
-        // Validate hCaptcha
-        $captchaValidation = validateHcaptcha();
-        if ($captchaValidation !== true) {
-            // CAPTCHA validation failed
-            $errorMessage = $captchaValidation; // Error message returned by the helper function
-            if (!empty($returnUrl)) {
-                session()->setFlashdata('errorAlert', $errorMessage);
-                return redirect()->to($returnUrl);
-            }
-            return $this->response->setStatusCode(500)->setJSON(['message' => $errorMessage]);
-        }
-
-        try {
-            //add booking data
-            $bookingsModel = new BookingsModel();
-            $data = [
-                'name' => $name,
-                'email' => $this->request->getPost('email'),
-                'phone' => $phone,
-                'booking_date' => $bookingDate,
-                'booking_time' => $bookingTime,
-                'no_of_people' => $noOfPeople,
-                'subject' => $subject,
-                'message' => $message,
-                'other' => $other,
-                'ip_address' => getIPAddress(),
-                'country' => getCountry(),
-                'device' => getUserDevice(),
-                'created_by' => $this->request->getPost('email'),
-                'updated_by' => null,
-            ];
-            $bookingsModel->createBooking($data);
-
-            // Record created successfully.
-            $bookingSuccessful = config('CustomConfig')->bookingSuccessful;
-            session()->setFlashdata('successAlert', $bookingSuccessful);
-
-            //log activity
-            logActivity($fromEmail, ActivityTypes::BOOKING_CREATION, 'Booking made from user with email: ' . $fromEmail);
-
-            //try to send email
-            try {
-                $templateData = [
-                    'preheader' => $subject,
-                    'greeting' => 'New Booking',
-                    'main_content' => '<h4>Booking Details </h4> <br/> <p>Name: '.$name.'</p> <br/> <p>Email: '.$fromEmail.'</p> <br/> <p>Phone: '.$phone.'</p> <br/> <p>Booking Date: '.$bookingDate.'</p> <br/> <p>bookingTime: '.$bookingTime.'</p> <br/> <p>Message: '.$message.'</p> <br/> <p>Other'.$other.'</p>',
-                    'cta_text' => '',
-                    'cta_url' => '',
-                    'footer_text' => 'Sent from <a href="'.base_url().'">'.$companyName.'</a>',
-                    'company_address' => $companyAddress,
-                    'unsubscribe_url' => base_url('/unsubscribe/'.$toEmail)
-                ];
-                $result = $this->emailService->sendHtmlEmail($toEmail, $name, $subject, $templateData, $fromEmail);
-            } catch (Exception $e) {
-                //log activity
-                logActivity($fromEmail, ActivityTypes::FAILED_BOOKING_CREATION, 'Failed to send booking from user with email: ' . $fromEmail);
-            }
-
-            if(!empty($returnUrl)){
-                return redirect()->to($returnUrl);
-            }
-            return $this->response->setStatusCode(200)->setJSON(['message' => 'Booking made successfully']);
-        } catch(Exception $e) {
-
-            // Failed to create record.
-            $bookingFailed = config('CustomConfig')->bookingFailed;
-            session()->setFlashdata('errorAlert', $bookingFailed);
-
-            //log activity
-            logActivity($fromEmail, ActivityTypes::FAILED_BOOKING_CREATION, 'Failed to send booking from user with email: ' . $fromEmail);
-
-            if(!empty($returnUrl)){
-                return redirect()->to($returnUrl);      
-            }
-            return $this->response->setStatusCode(500)->setJSON(['message' => 'Failed to make booking']);
         }
     }
 }

@@ -16,7 +16,6 @@ use App\Models\CodesModel;
 use App\Models\ThemesModel;
 use App\Models\SubscribersModel;
 use App\Models\ContactMessagesModel;
-use App\Models\BookingsModel;
 use App\Models\SiteStatsModel;
 use App\Models\BlockedIPsModel;
 use App\Models\WhitelistedIPsModel;
@@ -291,44 +290,6 @@ class AdminController extends BaseController
         return view('back-end/admin/contact-messages/view-contact', $data);
     }
 
-    //############################//
-    //          Bookings          //
-    //############################//
-    public function bookings()
-    {
-        $tableName = 'bookings';
-        $bookingsModel = new BookingsModel();
-
-        // Set data to pass in view
-        $data = [
-            'bookings' => $bookingsModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_500', 500))),
-            'pager' => $bookingsModel->pager,
-            'total_bookings' => $bookingsModel->pager->getTotal()
-        ];
-
-        return view('back-end/admin/bookings/index', $data);
-    }
-
-    public function viewBooking($bookingId)
-    {
-        $bookingsModel = new BookingsModel();
-
-        // Fetch the data based on the id
-        $booking = $bookingsModel->where('booking_id', $bookingId)->first();
-
-        if (!$booking) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
-            session()->setFlashdata('errorAlert', $errorMsg);
-            return redirect()->to('/account/admin/bookings');
-        }
-
-        // Set data to pass in view
-        $data = [
-            'booking_data' => $booking
-        ];
-
-        return view('back-end/admin/bookings/view-booking', $data);
-    }
 
     //############################//
     //        Translations        //
