@@ -22,10 +22,6 @@ $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
 //page settings
 $currentPage = "home";
 $popUpWhereClause = ['status' => 1];
-
-//Get social model lists
-$socialsModel = new \App\Models\SocialsModel();
-$socialLinksQuery = $socialsModel->orderBy('order', 'ASC')->findAll();
 ?>
 
 <!-- include theme layout -->

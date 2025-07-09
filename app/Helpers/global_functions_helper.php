@@ -1547,7 +1547,7 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                 "features" => [
                     "Admin dashboard",
                     "Advanced logging",
-                    "CMS & E-Commerce modules",
+                    "CMS module",
                     "File Management",
                     "Settings & Configurations",
                     "Admin Management",

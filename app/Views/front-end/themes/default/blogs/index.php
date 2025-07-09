@@ -4,9 +4,6 @@ $theme = getCurrentTheme();
 
 //pages settings
 $currentPage = "blogs";
-$popUpWhereClause = ['status' => 1];
-$sectionTitle = getHomePageData("RecentPosts", "section_title");
-$sectionDescription = getHomePageData("RecentPosts", "section_description");
 ?>
 <!-- include theme layout -->
 <?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>
@@ -27,8 +24,8 @@ $sectionDescription = getHomePageData("RecentPosts", "section_description");
             </div>
 
             <div class="text-center mb-5">
-                <h1 class="fw-bolder"><?=$sectionTitle?></h1>
-                <p class="lead fw-normal text-muted mb-0"><?=$sectionDescription?></p>
+                <h1 class="fw-bolder">Blogs</h1>
+                <p class="lead fw-normal text-muted mb-0">Recent Blogs</p>
             </div>
             <div class="row gx-5">
                     <?php if($blogs): ?>

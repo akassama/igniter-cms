@@ -35,9 +35,21 @@ class ThemesController extends BaseController
         return view('back-end/themes/index', $data);
     }
     
-    public function newTheme()
+    public function installThemes()
     {
-        return view('back-end/themes/new-theme');
+        $themes = $this->getThemesData();
+        
+        $data = [
+            'themes' => $themes,
+            'has_error' => session()->getFlashdata('warning')
+        ];
+        
+        return view('back-end/themes/install-themes', $data);
+    }
+    
+    public function uploadTheme()
+    {
+        return view('back-end/themes/upload-theme');
     }
     
     public function addTheme()
@@ -67,20 +79,11 @@ class ThemesController extends BaseController
             'background_color'  => $this->request->getPost('background_color'),
             'image'  => $this->request->getPost('image'),
             'theme_url'  => $this->request->getPost('theme_url'),
-            'theme_bg_image'  => $this->request->getPost('theme_bg_image'),
-            'theme_bg_video'  => $this->request->getPost('theme_bg_video'),
-            'theme_bg_slider_image_1'  => $this->request->getPost('theme_bg_slider_image_1'),
-            'theme_bg_slider_image_2'  => $this->request->getPost('theme_bg_slider_image_2'),
-            'theme_bg_slider_image_3'  => $this->request->getPost('theme_bg_slider_image_3'),
-            'theme_js'  => $this->request->getPost('theme_js'),
-            'theme_css'  => $this->request->getPost('theme_css'),
-            'footer_copyright'  => $this->request->getPost('footer_copyright'),
             'category'  => $this->request->getPost('category'),
             'sub_category'  => $this->request->getPost('sub_category'),
             'selected'  => $this->request->getPost('selected') ?? 0,
             'override_default_style'  => $this->request->getPost('override_default_style') ?? 0,
             'deletable' => $this->request->getPost('deletable') ?? 1,
-            'home_page'  => $this->request->getPost('home_page') ?? 'HomePage',
             'created_by' => $loggedInUserId,
             'updated_by' => null
         ];
@@ -182,20 +185,11 @@ class ThemesController extends BaseController
                 'background_color'  => $this->request->getPost('background_color'),
                 'image'  => $this->request->getPost('image'),
                 'theme_url'  => $this->request->getPost('theme_url'),
-                'theme_bg_image'  => $this->request->getPost('theme_bg_image'),
-                'theme_bg_video'  => $this->request->getPost('theme_bg_video'),
-                'theme_bg_slider_image_1'  => $this->request->getPost('theme_bg_slider_image_1'),
-                'theme_bg_slider_image_2'  => $this->request->getPost('theme_bg_slider_image_2'),
-                'theme_bg_slider_image_3'  => $this->request->getPost('theme_bg_slider_image_3'),
-                'theme_js'  => $this->request->getPost('theme_js'),
-                'theme_css'  => $this->request->getPost('theme_css'),
-                'footer_copyright'  => $this->request->getPost('footer_copyright'),
                 'category'  => $this->request->getPost('category'),
                 'sub_category'  => $this->request->getPost('sub_category'),
                 'selected'  => $this->request->getPost('selected') ?? 0,
                 'override_default_style'  => $this->request->getPost('override_default_style') ?? 0,
                 'deletable' => $this->request->getPost('deletable') ?? 1,
-                'home_page'  => $this->request->getPost('home_page') ?? 'HomePage',
                 'created_by' => $this->request->getPost('created_by'),
                 'updated_by' => $loggedInUserId
             ];
@@ -282,5 +276,82 @@ class ThemesController extends BaseController
         logActivity($loggedInUserId, ActivityTypes::THEME_UPDATE, 'Theme with id: ' . $themeId. 'set as active.');
 
         return redirect()->to('/account/themes');
+    }
+
+    protected function getThemesData()
+    {
+        //TODO - Implement
+        return [
+            [
+                "name" => "Easy Hide Login",
+                "description" => "Hide / file, prevent attacks on login form, hide login & increase security. No files are changed.",
+                "author" => "Ablie Kassama",
+                "version" => "1.0.0",
+                "slug" => "easy-hide-login",
+                "theme_url" => "https://example.com/plugins/easy-hide-login",
+                "download_url" => "https://ignitercms.com/plugins/easy-hide-login.zip",
+                "image" => "https://ps.w.org/easy-hide-login/assets/icon-256x256.png",
+                "last_updated" => "2023-10-15",
+                "min_php_requirement" => "7.4",
+                "min_igniter_requirement" => "1.0.0",
+                "rating" => "4/5"
+            ],
+            [
+                "name" => "SEO Optimizer",
+                "description" => "Improves your website search engine optimization with advanced tools",
+                "author" => "Ablie Kassama",
+                "version" => "1.2.0",
+                "slug" => "seo-optimizer",
+                "theme_url" => "https://example.com/plugins/seo-optimizer",
+                "download_url" => "https://ignitercms.com/plugins/seo-optimizer.zip",
+                "image" => "https://ps.w.org/mihdan-index-now/assets/icon.svg?rev=3190776",
+                "last_updated" => "2023-10-15",
+                "min_php_requirement" => "8.0",
+                "min_igniter_requirement" => "1.0.0",
+                "rating" => "4/5"
+            ],
+            [
+                "name" => "Cache Manager",
+                "description" => "Speeds up your website with advanced caching techniques",
+                "author" => "Ablie Kassama",
+                "version" => "2.1.3",
+                "slug" => "cache-manager",
+                "theme_url" => "https://example.com/plugins/cache-manager",
+                "download_url" => "https://ignitercms.com/plugins/cache-manager.zip",
+                "image" => "https://ps.w.org/w3-total-cache/assets/icon-256x256.png?rev=1041806",
+                "last_updated" => "2023-09-28",
+                "min_php_requirement" => "7.4",
+                "min_igniter_requirement" => "1.0.2",
+                "rating" => "5/5",
+            ],
+            [
+                "name" => "Security Scanner",
+                "description" => "Protects your website from malware and security threats",
+                "author" => "Ablie Kassama",
+                "version" => "1.5.2",
+                "slug" => "security-scanner",
+                "theme_url" => "https://example.com/plugins/security-scanner",
+                "download_url" => "https://ignitercms.com/plugins/security-scanner.zip",
+                "image" => "https://ps.w.org/security-malware-firewall/assets/icon-256x256.gif?rev=2295231",
+                "last_updated" => "2023-11-05",
+                "min_php_requirement" => "8.1",
+                "min_igniter_requirement" => "1.0.1",
+                "rating" => "4.5/5",
+            ],
+            [
+                "name" => "Contact Form Pro",
+                "description" => "Create beautiful contact forms with advanced features",
+                "author" => "Ablie Kassama",
+                "version" => "3.0.1",
+                "slug" => "contact-form-pro",
+                "theme_url" => "https://example.com/plugins/contact-form-pro",
+                "download_url" => "https://ignitercms.com/plugins/contact-form-pro.zip",
+                "image" => "https://ps.w.org/ninja-forms/assets/icon-256x256.png?rev=1649747",
+                "last_updated" => "2023-10-30",
+                "min_php_requirement" => "8.0",
+                "min_igniter_requirement" => "1.2.1",
+                "rating" => "3/5",
+            ]
+        ];
     }
 }

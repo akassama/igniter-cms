@@ -19,17 +19,21 @@ $userRole = getUserRole($sessionEmail);
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
     array('title' => 'Themes')
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
 
 <div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0">Themes</h1>
-        <a href="<?=base_url('/account/themes/new-theme')?>" class="btn btn-primary">
-            <i class="ri-add-fill"></i> Add New
+    <div class="col-12">
+        <h3>Manage Themes</h3>
+    </div>
+    <div class="col-12 d-flex justify-content-end mb-2">
+        <a href="<?=base_url('/account/themes/upload-theme')?>" class="btn btn-outline-success mx-1">
+            <i class="ri-upload-2-fill"></i> Upload Theme
+        </a>
+        <a href="<?=base_url('/account/themes/install-themes')?>" class="btn btn-outline-dark mx-1">
+            <i class="ri-add-fill"></i> Add Theme
         </a>
     </div>
     

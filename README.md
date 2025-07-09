@@ -40,9 +40,9 @@ Igniter CMS is a light but powerful, versatile Content Management System built o
 - **Themes:** Support for managing and switching between website themes.
 - **Translations:** Manage translations for different languages.
 - **Customizable:** Easily customize app messages, activity types, and more.
-- **AI Powered Content Generation:** Extended e-commerce functionalities with detailed product variations, shipping options, payment gateway integrations, and order management.
+- **AI Powered Content Generation:** Automate and enhance various content-related tasks, includes content creation, content optimization, and content management
 - **SEO Tools:** Integrated SEO tools for optimizing your website's search engine visibility, including sitemap generation, meta tag management, and analytics integration.
-- **AI Powered Reporting & Analytics:** Detailed insights into website performance, user behavior, and e-commerce metrics through integrated reporting tools.
+- **AI Powered Reporting & Analytics:** Detailed insights into website performance, user behavior and metrics through integrated reporting tools.
 
 ## Example Sites
 

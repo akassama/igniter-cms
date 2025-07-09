@@ -22,10 +22,6 @@ $siteFaviconLink = getConfigData("SiteFaviconLink");
 $siteFaviconManifestLink = getConfigData("SiteFaviconManifestLink");
 $siteFaviconLink96 = getConfigData("SiteFaviconLink96");
 $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
-$siteFacebookLink = getTableData('socials', ['name' => 'Facebook'], 'link');
-$siteInstagramLink = getTableData('socials', ['name' => 'Instagram'], 'link');
-$siteLinkedInLink = getTableData('socials', ['name' => 'LinkedIn'], 'link');
-$siteTwitterLink = getTableData('socials', ['name' => 'Twitter'], 'link');
 
 ?>
 

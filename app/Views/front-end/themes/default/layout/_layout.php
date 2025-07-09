@@ -29,28 +29,14 @@ $metaData = [
     'pageUrl' => getPageMetaInfo($configData['currentUrl'], "MetaPageUrl"),
 ];
 
-// Get social links
-$socialLinks = [
-    'facebook' => getTableData('socials', ['name' => 'Facebook'], 'link'),
-    'instagram' => getTableData('socials', ['name' => 'Instagram'], 'link'),
-    'linkedin' => getTableData('socials', ['name' => 'LinkedIn'], 'link'),
-    'twitter' => getTableData('socials', ['name' => 'Twitter'], 'link'),
-];
-
 // Get theme data
 $themeData = [
     'customCSS' => getTableData('codes', ['code_for' => 'CSS'], 'code'),
     'customJSTop' => getTableData('codes', ['code_for' => 'HeaderJS'], 'code'),
     'customJSFooter' => getTableData('codes', ['code_for' => 'FooterJS'], 'code'),
-    'copyRight' => getThemeData($theme, "footer_copyright"),
     'primaryColor' => getThemeData($theme, "primary_color"),
     'secondaryColor' => getThemeData($theme, "secondary_color"),
     'backgroundColor' => getThemeData($theme, "background_color"),
-    'backgroundImage' => getThemeData($theme, "theme_bg_image"),
-    'backgroundVideo' => getThemeData($theme, "theme_bg_video"),
-    'sliderImage1' => getThemeData($theme, "theme_bg_slider_image_1"),
-    'sliderImage2' => getThemeData($theme, "theme_bg_slider_image_2"),
-    'sliderImage3' => getThemeData($theme, "theme_bg_slider_image_3"),
 ];
 
 // Get navigation and social model lists
@@ -58,9 +44,6 @@ $navigationsModel = new \App\Models\NavigationsModel();
 $topNavLists = $navigationsModel->where('group', 'top_nav')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
 $footerNavLists = $navigationsModel->where('group', 'footer_nav')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
 $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
-
-$socialsModel = new \App\Models\SocialsModel();
-$socialLinksQuery = $socialsModel->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_MEDIUM', 12)))->findAll();
 
 // Maintenance mode
 if (strtolower($configData['maintenanceMode']) === "yes") {
@@ -129,9 +112,9 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
         "name": "<?= $metaData['author'] ?? '' ?>",
         "url": "<?= $metaData['pageUrl'] ?? '' ?>",
         "sameAs": [
-            "https://www.facebook.com/<?= $socialLinks['facebook'] ?? '' ?>",
-            "https://twitter.com/<?= $socialLinks['twitter'] ?? '' ?>",
-            "https://www.instagram.com/<?= $socialLinks['instagram'] ?? '' ?>"
+            "https://www.facebook.com/",
+            "https://twitter.com/",
+            "https://www.instagram.com/"
         ],
         "description": "<?= $metaData['description'] ?? '' ?>",
         "image": "<?= getImageUrl($configData['siteLogoLink'] ?? getDefaultImagePath()) ?>"
@@ -226,7 +209,7 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
         <div class="container px-5">
             <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                 <div class="col-auto">
-                    <div class="small m-0 text-white"><?= $themeData['copyRight'] ?></div>
+                    <div class="small m-0 text-white">Copyright All Rights Reserved</div>
                 </div>
                 <div class="col-auto">
                     <?php if ($footerNavLists): ?>

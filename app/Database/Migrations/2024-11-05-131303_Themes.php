@@ -52,43 +52,6 @@ class Themes extends Migration
                 'constraint' => '255',
                 'null' => true,
             ],
-            'theme_bg_image' => [
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => true,
-            ],
-            'theme_bg_video' => [
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => true,
-            ],
-            'theme_bg_slider_image_1' => [
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => true,
-            ],
-            'theme_bg_slider_image_2' => [
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => true,
-            ],
-            'theme_bg_slider_image_3' => [
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => true,
-            ],
-            'theme_css' => [
-                'type' => 'TEXT',
-                'null' => true,
-            ],
-            'theme_js' => [
-                'type' => 'TEXT',
-                'null' => true,
-            ],
-            'footer_copyright' => [
-                'type' => 'TEXT',
-                'null' => true,
-            ],
             'category' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
@@ -140,14 +103,6 @@ class Themes extends Migration
                 'background_color' => '#f2f7f7',
                 'image' => 'public/front-end/themes/default/assets/images/default-theme.png',
                 'theme_url' => 'https://startbootstrap.com/previews/modern-business',
-                'theme_bg_image' => '',
-                'theme_bg_video' => '',
-                'theme_bg_slider_image_1' => '',
-                'theme_bg_slider_image_2' => '',
-                'theme_bg_slider_image_3' => '',
-                'theme_css' => "",
-                'theme_js' => '',
-                'footer_copyright' => "<p>Copyright &copy; Igniter CMS ". date('Y') ."</p>",
                 'selected' => true,
                 'override_default_style' => false,
                 'category' => $customConfig->themeCategories['Business'],

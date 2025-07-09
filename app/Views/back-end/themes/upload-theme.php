@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Upload Plugin<?= $this->endSection() ?>
+<?= $this->section('title') ?>Themes<?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -11,8 +11,8 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Plugins', 'url' => '/account/plugins'),
-    array('title' => 'Upload Plugins')
+    array('title' => 'Themes', 'url' => '/account/themes'),
+    array('title' => 'New Theme')
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,23 +20,23 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Upload Plugin</h3>
+        <h3>Upload Theme</h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
-        <?php echo form_open(base_url('account/plugins/upload-plugin'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
+        <?php echo form_open(base_url('account/themes/upload-theme'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="plugin_file" class="form-label">Plugin File</label>
-                <input class="form-control" type="file" id="plugin_file" name="plugin_file" accept=".zip,.rar,.7zip" required>
+                <label for="theme_file" class="form-label">Theme File</label>
+                <input class="form-control" type="file" id="theme_file" name="theme_file" accept=".zip,.rar,.7zip" required>
                 <!-- Error -->
-                <?php if($validation->getError('plugin_file')) {?>
+                <?php if($validation->getError('theme_file')) {?>
                     <div class='text-danger mt-2'>
-                        <?= $error = $validation->getError('plugin_file'); ?>
+                        <?= $error = $validation->getError('theme_file'); ?>
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide plugin_file
+                    Please provide theme_file
                 </div>
             </div>
             
@@ -48,16 +48,18 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="mb-3 mt-3">
-                <a href="<?= base_url('/account/plugins') ?>" class="btn btn-outline-danger">
+                <a href="<?= base_url('/account/themes') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>
-                <?= view('back-end/_shared/_submit_buttons', ['submitLabel' => 'Upload Plugin']) ?>
+                <?= view('back-end/_shared/_submit_buttons', ['submitLabel' => 'Upload Theme']) ?>
             </div>
         </div>
         <?php echo form_close(); ?>
     </div>
 </div>
+<!-- Include the files modal -->
+<?=  $this->include('back-end/layout/modals/files_modal.php'); ?>
 
 <!-- end main content -->
 <?= $this->endSection() ?>

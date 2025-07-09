@@ -130,8 +130,9 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         #####============================= THEMES MODULE =============================#####
         #THEMES
         $routes->get('themes', 'ThemesController::themes');
-        $routes->get('themes/new-theme', 'ThemesController::newTheme');
-        $routes->post('themes/new-theme', 'ThemesController::addTheme');
+        $routes->get('themes/install-themes', 'ThemesController::installThemes');
+        $routes->get('themes/upload-theme', 'ThemesController::uploadTheme');
+        $routes->post('themes/upload-theme', 'ThemesController::addTheme');
         $routes->get('themes/edit-theme/(:any)', 'ThemesController::editTheme/$1');
         $routes->post('themes/edit-theme', 'ThemesController::updateTheme');
         $routes->get('themes/edit-theme-home-page/(:any)', 'ThemesController::editThemeHomePage/$1');
@@ -423,13 +424,13 @@ if(strtolower($frontEndFormat) === "mvc")
         #RSS
         $routes->get('rss', 'FrontEndController::getRssFeed', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
-        #Pages - Placed button to avoid conflict with '/blogs', '/events', '/portfolios', '/search'
+        #Pages - Placed button to avoid conflict with '/blogs', '/search'
         $routes->get('/(:segment)', 'FrontEndController::getPageDetails/$1', ['filter' => ['siteStatsFilter','pluginsFilter']]);
     }
 }
 else{
     if (isFeatureEnabled('FEATURE_FRONT_END')) {
-        //Get Homepage as JSON
-        $routes->get('/', 'APIController::getHomePageData', ['filter' => ['siteStatsFilter','pluginsFilter']]);
+        //Return api data
+        return "[]";
     }
 }

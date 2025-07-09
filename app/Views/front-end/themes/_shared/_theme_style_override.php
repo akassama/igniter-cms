@@ -7,15 +7,9 @@ $themeData = [
     'customCSS' => getTableData('codes', ['code_for' => 'CSS'], 'code'),
     'customJSTop' => getTableData('codes', ['code_for' => 'HeaderJS'], 'code'),
     'customJSFooter' => getTableData('codes', ['code_for' => 'FooterJS'], 'code'),
-    'copyRight' => getThemeData($theme, "footer_copyright"),
     'primaryColor' => getThemeData($theme, "primary_color"),
     'secondaryColor' => getThemeData($theme, "secondary_color"),
     'backgroundColor' => getThemeData($theme, "background_color"),
-    'backgroundImage' => getThemeData($theme, "theme_bg_image"),
-    'backgroundVideo' => getThemeData($theme, "theme_bg_video"),
-    'sliderImage1' => getThemeData($theme, "theme_bg_slider_image_1"),
-    'sliderImage2' => getThemeData($theme, "theme_bg_slider_image_2"),
-    'sliderImage3' => getThemeData($theme, "theme_bg_slider_image_3"),
 ];
 
 ?>
