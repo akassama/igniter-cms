@@ -56,7 +56,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="card h-100 border-<?= $theme['selected'] == "1" ? 'primary border-start border-3' : 'light' ?>">
                         <div class="card-img-top ratio ratio-16x9 bg-light overflow-hidden">
                             <a href="<?= $theme['theme_url']; ?>" target="_blank">
-                                <img loading="lazy" src="<?= getImageUrl($theme['image'] ?? getDefaultImagePath()); ?>" 
+                                <img loading="lazy" src="<?= base_url('/public/front-end/themes/'.$theme['path'].'/assets/images/preview.png'); ?>" 
                                      alt="<?= $theme['name']; ?>" class="img-fluid h-100 w-100 object-fit-cover">
                             </a>
                         </div>
@@ -80,7 +80,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 
                                 <?php if ($theme['deletable'] == 1 && $theme['selected'] !== "1"): ?>
                                     <a href="javascript:void(0)" 
-                                       onclick="deleteRecord('themes', 'theme_id', '<?= $theme['theme_id'] ?>', '', 'account/themes')" 
+                                       onclick="deleteTheme('<?=$theme['path']?>', '<?= $theme['theme_id'] ?>')" 
                                        class="btn btn-sm btn-outline-danger ms-auto">Delete</a>
                                 <?php endif; ?>
                             </div>
@@ -108,16 +108,48 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
         <?php endif; ?>
     </div>
-    
-    <div class="alert alert-info mt-4">
-        <p class="mb-1"><strong>Note:</strong> Remember to enable/disable sections in the homepage that may not be needed for your theme.
-        You can set it <a href="<?=base_url('/account/cms/home-page')?>" class="alert-link">here</a>.</p>
-        <p class="mb-0">You can also enable or disable specific pages via the <a href="<?=base_url('account/admin/configurations')?>" class="alert-link">configuration</a></p>
-    </div>
 </div>
 
-<!-- Include the delete script -->
-<?= $this->include('back-end/layout/assets/delete_prompt_script'); ?>
+<script>
+    function deleteTheme(themePath, themeId) {
+        Swal.fire({
+            title: 'Are you sure you want to remove this theme?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Create the form element
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `<?= base_url('/account/themes/remove-theme') ?>`;
+
+                // Add hidden input fields
+                const themePathInput = document.createElement('input');
+                themePathInput.type = 'hidden';
+                themePathInput.name = 'theme_path';
+                themePathInput.value = themePath;
+                form.appendChild(themePathInput);
+
+                const themeIdInput = document.createElement('input');
+                themeIdInput.type = 'hidden';
+                themeIdInput.name = 'theme_id';
+                themeIdInput.value = themeId;
+                form.appendChild(themeIdInput);
+
+                // Append the form to the body and submit it
+                document.body.appendChild(form);
+                form.submit();
+
+                // Remove the form from the body after submit (optional)
+                document.body.removeChild(form);
+            }
+        });
+    }
+</script>
 
 <style>
     /* Minimal custom CSS */

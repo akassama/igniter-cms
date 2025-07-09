@@ -54,84 +54,154 @@ class ThemesController extends BaseController
     
     public function addTheme()
     {
-        //get logged-in user id
+        // Get logged-in user id
         $loggedInUserId = $this->session->get('user_id');
-    
-        // Load the ThemesModel
-        $themesModel = new ThemesModel();
-    
-        // Validation rules from the model
-        $validationRules = $themesModel->getValidationRules();
-    
-        // Validate the incoming data
-        if (!$this->validate($validationRules)) {
-            // If validation fails, return validation errors
-            $data['validation'] = $this->validator;
-            return view('back-end/themes/new-theme');
+        $validation = \Config\Services::validation();
+
+        // Validate the file upload
+        $validation->setRules([
+            'theme_file' => [
+                'label' => 'Theme File',
+                'rules' => 'uploaded[theme_file]|ext_in[theme_file,zip]|max_size[theme_file,10240]', // 10MB max
+                'errors' => [
+                    'uploaded' => 'Please select a plugin file to upload',
+                    'ext_in' => 'Only ZIP files are allowed',
+                    'max_size' => 'Maximum file size is 10MB'
+                ]
+            ]
+        ]);
+
+        if (!$validation->withRequest($this->request)->run()) {
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Validation failed: ' . implode(', ', $validation->getErrors()));
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
 
-        // If validation passes, create the theme
-        $themeData = [
-            'name' => $this->request->getPost('name'),
-            'path' => $this->request->getPost('path'),
-            'primary_color'  => $this->request->getPost('primary_color'),
-            'secondary_color'  => $this->request->getPost('secondary_color'),
-            'background_color'  => $this->request->getPost('background_color'),
-            'image'  => $this->request->getPost('image'),
-            'theme_url'  => $this->request->getPost('theme_url'),
-            'category'  => $this->request->getPost('category'),
-            'sub_category'  => $this->request->getPost('sub_category'),
-            'selected'  => $this->request->getPost('selected') ?? 0,
-            'override_default_style'  => $this->request->getPost('override_default_style') ?? 0,
-            'deletable' => $this->request->getPost('deletable') ?? 1,
+        $themeFile = $this->request->getFile('theme_file');
+        $override = boolval($this->request->getPost('override_if_exists'));
+
+        // Load the ThemesModel
+        $themesModel = new ThemesModel();
+
+        // Create temporary directory for extraction
+        $tempDir = WRITEPATH . 'temp/theme_' . uniqid();
+        if (!is_dir($tempDir)) {
+            mkdir($tempDir, 0755, true);
+        }
+
+        // Move uploaded file to temp directory
+        $tempZipPath = $tempDir . '/theme.zip';
+        $themeFile->move($tempDir, 'theme.zip');
+
+        // Extract the zip file
+        $zip = new \ZipArchive();
+        if ($zip->open($tempZipPath) !== TRUE) {
+            $this->deleteDirectory($tempDir);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Failed to open theme zip file');
+            return redirect()->back()->with('errorAlert', 'Failed to extract theme file');
+        }
+
+        $zip->extractTo($tempDir);
+        $zip->close();
+        unlink($tempZipPath); // Remove the zip file after extraction
+
+        // Check if theme.json exists
+        $themeJsonPath = $tempDir . '/theme.json';
+        if (!file_exists($themeJsonPath)) {
+            $this->deleteDirectory($tempDir);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Theme.json file not found');
+            return redirect()->back()->with('errorAlert', 'theme.json file not found in the theme package');
+        }
+
+        // Read theme.json
+        $themeConfig = json_decode(file_get_contents($themeJsonPath), true);
+        if (json_last_error() !== JSON_ERROR_NONE || !isset($themeConfig['path'])) {
+            $this->deleteDirectory($tempDir);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Invalid theme.json format');
+            return redirect()->back()->with('errorAlert', 'Invalid theme.json format');
+        }
+
+        $themePath = $themeConfig['path'];
+        $themeName = $themeConfig['name'] ?? 'Untitled Theme';
+        $themeViewsDir = APPPATH . 'Views/front-end/themes/' . $themePath;
+        $themeAssetsDir = FCPATH . 'public/front-end/themes/' . $themePath . '/assets';
+
+        // Check if theme already exists
+        $tableName = "themes";
+        $themeExists = recordExists($tableName, 'path', $themePath);
+        if ($themeExists && !$override) {
+            $this->deleteDirectory($tempDir);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Theme already exists: ' . $themeName);
+            return redirect()->back()->with('errorAlert', 'A theme with this path already exists. Enable override option to replace it.');
+        }
+
+        // Create directories if they don't exist
+        if (!is_dir($themeViewsDir)) {
+            mkdir($themeViewsDir, 0755, true);
+        }
+        if (!is_dir($themeAssetsDir)) {
+            mkdir($themeAssetsDir, 0755, true);
+        }
+
+        // Move views
+        $tempViewsDir = $tempDir . '/views';
+        if (is_dir($tempViewsDir)) {
+            $this->copyDirectory($tempViewsDir, $themeViewsDir);
+        }
+
+        // Move assets
+        $tempAssetsDir = $tempDir . '/assets';
+        if (is_dir($tempAssetsDir)) {
+            $this->copyDirectory($tempAssetsDir, $themeAssetsDir);
+        }
+
+        // Prepare theme data for database
+        $themesData = [
+            'theme_id' => getGUID(),
+            'name' => $themeConfig['name'] ?? 'Untitled Theme',
+            'path' => $themeConfig['path'],
+            'primary_color' => $themeConfig['primary_color'] ?? '#000000',
+            'secondary_color' => $themeConfig['secondary_color'] ?? '#808080',
+            'background_color' => $themeConfig['background_color'] ?? '#FFFFFF',
+            'theme_url' => $themeConfig['theme_url'] ?? '',
+            'image' => $themeConfig['image'] ?? '',
+            'category' => $themeConfig['category'] ?? 'General',
+            'sub_category' => $themeConfig['sub_category'] ?? '',
+            'selected' => 0,
+            'override_default_style' => 0,
+            'deletable' => 1,
             'created_by' => $loggedInUserId,
             'updated_by' => null
         ];
 
-        //if selected, set the rest as not selected
-        if($themeData["selected"] == "1"){
-            $updatedData = [
-                'selected' => 0
-            ];
-
-            $updateWhereClause = "theme_id != 'NULL'";
-
-            updateRecord('themes', $updatedData, $updateWhereClause);
+        try {
+            if ($themeExists) {
+                deleteRecord($tableName, 'path', $themePath);
+            }
+            addRecord($tableName, $themesData);
+            logActivity($loggedInUserId, ActivityTypes::THEME_CREATION, 'Theme added to database: ' . $themeName);
+        } catch (\Exception $e) {
+            $this->deleteDirectory($tempDir);
+            session()->setFlashdata('errorAlert', 'Failed to update theme database');
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Database update failed: ' . $themeName . ' - ' . $e->getMessage());
+            return redirect()->to('/account/themes/upload-theme');
         }
-    
-        // Call createTheme method from the ThemeModel
-        if ($themesModel->createTheme($themeData)) {
-            //inserted user_id
-            $insertedId = $themesModel->getInsertID();
-    
-            // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
-            session()->setFlashdata('successAlert', $createSuccessMsg);
-    
-            //log activity
-            logActivity($loggedInUserId, ActivityTypes::THEME_CREATION, 'Theme created with id: ' . $insertedId);
-    
-            return redirect()->to('/account/themes');
-        } else {
-            // Failed to create record. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
-            session()->setFlashdata('errorAlert', $errorMsg);
-    
-            //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Failed to create themeuration with name: ' . $this->request->getPost('name'));
-    
-            return view('back-end/themes/new-theme');
-        }
+
+        // Clean up temp directory
+        $this->deleteDirectory($tempDir);
+
+        // Theme uploaded successfully. Redirect to themes
+        session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
+        return redirect()->to('/account/themes');
     }
-    
+  
     public function editTheme($themeId)
     {
         $themesModel = new ThemesModel();
     
         // Fetch the data based on the id
-        $themeuration = $themesModel->where('theme_id', $themeId)->first();
+        $themeData = $themesModel->where('theme_id', $themeId)->first();
     
-        if (!$themeuration) {
+        if (!$themeData) {
             $errorMsg = config('CustomConfig')->notFoundMsg;
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/themes');
@@ -139,7 +209,7 @@ class ThemesController extends BaseController
     
         // Set data to pass in view
         $data = [
-            'theme_data' => $themeuration
+            'theme_data' => $themeData
         ];
     
         return view('back-end/themes/edit-theme', $data);
@@ -223,9 +293,9 @@ class ThemesController extends BaseController
         $themesModel = new ThemesModel();
     
         // Fetch the data based on the id
-        $themeuration = $themesModel->where('theme_id', $themeId)->first();
+        $themeData = $themesModel->where('theme_id', $themeId)->first();
     
-        if (!$themeuration) {
+        if (!$themeData) {
             $errorMsg = config('CustomConfig')->notFoundMsg;
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/themes');
@@ -233,7 +303,7 @@ class ThemesController extends BaseController
     
         // Set data to pass in view
         $data = [
-            'theme_data' => $themeuration
+            'theme_data' => $themeData
         ];
     
         return view('back-end/themes/edit-theme-home-page', $data);
@@ -247,9 +317,9 @@ class ThemesController extends BaseController
         $themesModel = new ThemesModel();
     
         // Fetch the data based on the id
-        $themeuration = $themesModel->where('theme_id', $themeId)->first();
+        $themeData = $themesModel->where('theme_id', $themeId)->first();
     
-        if (!$themeuration) {
+        if (!$themeData) {
             $errorMsg = config('CustomConfig')->notFoundMsg;
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/themes');
@@ -276,6 +346,78 @@ class ThemesController extends BaseController
         logActivity($loggedInUserId, ActivityTypes::THEME_UPDATE, 'Theme with id: ' . $themeId. 'set as active.');
 
         return redirect()->to('/account/themes');
+    }
+
+    public function removeTheme()
+    {
+        // Get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
+        $tableName = "themes";
+        $pkName = "theme_id";
+        $themeId = $this->request->getPost('theme_id');
+        $themePath = $this->request->getPost('theme_path');
+
+        // Show demo message
+        if (boolval(env('DEMO_MODE', "false"))) {
+            $errorMsg = "Action not available in the demo mode.";
+            session()->setFlashdata('warningAlert', $errorMsg);
+            return redirect()->to('/account/themes');
+        }
+
+        try {
+            // First get theme data to check if it's deletable
+            $themesModel = new ThemesModel();
+            $theme = $themesModel->where('theme_id', $themeId)->first();
+            
+            if (!$theme) {
+                throw new \Exception("Theme not found");
+            }
+
+            // Check if theme is marked as deletable
+            if (!$theme['deletable']) {
+                throw new \Exception("This theme cannot be deleted");
+            }
+
+            // Define directories to delete
+            $themeViewsDir = APPPATH . 'Views/front-end/themes/' . $themePath;
+            $themeAssetsDir = FCPATH . 'public/front-end/themes/' . $themePath . '/assets';
+
+            // Remove theme files (if they exist)
+            if (is_dir($themeViewsDir)) {
+                $this->deleteDirectory($themeViewsDir);
+            }
+
+            if (is_dir($themeAssetsDir)) {
+                $this->deleteDirectory($themeAssetsDir);
+            }
+
+            // Also try to remove the parent assets directory if empty
+            $parentAssetsDir = dirname($themeAssetsDir);
+            if (is_dir($parentAssetsDir) && count(scandir($parentAssetsDir)) == 2) { // empty dir has 2 entries (. and ..)
+                rmdir($parentAssetsDir);
+            }
+
+            // Remove record from database
+            deleteRecord($tableName, $pkName, $themeId);
+
+            $createSuccessMsg = config('CustomConfig')->deleteSuccessMsg;
+            session()->setFlashdata('successAlert', $createSuccessMsg);
+
+            // Log activity
+            logActivity($loggedInUserId, ActivityTypes::THEME_DELETION, 'User with id: ' . $loggedInUserId . ' deleted theme for table name: ' . $tableName .' with path: ' . $themePath);
+
+            return redirect()->to('/account/themes');
+        }
+        catch (\Exception $e) {
+            $errorMsg = $e->getMessage();
+            session()->setFlashdata('errorAlert', $errorMsg);
+
+            // Log activity
+            logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete theme for table name: ' . $tableName .' with path: ' . $themePath . '. Error: ' . $errorMsg);
+
+            return redirect()->to('/account/themes');
+        }
     }
 
     protected function getThemesData()
@@ -354,4 +496,52 @@ class ThemesController extends BaseController
             ]
         ];
     }
+
+    /**
+     * Helper function to copy directory recursively
+     */
+    private function copyDirectory($source, $destination)
+    {
+        if (!is_dir($destination)) {
+            mkdir($destination, 0755, true);
+        }
+
+        $dir = opendir($source);
+        while (($file = readdir($dir)) !== false) {
+            if ($file != '.' && $file != '..') {
+                $srcFile = $source . '/' . $file;
+                $destFile = $destination . '/' . $file;
+
+                if (is_dir($srcFile)) {
+                    $this->copyDirectory($srcFile, $destFile);
+                } else {
+                    copy($srcFile, $destFile);
+                }
+            }
+        }
+        closedir($dir);
+    }
+
+    /**
+     * Helper function to delete directory recursively
+     */
+    private function deleteDirectory($dir)
+    {
+        if (!is_dir($dir)) {
+            return;
+        }
+
+        $files = array_diff(scandir($dir), ['.', '..']);
+        foreach ($files as $file) {
+            $path = $dir . '/' . $file;
+            if (is_dir($path)) {
+                $this->deleteDirectory($path);
+            } else {
+                unlink($path);
+            }
+        }
+        rmdir($dir);
+    }
+
+    
 }

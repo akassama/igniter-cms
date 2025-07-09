@@ -135,8 +135,8 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->post('themes/upload-theme', 'ThemesController::addTheme');
         $routes->get('themes/edit-theme/(:any)', 'ThemesController::editTheme/$1');
         $routes->post('themes/edit-theme', 'ThemesController::updateTheme');
-        $routes->get('themes/edit-theme-home-page/(:any)', 'ThemesController::editThemeHomePage/$1');
         $routes->get('themes/activate/(:any)', 'ThemesController::activateTheme/$1');
+        $routes->post('themes/remove-theme', 'ThemesController::removeTheme');
     }
 
     if (isFeatureEnabled('FEATURE_ADMIN')) {
