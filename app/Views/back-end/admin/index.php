@@ -158,7 +158,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 File Editor
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/admin/file-editor'); ?>">View Details</a>
+                <a class="small text-white stretched-link" href="<?= base_url('/account/appearance/theme-editor'); ?>">View Details</a>
                 <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
             </div>
         </div>

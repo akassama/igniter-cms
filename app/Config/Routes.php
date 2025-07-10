@@ -126,17 +126,31 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->post('settings/change-password/update-password', 'SettingsController::updatePassword');    
     }
 
-    if (isFeatureEnabled('FEATURE_THEMES')) {
-        #####============================= THEMES MODULE =============================#####
-        #THEMES
-        $routes->get('themes', 'ThemesController::themes');
-        $routes->get('themes/install-themes', 'ThemesController::installThemes');
-        $routes->get('themes/upload-theme', 'ThemesController::uploadTheme');
-        $routes->post('themes/upload-theme', 'ThemesController::addTheme');
-        $routes->get('themes/edit-theme/(:any)', 'ThemesController::editTheme/$1');
-        $routes->post('themes/edit-theme', 'ThemesController::updateTheme');
-        $routes->get('themes/activate/(:any)', 'ThemesController::activateTheme/$1');
-        $routes->post('themes/remove-theme', 'ThemesController::removeTheme');
+    if (isFeatureEnabled('FEATURE_APPEARANCE')) {
+        #####============================= APPEARANCE MODULE =============================#####
+        #APPEARANCE
+        $routes->get('appearance', 'AppearanceController::index');
+
+        #APPEARANCE-THEMES
+        $routes->get('appearance/themes', 'AppearanceController::themes');
+        $routes->get('appearance/themes/install-themes', 'AppearanceController::installThemes');
+        $routes->get('appearance/themes/upload-theme', 'AppearanceController::uploadTheme');
+        $routes->post('appearance/themes/upload-theme', 'AppearanceController::addTheme');
+        $routes->get('appearance/themes/edit-theme/(:any)', 'AppearanceController::editTheme/$1');
+        $routes->post('appearance/themes/edit-theme', 'AppearanceController::updateTheme');
+        $routes->get('appearance/themes/activate/(:any)', 'AppearanceController::activateTheme/$1');
+        $routes->post('appearance/themes/remove-theme', 'AppearanceController::removeTheme');
+
+        #FILE EDITORS
+        $routes->get('appearance/theme-editor', 'AppearanceController::viewFiles');
+        $routes->get('appearance/theme-editor/layout', 'AppearanceController::layoutFileEditor');
+        $routes->get('appearance/theme-editor/home', 'AppearanceController::homeFileEditor');
+        $routes->get('appearance/theme-editor/blogs', 'AppearanceController::blogsFileEditor');
+        $routes->get('appearance/theme-editor/view-blog', 'AppearanceController::viewBlogFileEditor');
+        $routes->get('appearance/theme-editor/view-page', 'AppearanceController::viewPageFileEditor');
+        $routes->get('appearance/theme-editor/search', 'AppearanceController::searchFileEditor');
+        $routes->get('appearance/theme-editor/search-filter', 'AppearanceController::searchFilterFileEditor');
+        $routes->post('appearance/theme-editor/save-file', 'AppearanceController::saveFile');
     }
 
     if (isFeatureEnabled('FEATURE_ADMIN')) {
@@ -199,19 +213,7 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('admin/backups', 'AdminController::backups', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/backups/generate-db-backup', 'AdminController::generateDbBackup', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/backups/download-db/(:any)', 'AdminController::downloadDbBackup/$1', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/backups/download-public-folder-backup', 'AdminController::downloadPublicFolderBackup', ['filter' => 'adminRoleFilter']);
-        
-        #FILE EDITORS
-        $routes->get('admin/file-editor', 'AdminController::viewFiles', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/file-editor/layout', 'AdminController::layoutFileEditor', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/file-editor/home', 'AdminController::homeFileEditor', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/file-editor/blogs', 'AdminController::blogsFileEditor', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/file-editor/view-blog', 'AdminController::viewBlogFileEditor', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/file-editor/view-page', 'AdminController::viewPageFileEditor', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/file-editor/search', 'AdminController::searchFileEditor', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/file-editor/search-filter', 'AdminController::searchFilterFileEditor', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/file-editor/sitemap', 'AdminController::sitemapFileEditor', ['filter' => 'adminRoleFilter']);
-        $routes->post('admin/file-editor/save-file', 'AdminController::saveFile');        
+        $routes->get('admin/backups/download-public-folder-backup', 'AdminController::downloadPublicFolderBackup', ['filter' => 'adminRoleFilter']);        
     }
 
 

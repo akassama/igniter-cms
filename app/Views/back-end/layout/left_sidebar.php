@@ -23,6 +23,10 @@ $userRole = getUserRole($sessionEmail);
                 // Click the button with id "settingsButton"
                 document.getElementById("settingsButton").click();
             }
+            else if (current_url.includes("account/appearance")) {
+                // Click the button with id "appearanceButton"
+                document.getElementById("appearanceButton").click();
+            }
             else if (current_url.includes("account/admin")) {
                 // Click the button with id "adminButton"
                 document.getElementById("adminButton").click();
@@ -89,14 +93,24 @@ $userRole = getUserRole($sessionEmail);
                             Content Blocks
                         </a>
                     <?php endif; ?>
-
                     
-                    <?php if (isFeatureEnabled('FEATURE_THEMES')): ?>
-                        <!--Themes Feature Nav Link-->
-                        <a class="nav-link <?= (str_contains(current_url(), 'account/themes')) ? 'active' : ''; ?>" href="<?= base_url('/account/themes'); ?>">
+                    <?php if (isFeatureEnabled('FEATURE_APPEARANCE')): ?>
+                        <!--Appearance Feature Nav Links-->
+                        <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/appearance')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAppearance" aria-expanded="false" aria-controls="collapseAppearance" id="appearanceButton">
                             <div class="sb-nav-link-icon"><i class="ri-paint-brush-line h5"></i></div>
-                            Themes
+                            Appearance
+                            <div class="sb-sidenav-collapse-arrow"><i class="ri-arrow-down-s-fill"></i></div>
                         </a>
+                        <div class="collapse" id="collapseAppearance" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link <?= (str_contains(current_url(), 'account/appearance/themes')) ? 'active' : ''; ?>" href="<?= base_url('/account/appearance/themes'); ?>">
+                                    <i class="ri-arrow-drop-right-fill"></i> Themes
+                                </a>
+                                <a class="nav-link <?= (str_contains(current_url(), 'account/appearance/theme-editor')) ? 'active' : ''; ?>" href="<?= base_url('/account/appearance/theme-editor'); ?>">
+                                    <i class="ri-arrow-drop-right-fill"></i> Theme Editor
+                                </a>
+                            </nav>
+                        </div>
                     <?php endif; ?>
 
                     <?php if (isFeatureEnabled('FEATURE_SETTINGS')): ?>
@@ -162,19 +176,8 @@ $userRole = getUserRole($sessionEmail);
                                     <a class="nav-link <?= (str_contains(current_url(), 'account/admin/backups')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/backups'); ?>">
                                         <i class="ri-arrow-drop-right-fill"></i> Backups
                                     </a>
-                                    <a class="nav-link <?= (str_contains(current_url(), 'account/admin/file-editor')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/file-editor'); ?>">
-                                        <i class="ri-arrow-drop-right-fill"></i> File Editor
-                                    </a>
                                 </nav>
                             </div>     
-                        <?php endif; ?>
-
-                        <?php if (isFeatureEnabled('FEATURE_ASK_AI')): ?>
-                            <!--Aks AI Feature Nav Links-->
-                            <a class="nav-link <?= (str_contains(current_url(), 'account/ask-ai')) ? 'active' : ''; ?>" href="<?= base_url('/account/ask-ai'); ?>" id="askAiButton">
-                                <div class="sb-nav-link-icon"><i class="ri-chat-ai-line h5"></i></div>
-                                Ask AI
-                            </a>
                         <?php endif; ?>
 
                         <a class="nav-link" href="https://docs.ignitercms.com/" target="_blank" id="documentationButton">
@@ -200,6 +203,15 @@ $userRole = getUserRole($sessionEmail);
                                 </nav>
                             </div>
                         <?php endif; ?>
+
+                        <?php if (isFeatureEnabled('FEATURE_ASK_AI')): ?>
+                            <!--Aks AI Feature Nav Links-->
+                            <a class="nav-link <?= (str_contains(current_url(), 'account/ask-ai')) ? 'active' : ''; ?>" href="<?= base_url('/account/ask-ai'); ?>" id="askAiButton">
+                                <div class="sb-nav-link-icon"><i class="ri-chat-ai-line h5"></i></div>
+                                Ask AI
+                            </a>
+                        <?php endif; ?>
+                        
                     <?php endif; ?>
                 </div>
             </div>

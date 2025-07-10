@@ -866,7 +866,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'UseCookieConcent',
-                'config_value' => 'Yes',
+                'config_value' => 'No',
                 'group' => 'security',
                 'data_type' => 'Select',
                 'options' => 'Yes,No',

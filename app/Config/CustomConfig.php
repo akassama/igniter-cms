@@ -15,13 +15,13 @@ class CustomConfig extends BaseConfig
     public $pendingActivationMsg = 'Your account has not been activated yet or is no longer active. Please contact the administrator.';
     public $tooManyFailedLogins = 'Too many failed login attempts. Your IP has been blocked for 1 hour.';
     public $invalidAccessMsg = 'You do not have access to this area.';
-    public $createSuccessMsg = 'Record created successfully.';
-    public $editSuccessMsg = 'Record updated successfully.';
-    public $deleteSuccessMsg = 'Record removed successfully.';
+    public $createSuccessMsg = '[Record] created successfully.';
+    public $editSuccessMsg = '[Record] updated successfully.';
+    public $deleteSuccessMsg = '[Record] removed successfully.';
     public $missingRequiredInputsMsg = 'There are validation errors. Possible missing required inputs.';
     public $sentContactMsg = 'Message sent successfully.';
     public $failedContactMsg = 'Form submission failed.';
-    public $notFoundMsg = 'Record not found.';
+    public $notFoundMsg = '[Record] not found.';
     public $alreadyExistMsg = '[Record] already exists.';
     public $errorMsg = 'Oops! Something went wrong. Please try again later.';
     public $resetLinkMsg = 'A password reset link has been sent to your email address. Please check your inbox and follow the instructions to reset your password. If you do not see the email in your inbox, please check your spam or junk folder.';
@@ -37,6 +37,8 @@ class CustomConfig extends BaseConfig
     public $bookingFailed = 'Oops! Something went wrong with your booking submission. Please try again later.';
     public $subscriptionSuccessful = 'You have successfully subscribed!';
     public $subscriptionFailed = 'Sorry, something went wrong with your subscription. Please try again.';
+    public $currentPasswordMissMatch = 'The current password you entered is incorrect.';
+    public $currentNewPasswordMissMatch = 'The new password and confirmation do not match.';
 
     #--------------------------------------------------------------------
     # THEME CATEGORIES

@@ -108,7 +108,7 @@ class SignUpController extends BaseController
             $insertedId = $usersModel->getInsertID();
 
             // User created successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
+            $createSuccessMsg = str_replace('[Record]', 'Registration', config('CustomConfig')->createSuccessMsg);
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity

@@ -562,7 +562,7 @@ class CMSController extends BaseController
             $insertedId = $dataGroupsModel ->getInsertID();
     
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
+            $createSuccessMsg = str_replace('[Record]', 'Data Group', config('CustomConfig')->createSuccessMsg);
             session()->setFlashdata('successAlert', $createSuccessMsg);
     
             //log activity
@@ -632,8 +632,8 @@ class CMSController extends BaseController
             $builder->update($data);
     
             // Record updated successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->editSuccessMsg;
-            session()->setFlashdata('successAlert', $createSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Data Group', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
     
             //log activity
             logActivity($loggedInUserId, ActivityTypes::DATA_GROUP_UPDATE, 'Data group updated with id: ' . $codeId);
