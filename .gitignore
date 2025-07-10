@@ -67,6 +67,11 @@ writable/debugbar/*
 php_errors.log
 
 #-------------------------
+# Plugins
+#-------------------------
+app/Plugins/*
+
+#-------------------------
 # Ensures public/cache/ directory is not ignored
 #-------------------------
 /public/cache/*
