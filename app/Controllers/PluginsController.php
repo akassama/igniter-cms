@@ -87,7 +87,8 @@ class PluginsController extends BaseController
             // Update plugin config
             $db = \Config\Database::connect();
             $db->query("UPDATE plugin_configs SET config_value = ? WHERE id = ?", [$configValue, $pluginId]);
-            session()->setFlashdata('successAlert', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Plugin Config', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin config ' . $configKey . ' updated.');
         } catch (\Exception $e) {
             session()->setFlashdata('errorAlert', 'Failed to update plugin config: ' . $e->getMessage());
@@ -345,7 +346,8 @@ class PluginsController extends BaseController
                 }
                 
                 // Success
-                session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
+                $createSuccessMsg = str_replace('[Record]', 'Plugin', config('CustomConfig')->createSuccessMsg);
+                session()->setFlashdata('successAlert', $createSuccessMsg);
                 logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin uploaded: ' . $filename);
 
                 // Load plugin.json

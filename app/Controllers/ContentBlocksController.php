@@ -67,7 +67,8 @@ class ContentBlocksController extends BaseController
 
         if ($contentBlocksModel->createContentBlock($data)) {
             $insertedId = $contentBlocksModel->getInsertID();
-            session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Content Block', config('CustomConfig')->createSuccessMsg);
+            session()->setFlashdata('successAlert', $createSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::CONTENT_BLOCK_CREATION, 'Content block created with id: ' . $insertedId);
             return redirect()->to('/account/content-blocks');
         } else {
@@ -135,7 +136,8 @@ class ContentBlocksController extends BaseController
         ];
 
         if ($contentBlocksModel->updateContentBlock($contentBlockId, $data)) {
-            session()->setFlashdata('successAlert', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Content Block', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::CONTENT_BLOCK_UPDATE, 'Content block updated with id: ' . $contentBlockId);
             return redirect()->to('/account/content-blocks');
         } else {

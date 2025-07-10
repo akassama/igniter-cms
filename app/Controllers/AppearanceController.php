@@ -195,7 +195,8 @@ class AppearanceController extends BaseController
         $this->deleteDirectory($tempDir);
 
         // Theme uploaded successfully. Redirect to themes
-        session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
+        $createSuccessMsg = str_replace('[Record]', 'Theme', config('CustomConfig')->createSuccessMsg);
+        session()->setFlashdata('successAlert', $createSuccessMsg);
         return redirect()->to('/account/appearance/themes');
     }
   

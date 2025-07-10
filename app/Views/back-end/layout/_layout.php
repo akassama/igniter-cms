@@ -41,5 +41,8 @@ $session = session();
 
 <!-- Include sweet_alerts-->
 <?=  $this->include('back-end/layout/assets/sweet_alerts.php'); ?>
+
+<!--Load Plugin Helpers-->
+<?=loadPluginAdminHelpers()?>
 </body>
 </html>

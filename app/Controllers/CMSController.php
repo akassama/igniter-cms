@@ -79,7 +79,8 @@ class CMSController extends BaseController
 
         if ($blogsModel->createBlog($data)) {
             $insertedId = $blogsModel->getInsertID();
-            session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Blog', config('CustomConfig')->createSuccessMsg);
+            session()->setFlashdata('successAlert', $createSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::BLOG_CREATION, 'Blog created: with id' . $insertedId);
             return redirect()->to('/account/cms/blogs');
         } else {
@@ -149,7 +150,8 @@ class CMSController extends BaseController
         ];
 
         if ($blogsModel->updateBlog($blogId, $data)) {
-            session()->setFlashdata('successAlert', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Plugin', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::BLOG_UPDATE, 'Blog updated with id: ' . $blogId);
             return redirect()->to('/account/cms/blogs');
         } else {
@@ -205,7 +207,8 @@ class CMSController extends BaseController
 
         if ($categoriesModel->createCategory($data)) {
             $insertedId = $categoriesModel->getInsertID();
-            session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Category', config('CustomConfig')->createSuccessMsg);
+            session()->setFlashdata('successAlert', $createSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::CATEGORY_CREATION, 'Category created with id: ' . $insertedId);
             return redirect()->to('/account/cms/categories');
         } else {
@@ -255,7 +258,8 @@ class CMSController extends BaseController
         ];
 
         if ($categoriesModel->updateCategory($categoryId, $data)) {
-            session()->setFlashdata('successAlert', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Plugin', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::CATEGORY_UPDATE, 'Category updated with id: ' . $categoryId);
             return redirect()->to('/account/cms/categories');
         } else {
@@ -312,7 +316,8 @@ class CMSController extends BaseController
 
         if ($navigationsModel->createNavigation($data)) {
             $insertedId = $navigationsModel->getInsertID();
-            session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Navigation', config('CustomConfig')->createSuccessMsg);
+            session()->setFlashdata('successAlert', $createSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::NAVIGATION_CREATION, 'Navigation created with id: ' . $insertedId);
             return redirect()->to('/account/cms/navigations');
         } else {
@@ -377,7 +382,8 @@ class CMSController extends BaseController
         ];
 
         if ($navigationsModel->updateNavigation($navigationId, $data)) {
-            session()->setFlashdata('successAlert', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Navigation', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::NAVIGATION_UPDATE, 'Navigation updated with id: ' . $navigationId);
             return redirect()->to('/account/cms/navigations');
         } else {
@@ -433,7 +439,8 @@ class CMSController extends BaseController
 
         if ($pagesModel->createPage($data)) {
             $insertedId = $pagesModel->getInsertID();
-            session()->setFlashdata('successAlert', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Page', config('CustomConfig')->createSuccessMsg);
+            session()->setFlashdata('successAlert', $createSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::PAGE_CREATION, 'Page created with id: ' . $insertedId);
             return redirect()->to('/account/cms/pages');
         } else {
@@ -497,7 +504,8 @@ class CMSController extends BaseController
         ];
 
         if ($pagesModel->updatePage($pageId, $data)) {
-            session()->setFlashdata('successAlert', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Page', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::PAGE_UPDATE, 'Page updated with id: ' . $pageId);
             return redirect()->to('/account/cms/pages');
         } else {
