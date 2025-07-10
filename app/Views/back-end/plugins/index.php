@@ -43,7 +43,7 @@
          </div>
          <?php if ($plugins): ?>
             <!-- Plugins Table -->
-            <table class="table table-bordered">
+            <table class="table table-bordered datatable">
                 <thead class="table-light">
                 <tr>
                     <th>

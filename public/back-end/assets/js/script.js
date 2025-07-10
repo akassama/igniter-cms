@@ -215,6 +215,31 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /**
+ * Initializes event listeners on all buttons with the class `.loading-onclick-icon-btn`.
+ * When clicked, the icon inside the button is temporarily changed to a loading spinner
+ * for 4 seconds, then reverted back to the original robot icon.
+ */
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".loading-onclick-icon-btn").forEach((button) => {
+    button.addEventListener("click", function () {
+      const icon = this.querySelector("i");
+      if (!icon) return;
+
+      // Save original class
+      const originalClass = icon.className;
+
+      // Change to loading spinner
+      icon.className = "ri-loader-2-line ri-spin";
+
+      // Revert after 4 seconds
+      setTimeout(() => {
+        icon.className = originalClass;
+      }, 3000);
+    });
+  });
+});
+
+/**
  * Configures toastr options for displaying notification messages.
  */
 toastr.options = {
