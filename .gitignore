@@ -69,7 +69,7 @@ php_errors.log
 #-------------------------
 # Plugins
 #-------------------------
-app/Plugins/*
+!app/Public/
 
 #-------------------------
 # Ensures public/cache/ directory is not ignored
