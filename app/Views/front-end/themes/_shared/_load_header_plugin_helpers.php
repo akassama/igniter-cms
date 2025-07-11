@@ -1,1 +1,1 @@
-<?=loadHeaderPluginHelpers()?>
+<?=loadPlugin("header")?>

@@ -8,7 +8,6 @@ use App\Models\CategoriesModel;
 use App\Models\NavigationsModel;
 use App\Models\ContentBlocksModel;
 use App\Models\PagesModel;
-use App\Models\TranslationsModel;
 use App\Services\EmailService;
 use Gregwar\Captcha\CaptchaBuilder;
 use App\Constants\ActivityTypes;

@@ -1,5 +1,40 @@
 <?php
 
+if (!function_exists('loadPlugin')) {
+    /**
+     * Loads plugin.php files for all active plugins that should load in footer context.
+     *
+     * Reads from the 'plugins' table where:
+     * - status = 1 (active)
+     * - load includes 'footer'
+     *
+     * Includes the plugin.php file if it exists.
+     */
+    function loadPlugin($location)
+    {
+        switch ($location) {
+        case "header":
+            return loadHeaderPluginHelpers();
+            break;
+        case "footer":
+            return loadFooterPluginHelpers();
+            break;
+        case "before_filter":
+            return loadBeforeFilterPluginHelpers();
+            break;
+        case "after_filter":
+            return loadAfterFilterPluginHelpers();
+            break;
+        case "admin":
+            return loadAdminPluginHelpers();
+            break;
+        default:
+            return null;
+        }
+    }
+}
+
+
 if (!function_exists('loadFooterPluginHelpers')) {
     /**
      * Loads plugin.php files for all active plugins that should load in footer context.

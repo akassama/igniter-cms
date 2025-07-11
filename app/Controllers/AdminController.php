@@ -8,7 +8,6 @@ use App\Controllers\BaseController;
 use App\Models\ConfigurationsModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\UsersModel;
-use App\Models\TranslationsModel;
 use App\Models\APIAccessModel;
 use App\Models\BackupsModel;
 use App\Models\ActivityLogsModel;
@@ -224,78 +223,6 @@ class AdminController extends BaseController
         ];
 
         return view('back-end/admin/users/view-user', $data);
-    }
-
-
-    //############################//
-    //        Translations        //
-    //############################//
-    public function translations()
-    {
-        $tableName = 'translations';
-        $translationsModel = new TranslationsModel();
-
-        // Set data to pass in view
-        $data = [
-            'translations' => $translationsModel->orderBy('language', 'ASC')->findAll(),
-            'total_translations' => getTotalRecords($tableName)
-        ];
-
-        return view('back-end/admin/translations/index', $data);
-    }
-
-    public function newTranslation()
-    {
-        return view('back-end/admin/translations/new-translation');
-    }
-
-    public function addTranslation()
-    {
-        //get logged-in user id
-        $loggedInUserId = $this->session->get('user_id');
-
-        // Load the TranslationsModel
-        $translationsModel = new TranslationsModel();
-
-        // Validation rules from the model
-        $validationRules = $translationsModel->getValidationRules();
-
-        // Validate the incoming data
-        if (!$this->validate($validationRules)) {
-            // If validation fails, return validation errors
-            $data['validation'] = $this->validator;
-            return view('back-end/admin/translations/new-translation');
-        }
-
-        // If validation passes, create the translation
-        $translationData = [
-            'language' => $this->request->getPost('language'),
-            'created_by' => $loggedInUserId
-        ];
-
-        // Call createTranslation method from the TranslationsModel
-        if ($translationsModel->createTranslation($translationData)) {
-            //inserted translation_id
-            $insertedId = $translationsModel->getInsertID();
-
-            // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = str_replace('[Record]', 'Translation', config('CustomConfig')->createSuccessMsg);
-            session()->setFlashdata('successAlert', $createSuccessMsg);
-
-            //log activity
-            logActivity($loggedInUserId, ActivityTypes::USER_CREATION, 'Translation created with id: ' . $insertedId);
-
-            return redirect()->to('/account/admin/translations');
-        } else {
-            // Failed to create record. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
-            session()->setFlashdata('errorAlert', $errorMsg);
-
-            //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_USER_CREATION, 'Failed to create translation with language: ' . $this->request->getPost('language'));
-
-            return view('back-end/admin/translations/new-translation');
-        }
     }
 
     //############################//

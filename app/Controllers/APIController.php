@@ -10,7 +10,6 @@ use App\Models\CodesModel;
 use App\Models\CategoriesModel;
 use App\Models\NavigationsModel;
 use App\Models\ContentBlocksModel;
-use App\Models\TranslationsModel;
 use App\Models\CountriesModel;
 use App\Models\ThemesModel;
 use App\Models\DataGroupsModel;
@@ -28,11 +27,9 @@ class APIController extends BaseController
             'codes' => 'App\Models\CodesModel',
             'contentBlocks' => 'App\Models\ContentBlocksModel',
             'countries' => 'App\Models\CountriesModel',
-            'languages' => 'App\Models\LanguagesModel',
             'navigations' => 'App\Models\NavigationsModel',
             'pages' => 'App\Models\PagesModel',
             'themes' => 'App\Models\ThemesModel',
-            'translations' => 'App\Models\TranslationsModel',
         ];
 
         // Get pagination parameters with defaults
@@ -506,55 +503,6 @@ class APIController extends BaseController
         ]);
     }
 
-    // LANGUAGES API
-    public function getLanguage($apiKey, $languageId = null)
-    {
-
-        if (!$languageId) {
-            return $this->response->setStatusCode(400)->setJSON([
-                'status' => 'error',
-                'message' => 'Language ID parameter is required.'
-            ]);
-        }
-
-        $languagesModel = new LanguagesModel();
-        $language = $languagesModel->where('language_id', $languageId)->first();
-
-        if ($language) {
-            return $this->response->setStatusCode(200)->setJSON([
-                'status' => 'success',
-                'data' => $language
-            ]);
-        } else {
-            return $this->response->setStatusCode(404)->setJSON([
-                'status' => 'error',
-                'message' => 'Language not found.'
-            ]);
-        }
-    }
-
-    public function getLanguages($apiKey)
-    {
-    
-        // Get pagination parameters with defaults
-        $take = $this->request->getGet('take') ?? 10;
-        $skip = $this->request->getGet('skip') ?? 0;
-    
-        $languagesModel = new LanguagesModel();
-        $languages = $languagesModel->findAll($take, $skip);
-    
-        // Get total count
-        $totalLanguages = $languagesModel->countAllResults();
-    
-        return $this->response->setStatusCode(200)->setJSON([
-            'status' => 'success',
-            'total' => $totalLanguages,
-            'take' => $take,
-            'skip' => $skip,
-            'data' => $languages
-        ]);
-    }
-
     // THEMES API
     public function getTheme($apiKey, $themeId = null)
     {
@@ -603,57 +551,6 @@ class APIController extends BaseController
             'take' => $take,
             'skip' => $skip,
             'data' => $themes
-        ]);
-    }
-
-    // TRANSLATIONS API
-    public function getTranslation($apiKey, $translationId = null)
-    {
-        // Check if id is provided
-        if (!$translationId) {
-            return $this->response->setStatusCode(400)->setJSON([
-                'status' => 'error',
-                'message' => 'Translation ID parameter is required.'
-            ]);
-        }
-
-        // Fetch the translation by id
-        $translationsModel = new TranslationsModel();
-        $translation = $translationsModel->where('translation_id', $translationId)->first();
-
-        // Return translation or not found error
-        if ($translation) {
-            return $this->response->setStatusCode(200)->setJSON([
-                'status' => 'success',
-                'data' => $translation
-            ]);
-        } else {
-            return $this->response->setStatusCode(404)->setJSON([
-                'status' => 'error',
-                'message' => 'Translation not found.'
-            ]);
-        }
-    }
-
-    public function getTranslations($apiKey)
-    {
-    
-        // Get pagination parameters with defaults
-        $take = $this->request->getGet('take') ?? 10;
-        $skip = $this->request->getGet('skip') ?? 0;
-    
-        $translationsModel = new TranslationsModel();
-        $translations = $translationsModel->findAll($take, $skip);
-    
-        // Get total count
-        $totalTranslations = $translationsModel->countAllResults();
-    
-        return $this->response->setStatusCode(200)->setJSON([
-            'status' => 'success',
-            'total' => $totalTranslations,
-            'take' => $take,
-            'skip' => $skip,
-            'data' => $translations
         ]);
     }
 

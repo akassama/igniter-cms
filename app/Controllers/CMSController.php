@@ -10,7 +10,6 @@ use App\Models\CategoriesModel;
 use App\Models\NavigationsModel;
 use App\Models\ContentBlocksModel;
 use App\Models\PagesModel;
-use App\Models\TranslationsModel;
 use App\Models\DataGroupsModel;
 
 class CMSController extends BaseController

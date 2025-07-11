@@ -27,7 +27,7 @@ class PluginsFilter implements FilterInterface
     {
         try {
             // Load before_filter plugin helpers for active plugins
-            loadBeforeFilterPluginHelpers();
+            loadPlugin("before_filter");
         } catch (\Exception $e) {
             // Log error
             log_message('error', 'Failed to before_filter load plugins in filter: ' . $e->getMessage());
@@ -52,7 +52,7 @@ class PluginsFilter implements FilterInterface
     {
         try {
             // Load after_filter plugin helpers for active plugins
-            loadAfterFilterPluginHelpers();
+            loadPlugin("after_filter");
         } catch (\Exception $e) {
             // Log error
             log_message('error', 'Failed to load after_filter plugins in filter: ' . $e->getMessage());

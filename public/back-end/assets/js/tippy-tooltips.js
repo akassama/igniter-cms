@@ -149,19 +149,6 @@ tippy(".remove-content-block", {
   content: "Remove content-block",
   placement: "top",
 });
-//Translations
-tippy(".view-translation", {
-  content: "View translation",
-  placement: "top",
-});
-tippy(".edit-translation", {
-  content: "Edit translation",
-  placement: "top",
-});
-tippy(".remove-translation", {
-  content: "Remove translation",
-  placement: "top",
-});
 //Configurations
 tippy(".view-configuration", {
   content: "View configuration",

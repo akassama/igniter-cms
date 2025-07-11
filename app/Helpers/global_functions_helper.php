@@ -343,57 +343,6 @@ if (!function_exists('getCsvFromJsonList')) {
     }
 }
 
-/**
- * Fetches and displays languages options in a dropdown.
- *
- * @param int|null $languagesId The ID of the languages to be selected (optional).
- * @return void
- */
-if(!function_exists('getLanguages'))
-{
-    function getLanguages($languageId = null)
-    {
-        $tableName = "languages";
-        $db = \Config\Database::connect();
-        $query = $db->table($tableName)
-                     ->where('language_id !=', 'en')
-                     ->orderBy('value', 'ASC')
-                     ->get();
-
-        $selected = "";
-        foreach ($query->getResult() as $row) {
-            $selected = $row->language_id == $languageId ? "selected" : "";
-            echo "<option value='$row->language_id' $selected>$row->value</option>";
-        }
-    }
-}
-
-/**
- * Fetches and displays languages as a csv.
- *
- * @param int|null $languagesId The ID of the languages to be selected (optional).
- * @return void
- */
-if(!function_exists('getLanguagesList'))
-{
-    function getLanguagesList()
-    {
-        $tableName = "translations";
-        $db = \Config\Database::connect();
-        $query = $db->table($tableName)
-                     ->where('language !=', 'en')
-                     ->orderBy('language', 'ASC')
-                     ->get();
-
-        $selectedList = "";
-        foreach ($query->getResult() as $row) {
-            $selectedList = $selectedList.$row->language.",";
-        }
-        $trimmed_string = rtrim($selectedList, ",");
-        return $trimmed_string;
-    }
-}
-
 
 /**
  * Convert datetime to "time ago" format
@@ -1421,9 +1370,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                         "/account/admin/users/edit-user/{user-id}",
                         "/account/admin/users/view-user/{user-id}",
 
-                        // Translations (Only Add or Delete)
-                        "/account/admin/translations",
-
                         // Configurations
                         "/account/admin/configurations",
 
@@ -1473,7 +1419,7 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                 "framework" => "Bootstrap, PHP, and any CSS or JavaScript framework of your choice.",
                 "features" => [
                     "Responsive design",
-                    "Multi-language support",
+                    "AI assistance support",
                     "Theme customization",
                 ],
                 "customization" => "To customize your theme, manage theme files in '/your-app/app/Views/front-end/themes/{theme-name}/'. The themes folder has the following directories and files: blogs (index.php, view-blog.php), home (index.php), includes (_functions.php), layout (_layout.php), pages (view-page.php), search (index.php, filter.php)",
@@ -1512,11 +1458,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "/api/{api-key}/get-countries",
                     "/api/{api-key}/get-countries?take=10&skip=0",
 
-                    // Languages
-                    "/api/{api-key}/get-language/{language_id}",
-                    "/api/{api-key}/get-languages",
-                    "/api/{api-key}/get-languages?take=10&skip=0",
-
                     // Navigation
                     "/api/{api-key}/get-navigation/{navigation_id}",
                     "/api/{api-key}/get-navigations?take=10&skip=0",
@@ -1535,11 +1476,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "/api/{api-key}/get-theme/{theme_id}",
                     "/api/{api-key}/get-themes",
                     "/api/{api-key}/get-themes?take=10&skip=0",
-
-                    // Translations
-                    "/api/{api-key}/get-translation/{translation_id}",
-                    "/api/{api-key}/get-translations",
-                    "/api/{api-key}/get-translations?take=10&skip=0",
                 ]
             ],
             "backend" => [

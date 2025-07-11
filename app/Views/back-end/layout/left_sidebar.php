@@ -146,9 +146,6 @@ $userRole = getUserRole($sessionEmail);
                                     <a class="nav-link <?= (str_contains(current_url(), 'account/admin/users')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/users'); ?>">
                                         <i class="ri-arrow-drop-right-fill"></i> Users
                                     </a>
-                                    <a class="nav-link <?= (str_contains(current_url(), 'account/admin/translations')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/translations'); ?>">
-                                        <i class="ri-arrow-drop-right-fill"></i> Translations
-                                    </a>
                                     <a class="nav-link <?= (str_contains(current_url(), 'account/admin/configurations')) ? 'active' : ''; ?>" href="<?= base_url('/account/admin/configurations'); ?>">
                                         <i class="ri-arrow-drop-right-fill"></i> Configurations
                                     </a>

@@ -107,14 +107,6 @@ class AppModules extends Migration
             ],
             [
                 'app_module_id' => getGUID(),
-                'module_name'  => 'Translations',
-                'module_description'  => 'Manage translations',
-                'module_roles'    => 'Admin',
-                'module_link'    => 'account/admin/translations',
-                'module_search_terms' => 'translations,language,localization'
-            ],
-            [
-                'app_module_id' => getGUID(),
                 'module_name'  => 'Configurations',
                 'module_description'  => 'Manage configurations',
                 'module_roles'    => 'Admin',

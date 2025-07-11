@@ -524,8 +524,6 @@ if (!function_exists('isAllowedModel')) {
             'get-content-blocks' => 'ContentBlocksModel',
             'get-country' => 'CountriesModel',
             'get-countries' => 'CountriesModel',
-            'get-language' => 'LanguagesModel',
-            'get-languages' => 'LanguagesModel',
             'get-navigation' => 'NavigationsModel',
             'get-navigations' => 'NavigationsModel',
             'get-all-pages' => 'PagesModel',
@@ -536,8 +534,6 @@ if (!function_exists('isAllowedModel')) {
             'filter-search-results' => 'SearchModel',
             'get-theme' => 'ThemesModel',
             'get-themes' => 'ThemesModel',
-            'get-translation' => 'TranslationsModel',
-            'get-translations' => 'TranslationsModel',
         ];
 
         // Validates if the given request segment exists in the predefined request models.

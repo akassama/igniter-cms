@@ -204,11 +204,6 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('admin/api-keys/edit-api-key/(:any)', 'AdminController::editApiKey/$1', ['filter' => 'adminRoleFilter']);
         $routes->post('admin/api-keys/edit-api-key', 'AdminController::updateApiKey');
         
-        #TRANSLATIONS
-        $routes->get('admin/translations', 'AdminController::translations', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/translations/new-translation', 'AdminController::newTranslation', ['filter' => 'adminRoleFilter']);
-        $routes->post('admin/translations/new-translation', 'AdminController::addTranslation');
-        
         #BACKUPS
         $routes->get('admin/backups', 'AdminController::backups', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/backups/generate-db-backup', 'AdminController::generateDbBackup', ['filter' => 'adminRoleFilter']);
@@ -357,17 +352,9 @@ $routes->group('api', ['filter' => ['apiAccessFilter','corsFilter']],  function(
     $routes->get('(:segment)/get-content-block/(:segment)', 'APIController::getContentBlock/$1/$2');
     $routes->get('(:segment)/get-content-blocks', 'APIController::getContentBlocks/$1');
     
-    // Languages
-    $routes->get('(:segment)/get-language/(:segment)', 'APIController::getLanguage/$1/$2');
-    $routes->get('(:segment)/get-languages', 'APIController::getLanguages/$1');
-    
     // Themes
     $routes->get('(:segment)/get-theme/(:segment)', 'APIController::getTheme/$1/$2');
     $routes->get('(:segment)/get-themes', 'APIController::getThemes/$1');
-    
-    // Translations
-    $routes->get('(:segment)/get-translation/(:segment)', 'APIController::getTranslation/$1/$2');
-    $routes->get('(:segment)/get-translations', 'APIController::getTranslations/$1');
     
     // DatGroups
     $routes->get('(:segment)/get-data-group/(:segment)', 'APIController::getDataGroup/$1/$2');

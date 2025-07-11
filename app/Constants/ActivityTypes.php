@@ -118,13 +118,6 @@ class ActivityTypes
     const FAILED_DATA_GROUP_UPDATE = 'failed_data_group_update';
     const DATA_GROUP_DELETION = 'data_group_delete';
 
-    // TRANSLATIONS
-    const TRANSLATION_CREATION = 'translation_created';
-    const FAILED_TRANSLATION_CREATION = 'failed_translation_creation';
-    const TRANSLATION_UPDATE = 'translation_updated';
-    const FAILED_TRANSLATION_UPDATE = 'failed_translation_update';
-    const TRANSLATION_DELETION = 'translation_delete';
-
     // CODES
     const CODE_CREATION = 'code_created';
     const FAILED_CODE_CREATION = 'failed_code_creation';
@@ -277,13 +270,6 @@ class ActivityTypes
             self::DATA_GROUP_UPDATE => 'Data Group Updated',
             self::FAILED_DATA_GROUP_UPDATE => 'Data Group Update Failed',
             self::DATA_GROUP_DELETION => 'Data Group Deletion',
-
-            // Translations
-            self::TRANSLATION_CREATION => 'Translation Created',
-            self::FAILED_TRANSLATION_CREATION => 'Translation Creation Failed',
-            self::TRANSLATION_UPDATE => 'Translation Updated',
-            self::FAILED_TRANSLATION_UPDATE => 'Translation Update Failed',
-            self::TRANSLATION_DELETION => 'Translation Deletion',
 
             // Codes
             self::CODE_CREATION => 'Code Created',

@@ -1,1 +1,1 @@
-<?=loadFooterPluginHelpers()?>
+<?=loadPlugin("footer")?>
