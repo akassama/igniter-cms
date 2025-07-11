@@ -777,87 +777,6 @@ if (! function_exists('isLocalEnvironment')) {
 }
 
 /**
- * Render hCaptcha widget if enabled.
- *
- * @return void
- */
-if (!function_exists('renderHcaptcha')) {
-    function renderHcaptcha()
-    {
-        $useCaptcha = env('APP_USE_CAPTCHA', "No");
-        if(strtolower($useCaptcha) === "yes")
-        {
-            // Get the hCaptcha site key from environment or configuration
-            $hcaptchaSiteKey = getConfigData("HCaptchaSiteKey");
-            if (!empty($hcaptchaSiteKey)) {
-                // Render the hCaptcha widget
-                echo '<div class="col-12">';
-                echo '<div class="h-captcha" data-sitekey="' . $hcaptchaSiteKey . '"></div>';
-                echo '</div>';
-            } else {
-                log_message('error', 'hCaptcha site key is not set.');
-            }
-        }
-    }
-}
-
-
-/**
- * Validate hCaptcha response.
- *
- * @return bool|string Returns true if CAPTCHA is valid, otherwise returns an error message.
- */
-if (!function_exists('validateHcaptcha')) {
-    function validateHcaptcha($returnUrl = null)
-    {
-        // Check if CAPTCHA is enabled
-        $useCaptcha = env('APP_USE_CAPTCHA', "No");
-        if (strtolower($useCaptcha) !== "yes") {
-            return true; // CAPTCHA is not enabled, so validation is skipped
-        }
-
-        // Get hCaptcha secret key
-        $hcaptcha_secret = getConfigData("HCaptchaSecretKey");
-        if (empty($hcaptcha_secret)) {
-            log_message('error', 'hCaptcha secret key is not set.');
-            return 'CAPTCHA configuration error. Please contact support.';
-        }
-
-        // Get hCaptcha response from the form
-        $hcaptcha_response = service('request')->getPost('h-captcha-response');
-        if (empty($hcaptcha_response)) {
-            return 'CAPTCHA response is missing. Please complete the CAPTCHA.';
-        }
-
-        // Verify the CAPTCHA with hCaptcha API
-        $verify_url = "https://hcaptcha.com/siteverify";
-        $data = [
-            'secret' => $hcaptcha_secret,
-            'response' => $hcaptcha_response
-        ];
-
-        $options = [
-            'http' => [
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'POST',
-                'content' => http_build_query($data)
-            ]
-        ];
-
-        $context = stream_context_create($options);
-        $result = file_get_contents($verify_url, false, $context);
-        $response = json_decode($result);
-
-        if (!$response->success) {
-            return 'CAPTCHA validation failed. Please try again.';
-        }
-
-        return true; // CAPTCHA validation successful
-    }
-}
-
-
-/**
  * Minify CSS file and return the minified version's URL.
  *
  * @param string $css_path Path to the CSS file.
@@ -1788,71 +1707,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "options" => null
                 ],
                 [
-                    "config_for" => "UseCaptcha",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "HCaptchaSiteKey",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "HCaptchaSecretKey",
-                    "data_type" => "Secret",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "UseShareThis",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "ShareThisCode",
-                    "data_type" => "Code",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "UseGoogleAnalytics",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "GoogleAnalyticsCode",
-                    "data_type" => "Code",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "UsePostHog",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "PostHogCode",
-                    "data_type" => "Code",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "UseCookieConcent",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "CookieConcentCode",
-                    "data_type" => "Code",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "UseTwitterFeed",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "TwitterFeedCode",
-                    "data_type" => "Code",
-                    "options" => null
-                ],
-                [
                     "config_for" => "EnableGeminiAI",
                     "data_type" => "Select",
                     "options" => "Yes,No"
@@ -1871,21 +1725,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "config_for" => "GeminiBaseURL",
                     "data_type" => "Text",
                     "options" => null
-                ],
-                [
-                    "config_for" => "EnableChatbot",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "ChatbotCode",
-                    "data_type" => "Code",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "EnableGoogleTranslate",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
                 ],
                 [
                     "config_for" => "EnableGlobalSearchIcon",
@@ -1921,21 +1760,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "config_for" => "MaxUploadFileSize",
                     "data_type" => "Select",
                     "options" => "1,3,5,10,50,100,1000"
-                ],
-                [
-                    "config_for" => "EnableDisqusComments",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "EnableDisqusCommentCount",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "DisqusShortName",
-                    "data_type" => "Text",
-                    "options" => null
                 ],
                 [
                     "config_for" => "EnableIgniterNewsFeed",

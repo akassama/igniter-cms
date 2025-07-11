@@ -185,6 +185,15 @@ class AppModules extends Migration
                 'module_link'    => 'account/admin/file-editor',
                 'module_search_terms' => 'themes,customize,ui'
             ],
+            //FILE MANAGER
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'File Management',
+                'module_description'  => 'Manage files and media (images, videos, documents)',
+                'module_roles'    => 'Admin,Manager,User',
+                'module_link'    => 'account/file-manager',
+                'module_search_terms' => 'files,media,storage'
+            ],
             //CMS
             [
                 'app_module_id' => getGUID(),

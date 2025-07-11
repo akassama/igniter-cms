@@ -188,9 +188,6 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <?php if (!empty($themeData['customJSTop'])): ?>
         <?= $themeData['customJSTop'] ?>
     <?php endif; ?>
-
-    <!-- Custom Head Data -->
-    <?= $this->include('front-end/themes/_shared/_custom_head_data.php'); ?>
 </head>
 <body class="d-flex flex-column min-vh-100 bg-white">
     <!-- Preloader -->
@@ -371,9 +368,6 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <?php if (!empty($themeData['customJSFooter'])): ?>
         <?= $themeData['customJSFooter'] ?>
     <?php endif; ?>
-
-    <!-- Custom Footer Data -->
-    <?= $this->include('front-end/themes/_shared/_custom_footer_data.php'); ?>
     
     <!-- Global modal for search -->
     <?=$this->include('front-end/themes/_shared/_global_search_modal.php'); ?>

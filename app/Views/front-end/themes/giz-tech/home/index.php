@@ -695,7 +695,6 @@ $socialLinksQuery = $socialsModel->orderBy('order', 'ASC')->findAll();
                                             <input type="hidden" name="return_url" value="<?= current_url()."?#subscribe" ?>">
                                             <button class="btn btn-primary px-4" type="submit">Subscribe</button>
                                         </div>
-                                        <?= renderHcaptcha() ?>
                                     </form>
                                 </div>
                             </div>
@@ -805,7 +804,6 @@ $socialLinksQuery = $socialsModel->orderBy('order', 'ASC')->findAll();
                                                     <textarea class="form-control" name="message" id="message" rows="5" required></textarea>
                                                 </div>
                                                 <input type="hidden" name="return_url" value="<?= current_url('?#contact') ?>">
-                                                <?= renderHcaptcha() ?>
                                                     <button type="submit" class="btn btn-primary">Send Message</button>
                                                 </div>
                                             </div>

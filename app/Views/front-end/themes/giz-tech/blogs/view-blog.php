@@ -87,8 +87,7 @@ updateTotalViewCount("blogs", "blog_id", $blog_data['blog_id']);
 
                 <!-- Comments Section -->
                 <div class="comments-section mt-5">
-                    <!-- Include Disqus Comment Script -->
-                    <?= $this->include('front-end/themes/_shared/_disqus_blog_script.php'); ?>
+                    <!-- Include Comment Script -->
                 </div>                
             </div>
 

@@ -689,22 +689,6 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'UseCaptcha',
-                'config_value' => 'No',
-                'group' => 'forms',
-                'data_type' => 'Select',
-                'options' => 'Yes,No',
-                'default_value' => 'Yes',
-                'deletable' => 0,
-                'description' => 'Enable or disable CAPTCHA for forms.',
-                'created_by' => getGUID(getDefaultAdminGUID()),
-                'updated_by' => null,
-                'custom_class' => '',
-                'icon' => 'ri-shield-check-line',
-                'search_terms' => 'captcha,security,forms,spam'
-            ],
-            [
-                'config_id' => getGUID(),
                 'config_for' => 'EnableInstallationTracking',
                 'config_value' => 'Yes',
                 'group' => 'site',
