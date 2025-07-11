@@ -1,22 +1,22 @@
 <?php
 
-if (!function_exists('loadPluginHelpers')) {
+if (!function_exists('loadFooterPluginHelpers')) {
     /**
-     * Loads plugin.php files for all active plugins that should load in view context.
+     * Loads plugin.php files for all active plugins that should load in footer context.
      *
      * Reads from the 'plugins' table where:
      * - status = 1 (active)
-     * - load includes 'view'
+     * - load includes 'footer'
      *
      * Includes the plugin.php file if it exists.
      */
-    function loadPluginHelpers()
+    function loadFooterPluginHelpers()
     {
         $db = \Config\Database::connect();
 
         try {
-            // Query plugins where status is active and load includes 'view'
-            $query = $db->query("SELECT plugin_key FROM plugins WHERE status = 1 AND `load` LIKE '%view%'");
+            // Query plugins where status is active and load includes 'footer'
+            $query = $db->query("SELECT plugin_key FROM plugins WHERE status = 1 AND `load` LIKE '%footer%'");
             $activePlugins = $query->getResultArray();
 
             foreach ($activePlugins as $plugin) {
@@ -30,28 +30,28 @@ if (!function_exists('loadPluginHelpers')) {
                 }
             }
         } catch (\Exception $e) {
-            log_message('error', 'Failed to load view plugins: ' . $e->getMessage());
+            log_message('error', 'Failed to load footer plugins: ' . $e->getMessage());
         }
     }
 }
 
-if (!function_exists('loadPluginFilterHelpers')) {
+if (!function_exists('loadHeaderPluginHelpers')) {
     /**
-     * Loads plugin.php files for all active plugins that should load in filter context.
+     * Loads plugin.php files for all active plugins that should load in header context.
      *
      * Reads from the 'plugins' table where:
      * - status = 1 (active)
-     * - load includes 'filter'
+     * - load includes 'header'
      *
      * Includes the plugin.php file if it exists.
      */
-    function loadPluginFilterHelpers()
+    function loadHeaderPluginHelpers()
     {
         $db = \Config\Database::connect();
 
         try {
-            // Query plugins where status is active and load includes 'filter'
-            $query = $db->query("SELECT plugin_key FROM plugins WHERE status = 1 AND `load` LIKE '%filter%'");
+            // Query plugins where status is active and load includes 'header'
+            $query = $db->query("SELECT plugin_key FROM plugins WHERE status = 1 AND `load` LIKE '%header%'");
             $activePlugins = $query->getResultArray();
 
             foreach ($activePlugins as $plugin) {
@@ -65,12 +65,82 @@ if (!function_exists('loadPluginFilterHelpers')) {
                 }
             }
         } catch (\Exception $e) {
-            log_message('error', 'Failed to load filter plugins: ' . $e->getMessage());
+            log_message('error', 'Failed to load header plugins: ' . $e->getMessage());
         }
     }
 }
 
-if (!function_exists('loadPluginAdminHelpers')) {
+if (!function_exists('loadBeforeFilterPluginHelpers')) {
+    /**
+     * Loads plugin.php files for all active plugins that should load in before_filter context.
+     *
+     * Reads from the 'plugins' table where:
+     * - status = 1 (active)
+     * - load includes 'before_filter'
+     *
+     * Includes the plugin.php file if it exists.
+     */
+    function loadBeforeFilterPluginHelpers()
+    {
+        $db = \Config\Database::connect();
+
+        try {
+            // Query plugins where status is active and load includes 'before_filter'
+            $query = $db->query("SELECT plugin_key FROM plugins WHERE status = 1 AND `load` LIKE '%before_filter%'");
+            $activePlugins = $query->getResultArray();
+
+            foreach ($activePlugins as $plugin) {
+                $pluginKey = $plugin['plugin_key'];
+                $pluginFile = APPPATH . 'Plugins/' . $pluginKey . '/plugin.php';
+
+                if (file_exists($pluginFile)) {
+                    include_once $pluginFile;
+                } else {
+                    log_message('error', 'Plugin file not found: ' . $pluginFile);
+                }
+            }
+        } catch (\Exception $e) {
+            log_message('error', 'Failed to load before_filter plugins: ' . $e->getMessage());
+        }
+    }
+}
+
+if (!function_exists('loadAfterFilterPluginHelpers')) {
+    /**
+     * Loads plugin.php files for all active plugins that should load in after_filter context.
+     *
+     * Reads from the 'plugins' table where:
+     * - status = 1 (active)
+     * - load includes 'after_filter'
+     *
+     * Includes the plugin.php file if it exists.
+     */
+    function loadAfterFilterPluginHelpers()
+    {
+        $db = \Config\Database::connect();
+
+        try {
+            // Query plugins where status is active and load includes 'after_filter'
+            $query = $db->query("SELECT plugin_key FROM plugins WHERE status = 1 AND `load` LIKE '%after_filter%'");
+            $activePlugins = $query->getResultArray();
+
+            foreach ($activePlugins as $plugin) {
+                $pluginKey = $plugin['plugin_key'];
+                $pluginFile = APPPATH . 'Plugins/' . $pluginKey . '/plugin.php';
+
+                if (file_exists($pluginFile)) {
+                    include_once $pluginFile;
+                } else {
+                    log_message('error', 'Plugin file not found: ' . $pluginFile);
+                }
+            }
+        } catch (\Exception $e) {
+            log_message('error', 'Failed to load after_filter plugins: ' . $e->getMessage());
+        }
+    }
+}
+
+if (!function_exists('loadAdminPluginHelpers')) {
     /**
      * Loads plugin.php files for all active plugins that should load in admin context.
      *
@@ -80,7 +150,7 @@ if (!function_exists('loadPluginAdminHelpers')) {
      *
      * Includes the plugin.php file if it exists.
      */
-    function loadPluginAdminHelpers()
+    function loadAdminPluginHelpers()
     {
         $db = \Config\Database::connect();
 

@@ -43,6 +43,6 @@ $session = session();
 <?=  $this->include('back-end/layout/assets/sweet_alerts.php'); ?>
 
 <!--Load Plugin Helpers-->
-<?=loadPluginAdminHelpers()?>
+<?=loadAdminPluginHelpers()?>
 </body>
 </html>

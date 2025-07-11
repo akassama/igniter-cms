@@ -29,7 +29,7 @@ $rootDirectory = dirname(dirname(__DIR__));
 <?=  $this->include('front-end/layout/assets/sweet_alerts.php'); ?>
 
 <!--Load Plugin Helpers-->
-<?=loadPluginHelpers()?>
+<?=loadFooterPluginHelpers()?>
 
 </body>
 </html>

@@ -165,6 +165,9 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
 
     <!-- Custom Head Data -->
     <?= $this->include('front-end/themes/_shared/_custom_head_data.php'); ?>
+
+    <!--Load Header Plugin Helpers-->
+    <?=$this->include('front-end/themes/_shared/_load_header_plugin_helpers.php'); ?>
 </head>
 <body class="d-flex flex-column min-vh-100">
     <!-- Preloader -->
@@ -256,8 +259,8 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <!-- Global modal for search -->
     <?=$this->include('front-end/themes/_shared/_global_search_modal.php'); ?>
 
-    <!--Load Plugin Helpers-->
-    <?=$this->include('front-end/themes/_shared/_load_plugin_helpers.php'); ?>
+    <!--Load Footer Plugin Helpers-->
+    <?=$this->include('front-end/themes/_shared/_load_footer_plugin_helpers.php'); ?>
 
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
