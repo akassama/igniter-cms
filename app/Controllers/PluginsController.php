@@ -297,6 +297,7 @@ class PluginsController extends BaseController
                 if (file_exists($databaseFile)) {
                     // Initialize variables to avoid undefined variable errors
                     $createTablesQuery = '';
+                    $createTableDataQuery = '';
                     $createConfigQuery = '';
                     $pluginKey = $filename; // Ensure pluginKey is set for database.php
                     
@@ -320,6 +321,17 @@ class PluginsController extends BaseController
                                 if (!empty($query)) {
                                     $db->query($query);
                                     logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed create table query for: ' . $filename);
+                                }
+                            }
+                        }
+
+                        // Execute plugin tabale data if existing
+                        if (!empty($createTableDataQuery)) {
+                            $queries = array_filter(array_map('trim', explode(';', $createTableDataQuery)));
+                            foreach ($queries as $query) {
+                                if (!empty($query)) {
+                                    $db->query($query);
+                                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed insert table data query for: ' . $filename);
                                 }
                             }
                         }
