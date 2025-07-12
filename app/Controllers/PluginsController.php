@@ -380,6 +380,7 @@ class PluginsController extends BaseController
                     $createTablesQuery = '';
                     $createTableDataQuery = '';
                     $createConfigQuery = '';
+                    $createDataQuery  = '';
                     $pluginKey = $filename; // Ensure pluginKey is set for database.php
                     
                     // Include database.php
@@ -427,6 +428,20 @@ class PluginsController extends BaseController
                                 if (!empty($query)) {
                                     $db->query($query);
                                     logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed config query for: ' . $filename);
+                                }
+                            }
+                        }
+
+                        // Delete existing plugin_data entries and execute data query if not empty
+                        if (!empty($createDataQuery)) {
+                            $db->query("DELETE FROM plugin_data WHERE plugin_slug = ?", [$pluginKey]);
+                            logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Deleted existing plugin_data for: ' . $pluginKey);
+                            
+                            $queries = array_filter(array_map('trim', explode(';', $createDataQuery)));
+                            foreach ($queries as $query) {
+                                if (!empty($query)) {
+                                    $db->query($query);
+                                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed data query for: ' . $filename);
                                 }
                             }
                         }
