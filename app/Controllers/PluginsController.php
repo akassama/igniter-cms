@@ -5,6 +5,7 @@ use App\Constants\ActivityTypes;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\PluginConfigModel;
+use App\Models\PluginDataModel;
 
 class PluginsController extends BaseController
 {
@@ -53,7 +54,6 @@ class PluginsController extends BaseController
             'total_configurations' => getTotalRecords($tableName)
         ];
 
-
         return view('back-end/plugins/plugin-configurations', $data);
     }
 
@@ -96,6 +96,87 @@ class PluginsController extends BaseController
         }
         return redirect()->to('/account/plugins/configurations');
     }
+
+    public function pluginData()
+    {
+        $tableName = 'plugin_data';
+        $configModel = new PluginDataModel();
+
+        // Set data to pass in view
+        $data = [
+            'plugin_data' => $configModel->orderBy('plugin_slug', 'ASC')->findAll(),
+            'total_plugin_data' => getTotalRecords($tableName)
+        ];
+
+        return view('back-end/plugins/plugin-data', $data);
+    }
+
+    public function updatePluginData()
+    {
+        // Get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+        $pluginId = $this->request->getPost('plugin_id');
+        $pluginSlug = $this->request->getPost('plugin_slug');
+        $pluginData1  = $this->request->getPost('plugin_data_1');
+        $pluginData2  = $this->request->getPost('plugin_data_2');
+        $pluginData3  = $this->request->getPost('plugin_data_3');
+        $pluginData4  = $this->request->getPost('plugin_data_4');
+        $pluginData5  = $this->request->getPost('plugin_data_5');
+        $pluginData6  = $this->request->getPost('plugin_data_6');
+        $pluginData7  = $this->request->getPost('plugin_data_7');
+        $pluginData8  = $this->request->getPost('plugin_data_8');
+        $pluginData9  = $this->request->getPost('plugin_data_9');
+        $pluginData10 = $this->request->getPost('plugin_data_10');
+        $pluginData11 = $this->request->getPost('plugin_data_11');
+        $pluginData12 = $this->request->getPost('plugin_data_12');
+
+        // Validate input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'plugin_id' => 'required',
+        ]);
+
+        if (!$validation->run([
+            'plugin_id' => $pluginId,
+        ])) {
+            session()->setFlashdata('errorAlert', 'Invalid input: ' . implode(', ', $validation->getErrors()));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin data update failed: Invalid input');
+            return redirect()->to('/account/plugins/data');
+        }
+
+        try {
+            // Update plugin data
+            $db = \Config\Database::connect();
+            $builder = $db->table('plugin_data');
+            $data = [
+                'id' => $pluginId,
+                'plugin_data_1'  => $pluginData1,
+                'plugin_data_2'  => $pluginData2,
+                'plugin_data_3'  => $pluginData3,
+                'plugin_data_4'  => $pluginData4,
+                'plugin_data_5'  => $pluginData5,
+                'plugin_data_6'  => $pluginData6,
+                'plugin_data_7'  => $pluginData7,
+                'plugin_data_8'  => $pluginData8,
+                'plugin_data_9'  => $pluginData9,
+                'plugin_data_10' => $pluginData10,
+                'plugin_data_11' => $pluginData11,
+                'plugin_data_12' => $pluginData12
+            ];
+    
+            $builder->where('id', $pluginId);
+            $builder->update($data);
+
+            $editSuccessMsg = str_replace('[Record]', 'Plugin data', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin data ' . $pluginSlug . ' updated.');
+        } catch (\Exception $e) {
+            session()->setFlashdata('errorAlert', 'Failed to update plugin data: ' . $e->getMessage());
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin data ' . $pluginSlug . ' update failed: ' . $e->getMessage());
+        }
+        return redirect()->to('/account/plugins/data');
+    }
+
 
     public function managePlugin($slug)
     {

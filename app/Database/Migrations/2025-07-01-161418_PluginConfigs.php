@@ -26,14 +26,8 @@ class PluginConfigs extends Migration
                 'type' => 'TEXT',
                 'null' => true,
             ],
-            'created_at' => [
-                'type'    => 'DATETIME',
-                'null'    => true,
-            ],
-            'updated_at' => [
-                'type'    => 'DATETIME',
-                'null'    => true,
-            ],
+            'created_at datetime default current_timestamp',
+            'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
 
         $this->forge->addKey('id', true);

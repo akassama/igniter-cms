@@ -49,7 +49,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Slug</th>
+                                <th>Plugin Slug</th>
                                 <th>Key</th>
                                 <th>Value</th>
                                 <th>Created At</th>
@@ -91,19 +91,6 @@ echo generateBreadcrumb($breadcrumb_links);
 </div>
 
 <script>
-$(document).ready(function () {
-    setTimeout(function () {
-        // Get the key value from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const searchValue = urlParams.get('dt-key') || '';
-        
-        // If key exists, set it as the datatable search value
-        if (searchValue) {
-             $('#dt-search-0').val(searchValue).focus(); 
-        }    
-    }, 800);
-});
-
 function editSwalModal(pluginConfig_id, configValue, configKey) {
     Swal.fire({
         title: 'Edit Plugin Configuration',

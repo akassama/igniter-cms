@@ -223,6 +223,8 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('plugins', 'PluginsController::index');
         $routes->get('plugins/configurations', 'PluginsController::pluginConfigurations');
         $routes->post('plugins/update-plugin-config', 'PluginsController::updatePluginConfig');
+        $routes->get('plugins/data', 'PluginsController::pluginData');
+        $routes->post('plugins/update-plugin-dada', 'PluginsController::updatePluginData');
         $routes->get('plugins/install-plugins', 'PluginsController::installPlugins');
         $routes->get('plugins/upload-plugin', 'PluginsController::uploadPlugin');
         $routes->post('plugins/upload-plugin', 'PluginsController::addPlugin');
