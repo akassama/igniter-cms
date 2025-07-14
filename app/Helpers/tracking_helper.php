@@ -522,8 +522,6 @@ if (!function_exists('isAllowedModel')) {
             'get-codes' => 'CodesModel',
             'get-content-block' => 'ContentBlocksModel',
             'get-content-blocks' => 'ContentBlocksModel',
-            'get-country' => 'CountriesModel',
-            'get-countries' => 'CountriesModel',
             'get-navigation' => 'NavigationsModel',
             'get-navigations' => 'NavigationsModel',
             'get-all-pages' => 'PagesModel',

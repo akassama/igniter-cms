@@ -456,6 +456,20 @@ if (!function_exists('isValidApiKey')) {
 }
 
 /**
+ * Validates an Plugin Access API key by checking its existence key in env.
+ * 
+ * @param {string} $pluginAccessKey - The API key to validate.
+ * @returns {bool} True if the Access API key is valid, false otherwise.
+ */
+if (!function_exists('isValidPluginApiAccessKey')) {
+    function isValidPluginApiAccessKey($pluginAccessKey)
+    {
+        $accessKey = env("PLUGIN_API_REQUEST_KEY");
+        return $pluginAccessKey === $accessKey;
+    }
+}
+
+/**
  * Generates a unique API key.
  * 
  * @returns {string} A unique 64-character hexadecimal API key.

@@ -10,7 +10,6 @@ use App\Models\CodesModel;
 use App\Models\CategoriesModel;
 use App\Models\NavigationsModel;
 use App\Models\ContentBlocksModel;
-use App\Models\CountriesModel;
 use App\Models\ThemesModel;
 use App\Models\DataGroupsModel;
 use App\Services\EmailService;
@@ -26,7 +25,6 @@ class APIController extends BaseController
             'categories' => 'App\Models\CategoriesModel',
             'codes' => 'App\Models\CodesModel',
             'contentBlocks' => 'App\Models\ContentBlocksModel',
-            'countries' => 'App\Models\CountriesModel',
             'navigations' => 'App\Models\NavigationsModel',
             'pages' => 'App\Models\PagesModel',
             'themes' => 'App\Models\ThemesModel',
@@ -448,60 +446,6 @@ class APIController extends BaseController
             'data' => $contentBlocks
         ]);
     }    
-
-    // COUNTRIES API
-    public function getCountry($apiKey, $countryId = null)
-    {
-
-        if (!$countryId) {
-            return $this->response->setStatusCode(400)->setJSON([
-                'status' => 'error',
-                'message' => 'Country ID parameter is required.'
-            ]);
-        }
-
-        $countriesModel = new CountriesModel();
-        $country = $countriesModel->where('id', $countryId)->first();
-
-        if ($country) {
-            return $this->response->setStatusCode(200)->setJSON([
-                'status' => 'success',
-                'data' => $country
-            ]);
-        } else {
-            return $this->response->setStatusCode(404)->setJSON([
-                'status' => 'error',
-                'message' => 'Country not found.'
-            ]);
-        }
-    }
-
-    public function getCountries($apiKey)
-    {
-
-        // Get pagination parameters with defaults
-        $take = $this->request->getGet('take') ?? 10;
-        $skip = $this->request->getGet('skip') ?? 0;
-
-        // Fetch all countries
-        $countriesModel = new CountriesModel();
-
-        // Order by order in ascending order
-        $countriesModel->orderBy('id', 'ASC');
-
-        $countries = $countriesModel->findAll($take, $skip);
-
-        // Get total count
-        $totalCountries = $countriesModel->countAllResults();
-
-        return $this->response->setStatusCode(200)->setJSON([
-            'status' => 'success',
-            'total' => $totalCountries,
-            'take' => $take,
-            'skip' => $skip,
-            'data' => $countries
-        ]);
-    }
 
     // THEMES API
     public function getTheme($apiKey, $themeId = null)

@@ -325,9 +325,6 @@ $routes->group('api', ['filter' => ['apiAccessFilter','corsFilter']],  function(
     //Generic Queries
     $routes->get('(:segment)/get-model-data', 'APIController::getModelData/$1');
 
-    //Home Page
-    $routes->get('(:segment)/get-home-page', 'APIController::getHomePage/$1');
-
     //Blog
     $routes->get('(:segment)/get-blog/(:segment)', 'APIController::getBlog/$1/$2');
     $routes->get('(:segment)/get-blogs', 'APIController::getBlogs/$1');
@@ -362,12 +359,27 @@ $routes->group('api', ['filter' => ['apiAccessFilter','corsFilter']],  function(
     $routes->get('(:segment)/get-data-group/(:segment)', 'APIController::getDataGroup/$1/$2');
     $routes->get('(:segment)/get-data-groups', 'APIController::getDataGroups/$1');   
 
-    // Search
+    // Search (Leave as it is)
     $routes->get('(:segment)/search-results', 'APIController::searchResults/$1');
     $routes->get('(:segment)/model-search-results', 'APIController::modelSearchResults/$1');
     $routes->get('(:segment)/filter-search-results', 'APIController::filterSearchResults/$1');
 });
 
+// PluginData API
+$routes->group('plugin-data-api', ['filter' => ['pluginApiAccessFilter']],  function($routes) {
+    // GET PluginData (GET Request)
+    $routes->get('(:segment)/get-plugin-data/(:segment)', 'PluginDataController::getPluginData/$1/$2');
+    $routes->get('(:segment)/get-plugin-datas', 'PluginDataController::getPluginDatas/$1');
+
+    // ADD PluginData (POST Request)
+    $routes->post('(:segment)/create-plugin-data', 'PluginDataController::createPluginData/$1');
+
+    // UPDATE PluginData (PUT Request)
+    $routes->put('(:segment)/update-plugin-data/(:segment)', 'PluginDataController::updatePluginData/$1/$2');
+
+    // DELETE PluginData (DELETE Request)
+    $routes->delete('(:segment)/delete-plugin-data/(:segment)', 'PluginDataController::deletePluginData/$1/$2');
+});
 
 $frontEndFormat = getConfigData("FrontEndFormat");
 if(strtolower($frontEndFormat) === "mvc")

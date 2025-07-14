@@ -7,7 +7,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
 
-class ApiAccessFilter implements FilterInterface
+class PluginApiAccessFilter implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -31,8 +31,6 @@ class ApiAccessFilter implements FilterInterface
         $deviceType = getDeviceType();
         $country = getCountry();
         $userAgent = getUserAgent();
-        
-        $checkApiKey = true;
 
         // Extract the API key from the second URL segment (immediately after 'api/')
         $uri = $request->getUri();
@@ -42,28 +40,13 @@ class ApiAccessFilter implements FilterInterface
         $apiKey = $segments[1] ?? null;
         $resource = $segments[2] ?? null;
 
-        // Validate the API key using the helper function
-        if($checkApiKey){
-            if (!$apiKey || !isValidApiKey($apiKey)) {
-                return Services::response()
-                    ->setStatusCode(401)
-                    ->setJSON([
-                        'status' => 'error',
-                        'message' => 'Invalid API key.'
-                    ]);
-            }
-        }
-
-        // Validate the API key using the helper function
-        if($checkApiKey){
-            if (!isAllowedModel($resource)) {
-                return Services::response()
-                    ->setStatusCode(401)
-                    ->setJSON([
-                        'status' => 'error',
-                        'message' => 'Invalid model access.'
-                    ]);
-            }
+        if (!$apiKey || !isValidPluginApiAccessKey($apiKey)) {
+            return Services::response()
+                ->setStatusCode(401)
+                ->setJSON([
+                    'status' => 'error',
+                    'message' => 'Invalid API Access Key.'
+                ]);
         }
 
         logApiCall(
@@ -92,6 +75,6 @@ class ApiAccessFilter implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        // No action needed after the response
+        //
     }
 }

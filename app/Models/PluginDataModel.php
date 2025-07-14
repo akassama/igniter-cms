@@ -109,4 +109,3 @@ class PluginDataModel extends Model
         return true;
     }
 }
-

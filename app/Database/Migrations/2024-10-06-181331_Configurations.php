@@ -674,7 +674,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'AllowedApiGetModels',
-                'config_value' => 'BlogsModel, CategoriesModel, CodesModel, ContentBlocksModel, CountriesModel, NavigationsModel, PagesModel, ThemesModel, UsersModel',
+                'config_value' => 'BlogsModel, CategoriesModel, CodesModel, ContentBlocksModel, NavigationsModel, PagesModel, ThemesModel, UsersModel',
                 'group' => 'api',
                 'data_type' => 'Textarea',
                 'options' => null,
