@@ -786,35 +786,37 @@ if(!function_exists('getPaginatedRecords')) {
 }
 
 /**
- * Retrieves data from a specified database table based on the given conditions. GetTableData
+ * Retrieves data from a specified database table based on given conditions.
  *
- * @param {string} $tableName - The name of the database table.
- * @param {array} $whereClause - An associative array representing the WHERE clause conditions (e.g., ['column_name' => 'value']).
- * @param {string} $returnColumn - The name of the column to retrieve data from.
- * @return {mixed} The value of the specified column or null if no record is found.
+ * @param string $tableName      The name of the database table.
+ * @param array  $whereClause    An associative array of conditions for the WHERE clause (e.g. ['id' => 5]).
+ * @param string $returnColumn   The specific column to return, or '*' to return the entire row object.
+ *
+ * @return mixed|null            Returns the value of the specified column, the full row object if '*' is passed,
+ *                               or null if no matching record is found.
+ * @example
+ * $title = getTableData('posts', ['id' => 1], 'title');
+ * $post = getTableData('posts', ['id' => 1], '*'); // Returns full row object
  */
-if(!function_exists('getTableData')) {
+if (!function_exists('getTableData')) {
     function getTableData($tableName, $whereClause, $returnColumn)
     {
-        // Connect to the database
         $db = \Config\Database::connect();
-
-        // Build the query
-        $query = $db->table($tableName)
-            ->select($returnColumn)
-            ->where($whereClause)
-            ->get();
-
+        $query = $db->table($tableName)->where($whereClause)->get();
+        
         if ($query->getNumRows() > 0) {
-            // Retrieve the result
             $row = $query->getRow();
+            // If requesting all columns, return the entire row object
+            if ($returnColumn === '*') {
+                return $row;
+            }
+            // Otherwise return the specific column
             return $row->$returnColumn;
-        } else {
-            // No record found, return null
-            return null;
         }
+        return null;
     }
 }
+
 
 /**
  * Execute a custom SQL query.

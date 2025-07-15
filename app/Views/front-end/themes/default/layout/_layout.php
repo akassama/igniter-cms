@@ -192,7 +192,6 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
                 <form action="<?= base_url('search') ?>" method="get" class="d-flex ms-xl-3 mt-3 mt-xl-0" role="search">
                     <input class="form-control me-2" type="search" id="q" name="q" placeholder="Search for..." aria-label="Search for..." minlength="2" required>
                 </form>
-                <div id="google_translate_element"></div>
             </div>
         </div>
     </nav>
