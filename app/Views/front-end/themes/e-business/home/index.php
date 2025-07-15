@@ -3,14 +3,14 @@
 $theme = getCurrentTheme();
 
 //get site config values
-$companyName = getConfigData("CompanyName");
-$companyAddress = getConfigData("CompanyAddress");
-$companyEmail = getConfigData("CompanyEmail");
-$companyNumber = getConfigData("CompanyNumber");
+$siteName = getConfigData("SiteName");
+$siteAddress = getConfigData("SiteAddress");
+$siteEmail = getConfigData("SiteEmail");
+$sitePhoneNumber = getConfigData("SitePhoneNumber");
 $companyOpeningHours = getConfigData("CompanyOpeningHours");
 $metaAuthor = getConfigData("MetaAuthor");
 $metaTitle = getConfigData("MetaTitle");
-$metaDescription = getConfigData("MetaDescription");
+$siteTitle = getConfigData("SiteTitle");
 $metaKeywords = getConfigData("MetaKeywords");
 $siteLogoLink = getConfigData("SiteLogoLink");
 $siteLogoTwoLink = getConfigData("SiteLogoTwoLink");

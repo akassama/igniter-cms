@@ -13,6 +13,9 @@ if (!function_exists('loadPlugin')) {
     function loadPlugin($location)
     {
         switch ($location) {
+        case "meta":
+            return loadMetaPluginHelpers();
+            break;
         case "header":
             return loadHeaderPluginHelpers();
             break;
@@ -30,6 +33,41 @@ if (!function_exists('loadPlugin')) {
             break;
         default:
             return null;
+        }
+    }
+}
+
+if (!function_exists('loadMetaPluginHelpers')) {
+    /**
+     * Loads plugin.php files for all active plugins that should load in meta context.
+     *
+     * Reads from the 'plugins' table where:
+     * - status = 1 (active)
+     * - load includes 'meta'
+     *
+     * Includes the plugin.php file if it exists.
+     */
+    function loadMetaPluginHelpers()
+    {
+        $db = \Config\Database::connect();
+
+        try {
+            // Query plugins where status is active and load includes 'meta'
+            $query = $db->query("SELECT plugin_key FROM plugins WHERE status = 1 AND `load` LIKE '%meta%'");
+            $activePlugins = $query->getResultArray();
+
+            foreach ($activePlugins as $plugin) {
+                $pluginKey = $plugin['plugin_key'];
+                $pluginFile = APPPATH . 'Plugins/' . $pluginKey . '/plugin.php';
+
+                if (file_exists($pluginFile)) {
+                    include_once $pluginFile;
+                } else {
+                    log_message('error', 'Plugin file not found: ' . $pluginFile);
+                }
+            }
+        } catch (\Exception $e) {
+            log_message('error', 'Failed to load meta plugins: ' . $e->getMessage());
         }
     }
 }

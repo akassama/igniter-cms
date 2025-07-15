@@ -143,7 +143,7 @@ class HtmxController extends BaseController
         exit();
     }
 
-    public function setMetaDescription()
+    public function setSiteTitle()
     {
         $description = $this->request->getPost('description');
         if(empty($description)){
@@ -334,9 +334,9 @@ class HtmxController extends BaseController
         }
 
         $prompt = "Generate an SEO-friendly meta title for the page titled '$title'. Keep it under 60 characters, compelling, and relevant. Return only the title";
-        $companyName = getConfigData("CompanyName");
-        $companyAddress = getConfigData("CompanyAddress");
-        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
+        $siteName = getConfigData("SiteName");
+        $siteAddress = getConfigData("SiteAddress");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$siteName', Company Address: '$siteAddress'. If not needed, ignore.";
         $metaTitle = makeGeminiCall($prompt." ".$companyInfo);
 
         $returnInput = '<input type="text" class="form-control" id="meta_title" name="meta_title" value="'.$metaTitle.'">';
@@ -347,7 +347,7 @@ class HtmxController extends BaseController
     }
 
     ## META DESCRIPTION ##
-    public function setMetaDescriptionAI()
+    public function setSiteTitleAI()
     {
         $title = $this->request->getPost('title');
         if(empty($title)){
@@ -360,9 +360,9 @@ class HtmxController extends BaseController
         }
 
         $prompt = "Generate an SEO-friendly meta description for the page titled '$title'. Summarize the content in under 160 characters, ensuring clarity and engagement. Return only the description.";
-        $companyName = getConfigData("CompanyName");
-        $companyAddress = getConfigData("CompanyAddress");
-        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
+        $siteName = getConfigData("SiteName");
+        $siteAddress = getConfigData("SiteAddress");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$siteName', Company Address: '$siteAddress'. If not needed, ignore.";
         $description = makeGeminiCall($prompt." ".$companyInfo);
 
         $returnInput = '<textarea class="form-control" id="meta_description" name="meta_description">'.$description.'</textarea>';
@@ -485,9 +485,9 @@ class HtmxController extends BaseController
         }
 
         $prompt = "Create a professional bio for $name ($role). Include expertise and social links ($socialLinks) in 4-5 sentences. Return only the bio text.";
-        $companyName = getConfigData("CompanyName");
-        $companyAddress = getConfigData("CompanyAddress");
-        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$companyName', Company Address: '$companyAddress'. If not needed, ignore.";
+        $siteName = getConfigData("SiteName");
+        $siteAddress = getConfigData("SiteAddress");
+        $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$siteName', Company Address: '$siteAddress'. If not needed, ignore.";
         $summary = makeGeminiCall($prompt." ".$companyInfo);
 
         $returnInput = '<textarea rows="1" class="form-control" id="about_summary" name="about_summary" maxlength="500">'.$summary.'</textarea>';

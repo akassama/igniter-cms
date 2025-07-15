@@ -5,14 +5,14 @@ $currentUrl = current_url();
 $maintenanceMode = getConfigData("MaintenanceMode");
 $maintenanceModeTitle = getConfigData("MaintenanceModeTitle");
 $maintenanceModeText = getConfigData("MaintenanceModeText");
-$companyName = getConfigData("CompanyName");
-$companyAddress = getConfigData("CompanyAddress");
-$companyEmail = getConfigData("CompanyEmail");
-$companyNumber = getConfigData("CompanyNumber");
+$siteName = getConfigData("SiteName");
+$siteAddress = getConfigData("SiteAddress");
+$siteEmail = getConfigData("SiteEmail");
+$sitePhoneNumber = getConfigData("SitePhoneNumber");
 $companyOpeningHours = getConfigData("CompanyOpeningHours");
 $metaAuthor = getPageMetaInfo($currentUrl, "MetaAuthor");
 $metaTitle = getPageMetaInfo($currentUrl, "MetaTitle");
-$metaDescription = getPageMetaInfo($currentUrl, "MetaDescription");
+$siteTitle = getPageMetaInfo($currentUrl, "SiteTitle");
 $metaKeywords = getPageMetaInfo($currentUrl, "MetaKeywords");
 $metaOgImage = getPageMetaInfo($currentUrl, "MetaOgImage");
 $metaPageUrl =  getPageMetaInfo($currentUrl, "MetaPageUrl");
@@ -31,7 +31,7 @@ $siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="<?=$metaDescription?>">
+        <meta name="description" content="<?=$siteTitle?>">
         <meta name="keywords" content="<?=$metaKeywords?>">
         <meta name="author" content="<?=$metaAuthor?>">
         <title><?=$maintenanceModeTitle?></title>

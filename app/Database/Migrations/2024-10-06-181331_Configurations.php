@@ -97,7 +97,7 @@ class Configurations extends Migration
         $data = [
             [
                 'config_id' => getGUID(),
-                'config_for' => 'CompanyName',
+                'config_for' => 'SiteName',
                 'config_value' => 'Igniter CMS App',
                 'group' => 'site',
                 'data_type' => 'Text',
@@ -113,7 +113,7 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'CompanyEmail',
+                'config_for' => 'SiteEmail',
                 'config_value' => 'igniter@mail.com',
                 'group' => 'site',
                 'data_type' => 'Text',
@@ -129,7 +129,7 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'CompanySecondaryEmail',
+                'config_for' => 'siteSecondaryEmail',
                 'config_value' => 'igniter.support@mail.com',
                 'group' => 'site',
                 'data_type' => 'Text',
@@ -145,7 +145,7 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'CompanyEnquiryEmail',
+                'config_for' => 'SiteEnquiryEmail',
                 'config_value' => 'contact.us@mail.com',
                 'group' => 'site',
                 'data_type' => 'Text',
@@ -161,7 +161,7 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'CompanyNumber',
+                'config_for' => 'SitePhoneNumber',
                 'config_value' => '+44 7911 123456',
                 'group' => 'site',
                 'data_type' => 'Text',
@@ -177,7 +177,7 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'CompanySecondaryNumber',
+                'config_for' => 'SiteSecondaryNumber',
                 'config_value' => '+44 7911 654321',
                 'group' => 'site',
                 'data_type' => 'Text',
@@ -193,7 +193,7 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'CompanyAddress',
+                'config_for' => 'SiteAddress',
                 'config_value' => '123 Maple Street<br/> Watford, Hertfordshire<br/> WD17 1AA<br/> United Kingdom',
                 'group' => 'site',
                 'data_type' => 'Text',
@@ -209,7 +209,7 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'CompanyAddressMap',
+                'config_for' => 'SiteAddressMap',
                 'config_value' => '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
                 'group' => 'site',
                 'data_type' => 'Code',
@@ -321,7 +321,7 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'MetaDescription',
+                'config_for' => 'SiteTitle',
                 'config_value' => 'A robust and user-friendly CodeIgniter-based CMS to effortlessly manage your website content.',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
@@ -401,7 +401,7 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'BlogsPageMetaDescription',
+                'config_for' => 'BlogsPageSiteTitle',
                 'config_value' => 'Stay updated with the latest news, insights, and articles from our experts. Explore a wide range of topics and join the conversation.',
                 'group' => 'meta_seo',
                 'data_type' => 'Textarea',
@@ -449,7 +449,7 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'SearchPageMetaDescription',
+                'config_for' => 'SearchPageSiteTitle',
                 'config_value' => 'Use our search page to find the information you need. Browse through the search results to locate the content you\'re looking for.',
                 'group' => 'meta_seo',
                 'data_type' => 'Textarea',
@@ -497,7 +497,7 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'SearchFilterPageMetaDescription',
+                'config_for' => 'SearchFilterPageSiteTitle',
                 'config_value' => 'Refine your search results using our filter options. Narrow down the results to find exactly what you\'re looking for quickly and easily.',
                 'group' => 'meta_seo',
                 'data_type' => 'Textarea',

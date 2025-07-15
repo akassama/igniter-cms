@@ -4,7 +4,7 @@ $session = session();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><?= $this->renderSection('title') ?: 'Account'; ?> - <?=getConfigData("CompanyName");?></title>
+    <title><?= $this->renderSection('title') ?: 'Account'; ?> - <?=getConfigData("SiteName");?></title>
 
     <!-- Include the header assets -->
     <?= $this->include('back-end/layout/assets/header_assets.php'); ?>

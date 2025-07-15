@@ -2649,7 +2649,7 @@ if (!function_exists('getThemeData')) {
  * 
  * @param {string} $pageUrl - The full URL of the page
  * @param {string} $metaType - The type of meta information to retrieve 
- *                              (e.g., 'metaTitle', 'metaDescription', etc.)
+ *                              (e.g., 'metaTitle', 'siteTitle', etc.)
  * @returns {string} The requested meta information
  */
 if (!function_exists('getPageMetaInfo')) {
@@ -2664,7 +2664,7 @@ if (!function_exists('getPageMetaInfo')) {
             // Initialize default meta data from configuration
             $metaAuthor = getConfigData("MetaAuthor");
             $metaTitle = getConfigData("MetaTitle");
-            $metaDescription = getConfigData("MetaDescription");
+            $siteTitle = getConfigData("SiteTitle");
             $metaKeywords = getConfigData("MetaKeywords");
             $metaOgImage = getConfigData("MetaOgImage");
             $metaPageUrl = $pageUrl;
@@ -2697,19 +2697,19 @@ if (!function_exists('getPageMetaInfo')) {
                 'blogs' => [
                     'model' => 'blogsPage',
                     'metaTitleConfig' => 'BlogsPageMetaTitle',
-                    'metaDescConfig' => 'BlogsPageMetaDescription',
+                    'metaDescConfig' => 'BlogsPageSiteTitle',
                     'metaKeywordsConfig' => 'BlogsPageMetaKeywords'
                 ],
                 'search' => [
                     'model' => 'searchPage',
                     'metaTitleConfig' => 'SearchPageMetaTitle',
-                    'metaDescConfig' => 'SearchPageMetaDescription',
+                    'metaDescConfig' => 'SearchPageSiteTitle',
                     'metaKeywordsConfig' => 'SearchPageMetaKeywords'
                 ],
                 'search/filter' => [
                     'model' => 'searchPageFilter',
                     'metaTitleConfig' => 'SearchFilterPageMetaTitle',
-                    'metaDescConfig' => 'SearchFilterPageMetaDescription',
+                    'metaDescConfig' => 'SearchFilterPageSiteTitle',
                     'metaKeywordsConfig' => 'SearchFilterPageMetaKeywords'
                 ]
             ];
@@ -2720,7 +2720,7 @@ if (!function_exists('getPageMetaInfo')) {
                 $model = $pageConfig['model'];
 
                 $metaTitle = getConfigData($pageConfig['metaTitleConfig']);
-                $metaDescription = getConfigData($pageConfig['metaDescConfig']);
+                $siteTitle = getConfigData($pageConfig['metaDescConfig']);
                 $metaKeywords = getConfigData($pageConfig['metaKeywordsConfig']);
             }
             // Check for dynamic pages with prefixes
@@ -2735,7 +2735,7 @@ if (!function_exists('getPageMetaInfo')) {
                             getTableData($model, ['slug' => $slugId], $config['metaFields']['author'])
                         );
                         $metaTitle = getTableData($model, ['slug' => $slugId], $config['metaFields']['title']);
-                        $metaDescription = getTableData($model, ['slug' => $slugId], $config['metaFields']['description']);
+                        $siteTitle = getTableData($model, ['slug' => $slugId], $config['metaFields']['description']);
                         $metaKeywords = getTableData($model, ['slug' => $slugId], $config['metaFields']['keywords']);
                         $metaOgImage = getTableData($model, ['slug' => $slugId], $config['metaFields']['ogImage']);
                         break;
@@ -2750,7 +2750,7 @@ if (!function_exists('getPageMetaInfo')) {
                         getTableData('pages', ['slug' => $slugId], 'created_by')
                     );
                     $metaTitle = getTableData('pages', ['slug' => $slugId], 'meta_title');
-                    $metaDescription = getTableData('pages', ['slug' => $slugId], 'meta_description');
+                    $siteTitle = getTableData('pages', ['slug' => $slugId], 'meta_description');
                     $metaKeywords = getTableData('pages', ['slug' => $slugId], 'meta_keywords');
                 }
             }
@@ -2776,7 +2776,7 @@ if (!function_exists('getPageMetaInfo')) {
                  * @type {string}
                  */
                 case 'metadescription':
-                    return $metaDescription ?? getConfigData("MetaDescription");
+                    return $siteTitle ?? getConfigData("SiteTitle");
 
                 /**
                  * Retrieve the page meta keywords

@@ -1541,42 +1541,42 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
             ],
             "configurations" => [
                 [
-                    "config_for" => "CompanyName",
+                    "config_for" => "SiteName",
                     "data_type" => "Text",
                     "options" => null
                 ],
                 [
-                    "config_for" => "CompanyEmail",
+                    "config_for" => "SiteEmail",
                     "data_type" => "Text",
                     "options" => null
                 ],
                 [
-                    "config_for" => "CompanySecondaryEmail",
+                    "config_for" => "siteSecondaryEmail",
                     "data_type" => "Text",
                     "options" => null
                 ],
                 [
-                    "config_for" => "CompanyEnquiryEmail",
+                    "config_for" => "SiteEnquiryEmail",
                     "data_type" => "Text",
                     "options" => null
                 ],
                 [
-                    "config_for" => "CompanyNumber",
+                    "config_for" => "SitePhoneNumber",
                     "data_type" => "Text",
                     "options" => null
                 ],
                 [
-                    "config_for" => "CompanySecondaryNumber",
+                    "config_for" => "SiteSecondaryNumber",
                     "data_type" => "Text",
                     "options" => null
                 ],
                 [
-                    "config_for" => "CompanyAddress",
+                    "config_for" => "SiteAddress",
                     "data_type" => "Text",
                     "options" => null
                 ],
                 [
-                    "config_for" => "CompanyAddressMap",
+                    "config_for" => "SiteAddressMap",
                     "data_type" => "Code",
                     "options" => null
                 ],
@@ -1606,7 +1606,7 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "options" => null
                 ],
                 [
-                    "config_for" => "MetaDescription",
+                    "config_for" => "SiteTitle",
                     "data_type" => "Text",
                     "options" => null
                 ],
@@ -1631,7 +1631,7 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "options" => null
                 ],
                 [
-                    "config_for" => "BlogsPageMetaDescription",
+                    "config_for" => "BlogsPageSiteTitle",
                     "data_type" => "Textarea",
                     "options" => null
                 ],
@@ -1646,7 +1646,7 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "options" => null
                 ],
                 [
-                    "config_for" => "SearchPageMetaDescription",
+                    "config_for" => "SearchPageSiteTitle",
                     "data_type" => "Textarea",
                     "options" => null
                 ],
@@ -1661,7 +1661,7 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "options" => null
                 ],
                 [
-                    "config_for" => "SearchFilterPageMetaDescription",
+                    "config_for" => "SearchFilterPageSiteTitle",
                     "data_type" => "Textarea",
                     "options" => null
                 ],

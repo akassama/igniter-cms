@@ -7,10 +7,10 @@ $configData = [
     'baseUrl' => base_url(),
     'currentUrl' => current_url(),
     'maintenanceMode' => getConfigData("MaintenanceMode"),
-    'companyName' => getConfigData("CompanyName"),
-    'companyAddress' => getConfigData("CompanyAddress"),
-    'companyEmail' => getConfigData("CompanyEmail"),
-    'companyNumber' => getConfigData("CompanyNumber"),
+    'siteName' => getConfigData("SiteName"),
+    'siteAddress' => getConfigData("SiteAddress"),
+    'siteEmail' => getConfigData("SiteEmail"),
+    'sitePhoneNumber' => getConfigData("SitePhoneNumber"),
     'siteLogoLink' => getConfigData("SiteLogoLink"),
     'siteLogoTwoLink' => getConfigData("SiteLogoTwoLink"),
     'siteFaviconLink' => getConfigData("SiteFaviconLink"),
@@ -23,7 +23,7 @@ $configData = [
 $metaData = [
     'author' => getPageMetaInfo($configData['currentUrl'], "MetaAuthor"),
     'title' => getPageMetaInfo($configData['currentUrl'], "MetaTitle"),
-    'description' => getPageMetaInfo($configData['currentUrl'], "MetaDescription"),
+    'description' => getPageMetaInfo($configData['currentUrl'], "SiteTitle"),
     'keywords' => getPageMetaInfo($configData['currentUrl'], "MetaKeywords"),
     'ogImage' => getPageMetaInfo($configData['currentUrl'], "MetaOgImage"),
     'pageUrl' => getPageMetaInfo($configData['currentUrl'], "MetaPageUrl"),
@@ -64,7 +64,7 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Title and Description -->
-    <title><?= $metaData['title'] ?? 'Default Title' ?> - <?= $configData['companyName'] ?? 'Company Name' ?></title>
+    <title><?= $metaData['title'] ?? 'Default Title' ?> - <?= $configData['siteName'] ?? 'Company Name' ?></title>
     <meta name="description" content="<?= $metaData['description'] ?? '' ?>">
 
     <!-- Keywords for SEO -->

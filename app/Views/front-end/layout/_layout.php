@@ -5,7 +5,7 @@ $rootDirectory = dirname(dirname(__DIR__));
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><?=getConfigData("CompanyName");?> - <?= $this->renderSection('title', 'Home'); ?></title>
+    <title><?=getConfigData("SiteName");?> - <?= $this->renderSection('title', 'Home'); ?></title>
 
     <!-- Include the header assets -->
     <?= $this->include('front-end/layout/assets/header_assets.php'); ?>

@@ -7,10 +7,10 @@ $configData = [
     'baseUrl' => base_url(),
     'currentUrl' => current_url(),
     'maintenanceMode' => getConfigData("MaintenanceMode"),
-    'companyName' => getConfigData("CompanyName"),
-    'companyAddress' => getConfigData("CompanyAddress"),
-    'companyEmail' => getConfigData("CompanyEmail"),
-    'companyNumber' => getConfigData("CompanyNumber"),
+    'siteName' => getConfigData("SiteName"),
+    'siteAddress' => getConfigData("SiteAddress"),
+    'siteEmail' => getConfigData("SiteEmail"),
+    'sitePhoneNumber' => getConfigData("SitePhoneNumber"),
     'siteLogoLink' => getConfigData("SiteLogoLink"),
     'siteLogoTwoLink' => getConfigData("SiteLogoTwoLink"),
     'siteFaviconLink' => getConfigData("SiteFaviconLink"),
@@ -23,7 +23,7 @@ $configData = [
 $metaData = [
     'author' => getPageMetaInfo($configData['currentUrl'], "MetaAuthor"),
     'title' => getPageMetaInfo($configData['currentUrl'], "MetaTitle"),
-    'description' => getPageMetaInfo($configData['currentUrl'], "MetaDescription"),
+    'description' => getPageMetaInfo($configData['currentUrl'], "SiteTitle"),
     'keywords' => getPageMetaInfo($configData['currentUrl'], "MetaKeywords"),
     'ogImage' => getPageMetaInfo($configData['currentUrl'], "MetaOgImage"),
     'pageUrl' => getPageMetaInfo($configData['currentUrl'], "MetaPageUrl"),
@@ -63,63 +63,9 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Title and Description -->
-    <title><?= $metaData['title'] ?? 'Default Title' ?> - <?= $configData['companyName'] ?? 'Company Name' ?></title>
-    <meta name="description" content="<?= $metaData['description'] ?? '' ?>">
+    <!--Load Meta Plugin Helpers-->
+    <?=$this->include('front-end/themes/_shared/_load_meta_plugin_helpers.php'); ?>
 
-    <!-- Keywords for SEO -->
-    <meta name="keywords" content="<?= $metaData['keywords'] ?? '' ?>">
-
-    <!-- Author Information -->
-    <meta name="author" content="<?= $metaData['author'] ?? '' ?>">
-
-    <!-- Open Graph (Facebook) -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="<?= $metaData['title'] ?? '' ?>">
-    <meta property="og:description" content="<?= $metaData['description'] ?? '' ?>">
-    <meta property="og:url" content="<?= $metaData['pageUrl'] ?? '' ?>">
-    <meta property="og:image" content="<?= getImageUrl($metaData['ogImage'] ?? getDefaultImagePath()) ?>">
-    <meta property="og:site_name" content="<?= $metaData['title'] ?? '' ?>">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<?= $metaData['title'] ?? '' ?>">
-    <meta name="twitter:description" content="<?= $metaData['description'] ?? '' ?>">
-    <meta name="twitter:image" content="<?= getImageUrl($configData['siteLogoLink'] ?? getDefaultImagePath()) ?>">
-    <meta name="twitter:site" content="@<?= $metaData['author'] ?? '' ?>">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="<?= $metaData['pageUrl'] ?? '' ?>">
-
-    <!-- Robots and Indexing -->
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-
-    <!-- Theme Colors -->
-    <meta name="theme-color" content="<?= $themeData['primaryColor'] ?? '#000000' ?>">
-    <meta name="msapplication-TileColor" content="<?= $themeData['secondaryColor'] ?? '#ffffff' ?>">
-
-    <!-- Favicon and Icons -->
-    <link rel="icon" href="<?= getImageUrl($configData['siteFaviconLink'] ?? getDefaultImagePath()) ?>">
-    <link rel="apple-touch-icon" href="<?= getImageUrl($configData['siteFaviconLinkAppleTouch'] ?? getDefaultImagePath()) ?>">
-    <link rel="manifest" href="<?= getLinkUrl($configData['siteFaviconManifestLink'] ?? '') ?>">
-
-    <!-- Structured Data (JSON-LD) for Rich Snippets -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "<?= $metaData['author'] ?? '' ?>",
-        "url": "<?= $metaData['pageUrl'] ?? '' ?>",
-        "sameAs": [
-            "https://www.facebook.com/",
-            "https://twitter.com/",
-            "https://www.instagram.com/"
-        ],
-        "description": "<?= $metaData['description'] ?? '' ?>",
-        "image": "<?= getImageUrl($configData['siteLogoLink'] ?? getDefaultImagePath()) ?>"
-    }
-    </script>
 
     <!-- Remix icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css" />
@@ -176,7 +122,7 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container px-5">
             <a class="navbar-brand" href="<?= base_url('/')?>">
-                <img src="<?=getImageUrl($configData['siteLogoTwoLink'] ?? getDefaultImagePath())?>" alt="<?=$configData['companyName']?> Logo" class="border border-dark rounded" height="45">
+                <img src="<?=getImageUrl($configData['siteLogoTwoLink'] ?? getDefaultImagePath())?>" alt="<?=$configData['siteName']?> Logo" class="border border-dark rounded" height="45">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

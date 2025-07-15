@@ -1,6 +1,6 @@
 <?php
     //get site config values
-    $companyName = getConfigData("CompanyName");
+    $siteName = getConfigData("SiteName");
     $backendFaviconLink = getConfigData("BackendFaviconLink");
     $backendLogoLink = getConfigData("BackendLogoLink");
 ?>

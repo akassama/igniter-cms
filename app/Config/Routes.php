@@ -233,7 +233,7 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->post('plugins/delete-plugin', 'PluginsController::deletePlugin');
         $routes->get('plugins/manage/(:any)', 'PluginsController::managePlugin/$1');
         $routes->post('plugins/manage/(:any)', 'PluginsController::managePluginPost/$1');
-    $routes->get('plugins/instructions/(:any)', 'PluginsController::instructions/$1');
+        $routes->get('plugins/instructions/(:any)', 'PluginsController::instructions/$1');
     }
 }
 
@@ -259,7 +259,7 @@ $routes->group('htmx', function($routes) {
     //CONTENT MANAGEMENT SYSTEM
     $routes->post('set-navigation-slug', 'HtmxController::setNavigationSlug');
     $routes->post('set-meta-title', 'HtmxController::setMetaTitle');
-    $routes->post('set-meta-description', 'HtmxController::setMetaDescription');
+    $routes->post('set-meta-description', 'HtmxController::setSiteTitle');
     $routes->post('set-meta-keywords', 'HtmxController::setMetaKeywords');
     $routes->post('get-blog-title-slug', 'HtmxController::getBlogTitleSlug');
     $routes->post('get-page-title-slug', 'HtmxController::getPageTitleSlug');
@@ -270,7 +270,7 @@ $routes->group('htmx', function($routes) {
     $routes->post('get-excerpt-via-ai', 'HtmxController::getExcerptAI');
     $routes->post('get-tags-via-ai', 'HtmxController::setTagsAI');
     $routes->post('set-meta-title-via-ai', 'HtmxController::setMetaTitleAI');
-    $routes->post('set-meta-description-via-ai', 'HtmxController::setMetaDescriptionAI');
+    $routes->post('set-meta-description-via-ai', 'HtmxController::setSiteTitleAI');
     $routes->post('set-meta-keywords-via-ai', 'HtmxController::setMetaKeywordsAI');
 
     #Blog Categories#

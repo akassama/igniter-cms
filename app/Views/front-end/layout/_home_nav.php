@@ -1,6 +1,6 @@
 <?php
     //get site config values
-    $companyName = getConfigData("CompanyName");
+    $siteName = getConfigData("SiteName");
     $backendLogoLink = getConfigData("BackendLogoLink");
 ?>
 
@@ -11,7 +11,7 @@
             <?php if (!empty($backendLogoLink)): ?>
             <img src="<?= getImageUrl($backendLogoLink ?? getDefaultImagePath()) ?>" alt="Logo" class="img-thumbnail" style="max-height: 3.4rem;">
             <?php else: ?>
-                <?=$companyName;?>
+                <?=$siteName;?>
             <?php endif; ?>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

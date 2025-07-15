@@ -1,6 +1,6 @@
 <?php
     //get site config values
-    $companyName = getConfigData("CompanyName");
+    $siteName = getConfigData("SiteName");
     $backendLogoLink = getConfigData("BackendLogoLink");
 ?>
 
@@ -10,7 +10,7 @@
         <?php if (!empty($backendLogoLink)): ?>
             <img src="<?= getImageUrl($backendLogoLink ?? getDefaultImagePath()) ?>" alt="Logo" class="img-thumbnail mt-4" style="max-height: 65px;">
         <?php else: ?>
-            <?=$companyName;?>
+            <?=$siteName;?>
         <?php endif; ?>
     </a>
     <!-- Sidebar Toggle-->
