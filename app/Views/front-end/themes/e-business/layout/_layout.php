@@ -133,6 +133,10 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <!--flag-icon-css-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"/>
 
+    <!-- Core theme CSS (includes Bootstrap) -->
+    <link href="<?= base_url('public/front-end/themes/' . $theme . '/assets/css/style.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('public/front-end/themes/' . $theme . '/assets/css/custom.css') ?>" rel="stylesheet">
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
@@ -146,7 +150,7 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <link href="<?= base_url('public/front-end/themes/' . $theme . '/assets/vendor/glightbox/css/glightbox.min.css') ?>" rel="stylesheet">
 
     <!-- Main CSS File -->
-    <link href="<?= minifyCSS('public/front-end/themes/' . $theme . '/assets/css/main.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('public/front-end/themes/' . $theme . '/assets/css/main.css') ?>" rel="stylesheet">
 
     <!-- Custom CSS -->
     <?php if (!empty($themeData['customCSS'])): ?>
@@ -168,6 +172,8 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
         <?= $themeData['customJSTop'] ?>
     <?php endif; ?>
 
+    <!--Load Header Plugin Helpers-->
+    <?=$this->include('front-end/themes/_shared/_load_header_plugin_helpers.php'); ?>
 </head>
 <body class="d-flex flex-column min-vh-100">
   <header id="header" class="header d-flex align-items-center sticky-top">
@@ -215,7 +221,9 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
 
     <!-- Main Content -->
     <main class="main">
-      <?= $this->renderSection('content') ?>
+        <div class="row">
+            <?= $this->renderSection('content') ?>
+        </div>
     </main>
 
     <!-- Footer -->
@@ -306,14 +314,14 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
-  <script src="<?= base_url('public/front-end/themes/' . $theme . '/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-  <script src="<?= base_url('public/front-end/themes/' . $theme . '/assets/vendor/php-email-form/validate.js') ?>"></script>
-  <script src="<?= base_url('public/front-end/themes/' . $theme . '/assets/vendor/aos/aos.js') ?>"></script>
-  <script src="<?= base_url('public/front-end/themes/' . $theme . '/assets/vendor/purecounter/purecounter_vanilla.js') ?>"></script>
-  <script src="<?= base_url('public/front-end/themes/' . $theme . '/assets/vendor/swiper/swiper-bundle.min.js') ?>"></script>
-  <script src="<?= base_url('public/front-end/themes/' . $theme . '/assets/vendor/glightbox/js/glightbox.min.js') ?>"></script>
-  <script src="<?= base_url('public/front-end/themes/' . $theme . '/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js') ?>"></script>
-  <script src="<?= base_url('public/front-end/themes/' . $theme . '/assets/vendor/isotope-layout/isotope.pkgd.min.js') ?>"></script>
+  <script src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+  <script src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/vendor/php-email-form/validate.js') ?>"></script>
+  <script src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/vendor/aos/aos.js') ?>"></script>
+  <script src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/vendor/purecounter/purecounter_vanilla.js') ?>"></script>
+  <script src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/vendor/swiper/swiper-bundle.min.js') ?>"></script>
+  <script src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/vendor/glightbox/js/glightbox.min.js') ?>"></script>
+  <script src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js') ?>"></script>
+  <script src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/vendor/isotope-layout/isotope.pkgd.min.js') ?>"></script>
 
   <!-- Main JS File -->
   <script src="<?= minifyJS('public/front-end/themes/' . $theme . '/assets/js/main.js') ?>"></script>
@@ -326,8 +334,8 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <!-- Global modal for search -->
     <?=$this->include('front-end/themes/_shared/_global_search_modal.php'); ?>
 
-    <!--Load Plugin Helpers-->
-    <?=$this->include('front-end/themes/_shared/_load_plugin_helpers.php'); ?>
+    <!--Load Footer Plugin Helpers-->
+    <?=$this->include('front-end/themes/_shared/_load_footer_plugin_helpers.php'); ?>
 
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
