@@ -43,6 +43,20 @@ class PluginsController extends BaseController
         return view('back-end/plugins/index', ['plugins' => $plugins]);
     }
 
+    public function instructions($slug)
+    {
+        $instructionsPath = APPPATH . 'Plugins/' . $slug . '/instructions.php';
+        if (is_file($instructionsPath)) {
+            // Start output buffering to capture the instructions.php content
+            ob_start();
+            include $instructionsPath;
+            $content = ob_get_clean();
+            return $this->response->setJSON(['content' => $content]);
+        } else {
+            return $this->response->setJSON(['error' => 'Instructions not found'], 404);
+        }
+    }
+
     public function pluginConfigurations()
     {
         $tableName = 'plugin_configs';

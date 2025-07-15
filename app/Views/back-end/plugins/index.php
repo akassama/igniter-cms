@@ -36,7 +36,7 @@
             <select class="form-select me-2" style="width: 200px;">
                <option selected>Bulk Actions</option>
                <option value="update">Activate Selected</option>
-               <option value="update">Dectivate Selected</option>
+               <option value="update">Deactivate Selected</option>
                <option value="delete">Delete Selected</option>
             </select>
             <button class="btn btn-primary">Apply</button>
@@ -74,7 +74,7 @@
                                 <small class="text-muted">
                                     Version <?= esc($plugin['version']) ?> | 
                                     By <?= esc($plugin['author']) ?> | 
-                                    <a href="<?= esc($plugin['plugin_url']) ?>" target="_blank">View details</a>
+                                    <a href="#" class="view-details" data-slug="<?= esc($plugin['slug']) ?>" data-bs-toggle="modal" data-bs-target="#pluginModalId">View details</a>
                                 </small>
                                 <?php if ($updateAvailable == "1"): ?>
                                     |  <a href="<?=base_url('account/plugins/install-plugins?q='.$plugin['slug'])?>" class="me-1 text-success">Update Available</a>
@@ -100,9 +100,9 @@
             <p>No plugins are currently available.</p>
          <?php endif; ?>
 
-         <!-- jQuery for "Select All" -->
+         <!-- jQuery for "Select All" and Modal Content Loading -->
          <script>
-            //
+            // Select All functionality
             $('#select-all').on('change', function () {
                 $('.row-checkbox').prop('checked', this.checked);
             });
@@ -113,6 +113,7 @@
                 );
             });
 
+            // Confirm Delete functionality
             function confirmDelete(pluginName, pluginSlug) {
                 Swal.fire({
                     title: 'Are you sure?',
@@ -145,14 +146,58 @@
                         document.body.appendChild(form);
                         form.submit();
 
-                        // Remove the form from the body after submit (optional)
+                        // Remove the form from the body after submit
                         document.body.removeChild(form);
                     }
                 });
             }
+
+            // Load plugin instructions via AJAX
+            $(document).ready(function() {
+                $('.view-details').on('click', function() {
+                    const slug = $(this).data('slug');
+                    $.ajax({
+                        url: '<?= base_url('/account/plugins/instructions/') ?>' + slug,
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.content) {
+                                $('#plugin-instructions-div').html(response.content);
+                            } else {
+                                $('#plugin-instructions-div').html('<p>Error loading instructions.</p>');
+                            }
+                        },
+                        error: function() {
+                            $('#plugin-instructions-div').html('<p>Failed to load instructions. Please try again.</p>');
+                        }
+                    });
+                });
+            });
          </script>
       </div>
    </div>
+</div>
+
+<!-- Plugin Instructions Modal -->
+<div class="modal fade" id="pluginModalId">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" id="plugin-instructions-div">
+        <!-- Instructions content will be loaded here -->
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- end main content -->
 <?= $this->endSection() ?>
