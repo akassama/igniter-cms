@@ -197,9 +197,6 @@ $userRole = getUserRole($sessionEmail);
                                     <a class="nav-link <?= (str_contains(current_url(), 'account/plugins/configurations')) ? 'active' : ''; ?>" href="<?= base_url('/account/plugins/configurations'); ?>">
                                         <i class="ri-arrow-drop-right-fill"></i> Plugin Configs
                                     </a>
-                                    <a class="nav-link <?= (str_contains(current_url(), 'account/plugins/data')) ? 'active' : ''; ?>" href="<?= base_url('/account/plugins/data'); ?>">
-                                        <i class="ri-arrow-drop-right-fill"></i> Plugin Data
-                                    </a>
                                 </nav>
                             </div>
                         <?php endif; ?>

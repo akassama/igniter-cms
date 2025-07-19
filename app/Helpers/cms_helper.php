@@ -796,6 +796,7 @@ if(!function_exists('getPaginatedRecords')) {
  *                               or null if no matching record is found.
  * @example
  * $title = getTableData('posts', ['id' => 1], 'title');
+ * $configValue = getTableData('configs', ['slug' => 'sample-slug', 'key' => 'config_key'], 'config_value');
  * $post = getTableData('posts', ['id' => 1], '*'); // Returns full row object
  */
 if (!function_exists('getTableData')) {
@@ -816,7 +817,6 @@ if (!function_exists('getTableData')) {
         return null;
     }
 }
-
 
 /**
  * Execute a custom SQL query.
@@ -2641,179 +2641,6 @@ if (!function_exists('getThemeData')) {
     }
 }
 
-/**
- * Retrieves page meta information based on the given URL and meta type.
- * 
- * This function dynamically determines meta information for different page types
- * by analyzing the URL and fetching data from various sources (config, database).
- * 
- * @param {string} $pageUrl - The full URL of the page
- * @param {string} $metaType - The type of meta information to retrieve 
- *                              (e.g., 'metaTitle', 'siteTitle', etc.)
- * @returns {string} The requested meta information
- */
-if (!function_exists('getPageMetaInfo')) {
-    function getPageMetaInfo($pageUrl, $metaType)
-    {
-        try {
-
-            // Remove index.php from URL if it exists
-            $pageUrl = removeIndexPhp($pageUrl);
-            $baseUrl = base_url();
-
-            // Initialize default meta data from configuration
-            $metaAuthor = getConfigData("MetaAuthor");
-            $metaTitle = getConfigData("MetaTitle");
-            $siteTitle = getConfigData("SiteTitle");
-            $metaKeywords = getConfigData("MetaKeywords");
-            $metaOgImage = getConfigData("MetaOgImage");
-            $metaPageUrl = $pageUrl;
-
-            // Remove base URL to get relative path
-            $relativePath = str_replace($baseUrl, '', $pageUrl);
-            $relativePath = rtrim($relativePath, '/');
-
-            // Default model and slug
-            $model = "default";
-            $slugId = "";
-
-            // Determine the model and slugId based on the relative path
-            // This section uses an array-based approach for easier maintenance
-            $pathMappings = [
-                'blog/' => [
-                    'model' => 'blogs',
-                    'metaFields' => [
-                        'author' => 'created_by',
-                        'title' => 'meta_title',
-                        'description' => 'meta_description',
-                        'keywords' => 'meta_keywords',
-                        'ogImage' => 'featured_image'
-                    ]
-                ],
-            ];
-
-            // Special page mappings
-            $specialPages = [
-                'blogs' => [
-                    'model' => 'blogsPage',
-                    'metaTitleConfig' => 'BlogsPageMetaTitle',
-                    'metaDescConfig' => 'BlogsPageSiteTitle',
-                    'metaKeywordsConfig' => 'BlogsPageMetaKeywords'
-                ],
-                'search' => [
-                    'model' => 'searchPage',
-                    'metaTitleConfig' => 'SearchPageMetaTitle',
-                    'metaDescConfig' => 'SearchPageSiteTitle',
-                    'metaKeywordsConfig' => 'SearchPageMetaKeywords'
-                ],
-                'search/filter' => [
-                    'model' => 'searchPageFilter',
-                    'metaTitleConfig' => 'SearchFilterPageMetaTitle',
-                    'metaDescConfig' => 'SearchFilterPageSiteTitle',
-                    'metaKeywordsConfig' => 'SearchFilterPageMetaKeywords'
-                ]
-            ];
-
-            // Check for specific page types first
-            if (isset($specialPages[$relativePath])) {
-                $pageConfig = $specialPages[$relativePath];
-                $model = $pageConfig['model'];
-
-                $metaTitle = getConfigData($pageConfig['metaTitleConfig']);
-                $siteTitle = getConfigData($pageConfig['metaDescConfig']);
-                $metaKeywords = getConfigData($pageConfig['metaKeywordsConfig']);
-            }
-            // Check for dynamic pages with prefixes
-            else {
-                foreach ($pathMappings as $prefix => $config) {
-                    if (strpos($relativePath, $prefix) !== false) {
-                        $model = $config['model'];
-                        $slugId = str_replace($prefix, '', $relativePath);
-
-                        // Dynamically fetch meta information
-                        $metaAuthor = getActivityBy(
-                            getTableData($model, ['slug' => $slugId], $config['metaFields']['author'])
-                        );
-                        $metaTitle = getTableData($model, ['slug' => $slugId], $config['metaFields']['title']);
-                        $siteTitle = getTableData($model, ['slug' => $slugId], $config['metaFields']['description']);
-                        $metaKeywords = getTableData($model, ['slug' => $slugId], $config['metaFields']['keywords']);
-                        $metaOgImage = getTableData($model, ['slug' => $slugId], $config['metaFields']['ogImage']);
-                        break;
-                    }
-                }
-
-                // Handle single page without prefix
-                if ($model === 'default' && strpos($relativePath, '/') === false) {
-                    $model = "pages";
-                    $slugId = $relativePath;
-                    $metaAuthor = getActivityBy(
-                        getTableData('pages', ['slug' => $slugId], 'created_by')
-                    );
-                    $metaTitle = getTableData('pages', ['slug' => $slugId], 'meta_title');
-                    $siteTitle = getTableData('pages', ['slug' => $slugId], 'meta_description');
-                    $metaKeywords = getTableData('pages', ['slug' => $slugId], 'meta_keywords');
-                }
-            }
-
-            // Return specific meta information based on type
-            switch (strtolower($metaType)) {
-                /**
-                 * Retrieve the page meta author
-                 * @type {string}
-                 */
-                case 'metaauthor':
-                    return $metaAuthor;
-
-                /**
-                 * Retrieve the page meta title, falling back to default if not set
-                 * @type {string}
-                 */
-                case 'metatitle':
-                    return $metaTitle ?? getConfigData("MetaTitle");
-
-                /**
-                 * Retrieve the page meta description
-                 * @type {string}
-                 */
-                case 'metadescription':
-                    return $siteTitle ?? getConfigData("SiteTitle");
-
-                /**
-                 * Retrieve the page meta keywords
-                 * @type {string}
-                 */
-                case 'metakeywords':
-                    return $metaKeywords ?? getConfigData("MetaKeywords");
-
-                /**
-                 * Retrieve the page Open Graph image
-                 * @type {string}
-                 */
-                case 'metaogimage':
-                    return $metaOgImage ?? getConfigData("MetaOgImage");
-
-                /**
-                 * Retrieve the full page URL
-                 * @type {string}
-                 */
-                case 'metapageurl':
-                    return $metaPageUrl;
-
-                /**
-                 * Default case - return empty string for unrecognized meta types
-                 * @type {string}
-                 */
-                default:
-                    return "";
-            }
-        }
-            //catch exception
-        catch(Exception $e) {
-            return "NA";
-        }
-
-    }
-}
 
 /**
  * Updates the total view count for a specific record in a table.

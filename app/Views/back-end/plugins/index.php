@@ -82,15 +82,15 @@
                             </td>
                             <td>
                                 <?php if ($pluginStatus == "1"): ?>
-                                    <a href="<?=base_url('account/plugins/manage/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-primary me-1">Manage</a>
+                                    <a href="<?=base_url('account/plugins/manage/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-primary me-1 mb-1">Manage</a>
                                 <?php endif; ?>
                                 <?php if ($pluginStatus == "0"): ?>
-                                    <a href="<?=base_url('account/plugins/activate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-success me-1">Activate</a>
+                                    <a href="<?=base_url('account/plugins/activate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-success me-1 mb-1">Activate</a>
                                 <?php elseif ($pluginStatus == "1"): ?>
-                                    <a href="<?=base_url('account/plugins/deactivate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-warning text-dark me-1">Deactivate</a>
+                                    <a href="<?=base_url('account/plugins/deactivate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-warning text-dark me-1 mb-1">Deactivate</a>
                                 <?php endif; ?>
 
-                                <a href="#" class="btn btn-sm btn-outline-danger me-1" onclick="confirmDelete('<?=$plugin['name']?>', '<?=$plugin['slug']?>')">Delete</a>
+                                <a href="#" class="btn btn-sm btn-outline-danger me-1 mb-1" onclick="confirmDelete('<?=$plugin['name']?>', '<?=$plugin['slug']?>')">Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

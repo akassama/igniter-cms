@@ -2,26 +2,11 @@
 // This is to get current impact
 $theme = getCurrentTheme();
 
-//get site config values
-$siteName = getConfigData("SiteName");
-$siteAddress = getConfigData("SiteAddress");
-$siteEmail = getConfigData("SiteEmail");
-$sitePhoneNumber = getConfigData("SitePhoneNumber");
-$companyOpeningHours = getConfigData("CompanyOpeningHours");
-$metaAuthor = getConfigData("MetaAuthor");
-$metaTitle = getConfigData("MetaTitle");
-$siteTitle = getConfigData("SiteTitle");
-$metaKeywords = getConfigData("MetaKeywords");
-$siteLogoLink = getConfigData("SiteLogoLink");
-$siteLogoTwoLink = getConfigData("SiteLogoTwoLink");
-$siteFaviconLink = getConfigData("SiteFaviconLink");
-$siteFaviconManifestLink = getConfigData("SiteFaviconManifestLink");
-$siteFaviconLink96 = getConfigData("SiteFaviconLink96");
-$siteFaviconLinkAppleTouch = getConfigData("SiteFaviconLinkAppleTouch");
-
 //page settings
 $currentPage = "home";
 $popUpWhereClause = ['status' => 1];
+
+$enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 'config_key' => 'enable_home_seo'], 'config_value');
 ?>
 
 <!-- include theme layout -->
@@ -30,7 +15,7 @@ $popUpWhereClause = ['status' => 1];
 <!-- begin main content -->
 <?= $this->section('content') ?>
   <!-- ////// BEGIN Get Home Pages ///// -->
-
+  <h1><?=$enableHomeSeo?></h1>
   <!-- ////// END Home Pages ///// -->
 
 

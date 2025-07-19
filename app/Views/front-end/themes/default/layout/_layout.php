@@ -1,34 +1,6 @@
 <?php
 // Get current theme
 $theme = getCurrentTheme();
-
-// Get site config values
-$configData = [
-    'baseUrl' => base_url(),
-    'currentUrl' => current_url(),
-    'maintenanceMode' => getConfigData("MaintenanceMode"),
-    'siteName' => getConfigData("SiteName"),
-    'siteAddress' => getConfigData("SiteAddress"),
-    'siteEmail' => getConfigData("SiteEmail"),
-    'sitePhoneNumber' => getConfigData("SitePhoneNumber"),
-    'siteLogoLink' => getConfigData("SiteLogoLink"),
-    'siteLogoTwoLink' => getConfigData("SiteLogoTwoLink"),
-    'siteFaviconLink' => getConfigData("SiteFaviconLink"),
-    'siteFaviconManifestLink' => getConfigData("SiteFaviconManifestLink"),
-    'siteFaviconLink96' => getConfigData("SiteFaviconLink96"),
-    'siteFaviconLinkAppleTouch' => getConfigData("SiteFaviconLinkAppleTouch"),
-];
-
-// Get meta data
-$metaData = [
-    'author' => getPageMetaInfo($configData['currentUrl'], "MetaAuthor"),
-    'title' => getPageMetaInfo($configData['currentUrl'], "MetaTitle"),
-    'description' => getPageMetaInfo($configData['currentUrl'], "SiteTitle"),
-    'keywords' => getPageMetaInfo($configData['currentUrl'], "MetaKeywords"),
-    'ogImage' => getPageMetaInfo($configData['currentUrl'], "MetaOgImage"),
-    'pageUrl' => getPageMetaInfo($configData['currentUrl'], "MetaPageUrl"),
-];
-
 // Get theme data
 $themeData = [
     'customCSS' => getTableData('codes', ['code_for' => 'CSS'], 'code'),
@@ -44,28 +16,15 @@ $navigationsModel = new \App\Models\NavigationsModel();
 $topNavLists = $navigationsModel->where('group', 'top_nav')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
 $footerNavLists = $navigationsModel->where('group', 'footer_nav')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
 $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
-
-// Maintenance mode
-if (strtolower($configData['maintenanceMode']) === "yes") {
-    echo $this->include('front-end/themes/_shared/_maintenance_page.php');
-    exit();
-}
 ?>
 
-<!-- Include Theme Functions -->
 <?= $this->include('front-end/themes/'.$theme.'/includes/_functions.php'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Essential Meta Tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!--Load Meta Plugin Helpers-->
     <?=$this->include('front-end/themes/_shared/_load_meta_plugin_helpers.php'); ?>
-
 
     <!-- Remix icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css" />
@@ -122,7 +81,7 @@ if (strtolower($configData['maintenanceMode']) === "yes") {
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container px-5">
             <a class="navbar-brand" href="<?= base_url('/')?>">
-                <img src="<?=getImageUrl($configData['siteLogoTwoLink'] ?? getDefaultImagePath())?>" alt="<?=$configData['siteName']?> Logo" class="border border-dark rounded" height="45">
+                <img src="<?=getImageUrl(getConfigData("SiteLogoLink") ?? getDefaultImagePath())?>" alt="<?=getConfigData("SiteLogoLink")?> Logo" class="border border-dark rounded" height="45">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

@@ -32,5 +32,9 @@ echo generateBreadcrumb($breadcrumb_links);
         </div>
     </div>
 </div>
+
+<!-- Include the files modal -->
+<?=  $this->include('back-end/layout/modals/files_modal.php'); ?>
+
 <!-- end main content -->
 <?= $this->endSection() ?>

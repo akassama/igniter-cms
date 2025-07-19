@@ -7,7 +7,6 @@ $siteName = getConfigData("SiteName");
 $siteAddress = getConfigData("SiteAddress");
 $siteEmail = getConfigData("SiteEmail");
 $sitePhoneNumber = getConfigData("SitePhoneNumber");
-$companyOpeningHours = getConfigData("CompanyOpeningHours");
 $metaAuthor = getConfigData("MetaAuthor");
 $metaTitle = getConfigData("MetaTitle");
 $siteTitle = getConfigData("SiteTitle");

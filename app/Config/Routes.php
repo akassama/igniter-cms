@@ -223,8 +223,6 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('plugins', 'PluginsController::index');
         $routes->get('plugins/configurations', 'PluginsController::pluginConfigurations');
         $routes->post('plugins/update-plugin-config', 'PluginsController::updatePluginConfig');
-        $routes->get('plugins/data', 'PluginsController::pluginData');
-        $routes->post('plugins/update-plugin-dada', 'PluginsController::updatePluginData');
         $routes->get('plugins/install-plugins', 'PluginsController::installPlugins');
         $routes->get('plugins/upload-plugin', 'PluginsController::uploadPlugin');
         $routes->post('plugins/upload-plugin', 'PluginsController::addPlugin');
@@ -366,21 +364,6 @@ $routes->group('api', ['filter' => ['apiAccessFilter','corsFilter']],  function(
     $routes->get('(:segment)/filter-search-results', 'APIController::filterSearchResults/$1');
 });
 
-// PluginData API
-$routes->group('plugin-data-api', ['filter' => ['pluginApiAccessFilter']],  function($routes) {
-    // GET PluginData (GET Request)
-    $routes->get('(:segment)/get-plugin-data/(:segment)', 'PluginDataController::getPluginData/$1/$2');
-    $routes->get('(:segment)/get-plugin-datas', 'PluginDataController::getPluginDatas/$1');
-
-    // ADD PluginData (POST Request)
-    $routes->post('(:segment)/create-plugin-data', 'PluginDataController::createPluginData/$1');
-
-    // UPDATE PluginData (PUT Request)
-    $routes->put('(:segment)/update-plugin-data/(:segment)', 'PluginDataController::updatePluginData/$1/$2');
-
-    // DELETE PluginData (DELETE Request)
-    $routes->delete('(:segment)/delete-plugin-data/(:segment)', 'PluginDataController::deletePluginData/$1/$2');
-});
 
 $frontEndFormat = getConfigData("FrontEndFormat");
 if(strtolower($frontEndFormat) === "mvc")
