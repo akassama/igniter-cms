@@ -159,6 +159,199 @@ class APIController extends BaseController
         }
     }
 
+    // GENERIC ADD PLUGIN DATA
+    public function addPluginData($param = null)
+    {
+        $db = \Config\Database::connect();
+        
+        // Get JSON raw body and decode it to an associative array
+        $requestData = $this->request->getJSON(true); 
+
+        // Extract table name and data from the decoded JSON
+        $tableName = $requestData['table'] ?? null;
+        $dataToInsert = $requestData; // The entire JSON body is the data to insert, excluding 'table'
+
+        // Unset the 'table' key from dataToInsert as it's not a column
+        if (isset($dataToInsert['table'])) {
+            unset($dataToInsert['table']);
+        }
+
+        if (empty($tableName)) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Table name is required.'
+            ]);
+        }
+
+        // Security check for table name prefix
+        if (!$this->startsWith($tableName, "icp_")) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Invalid table name. Only plugin tables (prefixed with "icp_") are allowed.'
+            ]);
+        }
+
+        if (empty($dataToInsert)) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'No data provided for insertion.'
+            ]);
+        }
+
+        try {
+            $builder = $db->table($tableName);
+            
+            // Insert the data
+            $builder->insert($dataToInsert);
+            
+            // Get the ID of the newly inserted record
+            $insertedId = $db->insertID();
+
+            return $this->response->setStatusCode(201)->setJSON([
+                'status' => 'success',
+                'message' => 'Data added successfully.',
+                'id' => $insertedId,
+                'data' => $dataToInsert // Return the data that was inserted
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', 'Database error in addPluginData: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON([
+                'status' => 'error',
+                'message' => 'Database error: There was an error adding data.',
+                'debug' => $e->getMessage() // For debugging, remove in production
+            ]);
+        }
+    }
+
+    // GENERIC UPDATE PLUGIN DATA
+    public function updatePluginData($param = null)
+    {
+        $db = \Config\Database::connect();
+        
+        // Get JSON raw body and decode it to an associative array
+        $requestData = $this->request->getJSON(true); 
+
+        // Extract table name, ID, and data from the decoded JSON
+        $tableName = $requestData['table'] ?? null;
+        $id = $requestData['id'] ?? null;
+        $dataToUpdate = $requestData; // The entire JSON body is the data to update
+
+        // Unset 'table' and 'id' keys from dataToUpdate as they are not columns to update
+        if (isset($dataToUpdate['table'])) {
+            unset($dataToUpdate['table']);
+        }
+        if (isset($dataToUpdate['id'])) {
+            unset($dataToUpdate['id']);
+        }
+
+        if (empty($tableName) || empty($id)) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Table name and record ID are required.'
+            ]);
+        }
+
+        // Security check for table name prefix
+        if (!$this->startsWith($tableName, "icp_")) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Invalid table name. Only plugin tables (prefixed with "icp_") are allowed.'
+            ]);
+        }
+
+        if (empty($dataToUpdate)) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'No data provided for update.'
+            ]);
+        }
+
+        try {
+            $builder = $db->table($tableName);
+            
+            // Perform the update based on ID
+            $builder->where('id', $id)->update($dataToUpdate);
+
+            // Check if any rows were affected
+            if ($db->affectedRows() > 0) {
+                return $this->response->setStatusCode(200)->setJSON([
+                    'status' => 'success',
+                    'message' => 'Data updated successfully.',
+                    'id' => $id,
+                    'updated_data' => $dataToUpdate
+                ]);
+            } else {
+                return $this->response->setStatusCode(404)->setJSON([
+                    'status' => 'error',
+                    'message' => 'Record not found or no changes made.'
+                ]);
+            }
+        } catch (\Exception $e) {
+            log_message('error', 'Database error in updatePluginData: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON([
+                'status' => 'error',
+                'message' => 'Database error: There was an error updating data.',
+                'debug' => $e->getMessage() // For debugging, remove in production
+            ]);
+        }
+    }
+
+    // GENERIC DELETE PLUGIN DATA
+    public function deletePluginData($param = null)
+    {
+        $db = \Config\Database::connect();
+        
+        // Get JSON raw body and decode it to an associative array
+        $requestData = $this->request->getJSON(true); 
+
+        // Extract table name and ID from the decoded JSON
+        $tableName = $requestData['table'] ?? null;
+        $id = $requestData['id'] ?? null;
+
+        if (empty($tableName) || empty($id)) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Table name and record ID are required.'
+            ]);
+        }
+
+        // Security check for table name prefix
+        if (!$this->startsWith($tableName, "icp_")) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Invalid table name. Only plugin tables (prefixed with "icp_") are allowed.'
+            ]);
+        }
+
+        try {
+            $builder = $db->table($tableName);
+            
+            // Perform the delete based on ID
+            $builder->where('id', $id)->delete();
+
+            // Check if any rows were affected
+            if ($db->affectedRows() > 0) {
+                return $this->response->setStatusCode(200)->setJSON([
+                    'status' => 'success',
+                    'message' => 'Record deleted successfully.',
+                    'id' => $id
+                ]);
+            } else {
+                return $this->response->setStatusCode(404)->setJSON([
+                    'status' => 'error',
+                    'message' => 'Record not found.'
+                ]);
+            }
+        } catch (\Exception $e) {
+            log_message('error', 'Database error in deletePluginData: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON([
+                'status' => 'error',
+                'message' => 'Database error: There was an error deleting data.',
+                'debug' => $e->getMessage() // For debugging, remove in production
+            ]);
+        }
+    }
+
     private function startsWith($string, $startString) { 
         $len = strlen($startString); 
         return (substr($string, 0, $len) === $startString); 

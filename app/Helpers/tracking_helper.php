@@ -511,7 +511,7 @@ function shouldLogVisit($currentUrl) {
 if (!function_exists('isAllowedModelRoute')) {
     function isAllowedModelRoute($urlSegment)
     {
-        $allowedRoutes = array("get-model-data", "get-plugin-data");
+        $allowedRoutes = array("get-model-data", "get-plugin-data", "add-plugin-data", "update-plugin-data", "delete-plugin-data");
         return in_array($urlSegment, $allowedRoutes);
     }
 }
