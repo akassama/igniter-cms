@@ -74,7 +74,7 @@
                                 <small class="text-muted">
                                     Version <?= esc($plugin['version']) ?> | 
                                     By <?= esc($plugin['author']) ?> | 
-                                    <a href="#" class="view-details" data-slug="<?= esc($plugin['slug']) ?>" data-bs-toggle="modal" data-bs-target="#pluginModalId">View details</a>
+                                    <a href="javascript:void(0)" class="view-details" data-slug="<?= esc($plugin['slug']) ?>" data-bs-toggle="modal" data-bs-target="#pluginModalId">View details</a>
                                 </small>
                                 <?php if ($updateAvailable == "1"): ?>
                                     |  <a href="<?=base_url('account/plugins/install-plugins?q='.$plugin['slug'])?>" class="me-1 text-success">Update Available</a>
@@ -90,7 +90,7 @@
                                     <a href="<?=base_url('account/plugins/deactivate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-warning text-dark me-1 mb-1">Deactivate</a>
                                 <?php endif; ?>
 
-                                <a href="#" class="btn btn-sm btn-outline-danger me-1 mb-1" onclick="confirmDelete('<?=$plugin['name']?>', '<?=$plugin['slug']?>')">Delete</a>
+                                <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger me-1 mb-1" onclick="confirmDelete('<?=$plugin['name']?>', '<?=$plugin['slug']?>')">Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

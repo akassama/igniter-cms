@@ -107,21 +107,21 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#team">Team</a></li>
-          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li class="dropdown"><a href="javascript:void(0)"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">Dropdown 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <li><a href="javascript:void(0)">Dropdown 1</a></li>
+              <li class="dropdown"><a href="javascript:void(0)"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                 <ul>
-                  <li><a href="#">Deep Dropdown 1</a></li>
-                  <li><a href="#">Deep Dropdown 2</a></li>
-                  <li><a href="#">Deep Dropdown 3</a></li>
-                  <li><a href="#">Deep Dropdown 4</a></li>
-                  <li><a href="#">Deep Dropdown 5</a></li>
+                  <li><a href="javascript:void(0)">Deep Dropdown 1</a></li>
+                  <li><a href="javascript:void(0)">Deep Dropdown 2</a></li>
+                  <li><a href="javascript:void(0)">Deep Dropdown 3</a></li>
+                  <li><a href="javascript:void(0)">Deep Dropdown 4</a></li>
+                  <li><a href="javascript:void(0)">Deep Dropdown 5</a></li>
                 </ul>
               </li>
-              <li><a href="#">Dropdown 2</a></li>
-              <li><a href="#">Dropdown 3</a></li>
-              <li><a href="#">Dropdown 4</a></li>
+              <li><a href="javascript:void(0)">Dropdown 2</a></li>
+              <li><a href="javascript:void(0)">Dropdown 3</a></li>
+              <li><a href="javascript:void(0)">Dropdown 4</a></li>
             </ul>
           </li>
           <li><a href="#contact">Contact</a></li>
@@ -178,20 +178,20 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
             <div class="col-lg-2 col-md-3 footer-links">
               <h4>Useful Links</h4>
               <ul>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="javascript:void(0)">Home</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="javascript:void(0)">About us</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="javascript:void(0)">Services</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="javascript:void(0)">Terms of service</a></li>
               </ul>
             </div>
 
             <div class="col-lg-2 col-md-3 footer-links">
               <h4>Our Services</h4>
               <ul>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="javascript:void(0)">Web Design</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="javascript:void(0)">Web Development</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="javascript:void(0)">Product Management</a></li>
+                <li><i class="bi bi-chevron-right"></i> <a href="javascript:void(0)">Marketing</a></li>
               </ul>
             </div>
 
@@ -223,7 +223,7 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
       </footer>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="javascript:void(0)" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
   <div id="preloader"></div>

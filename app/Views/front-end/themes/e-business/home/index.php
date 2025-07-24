@@ -483,7 +483,7 @@ $popUpWhereClause = ['status' => 1];
                 </div>
               </div>
               <div class="card-footer">
-                <a href="#" class="btn-explore">
+                <a href="javascript:void(0)" class="btn-explore">
                   Explore Service
                   <i class="bi bi-arrow-up-right"></i>
                 </a>
@@ -506,7 +506,7 @@ $popUpWhereClause = ['status' => 1];
                 </div>
               </div>
               <div class="card-footer">
-                <a href="#" class="btn-explore">
+                <a href="javascript:void(0)" class="btn-explore">
                   Explore Service
                   <i class="bi bi-arrow-up-right"></i>
                 </a>
@@ -529,7 +529,7 @@ $popUpWhereClause = ['status' => 1];
                 </div>
               </div>
               <div class="card-footer">
-                <a href="#" class="btn-explore">
+                <a href="javascript:void(0)" class="btn-explore">
                   Explore Service
                   <i class="bi bi-arrow-up-right"></i>
                 </a>
@@ -552,7 +552,7 @@ $popUpWhereClause = ['status' => 1];
                 </div>
               </div>
               <div class="card-footer">
-                <a href="#" class="btn-explore">
+                <a href="javascript:void(0)" class="btn-explore">
                   Explore Service
                   <i class="bi bi-arrow-up-right"></i>
                 </a>
@@ -907,7 +907,7 @@ $popUpWhereClause = ['status' => 1];
                 </div>
 
                 <div class="cta-actions" data-aos="fade-up" data-aos-delay="600">
-                  <a href="#" class="btn btn-cta-primary">Get Started Free</a>
+                  <a href="javascript:void(0)" class="btn btn-cta-primary">Get Started Free</a>
                   <div class="secondary-action">
                     <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="btn btn-cta-secondary glightbox">
                       <i class="bi bi-play-circle"></i>
@@ -1116,7 +1116,7 @@ $popUpWhereClause = ['status' => 1];
                 </li>
               </ul>
 
-              <a href="#" class="btn btn-primary">
+              <a href="javascript:void(0)" class="btn btn-primary">
                 Buy Now
                 <i class="bi bi-arrow-right"></i>
               </a>
@@ -1155,7 +1155,7 @@ $popUpWhereClause = ['status' => 1];
                 </li>
               </ul>
 
-              <a href="#" class="btn btn-light">
+              <a href="javascript:void(0)" class="btn btn-light">
                 Buy Now
                 <i class="bi bi-arrow-right"></i>
               </a>
@@ -1197,7 +1197,7 @@ $popUpWhereClause = ['status' => 1];
                 </li>
               </ul>
 
-              <a href="#" class="btn btn-primary">
+              <a href="javascript:void(0)" class="btn btn-primary">
                 Buy Now
                 <i class="bi bi-arrow-right"></i>
               </a>
@@ -1297,9 +1297,9 @@ $popUpWhereClause = ['status' => 1];
                 <img src="https://bootstrapmade.com/content/demo/eBusiness/assets/img/person/person-f-3.webp" class="img-fluid" alt="" loading="lazy">
                 <div class="role-badge">Senior Developer</div>
                 <div class="social-icons">
-                  <a href="#"><i class="bi bi-linkedin"></i></a>
-                  <a href="#"><i class="bi bi-twitter-x"></i></a>
-                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="javascript:void(0)"><i class="bi bi-linkedin"></i></a>
+                  <a href="javascript:void(0)"><i class="bi bi-twitter-x"></i></a>
+                  <a href="javascript:void(0)"><i class="bi bi-instagram"></i></a>
                 </div>
               </div>
               <div class="member-info">
@@ -1315,9 +1315,9 @@ $popUpWhereClause = ['status' => 1];
                 <img src="https://bootstrapmade.com/content/demo/eBusiness/assets/img/person/person-m-9.webp" class="img-fluid" alt="" loading="lazy">
                 <div class="role-badge">Creative Director</div>
                 <div class="social-icons">
-                  <a href="#"><i class="bi bi-linkedin"></i></a>
-                  <a href="#"><i class="bi bi-twitter-x"></i></a>
-                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="javascript:void(0)"><i class="bi bi-linkedin"></i></a>
+                  <a href="javascript:void(0)"><i class="bi bi-twitter-x"></i></a>
+                  <a href="javascript:void(0)"><i class="bi bi-instagram"></i></a>
                 </div>
               </div>
               <div class="member-info">
@@ -1333,9 +1333,9 @@ $popUpWhereClause = ['status' => 1];
                 <img src="https://bootstrapmade.com/content/demo/eBusiness/assets/img/person/person-f-8.webp" class="img-fluid" alt="" loading="lazy">
                 <div class="role-badge">Project Manager</div>
                 <div class="social-icons">
-                  <a href="#"><i class="bi bi-linkedin"></i></a>
-                  <a href="#"><i class="bi bi-twitter-x"></i></a>
-                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="javascript:void(0)"><i class="bi bi-linkedin"></i></a>
+                  <a href="javascript:void(0)"><i class="bi bi-twitter-x"></i></a>
+                  <a href="javascript:void(0)"><i class="bi bi-instagram"></i></a>
                 </div>
               </div>
               <div class="member-info">
@@ -1351,9 +1351,9 @@ $popUpWhereClause = ['status' => 1];
                 <img src="https://bootstrapmade.com/content/demo/eBusiness/assets/img/person/person-m-12.webp" class="img-fluid" alt="" loading="lazy">
                 <div class="role-badge">Business Analyst</div>
                 <div class="social-icons">
-                  <a href="#"><i class="bi bi-linkedin"></i></a>
-                  <a href="#"><i class="bi bi-twitter-x"></i></a>
-                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="javascript:void(0)"><i class="bi bi-linkedin"></i></a>
+                  <a href="javascript:void(0)"><i class="bi bi-twitter-x"></i></a>
+                  <a href="javascript:void(0)"><i class="bi bi-instagram"></i></a>
                 </div>
               </div>
               <div class="member-info">

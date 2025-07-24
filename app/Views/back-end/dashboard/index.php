@@ -256,6 +256,8 @@
             </div>
         </div>
 
+        <div class="row" id="custom-analytics"></div>
+
         <!--Recent Posts-->
         <div class="card mb-4">
             <div class="card-header fw-bold">
