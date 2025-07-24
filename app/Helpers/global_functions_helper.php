@@ -438,7 +438,6 @@ if (!function_exists('removeTextSpace')) {
     }
 }
 
-
 /**
  * Validates an API key by checking its existence and status in the database.
  * 
@@ -448,6 +447,13 @@ if (!function_exists('removeTextSpace')) {
 if (!function_exists('isValidApiKey')) {
     function isValidApiKey($apiKey)
     {
+        //check if key is from env
+        $publicApiKey = env("PLUGIN_API_REQUEST_KEY");
+        if($apiKey === $publicApiKey){
+            return true;
+        }
+
+        //check if key is valid api key
         $apiAccessModel = new \App\Models\APIAccessModel();
         $apiAccess = $apiAccessModel->where(['api_key' => $apiKey, 'status' => 1])->first();
 

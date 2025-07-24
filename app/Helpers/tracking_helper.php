@@ -508,51 +508,13 @@ function shouldLogVisit($currentUrl) {
  * @param string $urlSegment The request segment (e.g., 'get-blog').
  * @return bool Returns true if the model is allowed, otherwise false.
  */
-if (!function_exists('isAllowedModel')) {
-    function isAllowedModel($urlSegment)
+if (!function_exists('isAllowedModelRoute')) {
+    function isAllowedModelRoute($urlSegment)
     {
-        //Mapping of request segments to their respective model names.
-        $requestModels = [
-            'get-all-blogs' => 'BlogsModel',
-            'get-blog' => 'BlogsModel',
-            'get-blogs' => 'BlogsModel',
-            'get-category' => 'CategoriesModel',
-            'get-categories' => 'CategoriesModel',
-            'get-code' => 'CodesModel',
-            'get-codes' => 'CodesModel',
-            'get-content-block' => 'ContentBlocksModel',
-            'get-content-blocks' => 'ContentBlocksModel',
-            'get-navigation' => 'NavigationsModel',
-            'get-navigations' => 'NavigationsModel',
-            'get-all-pages' => 'PagesModel',
-            'get-page' => 'PagesModel',
-            'get-pages' => 'PagesModel',
-            'search-results' => 'SearchModel',
-            'model-search-results' => 'SearchModel',
-            'filter-search-results' => 'SearchModel',
-            'get-theme' => 'ThemesModel',
-            'get-themes' => 'ThemesModel',
-        ];
-
-        // Validates if the given request segment exists in the predefined request models.
-        if (!isset($requestModels[$urlSegment])) {
-            return false;
-        }
-
-        // Retrieves the corresponding model name for the given request segment.
-        $modelName = $requestModels[$urlSegment];
-
-        // Fetches the list of allowed models from the configuration.
-        $allowedModels = getConfigData("AllowedApiGetModels");
-
-        // Converts the CSV string of allowed models into an array.
-        $allowedModelsArray = array_map('trim', explode(',', $allowedModels));
-
-        // Checks if the model name exists in the allowed models array.
-        return in_array($modelName, $allowedModelsArray, true);
+        $allowedRoutes = array("get-model-data", "get-plugin-data");
+        return in_array($urlSegment, $allowedRoutes);
     }
 }
-
 
 /**
  * Logs an API call with details in the database.

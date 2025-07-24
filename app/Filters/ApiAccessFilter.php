@@ -56,7 +56,7 @@ class ApiAccessFilter implements FilterInterface
 
         // Validate the API key using the helper function
         if($checkApiKey){
-            if (!isAllowedModel($resource)) {
+            if (!isAllowedModelRoute($resource)) {
                 return Services::response()
                     ->setStatusCode(401)
                     ->setJSON([

@@ -324,44 +324,8 @@ $routes->group('api', ['filter' => ['apiAccessFilter','corsFilter']],  function(
     //Generic Queries
     $routes->get('(:segment)/get-model-data', 'APIController::getModelData/$1');
 
-    //Blog
-    $routes->get('(:segment)/get-blog/(:segment)', 'APIController::getBlog/$1/$2');
-    $routes->get('(:segment)/get-blogs', 'APIController::getBlogs/$1');
-    $routes->get('(:segment)/get-all-blogs', 'APIController::getAllBlogs/$1');
-
-    //Page
-    $routes->get('(:segment)/get-page/(:segment)', 'APIController::getPage/$1/$2');
-    $routes->get('(:segment)/get-pages', 'APIController::getPages/$1');
-    $routes->get('(:segment)/get-all-pages', 'APIController::getAllPages/$1');
-
-    //Navigations
-    $routes->get('(:segment)/get-navigation/(:segment)', 'APIController::getNavigation/$1/$2');
-    $routes->get('(:segment)/get-navigations', 'APIController::getNavigations/$1');
-
-    //Category
-    $routes->get('(:segment)/get-category/(:segment)', 'APIController::getCategory/$1/$2');
-    $routes->get('(:segment)/get-categories', 'APIController::getCategories/$1');
-
-    // Codes
-    $routes->get('(:segment)/get-code/(:segment)', 'APIController::getCode/$1/$2');
-    $routes->get('(:segment)/get-codes', 'APIController::getCodes/$1');
-    
-    // Content Blocks
-    $routes->get('(:segment)/get-content-block/(:segment)', 'APIController::getContentBlock/$1/$2');
-    $routes->get('(:segment)/get-content-blocks', 'APIController::getContentBlocks/$1');
-    
-    // Themes
-    $routes->get('(:segment)/get-theme/(:segment)', 'APIController::getTheme/$1/$2');
-    $routes->get('(:segment)/get-themes', 'APIController::getThemes/$1');
-    
-    // DatGroups
-    $routes->get('(:segment)/get-data-group/(:segment)', 'APIController::getDataGroup/$1/$2');
-    $routes->get('(:segment)/get-data-groups', 'APIController::getDataGroups/$1');   
-
-    // Search (Leave as it is)
-    $routes->get('(:segment)/search-results', 'APIController::searchResults/$1');
-    $routes->get('(:segment)/model-search-results', 'APIController::modelSearchResults/$1');
-    $routes->get('(:segment)/filter-search-results', 'APIController::filterSearchResults/$1');
+    //Generic Plugin Queries
+    $routes->get('(:segment)/get-plugin-data', 'APIController::getPluginData/$1');
 });
 
 
