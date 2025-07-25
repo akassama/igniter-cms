@@ -7,8 +7,16 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
 
-class PluginApiAccessFilter implements FilterInterface
+class RateLimitFilter implements FilterInterface
 {
+    protected $requestsPerMinute = 60; // Max requests per minute per IP
+    protected $cache;
+
+    public function __construct()
+    {
+        $this->cache = \Config\Services::cache();
+    }
+
     /**
      * Do whatever processing this filter needs to do.
      * By default it should not return anything during
@@ -26,38 +34,44 @@ class PluginApiAccessFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $currentUrl = current_url();
-        $ipAddress = getDeviceIP();
-        $deviceType = getDeviceType();
-        $country = getCountry();
-        $userAgent = getUserAgent();
+        $ipAddress = $request->getIPAddress();
+        $cacheKey = 'rate_limit_' . md5($ipAddress);
+        $currentTime = time();
+        $window = 60; // Time window in seconds (1 minute)
 
-        // Extract the API key from the second URL segment (immediately after 'api/')
-        $uri = $request->getUri();
-        $segments = $uri->getSegments();
+        // Get or initialize rate limit data
+        $rateData = $this->cache->get($cacheKey);
+        if (!$rateData) {
+            $rateData = [
+                'count' => 0,
+                'start_time' => $currentTime
+            ];
+        }
 
-        // The API key is the second segment (after 'api')
-        $apiKey = $segments[1] ?? null;
-        $resource = $segments[2] ?? null;
+        // Reset count if the time window has expired
+        if ($currentTime - $rateData['start_time'] > $window) {
+            $rateData = [
+                'count' => 0,
+                'start_time' => $currentTime
+            ];
+        }
 
-        if (!$apiKey || !isValidPluginApiAccessKey($apiKey)) {
+        // Increment request count
+        $rateData['count']++;
+
+        // Check if limit is exceeded
+        if ($rateData['count'] > $this->requestsPerMinute) {
             return Services::response()
-                ->setStatusCode(401)
+                ->setStatusCode(429)
                 ->setJSON([
                     'status' => 'error',
-                    'message' => 'Invalid API Access Key.'
+                    'message' => 'Rate limit exceeded. Please try again later.'
                 ]);
         }
 
-        logApiCall(
-            $apiKey,
-            $ipAddress,
-            $deviceType,
-            $country,
-            $userAgent
-        );
+        // Save updated rate data
+        $this->cache->save($cacheKey, $rateData, $window);
 
-        // Continue to the next filter or controller
         return;
     }
 
@@ -75,6 +89,6 @@ class PluginApiAccessFilter implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        //
+        // No action needed after the response
     }
 }

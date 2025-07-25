@@ -106,10 +106,10 @@ class APIController extends BaseController
             ]);
         }
 
-        if(!$this->startsWith($tableName, "icp_")){
+        if(!str_starts_with($tableName, 'icp_')){
             return $this->response->setStatusCode(400)->setJSON([
                 'status' => 'error',
-                'message' => 'Table name must be plugin type.'
+                'message' => 'Invalid table name. Only plugin tables (prefixed with "icp_") are allowed.'
             ]);
         }
 
@@ -184,7 +184,7 @@ class APIController extends BaseController
         }
 
         // Security check for table name prefix
-        if (!$this->startsWith($tableName, "icp_")) {
+        if(!str_starts_with($tableName, 'icp_')){
             return $this->response->setStatusCode(400)->setJSON([
                 'status' => 'error',
                 'message' => 'Invalid table name. Only plugin tables (prefixed with "icp_") are allowed.'
@@ -252,7 +252,7 @@ class APIController extends BaseController
         }
 
         // Security check for table name prefix
-        if (!$this->startsWith($tableName, "icp_")) {
+        if(!str_starts_with($tableName, 'icp_')){
             return $this->response->setStatusCode(400)->setJSON([
                 'status' => 'error',
                 'message' => 'Invalid table name. Only plugin tables (prefixed with "icp_") are allowed.'
@@ -316,7 +316,7 @@ class APIController extends BaseController
         }
 
         // Security check for table name prefix
-        if (!$this->startsWith($tableName, "icp_")) {
+        if(!str_starts_with($tableName, 'icp_')){
             return $this->response->setStatusCode(400)->setJSON([
                 'status' => 'error',
                 'message' => 'Invalid table name. Only plugin tables (prefixed with "icp_") are allowed.'
@@ -350,10 +350,5 @@ class APIController extends BaseController
                 'debug' => $e->getMessage() // For debugging, remove in production
             ]);
         }
-    }
-
-    private function startsWith($string, $startString) { 
-        $len = strlen($startString); 
-        return (substr($string, 0, $len) === $startString); 
     }
 }

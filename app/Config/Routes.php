@@ -319,12 +319,12 @@ if (file_exists(ROOTPATH . 'vendor/daycry/cronjob/src/Config/Routes.php')) {
     require ROOTPATH . 'vendor/daycry/cronjob/src/Config/Routes.php';
 }
 
-//API Endpoints
-$routes->group('api', ['filter' => ['apiAccessFilter','corsFilter']], function($routes) {
-    //Generic Queries
+// API Endpoints
+$routes->group('api', ['filter' => ['apiAccessFilter', 'corsFilter', 'rateLimitFilter']], function($routes) {
+    // Generic Queries
     $routes->get('(:segment)/get-model-data', 'APIController::getModelData/$1');
 
-    //Generic Plugin Queries
+    // Generic Plugin Queries
     $routes->get('(:segment)/get-plugin-data', 'APIController::getPluginData/$1');
 
     // Generic Plugin Add
