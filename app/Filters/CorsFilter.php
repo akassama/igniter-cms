@@ -27,8 +27,8 @@ class CorsFilter implements FilterInterface
     {
         // Allow all origins (customize as needed)
         header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Methods: GET"); // Allow GET. Modify accordingly (GET, POST, OPTIONS, PUT, DELETE)
-        header("Access-Control-Allow-Headers: Content-Type, Authorization");
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 
         // Handle preflight requests
         if ($request->getMethod() === 'options') {
@@ -36,13 +36,12 @@ class CorsFilter implements FilterInterface
         }
 
         // Restrict disallowed methods
-        $allowedMethods = ['GET', 'POST']; // Add allowed methods here.  Modify accordingly (GET, POST, OPTIONS, PUT, DELETE)
-        $currentMethod = $request->getMethod(true); // Get method in uppercase
+        $allowedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'];
+        $currentMethod = $request->getMethod(true);
 
         if (!in_array($currentMethod, $allowedMethods)) {
-            // Return a 405 Method Not Allowed response
             http_response_code(405);
-            echo json_encode(['error' => 'Only GET and POST requests are allowed']);
+            echo json_encode(['error' => 'Method not allowed']);
             exit;
         }
     }
@@ -61,6 +60,6 @@ class CorsFilter implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        //
+        // No action needed after the response
     }
 }

@@ -13,9 +13,27 @@ use App\Models\ContentBlocksModel;
 use App\Models\ThemesModel;
 use App\Models\DataGroupsModel;
 use App\Services\EmailService;
+use CodeIgniter\Validation\Validation;
 
 class APIController extends BaseController
 {
+    protected $validation;
+
+    public function __construct()
+    {
+        $this->validation = \Config\Services::validation();
+    }
+
+    // Input sanitization helper
+    private function sanitizeInput($data)
+    {
+        if (is_array($data)) {
+            return array_map([$this, 'sanitizeInput'], $data);
+        }
+        // Sanitize strings to prevent XSS
+        return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+    }
+
     //GENERIC GET METHODS
     public function getModelData()
     {
@@ -31,23 +49,36 @@ class APIController extends BaseController
             'data-groups' => 'App\Models\DataGroupsModel',
         ];
 
-        // Get pagination parameters with defaults
-        $take = $this->request->getGet('take') ?? 10;
-        $skip = $this->request->getGet('skip') ?? 0;
+        // Get and validate pagination parameters
+        $take = (int)($this->request->getGet('take') ?? 10);
+        $skip = (int)($this->request->getGet('skip') ?? 0);
+        $modelName = $this->sanitizeInput($this->request->getGet('model'));
+        $whereClause = $this->request->getGet('where_clause');
 
-        // Get model and optional where clause from query parameters
-        $modelName = $this->request->getGet('model');
-        $whereClause = $this->request->getGet('where_clause'); // Should be in JSON format if passed
+        // Validation rules
+        $this->validation->setRules([
+            'take' => 'permit_empty|is_natural_no_zero|max_length[4]',
+            'skip' => 'permit_empty|is_natural|max_length[4]',
+            'model' => 'required|alpha_dash|max_length[50]',
+            'where_clause' => 'permit_empty|valid_json'
+        ]);
 
-        // Check if the model name is provided and valid
-        if (!$modelName || !array_key_exists($modelName, $allowedModels)) {
+        if (!$this->validation->withRequest($this->request)->run()) {
             return $this->response->setStatusCode(400)->setJSON([
                 'status' => 'error',
-                'message' => 'Invalid or unsupported model name provided.',
+                'message' => 'Validation error: ' . implode(', ', $this->validation->getErrors())
             ]);
         }
 
-        // Instantiate the model from the allowed list
+        // Check if the model name is valid
+        if (!$modelName || !array_key_exists($modelName, $allowedModels)) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Invalid or unsupported model name provided.'
+            ]);
+        }
+
+        // Instantiate the model
         $modelClass = $allowedModels[$modelName];
         $model = new $modelClass();
 
@@ -57,13 +88,15 @@ class APIController extends BaseController
             if (json_last_error() !== JSON_ERROR_NONE) {
                 return $this->response->setStatusCode(400)->setJSON([
                     'status' => 'error',
-                    'message' => 'Invalid JSON format for where_clause.',
+                    'message' => 'Invalid JSON format for where_clause.'
                 ]);
             }
 
-            // Loop through each condition and apply it to the query
+            // Sanitize filter keys and values
             foreach ($filters as $key => $value) {
-                $model->where($key, $value);
+                $sanitizedKey = $this->sanitizeInput($key);
+                $sanitizedValue = $this->sanitizeInput($value);
+                $model->where($sanitizedKey, $sanitizedValue);
             }
         }
 
@@ -73,7 +106,7 @@ class APIController extends BaseController
         }
 
         // Get total count
-        $totalModelData = $model->countAllResults(false); // Passing `false` to not reset the query
+        $totalModelData = $model->countAllResults(false);
 
         // Fetch paginated data
         $modelData = $model->findAll($take, $skip);
@@ -91,13 +124,26 @@ class APIController extends BaseController
     //GENERIC GET PLUGIN METHODS
     public function getPluginData($param = null)
     {
-        // Get pagination parameters with defaults
-        $take = $this->request->getGet('take') ?? 10;
-        $skip = $this->request->getGet('skip') ?? 0;
+        // Get and validate pagination parameters
+        $take = (int)($this->request->getGet('take') ?? 10);
+        $skip = (int)($this->request->getGet('skip') ?? 0);
+        $tableName = $this->sanitizeInput($this->request->getGet('table'));
+        $whereClause = $this->request->getGet('where_clause');
 
-        $db = \Config\Database::connect();
-        $tableName = $this->request->getGet('table');
-        $whereClause = $this->request->getGet('where_clause'); // Get the where_clause
+        // Validation rules
+        $this->validation->setRules([
+            'take' => 'permit_empty|is_natural_no_zero|max_length[4]',
+            'skip' => 'permit_empty|is_natural|max_length[4]',
+            'table' => 'required|alpha_dash|max_length[50]',
+            'where_clause' => 'permit_empty|valid_json'
+        ]);
+
+        if (!$this->validation->withRequest($this->request)->run()) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Validation error: ' . implode(', ', $this->validation->getErrors())
+            ]);
+        }
 
         if (empty($tableName)) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -106,7 +152,7 @@ class APIController extends BaseController
             ]);
         }
 
-        if(!str_starts_with($tableName, 'icp_')){
+        if (!str_starts_with($tableName, 'icp_')) {
             return $this->response->setStatusCode(400)->setJSON([
                 'status' => 'error',
                 'message' => 'Invalid table name. Only plugin tables (prefixed with "icp_") are allowed.'
@@ -114,8 +160,9 @@ class APIController extends BaseController
         }
 
         try {
+            $db = \Config\Database::connect();
             $builder = $db->table($tableName);
-            
+
             // Apply multiple filters if the where clause is provided
             if ($whereClause) {
                 $filters = json_decode($whereClause, true);
@@ -126,20 +173,20 @@ class APIController extends BaseController
                     ]);
                 }
 
-                // Loop through each condition and apply it to the query builder
+                // Sanitize filter keys and values
                 foreach ($filters as $key => $value) {
-                    $builder->where($key, $value);
+                    $sanitizedKey = $this->sanitizeInput($key);
+                    $sanitizedValue = $this->sanitizeInput($value);
+                    $builder->where($sanitizedKey, $sanitizedValue);
                 }
             }
-            
-            // Get the total count before applying limit and offset
-            // Passing `false` to countAllResults ensures that the WHERE clause applied above is retained.
-            $totalCountData = $builder->countAllResults(false); 
 
-            // Get the paginated data
-            // The WHERE clause applied above will also apply to this query
-            $queryData = $builder->get($take, $skip); 
-            $data = $queryData->getResult(); // Get data as an array of objects
+            // Get total count
+            $totalCountData = $builder->countAllResults(false);
+
+            // Get paginated data
+            $queryData = $builder->get($take, $skip);
+            $data = $queryData->getResult();
 
             // Prepare and return the response
             return $this->response->setStatusCode(200)->setJSON([
@@ -147,10 +194,9 @@ class APIController extends BaseController
                 'total' => $totalCountData,
                 'take' => $take,
                 'skip' => $skip,
-                'data' => $data, // This will now be an array of objects
+                'data' => $data,
             ]);
         } catch (\Exception $e) {
-            // Log the actual error for debugging
             log_message('error', 'Database error in getPluginData: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON([
                 'status' => 'error',
@@ -163,17 +209,31 @@ class APIController extends BaseController
     public function addPluginData($param = null)
     {
         $db = \Config\Database::connect();
-        
-        // Get JSON raw body and decode it to an associative array
-        $requestData = $this->request->getJSON(true); 
 
-        // Extract table name and data from the decoded JSON
-        $tableName = $requestData['table'] ?? null;
-        $dataToInsert = $requestData; // The entire JSON body is the data to insert, excluding 'table'
+        // Get and validate JSON input
+        $requestData = $this->request->getJSON(true);
+        if (!$requestData) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Invalid JSON data.'
+            ]);
+        }
 
-        // Unset the 'table' key from dataToInsert as it's not a column
-        if (isset($dataToInsert['table'])) {
-            unset($dataToInsert['table']);
+        // Extract and sanitize table name
+        $tableName = $this->sanitizeInput($requestData['table'] ?? null);
+        $dataToInsert = array_map([$this, 'sanitizeInput'], $requestData);
+        unset($dataToInsert['table']);
+
+        // Validation rules
+        $this->validation->setRules([
+            'table' => 'required|alpha_dash|max_length[50]'
+        ]);
+
+        if (!$this->validation->run(['table' => $tableName])) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Validation error: ' . implode(', ', $this->validation->getErrors())
+            ]);
         }
 
         if (empty($tableName)) {
@@ -183,8 +243,7 @@ class APIController extends BaseController
             ]);
         }
 
-        // Security check for table name prefix
-        if(!str_starts_with($tableName, 'icp_')){
+        if (!str_starts_with($tableName, 'icp_')) {
             return $this->response->setStatusCode(400)->setJSON([
                 'status' => 'error',
                 'message' => 'Invalid table name. Only plugin tables (prefixed with "icp_") are allowed.'
@@ -200,25 +259,20 @@ class APIController extends BaseController
 
         try {
             $builder = $db->table($tableName);
-            
-            // Insert the data
             $builder->insert($dataToInsert);
-            
-            // Get the ID of the newly inserted record
             $insertedId = $db->insertID();
 
             return $this->response->setStatusCode(201)->setJSON([
                 'status' => 'success',
                 'message' => 'Data added successfully.',
                 'id' => $insertedId,
-                'data' => $dataToInsert // Return the data that was inserted
+                'data' => $dataToInsert
             ]);
         } catch (\Exception $e) {
             log_message('error', 'Database error in addPluginData: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON([
                 'status' => 'error',
-                'message' => 'Database error: There was an error adding data.',
-                'debug' => $e->getMessage() // For debugging, remove in production
+                'message' => 'Database error: There was an error adding data.'
             ]);
         }
     }
@@ -227,21 +281,33 @@ class APIController extends BaseController
     public function updatePluginData($param = null)
     {
         $db = \Config\Database::connect();
-        
-        // Get JSON raw body and decode it to an associative array
-        $requestData = $this->request->getJSON(true); 
 
-        // Extract table name, ID, and data from the decoded JSON
-        $tableName = $requestData['table'] ?? null;
-        $id = $requestData['id'] ?? null;
-        $dataToUpdate = $requestData; // The entire JSON body is the data to update
-
-        // Unset 'table' and 'id' keys from dataToUpdate as they are not columns to update
-        if (isset($dataToUpdate['table'])) {
-            unset($dataToUpdate['table']);
+        // Get and validate JSON input
+        $requestData = $this->request->getJSON(true);
+        if (!$requestData) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Invalid JSON data.'
+            ]);
         }
-        if (isset($dataToUpdate['id'])) {
-            unset($dataToUpdate['id']);
+
+        // Extract and sanitize inputs
+        $tableName = $this->sanitizeInput($requestData['table'] ?? null);
+        $id = $this->sanitizeInput($requestData['id'] ?? null);
+        $dataToUpdate = array_map([$this, 'sanitizeInput'], $requestData);
+        unset($dataToUpdate['table'], $dataToUpdate['id']);
+
+        // Validation rules
+        $this->validation->setRules([
+            'table' => 'required|alpha_dash|max_length[50]',
+            'id' => 'required|is_natural_no_zero|max_length[10]'
+        ]);
+
+        if (!$this->validation->run(['table' => $tableName, 'id' => $id])) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Validation error: ' . implode(', ', $this->validation->getErrors())
+            ]);
         }
 
         if (empty($tableName) || empty($id)) {
@@ -251,8 +317,7 @@ class APIController extends BaseController
             ]);
         }
 
-        // Security check for table name prefix
-        if(!str_starts_with($tableName, 'icp_')){
+        if (!str_starts_with($tableName, 'icp_')) {
             return $this->response->setStatusCode(400)->setJSON([
                 'status' => 'error',
                 'message' => 'Invalid table name. Only plugin tables (prefixed with "icp_") are allowed.'
@@ -268,11 +333,8 @@ class APIController extends BaseController
 
         try {
             $builder = $db->table($tableName);
-            
-            // Perform the update based on ID
             $builder->where('id', $id)->update($dataToUpdate);
 
-            // Check if any rows were affected
             if ($db->affectedRows() > 0) {
                 return $this->response->setStatusCode(200)->setJSON([
                     'status' => 'success',
@@ -290,8 +352,7 @@ class APIController extends BaseController
             log_message('error', 'Database error in updatePluginData: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON([
                 'status' => 'error',
-                'message' => 'Database error: There was an error updating data.',
-                'debug' => $e->getMessage() // For debugging, remove in production
+                'message' => 'Database error: There was an error updating data.'
             ]);
         }
     }
@@ -300,13 +361,32 @@ class APIController extends BaseController
     public function deletePluginData($param = null)
     {
         $db = \Config\Database::connect();
-        
-        // Get JSON raw body and decode it to an associative array
-        $requestData = $this->request->getJSON(true); 
 
-        // Extract table name and ID from the decoded JSON
-        $tableName = $requestData['table'] ?? null;
-        $id = $requestData['id'] ?? null;
+        // Get and validate JSON input
+        $requestData = $this->request->getJSON(true);
+        if (!$requestData) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Invalid JSON data.'
+            ]);
+        }
+
+        // Extract and sanitize inputs
+        $tableName = $this->sanitizeInput($requestData['table'] ?? null);
+        $id = $this->sanitizeInput($requestData['id'] ?? null);
+
+        // Validation rules
+        $this->validation->setRules([
+            'table' => 'required|alpha_dash|max_length[50]',
+            'id' => 'required|is_natural_no_zero|max_length[10]'
+        ]);
+
+        if (!$this->validation->run(['table' => $tableName, 'id' => $id])) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Validation error: ' . implode(', ', $this->validation->getErrors())
+            ]);
+        }
 
         if (empty($tableName) || empty($id)) {
             return $this->response->setStatusCode(400)->setJSON([
@@ -315,8 +395,7 @@ class APIController extends BaseController
             ]);
         }
 
-        // Security check for table name prefix
-        if(!str_starts_with($tableName, 'icp_')){
+        if (!str_starts_with($tableName, 'icp_')) {
             return $this->response->setStatusCode(400)->setJSON([
                 'status' => 'error',
                 'message' => 'Invalid table name. Only plugin tables (prefixed with "icp_") are allowed.'
@@ -325,11 +404,8 @@ class APIController extends BaseController
 
         try {
             $builder = $db->table($tableName);
-            
-            // Perform the delete based on ID
             $builder->where('id', $id)->delete();
 
-            // Check if any rows were affected
             if ($db->affectedRows() > 0) {
                 return $this->response->setStatusCode(200)->setJSON([
                     'status' => 'success',
@@ -346,8 +422,7 @@ class APIController extends BaseController
             log_message('error', 'Database error in deletePluginData: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON([
                 'status' => 'error',
-                'message' => 'Database error: There was an error deleting data.',
-                'debug' => $e->getMessage() // For debugging, remove in production
+                'message' => 'Database error: There was an error deleting data.'
             ]);
         }
     }

@@ -364,20 +364,7 @@ class PluginsController extends BaseController
                                 }
                             }
                         }
-
-                        // Delete existing plugin_data entries and execute data query if not empty
-                        if (!empty($createDataQuery)) {
-                            $db->query("DELETE FROM plugin_data WHERE plugin_slug = ?", [$pluginKey]);
-                            logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Deleted existing plugin_data for: ' . $pluginKey);
-                            
-                            $queries = array_filter(array_map('trim', explode(';', $createDataQuery)));
-                            foreach ($queries as $query) {
-                                if (!empty($query)) {
-                                    $db->query($query);
-                                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed data query for: ' . $filename);
-                                }
-                            }
-                        }
+                        
                     } catch (\Exception $e) {
                         $this->deleteDirectory($pluginDir);
                         session()->setFlashdata('errorAlert', 'Failed to execute database queries');

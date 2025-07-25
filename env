@@ -67,7 +67,9 @@ CI_ENVIRONMENT = development
 
 # logger.threshold = 4
 
+#--------------------------------------------------------------------
 # Query Limits
+#--------------------------------------------------------------------
 QUERY_LIMIT_SINGLE = 1
 QUERY_LIMIT_VERY_LOW = 3
 QUERY_LIMIT_LOW = 6
@@ -80,7 +82,9 @@ QUERY_LIMIT_500 = 500
 QUERY_LIMIT_MAX = 1000
 QUERY_LIMIT_ULTRA_MAX = 10000
 
+#--------------------------------------------------------------------
 # Paginations
+#--------------------------------------------------------------------
 PAGINATE_VERY_LOW = 10
 PAGINATE_LOW = 20
 PAGINATE_DEFAULT = 50
