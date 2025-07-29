@@ -365,7 +365,7 @@ class PluginsController extends BaseController
                                 if (!str_starts_with($tableName, 'icp_')) {
                                     throw new \Exception("Table name '$tableName' in createTablesQuery must start with 'icp_'.");
                                 }
-                                // Drop existing table if override is true (already handled)
+                                // Drop existing table if override is true
                                 // And execute the query.
                                 $db->query("DROP TABLE IF EXISTS `$tableName`"); // Use backticks for table name
                                 logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Dropped existing table: ' . $tableName);
@@ -380,8 +380,6 @@ class PluginsController extends BaseController
                             foreach ($queries as $query) {
                                 if (!empty($query)) {
                                     // Basic validation that it's a DDL (Data Definition Language) statement.
-                                    // This is a weak check, a full SQL parser would be ideal but complex.
-                                    // Given the previous regex, we expect only CREATE TABLE.
                                     if (!preg_match('/^\s*(CREATE|ALTER|DROP|TRUNCATE)\s+/i', $query)) {
                                         throw new \Exception('Disallowed SQL command detected in createTablesQuery: ' . substr($query, 0, 50) . '...');
                                     }
