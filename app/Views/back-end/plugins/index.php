@@ -20,19 +20,27 @@
     <div class="col-12">
         <h3>Manage Plugins</h3>
     </div>
-    <div class="col-12 d-flex justify-content-end mb-2">
-        <a href="<?=base_url('/account/plugins/upload-plugin')?>" class="btn btn-outline-success mx-1">
-            <i class="ri-upload-2-fill"></i> Upload Plugin
-        </a>
-        <a href="<?=base_url('/account/plugins/install-plugins')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> Add Plugin
-        </a>
+    <div class="col-12 d-flex justify-content-between my-2">
+        <div>
+            <a href="javascript:void(0)" class="btn btn-outline-danger mx-1"  onclick="deletePluginData()">
+                <i class="ri-upload-2-fill"></i> Remove Plugin Data
+            </a>
+        </div>
+        <div>
+            <a href="<?=base_url('/account/plugins/upload-plugin')?>" class="btn btn-outline-success mx-1">
+                <i class="ri-upload-2-fill"></i> Upload Plugin
+            </a>
+            <a href="<?=base_url('/account/plugins/install-plugins')?>" class="btn btn-outline-dark mx-1">
+                <i class="ri-add-fill"></i> Add Plugin
+            </a>
+        </div>
     </div>
+
    <!--Content-->
    <div class="col-12">
       <div class="card p-2 mb-4">
          <!-- Dropdown + Apply Button -->
-         <div class="d-flex align-items-center mb-3">
+         <!-- <div class="d-flex align-items-center mb-3">
             <select class="form-select me-2" style="width: 200px;">
                <option selected>Bulk Actions</option>
                <option value="update">Activate Selected</option>
@@ -40,7 +48,7 @@
                <option value="delete">Delete Selected</option>
             </select>
             <button class="btn btn-primary">Apply</button>
-         </div>
+         </div> -->
          <?php if ($plugins): ?>
             <!-- Plugins Table -->
             <table class="table table-bordered datatable">
@@ -112,6 +120,87 @@
                 $('.row-checkbox:checked').length === $('.row-checkbox').length
                 );
             });
+            
+            // Delete Plugin Data Prompt
+            function deletePluginData() {
+                Swal.fire({
+                    title: 'Remove Plugin Data',
+                    html: `
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="manualInputToggle">
+                            <label class="form-check-label" for="manualInputToggle">
+                                Type plugin key manually
+                            </label>
+                        </div>
+                        <div id="selectWrapper" class="mb-2">
+                            <label for="plugin_key_select" class="form-label">Select Plugin</label>
+                            <select id="plugin_key_select" class="form-select">
+                                <?= getPluginSelectOptions() ?>
+                            </select>
+                        </div>
+                        <div id="textWrapper" class="mb-2 d-none">
+                            <label for="plugin_key_text" class="form-label">Enter Plugin Key</label>
+                            <input type="text" id="plugin_key_text" class="form-control" placeholder="e.g. plugin_example">
+                        </div>
+                    `,
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc3545',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Delete Data!',
+                    cancelButtonText: 'Cancel',
+                    reverseButtons: true,
+                    focusConfirm: false,
+                    didOpen: () => {
+                        const toggle = document.getElementById('manualInputToggle');
+                        const selectWrapper = document.getElementById('selectWrapper');
+                        const textWrapper = document.getElementById('textWrapper');
+
+                        toggle.addEventListener('change', () => {
+                            if (toggle.checked) {
+                                selectWrapper.classList.add('d-none');
+                                textWrapper.classList.remove('d-none');
+                            } else {
+                                selectWrapper.classList.remove('d-none');
+                                textWrapper.classList.add('d-none');
+                            }
+                        });
+                    },
+                    preConfirm: () => {
+                        const manualChecked = document.getElementById('manualInputToggle').checked;
+                        const pluginKey = manualChecked
+                            ? document.getElementById('plugin_key_text').value.trim()
+                            : document.getElementById('plugin_key_select').value;
+
+                        if (!pluginKey) {
+                            Swal.showValidationMessage('Please enter or select a plugin key');
+                        }
+
+                        return pluginKey;
+                    },
+                    customClass: {
+                        popup: 'swal-custom'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed && result.value) {
+                        // Create the form element
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = `<?= base_url('/account/plugins/delete-plugin') ?>`;
+
+                        // Add plugin input field
+                        const pluginInput = document.createElement('input');
+                        pluginInput.type = 'hidden';
+                        pluginInput.name = 'plugin_key';
+                        pluginInput.value = result.value;
+                        form.appendChild(pluginInput);
+
+                        // Submit the form
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
+                });
+            }
 
             // Confirm Delete functionality
             function confirmDelete(pluginName, pluginSlug) {

@@ -1695,9 +1695,9 @@ if (!function_exists('renderContentBlocks')) {
  * @param int|null $navigationId The ID of the navigation to be selected (optional).
  * @return void
  */
-if(!function_exists('getNavigationParents'))
+if(!function_exists('getNavigationParentSelectOptions'))
 {
-    function getNavigationParents($navigationId = null)
+    function getNavigationParentSelectOptions($navigationId = null)
     {
         $tableName = "navigations";
         $db = \Config\Database::connect();
@@ -1719,9 +1719,9 @@ if(!function_exists('getNavigationParents'))
  * @param int|null $categoryId The ID of the category to be selected (optional).
  * @return void
  */
-if(!function_exists('getBlogCategories'))
+if(!function_exists('getBlogCategorySelectOptions'))
 {
-    function getBlogCategories($categoryId = null)
+    function getBlogCategorySelectOptions($categoryId = null)
     {
         $tableName = "categories";
         $db = \Config\Database::connect();
@@ -1734,6 +1734,57 @@ if(!function_exists('getBlogCategories'))
             $selected = $row->category_id == $categoryId ? "selected" : "";
             echo "<option value='$row->category_id' $selected>$row->title</option>";
         }
+    }
+}
+
+
+/**
+ * Fetches and displays blog category options in a dropdown.
+ *
+ * @param int|null $categoryId The ID of the category to be selected (optional).
+ * @return void
+ */
+if (!function_exists('getPluginSelectOptions')) {
+    function getPluginSelectOptions()
+    {
+        $tableName = "plugins";
+        $db = \Config\Database::connect();
+        $query = $db->table($tableName)
+                    ->orderBy('plugin_key', 'DESC')
+                    ->get();
+
+        $options = "";
+        foreach ($query->getResult() as $row) {
+            $options .= "<option value='{$row->plugin_key}'>{$row->plugin_key}</option>";
+        }
+        return $options;
+    }
+}
+
+/**
+ * Fetches and list plugins in csv
+ *
+ * @param int|null $categoryId The ID of the category to be selected (optional).
+ * @return void
+ */
+if(!function_exists('getPluginsList'))
+{
+    function getPluginsList()
+    {
+        $tableName = "plugins";
+        $db = \Config\Database::connect();
+        $query = $db->table($tableName)
+                     ->orderBy('plugin_key', 'ASC')
+                     ->get();
+
+        $selectedList = "";
+        foreach ($query->getResult() as $row) {
+            $selectedList = $selectedList.",".$row->plugin_key;
+        }
+
+        $selectedList = ltrim($selectedList, ',');
+
+        return $selectedList;
     }
 }
 

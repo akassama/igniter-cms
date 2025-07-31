@@ -79,7 +79,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="parent" class="form-label">Parent</label>
                 <select class="form-select" id="parent" name="parent">
                     <option value="">Select parent</option>
-                    <?= getBlogCategories($category_data['parent']) ?>
+                    <?= getBlogCategorySelectOptions($category_data['parent']) ?>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('parent')) {?>

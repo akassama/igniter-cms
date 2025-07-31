@@ -135,7 +135,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="category" class="form-label">Category</label>
                 <select class="form-select" id="category" name="category" required>
                     <option value="">Select category</option>
-                    <?= getBlogCategories() ?>
+                    <?= getBlogCategorySelectOptions() ?>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('category')) {?>
