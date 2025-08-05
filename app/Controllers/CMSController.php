@@ -121,11 +121,19 @@ class CMSController extends BaseController
 
     public function updateBlog()
     {
+        $tableName = 'blogs';
         $loggedInUserId = $this->session->get('user_id');
         $blogsModel = new BlogsModel();
         $blogId = $this->request->getPost('blog_id');
 
-        //TODO : Add unique slug validation except current
+        //Add unique slug validation except current
+        $currentSlug = getTableData($tableName, ['blog_id' => $blogId], "slug");
+        $newSlug = $this->request->getPost('slug');
+        $newSlugExists = recordExists($tableName, "slug", $newSlug);
+
+        if($newSlugExists && $currentSlug !== $newSlug){
+             $newSlug = $newSlug .'-'. substr(md5(rand()) , 0, 8);
+        }
 
         if (!$this->validate($blogsModel->getValidationRules())) {
             return view('back-end/cms/blogs/edit-blog', ['validation' => $this->validator, 'blog_data' => $blogsModel->find($blogId)]);
@@ -133,7 +141,7 @@ class CMSController extends BaseController
 
         $data = [
             'title' => $this->request->getPost('title'),
-            'slug' => $this->request->getPost('slug'),
+            'slug' => $newSlug,
             'featured_image' => $this->request->getPost('featured_image'),
             'excerpt' => $this->request->getPost('excerpt'),
             'content' => $this->request->getPost('content'),
