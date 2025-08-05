@@ -164,7 +164,6 @@ APP_KEY=your-app-id
 APP_USE_CAPTCHA = "No"
 APP_API_KEY = "default"
 DEMO_MODE = false
-CRON_SECURITY_KEY = your-cron-secret-key
 CUSTOM_GEMINI_REQUEST_URL = https://api.ignitercms.com/ai/get-ai-response/
 PUBLIC_GEMINI_REQUEST_KEY = HL3SG0Q3Fm9mDDK57raurKnQ5Pfs1LJm0UgR1RXS1EeIFraw6oPE3p2o9OLo8MwKX0loW6EXGELhXP0aB3k48PYSZTpYM82JlyE2RZlVYfNZvWOgoeMOmVBHVIAz1xaB
 PLUGIN_API_REQUEST_KEY = plugin-api-request-key

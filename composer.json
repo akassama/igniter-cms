@@ -12,7 +12,6 @@
   "require": {
     "php": "^8.1",
     "codeigniter4/framework": "^4.0",
-    "daycry/cronjob": "^2.2",
     "gregwar/captcha": "^1.2",
     "mailjet/mailjet-apiv3-php": "^1.6",
     "matthiasmullie/minify": "^1.3",

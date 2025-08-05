@@ -12,7 +12,6 @@ use App\Models\APIAccessModel;
 use App\Models\BackupsModel;
 use App\Models\ActivityLogsModel;
 use App\Models\CodesModel;
-use App\Models\ThemesModel;
 use App\Models\SiteStatsModel;
 use App\Models\BlockedIPsModel;
 use App\Models\WhitelistedIPsModel;
