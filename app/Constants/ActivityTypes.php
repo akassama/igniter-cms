@@ -19,13 +19,6 @@ class ActivityTypes
     const FAILED_USER_LOGIN = 'failed_user_login';
     const TOO_MANY_FAILED_USER_LOGIN = 'too_many_failed_user_login';
 
-    //CONTACT LOGS
-    const CONTACT_CREATION = 'contact_created';
-    const FAILED_CONTACT_CREATION = 'failed_contact_creation';
-    const CONTACT_UPDATE = 'contact_updated';
-    const FAILED_CONTACT_UPDATE = 'failed_contact_update';
-    const CONTACT_DELETION = 'contact_delete';
-
     //USER LOGS
     const USER_CREATION = 'user_created';
     const FAILED_USER_CREATION = 'failed_user_creation';
@@ -104,33 +97,12 @@ class ActivityTypes
     const FAILED_NAVIGATION_UPDATE = 'failed_category_update';
     const NAVIGATION_DELETION = 'category_delete';
 
-    // HOME PAGE
-    const HOME_PAGE_CREATION = 'page_created';
-    const FAILED_HOME_PAGE_CREATION = 'failed_page_creation';
-    const HOME_PAGE_UPDATE = 'page_updated';
-    const FAILED_HOME_PAGE_UPDATE = 'failed_page_update';
-    const HOME_PAGE_DELETION = 'page_delete';
-
     // PAGES
     const PAGE_CREATION = 'page_created';
     const FAILED_PAGE_CREATION = 'failed_page_creation';
     const PAGE_UPDATE = 'page_updated';
     const FAILED_PAGE_UPDATE = 'failed_page_update';
     const PAGE_DELETION = 'page_delete';
-
-    // CONTACT MESSAGES
-    const CONTACT_MESSAGE_CREATION = 'contact_message_created';
-    const FAILED_CONTACT_MESSAGE_CREATION = 'failed_contact_message_creation';
-    const CONTACT_MESSAGE_UPDATE = 'contact_message_updated';
-    const FAILED_CONTACT_MESSAGE_UPDATE = 'failed_contact_message_update';
-    const CONTACT_MESSAGE_DELETION = 'contact_message_delete';
-
-    // BOOKING
-    const BOOKING_CREATION = 'booking_created';
-    const FAILED_BOOKING_CREATION = 'failed_booking_creation';
-    const BOOKING_UPDATE = 'booking_updated';
-    const FAILED_BOOKING_UPDATE = 'failed_booking_update';
-    const BOOKING_DELETION = 'booking_delete';
 
     // CONTENT BLOCKS
     const CONTENT_BLOCK_CREATION = 'content_block_created';
@@ -139,110 +111,12 @@ class ActivityTypes
     const FAILED_CONTENT_BLOCK_UPDATE = 'failed_content_block_update';
     const CONTENT_BLOCK_DELETION = 'content_block_delete';
 
-    // COUNTERS
-    const COUNTER_CREATION = 'counter_created';
-    const FAILED_COUNTER_CREATION = 'failed_counter_creation';
-    const COUNTER_UPDATE = 'counter_updated';
-    const FAILED_COUNTER_UPDATE = 'failed_counter_update';
-    const COUNTER_DELETION = 'counter_delete';
-
-    // PARTNERS
-    const PARTNER_CREATION = 'counter_created';
-    const FAILED_PARTNER_CREATION = 'failed_counter_creation';
-    const PARTNER_UPDATE = 'counter_updated';
-    const FAILED_PARTNER_UPDATE = 'failed_counter_update';
-    const PARTNER_DELETION = 'counter_delete';
-
-    // SERVICES
-    const SERVICE_CREATION = 'counter_created';
-    const FAILED_SERVICE_CREATION = 'failed_counter_creation';
-    const SERVICE_UPDATE = 'counter_updated';
-    const FAILED_SERVICE_UPDATE = 'failed_counter_update';
-    const SERVICE_DELETION = 'counter_delete';
-
-    // EVENTS
-    const EVENT_CREATION = 'event_created';
-    const FAILED_EVENT_CREATION = 'failed_event_creation';
-    const EVENT_UPDATE = 'event_updated';
-    const FAILED_EVENT_UPDATE = 'failed_event_update';
-    const EVENT_DELETION = 'event_delete';
-
-    // FAQ
-    const FAQ_CREATION = 'faq_created';
-    const FAILED_FAQ_CREATION = 'failed_faq_creation';
-    const FAQ_UPDATE = 'faq_updated';
-    const FAILED_FAQ_UPDATE = 'failed_faq_update';
-    const FAQ_DELETION = 'faq_delete';
-
-    // GALLERY
-    const GALLERY_CREATION = 'gallery_created';
-    const FAILED_GALLERY_CREATION = 'failed_gallery_creation';
-    const GALLERY_UPDATE = 'gallery_updated';
-    const FAILED_GALLERY_UPDATE = 'failed_gallery_update';
-    const GALLERY_DELETION = 'gallery_delete';
-
-    // VIDEO
-    const VIDEO_CREATION = 'video_created';
-    const FAILED_VIDEO_CREATION = 'failed_video_creation';
-    const VIDEO_UPDATE = 'video_updated';
-    const FAILED_VIDEO_UPDATE = 'failed_video_update';
-    const VIDEO_DELETION = 'video_delete';
-
-    // PRICINGS
-    const PRICING_CREATION = 'pricing_created';
-    const FAILED_PRICING_CREATION = 'failed_pricing_creation';
-    const PRICING_UPDATE = 'pricing_updated';
-    const FAILED_PRICING_UPDATE = 'failed_pricing_update';
-    const PRICING_DELETION = 'pricing_delete';
-
-    // PORTFOLIOS
-    const PORTFOLIO_CREATION = 'portfolio_created';
-    const FAILED_PORTFOLIO_CREATION = 'failed_project_creation';
-    const PORTFOLIO_UPDATE = 'portfolio_updated';
-    const FAILED_PORTFOLIO_UPDATE = 'failed_project_update';
-    const PORTFOLIO_DELETION = 'portfolio_delete';
-
-    // SOCIALS
-    const SOCIAL_CREATION = 'social_created';
-    const FAILED_SOCIAL_CREATION = 'failed_social_creation';
-    const SOCIAL_UPDATE = 'social_updated';
-    const FAILED_SOCIAL_UPDATE = 'failed_social_update';
-    const SOCIAL_DELETION = 'social_delete';
-
-    // TEAMS
-    const TEAM_CREATION = 'team_created';
-    const FAILED_TEAM_CREATION = 'failed_team_creation';
-    const TEAM_UPDATE = 'team_updated';
-    const FAILED_TEAM_UPDATE = 'failed_team_update';
-    const TEAM_DELETION = 'team_delete';
-
-    // APPOINTMENTS
-    const APPOINTMENT_CREATION = 'appointment_created';
-    const FAILED_APPOINTMENT_CREATION = 'failed_appointment_creation';
-    const APPOINTMENT_UPDATE = 'appointment_updated';
-    const FAILED_APPOINTMENT_UPDATE = 'failed_appointment_update';
-    const APPOINTMENT_DELETION = 'appointment_delete';
-
     // DATA GROUPS
     const DATA_GROUP_CREATION = 'data_group_created';
     const FAILED_DATA_GROUP_CREATION = 'failed_data_group_creation';
     const DATA_GROUP_UPDATE = 'data_group_updated';
     const FAILED_DATA_GROUP_UPDATE = 'failed_data_group_update';
     const DATA_GROUP_DELETION = 'data_group_delete';
-
-    // TESTIMONIALS
-    const TESTIMONIAL_CREATION = 'testimonial_created';
-    const FAILED_TESTIMONIAL_CREATION = 'failed_testimonial_creation';
-    const TESTIMONIAL_UPDATE = 'testimonial_updated';
-    const FAILED_TESTIMONIAL_UPDATE = 'failed_testimonial_update';
-    const TESTIMONIAL_DELETION = 'testimonial_delete';
-
-    // TRANSLATIONS
-    const TRANSLATION_CREATION = 'translation_created';
-    const FAILED_TRANSLATION_CREATION = 'failed_translation_creation';
-    const TRANSLATION_UPDATE = 'translation_updated';
-    const FAILED_TRANSLATION_UPDATE = 'failed_translation_update';
-    const TRANSLATION_DELETION = 'translation_delete';
 
     // CODES
     const CODE_CREATION = 'code_created';
@@ -257,69 +131,6 @@ class ActivityTypes
     const THEME_UPDATE = 'theme_updated';
     const FAILED_THEME_UPDATE = 'failed_theme_update';
     const THEME_DELETION = 'theme_delete';
-
-    // RESUME
-    const RESUME_CREATION = 'resume_created';
-    const FAILED_RESUME_CREATION = 'failed_resume_creation';
-    const RESUME_UPDATE = 'resume_updated';
-    const FAILED_RESUME_UPDATE = 'failed_resume_update';
-    const RESUME_DELETION = 'resume_delete';
-
-    // EXPERIENCE
-    const EXPERIENCE_CREATION = 'experience_created';
-    const FAILED_EXPERIENCE_CREATION = 'failed_experience_creation';
-    const EXPERIENCE_UPDATE = 'experience_updated';
-    const FAILED_EXPERIENCE_UPDATE = 'failed_experience_update';
-    const EXPERIENCE_DELETION = 'experience_delete';
-
-    // EDUCATION
-    const EDUCATION_CREATION = 'education_created';
-    const FAILED_EDUCATION_CREATION = 'failed_education_creation';
-    const EDUCATION_UPDATE = 'education_updated';
-    const FAILED_EDUCATION_UPDATE = 'failed_education_update';
-    const EDUCATION_DELETION = 'education_delete';
-
-    // SKILL
-    const SKILL_CREATION = 'skill_created';
-    const FAILED_SKILL_CREATION = 'failed_skill_creation';
-    const SKILL_UPDATE = 'skill_updated';
-    const FAILED_SKILL_UPDATE = 'failed_skill_update';
-    const SKILL_DELETION = 'skill_delete';
-
-    // PRODUCT
-    const PRODUCT_CREATION = 'product_created';
-    const FAILED_PRODUCT_CREATION = 'failed_product_creation';
-    const PRODUCT_UPDATE = 'product_updated';
-    const FAILED_PRODUCT_UPDATE = 'failed_product_update';
-    const PRODUCT_DELETION = 'product_delete';
-
-    // PRODUCT_CATEGORY
-    const PRODUCT_CATEGORY_CREATION = 'product_category_created';
-    const FAILED_PRODUCT_CATEGORY_CREATION = 'failed_product_category_creation';
-    const PRODUCT_CATEGORY_UPDATE = 'product_category_updated';
-    const FAILED_PRODUCT_CATEGORY_UPDATE = 'failed_product_category_update';
-    const PRODUCT_CATEGORY_DELETION = 'product_category_delete';
-
-    // POPUP
-    const POPUP_CREATION = 'popup_created';
-    const FAILED_POPUP_CREATION = 'failed_popup_creation';
-    const POPUP_UPDATE = 'popup_updated';
-    const FAILED_POPUP_UPDATE = 'failed_popup_update';
-    const POPUP_DELETION = 'popup_delete';
-
-    // DONATION CAUSE
-    const DONATION_CAUSE_CREATION = 'donation_cause_created';
-    const FAILED_DONATION_CAUSE_CREATION = 'failed_donation_cause_creation';
-    const DONATION_CAUSE_UPDATE = 'donation_cause_updated';
-    const FAILED_DONATION_CAUSE_UPDATE = 'failed_donation_cause_update';
-    const DONATION_CAUSE_DELETION = 'donation_cause_delete';
-
-    // DONATION CAUSE
-    const SUBSCRIPTION_CREATION = 'subscription_created';
-    const FAILED_SUBSCRIPTION_CREATION = 'failed_subscription_creation';
-    const SUBSCRIPTION_UPDATE = 'subscription_updated';
-    const FAILED_SUBSCRIPTION_UPDATE = 'failed_subscription_update';
-    const SUBSCRIPTION_DELETION = 'subscription_delete';
 
     // BLOCKED IP REASONS
     const BLOCKED_IP_CREATION = 'blocked_ip_created';
@@ -366,13 +177,6 @@ class ActivityTypes
             self::USER_LOGOUT => 'User Logout',
             self::FAILED_USER_LOGIN => 'Failed User Login',
             self::TOO_MANY_FAILED_USER_LOGIN => 'Too Many Failed User Login Attempts',
-
-            //Contact
-            self::CONTACT_CREATION => 'Contact Creation',
-            self::FAILED_CONTACT_CREATION => 'Contact Creation Failed',
-            self::CONTACT_UPDATE => 'Contact Update',
-            self::FAILED_CONTACT_UPDATE => 'Contact Update Failed',
-            self::CONTACT_DELETION => 'Contact Deletion',
 
             //User
             self::USER_CREATION => 'User Creation',
@@ -446,33 +250,12 @@ class ActivityTypes
             self::FAILED_NAVIGATION_UPDATE => 'Navigation Update Failed',
             self::NAVIGATION_DELETION => 'Navigation Deletion',
 
-            // Home Page
-            self::HOME_PAGE_CREATION => 'Page Created',
-            self::FAILED_HOME_PAGE_CREATION => 'Page Creation Failed',
-            self::HOME_PAGE_UPDATE => 'Page Updated',
-            self::FAILED_HOME_PAGE_UPDATE => 'Page Update Failed',
-            self::HOME_PAGE_DELETION => 'Page Deletion',
-
             // Pages
             self::PAGE_CREATION => 'Page Created',
             self::FAILED_PAGE_CREATION => 'Page Creation Failed',
             self::PAGE_UPDATE => 'Page Updated',
             self::FAILED_PAGE_UPDATE => 'Page Update Failed',
             self::PAGE_DELETION => 'Page Deletion',
-
-            // Contact Messages
-            self::CONTACT_MESSAGE_CREATION => 'Contact Message Created',
-            self::FAILED_CONTACT_MESSAGE_CREATION => 'Contact Message Creation Failed',
-            self::CONTACT_MESSAGE_UPDATE => 'Contact Message Updated',
-            self::FAILED_CONTACT_MESSAGE_UPDATE => 'Contact Message Update Failed',
-            self::CONTACT_MESSAGE_DELETION => 'Contact Message Deletion',
-
-            // Booking
-            self::BOOKING_CREATION => 'Booking Created',
-            self::FAILED_BOOKING_CREATION => 'Booking Creation Failed',
-            self::BOOKING_UPDATE => 'Booking Updated',
-            self::FAILED_BOOKING_UPDATE => 'Booking Update Failed',
-            self::BOOKING_DELETION => 'Booking Deletion',
 
             // Content Blocks
             self::CONTENT_BLOCK_CREATION => 'Content Block Created',
@@ -481,110 +264,12 @@ class ActivityTypes
             self::FAILED_CONTENT_BLOCK_UPDATE => 'Content Block Update Failed',
             self::CONTENT_BLOCK_DELETION => 'Content Block Deletion',
 
-            // Counters
-            self::COUNTER_CREATION => 'Counter Created',
-            self::FAILED_COUNTER_CREATION => 'Counter Creation Failed',
-            self::COUNTER_UPDATE => 'Counter Updated',
-            self::FAILED_COUNTER_UPDATE => 'Counter Update Failed',
-            self::COUNTER_DELETION => 'Counter Deletion',
-
-            // Services
-            self::SERVICE_CREATION => 'Service Created',
-            self::FAILED_SERVICE_CREATION => 'Service Creation Failed',
-            self::SERVICE_UPDATE => 'Service Updated',
-            self::FAILED_SERVICE_UPDATE => 'Service Update Failed',
-            self::SERVICE_DELETION => 'Service Deletion',
-
-            // Partner
-            self::PARTNER_CREATION => 'Partner Created',
-            self::FAILED_PARTNER_CREATION => 'Partner Creation Failed',
-            self::PARTNER_UPDATE => 'Partner Updated',
-            self::FAILED_PARTNER_UPDATE => 'Partner Update Failed',
-            self::PARTNER_DELETION => 'Partner Deletion',
-
-            // Events
-            self::EVENT_CREATION => 'Event Created',
-            self::FAILED_EVENT_CREATION => 'Event Creation Failed',
-            self::EVENT_UPDATE => 'Event Updated',
-            self::FAILED_EVENT_UPDATE => 'Event Update Failed',
-            self::EVENT_DELETION => 'Event Deletion',
-
-            // FAQ
-            self::FAQ_CREATION => 'FAQ Created',
-            self::FAILED_FAQ_CREATION => 'FAQ Creation Failed',
-            self::FAQ_UPDATE => 'FAQ Updated',
-            self::FAILED_FAQ_UPDATE => 'FAQ Update Failed',
-            self::FAQ_DELETION => 'FAQ Deletion',
-
-            // Gallery
-            self::GALLERY_CREATION => 'Gallery Created',
-            self::FAILED_GALLERY_CREATION => 'Gallery Creation Failed',
-            self::GALLERY_UPDATE => 'Gallery Updated',
-            self::FAILED_GALLERY_UPDATE => 'Gallery Update Failed',
-            self::GALLERY_DELETION => 'Gallery Deletion',
-
-            // Video
-            self::VIDEO_CREATION => 'Video Created',
-            self::FAILED_VIDEO_CREATION => 'Video Creation Failed',
-            self::VIDEO_UPDATE => 'Video Updated',
-            self::FAILED_VIDEO_UPDATE => 'Video Update Failed',
-            self::VIDEO_DELETION => 'Video Deletion',
-
-            // Pricings
-            self::PRICING_CREATION => 'Pricing Created',
-            self::FAILED_PRICING_CREATION => 'Pricing Creation Failed',
-            self::PRICING_UPDATE => 'Pricing Updated',
-            self::FAILED_PRICING_UPDATE => 'Pricing Update Failed',
-            self::PRICING_DELETION => 'Pricing Deletion',
-
-            // Portfolios
-            self::PORTFOLIO_CREATION => 'Portfolio Created',
-            self::FAILED_PORTFOLIO_CREATION => 'Portfolio Creation Failed',
-            self::PORTFOLIO_UPDATE => 'Portfolio Updated',
-            self::FAILED_PORTFOLIO_UPDATE => 'Portfolio Update Failed',
-            self::PORTFOLIO_DELETION => 'Portfolio Deletion',
-
-            // Socials
-            self::SOCIAL_CREATION => 'Social Created',
-            self::FAILED_SOCIAL_CREATION => 'Social Creation Failed',
-            self::SOCIAL_UPDATE => 'Social Updated',
-            self::FAILED_SOCIAL_UPDATE => 'Social Update Failed',
-            self::SOCIAL_DELETION => 'Social Deletion',
-
-            // Teams
-            self::TEAM_CREATION => 'Team Created',
-            self::FAILED_TEAM_CREATION => 'Team Creation Failed',
-            self::TEAM_UPDATE => 'Team Updated',
-            self::FAILED_TEAM_UPDATE => 'Team Update Failed',
-            self::TEAM_DELETION => 'Team Deletion',
-
-            // Testimonials
-            self::TESTIMONIAL_CREATION => 'Testimonial Created',
-            self::FAILED_TESTIMONIAL_CREATION => 'Testimonial Creation Failed',
-            self::TESTIMONIAL_UPDATE => 'Testimonial Updated',
-            self::FAILED_TESTIMONIAL_UPDATE => 'Testimonial Update Failed',
-            self::TESTIMONIAL_DELETION => 'Testimonial Deletion',
-
-            // Appointments
-            self::APPOINTMENT_CREATION => 'Appointment Created',
-            self::FAILED_APPOINTMENT_CREATION => 'Appointment Creation Failed',
-            self::APPOINTMENT_UPDATE => 'Appointment Updated',
-            self::FAILED_APPOINTMENT_UPDATE => 'Appointment Update Failed',
-            self::APPOINTMENT_DELETION => 'Appointment Deletion',
-
             // Data Groups
             self::DATA_GROUP_CREATION => 'Data Group Created',
             self::FAILED_DATA_GROUP_CREATION => 'Data Group Creation Failed',
             self::DATA_GROUP_UPDATE => 'Data Group Updated',
             self::FAILED_DATA_GROUP_UPDATE => 'Data Group Update Failed',
             self::DATA_GROUP_DELETION => 'Data Group Deletion',
-
-            // Translations
-            self::TRANSLATION_CREATION => 'Translation Created',
-            self::FAILED_TRANSLATION_CREATION => 'Translation Creation Failed',
-            self::TRANSLATION_UPDATE => 'Translation Updated',
-            self::FAILED_TRANSLATION_UPDATE => 'Translation Update Failed',
-            self::TRANSLATION_DELETION => 'Translation Deletion',
 
             // Codes
             self::CODE_CREATION => 'Code Created',
@@ -599,69 +284,6 @@ class ActivityTypes
             self::THEME_UPDATE => 'Theme Updated',
             self::FAILED_THEME_UPDATE => 'Theme Update Failed',
             self::THEME_DELETION => 'Theme Deletion',
-
-            // Resumes
-            self::RESUME_CREATION => 'Resume Created',
-            self::FAILED_RESUME_CREATION => 'Resume Creation Failed',
-            self::RESUME_UPDATE => 'Resume Updated',
-            self::FAILED_RESUME_UPDATE => 'Resume Update Failed',
-            self::RESUME_DELETION => 'Resume Deletion',
-
-            // Experience
-            self::EXPERIENCE_CREATION => 'Experience Created',
-            self::FAILED_EXPERIENCE_CREATION => 'Experience Creation Failed',
-            self::EXPERIENCE_UPDATE => 'Experience Updated',
-            self::FAILED_EXPERIENCE_UPDATE => 'Experience Update Failed',
-            self::EXPERIENCE_CREATION => 'Experience Deletion',
-
-            // Education
-            self::EDUCATION_CREATION => 'Education Created',
-            self::FAILED_EDUCATION_CREATION => 'Education Creation Failed',
-            self::EDUCATION_UPDATE => 'Education Updated',
-            self::FAILED_EDUCATION_UPDATE => 'Education Update Failed',
-            self::EDUCATION_CREATION => 'Education Deletion',
-
-            // Skill
-            self::SKILL_CREATION => 'Skill Created',
-            self::FAILED_SKILL_CREATION => 'Skill Creation Failed',
-            self::SKILL_UPDATE => 'Skill Updated',
-            self::FAILED_SKILL_UPDATE => 'Skill Update Failed',
-            self::SKILL_CREATION => 'Skill Deletion',
-
-            // Product
-            self::PRODUCT_CREATION => 'Product Created',
-            self::FAILED_PRODUCT_CREATION => 'Product Creation Failed',
-            self::PRODUCT_UPDATE => 'Product Updated',
-            self::FAILED_PRODUCT_UPDATE => 'Product Update Failed',
-            self::PRODUCT_CREATION => 'Product Deletion',
-
-            // Product Category
-            self::PRODUCT_CATEGORY_CREATION => 'Product Category Created',
-            self::FAILED_PRODUCT_CATEGORY_CREATION => 'Product Category Creation Failed',
-            self::PRODUCT_CATEGORY_UPDATE => 'Product Category Updated',
-            self::FAILED_PRODUCT_CATEGORY_UPDATE => 'Product Category Update Failed',
-            self::PRODUCT_CATEGORY_CREATION => 'Product Category Deletion',
-
-            // Popup
-            self::POPUP_CREATION => 'Popup Created',
-            self::FAILED_POPUP_CREATION => 'Popup Creation Failed',
-            self::POPUP_UPDATE => 'Popup Updated',
-            self::FAILED_POPUP_UPDATE => 'Popup Update Failed',
-            self::POPUP_CREATION => 'Popup Deletion',
-
-            // Donation Cause
-            self::DONATION_CAUSE_CREATION => 'Donation cause Created',
-            self::FAILED_DONATION_CAUSE_CREATION => 'Donation cause Creation Failed',
-            self::DONATION_CAUSE_UPDATE => 'Donation cause Updated',
-            self::FAILED_DONATION_CAUSE_UPDATE => 'Donation cause Update Failed',
-            self::DONATION_CAUSE_CREATION => 'Donation cause Deletion',
-
-            // Subscriptions
-            self::SUBSCRIPTION_CREATION => 'Subscription Created',
-            self::FAILED_SUBSCRIPTION_CREATION => 'Subscription Creation Failed',
-            self::SUBSCRIPTION_UPDATE => 'Subscription Updated',
-            self::FAILED_SUBSCRIPTION_UPDATE => 'Subscription Update Failed',
-            self::SUBSCRIPTION_CREATION => 'Subscription Deletion',
 
             // BLOCKED IP REASONS
             self::BLOCKED_IP_CREATION => 'Blocked IP Created',

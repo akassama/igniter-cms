@@ -508,88 +508,13 @@ function shouldLogVisit($currentUrl) {
  * @param string $urlSegment The request segment (e.g., 'get-blog').
  * @return bool Returns true if the model is allowed, otherwise false.
  */
-if (!function_exists('isAllowedModel')) {
-    function isAllowedModel($urlSegment)
+if (!function_exists('isAllowedModelRoute')) {
+    function isAllowedModelRoute($urlSegment)
     {
-        //Mapping of request segments to their respective model names.
-        $requestModels = [
-            'get-home-page' => 'HomePageModel',
-            'get-all-blogs' => 'BlogsModel',
-            'get-blog' => 'BlogsModel',
-            'get-blogs' => 'BlogsModel',
-            'get-category' => 'CategoriesModel',
-            'get-categories' => 'CategoriesModel',
-            'get-code' => 'CodesModel',
-            'get-codes' => 'CodesModel',
-            'get-content-block' => 'ContentBlocksModel',
-            'get-content-blocks' => 'ContentBlocksModel',
-            'get-country' => 'CountriesModel',
-            'get-countries' => 'CountriesModel',
-            'get-counter' => 'CountersModel',
-            'get-counters' => 'CountersModel',
-            'get-donation-cause' => 'DonationCausesModel',
-            'get-donation-causes' => 'DonationCausesModel',
-            'get-event' => 'EventsModel',
-            'get-events' => 'EventsModel',
-            'get-faq' => 'FrequentlyAskedQuestionsModel',
-            'get-faqs' => 'FrequentlyAskedQuestionsModel',
-            'get-language' => 'LanguagesModel',
-            'get-languages' => 'LanguagesModel',
-            'get-navigation' => 'NavigationsModel',
-            'get-navigations' => 'NavigationsModel',
-            'get-all-pages' => 'PagesModel',
-            'get-page' => 'PagesModel',
-            'get-pages' => 'PagesModel',
-            'get-partner' => 'PartnersModel',
-            'get-partners' => 'PartnersModel',
-            'get-portfolio' => 'PortfoliosModel',
-            'get-portfolios' => 'PortfoliosModel',
-            'get-pricing' => 'PricingsModel',
-            'get-pricings' => 'PricingsModel',
-            'get-product-category' => 'ProductCategoriesModel',
-            'get-product-categories' => 'ProductCategoriesModel',
-            'get-product' => 'ProductsModel',
-            'get-products' => 'ProductsModel',
-            'get-resume' => 'ResumesModel',
-            'get-resumes' => 'ResumesModel',
-            'search-results' => 'SearchModel',
-            'model-search-results' => 'SearchModel',
-            'filter-search-results' => 'SearchModel',
-            'get-service' => 'ServicesModel',
-            'get-services' => 'ServicesModel',
-            'get-social' => 'SocialsModel',
-            'get-socials' => 'SocialsModel',
-            'get-team' => 'TeamsModel',
-            'get-teams' => 'TeamsModel',
-            'get-testimonial' => 'TestimonialsModel',
-            'get-testimonials' => 'TestimonialsModel',
-            'get-theme' => 'ThemesModel',
-            'get-themes' => 'ThemesModel',
-            'get-translation' => 'TranslationsModel',
-            'get-translations' => 'TranslationsModel',
-            'get-appointment' => 'AppointmentsModel',
-            'get-appointments' => 'AppointmentsModel',
-        ];
-
-        // Validates if the given request segment exists in the predefined request models.
-        if (!isset($requestModels[$urlSegment])) {
-            return false;
-        }
-
-        // Retrieves the corresponding model name for the given request segment.
-        $modelName = $requestModels[$urlSegment];
-
-        // Fetches the list of allowed models from the configuration.
-        $allowedModels = getConfigData("AllowedApiGetModels");
-
-        // Converts the CSV string of allowed models into an array.
-        $allowedModelsArray = array_map('trim', explode(',', $allowedModels));
-
-        // Checks if the model name exists in the allowed models array.
-        return in_array($modelName, $allowedModelsArray, true);
+        $allowedRoutes = array("get-model-data", "get-plugin-data", "add-plugin-data", "update-plugin-data", "delete-plugin-data");
+        return in_array($urlSegment, $allowedRoutes);
     }
 }
-
 
 /**
  * Logs an API call with details in the database.

@@ -5,7 +5,7 @@ $theme = getCurrentTheme();
 $primaryThemeColor = getThemeData($theme, "primary_color");
 
 //global search icon
-$enableGoogleTranslate = getConfigData("EnableGlobalSearchIcon");
+$enableGlobalSearchIcon = getConfigData("EnableGlobalSearchIcon");
 ?>
 
 <style>
@@ -25,7 +25,7 @@ $enableGoogleTranslate = getConfigData("EnableGlobalSearchIcon");
 
 
 <?php
-if (strtolower($enableGoogleTranslate) === "yes") {
+if (strtolower($enableGlobalSearchIcon) === "yes") {
 ?>
 <a href="javascript:void(0);" class="global-search-modal text-decoration-none h4" id="globalSearchIcon">
     <i class="ri-search-line"></i>

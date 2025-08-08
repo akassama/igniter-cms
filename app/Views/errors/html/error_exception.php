@@ -118,7 +118,7 @@ $errorId = uniqid('error', true);
                                         &nbsp;&nbsp;&mdash;&nbsp;&nbsp;<?= esc($row['class'] . $row['type'] . $row['function']) ?>
                                         <?php if (! empty($row['args'])) : ?>
                                         <?php $argsId = $errorId . 'args' . $index ?>
-                                        ( <a href="#" onclick="return toggle('<?= esc($argsId, 'attr') ?>');">arguments</a> )
+                                        ( <a href="javascript:void(0)" onclick="return toggle('<?= esc($argsId, 'attr') ?>');">arguments</a> )
                                     <div class="args" id="<?= esc($argsId, 'attr') ?>">
                                         <table cellspacing="0">
 

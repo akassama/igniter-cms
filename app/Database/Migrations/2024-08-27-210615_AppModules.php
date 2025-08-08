@@ -65,14 +65,6 @@ class AppModules extends Migration
             ],
             [
                 'app_module_id' => getGUID(),
-                'module_name'  => 'Contacts',
-                'module_description'  => 'Manage contacts',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/contacts',
-                'module_search_terms' => 'contacts,address,people'
-            ],
-            [
-                'app_module_id' => getGUID(),
                 'module_name'  => 'Account Details',
                 'module_description'  => 'Update account details',
                 'module_roles'    => 'Admin,Manager,User',
@@ -86,6 +78,15 @@ class AppModules extends Migration
                 'module_roles'    => 'Admin,Manager,User',
                 'module_link'    => 'account/settings/change-password',
                 'module_search_terms' => 'password,security,change'
+            ],
+            //Themes
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'Themes',
+                'module_description'  => 'Manage themes',
+                'module_roles'    => 'Admin',
+                'module_link'    => 'account/themes',
+                'module_search_terms' => 'themes,appearance,design'
             ],
             //Admin
             [
@@ -106,14 +107,6 @@ class AppModules extends Migration
             ],
             [
                 'app_module_id' => getGUID(),
-                'module_name'  => 'Translations',
-                'module_description'  => 'Manage translations',
-                'module_roles'    => 'Admin',
-                'module_link'    => 'account/admin/translations',
-                'module_search_terms' => 'translations,language,localization'
-            ],
-            [
-                'app_module_id' => getGUID(),
                 'module_name'  => 'Configurations',
                 'module_description'  => 'Manage configurations',
                 'module_roles'    => 'Admin',
@@ -127,14 +120,6 @@ class AppModules extends Migration
                 'module_roles'    => 'Admin',
                 'module_link'    => 'account/admin/codes',
                 'module_search_terms' => 'codes,references,identifiers'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Themes',
-                'module_description'  => 'Manage themes',
-                'module_roles'    => 'Admin',
-                'module_link'    => 'account/admin/themes',
-                'module_search_terms' => 'themes,appearance,design'
             ],
             [
                 'app_module_id' => getGUID(),
@@ -186,14 +171,6 @@ class AppModules extends Migration
             ],
             [
                 'app_module_id' => getGUID(),
-                'module_name'  => 'Content Management System (CMS)',
-                'module_description'  => 'Manage content',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/blogs',
-                'module_search_terms' => 'cms,content management'
-            ],
-            [
-                'app_module_id' => getGUID(),
                 'module_name'  => 'Backup',
                 'module_description'  => 'Manage backups',
                 'module_roles'    => 'Admin',
@@ -208,13 +185,14 @@ class AppModules extends Migration
                 'module_link'    => 'account/admin/file-editor',
                 'module_search_terms' => 'themes,customize,ui'
             ],
+            //FILE MANAGER
             [
                 'app_module_id' => getGUID(),
-                'module_name'  => 'Subcribers',
-                'module_description'  => 'Manage email subcribers',
-                'module_roles'    => 'Admin',
-                'module_link'    => 'account/admin/subscribers',
-                'module_search_terms' => 'subcribe,notification'
+                'module_name'  => 'File Management',
+                'module_description'  => 'Manage files and media (images, videos, documents)',
+                'module_roles'    => 'Admin,Manager,User',
+                'module_link'    => 'account/file-manager',
+                'module_search_terms' => 'files,media,storage'
             ],
             //CMS
             [
@@ -264,111 +242,6 @@ class AppModules extends Migration
                 'module_roles'    => 'Admin,Manager,User',
                 'module_link'    => 'account/cms/content-blocks',
                 'module_search_terms' => 'content,blocks,widgets'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Events',
-                'module_description'  => 'Manage events',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/events',
-                'module_search_terms' => 'events,calendar,schedule'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Portfolios',
-                'module_description'  => 'Manage projects',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/portfolios',
-                'module_search_terms' => 'portfolios,projects,work'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Galleries',
-                'module_description'  => 'Manage galleries',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/galleries',
-                'module_search_terms' => 'galleries,images,photos'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Counters',
-                'module_description'  => 'Manage counters',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/counters',
-                'module_search_terms' => 'counters,statistics,metrics'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Socials',
-                'module_description'  => 'Manage socials',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/socials',
-                'module_search_terms' => 'socials,media,networks'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Pricings',
-                'module_description'  => 'Manage pricings',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/pricings',
-                'module_search_terms' => 'pricing,cost,payment'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Teams',
-                'module_description'  => 'Manage teams',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/teams',
-                'module_search_terms' => 'team,management,employees'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Testimonials',
-                'module_description'  => 'Manage testimonials',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/testimonials',
-                'module_search_terms' => 'reviews,testimonials,ratings'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'FAQs',
-                'module_description'  => 'Manage FAQs',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/faqs',
-                'module_search_terms' => 'faqs,questions,help'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Donation & Causes',
-                'module_description'  => 'Manage donation, causes and charity campaings',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/admin/donation-causes',
-                'module_search_terms' => 'donate,donation,charity,ngo,fund raisong'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Popup Announcements',
-                'module_description'  => ' Announcement & Popups',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/popups',
-                'module_search_terms' => 'announcement,popups,pop-up,modals,adverts'
-            ],
-            //E-Commerce
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'E-Commerce',
-                'module_description'  => 'Manage E-Commerce module (product, and categories)',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/ecommerce',
-                'module_search_terms' => 'ecommerce,shop,sell,online shopping,online store,marketplace'
-            ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'Product Categories',
-                'module_description'  => 'Manage product categories',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/ecommerce/product-categories',
-                'module_search_terms' => 'products,product categories,sku,inventory,orders,customers'
             ],
             //AI 
             [

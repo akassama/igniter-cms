@@ -14,7 +14,8 @@ class GenerateKey extends BaseCommand
     public function run(array $params)
     {
         // Generate a 256-bit key
-        $key = bin2hex(random_bytes(32));
+        $key1 = bin2hex(random_bytes(32));
+        $key2 = bin2hex(random_bytes(32));
 
         // Define .env file path
         $envFile = ROOTPATH . '.env';
@@ -30,15 +31,24 @@ class GenerateKey extends BaseCommand
         // Check if APP_KEY already exists
         if (preg_match('/APP_KEY\s*=\s*/', $envContent)) {
             // Replace existing key
-            $envContent = preg_replace('/APP_KEY\s*=\s*[^\n]*/', "APP_KEY={$key}", $envContent);
+            $envContent = preg_replace('/APP_KEY\s*=\s*[^\n]*/', "APP_KEY={$key1}", $envContent);
         } else {
             // Append new APP_KEY
-            $envContent .= PHP_EOL . "APP_KEY={$key}";
+            $envContent .= PHP_EOL . "APP_KEY={$key1}";
+        }
+
+        // Check if PLUGIN_API_REQUEST_KEY already exists
+        if (preg_match('/PLUGIN_API_REQUEST_KEY\s*=\s*/', $envContent)) {
+            // Replace existing key
+            $envContent = preg_replace('/PLUGIN_API_REQUEST_KEY\s*=\s*[^\n]*/', "PLUGIN_API_REQUEST_KEY={$key2}", $envContent);
+        } else {
+            // Append new PLUGIN_API_REQUEST_KEY
+            $envContent .= PHP_EOL . "PLUGIN_API_REQUEST_KEY={$key2}";
         }
 
         // Write back to .env file
         file_put_contents($envFile, $envContent);
 
-        CLI::write("New application key generated and saved: {$key}", 'green');
+        CLI::write("New application keys generated and saved: ({$key1},{$key2})", 'green');
     }
 }

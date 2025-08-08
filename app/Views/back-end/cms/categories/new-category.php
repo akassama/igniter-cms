@@ -88,7 +88,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="parent" class="form-label">Parent</label>
                 <select class="form-select" id="parent" name="parent">
                     <option value="">Select parent</option>
-                    <?= getBlogCategories() ?>
+                    <?= getBlogCategorySelectOptions() ?>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('parent')) {?>

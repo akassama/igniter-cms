@@ -34,18 +34,6 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="col-xl-3 col-md-6">
         <div class="card bg-dark text-white mb-4">
             <div class="card-body border-bottom">
-                <i class="ri-global-line"></i>
-                Translations
-            </div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/admin/translations'); ?>">View Details</a>
-                <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-dark text-white mb-4">
-            <div class="card-body border-bottom">
                 <i class="ri-equalizer-2-line"></i>
                 Configurations
             </div>
@@ -63,18 +51,6 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="<?= base_url('/account/admin/codes'); ?>">View Details</a>
-                <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-dark text-white mb-4">
-            <div class="card-body border-bottom">
-                <i class="ri-paint-brush-line"></i>
-                Themes
-            </div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/admin/themes'); ?>">View Details</a>
                 <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
             </div>
         </div>
@@ -170,43 +146,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 File Editor
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/admin/file-editor'); ?>">View Details</a>
-                <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-dark text-white mb-4">
-            <div class="card-body border-bottom">
-                <i class="ri-mail-unread-line"></i>
-                Contact Messages
-            </div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/admin/contact-messages'); ?>">View Details</a>
-                <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-dark text-white mb-4">
-            <div class="card-body border-bottom">
-                <i class="ri-calendar-2-line"></i>
-                Bookings
-            </div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/admin/bookings'); ?>">View Details</a>
-                <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-dark text-white mb-4">
-            <div class="card-body border-bottom">
-                <i class="ri-rss-fill"></i>
-                Subscribers
-            </div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/admin/subscribers'); ?>">View Details</a>
+                <a class="small text-white stretched-link" href="<?= base_url('/account/appearance/theme-editor'); ?>">View Details</a>
                 <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
             </div>
         </div>

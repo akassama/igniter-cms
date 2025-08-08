@@ -26,6 +26,12 @@ class ApiAccessFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
+        $currentUrl = current_url();
+        $ipAddress = getDeviceIP();
+        $deviceType = getDeviceType();
+        $country = getCountry();
+        $userAgent = getUserAgent();
+        
         $checkApiKey = true;
 
         // Extract the API key from the second URL segment (immediately after 'api/')
@@ -35,18 +41,6 @@ class ApiAccessFilter implements FilterInterface
         // The API key is the second segment (after 'api')
         $apiKey = $segments[1] ?? null;
         $resource = $segments[2] ?? null;
-
-        var_dump($apiKey);
-
-
-        $excludeArr = array("add-booking", "add-subscriber", "send-contact-message");
-        if (in_array($apiKey, $excludeArr))
-        {
-           $checkApiKey = false;
-        }
-
-        // Debug: Check the extracted API key
-        // var_dump($apiKey); exit();
 
         // Validate the API key using the helper function
         if($checkApiKey){
@@ -60,10 +54,9 @@ class ApiAccessFilter implements FilterInterface
             }
         }
 
-
         // Validate the API key using the helper function
         if($checkApiKey){
-            if (!isAllowedModel($resource)) {
+            if (!isAllowedModelRoute($resource)) {
                 return Services::response()
                     ->setStatusCode(401)
                     ->setJSON([
@@ -72,6 +65,14 @@ class ApiAccessFilter implements FilterInterface
                     ]);
             }
         }
+
+        logApiCall(
+            $apiKey,
+            $ipAddress,
+            $deviceType,
+            $country,
+            $userAgent
+        );
 
         // Continue to the next filter or controller
         return;

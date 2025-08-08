@@ -76,8 +76,8 @@ class SettingsController extends BaseController
             $builder->update($data);
 
             // Record updated successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->editSuccessMsg;
-            session()->setFlashdata('successAlert', $createSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'User', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
 
             //log activity
             logActivity($userId, ActivityTypes::ACCOUNT_DETAILS_UPDATE, 'User with id: ' . $userId . ' updated account details');
@@ -152,7 +152,7 @@ class SettingsController extends BaseController
             //check if new passwords match
             if($newPassword != $repeatPassword)
             {
-                $errorMsg = config('CustomConfig')->dataMissMatch;
+                $errorMsg = config('CustomConfig')->currentNewPasswordMissMatch;
                 session()->setFlashdata('errorAlert', $errorMsg);
                 return view('back-end/settings/change-password/index', $data);
             }
@@ -168,8 +168,8 @@ class SettingsController extends BaseController
             $builder->update($data);
 
             // Record updated successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->editSuccessMsg;
-            session()->setFlashdata('successAlert', $createSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Password', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
 
             //log activity
             logActivity($userId, ActivityTypes::PASSWORD_CHANGED, 'User with id: ' . $userId . ' updated password');

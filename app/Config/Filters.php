@@ -44,6 +44,7 @@ class Filters extends BaseFilters
         'compressionFilter' => \App\Filters\CompressionFilter::class,
         'cacheHeadersFilter' => \App\Filters\CacheHeadersFilter::class,
         'corsFilter' => \App\Filters\CorsFilter::class,
+        'rateLimitFilter' => \App\Filters\RateLimitFilter::class,
         'apiAccessFilter'   => \App\Filters\ApiAccessFilter::class,
         'demoCheckFilter'   => \App\Filters\DemoCheckFilter::class,
         'featureCheckFilter'   => \App\Filters\FeatureCheckFilter::class,
@@ -71,7 +72,7 @@ class Filters extends BaseFilters
         'after' => [
             'pagecache',   // Web Page Caching
             'performance', // Performance Metrics
-            'toolbar',     // Debug Toolbar
+            'toolbar',     // Debug Toolbar (Turn of/off debugging here)
         ],
     ];
 

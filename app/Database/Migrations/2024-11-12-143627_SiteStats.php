@@ -140,7 +140,7 @@ class SiteStats extends Migration
                 'browser_type' => "Edge",
                 'page_type' => "Page",
                 'page_visited_id' => getGUID(),
-                'page_visited_url' => base_url("/products"),
+                'page_visited_url' => base_url("/"),
                 'referrer' => "POST",
                 'status_code' => 204,
                 'user_id' => getGUID(getDefaultAdminGUID()),

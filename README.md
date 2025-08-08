@@ -32,20 +32,16 @@ Igniter CMS is a light but powerful, versatile Content Management System built o
   - Easily Customizable Settings
   - Emailing Service Integration
 
-- **Comprehensive CMS:** Manage various website content, including blogs, pages, categories, navigations, events, portfolios, services, partners, counters, social links, pricings, teams, testimonials, FAQs, donation causes, popups, and policies.
-- **E-commerce Module:** Basic e-commerce functionality with product and category management.
-- **Resume Module:** Manage resumes, experiences, education, and skills.
+- **Comprehensive CMS:** Manage various website content, including blogs, pages, categories, navigations etc.
 - **File Manager:** Upload and manage files for use in the application.
 - **User Management:** Admin panel for managing users and permissions.
 - **Settings:** Configure application settings, including account details and password.
 - **API:** Fetch-only RESTful API for retrieving CMS data.
 - **Themes:** Support for managing and switching between website themes.
-- **Translations:** Manage translations for different languages.
 - **Customizable:** Easily customize app messages, activity types, and more.
-- **AI Powered Content Generation:** Extended e-commerce functionalities with detailed product variations, shipping options, payment gateway integrations, and order management.
-- **Appointment and Bookings Support:** Robust translation management for truly multilingual websites, allowing content in various languages.
+- **AI Powered Content Generation:** Automate and enhance various content-related tasks, includes content creation, content optimization, and content management
 - **SEO Tools:** Integrated SEO tools for optimizing your website's search engine visibility, including sitemap generation, meta tag management, and analytics integration.
-- **AI Powered Reporting & Analytics:** Detailed insights into website performance, user behavior, and e-commerce metrics through integrated reporting tools.
+- **AI Powered Reporting & Analytics:** Detailed insights into website performance, user behavior and metrics through integrated reporting tools.
 
 ## Example Sites
 
@@ -140,7 +136,6 @@ Here are some websites built with Igniter CMS:
 3. **Permissions:** Ensure `writable` and `public/uploads` directories are writable by the web server.
 
 4. **Email Configuration:** To enable email functionality, you need to configure your `EmailConfigType` in configurations (`account/admin/configurations`):
-
 
 **[🔗 Live Demo](https://demo.ignitercms.com/)** | [Documentation](https://docs.ignitercms.com/)
 

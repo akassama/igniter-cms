@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Edit FAQ<?= $this->endSection() ?>
+<?= $this->section('title') ?>Edit Data Group<?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -12,8 +12,8 @@
 $breadcrumb_links = array(
     array('title' => 'Dashboard', 'url' => '/account'),
     array('title' => 'CMS', 'url' => '/account/cms'),
-    array('title' => 'FAQS', 'url' => '/account/cms/faqs'),
-    array('title' => 'Edit FAQ')
+    array('title' => 'Data Groups', 'url' => '/account/cms/data-groups'),
+    array('title' => 'Edit Data Group')
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,7 +21,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Edit FAQ</h3>
+        <h3>Edit Data Group</h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>

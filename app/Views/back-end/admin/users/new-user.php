@@ -243,7 +243,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="mb-3 mt-3">
-                <a href="<?= base_url('/account/contacts') ?>" class="btn btn-outline-danger">
+                <a href="<?= base_url('/account/admin/users/') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
                     Back
                 </a>

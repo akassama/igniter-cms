@@ -95,7 +95,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="parent" class="form-label">Parent</label>
                 <select class="form-select" id="parent" name="parent">
                     <option value="">Select parent (optional)</option>
-                    <?= getNavigationParents($navigation_data['parent']) ?>
+                    <?= getNavigationParentSelectOptions($navigation_data['parent']) ?>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('parent')) {?>

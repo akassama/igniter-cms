@@ -43,7 +43,7 @@ class ForgotPasswordController extends BaseController
         ];
 
         if ($this->validate($rules)) {
-            $fromEmail = getConfigData("CompanyEmail");
+            $fromEmail = getConfigData("SiteEmail");
             $toEmail = $this->request->getPost('email');
             $tableName = 'users';
 
@@ -55,7 +55,7 @@ class ForgotPasswordController extends BaseController
                 $fullName = $firstName . " " . $lastName;
 
                 $resetToken = generateResetLink($toEmail);
-                $companyAddress = getConfigData("CompanyAddress");
+                $siteAddress = getConfigData("SiteAddress");
                 $subject = 'Password Reset Request';
 
                 $templateData = [
@@ -65,7 +65,7 @@ class ForgotPasswordController extends BaseController
                     'cta_text' => 'Reset Password',
                     'cta_url' => site_url("password-reset/{$resetToken}"),
                     'footer_text' => '<p>If you did not request a password reset, please ignore this email or contact support if you have any questions.</p><br/><p>Password reset links are valid for 30 minutes.</p>',
-                    'company_address' => $companyAddress,
+                    'company_address' => $siteAddress,
                     'unsubscribe_url' => site_url('unsubscribe')
                 ];
 

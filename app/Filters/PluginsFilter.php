@@ -26,11 +26,11 @@ class PluginsFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         try {
-            // Load plugin helpers for active plugins
-            loadPluginFilterHelpers();
+            // Load before_filter plugin helpers for active plugins
+            loadPlugin("before_filter");
         } catch (\Exception $e) {
             // Log error
-            log_message('error', 'Failed to load plugins in filter: ' . $e->getMessage());
+            log_message('error', 'Failed to before_filter load plugins in filter: ' . $e->getMessage());
         }
 
         return null; // Continue processing the request
@@ -50,6 +50,13 @@ class PluginsFilter implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        //
+        try {
+            // Load after_filter plugin helpers for active plugins
+            loadPlugin("after_filter");
+        } catch (\Exception $e) {
+            // Log error
+            log_message('error', 'Failed to load after_filter plugins in filter: ' . $e->getMessage());
+        }
+
     }
 }

@@ -74,48 +74,6 @@ class DataGroups extends Migration
                 'deletable'    => 0,
                 'created_by' => getGUID(getDefaultAdminGUID())
             ],
-            [
-                'data_group_id' => getGUID(),
-                'data_group_for'    => 'Portfolio',
-                'data_group_list'    => 'business,ecommerce,restaurant,general',
-                'deletable'    => 0,
-                'created_by' => getGUID(getDefaultAdminGUID())
-            ],
-            [
-                'data_group_id' => getGUID(),
-                'data_group_for'    => 'Gallery',
-                'data_group_list'    => 'business,ecommerce,restaurant,general',
-                'deletable'    => 0,
-                'created_by' => getGUID(getDefaultAdminGUID())
-            ],
-            [
-                'data_group_id' => getGUID(),
-                'data_group_for'    => 'ProductCategory',
-                'data_group_list'    => 'business,ecommerce,restaurant,general',
-                'deletable'    => 0,
-                'created_by' => getGUID(getDefaultAdminGUID())
-            ],
-            [
-                'data_group_id' => getGUID(),
-                'data_group_for'    => 'Experience',
-                'data_group_list'    => 'business,ecommerce,restaurant,general',
-                'deletable'    => 0,
-                'created_by' => getGUID(getDefaultAdminGUID())
-            ],
-            [
-                'data_group_id' => getGUID(),
-                'data_group_for'    => 'Education',
-                'data_group_list'    => 'business,ecommerce,restaurant,general',
-                'deletable'    => 0,
-                'created_by' => getGUID(getDefaultAdminGUID())
-            ],
-            [
-                'data_group_id' => getGUID(),
-                'data_group_for'    => 'Skill',
-                'data_group_list'    => 'business,ecommerce,restaurant,general',
-                'deletable'    => 0,
-                'created_by' => getGUID(getDefaultAdminGUID())
-            ],
         ];
 
         // Using Query Builder

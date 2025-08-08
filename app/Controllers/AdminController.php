@@ -8,15 +8,10 @@ use App\Controllers\BaseController;
 use App\Models\ConfigurationsModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\UsersModel;
-use App\Models\TranslationsModel;
 use App\Models\APIAccessModel;
 use App\Models\BackupsModel;
 use App\Models\ActivityLogsModel;
 use App\Models\CodesModel;
-use App\Models\ThemesModel;
-use App\Models\SubscribersModel;
-use App\Models\ContactMessagesModel;
-use App\Models\BookingsModel;
 use App\Models\SiteStatsModel;
 use App\Models\BlockedIPsModel;
 use App\Models\WhitelistedIPsModel;
@@ -106,7 +101,7 @@ class AdminController extends BaseController
             $insertedId = $usersModel->getInsertID();
 
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
+            $createSuccessMsg = str_replace('[Record]', 'User', config('CustomConfig')->createSuccessMsg);
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -188,7 +183,7 @@ class AdminController extends BaseController
             $builder->update($data);
 
             // Record updated successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->editSuccessMsg;
+            $createSuccessMsg = str_replace('[Record]', 'User', config('CustomConfig')->editSuccessMsg);
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -227,178 +222,6 @@ class AdminController extends BaseController
         ];
 
         return view('back-end/admin/users/view-user', $data);
-    }
-    
-    //############################//
-    //        Subscribers         //
-    //############################//
-    public function subscribers()
-    {
-        $tableName = 'subscribers';
-        $subscribersModel = new SubscribersModel();
-
-        // Set data to pass in view
-        $data = [
-            'subscribers' => $subscribersModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_500', 500))),
-            'pager' => $subscribersModel->pager,
-            'total_subscribers' => $subscribersModel->pager->getTotal()
-        ];
-
-        return view('back-end/admin/subscribers/index', $data);
-    }
-    
-    //############################//
-    //     Contact Messages       //
-    //############################//
-    public function contactMessages()
-    {
-        $tableName = 'contact_messages';
-        $contactMessagesModel = new ContactMessagesModel();
-
-        // Set data to pass in view
-        $data = [
-            'contact_messages' => $contactMessagesModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_500', 500))),
-            'pager' => $contactMessagesModel->pager,
-            'total_contact_messages' => $contactMessagesModel->pager->getTotal()
-        ];
-
-        return view('back-end/admin/contact-messages/index', $data);
-    }
-
-    public function viewContactMessage($contactMessageId)
-    {
-        //mark as read
-        $updateColumn =  "'is_read' = '1'";
-        $updateWhereClause = "contact_message_id = '$contactMessageId'";
-        $result = updateRecordColumn("contact_messages", $updateColumn, $updateWhereClause);
-
-        $contactMessagesModel = new ContactMessagesModel();
-
-        // Fetch the data based on the id
-        $contactMessage = $contactMessagesModel->where('contact_message_id', $contactMessageId)->first();
-
-        if (!$contactMessage) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
-            session()->setFlashdata('errorAlert', $errorMsg);
-            return redirect()->to('/account/admin/contact-messages');
-        }
-
-        // Set data to pass in view
-        $data = [
-            'contact_message_data' => $contactMessage
-        ];
-
-        return view('back-end/admin/contact-messages/view-contact', $data);
-    }
-
-    //############################//
-    //          Bookings          //
-    //############################//
-    public function bookings()
-    {
-        $tableName = 'bookings';
-        $bookingsModel = new BookingsModel();
-
-        // Set data to pass in view
-        $data = [
-            'bookings' => $bookingsModel->orderBy('created_at', 'DESC')->paginate(intval(env('QUERY_LIMIT_500', 500))),
-            'pager' => $bookingsModel->pager,
-            'total_bookings' => $bookingsModel->pager->getTotal()
-        ];
-
-        return view('back-end/admin/bookings/index', $data);
-    }
-
-    public function viewBooking($bookingId)
-    {
-        $bookingsModel = new BookingsModel();
-
-        // Fetch the data based on the id
-        $booking = $bookingsModel->where('booking_id', $bookingId)->first();
-
-        if (!$booking) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
-            session()->setFlashdata('errorAlert', $errorMsg);
-            return redirect()->to('/account/admin/bookings');
-        }
-
-        // Set data to pass in view
-        $data = [
-            'booking_data' => $booking
-        ];
-
-        return view('back-end/admin/bookings/view-booking', $data);
-    }
-
-    //############################//
-    //        Translations        //
-    //############################//
-    public function translations()
-    {
-        $tableName = 'translations';
-        $translationsModel = new TranslationsModel();
-
-        // Set data to pass in view
-        $data = [
-            'translations' => $translationsModel->orderBy('language', 'ASC')->findAll(),
-            'total_translations' => getTotalRecords($tableName)
-        ];
-
-        return view('back-end/admin/translations/index', $data);
-    }
-
-    public function newTranslation()
-    {
-        return view('back-end/admin/translations/new-translation');
-    }
-
-    public function addTranslation()
-    {
-        //get logged-in user id
-        $loggedInUserId = $this->session->get('user_id');
-
-        // Load the TranslationsModel
-        $translationsModel = new TranslationsModel();
-
-        // Validation rules from the model
-        $validationRules = $translationsModel->getValidationRules();
-
-        // Validate the incoming data
-        if (!$this->validate($validationRules)) {
-            // If validation fails, return validation errors
-            $data['validation'] = $this->validator;
-            return view('back-end/admin/translations/new-translation');
-        }
-
-        // If validation passes, create the translation
-        $translationData = [
-            'language' => $this->request->getPost('language'),
-            'created_by' => $loggedInUserId
-        ];
-
-        // Call createTranslation method from the TranslationsModel
-        if ($translationsModel->createTranslation($translationData)) {
-            //inserted translation_id
-            $insertedId = $translationsModel->getInsertID();
-
-            // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
-            session()->setFlashdata('successAlert', $createSuccessMsg);
-
-            //log activity
-            logActivity($loggedInUserId, ActivityTypes::USER_CREATION, 'Translation created with id: ' . $insertedId);
-
-            return redirect()->to('/account/admin/translations');
-        } else {
-            // Failed to create record. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
-            session()->setFlashdata('errorAlert', $errorMsg);
-
-            //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_USER_CREATION, 'Failed to create translation with language: ' . $this->request->getPost('language'));
-
-            return view('back-end/admin/translations/new-translation');
-        }
     }
 
     //############################//
@@ -456,7 +279,7 @@ class AdminController extends BaseController
             $insertedId = $apiKeysModel->getInsertID();
 
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
+            $createSuccessMsg = str_replace('[Record]', 'API Key', config('CustomConfig')->createSuccessMsg);
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -529,8 +352,8 @@ class AdminController extends BaseController
             $builder->update($data);
 
             // Record updated successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->editSuccessMsg;
-            session()->setFlashdata('successAlert', $createSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'API Key', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
 
             //log activity
             logActivity($loggedInUserId, ActivityTypes::API_KEY_UPDATE, 'ApiKey updated with id: ' . $apiId);
@@ -614,7 +437,7 @@ class AdminController extends BaseController
             $insertedId = $configModel->getInsertID();
 
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
+            $createSuccessMsg = str_replace('[Record]', 'Configuration', config('CustomConfig')->createSuccessMsg);
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -717,8 +540,8 @@ class AdminController extends BaseController
             $builder->update($data);
 
             // Record updated successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->editSuccessMsg;
-            session()->setFlashdata('successAlert', $createSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Configuration', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
 
             //log activity
             logActivity($loggedInUserId, ActivityTypes::CONFIG_UPDATE, 'Config updated with id: ' . $configId);
@@ -792,7 +615,7 @@ class AdminController extends BaseController
             $insertedId = $codesModel->getInsertID();
     
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
+            $createSuccessMsg = str_replace('[Record]', 'Code', config('CustomConfig')->createSuccessMsg);
             session()->setFlashdata('successAlert', $createSuccessMsg);
     
             //log activity
@@ -862,8 +685,8 @@ class AdminController extends BaseController
             $builder->update($data);
     
             // Record updated successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->editSuccessMsg;
-            session()->setFlashdata('successAlert', $createSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Code', config('CustomConfig')->editSuccessMsg);
+            session()->setFlashdata('successAlert', $editSuccessMsg);
     
             //log activity
             logActivity($loggedInUserId, ActivityTypes::CODE_UPDATE, 'Code updated with id: ' . $codeId);
@@ -880,245 +703,6 @@ class AdminController extends BaseController
     
             return view('back-end/admin/codes/edit-code', $data);
         }
-    }
-
-    //############################//
-    //           Themes           //
-    //############################//
-    public function themes()
-    {
-        $tableName = 'themes';
-        $themesModel = new ThemesModel();
-    
-        // Set data to pass in view
-        $data = [
-            'themes' => $themesModel->orderBy('name', 'ASC')->findAll(),
-            'total_themes' => getTotalRecords($tableName)
-        ];
-    
-        return view('back-end/admin/themes/index', $data);
-    }
-    
-    public function newTheme()
-    {
-        return view('back-end/admin/themes/new-theme');
-    }
-    
-    public function addTheme()
-    {
-        //get logged-in user id
-        $loggedInUserId = $this->session->get('user_id');
-    
-        // Load the ThemesModel
-        $themesModel = new ThemesModel();
-    
-        // Validation rules from the model
-        $validationRules = $themesModel->getValidationRules();
-    
-        // Validate the incoming data
-        if (!$this->validate($validationRules)) {
-            // If validation fails, return validation errors
-            $data['validation'] = $this->validator;
-            return view('back-end/admin/themes/new-theme');
-        }
-
-        // If validation passes, create the theme
-        $themeData = [
-            'name' => $this->request->getPost('name'),
-            'path' => $this->request->getPost('path'),
-            'primary_color'  => $this->request->getPost('primary_color'),
-            'secondary_color'  => $this->request->getPost('secondary_color'),
-            'background_color'  => $this->request->getPost('background_color'),
-            'image'  => $this->request->getPost('image'),
-            'theme_url'  => $this->request->getPost('theme_url'),
-            'theme_bg_image'  => $this->request->getPost('theme_bg_image'),
-            'theme_bg_video'  => $this->request->getPost('theme_bg_video'),
-            'theme_bg_slider_image_1'  => $this->request->getPost('theme_bg_slider_image_1'),
-            'theme_bg_slider_image_2'  => $this->request->getPost('theme_bg_slider_image_2'),
-            'theme_bg_slider_image_3'  => $this->request->getPost('theme_bg_slider_image_3'),
-            'theme_js'  => $this->request->getPost('theme_js'),
-            'theme_css'  => $this->request->getPost('theme_css'),
-            'footer_copyright'  => $this->request->getPost('footer_copyright'),
-            'category'  => $this->request->getPost('category'),
-            'sub_category'  => $this->request->getPost('sub_category'),
-            'selected'  => $this->request->getPost('selected') ?? 0,
-            'override_default_style'  => $this->request->getPost('override_default_style') ?? 0,
-            'deletable' => $this->request->getPost('deletable') ?? 1,
-            'home_page'  => $this->request->getPost('home_page') ?? 'HomePage',
-            'created_by' => $loggedInUserId,
-            'updated_by' => null
-        ];
-
-        //if selected, set the rest as not selected
-        if($themeData["selected"] == "1"){
-            $updatedData = [
-                'selected' => 0
-            ];
-
-            $updateWhereClause = "theme_id != 'NULL'";
-
-            updateRecord('themes', $updatedData, $updateWhereClause);
-
-            //update home_page config value
-            $homePage = $themeData["selected"];
-            $updateColumn = "'config_value' = '$homePage'";
-            $updateWhereClause = "config_for = 'HomePageFormat'";
-            updateRecordColumn("configurations", $updateColumn, $updateWhereClause);
-        }
-    
-        // Call createTheme method from the ThemeModel
-        if ($themesModel->createTheme($themeData)) {
-            //inserted user_id
-            $insertedId = $themesModel->getInsertID();
-    
-            // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
-            session()->setFlashdata('successAlert', $createSuccessMsg);
-    
-            //log activity
-            logActivity($loggedInUserId, ActivityTypes::THEME_CREATION, 'Theme created with id: ' . $insertedId);
-    
-            return redirect()->to('/account/admin/themes');
-        } else {
-            // Failed to create record. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
-            session()->setFlashdata('errorAlert', $errorMsg);
-    
-            //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Failed to create themeuration with name: ' . $this->request->getPost('name'));
-    
-            return view('back-end/admin/themes/new-theme');
-        }
-    }
-    
-    public function editTheme($themeId)
-    {
-        $themesModel = new ThemesModel();
-    
-        // Fetch the data based on the id
-        $themeuration = $themesModel->where('theme_id', $themeId)->first();
-    
-        if (!$themeuration) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
-            session()->setFlashdata('errorAlert', $errorMsg);
-            return redirect()->to('/account/admin/themes');
-        }
-    
-        // Set data to pass in view
-        $data = [
-            'theme_data' => $themeuration
-        ];
-    
-        return view('back-end/admin/themes/edit-theme', $data);
-    }
-    
-    public function updateTheme()
-    {
-        //get logged-in user id
-        $loggedInUserId = $this->session->get('user_id');
-    
-        $themesModel = new ThemesModel();
-    
-        // Custom validation rules
-        $rules = [
-            'theme_id' => 'required',
-            'name' => 'required',
-            'path' => 'required',
-        ];
-    
-        $themeId = $this->request->getPost('theme_id');
-        $data['theme_data'] = $themesModel->where('theme_id', $themeId)->first();
-    
-        if($this->validate($rules)){       
-
-            //if selected, set the rest as not selected
-            if($this->request->getPost('selected') == "1"){
-                $updatedData = [
-                    'selected' => 0
-                ];
-
-                $updateWhereClause = "theme_id != 'NULL'";
-
-                updateRecord('themes', $updatedData, $updateWhereClause);
-
-                //update home_page config value
-                $homePage = $this->request->getPost('home_page');
-                $updateColumn = "'config_value' = '$homePage'";
-                $updateWhereClause = "config_for = 'HomePageFormat'";
-                updateRecordColumn("configurations", $updateColumn, $updateWhereClause);
-            }
-
-            $db = \Config\Database::connect();
-            $builder = $db->table('themes');
-            $data = [
-                'name' => $this->request->getPost('name'),
-                'path'  => $this->request->getPost('path'),
-                'primary_color'  => $this->request->getPost('primary_color'),
-                'secondary_color'  => $this->request->getPost('secondary_color'),
-                'background_color'  => $this->request->getPost('background_color'),
-                'image'  => $this->request->getPost('image'),
-                'theme_url'  => $this->request->getPost('theme_url'),
-                'theme_bg_image'  => $this->request->getPost('theme_bg_image'),
-                'theme_bg_video'  => $this->request->getPost('theme_bg_video'),
-                'theme_bg_slider_image_1'  => $this->request->getPost('theme_bg_slider_image_1'),
-                'theme_bg_slider_image_2'  => $this->request->getPost('theme_bg_slider_image_2'),
-                'theme_bg_slider_image_3'  => $this->request->getPost('theme_bg_slider_image_3'),
-                'theme_js'  => $this->request->getPost('theme_js'),
-                'theme_css'  => $this->request->getPost('theme_css'),
-                'footer_copyright'  => $this->request->getPost('footer_copyright'),
-                'category'  => $this->request->getPost('category'),
-                'sub_category'  => $this->request->getPost('sub_category'),
-                'selected'  => $this->request->getPost('selected') ?? 0,
-                'override_default_style'  => $this->request->getPost('override_default_style') ?? 0,
-                'deletable' => $this->request->getPost('deletable') ?? 1,
-                'home_page'  => $this->request->getPost('home_page') ?? 'HomePage',
-                'created_by' => $this->request->getPost('created_by'),
-                'updated_by' => $loggedInUserId
-            ];
-    
-            $builder->where('theme_id', $themeId);
-            $builder->update($data);
-    
-            // Record updated successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->editSuccessMsg;
-            session()->setFlashdata('successAlert', $createSuccessMsg);
-    
-            //log activity
-            logActivity($loggedInUserId, ActivityTypes::THEME_UPDATE, 'Theme updated with id: ' . $themeId);
-    
-            return redirect()->to('/account/admin/themes');
-        }
-        else{
-            $data['validation'] = $this->validator;
-            $errorMsg = config('CustomConfig')->missingRequiredInputsMsg;
-            session()->setFlashdata('errorAlert', $errorMsg);
-    
-            //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_UPDATE, 'Failed to update theme with name: ' . $this->request->getPost('name'));
-    
-            return view('back-end/admin/themes/edit-theme', $data);
-        }
-    }
-    
-    public function editThemeHomePage($themeId)
-    {
-        $themesModel = new ThemesModel();
-    
-        // Fetch the data based on the id
-        $themeuration = $themesModel->where('theme_id', $themeId)->first();
-    
-        if (!$themeuration) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
-            session()->setFlashdata('errorAlert', $errorMsg);
-            return redirect()->to('/account/admin/themes');
-        }
-    
-        // Set data to pass in view
-        $data = [
-            'theme_data' => $themeuration
-        ];
-    
-        return view('back-end/admin/themes/edit-theme-home-page', $data);
     }
 
     //############################//
@@ -1356,7 +940,7 @@ class AdminController extends BaseController
             $insertedId = $blockedIPsModel->getInsertID();
 
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
+            $createSuccessMsg = str_replace('[Record]', 'Blocked IP', config('CustomConfig')->createSuccessMsg);
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -1428,7 +1012,7 @@ class AdminController extends BaseController
             $insertedId = $whitelistedIPsModel->getInsertID();
 
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
+            $createSuccessMsg = str_replace('[Record]', 'Whitelisted IP', config('CustomConfig')->createSuccessMsg);
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -1543,7 +1127,7 @@ class AdminController extends BaseController
                 $insertedId = $backupsModel->getInsertID();
     
                 // Record created successfully. Redirect to view
-                $createSuccessMsg = config('CustomConfig')->createSuccessMsg;
+                $createSuccessMsg = str_replace('[Record]', 'Database Backup', config('CustomConfig')->createSuccessMsg);
                 session()->setFlashdata('successAlert', $createSuccessMsg);
     
                 //log activity
@@ -1661,494 +1245,5 @@ class AdminController extends BaseController
                 $zip->addFile($filePath, $relativePath);
             }
         }
-    }
-
-    //############################//
-    //        Theme Files         //
-    //############################//
-    public function viewFiles()
-    {
-        return view('back-end/admin/file-editor/index');
-    }
-
-    public function homeFileEditor()
-    {
-        // Get the file you want to edit
-        $homeFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/home/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $homeFilename = basename($homeFilePath);
-
-        if (!file_exists($homeFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $homeFileContent = file_get_contents($homeFilePath);
-        
-        $data = [
-            'homeFilename' => $homeFilename,
-            'homeFilePath' => $homeFilePath,
-            'homeFileContent' => $homeFileContent
-        ];
-
-        return view('back-end/admin/file-editor/home', $data);
-    }
-
-    public function layoutFileEditor()
-    {
-        // Get the file you want to edit
-        $layoutFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/layout/_layout.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $layoutFilename = basename($layoutFilePath);
-
-        if (!file_exists($layoutFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $layoutFileContent = file_get_contents($layoutFilePath);
-        
-        $data = [
-            'layoutFilename' => $layoutFilename,
-            'layoutFilePath' => $layoutFilePath,
-            'layoutFileContent' => $layoutFileContent
-        ];
-
-        return view('back-end/admin/file-editor/layout', $data);
-    }
-
-    public function appointmentsFileEditor()
-    {
-        // Get the file you want to edit
-        $appointmentsFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/appointments/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $appointmentsFilename = basename($appointmentsFilePath);
-
-        if (!file_exists($appointmentsFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $appointmentsFileContent = file_get_contents($appointmentsFilePath);
-        
-        $data = [
-            'appointmentsFilename' => $appointmentsFilename,
-            'appointmentsFilePath' => $appointmentsFilePath,
-            'appointmentsFileContent' => $appointmentsFileContent
-        ];
-
-        return view('back-end/admin/file-editor/appointments', $data);
-    }
-
-    public function viewAppointmentFileEditor()
-    {
-        // Get the file you want to edit
-        $viewAppointmentFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/appointments/view-appointment.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $viewAppointmentFilename = basename($viewAppointmentFilePath);
-
-        if (!file_exists($viewAppointmentFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $viewAppointmentFileContent = file_get_contents($viewAppointmentFilePath);
-        
-        $data = [
-            'viewAppointmentFilename' => $viewAppointmentFilename,
-            'viewAppointmentFilePath' => $viewAppointmentFilePath,
-            'viewAppointmentFileContent' => $viewAppointmentFileContent
-        ];
-
-        return view('back-end/admin/file-editor/view-appointment', $data);
-    }
-
-    public function blogsFileEditor()
-    {
-        // Get the file you want to edit
-        $blogsFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/blogs/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $blogsFilename = basename($blogsFilePath);
-
-        if (!file_exists($blogsFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $blogsFileContent = file_get_contents($blogsFilePath);
-        
-        $data = [
-            'blogsFilename' => $blogsFilename,
-            'blogsFilePath' => $blogsFilePath,
-            'blogsFileContent' => $blogsFileContent
-        ];
-
-        return view('back-end/admin/file-editor/blogs', $data);
-    }
-
-    public function viewBlogFileEditor()
-    {
-        // Get the file you want to edit
-        $viewBlogFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/blogs/view-blog.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $viewBlogFilename = basename($viewBlogFilePath);
-
-        if (!file_exists($viewBlogFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $viewBlogFileContent = file_get_contents($viewBlogFilePath);
-        
-        $data = [
-            'viewBlogFilename' => $viewBlogFilename,
-            'viewBlogFilePath' => $viewBlogFilePath,
-            'viewBlogFileContent' => $viewBlogFileContent
-        ];
-
-        return view('back-end/admin/file-editor/view-blog', $data);
-    }
-
-    public function contactFileEditor()
-    {
-        // Get the file you want to edit
-        $contactFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/contact/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $contactFilename = basename($contactFilePath);
-
-        if (!file_exists($contactFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $contactFileContent = file_get_contents($contactFilePath);
-        
-        $data = [
-            'contactFilename' => $contactFilename,
-            'contactFilePath' => $contactFilePath,
-            'contactFileContent' => $contactFileContent
-        ];
-
-        return view('back-end/admin/file-editor/contact', $data);
-    }
-
-    public function eventsFileEditor()
-    {
-        // Get the file you want to edit
-        $eventsFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/events/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $eventsFilename = basename($eventsFilePath);
-
-        if (!file_exists($eventsFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $eventsFileContent = file_get_contents($eventsFilePath);
-        
-        $data = [
-            'eventsFilename' => $eventsFilename,
-            'eventsFilePath' => $eventsFilePath,
-            'eventsFileContent' => $eventsFileContent
-        ];
-
-        return view('back-end/admin/file-editor/events', $data);
-    }
-
-    public function viewEventFileEditor()
-    {
-        // Get the file you want to edit
-        $viewEventFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/events/view-event.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $viewEventFilename = basename($viewEventFilePath);
-
-        if (!file_exists($viewEventFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $viewEventFileContent = file_get_contents($viewEventFilePath);
-        
-        $data = [
-            'viewEventFilename' => $viewEventFilename,
-            'viewEventFilePath' => $viewEventFilePath,
-            'viewEventFileContent' => $viewEventFileContent
-        ];
-
-        return view('back-end/admin/file-editor/view-event', $data);
-    }
-
-    public function viewPageFileEditor()
-    {
-        // Get the file you want to edit
-        $viewPageFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/pages/view-page.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $viewPageFilename = basename($viewPageFilePath);
-
-        if (!file_exists($viewPageFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $viewPageFileContent = file_get_contents($viewPageFilePath);
-        
-        $data = [
-            'viewPageFilename' => $viewPageFilename,
-            'viewPageFilePath' => $viewPageFilePath,
-            'viewPageFileContent' => $viewPageFileContent
-        ];
-
-        return view('back-end/admin/file-editor/view-page', $data);
-    }
-
-    public function portfoliosFileEditor()
-    {
-        // Get the file you want to edit
-        $portfoliosFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/portfolios/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $portfoliosFilename = basename($portfoliosFilePath);
-
-        if (!file_exists($portfoliosFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $portfoliosFileContent = file_get_contents($portfoliosFilePath);
-        
-        $data = [
-            'portfoliosFilename' => $portfoliosFilename,
-            'portfoliosFilePath' => $portfoliosFilePath,
-            'portfoliosFileContent' => $portfoliosFileContent
-        ];
-
-        return view('back-end/admin/file-editor/portfolios', $data);
-    }
-
-    public function viewPortfolioFileEditor()
-    {
-        // Get the file you want to edit
-        $viewPortfolioFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/portfolios/view-portfolio.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $viewPortfolioFilename = basename($viewPortfolioFilePath);
-
-        if (!file_exists($viewPortfolioFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $viewPortfolioFileContent = file_get_contents($viewPortfolioFilePath);
-        
-        $data = [
-            'viewPortfolioFilename' => $viewPortfolioFilename,
-            'viewPortfolioFilePath' => $viewPortfolioFilePath,
-            'viewPortfolioFileContent' => $viewPortfolioFileContent
-        ];
-
-        return view('back-end/admin/file-editor/view-portfolio', $data);
-    }
-
-    public function donationsFileEditor()
-    {
-        // Get the file you want to edit
-        $donationsFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/donate/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $donationsFilename = basename($donationsFilePath);
-
-        if (!file_exists($donationsFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $donationsFileContent = file_get_contents($donationsFilePath);
-        
-        $data = [
-            'donationsFilename' => $donationsFilename,
-            'donationsFilePath' => $donationsFilePath,
-            'donationsFileContent' => $donationsFileContent
-        ];
-
-        return view('back-end/admin/file-editor/donations', $data);
-    }
-
-    public function viewDonationFileEditor()
-    {
-        // Get the file you want to edit
-        $viewDonationFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/donate/view-donation-campaign.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $viewDonationFilename = basename($viewDonationFilePath);
-
-        if (!file_exists($viewDonationFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $viewDonationFileContent = file_get_contents($viewDonationFilePath);
-        
-        $data = [
-            'viewDonationFilename' => $viewDonationFilename,
-            'viewDonationFilePath' => $viewDonationFilePath,
-            'viewDonationFileContent' => $viewDonationFileContent
-        ];
-
-        return view('back-end/admin/file-editor/view-donation', $data);
-    }
-
-    public function shopsFileEditor()
-    {
-        // Get the file you want to edit
-        $shopsFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/shop/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $shopsFilename = basename($shopsFilePath);
-
-        if (!file_exists($shopsFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $shopsFileContent = file_get_contents($shopsFilePath);
-        
-        $data = [
-            'shopsFilename' => $shopsFilename,
-            'shopsFilePath' => $shopsFilePath,
-            'shopsFileContent' => $shopsFileContent
-        ];
-
-        return view('back-end/admin/file-editor/shops', $data);
-    }
-
-    public function viewShopFileEditor()
-    {
-        // Get the file you want to edit
-        $viewshopFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/shop/view-product.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $viewshopFilename = basename($viewshopFilePath);
-
-        if (!file_exists($viewshopFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $viewshopFileContent = file_get_contents($viewshopFilePath);
-        
-        $data = [
-            'viewshopFilename' => $viewshopFilename,
-            'viewshopFilePath' => $viewshopFilePath,
-            'viewshopFileContent' => $viewshopFileContent
-        ];
-
-        return view('back-end/admin/file-editor/view-shop', $data);
-    }
-
-    public function searchFileEditor()
-    {
-        // Get the file you want to edit
-        $searchFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/search/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $searchFilename = basename($searchFilePath);
-
-        if (!file_exists($searchFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $searchFileContent = file_get_contents($searchFilePath);
-        
-        $data = [
-            'searchFilename' => $searchFilename,
-            'searchFilePath' => $searchFilePath,
-            'searchFileContent' => $searchFileContent
-        ];
-
-        return view('back-end/admin/file-editor/search', $data);
-    }
-
-    public function searchFilterFileEditor()
-    {
-        // Get the file you want to edit
-        $searchFilterFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/search/filter.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $searchFilterFilename = basename($searchFilterFilePath);
-
-        if (!file_exists($searchFilterFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $searchFilterFileContent = file_get_contents($searchFilterFilePath);
-        
-        $data = [
-            'searchFilterFilename' => $searchFilterFilename,
-            'searchFilterFilePath' => $searchFilterFilePath,
-            'searchFilterFileContent' => $searchFilterFileContent
-        ];
-
-        return view('back-end/admin/file-editor/search-filter', $data);
-    }
-
-    public function sitemapFileEditor()
-    {
-        // Get the file you want to edit
-        $sitemapFilePath = APPPATH . 'Views/front-end/themes/' . getCurrentTheme() . '/sitemap/index.php';
-        
-        // Get only the file name (not the whole path) to display it
-        $sitemapFilename = basename($sitemapFilePath);
-
-        if (!file_exists($sitemapFilePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-
-        // Load the file content
-        $sitemapFileContent = file_get_contents($sitemapFilePath);
-        
-        $data = [
-            'sitemapFilename' => $sitemapFilename,
-            'sitemapFilePath' => $sitemapFilePath,
-            'sitemapFileContent' => $sitemapFileContent
-        ];
-
-        return view('back-end/admin/file-editor/sitemap', $data);
-    }
-
-    public function saveFile()
-    {
-        $filePage = $this->request->getPost('filePage');
-        $filePath = $this->request->getPost('filePath');
-        $fileContent = $this->request->getPost('fileContent');
-    
-        if (!file_exists($filePath)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
-        }
-    
-        if (file_put_contents($filePath, $fileContent) === false) {
-            return redirect()->to('/account/admin/file-editor/'.$filePage)->with('error', 'Failed to save the file.');
-        }
-    
-        return redirect()->to('/account/admin/file-editor/'.$filePage)->with('success', 'File saved successfully.');
-    }
-
-    //############################//
-    //        File Manager        //
-    //############################//
-    public function fileManager()
-    {
-        return view('back-end/admin/file-manager');
     }
 }
