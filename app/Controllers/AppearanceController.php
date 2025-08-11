@@ -42,13 +42,21 @@ class AppearanceController extends BaseController
     
     public function installThemes()
     {
-        $themes = $this->getThemesData();
-        
+        $allThemes = $this->getThemesData();
+
+        // Group themes
+        $popularThemes = array_filter($allThemes, fn($theme) => !empty($theme['is_popular']));
+        $latestThemes = array_filter($allThemes, fn($theme) => !empty($theme['is_new']));
+        $featuredThemes = array_filter($allThemes, fn($theme) => !empty($theme['is_featured']));
+
         $data = [
-            'themes' => $themes,
-            'has_error' => session()->getFlashdata('warning')
+            'themes' => $allThemes,
+            'popularThemes' => $popularThemes,
+            'latestThemes' => $latestThemes,
+            'featuredThemes' => $featuredThemes,
+            'has_error' => session()->getFlashdata('warning'),
         ];
-        
+
         return view('back-end/appearance/themes/install-themes', $data);
     }
     
@@ -428,79 +436,22 @@ class AppearanceController extends BaseController
 
     protected function getThemesData()
     {
-        //TODO - Implement
-        return [
-            [
-                "name" => "Easy Hide Login",
-                "description" => "Hide / file, prevent attacks on login form, hide login & increase security. No files are changed.",
-                "author" => "Ablie Kassama",
-                "version" => "1.0.0",
-                "slug" => "easy-hide-login",
-                "theme_url" => "https://example.com/plugins/easy-hide-login",
-                "download_url" => "https://ignitercms.com/plugins/easy-hide-login.zip",
-                "image" => "https://ps.w.org/easy-hide-login/assets/icon-256x256.png",
-                "last_updated" => "2023-10-15",
-                "min_php_requirement" => "7.4",
-                "min_igniter_requirement" => "1.0.0",
-                "rating" => "4/5"
-            ],
-            [
-                "name" => "SEO Optimizer",
-                "description" => "Improves your website search engine optimization with advanced tools",
-                "author" => "Ablie Kassama",
-                "version" => "1.2.0",
-                "slug" => "seo-optimizer",
-                "theme_url" => "https://example.com/plugins/seo-optimizer",
-                "download_url" => "https://ignitercms.com/plugins/seo-optimizer.zip",
-                "image" => "https://ps.w.org/mihdan-index-now/assets/icon.svg?rev=3190776",
-                "last_updated" => "2023-10-15",
-                "min_php_requirement" => "8.0",
-                "min_igniter_requirement" => "1.0.0",
-                "rating" => "4/5"
-            ],
-            [
-                "name" => "Cache Manager",
-                "description" => "Speeds up your website with advanced caching techniques",
-                "author" => "Ablie Kassama",
-                "version" => "2.1.3",
-                "slug" => "cache-manager",
-                "theme_url" => "https://example.com/plugins/cache-manager",
-                "download_url" => "https://ignitercms.com/plugins/cache-manager.zip",
-                "image" => "https://ps.w.org/w3-total-cache/assets/icon-256x256.png?rev=1041806",
-                "last_updated" => "2023-09-28",
-                "min_php_requirement" => "7.4",
-                "min_igniter_requirement" => "1.0.2",
-                "rating" => "5/5",
-            ],
-            [
-                "name" => "Security Scanner",
-                "description" => "Protects your website from malware and security threats",
-                "author" => "Ablie Kassama",
-                "version" => "1.5.2",
-                "slug" => "security-scanner",
-                "theme_url" => "https://example.com/plugins/security-scanner",
-                "download_url" => "https://ignitercms.com/plugins/security-scanner.zip",
-                "image" => "https://ps.w.org/security-malware-firewall/assets/icon-256x256.gif?rev=2295231",
-                "last_updated" => "2023-11-05",
-                "min_php_requirement" => "8.1",
-                "min_igniter_requirement" => "1.0.1",
-                "rating" => "4.5/5",
-            ],
-            [
-                "name" => "Contact Form Pro",
-                "description" => "Create beautiful contact forms with advanced features",
-                "author" => "Ablie Kassama",
-                "version" => "3.0.1",
-                "slug" => "contact-form-pro",
-                "theme_url" => "https://example.com/plugins/contact-form-pro",
-                "download_url" => "https://ignitercms.com/plugins/contact-form-pro.zip",
-                "image" => "https://ps.w.org/ninja-forms/assets/icon-256x256.png?rev=1649747",
-                "last_updated" => "2023-10-30",
-                "min_php_requirement" => "8.0",
-                "min_igniter_requirement" => "1.2.1",
-                "rating" => "3/5",
-            ]
-        ];
+        $url = 'https://ignitercms.com/themes/';
+        $json = @file_get_contents($url);
+
+        if ($json === false) {
+            // Handle error, maybe return an empty array or log the error
+            return [];
+        }
+
+        $data = json_decode($json, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            // Handle JSON decoding error
+            return [];
+        }
+
+        return $data;
     }
 
     /**

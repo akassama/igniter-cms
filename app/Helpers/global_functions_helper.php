@@ -1509,6 +1509,14 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "question" => "How do I configure the email?",
                     "answer" => "In the .env file, see MAILJET_API_KEY, MAILJET_SECRET_KEY, anbd EMAIL_FROM. Default is Mailjet. The EmailService.php is in Services folder."
                 ],
+                [
+                    "question" => "How do I install themes",
+                    "answer" => "Go to Themes '/account/appearance/themes', if already added set as active, if not, click on '+ Add Theme' and download the theme. Go back to Theme and 'Upload Theme'."
+                ],
+                [
+                    "question" => "How do I install plugins",
+                    "answer" => "Go to Themes '/account/plugins', if already added set as activate and manage the plugin settings, if not, click on '+ Add Plugin' and download the plugin. Go back to Plugins and 'Upload Plugin'."
+                ],
             ],
             "image_assets" => [
                 [

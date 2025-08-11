@@ -218,20 +218,20 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
     }
 
     if (isFeatureEnabled('FEATURE_PLUGINS')) {
-        #####============================= PLUGINS MODULE =============================#####
+        #####============================= PLUGINS MODULE (Has Admin Filter) =============================#####
         #PLUGINS
-        $routes->get('plugins', 'PluginsController::index');
-        $routes->get('plugins/configurations', 'PluginsController::pluginConfigurations');
+        $routes->get('plugins', 'PluginsController::index', ['filter' => 'adminRoleFilter']);
+        $routes->get('plugins/configurations', 'PluginsController::pluginConfigurations', ['filter' => 'adminRoleFilter']);
         $routes->post('plugins/update-plugin-config', 'PluginsController::updatePluginConfig');
-        $routes->get('plugins/install-plugins', 'PluginsController::installPlugins');
-        $routes->get('plugins/upload-plugin', 'PluginsController::uploadPlugin');
+        $routes->get('plugins/install-plugins', 'PluginsController::installPlugins', ['filter' => 'adminRoleFilter']);
+        $routes->get('plugins/upload-plugin', 'PluginsController::uploadPlugin', ['filter' => 'adminRoleFilter']);
         $routes->post('plugins/upload-plugin', 'PluginsController::addPlugin');
-        $routes->get('plugins/activate-plugin/(:any)', 'PluginsController::activatePlugin/$1');
-        $routes->get('plugins/deactivate-plugin/(:any)', 'PluginsController::deactivatePlugin/$1');
+        $routes->get('plugins/activate-plugin/(:any)', 'PluginsController::activatePlugin/$1', ['filter' => 'adminRoleFilter']);
+        $routes->get('plugins/deactivate-plugin/(:any)', 'PluginsController::deactivatePlugin/$1', ['filter' => 'adminRoleFilter']);
         $routes->post('plugins/delete-plugin', 'PluginsController::deletePlugin');
-        $routes->get('plugins/manage/(:any)', 'PluginsController::managePlugin/$1');
+        $routes->get('plugins/manage/(:any)', 'PluginsController::managePlugin/$1', ['filter' => 'adminRoleFilter']);
         $routes->post('plugins/manage/(:any)', 'PluginsController::managePluginPost/$1');
-        $routes->get('plugins/instructions/(:any)', 'PluginsController::instructions/$1');
+        $routes->get('plugins/instructions/(:any)', 'PluginsController::instructions/$1', ['filter' => 'adminRoleFilter']);
     }
 }
 
