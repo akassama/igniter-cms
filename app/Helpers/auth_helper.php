@@ -52,7 +52,7 @@ if(!function_exists('isBlockedRoute'))
          *
          * @var array<string>
          */
-        $black_lested_paths = array(
+        $black_listed_paths = array(
             "wp-settings.php", "wp-login.php", "setup-config.php", "wp-admin/", "wordpress/", //Wordpress files
             ".env", ".git/", ".svn/",  // Sensitive directories/files
             "config.php", "configuration.php", "db.php", "database.php", // Common config files
@@ -99,7 +99,7 @@ if(!function_exists('isBlockedRoute'))
          *
          * @var string $blocked_path
          */
-        foreach ($black_lested_paths as $blocked_path) {
+        foreach ($black_listed_paths as $blocked_path) {
             /**
              * Removes leading and trailing slashes from the blocked path
              * for consistency.

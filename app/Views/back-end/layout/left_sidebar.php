@@ -182,24 +182,27 @@ $userRole = getUserRole($sessionEmail);
                             Documentation
                         </a>
 
-                        <?php if (isFeatureEnabled('FEATURE_PLUGINS')): ?>
-                            <!--Plugins Feature Nav Links-->
-                            <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/plugins')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePlugins" aria-expanded="false" aria-controls="collapsePlugins" id="pluginsButton">
-                                <div class="sb-nav-link-icon"><i class="ri-plug-fill h5"></i></div>
-                                Plugins
-                                <div class="sb-sidenav-collapse-arrow"><i class="ri-arrow-down-s-fill"></i></div>
-                            </a>
-                            <div class="collapse" id="collapsePlugins" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link <?= (str_contains(current_url(), 'account/plugins')) ? 'active' : ''; ?>" href="<?= base_url('/account/plugins'); ?>">
-                                        <i class="ri-arrow-drop-right-fill"></i> Installed Plugins
-                                    </a>
-                                    <a class="nav-link <?= (str_contains(current_url(), 'account/plugins/configurations')) ? 'active' : ''; ?>" href="<?= base_url('/account/plugins/configurations'); ?>">
-                                        <i class="ri-arrow-drop-right-fill"></i> Plugin Configs
-                                    </a>
-                                </nav>
-                            </div>
+                        <?php if ($userRole == "Admin"): ?>
+                            <?php if (isFeatureEnabled('FEATURE_PLUGINS')): ?>
+                                <!--Plugins Feature Nav Links-->
+                                <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/plugins')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePlugins" aria-expanded="false" aria-controls="collapsePlugins" id="pluginsButton">
+                                    <div class="sb-nav-link-icon"><i class="ri-plug-fill h5"></i></div>
+                                    Plugins
+                                    <div class="sb-sidenav-collapse-arrow"><i class="ri-arrow-down-s-fill"></i></div>
+                                </a>
+                                <div class="collapse" id="collapsePlugins" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link <?= (str_contains(current_url(), 'account/plugins')) ? 'active' : ''; ?>" href="<?= base_url('/account/plugins'); ?>">
+                                            <i class="ri-arrow-drop-right-fill"></i> Installed Plugins
+                                        </a>
+                                        <a class="nav-link <?= (str_contains(current_url(), 'account/plugins/configurations')) ? 'active' : ''; ?>" href="<?= base_url('/account/plugins/configurations'); ?>">
+                                            <i class="ri-arrow-drop-right-fill"></i> Plugin Configs
+                                        </a>
+                                    </nav>
+                                </div>
+                            <?php endif; ?>
                         <?php endif; ?>
+
 
                         <?php if (isFeatureEnabled('FEATURE_ASK_AI')): ?>
                             <!--Aks AI Feature Nav Links-->

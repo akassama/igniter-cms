@@ -21,6 +21,9 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="h3 mb-0">Add New Theme</h1>
                 <div>
+                    <a href="<?=base_url('/account/appearance/themes/install-themes')?>" class="btn btn-outline-dark mx-1">
+                        <i class="ri-restart-line"></i> Refresh Page
+                    </a>
                     <a href="<?=base_url('/account/appearance/themes/upload-theme')?>" class="btn btn-outline-success mx-1">
                         <i class="ri-upload-2-fill"></i> Upload Theme
                     </a>
@@ -35,7 +38,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <span class="input-group-text bg-transparent border-end-0">
                                 <i class="ri-search-line"></i>
                             </span>
-                            <input class="form-control border-start-0 ps-0" type="search" placeholder="Search themes..." aria-label="Search" id="themeSearch">
+                            <input class="form-control border-start-0 ps-0" type="search" placeholder="Search themes..." aria-label="Search" id="themeSearch" minlength="2" required>
                             <button class="btn btn-primary" type="submit">Search</button>
                         </div>
                     </form>
@@ -115,16 +118,153 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 </div>
                 
-                <!-- Other tabs would go here with their respective content -->
                 <div class="tab-pane fade" id="popular" role="tabpanel" aria-labelledby="popular-tab">
                     <!-- Popular themes content -->
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                        <?php foreach ($popularThemes as $theme): ?>
+                            <div class="col">
+                                <div class="card theme-card h-100">
+                                    <div class="theme-screenshot">
+                                        <?php if (!empty($theme['image'])): ?>
+                                            <img src="<?= esc($theme['image']) ?>" class="img-fluid" alt="<?= esc($theme['name']) ?>">
+                                        <?php else: ?>
+                                            <div class="theme-screenshot-placeholder bg-light d-flex align-items-center justify-content-center">
+                                                <i class="ri-image-line fs-1 text-muted"></i>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                    <div class="card-body">
+                                        <h3 class="theme-name h5"><?= esc($theme['name']) ?></h3>
+                                        <div class="theme-actions d-flex justify-content-between align-items-center">
+                                            <div class="theme-details">
+                                                <span class="badge bg-light text-dark">v<?= esc($theme['version']) ?></span>
+                                            </div>
+                                            <div class="action-buttons">
+                                                <a href="<?= esc($theme['theme_url']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Preview">
+                                                    <i class="ri-eye-line"></i>
+                                                </a>
+                                                <a href="<?= esc($theme['download_url']) ?>" download class="btn btn-sm btn-primary download-icon-btn" 
+                                                        data-theme-name="<?= esc($theme['name']) ?>"
+                                                        data-download-url="<?= esc($theme['download_url']) ?>" title="Install">
+                                                    <i class="ri-download-line"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-footer bg-transparent border-top-0">
+                                        <div class="theme-meta text-muted small">
+                                            <div class="d-flex justify-content-between">
+                                                <span><i class="ri-user-line"></i> <?= esc($theme['author']) ?></span>
+                                                <span><i class="ri-calendar-line"></i> <?= esc($theme['last_updated']) ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
+
                 <div class="tab-pane fade" id="latest" role="tabpanel" aria-labelledby="latest-tab">
                     <!-- Latest themes content -->
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                        <?php foreach ($latestThemes as $theme): ?>
+                            <div class="col">
+                                <div class="card theme-card h-100">
+                                    <div class="theme-screenshot">
+                                        <?php if (!empty($theme['image'])): ?>
+                                            <img src="<?= esc($theme['image']) ?>" class="img-fluid" alt="<?= esc($theme['name']) ?>">
+                                        <?php else: ?>
+                                            <div class="theme-screenshot-placeholder bg-light d-flex align-items-center justify-content-center">
+                                                <i class="ri-image-line fs-1 text-muted"></i>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                    <div class="card-body">
+                                        <h3 class="theme-name h5"><?= esc($theme['name']) ?></h3>
+                                        <div class="theme-actions d-flex justify-content-between align-items-center">
+                                            <div class="theme-details">
+                                                <span class="badge bg-light text-dark">v<?= esc($theme['version']) ?></span>
+                                            </div>
+                                            <div class="action-buttons">
+                                                <a href="<?= esc($theme['theme_url']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Preview">
+                                                    <i class="ri-eye-line"></i>
+                                                </a>
+                                                <a href="<?= esc($theme['download_url']) ?>" download class="btn btn-sm btn-primary download-icon-btn" 
+                                                        data-theme-name="<?= esc($theme['name']) ?>"
+                                                        data-download-url="<?= esc($theme['download_url']) ?>" title="Install">
+                                                    <i class="ri-download-line"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-footer bg-transparent border-top-0">
+                                        <div class="theme-meta text-muted small">
+                                            <div class="d-flex justify-content-between">
+                                                <span><i class="ri-user-line"></i> <?= esc($theme['author']) ?></span>
+                                                <span><i class="ri-calendar-line"></i> <?= esc($theme['last_updated']) ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
+
                 <div class="tab-pane fade" id="featured" role="tabpanel" aria-labelledby="featured-tab">
                     <!-- Featured themes content -->
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                        <?php foreach ($featuredThemes as $theme): ?>
+                            <div class="col">
+                                <div class="card theme-card h-100">
+                                    <div class="theme-screenshot">
+                                        <?php if (!empty($theme['image'])): ?>
+                                            <img src="<?= esc($theme['image']) ?>" class="img-fluid" alt="<?= esc($theme['name']) ?>">
+                                        <?php else: ?>
+                                            <div class="theme-screenshot-placeholder bg-light d-flex align-items-center justify-content-center">
+                                                <i class="ri-image-line fs-1 text-muted"></i>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                    <div class="card-body">
+                                        <h3 class="theme-name h5"><?= esc($theme['name']) ?></h3>
+                                        <div class="theme-actions d-flex justify-content-between align-items-center">
+                                            <div class="theme-details">
+                                                <span class="badge bg-light text-dark">v<?= esc($theme['version']) ?></span>
+                                            </div>
+                                            <div class="action-buttons">
+                                                <a href="<?= esc($theme['theme_url']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Preview">
+                                                    <i class="ri-eye-line"></i>
+                                                </a>
+                                                <a href="<?= esc($theme['download_url']) ?>" download class="btn btn-sm btn-primary download-icon-btn" 
+                                                        data-theme-name="<?= esc($theme['name']) ?>"
+                                                        data-download-url="<?= esc($theme['download_url']) ?>" title="Install">
+                                                    <i class="ri-download-line"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-footer bg-transparent border-top-0">
+                                        <div class="theme-meta text-muted small">
+                                            <div class="d-flex justify-content-between">
+                                                <span><i class="ri-user-line"></i> <?= esc($theme['author']) ?></span>
+                                                <span><i class="ri-calendar-line"></i> <?= esc($theme['last_updated']) ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -217,6 +357,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 250);
         }
     }
+});
+
+
+$("#themeSearch").click(function(){
+    $("#all-tab").click();
 });
 </script>
 

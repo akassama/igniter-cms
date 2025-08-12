@@ -130,7 +130,6 @@ class CMSController extends BaseController
         $currentSlug = getTableData($tableName, ['blog_id' => $blogId], "slug");
         $newSlug = $this->request->getPost('slug');
         $newSlugExists = recordExists($tableName, "slug", $newSlug);
-
         if($newSlugExists && $currentSlug !== $newSlug){
              $newSlug = $newSlug .'-'. substr(md5(rand()) , 0, 8);
         }
