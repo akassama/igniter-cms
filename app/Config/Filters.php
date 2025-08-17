@@ -72,7 +72,7 @@ class Filters extends BaseFilters
         'after' => [
             'pagecache',   // Web Page Caching
             'performance', // Performance Metrics
-            //'toolbar',     // Debug Toolbar (Show or Hide Debug.Turn of/off debugging here)
+            'toolbar',     // Debug Toolbar (Show or Hide Debug.Turn of/off debugging here)
         ],
     ];
 
