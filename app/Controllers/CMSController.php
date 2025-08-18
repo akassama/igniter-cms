@@ -309,6 +309,7 @@ class CMSController extends BaseController
         $data = [
             'title' => $this->request->getPost('title'),
             'description' => $this->request->getPost('description'),
+            'icon' => $this->request->getPost('icon'),
             'group' => $this->request->getPost('group'),
             'order' => $this->request->getPost('order') ?? 10,
             'parent' => $this->request->getPost('parent'),
@@ -376,6 +377,7 @@ class CMSController extends BaseController
         $data = [
             'title' => $this->request->getPost('title'),
             'description' => $this->request->getPost('description'),
+            'icon' => $this->request->getPost('icon'),
             'group' => $this->request->getPost('group'),
             'order' => $this->request->getPost('order') ?? 10,
             'parent' => $this->request->getPost('parent'),

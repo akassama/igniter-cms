@@ -39,7 +39,6 @@ class ContentBlocks extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
-            
             'group' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,

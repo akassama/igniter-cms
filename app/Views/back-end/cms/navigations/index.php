@@ -45,6 +45,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>#</th>
                             <th>Title</th>
                             <th>Description</th>
+                            <th>Icon</th>
                             <th>Group</th>
                             <th>Order</th>
                             <th>Parent</th>
@@ -63,6 +64,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= $rowCount; ?></td>
                                     <td><?= $navigation['title']; ?></td>
                                     <td><?= $navigation['description']; ?></td>
+                                    <td><?= $navigation['icon']; ?></td>
                                     <td><?= $navigation['group']; ?></td>
                                     <td><?= $navigation['order']; ?></td>
                                     <td><?= !empty($navigation['parent']) ? getTableData("navigations", ['navigation_id' => $navigation['navigation_id']], 'title') : "" ?></td>
