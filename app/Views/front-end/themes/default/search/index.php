@@ -7,101 +7,154 @@ $theme = getCurrentTheme();
 <?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>
 
 <!-- begin main content -->
+<!-- begin main content -->
 <?= $this->section('content') ?>
 
-<section class="py-5 bg-light">
-    <div class="container px-5">
-        <!--Breadcrumb-->
-        <div class="row mb-1">
-            <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Search Results</li>
+<!-- Breadcrumb -->
+<section class="breadcrumb-section py-3 bg-light mt-md-3 mt-sm-4">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="<?= base_url() ?>" class="text-decoration-none text-primary">Home</a>
+                </li>
+                <li class="breadcrumb-item active text-secondary" aria-current="page">Search Results</li>
             </ol>
-            </nav>
-        </div>
-        
-        <div class="row gx-5">
-            <div class="col-12">
-                <?php 
-                // Check if all search result arrays are empty
-                $noResults = empty($blogsSearchResults) &&
-                            empty($pagesSearchResults);
-                
-                // If no results, display a message
-                if ($noResults): ?>
-                        <div class="row mt-0">
-                            <div class="col-12">
-                                <h3>No Results Found</h3>
-                                <p>Sorry, we couldn't find any content matching "<?= esc($searchQuery) ?>".</p>
-                                <p>Try searching with different keywords or check your spelling.</p>
+        </nav>
+    </div>
+</section>
 
-                                <!-- Search Widget -->
-                                <div class="search-widget widget-item">
-                                    <h3 class="text-dark">Search</h3>
-                                    <form action="<?= base_url('search') ?>" method="get">
-                                        <input type="text" id="q" name="q" placeholder="Search for..." aria-label="Search for..." minlength="2" required class="form-control">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                <?php endif; ?>
-            </div>
-            
-            <?php if (!$noResults): ?>
+<!-- Page Content -->
+<section class="page py-5">
+    <div class="container py-5">
+
+        <?php 
+        // Check if all search result arrays are empty
+        $noResults = empty($blogsSearchResults) && empty($pagesSearchResults);
+        ?>
+
+        <?php if ($noResults): ?>
+            <!-- No Results Found -->
+            <div class="row mb-4">
                 <div class="col-12">
-                    <h1 class="fw-bolder fs-5 mb-4">Search Results</h1>
-                    <p class="mb-3">
-                        Showing results for "<span class="text-danger"><?=$searchQuery?></span>"
-                    </p>
+                    <h1 class="fw-bold mb-3">No Results Found</h1>
+                    <p class="text-muted">Sorry, we couldn't find any content matching "<strong><?= esc($searchQuery) ?></strong>".</p>
+                </div>
+            </div>
 
-                    <!-- Posts Results Widget -->
-                    <?php if(!empty($blogsSearchResults)): ?>
-                        <div class="row">     
-                        <h4>Blogs</h4>  
-                        <?php foreach($blogsSearchResults as $blog): ?>
-                            <div class="mb-4">
-                                <div class="small text-muted"><?= dateFormat($blog['created_at'], 'M j, Y'); ?></div>
-                                <a class="link-dark" href="<?= base_url('blog/'.$blog['slug']) ?>"><h3><?= $blog['title']; ?></h3></a>
-                            </div>
-                        <?php endforeach; ?>
+            <!-- Search Suggestion Card -->
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4 text-center">
+                            <i class="bi bi-search-heart fs-1 text-muted mb-3"></i>
+                            <h3 class="fw-bold mb-3">Not the results you were looking for?</h3>
+                            <p class="text-muted mb-4">Help us improve your search experience by telling us what you were looking for.</p>
+                            <form action="<?= base_url('search') ?>" method="get">
+                                <div class="mb-3">
+                                    <input type="text" name="q" class="form-control form-control-lg" placeholder="What were you searching for?" value="<?= esc($searchQuery) ?>" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary px-4">Search Again</button>
+                            </form>
                         </div>
-                    <?php endif; ?>
+                    </div>
+                </div>
+            </div>
 
-                    <!-- Pages Results Widget -->
-                    <?php if(!empty($pagesSearchResults)): ?>
-                        <div class="row">     
-                            <h4>Pages</h4>  
-                            <?php foreach($pagesSearchResults as $page): ?>
-                                <div class="mb-4">
-                                <div class="small text-muted"><?= dateFormat($page['created_at'], 'M j, Y'); ?></div>
-                                <a class="link-dark" href="<?= base_url($page['slug']) ?>"><h3><?= $page['title']; ?></h3></a>
+        <?php else: ?>
+            <!-- Search Header -->
+            <?php 
+            $totalResults = count($blogsSearchResults ?? []) + count($pagesSearchResults ?? []);
+            ?>
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h1 class="fw-bold mb-3">Search Results for "<span class="text-danger"><?= esc($searchQuery) ?></span>"</h1>
+                    <p class="text-muted"><?= $totalResults ?> result(s) found</p>
+                </div>
+            </div>
+
+            <!-- Pages Results -->
+            <?php if (!empty($pagesSearchResults)): ?>
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <h2 class="h4 fw-bold mb-4 pb-2 border-bottom">
+                            <i class="bi bi-file-earmark-text me-2"></i>Pages
+                        </h2>
+                        <div class="list-group">
+                            <?php foreach ($pagesSearchResults as $page): ?>
+                                <a href="<?= base_url($page['slug']) ?>" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1"><?= esc($page['title']) ?></h5>
+                                        <small class="text-muted">Page</small>
+                                    </div>
+                                    <p class="mb-1">
+                                        <?= !empty($page['excerpt']) ? esc(getTextSummary($page['excerpt'], 120)) : 'Learn more about this page.' ?>
+                                    </p>
+                                    <small class="text-muted"><?= base_url($page['slug']) ?></small>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <!-- Blogs Results -->
+            <?php if (!empty($blogsSearchResults)): ?>
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <h2 class="h4 fw-bold mb-4 pb-2 border-bottom">
+                            <i class="bi bi-newspaper me-2"></i>Blog Posts
+                        </h2>
+                        <div class="row g-4">
+                            <?php foreach ($blogsSearchResults as $blog): ?>
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card h-100 border-0 shadow-sm">
+                                        <a href="<?= base_url('blog/' . $blog['slug']) ?>">
+                                            <img src="<?= getImageUrl($blog['featured_image'] ?? getDefaultImagePath()) ?>"
+                                                 class="card-img-top"
+                                                 alt="<?= esc($blog['title']) ?>">
+                                        </a>
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <span class="badge bg-primary me-2">
+                                                    <?= getBlogCategoryName($blog['category']) ?: 'Uncategorized' ?>
+                                                </span>
+                                                <small class="text-muted"><?= dateFormat($blog['created_at'], 'M j, Y') ?></small>
+                                            </div>
+                                            <h5 class="card-title fw-bold"><?= esc($blog['title']) ?></h5>
+                                            <p class="card-text">
+                                                <?= getTextSummary($blog['excerpt'] ?? $blog['content'], 100) ?>
+                                            </p>
+                                            <a href="<?= base_url('blog/' . $blog['slug']) ?>" class="btn btn-sm btn-outline-primary">Read More</a>
+                                        </div>
+                                    </div>
                                 </div>
                             <?php endforeach; ?>
                         </div>
-                    <?php endif; ?>
-
-                    <?php 
-                    // If no results, display a message
-                    if (!$noResults): ?>
-                        <hr>
-                        <div class="row mt-5">
-                            <div class="col-12">
-                                <p>Did not find what you were looking for? Try searching with different keywords or check your spelling.</p>
-                                <!-- Search Widget -->
-                                <div class="search-widget widget-item">
-
-                                    <h3 class="text-dark">Search</h3>
-                                    <form action="<?= base_url('search') ?>" method="get">
-                                        <input type="text" id="q" name="q" placeholder="Search for..." aria-label="Search for..." minlength="2" required class="form-control">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endif; ?>
+                    </div>
                 </div>
             <?php endif; ?>
-        </div>
+
+            <!-- Feedback Section (Only if results exist) -->
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4 text-center">
+                            <i class="bi bi-search fs-1 text-muted mb-3"></i>
+                            <h3 class="fw-bold mb-3">Not what you were looking for?</h3>
+                            <p class="text-muted mb-4">Help us improve your search experience.</p>
+                            <form action="<?= base_url('search') ?>" method="get">
+                                <div class="mb-3">
+                                    <input type="text" name="q" class="form-control form-control-lg" placeholder="Try a different search term" value="<?= esc($searchQuery) ?>">
+                                </div>
+                                <button type="submit" class="btn btn-primary px-4">Search Again</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <?php endif; ?>
     </div>
 </section>
 

@@ -174,7 +174,7 @@ class FrontEndController extends BaseController
                     try {
                         // Blogs search
                         $whereClause = ['title' => $searchQuery];
-                        $categoryId = getTableData('categories', $whereClause, 'category_id');
+                        $categoryId = searchTableData('categories', 'title', $searchQuery, 'category_id') ?? "not-found";           
                         $data['blogsSearchResults'] = $blogsModel
                             ->groupStart()
                                 ->like('category', $categoryId)
@@ -210,7 +210,7 @@ class FrontEndController extends BaseController
                     try {
                         // Blogs search
                         //get $userId from $searchQuery
-                        $userId = getUserIdFromName($searchQuery);
+                        $userId = getUserIdFromName($searchQuery) ?? "not-found";
                         $data['blogsSearchResults'] = $blogsModel
                             ->groupStart()
                                 ->like('created_by', $userId)
