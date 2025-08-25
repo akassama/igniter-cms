@@ -289,6 +289,55 @@ a {
   vertical-align: middle;
 }
 
+/* Preloader styles */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #0d6efd;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.content {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.loaded .content {
+  opacity: 1;
+}
+
+.loaded #preloader {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* ===== Sponsors (Grayscale Effect) ===== */
 .grayscale {
   filter: grayscale(100%);

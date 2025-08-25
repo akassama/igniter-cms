@@ -31,6 +31,8 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Remix icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css" />
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Swiper CSS -->
@@ -178,6 +180,11 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
         <i class="bi bi-arrow-up fs-5"></i>
     </button>
 
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
     <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Swiper.js JS -->
@@ -195,5 +202,17 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
     
     <!-- Core theme JS -->
     <script defer src="<?= base_url('public/front-end/themes/' . $theme . '/assets/js/script.js') ?>"></script>
+
+    <!-- Custom JavaScript in the footer -->
+    <?php if (!empty($themeData['customJSFooter'])): ?>
+        <?= $themeData['customJSFooter'] ?>
+    <?php endif; ?>
+    
+    <!-- Global modal for search -->
+    <?=$this->include('front-end/themes/_shared/_global_search_modal.php'); ?>
+
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
+    <?= $this->include('front-end/layout/assets/sweet_alerts.php'); ?>
 </body>
 </html>

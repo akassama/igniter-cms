@@ -340,3 +340,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+//preloader
+window.addEventListener("load", function () {
+  document.body.classList.add("loaded");
+
+  // Remove preloader from DOM after fade out completes
+  setTimeout(function () {
+    const preloader = document.getElementById("preloader");
+    if (preloader) {
+      preloader.remove();
+    }
+  }, 500); // Match this with the transition time
+});
