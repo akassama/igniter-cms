@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = ENVIRONMENT === 'production' ? 'https://example.com/' : 'http://localhost/apps/igniter-cms/';
+    public string $baseURL = ENVIRONMENT === 'production' ? 'https://demo.ignitercms.com/' : 'http://localhost/apps/igniter-cms/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
