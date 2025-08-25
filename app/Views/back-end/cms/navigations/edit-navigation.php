@@ -54,8 +54,24 @@ echo generateBreadcrumb($breadcrumb_links);
                     Please provide description
                 </div>
             </div>
+            
+            <div class="col-sm-12 col-md-4 mb-3">
+                <label for="icon" class="form-label">
+                    Icon
+                </label>
+                <input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="<?= htmlspecialchars($navigation_data['icon']); ?>" placeholder="E.g. ri-user-line">
+                <!-- Error -->
+                <?php if($validation->getError('icon')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('icon'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide icon
+                </div>
+            </div>
 
-            <div class="col-sm-12 col-md-6 mb-3">
+            <div class="col-sm-12 col-md-4 mb-3">
                 <label for="group" class="form-label">
                     Group
                     <small class="text-muted">(Optional - use this if you want to filter data by group)</small>
@@ -75,7 +91,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-6 mb-3">
+            <div class="col-sm-12 col-md-4 mb-3">
                 <label for="order" class="form-label">
                     Order
                 </label>

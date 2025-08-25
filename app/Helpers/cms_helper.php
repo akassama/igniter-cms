@@ -819,6 +819,62 @@ if (!function_exists('getTableData')) {
 }
 
 /**
+ * Retrieves data from a specified database table based on a 'LIKE' condition.
+ *
+ * This function is useful for implementing search functionalities where you need to
+ * find records that contain a specific keyword within a column, rather than an
+ * exact match.
+ *
+ * @param string $tableName     The name of the database table.
+ * @param string $searchColumn  The name of the column to search within (e.g., 'title', 'content').
+ * @param string $searchQuery   The keyword or phrase to search for.
+ * @param string $returnColumn  The specific column to return, or '*' to return the entire row object.
+ *
+ * @return mixed|null Returns the value of the specified column, the full row object if '*' is passed,
+ * or null if no matching record is found.
+ */
+// Example 1: Search for a blog post with 'cloud' in the title and get the post's slug
+// Assume a table named 'blogs' with columns 'title' and 'slug'
+// $blogSlug = searchTableData('blogs', 'title', 'cloud', 'slug');
+// Example 2: Search for a page with 'solutions' in the content and get the full row object
+// This is useful if you need multiple pieces of data from the result
+// Assume a table named 'pages' with a 'content' column
+// $pageResult = searchTableData('pages', 'content', 'solutions', '*');
+if (!function_exists('searchTableData')) {
+    function searchTableData($tableName, $searchColumn, $searchQuery, $returnColumn = '*')
+    {
+        // Get the database connection
+        $db = \Config\Database::connect();
+        
+        // Build the query using the 'like' method for the LIKE clause
+        // The first parameter is the column to search, the second is the search query
+        $query = $db->table($tableName)->like($searchColumn, $searchQuery)->get();
+        
+        // Check if any results were returned
+        if ($query->getNumRows() > 0) {
+            $row = $query->getRow();
+            
+            // If the user requested all columns, return the entire row object
+            if ($returnColumn === '*') {
+                return $row;
+            }
+            
+            // Otherwise, return the value of the specific column requested
+            // We use a try-catch block to handle cases where the column might not exist
+            try {
+                return $row->$returnColumn;
+            } catch (Exception $e) {
+                // If the column doesn't exist, return null
+                return null;
+            }
+        }
+        
+        // If no matching records were found, return null
+        return null;
+    }
+}
+
+/**
  * Execute a custom SQL query.
  *
  * @param string $sql The SQL query.

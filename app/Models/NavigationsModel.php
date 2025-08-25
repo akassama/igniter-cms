@@ -27,6 +27,7 @@ class NavigationsModel extends Model
         'navigation_id', 
         'title', 
         'description',
+        'icon',
         'group',
         'order',
         'parent', 
@@ -79,6 +80,7 @@ class NavigationsModel extends Model
             'navigation_id' => $navigationId,
             'title' => $param['title'],
             'description' => $param['description'],
+            'icon' => $param['icon'],
             'group' => $param['group'],
             'order' => $param['order'],
             'parent' => $param['parent'],
@@ -104,6 +106,7 @@ class NavigationsModel extends Model
         // Update the fields
         $existingNavigation['title'] = $param['title'];
         $existingNavigation['description'] = $param['description'];
+        $existingNavigation['icon'] = $param['icon'];
         $existingNavigation['group'] = $param['group'];
         $existingNavigation['order'] = $param['order'];
         $existingNavigation['parent'] = $param['parent'];

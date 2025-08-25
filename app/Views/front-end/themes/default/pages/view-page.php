@@ -15,32 +15,27 @@ updateTotalViewCount("pages", "page_id", $page_data['page_id']);
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<!-- Page Content-->
-<section class="py-3">
-    <div class="container px-5 my-2">
-        <!--Breadcrumb-->
-        <div class="row mb-1">
+    <!-- Breadcrumb -->
+    <section class="breadcrumb-section py-3 bg-light mt-md-3 mt-sm-4">
+        <div class="container">
             <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><?= $page_data['title'] ?></li>
-            </ol>
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="<?=base_url()?>" class="text-decoration-none text-primary">Home</a></li>
+                    <li class="breadcrumb-item active text-secondary" aria-current="page"><?= $page_data['title'] ?></li>
+                </ol>
             </nav>
         </div>
-        <div class="row gx-5">
-            <div class="col-12">
-                <!-- Page content-->
-                <article>
-                    <!-- Post content-->
-                    <section class="mb-2">
-                        <?= $page_data['content'] ?>
-                    </section>
-                </article>
+    </section>
+
+    <!-- Page Content -->
+    <section class="page py-5">
+        <div class="container">
+            <div class="row">
+                <?= $page_data['content'] ?>
             </div>
         </div>
-    </div>
-</section>
-
+    </section>
+    <!-- End Page Content -->
 
 <!-- end main content -->
 <?= $this->endSection() ?>

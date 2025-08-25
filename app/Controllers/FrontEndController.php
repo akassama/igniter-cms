@@ -56,7 +56,7 @@ class FrontEndController extends BaseController
         $tableName = 'blogs';
         //Check if record exists
         if (!recordExists($tableName, "slug", $slug)) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = str_replace('[Record]', 'Blog', config('CustomConfig')->notFoundMsg);
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/');
         }
@@ -81,7 +81,7 @@ class FrontEndController extends BaseController
         $tableName = 'pages';
         //Check if record exists
         if (!recordExists($tableName, "slug", $slug)) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = str_replace('[Record]', 'Page', config('CustomConfig')->notFoundMsg);
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/');
         }
@@ -174,7 +174,7 @@ class FrontEndController extends BaseController
                     try {
                         // Blogs search
                         $whereClause = ['title' => $searchQuery];
-                        $categoryId = getTableData('categories', $whereClause, 'category_id');
+                        $categoryId = searchTableData('categories', 'title', $searchQuery, 'category_id') ?? "not-found";           
                         $data['blogsSearchResults'] = $blogsModel
                             ->groupStart()
                                 ->like('category', $categoryId)
@@ -210,7 +210,7 @@ class FrontEndController extends BaseController
                     try {
                         // Blogs search
                         //get $userId from $searchQuery
-                        $userId = getUserIdFromName($searchQuery);
+                        $userId = getUserIdFromName($searchQuery) ?? "not-found";
                         $data['blogsSearchResults'] = $blogsModel
                             ->groupStart()
                                 ->like('created_by', $userId)
