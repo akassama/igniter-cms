@@ -85,12 +85,12 @@ class SignInController extends BaseController
                 if ($rememberMe) {
                     $userId = $user['user_id'];
                     $cookieToken = getGUID()."-".getGUID();
-                    
+
                     $expiresAt = date('Y-m-d H:i:s', strtotime(' + 3 days'));
                     updateUserRememberMeTokens($userId, $cookieToken, $expiresAt);
 
                     $rememberMeCookie = env('REMEMBER_ME_COOKIE');
-                    $cookieExpiresAt = 3 * 24 * 60 * 60;
+                    $cookieExpiresAt = time() + (3 * 24 * 60 * 60);
                     updateCookieRememberMeTokens($rememberMeCookie, $cookieToken, $cookieExpiresAt);
                 }
     
