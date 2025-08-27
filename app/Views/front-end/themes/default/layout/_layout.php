@@ -143,6 +143,11 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
+                        <li class="mb-2">
+                            <a href="<?= base_url('sign-in') ?>" class="text-white text-decoration-none" target="_blank">
+                                Sign In
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">

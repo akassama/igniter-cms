@@ -1422,9 +1422,8 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                 "Navigate into the project directory: `cd igniter-cms`.",
                 "Install dependencies using Composer: `composer install`.",
                 "Configure the database in the `.env` file (create one if it doesn't exist) with your `hostname`, `database`, `username`, and `password`.",
-                "Also update the database credentials in `app/Config/Database.php`.",
                 "Create the database using your preferred database tool (e.g., PhpMyAdmin) with the name specified in your configuration.",
-                "Set the base URL in `app/Config/App.php` to match your local or deployment URL.",
+                "Set the base URL in `.env` to match your local or deployment URL.",
                 "Generate App Key: `php spark generate:key`. This command will generate/update the application key (APP_KEY) in `.env` file.",
                 "Run migrations to set up database tables: `php spark migrate`.",
                 "Ensure the `writable/` and `public/uploads/` directories are writable by the web server.",
@@ -1437,7 +1436,7 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
             "troubleshooting" => [
                 "database_connection" => [
                     "issue" => "Unable to connect to the database.",
-                    "solution" => "Ensure database settings are correct in `app/Config/Database.php` and in the `.env` file. Also verify the database server is running and accessible."
+                    "solution" => "Ensure database settings are correct in the `.env` file (or `app/Config/Database.php` if using that). Also verify the database server is running and accessible."
                 ],
                 "404_error" => [
                     "issue" => "Page not found.",
