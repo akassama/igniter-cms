@@ -82,7 +82,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 </a>
                                             </div>
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 remove-content-block" href="javascript:void(0)" onclick="deleteRecord('content_blocks', 'content_id ', '<?=$content['content_id'];?>', '', 'account/content-blocks')">
+                                                <a class="text-dark td-none mr-1 remove-content-block" href="#!" onclick="deleteRecord('content_blocks', 'content_id ', '<?=$content['content_id'];?>', '', 'account/content-blocks')">
                                                     <i class="h5 ri-close-circle-fill"></i>
                                                 </a>
                                             </div>

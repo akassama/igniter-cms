@@ -72,7 +72,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 <a class="text-dark td-none mr-1 mb-1 edit-blog" onclick="editSwalModal('<?=$config['id']?>', '<?=$config['config_value']?>', '<?=$config['config_key']?>')">
                                                     <i class="h5 ri-edit-box-line"></i>
                                                 </a>
-                                                <a class="text-dark td-none mr-1 remove-config" href="javascript:void(0)" onclick="deleteRecord('plugin_configs', 'id', '<?=$config['id'];?>', '', 'account/plugins/configurations')">
+                                                <a class="text-dark td-none mr-1 remove-config" href="#!" onclick="deleteRecord('plugin_configs', 'id', '<?=$config['id'];?>', '', 'account/plugins/configurations')">
                                                     <i class="h5 ri-close-circle-fill"></i>
                                                 </a>
                                             </div>

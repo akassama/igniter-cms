@@ -80,7 +80,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 </a>
                                             </div>
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 remove-category" href="javascript:void(0)" onclick="deleteRecord('categories', 'category_id', '<?=$category['category_id'];?>', '', 'account/cms/categories')">
+                                                <a class="text-dark td-none mr-1 remove-category" href="#!" onclick="deleteRecord('categories', 'category_id', '<?=$category['category_id'];?>', '', 'account/cms/categories')">
                                                     <i class="h5 ri-close-circle-fill"></i>
                                                 </a>
                                             </div>

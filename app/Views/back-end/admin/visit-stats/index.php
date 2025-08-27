@@ -80,7 +80,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 </a>
                                             </div>
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 remove-stat" href="javascript:void(0)" onclick="deleteRecord('site_stats', 'site_stat_id', '<?=$visit['site_stat_id'];?>', '', 'account/admin/visit-stats')">
+                                                <a class="text-dark td-none mr-1 remove-stat" href="#!" onclick="deleteRecord('site_stats', 'site_stat_id', '<?=$visit['site_stat_id'];?>', '', 'account/admin/visit-stats')">
                                                     <i class="h5 ri-close-circle-fill"></i>
                                                 </a>
                                             </div>

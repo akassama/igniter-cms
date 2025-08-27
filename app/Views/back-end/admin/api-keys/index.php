@@ -88,7 +88,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 <?php
                                                     if (strtolower($api_key['assigned_to']) != "default") {
                                                         echo '<div class="col mb-1">
-                                                                    <a class="text-dark td-none mr-1 remove-api-key" href="javascript:void(0)" onclick="deleteRecord(\'api_accesses\', \'api_id\', \'' . $api_key['api_id'] . '\', \'\', \'account/admin/api-keys\')">
+                                                                    <a class="text-dark td-none mr-1 remove-api-key" href="#!" onclick="deleteRecord(\'api_accesses\', \'api_id\', \'' . $api_key['api_id'] . '\', \'\', \'account/admin/api-keys\')">
                                                                         <i class="h5 ri-close-circle-fill"></i>
                                                                     </a>
                                                                 </div>';

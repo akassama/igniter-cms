@@ -164,6 +164,62 @@ if (!function_exists('passwordChangeRequired')) {
     }
 }
 
+/**
+ * Updates the user's "remember me" token and expiration date in the database.
+ *
+ * @param int|null    $userId      The user ID to update.
+ * @param string|null $cookieToken The new remember-me token.
+ * @param int|null    $expiresAt   The Unix timestamp when the token should expire.
+ *
+ * @return bool True on success.
+ */
+if (!function_exists('updateUserRememberMeTokens')) {
+    function updateUserRememberMeTokens($userId = null, $cookieToken = null, $expiresAt = null) 
+    {
+        // Update DB
+        $db = \Config\Database::connect();
+        $builder = $db->table('users');
+        $builder->where('user_id', $userId)->update([
+            'remember_token' => $cookieToken,
+            'expires_at'     => $expiresAt
+        ]);
+
+        return true;
+    }
+}
+
+/**
+ * Creates, updates, or deletes a "remember me" cookie for the user.
+ *
+ * - If both $cookieName and $cookieToken are provided: creates/updates the cookie.
+ * - If only $cookieName is provided: deletes the cookie by expiring it.
+ *
+ * @param string|null $cookieName     The cookie name.
+ * @param string|null $cookieToken    The cookie token value. If null/empty, the cookie will be deleted.
+ * @param int|null    $cookieExpiresAt The Unix timestamp for cookie expiration.
+ *
+ * @return bool True if a cookie was set or deleted, false otherwise.
+ */
+if (!function_exists('updateCookieRememberMeTokens')) {
+    function updateCookieRememberMeTokens($cookieName = null, $cookieToken = null, $cookieExpiresAt = null) 
+    {
+        helper('cookie');
+
+        if(!empty($cookieName) && !empty($cookieToken)){
+            if(!isset($_COOKIE[$cookieName])) {
+                setcookie($cookieName, $cookieToken, $cookieExpiresAt, "/");
+            }
+            return true;
+        }
+        else if (!empty($cookieName) && empty($cookieToken)) {
+            $cookieExpiresAt = time() - 3600;
+            setcookie($cookieName, $cookieToken, $cookieExpiresAt, "/");
+            return true;
+        }
+
+        return false;
+    }
+}
 
 /**
  * Generates breadcrumb HTML based on an array of links.

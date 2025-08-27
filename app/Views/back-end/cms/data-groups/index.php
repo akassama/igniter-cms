@@ -69,7 +69,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             <?php
                                             if ($data_group['deletable'] == 1) {
                                                 echo '<div class="col mb-1">
-                                                            <a class="text-dark td-none mr-1 remove-data-group" href="javascript:void(0)" onclick="deleteRecord(\'data_groups\', \'data_group_id\', \'' . $data_group['data_group_id'] . '\', \'\', \'account/cms/data-groups\')">
+                                                            <a class="text-dark td-none mr-1 remove-data-group" href="#!" onclick="deleteRecord(\'data_groups\', \'data_group_id\', \'' . $data_group['data_group_id'] . '\', \'\', \'account/cms/data-groups\')">
                                                                 <i class="h5 ri-close-circle-fill"></i>
                                                             </a>
                                                         </div>';

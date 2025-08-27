@@ -40,6 +40,8 @@ class UsersModel extends Model
         'linkedin_link', 
         'about_summary',
         'password_change_required',
+        'remember_token',
+        'expires_at',
     ];
 
     protected bool $allowEmptyInserts = false;

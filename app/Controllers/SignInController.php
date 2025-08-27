@@ -31,6 +31,8 @@ class SignInController extends BaseController
 
     public function login()
     {
+        helper('cookie');
+
         // Retrieve the honeypot and timestamp values
         $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
         $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
@@ -81,11 +83,15 @@ class SignInController extends BaseController
                 $rememberMe = !empty($this->request->getPost('remember_me')) ? boolval($this->request->getPost('remember_me')) : false;
                 // If 'remember me' is true, extend the session expiration to 3 days
                 if ($rememberMe) {
-                    $threeDaysInSeconds = 3 * 24 * 60 * 60;
+                    $userId = $user['user_id'];
+                    $cookieToken = getGUID()."-".getGUID();
+                    
+                    $expiresAt = date('Y-m-d H:i:s', strtotime(' + 3 days'));
+                    updateUserRememberMeTokens($userId, $cookieToken, $expiresAt);
 
-                    config('App')->sessionExpiration = $threeDaysInSeconds;
-
-                    session()->regenerate(true);
+                    $rememberMeCookie = env('REMEMBER_ME_COOKIE');
+                    $cookieExpiresAt = 3 * 24 * 60 * 60;
+                    updateCookieRememberMeTokens($rememberMeCookie, $cookieToken, $cookieExpiresAt);
                 }
     
                 // User logged in successfully. Store user data in session

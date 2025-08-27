@@ -36,3 +36,26 @@
         </li>
     </ul>
 </nav>
+
+<script>
+    // When the logout link is clicked
+    document.getElementById('logout-link').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent the default link behavior
+
+        // Show a confirmation modal
+        Swal.fire({
+            title: 'Are you sure you want to sign out?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to the sign-out link
+                window.location.href = '<?= base_url('/sign-out'); ?>';
+            }
+        });
+    });
+</script>

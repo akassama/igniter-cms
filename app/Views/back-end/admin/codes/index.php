@@ -77,7 +77,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             <?php
                                             if ($code['deletable'] == 1) {
                                                 echo '<div class="col mb-1">
-                                                            <a class="text-dark td-none mr-1 remove-code" href="javascript:void(0)" onclick="deleteRecord(\'codes\', \'code_id\', \'' . $code['code_id'] . '\', \'\', \'account/admin/codes\')">
+                                                            <a class="text-dark td-none mr-1 remove-code" href="#!" onclick="deleteRecord(\'codes\', \'code_id\', \'' . $code['code_id'] . '\', \'\', \'account/admin/codes\')">
                                                                 <i class="h5 ri-close-circle-fill"></i>
                                                             </a>
                                                         </div>';
