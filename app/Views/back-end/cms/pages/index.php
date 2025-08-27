@@ -79,7 +79,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 </a>
                                             </div>
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 remove-page" href="javascript:void(0)" onclick="deleteRecord('pages', 'page_id', '<?=$page['page_id'];?>', '', 'account/cms/pages')">
+                                                <a class="text-dark td-none mr-1 remove-page" href="#!" onclick="deleteRecord('pages', 'page_id', '<?=$page['page_id'];?>', '', 'account/cms/pages')">
                                                     <i class="h5 ri-close-circle-fill"></i>
                                                 </a>
                                             </div>

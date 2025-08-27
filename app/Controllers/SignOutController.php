@@ -17,14 +17,22 @@ class SignOutController extends BaseController
 
     public function index()
     {
+        helper('cookie');
         $loggedInUserId = $this->session->get('user_id');
 
-        //log activity
+        // log activity
         logActivity($loggedInUserId, ActivityTypes::USER_LOGOUT, 'User with id: ' . $loggedInUserId . ' logged out.');
 
-        // Remove all session data
+        // remove all session data
         session()->destroy();
 
+        updateUserRememberMeTokens($loggedInUserId);
+
+        $rememberMeCookie = env('REMEMBER_ME_COOKIE');
+        updateCookieRememberMeTokens($rememberMeCookie);
+
+        // redirect
         return redirect()->to('sign-in');
     }
+
 }

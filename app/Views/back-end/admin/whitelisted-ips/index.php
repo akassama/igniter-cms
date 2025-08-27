@@ -60,7 +60,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td>
                                         <div class="row text-center p-1">
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 remove-blocked-ip" href="javascript:void(0)" onclick="deleteRecord('whitelisted_ips', 'whitelisted_ip_id', '<?=$whitelisted_ip['whitelisted_ip_id'];?>', '', 'account/admin/whitelisted-ips')">
+                                                <a class="text-dark td-none mr-1 remove-blocked-ip" href="#!" onclick="deleteRecord('whitelisted_ips', 'whitelisted_ip_id', '<?=$whitelisted_ip['whitelisted_ip_id'];?>', '', 'account/admin/whitelisted-ips')">
                                                     <i class="h5 ri-close-circle-fill"></i>
                                                 </a>
                                             </div>

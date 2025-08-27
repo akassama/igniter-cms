@@ -71,7 +71,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <td>
                                             <div class="row text-center p-1">
                                                 <div class="col mb-1">
-                                                    <a class="text-dark td-none mr-1 remove-backup" href="javascript:void(0)" onclick="deleteBackup('backups', 'backup_id', '<?=$backup['backup_id'];?>', '<?=$backup['backup_file_path'];?>', 'account/admin/backups')">
+                                                    <a class="text-dark td-none mr-1 remove-backup" href="#!" onclick="deleteBackup('backups', 'backup_id', '<?=$backup['backup_id'];?>', '<?=$backup['backup_file_path'];?>', 'account/admin/backups')">
                                                         <i class="h5 ri-close-circle-fill"></i>
                                                     </a>
                                                 </div>

@@ -98,7 +98,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 $onClick = $isCurrentUser ? '' : "onclick=\"deleteRecord('users', 'user_id', '{$user['user_id']}', '', 'account/admin/users')\"";
                                             ?>
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 <?= $additionalClass ?>" href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="<?= $tooltipTitle ?>" <?= $onClick ?>>
+                                                <a class="text-dark td-none mr-1 <?= $additionalClass ?>" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="<?= $tooltipTitle ?>" <?= $onClick ?>>
                                                     <?= $icon ?>
                                                 </a>
                                             </div>

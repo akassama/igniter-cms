@@ -102,7 +102,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             <?php
                                                 if ($config['deletable'] == 1) {
                                                     echo '<div class="col mb-1">
-                                                                <a class="text-dark td-none mr-1 remove-config" href="javascript:void(0)" onclick="deleteRecord(\'configurations\', \'config_id\', \'' . $config['config_id'] . '\', \'\', \'account/admin/configurations\')">
+                                                                <a class="text-dark td-none mr-1 remove-config" href="#!" onclick="deleteRecord(\'configurations\', \'config_id\', \'' . $config['config_id'] . '\', \'\', \'account/admin/configurations\')">
                                                                     <i class="h5 ri-close-circle-fill"></i>
                                                                 </a>
                                                             </div>';

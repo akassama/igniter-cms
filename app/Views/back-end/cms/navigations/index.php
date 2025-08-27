@@ -81,7 +81,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 </a>
                                             </div>
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 remove-navigation" href="javascript:void(0)" onclick="deleteRecord('navigations', 'navigation_id', '<?=$navigation['navigation_id'];?>', '', 'account/cms/navigations')">
+                                                <a class="text-dark td-none mr-1 remove-navigation" href="#!" onclick="deleteRecord('navigations', 'navigation_id', '<?=$navigation['navigation_id'];?>', '', 'account/cms/navigations')">
                                                     <i class="h5 ri-close-circle-fill"></i>
                                                 </a>
                                             </div>

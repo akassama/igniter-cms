@@ -115,7 +115,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                                     <i class="h5 ri-edit-box-line"></i>
                                                 </a>
 
-                                                <a class="text-dark td-none mr-1 remove-config" href="javascript:void(0)" onclick="deleteRecord('plugin_data', 'id', '<?=$data['id'];?>', '', 'account/plugins/data')">
+                                                <a class="text-dark td-none mr-1 remove-config" href="#!" onclick="deleteRecord('plugin_data', 'id', '<?=$data['id'];?>', '', 'account/plugins/data')">
                                                     <i class="h5 ri-close-circle-fill"></i>
                                                 </a>
                                             </div>

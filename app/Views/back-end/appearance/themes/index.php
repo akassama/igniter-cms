@@ -79,7 +79,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             class="btn btn-sm btn-outline-secondary">Customize</a>
                             
                             <?php if ($theme['deletable'] == 1 && $theme['selected'] !== "1"): ?>
-                                <a href="javascript:void(0)" 
+                                <a href="#!" 
                                 onclick="deleteTheme('<?=$theme['path']?>', '<?= $theme['theme_id'] ?>')" 
                                 class="btn btn-sm btn-outline-danger ms-auto">Delete</a>
                             <?php endif; ?>

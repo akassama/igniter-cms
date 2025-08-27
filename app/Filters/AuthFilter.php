@@ -5,6 +5,7 @@ namespace App\Filters;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use Config\Database;
 
 class AuthFilter implements FilterInterface
 {
@@ -37,13 +38,40 @@ class AuthFilter implements FilterInterface
             return $response;
         }
 
-        if (!session()->get('is_logged_in'))
-        { 
-            // Encode the URL to make it safe for use in a query string
-            $encodedUrl = urlencode($currentUrl);
+        // If no active session, try cookie
+        if (!session()->get('is_logged_in')) {
+            $cookieName = env('REMEMBER_ME_COOKIE');
+            if (isset($_COOKIE[$cookieName])) {
+                $cookieToken = $_COOKIE[$cookieName];
 
-            // Redirect to the sign-in page with the return URL as a query parameter
-            return redirect()->to('/sign-in?returnUrl=' . $encodedUrl);
+                $db = Database::connect();
+                $builder = $db->table('users');
+                $user = $builder->select('*')
+                    ->where('remember_token', $cookieToken)
+                    ->get()
+                    ->getRow();
+
+                if ($user && $user->expires_at > time()) {
+                    // Valid cookie: log user back in
+                    session()->set([
+                        'user_id' => $user->user_id,
+                        'first_name' => $user->first_name,
+                        'last_name' => $user->last_name,
+                        'username' => $user->username,
+                        'email' => $user->email,
+                        'role' => $user->role,
+                        'upload_directory' => $user->upload_directory,
+                        'is_logged_in' => TRUE
+                    ]);
+                } else {
+                    // Invalid/expired cookie → force sign-out
+                    return redirect()->to('/sign-out');
+                }
+            } else {
+                // No session, no cookie → redirect to login
+                $encodedUrl = urlencode($currentUrl);
+                return redirect()->to('/sign-in?returnUrl=' . $encodedUrl);
+            }
         }
 
         //check if user exists even with session
