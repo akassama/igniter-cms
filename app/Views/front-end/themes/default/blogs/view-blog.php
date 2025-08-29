@@ -18,6 +18,7 @@ updateTotalViewCount("blogs", "blog_id", $blog_data['blog_id']);
 <!-- Page Content-->
 <section class="py-5">
     <div class="container px-5 my-5">
+        
         <!--Breadcrumb-->
         <div class="row mb-1">
             <nav aria-label="breadcrumb">
@@ -28,6 +29,7 @@ updateTotalViewCount("blogs", "blog_id", $blog_data['blog_id']);
             </ol>
             </nav>
         </div>
+
         <div class="row">
             <div class="col-lg-8">
                 <!-- Post content-->
