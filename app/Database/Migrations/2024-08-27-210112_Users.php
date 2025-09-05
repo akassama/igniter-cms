@@ -140,42 +140,6 @@ class Users extends Migration
                 'upload_directory' => "admin_8J0IM",
                 'password_change_required' => true
             ],
-            [
-                'user_id' => getGUID(),
-                'first_name'    => 'Manager',
-                'last_name'    => 'User',
-                'username'    => 'manager',
-                'email'    => 'manager@example.com',
-                'password' => password_hash('Manager@1', PASSWORD_DEFAULT),
-                'status'    => 1,
-                'role'    => $customConfig->userRoles['Manager'],
-                'profile_picture'    => getDefaultProfileImagePath(),
-                'twitter_link'    => 'https://twitter..com/?manager-user',
-                'facebook_link'    => 'https://www.facebook..com/?manager-user',
-                'instagram_link'    => 'https://instagram..com/?manager-user',
-                'linkedin_link'    => 'https://www.linkedin.com/in/?manager-user',
-                'about_summary'    => 'Hello! I\'m Manager User, the manager of this platform. With a strong background in managing and overseeing operations, I ensure everything runs smoothly. You can connect with me on social media through the links provided. I\'m here to help and support our community!',
-                'upload_directory' => "manager_10BYZL",
-                'password_change_required' => false
-            ],
-            [
-                'user_id' => getGUID(),
-                'first_name'    => 'Test',
-                'last_name'    => 'User',
-                'username'    => 'test',
-                'email'    => 'test@example.com',
-                'password' => password_hash('Test@1', PASSWORD_DEFAULT),
-                'status'    => 1,
-                'role'    => $customConfig->userRoles['User'],
-                'profile_picture'    => getDefaultProfileImagePath(),
-                'twitter_link'    => 'https://twitter..com/?test-user',
-                'facebook_link'    => 'https://www.facebook..com/?test-user',
-                'instagram_link'    => 'https://instagram..com/?test-user',
-                'linkedin_link'    => 'https://www.linkedin.com/in/?test-user',
-                'about_summary'    => 'Hello! I\'m Manager User, the test of this platform. With a strong background in managing and overseeing operations, I ensure everything runs smoothly. You can connect with me on social media through the links provided. I\'m here to help and support our community!',
-                'upload_directory' => "test_10BYZL",
-                'password_change_required' => false
-            ]
         ];
 
         // Using Query Builder
