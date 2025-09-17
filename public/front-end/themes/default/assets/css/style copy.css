@@ -62,52 +62,56 @@ a {
 .navbar-toggler-icon {
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23<?php echo str_replace('#', '', $headingColor); ?>' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /* ================== Footer ================== */
 
 /* Target the footer background and primary text color */
-footer.bg-dark,
-footer.bg-dark .text-white,
-footer.bg-dark .small {
+.footer.bg-dark,
+.footer.bg-dark .text-white,
+.footer.bg-dark .small {
   background-color: var(--surface-color) !important;
   color: var(--default-color) !important;
 }
 
 /* Target all text elements within the footer */
-footer.bg-dark h5,
-footer.bg-dark p,
-footer.bg-dark ul,
-footer.bg-dark li {
+.footer.bg-dark h5,
+.footer.bg-dark p,
+.footer.bg-dark ul,
+.footer.bg-dark li {
   color: var(--default-color) !important;
 }
 
 /* Target all links (a tags) specifically */
-footer.bg-dark a {
+.footer.bg-dark a {
   color: var(--heading-color) !important;
 }
 
 /* Set link hover color */
-footer.bg-dark a:hover {
+.footer.bg-dark a:hover {
   color: var(--accent-color) !important;
 }
 
 /* Set color for social media icons */
-footer.bg-dark .mt-4 a i {
+.footer.bg-dark .mt-4 a i {
   color: var(--heading-color) !important;
 }
 
 /* Set link hover color for social media icons */
-footer.bg-dark .mt-4 a:hover i {
+.footer.bg-dark .mt-4 a:hover i {
   color: var(--accent-color) !important;
 }
 
-/* ================== Buttons ================== */
+/* Update the navbar toggler icon to be visible */
+.navbar-toggler-icon {
+  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23<?php echo str_replace('#', '', $headingColor); ?>' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
 
+/* Override Bootstrap 5 Primary Button Styles */
 .btn-primary {
-  --bs-btn-color: var(--background-color) !important;
-  --bs-btn-bg: var(--accent-color) !important;
-  --bs-btn-border-color: var(--accent-color) !important;
-  --bs-btn-hover-color: var(--background-color) !important;
+  --bs-btn-color: var(--background-color);
+  --bs-btn-bg: var(--accent-color);
+  --bs-btn-border-color: var(--accent-color);
+  --bs-btn-hover-color: var(--background-color);
   --bs-btn-hover-bg: color-mix(in srgb, var(--accent-color), black 15%);
   --bs-btn-hover-border-color: color-mix(
     in srgb,
@@ -115,25 +119,26 @@ footer.bg-dark .mt-4 a:hover i {
     black 15%
   );
   --bs-btn-focus-shadow-rgb: 49, 132, 253;
-  --bs-btn-active-color: var(--background-color) !important;
+  --bs-btn-active-color: var(--background-color);
   --bs-btn-active-bg: color-mix(in srgb, var(--accent-color), black 20%);
   --bs-btn-active-border-color: color-mix(
     in srgb,
     var(--accent-color),
     black 20%
   );
-  --bs-btn-disabled-color: var(--background-color) !important;
-  --bs-btn-disabled-bg: var(--accent-color) !important;
-  --bs-btn-disabled-border-color: var(--accent-color) !important;
+  --bs-btn-disabled-color: var(--background-color);
+  --bs-btn-disabled-bg: var(--accent-color);
+  --bs-btn-disabled-border-color: var(--accent-color);
 }
 
+/* Override Bootstrap 5 Outline Primary Button Styles */
 .btn-outline-primary {
-  --bs-btn-color: var(--accent-color) !important;
-  --bs-btn-border-color: var(--accent-color) !important;
-  --bs-btn-hover-color: var(--background-color) !important;
-  --bs-btn-hover-bg: var(--accent-color) !important;
-  --bs-btn-hover-border-color: var(--accent-color) !important;
-  --bs-btn-active-color: var(--background-color) !important;
+  --bs-btn-color: var(--accent-color);
+  --bs-btn-border-color: var(--accent-color);
+  --bs-btn-hover-color: var(--background-color);
+  --bs-btn-hover-bg: var(--accent-color);
+  --bs-btn-hover-border-color: var(--accent-color);
+  --bs-btn-active-color: var(--background-color);
   --bs-btn-active-bg: color-mix(in srgb, var(--accent-color), black 15%);
   --bs-btn-active-border-color: color-mix(
     in srgb,
@@ -151,8 +156,8 @@ footer.bg-dark .mt-4 a:hover i {
 
 /* Override other primary elements for consistency */
 .alert-primary {
-  --bs-alert-color: var(--heading-color) !important;
-  --bs-alert-bg: var(--accent-color) !important;
+  --bs-alert-color: var(--heading-color);
+  --bs-alert-bg: var(--accent-color);
   --bs-alert-border-color: color-mix(in srgb, var(--accent-color), black 10%);
 }
 
@@ -169,17 +174,12 @@ footer.bg-dark .mt-4 a:hover i {
 }
 
 .progress-bar {
-  background-color: var(--accent-color) !important;
+  background-color: var(--accent-color);
 }
 
 .list-group-item-primary {
-  color: var(--heading-color) !important;
-  background-color: var(--accent-color) !important;
-}
-
-.badge.bg-success {
-  color: var(--surface-color);
-  background-color: var(--accent-color) !important;
+  color: var(--heading-color);
+  background-color: var(--accent-color);
 }
 
 .btn:hover {

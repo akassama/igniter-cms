@@ -2,7 +2,7 @@
 // Get current theme
 $theme = getCurrentTheme();
 
-$primaryThemeColor = getThemeData($theme, "primary_color");
+$defaultThemeColor = getThemeData($theme, "default_color");
 
 //global search icon
 $enableGlobalSearchIcon = getConfigData("EnableGlobalSearchIcon");
@@ -13,7 +13,7 @@ $enableGlobalSearchIcon = getConfigData("EnableGlobalSearchIcon");
     position: fixed;
     bottom: 2.5rem;
     left: 20px;
-    background-color: <?=$primaryThemeColor?>; 
+    background-color: <?=$defaultThemeColor?>; 
     color: white;
     padding: 15px;
     border-radius: 50%;
