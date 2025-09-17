@@ -61,42 +61,102 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-4 mb-4">
-                <label for="primary_color" class="form-label">Primary Theme Color</label>
-                <input type="color" class="form-control form-control-color" id="primary_color" name="primary_color" value="<?= $theme_data['primary_color'];?>" required
-                       hx-post="<?=base_url()?>/htmx/get-primary-color-name"
+                <label for="default_color" class="form-label">Default Color</label>
+                <input type="color" class="form-control form-control-color" id="default_color" name="default_color" value="<?= $theme_data['default_color'];?>" required
+                       hx-post="<?=base_url()?>/htmx/get-default-color-name"
                        hx-trigger="load, change delay:100ms"
-                       hx-target="#set-primary-color-name"
+                       hx-target="#set-default-color-name"
                        hx-swap="innerHTML">
                 <!-- Error -->
-                <?php if($validation->getError('primary_color')) {?>
+                <?php if($validation->getError('default_color')) {?>
                     <div class='text-danger mt-2'>
-                        <?= $error = $validation->getError('primary_color'); ?>
+                        <?= $error = $validation->getError('default_color'); ?>
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide primary color
+                    Please provide default color
                 </div>
-                <div class="mt-2" id="set-primary-color-name">
+                <div class="mt-2" id="set-default-color-name">
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-4 mb-4">
-                <label for="secondary_color" class="form-label">Secondary Theme Color</label>
-                <input type="color" class="form-control form-control-color" id="secondary_color" name="secondary_color" value="<?= $theme_data['secondary_color'];?>"
-                    hx-post="<?=base_url()?>/htmx/get-secondary-color-name"
-                    hx-trigger="load, change delay:100ms"
-                    hx-target="#set-secondary-color-name"
-                    hx-swap="innerHTML">
+                <label for="heading_color" class="form-label">Heading Color</label>
+                <input type="color" class="form-control form-control-color" id="heading_color" name="heading_color" value="<?= $theme_data['heading_color'];?>" required
+                       hx-post="<?=base_url()?>/htmx/get-heading-color-name"
+                       hx-trigger="load, change delay:200ms"
+                       hx-target="#set-heading-color-name"
+                       hx-swap="innerHTML">
                 <!-- Error -->
-                <?php if($validation->getError('secondary_color')) {?>
+                <?php if($validation->getError('heading_color')) {?>
                     <div class='text-danger mt-2'>
-                        <?= $error = $validation->getError('secondary_color'); ?>
+                        <?= $error = $validation->getError('heading_color'); ?>
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide secondary color
+                    Please provide heading color
                 </div>
-                <div class="mt-2" id="set-secondary-color-name">
+                <div class="mt-2" id="set-heading-color-name">
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-4 mb-4">
+                <label for="accent_color" class="form-label">Accent Color</label>
+                <input type="color" class="form-control form-control-color" id="accent_color" name="accent_color" value="<?= $theme_data['accent_color'];?>" required
+                       hx-post="<?=base_url()?>/htmx/get-accent-color-name"
+                       hx-trigger="load, change delay:300ms"
+                       hx-target="#set-accent-color-name"
+                       hx-swap="innerHTML">
+                <!-- Error -->
+                <?php if($validation->getError('accent_color')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('accent_color'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide accent color
+                </div>
+                <div class="mt-2" id="set-accent-color-name">
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-4 mb-4">
+                <label for="surface_color" class="form-label">Surface Color</label>
+                <input type="color" class="form-control form-control-color" id="surface_color" name="surface_color" value="<?= $theme_data['surface_color'];?>"
+                    hx-post="<?=base_url()?>/htmx/get-surface-color-name"
+                    hx-trigger="load, change delay:400ms"
+                    hx-target="#set-surface-color-name"
+                    hx-swap="innerHTML">
+                <!-- Error -->
+                <?php if($validation->getError('surface_color')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('surface_color'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide surface color
+                </div>
+                <div class="mt-2" id="set-surface-color-name">
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-4 mb-4">
+                <label for="contrast_color" class="form-label">Contrast Color</label>
+                <input type="color" class="form-control form-control-color" id="contrast_color" name="contrast_color" value="<?= $theme_data['contrast_color'];?>"
+                    hx-post="<?=base_url()?>/htmx/get-contrast-color-name"
+                    hx-trigger="load, change delay:500ms"
+                    hx-target="#set-contrast-color-name"
+                    hx-swap="innerHTML">
+                <!-- Error -->
+                <?php if($validation->getError('contrast_color')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('contrast_color'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide contrast color
+                </div>
+                <div class="mt-2" id="set-contrast-color-name">
                 </div>
             </div>
 
@@ -104,7 +164,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="background_color" class="form-label">Background Color</label>
                 <input type="color" class="form-control form-control-color" id="background_color" name="background_color" value="<?= $theme_data['background_color'];?>"
                        hx-post="<?=base_url()?>/htmx/get-background-color-name"
-                       hx-trigger="load, change delay:100ms"
+                       hx-trigger="load, change delay:600ms"
                        hx-target="#set-background-color-name"
                        hx-swap="innerHTML">
                 <!-- Error -->

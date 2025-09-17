@@ -172,8 +172,11 @@ class AppearanceController extends BaseController
             'theme_id' => getGUID(),
             'name' => $themeConfig['name'] ?? 'Untitled Theme',
             'path' => $themeConfig['path'],
-            'primary_color' => $themeConfig['primary_color'] ?? '#000000',
-            'secondary_color' => $themeConfig['secondary_color'] ?? '#808080',
+            'default_color' => $themeConfig['default_color'] ?? '#000000',
+            'heading_color' => $themeConfig['heading_color'] ?? '#808080',
+            'accent_color' => $themeConfig['accent_color'] ?? '#FFFFFF',
+            'surface_color' => $themeConfig['surface_color'] ?? '#000000',
+            'contrast_color' => $themeConfig['contrast_color'] ?? '#808080',
             'background_color' => $themeConfig['background_color'] ?? '#FFFFFF',
             'theme_url' => $themeConfig['theme_url'] ?? '',
             'image' => $themeConfig['image'] ?? '',
@@ -264,8 +267,11 @@ class AppearanceController extends BaseController
             $data = [
                 'name' => $this->request->getPost('name'),
                 'path'  => $this->request->getPost('path'),
-                'primary_color'  => $this->request->getPost('primary_color'),
-                'secondary_color'  => $this->request->getPost('secondary_color'),
+                'default_color'  => $this->request->getPost('default_color'),
+                'heading_color'  => $this->request->getPost('heading_color'),
+                'accent_color'  => $this->request->getPost('accent_color'),
+                'surface_color'  => $this->request->getPost('surface_color'),
+                'contrast_color'  => $this->request->getPost('contrast_color'),
                 'background_color'  => $this->request->getPost('background_color'),
                 'image'  => $this->request->getPost('image'),
                 'theme_url'  => $this->request->getPost('theme_url'),
@@ -288,7 +294,7 @@ class AppearanceController extends BaseController
             //log activity
             logActivity($loggedInUserId, ActivityTypes::THEME_UPDATE, 'Theme updated with id: ' . $themeId);
     
-            return redirect()->to('/account/themes');
+            return redirect()->to('/account/appearance/themes/edit-theme/'. $themeId);
         }
         else{
             $data['validation'] = $this->validator;
@@ -300,27 +306,6 @@ class AppearanceController extends BaseController
     
             return view('back-end/appearance/themes/edit-theme', $data);
         }
-    }
-    
-    public function editThemeHomePage($themeId)
-    {
-        $themesModel = new ThemesModel();
-    
-        // Fetch the data based on the id
-        $themeData = $themesModel->where('theme_id', $themeId)->first();
-    
-        if (!$themeData) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
-            session()->setFlashdata('errorAlert', $errorMsg);
-            return redirect()->to('/account/themes');
-        }
-    
-        // Set data to pass in view
-        $data = [
-            'theme_data' => $themeData
-        ];
-    
-        return view('back-end/appearance/themes/edit-theme-home-page', $data);
     }
 
     public function activateTheme($themeId)
@@ -336,7 +321,7 @@ class AppearanceController extends BaseController
         if (!$themeData) {
             $errorMsg = config('CustomConfig')->notFoundMsg;
             session()->setFlashdata('errorAlert', $errorMsg);
-            return redirect()->to('/account/themes');
+            return redirect()->to('/account/appearance/themes');
         }
 
         //reset selected themes
@@ -376,7 +361,7 @@ class AppearanceController extends BaseController
         if (boolval(env('DEMO_MODE', "false"))) {
             $errorMsg = "Action not available in the demo mode.";
             session()->setFlashdata('warningAlert', $errorMsg);
-            return redirect()->to('/account/themes');
+            return redirect()->to('/account/appearance/themes');
         }
 
         try {

@@ -7,8 +7,11 @@ $themeData = [
     'customCSS' => getTableData('codes', ['code_for' => 'CSS'], 'code'),
     'customJSTop' => getTableData('codes', ['code_for' => 'HeaderJS'], 'code'),
     'customJSFooter' => getTableData('codes', ['code_for' => 'FooterJS'], 'code'),
+    'defaultColor' => getThemeData($theme, "default_color"),
+    'headingColor' => getThemeData($theme, "heading_color"),
+    'accentColor' => getThemeData($theme, "accent_color"),
     'primaryColor' => getThemeData($theme, "primary_color"),
-    'secondaryColor' => getThemeData($theme, "secondary_color"),
+    'surfaceColor' => getThemeData($theme, "surface_color"),
     'backgroundColor' => getThemeData($theme, "background_color"),
 ];
 
@@ -16,8 +19,8 @@ $themeData = [
 
 <?php
 // Theme color variables
-$primaryColor = $themeData['primaryColor'];  
-$secondaryColor = $themeData['secondaryColor'];
+$primaryColor = $themeData['defaultColor'];  
+$secondaryColor = $themeData['accentColor'];
 $backgroundColor = $themeData['backgroundColor'];
 ?>
 

@@ -85,7 +85,7 @@ class AppModules extends Migration
                 'module_name'  => 'Themes',
                 'module_description'  => 'Manage themes',
                 'module_roles'    => 'Admin',
-                'module_link'    => 'account/themes',
+                'module_link'    => 'account/appearance/themes',
                 'module_search_terms' => 'themes,appearance,design'
             ],
             //Admin
