@@ -299,8 +299,11 @@ $routes->group('htmx', function($routes) {
     $routes->post('get-ai-help-answer', 'HtmxController::getAIHelpAnswer');
 
     //ADMIN
-    $routes->post('get-primary-color-name', 'HtmxController::getPrimaryColorName');
-    $routes->post('get-secondary-color-name', 'HtmxController::getSecondaryColorName');
+    $routes->post('get-default-color-name', 'HtmxController::getDefaultColorName');
+    $routes->post('get-heading-color-name', 'HtmxController::getHeadingColorName');
+    $routes->post('get-accent-color-name', 'HtmxController::getAccentColorName');
+    $routes->post('get-surface-color-name', 'HtmxController::getSurfaceColorName');
+    $routes->post('get-contrast-color-name', 'HtmxController::getContrastColorName');
     $routes->post('get-background-color-name', 'HtmxController::getBackgroundColorName');
     $routes->post('set-message-read-status', 'HtmxController::setMessageReadStatus');
 });

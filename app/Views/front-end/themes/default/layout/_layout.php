@@ -9,8 +9,11 @@ $themeData = [
     'customCSS' => getTableData('codes', ['code_for' => 'CSS'], 'code'),
     'customJSTop' => getTableData('codes', ['code_for' => 'HeaderJS'], 'code'),
     'customJSFooter' => getTableData('codes', ['code_for' => 'FooterJS'], 'code'),
-    'primaryColor' => getThemeData($theme, "primary_color"),
-    'secondaryColor' => getThemeData($theme, "secondary_color"),
+    'defaultColor' => getThemeData($theme, "default_color"),
+    'headingColor' => getThemeData($theme, "heading_color"),
+    'accentColor' => getThemeData($theme, "accent_color"),
+    'surfaceColor' => getThemeData($theme, "surface_color"),
+    'contrastColor' => getThemeData($theme, "contrast_color"),
     'backgroundColor' => getThemeData($theme, "background_color"),
 ];
 
@@ -42,7 +45,55 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
     <!-- Animate CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-    <!-- Core theme CSS -->
+    <!-- Core Theme CSS Variables -->
+    <?php
+        $overrideStyle = getThemeData($theme, "override_default_style");
+        if($overrideStyle === "1"){
+            
+            // Theme color variables
+            $defaultColor = $themeData['defaultColor'];  
+            $headingColor = $themeData['headingColor'];
+            $accentColor = $themeData['accentColor']; 
+            $surfaceColor = $themeData['surfaceColor'];
+            $contrastColor = $themeData['contrastColor'];
+            $backgroundColor = $themeData['backgroundColor'];
+        
+            ?>
+            <style>
+                /* ===== Override Root Variables ===== */
+                :root {
+                    --default-color: <?php echo $defaultColor; ?>;
+                    --heading-color: <?php echo $headingColor; ?>;
+                    --accent-color: <?php echo $accentColor; ?>;
+                    --surface-color: <?php echo $surfaceColor; ?>;
+                    --contrast-color: rgba(var(<?php echo $accentColor; ?>), 0.8);
+                    --background-color: <?php echo $backgroundColor; ?>;
+                }
+            </style>
+        <?php
+        }
+        else{
+            ?>
+                <style>
+                    /* ===== Root Variables ===== */
+                    :root {
+                    --default-color: #6c757d;
+                    --heading-color: #212529;
+                    --accent-color: #0d6efd;
+                    --surface-color: #f8f9fa;
+                    --contrast-color: rgba(var(--accent-color-rgb), 0.8);
+                    --background-color: #ffffff;
+                    --success-color: #198754;
+                    --danger-color: #dc3545;
+                    --warning-color: #ffc107;
+                    --info-color: #0dcaf0;
+                    }
+                </style>
+            <?php
+        }
+    ?>
+
+    <!-- Core Theme CSS -->
     <link href="<?= base_url('public/front-end/themes/' . $theme . '/assets/css/style.css') ?>" rel="stylesheet">
 
     <!--Favicon-->
@@ -52,16 +103,6 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
     <?php if (!empty($themeData['customCSS'])): ?>
         <style><?= $themeData['customCSS'] ?></style>
     <?php endif; ?>
-
-    <!-- Custom Theme CSS -->
-    <style>
-        <?php
-            $overrideStyle = getThemeData($theme, "override_default_style");
-            if($overrideStyle === "1"){
-                echo $this->include('front-end/themes/_shared/_theme_style_override.php');
-            }
-        ?>
-    </style>
 
     <!-- Custom JavaScript in the head -->
     <?php if (!empty($themeData['customJSTop'])): ?>

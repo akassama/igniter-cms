@@ -24,8 +24,8 @@ $theme = getCurrentTheme();
         </div>
 
         <?php 
-        // Check if all search result arrays are empty
-        $noResults = empty($blogsSearchResults) && empty($pagesSearchResults);
+            // Check if all search result arrays are empty
+            $noResults = empty($blogsSearchResults) && empty($pagesSearchResults);
         ?>
 
         <?php if ($noResults): ?>

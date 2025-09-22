@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-
 /**
  * ThemesModel class
  *
@@ -21,8 +20,11 @@ class ThemesModel extends Model
         'theme_id', 
         'name',
         'path', 
-        'primary_color',
-        'secondary_color',
+        'default_color',
+        'heading_color',
+        'accent_color',
+        'surface_color',
+        'contrast_color',
         'background_color',
         'image',
         'theme_url',
@@ -77,8 +79,11 @@ class ThemesModel extends Model
             'theme_id' => getGUID(),
             'name' => $param['name'],
             'path' => $param['path'],
-            'primary_color' => $param['primary_color'],
-            'secondary_color' => $param['secondary_color'],
+            'default_color' => $param['default_color'],
+            'heading_color' => $param['heading_color'],
+            'accent_color' => $param['accent_color'],
+            'contrast_color' => $param['contrast_color'],
+            'surface_color' => $param['surface_color'],
             'background_color' => $param['background_color'],
             'image' => $param['image'],
             'theme_url' => $param['theme_url'],
@@ -106,8 +111,11 @@ class ThemesModel extends Model
         // Update the fields
         $existingTheme['name'] = $param['name'];
         $existingTheme['path'] = $param['path'];
-        $existingTheme['primary_color'] = $param['primary_color'];
-        $existingTheme['secondary_color'] = $param['secondary_color'];
+        $existingTheme['default_color'] = $param['default_color'];
+        $existingTheme['heading_color'] = $param['heading_color'];
+        $existingTheme['accent_color'] = $param['accent_color'];
+        $existingTheme['surface_color'] = $param['surface_color'];
+        $existingTheme['contrast_color'] = $param['contrast_color'];
         $existingTheme['background_color'] = $param['background_color'];
         $existingTheme['image'] = $param['image'];
         $existingTheme['theme_url'] = $param['theme_url'];

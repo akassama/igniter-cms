@@ -225,10 +225,11 @@ class HtmxController extends BaseController
         exit();
     }
 
-    public function getPrimaryColorName()
+    public function getDefaultColorName()
     {
-        $primaryColor = $this->request->getPost('primary_color');
-        $colorName = getColorCodeName($primaryColor);
+        $inputColor = $this->request->getPost('default_color');
+
+        $colorName = getColorCodeName($inputColor);
         $colorLabel = '<div class="text-danger">'.$colorName.'</div>';
         echo $colorLabel;
 
@@ -236,10 +237,47 @@ class HtmxController extends BaseController
         exit();
     }
 
-    public function getSecondaryColorName()
+    public function getHeadingColorName()
     {
-        $secondaryColor = $this->request->getPost('secondary_color');
-        $colorName = getColorCodeName($secondaryColor);
+        $inputColor = $this->request->getPost('heading_color');
+
+        $colorName = getColorCodeName($inputColor);
+        $colorLabel = '<div class="text-danger">'.$colorName.'</div>';
+        echo $colorLabel;
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    public function getAccentColorName()
+    {
+        $inputColor = $this->request->getPost('accent_color');
+
+        $colorName = getColorCodeName($inputColor);
+        $colorLabel = '<div class="text-danger">'.$colorName.'</div>';
+        echo $colorLabel;
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    public function getSurfaceColorName()
+    {
+        $inputColor = $this->request->getPost('surface_color');
+
+        $colorName = getColorCodeName($inputColor);
+        $colorLabel = '<div class="text-danger">'.$colorName.'</div>';
+        echo $colorLabel;
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    public function getContrastColorName()
+    {
+        $inputColor = $this->request->getPost('contrast_color');
+
+        $colorName = getColorCodeName($inputColor);
         $colorLabel = '<div class="text-danger">'.$colorName.'</div>';
         echo $colorLabel;
 
@@ -249,8 +287,9 @@ class HtmxController extends BaseController
 
     public function getBackgroundColorName()
     {
-        $otherColor = $this->request->getPost('background_color');
-        $colorName = getColorCodeName($otherColor);
+        $inputColor = $this->request->getPost('background_color');
+
+        $colorName = getColorCodeName($inputColor);
         $colorLabel = '<div class="text-danger">'.$colorName.'</div>';
         echo $colorLabel;
 

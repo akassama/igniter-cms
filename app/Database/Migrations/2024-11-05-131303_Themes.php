@@ -27,12 +27,27 @@ class Themes extends Migration
                 'null' => false,
                 'unique' => true,
             ],
-            'primary_color' => [
+            'default_color' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => true,
             ],
-            'secondary_color' => [
+            'heading_color' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => true,
+            ],
+            'accent_color' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => true,
+            ],
+            'surface_color' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => true,
+            ],
+            'contrast_color' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => true,
@@ -98,11 +113,14 @@ class Themes extends Migration
                 'theme_id' => getGUID(),
                 'name' => 'Default',
                 'path' => '/default',
-                'primary_color' => '#212529',
-                'secondary_color' => '#0d6efd',
+                'default_color' => '#0d6efd',
+                'heading_color' => '#6c757d',
+                'accent_color' => '#f2f7f7',
+                'surface_color' => '#212529',
+                'contrast_color' => '#0d6efd',
                 'background_color' => '#f2f7f7',
-                'image' => 'public/front-end/themes/default/assets/images/default-theme.png',
-                'theme_url' => 'https://startbootstrap.com/previews/modern-business',
+                'image' => 'public/front-end/themes/default/assets/images/preview.png',
+                'theme_url' => 'https://themes.ignitercms.com/demo/Default/',
                 'selected' => true,
                 'override_default_style' => false,
                 'category' => $customConfig->themeCategories['Business'],
