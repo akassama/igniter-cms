@@ -28,7 +28,6 @@ class FrontEndController extends BaseController
     //############################//
     public function index()
     {
-
         //load home view
         return view('front-end/themes/'.getCurrentTheme().'/home/index');
     }

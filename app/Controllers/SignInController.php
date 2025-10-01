@@ -26,8 +26,10 @@ class SignInController extends BaseController
         $returnUrl = $this->request->getGet('returnUrl');
         $data['returnUrl'] = $returnUrl;
 
-        //Call function to delete install directory if existing
-        removeDirectory('install');
+        // Only remove install directory if NOT in production environment
+        if (ENVIRONMENT == 'production') {
+            removeDirectory('install');
+        }
 
         return view('front-end/sign-in/index', $data); 
     }
