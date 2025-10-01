@@ -1,14 +1,11 @@
 <?php
 // Get current theme impact
 $theme = getCurrentTheme();
-
-//pages settings
 $currentPage = "blogs";
 ?>
 <!-- include theme layout -->
 <?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>
 
-<!-- begin main content -->
 <?= $this->section('content') ?>
 
 <!-- Breadcrumb -->
@@ -35,47 +32,39 @@ $currentPage = "blogs";
             </div>
         </div>
 
-        <div class="row g-4">
-            <?php if ($blogs): ?>
-                <?php foreach ($blogs as $blog): ?>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card border-0 shadow-sm h-100">
-                            <a href="<?= base_url('blog/' . $blog['slug']) ?>">
-                                <img src="<?= getImageUrl($blog['featured_image'] ?? getDefaultImagePath()) ?>" 
-                                     class="card-img-top" 
-                                     alt="<?= esc($blog['title']) ?>">
-                            </a>
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <span class="badge bg-success me-2">
-                                        <?= !empty($blog['category']) ? getBlogCategoryName($blog['category']) : "Uncategorized" ?>
-                                    </span>
-                                    <small class="text-muted"><?= dateFormat($blog['created_at'], 'M j, Y') ?></small>
-                                </div>
-                                <h5 class="fw-bold"><?= esc($blog['title']) ?></h5>
-                                <p class="mb-3">
-                                    <?= !empty($blog['excerpt']) ? getTextSummary($blog['excerpt'], 100) : getTextSummary($blog['content'], 100) ?>
-                                </p>
-                                <a href="<?= base_url('blog/' . $blog['slug']) ?>" class="btn btn-sm btn-outline-primary">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <div class="col-12 text-center">
-                    <p class="text-muted">No blog posts available at the moment.</p>
-                </div>
-            <?php endif; ?>
-        </div>
+        <?= renderBlogsGrid($blogs) ?>
 
         <!-- Pagination -->
         <?php if ($total_blogs > intval(env('PAGINATE_LOW', 20))): ?>
             <div class="text-center mt-5">
-                <?= $pager->links('default', 'bootstrap_pagination') // Assuming you have a custom view or use Bootstrap style ?>
+                <?= $pager->links('default', 'bootstrap_pagination') ?>
             </div>
         <?php endif; ?>
     </div>
 </section>
 
-<!-- end main content -->
+<?php if (ENVIRONMENT !== 'production'): ?>
+<!-- 
+CUSTOMIZATION NOTES:
+-------------------
+To customize the blogs grid display without using the helper function:
+
+1. REPLACE the helper function call above with your custom HTML
+2. Available data variables:
+   - $blogs: Array of blog posts with pagination
+   - $pager: Pagination object
+   - $total_blogs: Total number of blogs
+
+Example custom display:
+<div class="custom-blogs-grid">
+    <!php foreach($blogs as $blog): ?>
+        <!== Your custom blog card HTML ==>
+    <!php endforeach; ?>
+</div>
+
+The helper function provides theme-agnostic styling with Unicode icons.
+Remove it only if you need complete design control or framework-specific styling.
+-->
+<?php endif; ?>
+
 <?= $this->endSection() ?>

@@ -3742,3 +3742,639 @@ if (!function_exists('renderFilterSearchResults')) {
         return ob_get_clean();
     }
 }
+
+
+/**
+ * Renders blog posts grid with theme-agnostic styling
+ * 
+ * @param array $blogs Array of blog posts
+ * @param string $emptyMessage Message to display when no blogs found
+ * @return string HTML content
+ */
+if (!function_exists('renderBlogsGrid')) {
+    function renderBlogsGrid($blogs, $emptyMessage = 'No blog posts available at the moment.') 
+    {
+        // Get theme colors
+        $theme = getCurrentTheme();
+        $default_color = getThemeData($theme, "default_color");
+        $heading_color = getThemeData($theme, "heading_color");
+        $accent_color = getThemeData($theme, "accent_color");
+        $surface_color = getThemeData($theme, "surface_color");
+        $contrast_color = getThemeData($theme, "contrast_color");
+        $background_color = getThemeData($theme, "background_color");
+        
+        // Unicode icons
+        $icons = [
+            'calendar' => '&#128197;', // 📅
+            'category' => '&#127991;', // 🏷️
+            'read_more' => '&#128214;', // 📖
+        ];
+        
+        ob_start();
+        ?>
+        <style>
+        .bg-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .bg-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .bg-card {
+            background: <?=$surface_color?>;
+            border: 1px solid <?=$default_color?>20;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .bg-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .bg-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+        .bg-content {
+            padding: 1.5rem;
+        }
+        .bg-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .bg-category {
+            background: <?=$accent_color?>;
+            color: white;
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .bg-date {
+            color: <?=$contrast_color?>;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+        .bg-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: <?=$heading_color?>;
+            margin: 0 0 1rem 0;
+            line-height: 1.4;
+        }
+        .bg-excerpt {
+            color: <?=$contrast_color?>;
+            margin: 0 0 1.5rem 0;
+            line-height: 1.5;
+        }
+        .bg-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: <?=$default_color?>;
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .bg-button:hover {
+            background: <?=$accent_color?>;
+            transform: translateY(-1px);
+        }
+        .bg-empty {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: <?=$contrast_color?>;
+            grid-column: 1 / -1;
+        }
+        .bg-icon {
+            font-size: 1.1em;
+            line-height: 1;
+        }
+        </style>
+
+        <div class="bg-container">
+            <div class="bg-grid">
+                <?php if ($blogs): ?>
+                    <?php foreach ($blogs as $blog): ?>
+                        <div class="bg-card">
+                            <a href="<?= base_url('blog/' . $blog['slug']) ?>">
+                                <img src="<?= getImageUrl($blog['featured_image'] ?? getDefaultImagePath()) ?>" 
+                                     class="bg-image" 
+                                     alt="<?= esc($blog['title']) ?>">
+                            </a>
+                            <div class="bg-content">
+                                <div class="bg-meta">
+                                    <span class="bg-category">
+                                        <?= !empty($blog['category']) ? getBlogCategoryName($blog['category']) : "Uncategorized" ?>
+                                    </span>
+                                    <span class="bg-date">
+                                        <span class="bg-icon"><?= $icons['calendar'] ?></span>
+                                        <?= dateFormat($blog['created_at'], 'M j, Y') ?>
+                                    </span>
+                                </div>
+                                <h3 class="bg-title"><?= esc($blog['title']) ?></h3>
+                                <p class="bg-excerpt">
+                                    <?= !empty($blog['excerpt']) ? getTextSummary($blog['excerpt'], 100) : getTextSummary($blog['content'], 100) ?>
+                                </p>
+                                <a href="<?= base_url('blog/' . $blog['slug']) ?>" class="bg-button">
+                                    <span class="bg-icon"><?= $icons['read_more'] ?></span>
+                                    Read More
+                                </a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="bg-empty">
+                        <p><?= $emptyMessage ?></p>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+}
+
+/**
+ * Renders blog post content with theme-agnostic styling
+ * 
+ * @param array $blog_data Blog post data
+ * @return string HTML content
+ */
+if (!function_exists('renderBlogContent')) {
+    function renderBlogContent($blog_data) 
+    {
+        // Get theme colors
+        $theme = getCurrentTheme();
+        $default_color = getThemeData($theme, "default_color");
+        $heading_color = getThemeData($theme, "heading_color");
+        $accent_color = getThemeData($theme, "accent_color");
+        $surface_color = getThemeData($theme, "surface_color");
+        $contrast_color = getThemeData($theme, "contrast_color");
+        $background_color = getThemeData($theme, "background_color");
+        
+        // Unicode icons
+        $icons = [
+            'calendar' => '&#128197;', // 📅
+            'user' => '&#128100;', // 👤
+            'category' => '&#127991;', // 🏷️
+        ];
+        
+        ob_start();
+        ?>
+        <style>
+        .bc-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .bc-header {
+            margin-bottom: 2rem;
+        }
+        .bc-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: <?=$heading_color?>;
+            margin: 0 0 1.5rem 0;
+            line-height: 1.2;
+        }
+        .bc-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            color: <?=$contrast_color?>;
+            font-size: 0.95rem;
+        }
+        .bc-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .bc-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+        .bc-author:hover {
+            color: <?=$default_color?>;
+        }
+        .bc-author-image {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .bc-category {
+            background: <?=$default_color?>;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            display: inline-block;
+        }
+        .bc-category:hover {
+            background: <?=$accent_color?>;
+        }
+        .bc-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: block;
+        }
+        .bc-content {
+            color: <?=$heading_color?>;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+        .bc-content h2, .bc-content h3, .bc-content h4 {
+            color: <?=$heading_color?>;
+            margin: 2rem 0 1rem 0;
+        }
+        .bc-content p {
+            margin-bottom: 1.5rem;
+        }
+        .bc-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        .bc-content blockquote {
+            border-left: 4px solid <?=$default_color?>;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: <?=$contrast_color?>;
+        }
+        .bc-icon {
+            font-size: 1.1em;
+            line-height: 1;
+        }
+        </style>
+
+        <div class="bc-container">
+            <article>
+                <header class="bc-header">
+                    <h1 class="bc-title"><?= $blog_data['title'] ?></h1>
+                    
+                    <div class="bc-meta">
+                        <div class="bc-meta-item">
+                            <span class="bc-icon"><?= $icons['calendar'] ?></span>
+                            Posted on <?= dateFormat($blog_data['created_at'], 'F j, Y'); ?>
+                        </div>
+                        
+                        <div class="bc-meta-item">
+                            <a href="<?= base_url('/search/filter/?type=author&key='.getUserData($blog_data['created_by'], "username"))?>" class="bc-author">
+                                <img loading="lazy" src="<?=getImageUrl(getUserData($blog_data['created_by'], "profile_picture") ?? getDefaultProfileImagePath())?>" class="bc-author-image" alt="<?= $blog_data['title'] ?>">
+                                <?= getActivityBy(esc($blog_data['created_by'])); ?>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <?php $categoryName = !empty($blog_data['category']) ? getBlogCategoryName($blog_data['category']) : ""; ?>
+                    <?php if ($categoryName): ?>
+                        <a class="bc-category" href="<?= base_url('/search/filter/?type=category&key='.$categoryName) ?>">
+                            <!-- <span class="bc-icon"><?= $icons['category'] ?></span> -->
+                            <?= $categoryName?>
+                        </a>
+                    <?php endif; ?>
+                </header>
+                
+                <?php if ($blog_data['featured_image']): ?>
+                    <figure>
+                        <img class="bc-image" src="<?= getImageUrl(($blog_data['featured_image']) ?? getDefaultImagePath())?>" alt="<?= $blog_data['title'] ?>" />
+                    </figure>
+                <?php endif; ?>
+                
+                <section class="bc-content">
+                    <?= $blog_data['content'] ?>
+                </section>
+            </article>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+}
+
+/**
+ * Renders blog sidebar widgets with theme-agnostic styling
+ * 
+ * @param array $categories Array of categories
+ * @param array $blogs Array of recent blog posts
+ * @param array $blog_data Current blog post data for tags
+ * @return string HTML content
+ */
+if (!function_exists('renderBlogSidebar')) {
+    function renderBlogSidebar($categories = [], $blogs = [], $blog_data = []) 
+    {
+        // Get theme colors
+        $theme = getCurrentTheme();
+        $default_color = getThemeData($theme, "default_color");
+        $heading_color = getThemeData($theme, "heading_color");
+        $accent_color = getThemeData($theme, "accent_color");
+        $surface_color = getThemeData($theme, "surface_color");
+        $contrast_color = getThemeData($theme, "contrast_color");
+        $background_color = getThemeData($theme, "background_color");
+        
+        // Unicode icons
+        $icons = [
+            'search' => '&#128269;', // 🔍
+            'category' => '&#127991;', // 🏷️
+            'tag' => '&#035;', // #
+            'recent' => '&#128240;', // 📰
+            'calendar' => '&#128197;', // 📅
+        ];
+        
+        ob_start();
+        ?>
+        <style>
+        .bs-widget {
+            background: <?=$surface_color?>;
+            border: 1px solid <?=$default_color?>20;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .bs-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: <?=$heading_color?>;
+            margin: 0 0 1.25rem 0;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid <?=$default_color?>20;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .bs-search-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .bs-search-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid <?=$default_color?>30;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .bs-search-input:focus {
+            outline: none;
+            border-color: <?=$default_color?>;
+        }
+        .bs-search-button {
+            background: <?=$default_color?>;
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .bs-search-button:hover {
+            background: <?=$accent_color?>;
+        }
+        .bs-categories-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .bs-category-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .bs-category-item {
+            margin-bottom: 0.75rem;
+        }
+        .bs-category-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: <?=$contrast_color?>;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.25rem 0;
+        }
+        .bs-category-link:hover {
+            color: <?=$default_color?>;
+        }
+        .bs-category-count {
+            background: <?=$default_color?>20;
+            color: <?=$default_color?>;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .bs-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .bs-tag {
+            background: <?=$heading_color?>;
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+        .bs-tag:hover {
+            background: <?=$default_color?>;
+            transform: translateY(-1px);
+        }
+        .bs-recent-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .bs-recent-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid <?=$default_color?>15;
+        }
+        .bs-recent-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .bs-recent-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+        .bs-recent-content {
+            flex: 1;
+        }
+        .bs-recent-title {
+            margin: 0 0 0.5rem 0;
+        }
+        .bs-recent-title a {
+            color: <?=$heading_color?>;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+        .bs-recent-title a:hover {
+            color: <?=$default_color?>;
+        }
+        .bs-recent-meta {
+            color: <?=$contrast_color?>;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .bs-icon {
+            font-size: 1.1em;
+            line-height: 1;
+        }
+        </style>
+
+        <div class="bs-sidebar">
+            <!-- Search Widget -->
+            <div class="bs-widget">
+                <h3 class="bs-title">
+                    <span class="bs-icon"><?= $icons['search'] ?></span>
+                    Search
+                </h3>
+                <form action="<?= base_url('search') ?>" method="get" class="bs-search-form">
+                    <input type="text" name="q" class="bs-search-input" placeholder="Enter search term..." minlength="2" required />
+                    <button type="submit" class="bs-search-button" title="Search">
+                        <span class="bs-icon">Go!</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Categories Widget -->
+            <?php if ($categories): ?>
+                <div class="bs-widget">
+                    <h3 class="bs-title">
+                        <span class="bs-icon"><?= $icons['category'] ?></span>
+                        Categories
+                    </h3>
+                    <div class="bs-categories-grid">
+                        <?php
+                            $totalCategories = count($categories);
+                            $halfCategories = ceil($totalCategories / 2);
+                            $firstHalf = array_slice($categories, 0, $halfCategories);
+                            $secondHalf = array_slice($categories, $halfCategories);
+                        ?>
+                        
+                        <ul class="bs-category-list">
+                            <?php foreach ($firstHalf as $category): ?>
+                                <?php $whereClause = "category = '" . $category['category_id'] . "'"; ?>
+                                <li class="bs-category-item">
+                                    <a href="<?= base_url('/search/filter/?type=category&key='.$category['title']) ?>" class="bs-category-link">
+                                        <?= $category['title'] ?>
+                                        <span class="bs-category-count"><?= getTotalRecords('blogs', $whereClause) ?></span>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        
+                        <ul class="bs-category-list">
+                            <?php foreach ($secondHalf as $category): ?>
+                                <?php $whereClause = "category = '" . $category['category_id'] . "'"; ?>
+                                <li class="bs-category-item">
+                                    <a href="<?= base_url('/search/filter/?type=category&key='.$category['title']) ?>" class="bs-category-link">
+                                        <?= $category['title'] ?>
+                                        <span class="bs-category-count"><?= getTotalRecords('blogs', $whereClause) ?></span>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <!-- Tags Widget -->
+            <?php if (!empty($blog_data['tags'])): ?>
+                <div class="bs-widget">
+                    <h3 class="bs-title">
+                        <span class="bs-icon"><?= $icons['tag'] ?></span>
+                        Tags
+                    </h3>
+                    <div class="bs-tags">
+                        <?php
+                            $tags = $blog_data['tags'];
+                            $tagsArray = explode(',', $tags);
+                            
+                            foreach ($tagsArray as $tag) {
+                                $tag = htmlspecialchars(trim($tag));
+                                echo '<a class="bs-tag" href="'.base_url("/search/filter/?type=tag&key=$tag").'">' . $tag . '</a>';
+                            }
+                        ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <!-- Recent Posts Widget -->
+            <?php if ($blogs): ?>
+                <div class="bs-widget">
+                    <h3 class="bs-title">
+                        <span class="bs-icon"><?= $icons['recent'] ?></span>
+                        Recent Posts
+                    </h3>
+                    <ul class="bs-recent-list">
+                        <?php foreach ($blogs as $blog): ?>
+                            <?php 
+                                $categoryName = !empty($blog['category']) ? getBlogCategoryName($blog['category']) : "Uncategorized"; 
+                            ?>
+                            <li class="bs-recent-item">
+                                <img src="<?= getImageUrl($blog['featured_image'] ?? getDefaultImagePath()) ?>" 
+                                    alt="<?= esc($blog['title']) ?>" 
+                                    class="bs-recent-image">
+                                <div class="bs-recent-content">
+                                    <h4 class="bs-recent-title">
+                                        <a href="<?= base_url('blog/'.$blog['slug']) ?>">
+                                            <?= esc($blog['title']) ?>
+                                        </a>
+                                    </h4>
+                                    <div class="bs-recent-meta">
+                                        <span class="bs-icon"><?= $icons['calendar'] ?></span>
+                                        <?= dateFormat($blog['created_at'], 'M j, Y'); ?>
+                                    </div>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+}
