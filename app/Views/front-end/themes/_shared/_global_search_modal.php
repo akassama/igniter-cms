@@ -44,7 +44,9 @@ if (strtolower($enableGlobalSearchIcon) === "yes") {
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: 'Search',
+            confirmButtonColor: "<?=$defaultThemeColor?>",
             cancelButtonText: 'Cancel',
+            cancelButtonColor: "#dc3545",
             reverseButtons: true,
             allowOutsideClick: () => !Swal.isLoading(),
             preConfirm: () => {
