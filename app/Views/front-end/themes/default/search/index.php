@@ -25,5 +25,32 @@ $theme = getCurrentTheme();
     </div>
 </section>
 
+<?php if (ENVIRONMENT !== 'production'): ?>
+<!-- 
+CUSTOMIZATION NOTES:
+-------------------
+To customize the search results display without using the helper function:
+
+1. REPLACE the helper function call above with your custom HTML
+2. Available data variables:
+   - $searchQuery: The original search term
+   - $blogsSearchResults: Array of matching blog posts
+   - $pagesSearchResults: Array of matching pages
+
+Example custom display:
+<div class="custom-search-results">
+    <h1>Results for "<!= esc($searchQuery) ?>"</h1>
+    <!php if(empty($blogsSearchResults) && empty($pagesSearchResults)): ?>
+        <p>No results found.</p>
+    <!php else: ?>
+        <!== Your custom results layout ==>
+    <!php endif; ?>
+</div>
+
+The helper function provides consistent, theme-independent styling.
+Custom implementation gives full design control but requires manual styling.
+-->
+<?php endif; ?>
+
 <!-- end main content -->
 <?= $this->endSection() ?>
