@@ -1485,10 +1485,6 @@ if(!function_exists('getSiteKnowledgeBaseInJson'))
                     "answer" => "Yes, you cn buy modern and professional themes from https://themes.ignitercms.com"
                 ],
                 [
-                    "question" => "Can I buy custom themes from themeforrest or codecanyon?",
-                    "answer" => "Yes, you cn buy custom themes from https://themeforest.net"
-                ],
-                [
                     "question" => "How do I reset the database?",
                     "answer" => "Run 'php spark delete:tables' then run 'php spark migrate'"
                 ],
