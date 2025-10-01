@@ -266,6 +266,130 @@ if(!function_exists('generateUserDirectory')) {
     }
 }
 
+if (!function_exists('removeDirectory')) {
+    /**
+     * Recursively removes a directory and all its contents
+     * 
+     * @param string $path The path to the directory to remove (relative to project root or absolute)
+     * @return bool Returns TRUE on success, FALSE on failure
+     */
+    function removeDirectory($path)
+    {
+        // Get the project root directory (where index.php is located)
+        $projectRoot = ROOTPATH;
+        
+        // Handle relative paths - if path doesn't start with / and isn't absolute, treat as relative to project root
+        if (!isAbsolutePath($path)) {
+            $fullPath = rtrim($projectRoot, '/') . '/' . ltrim($path, '/');
+        } else {
+            $fullPath = $path;
+        }
+        
+        // Normalize path separators for cross-platform compatibility
+        $fullPath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $fullPath);
+        
+        // Remove trailing directory separator
+        $fullPath = rtrim($fullPath, DIRECTORY_SEPARATOR);
+        
+        // Check if path exists
+        if (!file_exists($fullPath)) {
+            return true; // Consider non-existent path as successfully "removed"
+        }
+        
+        // Check if it's a file instead of directory
+        if (is_file($fullPath)) {
+            return unlink($fullPath);
+        }
+        
+        // It's a directory, so process recursively
+        if (!is_dir($fullPath)) {
+            return false; // Not a file or directory - something's wrong
+        }
+        
+        try {
+            $iterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($fullPath, RecursiveDirectoryIterator::SKIP_DOTS),
+                RecursiveIteratorIterator::CHILD_FIRST
+            );
+            
+            foreach ($iterator as $item) {
+                if ($item->isDir()) {
+                    if (!rmdir($item->getPathname())) {
+                        return false;
+                    }
+                } else {
+                    if (!unlink($item->getPathname())) {
+                        return false;
+                    }
+                }
+            }
+            
+            // Remove the main directory itself
+            return rmdir($fullPath);
+            
+        } catch (Exception $e) {
+            // Fallback method if SPL iterators are not available or fail
+            return removeDirectoryFallback($fullPath);
+        }
+    }
+}
+
+if (!function_exists('removeDirectoryFallback')) {
+    /**
+     * Fallback method using traditional recursive approach
+     */
+    function removeDirectoryFallback($path)
+    {
+        if (!file_exists($path)) {
+            return true;
+        }
+        
+        if (is_file($path)) {
+            return unlink($path);
+        }
+        
+        if (!is_dir($path)) {
+            return false;
+        }
+        
+        $files = array_diff(scandir($path), ['.', '..']);
+        foreach ($files as $file) {
+            $filePath = $path . DIRECTORY_SEPARATOR . $file;
+            if (is_dir($filePath)) {
+                if (!removeDirectoryFallback($filePath)) {
+                    return false;
+                }
+            } else {
+                if (!unlink($filePath)) {
+                    return false;
+                }
+            }
+        }
+        
+        return rmdir($path);
+    }
+}
+
+if (!function_exists('isAbsolutePath')) {
+    /**
+     * Check if a path is absolute
+     */
+    function isAbsolutePath($path)
+    {
+        // Check for Windows absolute path (C:\, D:\, etc.)
+        if (preg_match('~^[a-zA-Z]:[\\\\/]~', $path)) {
+            return true;
+        }
+        
+        // Check for Unix/Linux absolute path (/path/to/file)
+        if (strpos($path, '/') === 0 || strpos($path, '\\') === 0) {
+            return true;
+        }
+        
+        return false;
+    }
+}
+
 /**
  * Generate a content identifier string.
  *
