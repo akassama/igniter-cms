@@ -62,7 +62,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </label>
                 <select class="form-select" aria-label="group" id="group" name="group">
                     <option value="">Select group</option>
-                    <?=getDataGroupOptions($category_data['group'], "Cagegory")?>
+                    <?=getDataGroupOptions($category_data['group'], "Category")?>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('group')) {?>
