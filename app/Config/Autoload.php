@@ -97,6 +97,7 @@ class Autoload extends AutoloadConfig
         'cms_helper',
         'global_functions_helper',
         'tracking_helper',
-        'plugins_helper'
+        'plugins_helper',
+        'search_helper',
     ];
 }

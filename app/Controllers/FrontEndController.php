@@ -244,7 +244,12 @@ class FrontEndController extends BaseController
                 // All results already initialized as null
             }
     
-            return view('front-end/themes/'.getCurrentTheme().'/search/filter', $data);
+            return view('front-end/themes/'.getCurrentTheme().'/search/filter', [
+                "searchQuery" => $searchQuery,
+                'blogsSearchResults' => $data['blogsSearchResults'],
+                'pagesSearchResults' => $data['pagesSearchResults'],
+                'type' => $type // Add this line
+            ]);
     
         } catch (\Exception $e) {
             log_message('error', 'Search filter error: ' . $e->getMessage());
@@ -252,7 +257,8 @@ class FrontEndController extends BaseController
             return view('front-end/themes/'.getCurrentTheme().'/search/filter', [
                 "searchQuery" => $searchQuery ?? '',
                 'blogsSearchResults' => null,
-                'pagesSearchResults' => null
+                'pagesSearchResults' => null,
+                'type' => $type ?? ''
             ]);
         }
     }

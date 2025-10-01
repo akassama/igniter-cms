@@ -1,6 +1,6 @@
 <?php
 
-try {
+
     /*
      *---------------------------------------------------------------
      * CHECK IF INSTALLED
@@ -63,12 +63,4 @@ try {
     require $paths->systemDirectory . '/Boot.php';
 
     exit(CodeIgniter\Boot::bootWeb($paths));
-} catch (\Throwable $e) {
-    // Friendly message and basic error info for user and admin
-    header('HTTP/1.1 500 Internal Server Error', true, 500);
-    echo '<h1>Application Error</h1>';
-    echo '<p>An unexpected error occurred: ' . htmlspecialchars($e->getMessage()) . '</p>';
-    echo '<p>Please make sure you have completed the installation by running the <strong>/install</strong> setup routine.</p>';
-    echo '<pre>' . htmlspecialchars($e) . '</pre>'; // Optionally display stack trace during development
-    exit(1);
-}
+
