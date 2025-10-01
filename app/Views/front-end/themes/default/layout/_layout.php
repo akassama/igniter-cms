@@ -114,7 +114,7 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
 </head>
 <body class="d-flex flex-column min-vh-100" data-bs-spy="scroll" data-bs-target="#navbar">
     <!-- Navigation -->
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top border">
         <div class="container">
             <a class="navbar-brand border border-white rounded p-2" href="<?= base_url()?>">
                 <img src="<?=getImageUrl(getConfigData("SiteLogoLink") ?? getDefaultImagePath())?>" alt="<?=getConfigData("SiteLogoLink")?> Logo" height="75">
