@@ -125,7 +125,7 @@ class Themes extends Migration
                 'contrast_color' => '#0d6efd',
                 'background_color' => '#ffffff',
                 'image' => 'public/front-end/themes/default/assets/images/preview.png',
-                'theme_url' => 'https://themes.ignitercms.com/demo/Default/',
+                'theme_url' => 'https://ignitercms.com/themes/previews/Default/',
                 'selected' => true,
                 'override_default_style' => false,
                 'use_static_theme_nav' => false,
