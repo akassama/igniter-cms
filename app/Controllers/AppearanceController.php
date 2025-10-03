@@ -184,7 +184,7 @@ class AppearanceController extends BaseController
             'sub_category' => $themeConfig['sub_category'] ?? '',
             'selected' => 0,
             'override_default_style' => 0,
-            'use_static_theme_nav' => 0,
+            'use_static_theme_nav' => $themeConfig['use_static_theme_nav'] ?? 0,
             'deletable' => 1,
             'created_by' => $loggedInUserId,
             'updated_by' => null

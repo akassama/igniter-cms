@@ -128,37 +128,37 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
                 <ul class="navbar-nav ms-auto">
                     <?php if ($useStaticThemeNav === "1"): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="" target="_self">
+                            <a class="nav-link" href="<?= base_url('/') ?>" target="_self">
                                 Menu
                             </a>
                         </li>                                                    
                         <li class="nav-item">
-                            <a class="nav-link" href="#about" target="_self">
+                            <a class="nav-link" href="<?= base_url('#about') ?>" target="_self">
                                 About Us
                             </a>
                         </li>                                                    
                         <li class="nav-item">
-                            <a class="nav-link" href="#services" target="_self">
+                            <a class="nav-link" href="<?= base_url('#services') ?>" target="_self">
                                 Specials
                             </a>
                         </li>                                                    
                         <li class="nav-item">
-                            <a class="nav-link" href="#portfolio" target="_self">
+                            <a class="nav-link" href="<?= base_url('#portfolio') ?>" target="_self">
                                 Portfolio
                             </a>
                         </li>                                                    
                         <li class="nav-item">
-                            <a class="nav-link" href="#team" target="_self">
+                            <a class="nav-link" href="<?= base_url('#team') ?>" target="_self">
                                 Team
                             </a>
                         </li>                                                    
                         <li class="nav-item">
-                            <a class="nav-link" href="blogs" target="_self">
+                            <a class="nav-link" href="<?= base_url('blogs') ?>" target="_self">
                                 Blogs
                             </a>
                         </li>                                                    
                         <li class="nav-item">
-                            <a class="nav-link" href="contact" target="_self">
+                            <a class="nav-link" href="<?= base_url('blogs') ?>contact" target="_self">
                                 Contact Us
                             </a>
                         </li>

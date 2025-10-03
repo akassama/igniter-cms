@@ -3767,7 +3767,7 @@ if (!function_exists('renderBlogsGrid')) {
         $icons = [
             'calendar' => '&#128197;', // 📅
             'category' => '&#127991;', // 🏷️
-            'read_more' => '&#128214;', // 📖
+            'read_more' => '&#8658;', // ⇒
         ];
         
         ob_start();
@@ -3892,7 +3892,6 @@ if (!function_exists('renderBlogsGrid')) {
                                     <?= !empty($blog['excerpt']) ? getTextSummary($blog['excerpt'], 100) : getTextSummary($blog['content'], 100) ?>
                                 </p>
                                 <a href="<?= base_url('blog/' . $blog['slug']) ?>" class="bg-button">
-                                    <span class="bg-icon"><?= $icons['read_more'] ?></span>
                                     Read More
                                 </a>
                             </div>
