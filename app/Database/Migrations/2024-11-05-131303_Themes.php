@@ -124,7 +124,7 @@ class Themes extends Migration
                 'selected' => true,
                 'override_default_style' => false,
                 'category' => $customConfig->themeCategories['Business'],
-                'sub_category' => $customConfig->themeCategories['Portfolio'],
+                'sub_category' => $customConfig->themeCategories['Agency'],
                 'deletable' => 0,
                 'created_by' => getGUID(getDefaultAdminGUID())
             ],
