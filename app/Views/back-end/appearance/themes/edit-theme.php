@@ -180,7 +180,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-12 mb-3">
+            <div class="col-sm-12 col-md-6 mb-3">
                 <label for="override_default_style" class="form-label">Override Default Style</label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="override_default_style" name="override_default_style" value="1" <?= ($theme_data['override_default_style'] == '1') ? 'checked' : '' ?>>
@@ -194,6 +194,23 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php }?>
                 <div class="invalid-feedback">
                     Please provide override_default_style
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 mb-3">
+                <label for="use_static_theme_nav" class="form-label">Use static theme navigation</label>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="use_static_theme_nav" name="use_static_theme_nav" value="1" <?= ($theme_data['use_static_theme_nav'] == '1') ? 'checked' : '' ?>>
+                    <label class="form-check-label small" for="use_static_theme_nav">Toggle to use static theme navigation</label>
+                </div>
+                <!-- Error -->
+                <?php if($validation->getError('use_static_theme_nav')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('use_static_theme_nav'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide use_static_theme_nav
                 </div>
             </div>
 

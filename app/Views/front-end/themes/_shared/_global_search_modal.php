@@ -6,6 +6,11 @@ $defaultThemeColor = getThemeData($theme, "default_color");
 
 //global search icon
 $enableGlobalSearchIcon = getConfigData("EnableGlobalSearchIcon");
+
+// Unicode icons
+$icons = [
+    'search' => '&#128269;', // 🔍
+];
 ?>
 
 <style>
@@ -21,6 +26,11 @@ $enableGlobalSearchIcon = getConfigData("EnableGlobalSearchIcon");
     z-index: 1000;
     cursor: pointer;
 }
+
+.bs-icon {
+    font-size: 1.1em;
+    line-height: 1;
+}
 </style>
 
 
@@ -28,7 +38,7 @@ $enableGlobalSearchIcon = getConfigData("EnableGlobalSearchIcon");
 if (strtolower($enableGlobalSearchIcon) === "yes") {
 ?>
 <a href="javascript:void(0);" class="global-search-modal text-decoration-none h4" id="globalSearchIcon">
-    <i class="ri-search-line"></i>
+    <span class="bs-icon"><?= $icons['search'] ?></span>
 </a>
 <script>
     document.getElementById("globalSearchIcon").addEventListener("click", function(event) {

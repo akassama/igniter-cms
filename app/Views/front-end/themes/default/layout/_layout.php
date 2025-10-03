@@ -48,6 +48,7 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
     <!-- Core Theme CSS Variables -->
     <?php
         $overrideStyle = getThemeData($theme, "override_default_style");
+        $useStaticThemeNav = getThemeData($theme, "use_static_theme_nav");
         if($overrideStyle === "1"){
             
             // Theme color variables
@@ -122,18 +123,58 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <?php if ($topNavLists): ?>
-                        <?php foreach ($topNavLists as $navigation): ?>
-                            <?= themef_renderNavigation($navigation, $navigationsModel) ?>
-                        <?php endforeach; ?>
+                    <?php if ($useStaticThemeNav === "1"): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="" target="_self">
+                                Menu
+                            </a>
+                        </li>                                                    
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about" target="_self">
+                                About Us
+                            </a>
+                        </li>                                                    
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services" target="_self">
+                                Specials
+                            </a>
+                        </li>                                                    
+                        <li class="nav-item">
+                            <a class="nav-link" href="#portfolio" target="_self">
+                                Portfolio
+                            </a>
+                        </li>                                                    
+                        <li class="nav-item">
+                            <a class="nav-link" href="#team" target="_self">
+                                Team
+                            </a>
+                        </li>                                                    
+                        <li class="nav-item">
+                            <a class="nav-link" href="blogs" target="_self">
+                                Blogs
+                            </a>
+                        </li>                                                    
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact" target="_self">
+                                Contact Us
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <?php if ($topNavLists): ?>
+                            <?php foreach ($topNavLists as $navigation): ?>
+                                <?= themef_renderNavigation($navigation, $navigationsModel) ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </ul>
                 <form action="<?= base_url('search') ?>" method="get" class="d-flex ms-xl-3 mt-3 mt-xl-0" role="search">
                     <input class="form-control me-2" type="search" id="q" name="q" placeholder="Search for..." aria-label="Search for..." minlength="2" required>
                 </form>
             </div>
+
         </div>
     </nav>
 

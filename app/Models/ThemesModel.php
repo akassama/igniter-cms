@@ -32,6 +32,7 @@ class ThemesModel extends Model
         'sub_category',
         'selected',
         'override_default_style',
+        'use_static_theme_nav',
         'deletable',
         'created_by',
         'updated_by'
@@ -91,6 +92,7 @@ class ThemesModel extends Model
             'sub_category' => $param['sub_category'],
             'selected' => $param['selected'],
             'override_default_style' => $param['override_default_style'],
+            'use_static_theme_nav' => $param['use_static_theme_nav'],
             'deletable' => $param['deletable'],
             'created_by' => $param['created_by'],
             'updated_by' => $param['updated_by']
@@ -123,6 +125,7 @@ class ThemesModel extends Model
         $existingTheme['sub_category'] = $param['sub_category'];
         $existingTheme['selected'] = $param['selected'];
         $existingTheme['override_default_style'] = $param['override_default_style'];
+        $existingTheme['use_static_theme_nav'] = $param['use_static_theme_nav'];
         $existingTheme['deletable'] = $param['deletable'];
         $existingTheme['created_by'] = $param['created_by'];
         $existingTheme['updated_by'] = $param['updated_by'];

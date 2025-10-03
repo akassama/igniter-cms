@@ -184,6 +184,7 @@ class AppearanceController extends BaseController
             'sub_category' => $themeConfig['sub_category'] ?? '',
             'selected' => 0,
             'override_default_style' => 0,
+            'use_static_theme_nav' => 0,
             'deletable' => 1,
             'created_by' => $loggedInUserId,
             'updated_by' => null
@@ -279,6 +280,7 @@ class AppearanceController extends BaseController
                 'sub_category'  => $this->request->getPost('sub_category'),
                 'selected'  => $this->request->getPost('selected') ?? 0,
                 'override_default_style'  => $this->request->getPost('override_default_style') ?? 0,
+                'use_static_theme_nav'  => $this->request->getPost('use_static_theme_nav') ?? 0,
                 'deletable' => $this->request->getPost('deletable') ?? 1,
                 'created_by' => $this->request->getPost('created_by'),
                 'updated_by' => $loggedInUserId

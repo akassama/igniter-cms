@@ -87,6 +87,11 @@ class Themes extends Migration
                 'default' => false,
                 'null' => true,
             ],
+            'use_static_theme_nav' => [
+                'type' => 'BOOLEAN',
+                'default' => false,
+                'null' => true,
+            ],
             'deletable' => [
                 'type' => 'INT',
                 'default' => 1,
@@ -123,6 +128,7 @@ class Themes extends Migration
                 'theme_url' => 'https://themes.ignitercms.com/demo/Default/',
                 'selected' => true,
                 'override_default_style' => false,
+                'use_static_theme_nav' => false,
                 'category' => $customConfig->themeCategories['Business'],
                 'sub_category' => $customConfig->themeCategories['Agency'],
                 'deletable' => 0,
