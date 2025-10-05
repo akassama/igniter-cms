@@ -4379,6 +4379,16 @@ if (!function_exists('renderBlogSidebar')) {
 }
 
 
+/**
+ * Renders the admin bar for logged-in admin users on the frontend.
+ *
+ * This function generates an HTML admin bar similar to WordPress, visible only to logged-in admins.
+ * It includes a logo, quick links to Dashboard and Edit Page (with dynamic URL based on current page),
+ * and a user greeting with profile image and dropdown for navigation.
+ *
+ * @return string The HTML string for the admin bar, or empty string if user is not logged in or not admin.
+ * @since 1.0
+ */
 if (!function_exists('renderAdminBar')) {
     function renderAdminBar()
     {
@@ -4394,6 +4404,46 @@ if (!function_exists('renderAdminBar')) {
         }
 
         $sessionName = session()->get('first_name') . ' ' . session()->get('last_name');
+        $userId = getLoggedInUserId();
+        $userImage = getImageUrl(getUserData($userId, "profile_picture") ?? getDefaultProfileImagePath());
+        
+        // Determine edit page URL based on current URL
+        $currentUrl = current_url();
+        $baseUrl = base_url();
+        
+        // Get the request instance to access URI segments
+        $request = \Config\Services::request();
+        $uri = $request->getUri();
+        $path = $uri->getPath(); // Gets the path without query string
+        $query = $uri->getQuery(); // Gets the query string
+        
+        // Remove base path from the path if needed
+        $basePath = rtrim($baseUrl, '/');
+        $cleanPath = trim(str_replace(parse_url($baseUrl, PHP_URL_PATH), '', $path), '/');
+
+        // Layout page
+        $editLayoutPageUrl = base_url('/account/appearance/theme-editor/layout');
+        
+        // Determine edit page URL based on path and query parameters
+        if ($cleanPath === '' || $cleanPath === 'home') {
+            // Home page
+            $editPageUrl = base_url('/account/appearance/theme-editor/home');
+        } elseif ($cleanPath === 'blogs') {
+            // Blogs listing page
+            $editPageUrl = base_url('/account/appearance/theme-editor/blogs');
+        } elseif (strpos($cleanPath, 'blog/') === 0 && substr_count($cleanPath, '/') === 1) {
+            // Individual blog post (matches blog/slug pattern)
+            $editPageUrl = base_url('/account/appearance/theme-editor/view-blog');
+        } elseif ($cleanPath === 'search' && strpos($query, 'q=') !== false) {
+            // Search results page
+            $editPageUrl = base_url('/account/appearance/theme-editor/search');
+        } elseif ($cleanPath === 'search/filter' && strpos($query, 'type=') !== false) {
+            // Filtered search results page
+            $editPageUrl = base_url('/account/appearance/theme-editor/search-filter');
+        } else {
+            // Other pages
+            $editPageUrl = base_url('/account/appearance/theme-editor/view-page');
+        }
 
         $adminBarHtml = '
         <style>
@@ -4488,21 +4538,33 @@ if (!function_exists('renderAdminBar')) {
                 background-color: #495057;
                 color: #ffffff;
             }
+            .admin-bar-user-img {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                margin-right: 8px;
+                object-fit: cover;
+            }
         </style>
         <div class="admin-bar">
             <div class="admin-bar-container">
                 <div class="d-flex align-items-center">
-                    <img src="https://i.ibb.co/Pv4XWmxv/Igniter-CMS.jpg" alt="Admin Logo" class="admin-bar-logo" height="32">
+                    <img src="https://i.ibb.co/Pv4XWmxv/Igniter-CMS.jpg" alt="Admin Logo" class="admin-bar-logo">
                     <a href="' . base_url('/account') . '" class="admin-bar-link">
                         <i class="ri-dashboard-line admin-bar-icon"></i>
                         Dashboard
                     </a>
-                    <a href="' . base_url('/account/appearance/theme-editor') . '" class="admin-bar-link admin-bar-last-link">
+                    <a href="' . $editLayoutPageUrl . '" class="admin-bar-link">
+                        <i class="ri-layout-grid-line admin-bar-icon"></i>
+                        Edit Layout
+                    </a>
+                    <a href="' . $editPageUrl . '" class="admin-bar-link admin-bar-last-link">
                         <i class="ri-edit-line admin-bar-icon"></i>
-                        Edit Page
+                        Edit Current Page
                     </a>
                 </div>
                 <div class="admin-bar-user">
+                    <img src="' . $userImage . '" alt="User Profile" class="admin-bar-user-img">
                     Hello, ' . esc($sessionName) . '
                     <i class="ri-arrow-down-s-line admin-bar-icon" style="margin-left: 0.25rem;"></i>
                     <div class="admin-bar-dropdown">
