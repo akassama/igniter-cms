@@ -26,6 +26,10 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
 
 <?= $this->include('front-end/themes/'.$theme.'/includes/_functions.php'); ?>
 
+<?php
+$adminBar = renderAdminBar();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,6 +118,8 @@ $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('orde
     <?=$this->include('front-end/themes/_shared/_load_header_plugin_helpers.php'); ?>
 </head>
 <body class="d-flex flex-column min-vh-100" data-bs-spy="scroll" data-bs-target="#navbar">
+    <?= $adminBar ?>
+
     <!-- Navigation -->
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top border">
         <div class="container">

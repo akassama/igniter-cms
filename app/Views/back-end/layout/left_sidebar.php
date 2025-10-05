@@ -217,7 +217,10 @@ $userRole = getUserRole($sessionEmail);
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small">Logged in as:</div>
-                <span class="small text-primary"><?= $sessionName ?> (<?=$userRole?>)</span>
+                <span class="small text-primary">
+                    <img src="<?=getImageUrl(getUserData(getLoggedInUserId(), "profile_picture") ?? getDefaultProfileImagePath())?>" class="rounded-circle" alt="Logged-In User" width="35" height="35">
+                    <?= $sessionName ?> (<?=$userRole?>)
+                </span>
             </div>
         </nav>
     </div>     

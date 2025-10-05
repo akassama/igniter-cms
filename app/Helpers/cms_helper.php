@@ -4377,3 +4377,142 @@ if (!function_exists('renderBlogSidebar')) {
         return ob_get_clean();
     }
 }
+
+
+if (!function_exists('renderAdminBar')) {
+    function renderAdminBar()
+    {
+        if (!session()->get('is_logged_in')) {
+            return '';
+        }
+
+        $sessionEmail = session()->get('email');
+        $userRole = getUserRole($sessionEmail);
+
+        if ($userRole !== 'Admin') {
+            return '';
+        }
+
+        $sessionName = session()->get('first_name') . ' ' . session()->get('last_name');
+
+        $adminBarHtml = '
+        <style>
+            #navbar {
+                top: 40px !important;
+            }
+            .admin-bar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 10000;
+                height: 40px;
+                background-color: #343a40;
+                color: #ffffff;
+                padding: 0;
+                border-bottom: 1px solid #dee2e6;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                font-size: 14px;
+            }
+            .admin-bar-container {
+                max-width: 1140px;
+                margin: 0 auto;
+                padding: 0 15px;
+                display: flex;
+                align-items: center;
+                height: 100%;
+                justify-content: space-between;
+            }
+            .admin-bar-logo {
+                margin-right: 1rem;
+                border-radius: 0.25rem;
+                height: 24px;
+                width: 24px;
+            }
+            .admin-bar-link {
+                color: #ffffff;
+                text-decoration: none;
+                margin-right: 1rem;
+                display: flex;
+                align-items: center;
+                line-height: 1;
+            }
+            .admin-bar-link:hover {
+                color: #ffffff;
+                text-decoration: none;
+                opacity: 0.8;
+            }
+            .admin-bar-icon {
+                margin-right: 0.25rem;
+                font-size: 1.1rem;
+                color: #ffffff;
+            }
+            .admin-bar-last-link {
+                margin-right: 0;
+            }
+            .admin-bar-user {
+                position: relative;
+                color: #ffffff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                margin-left: auto;
+            }
+            .admin-bar-user:hover {
+                opacity: 0.8;
+            }
+            .admin-bar-dropdown {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background-color: #343a40;
+                border: 1px solid #dee2e6;
+                border-radius: 0.25rem;
+                min-width: 150px;
+                z-index: 10001;
+                box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            }
+            .admin-bar-user:hover .admin-bar-dropdown {
+                display: block;
+            }
+            .admin-bar-dropdown a {
+                color: #ffffff;
+                text-decoration: none;
+                padding: 0.5rem 1rem;
+                display: block;
+                line-height: 1.5;
+            }
+            .admin-bar-dropdown a:hover {
+                background-color: #495057;
+                color: #ffffff;
+            }
+        </style>
+        <div class="admin-bar">
+            <div class="admin-bar-container">
+                <div class="d-flex align-items-center">
+                    <img src="https://i.ibb.co/Pv4XWmxv/Igniter-CMS.jpg" alt="Admin Logo" class="admin-bar-logo" height="32">
+                    <a href="' . base_url('/account') . '" class="admin-bar-link">
+                        <i class="ri-dashboard-line admin-bar-icon"></i>
+                        Dashboard
+                    </a>
+                    <a href="' . base_url('/account/appearance/theme-editor') . '" class="admin-bar-link admin-bar-last-link">
+                        <i class="ri-edit-line admin-bar-icon"></i>
+                        Edit Page
+                    </a>
+                </div>
+                <div class="admin-bar-user">
+                    Hello, ' . esc($sessionName) . '
+                    <i class="ri-arrow-down-s-line admin-bar-icon" style="margin-left: 0.25rem;"></i>
+                    <div class="admin-bar-dropdown">
+                        <a href="' . base_url('/account') . '">Dashboard</a>
+                        <a href="' . base_url('/sign-out') . '">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>';
+
+        return $adminBarHtml;
+    }
+}
