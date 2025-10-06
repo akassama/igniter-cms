@@ -2983,6 +2983,73 @@ if (!function_exists('updateTotalViewCount')) {
     }
 }
 
+/**
+ * Loads icon libraries for the site.
+ *
+ * By default, loads Bootstrap Icons and Remixicon. Additional libraries can be loaded
+ * by passing their names as parameters (e.g., 'fontawesome', 'heroicons', etc.).
+ * Supported additional libraries: fontawesome, heroicons, feather, lucide, material, tabler.
+ *
+ * @param string ...$libraries Variable number of library names to load additionally.
+ * @return void
+ * @since 1.0
+ */
+if (!function_exists('loadSiteIcons')) {
+    function loadSiteIcons(...$libraries)
+    {
+        // Default: Bootstrap Icons and Remixicon
+        echo '<!-- Bootstrap Icons -->' . PHP_EOL;
+        echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">' . PHP_EOL;
+        echo '<!-- Remix icons -->' . PHP_EOL;
+        echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" />' . PHP_EOL;
+
+        // Additional libraries
+        $additional = array_map('strtolower', $libraries);
+        $supported = ['fontawesome', 'heroicons', 'feather', 'lucide', 'material', 'tabler'];
+
+        foreach ($additional as $lib) {
+            if (!in_array($lib, $supported)) {
+                continue; // Skip unsupported
+            }
+
+            switch ($lib) {
+                case 'fontawesome':
+                    echo '<!-- Font Awesome -->' . PHP_EOL;
+                    echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">' . PHP_EOL;
+                    break;
+                case 'heroicons':
+                    echo '<!-- Heroicons (SVG via CDN) -->' . PHP_EOL;
+                    echo '<script src="https://unpkg.com/heroicons@2.0.18/24/outline/index.js"></script>' . PHP_EOL;
+                    break;
+                case 'feather':
+                    echo '<!-- Feather Icons -->' . PHP_EOL;
+                    echo '<link rel="stylesheet" href="https://unpkg.com/feather-icons/dist/feather.min.css">' . PHP_EOL;
+                    break;
+                case 'lucide':
+                    echo '<!-- Lucide Icons (SVG via CDN) -->' . PHP_EOL;
+                    echo '<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>' . PHP_EOL;
+                    break;
+                case 'material':
+                    echo '<!-- Material Design Icons -->' . PHP_EOL;
+                    echo '<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">' . PHP_EOL;
+                    break;
+                case 'tabler':
+                    echo '<!-- Tabler Icons -->' . PHP_EOL;
+                    echo '<link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">' . PHP_EOL;
+                    break;
+            }
+        }
+    }
+}
+
+/**
+ * Renders posts, and pages search results in grid with theme-agnostic styling
+ *
+ * @param string $searchQuery search query text
+ * @param array $blogsSearchResults Array of blog posts
+ * @param array $pagesSearchResults Array of pages
+ * @return string HTML content
+ */
 if (!function_exists('renderSearchResults')) {
     function renderSearchResults($searchQuery, $blogsSearchResults, $pagesSearchResults)
     {
@@ -2998,19 +3065,6 @@ if (!function_exists('renderSearchResults')) {
         $surface_color = getThemeData($theme, "surface_color");
         $contrast_color = getThemeData($theme, "contrast_color");
         $background_color = getThemeData($theme, "background_color");
-        
-        // Unicode icons
-        $icons = [
-            'search' => '&#128269;', // 🔍
-            'heart' => '&#10084;&#65039;', // ❤️
-            'document' => '&#128221;', // 📝
-            'newspaper' => '&#128240;', // 📰
-            'tag' => '&#127991;', // 🏷️
-            'calendar' => '&#128197;', // 📅
-            'funnel' => '&#128193;', // 📁
-            'person' => '&#128100;', // 👤
-            'hash' => '&#035;', // #
-        ];
         
         ob_start();
         ?>
@@ -3248,7 +3302,7 @@ if (!function_exists('renderSearchResults')) {
                 <!-- Search Suggestion Card -->
                 <div class="sr-grid">
                     <div class="sr-card sr-center">
-                        <span class="sr-icon sr-icon-large"><?= $icons['heart'] ?></span>
+                        <span class="sr-icon sr-icon-large"><i class="ri-heart-fill text-danger"></i></span>
                         <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: <?=$heading_color?>;">Not the results you were looking for?</h2>
                         <p style="margin: 0 0 2rem 0; color: <?=$contrast_color?>;">Help us improve your search experience by telling us what you were looking for.</p>
                         <form action="<?= base_url('search') ?>" method="get" class="sr-form">
@@ -3269,7 +3323,7 @@ if (!function_exists('renderSearchResults')) {
                 <?php if (!empty($pagesSearchResults)): ?>
                     <div class="sr-section">
                         <h2 class="sr-section-title">
-                            <span class="sr-icon"><?= $icons['document'] ?></span>
+                            <span class="sr-icon"><i class="ri-file-line"></i></span>
                             Pages
                         </h2>
                         <div class="sr-list">
@@ -3293,7 +3347,7 @@ if (!function_exists('renderSearchResults')) {
                 <?php if (!empty($blogsSearchResults)): ?>
                     <div class="sr-section">
                         <h2 class="sr-section-title">
-                            <span class="sr-icon"><?= $icons['newspaper'] ?></span>
+                            <span class="sr-icon"><i class="ri-newspaper-line"></i></span>
                             Blog Posts
                         </h2>
                         <div class="sr-blog-grid">
@@ -3310,7 +3364,7 @@ if (!function_exists('renderSearchResults')) {
                                                 <?= getBlogCategoryName($blog['category']) ?: 'Uncategorized' ?>
                                             </span>
                                             <span class="sr-blog-date">
-                                                <span class="sr-icon"><?= $icons['calendar'] ?></span>
+                                                <span class="sr-icon"><i class="ri-calendar-line"></i></span>
                                                 <?= dateFormat($blog['created_at'], 'M j, Y') ?>
                                             </span>
                                         </div>
@@ -3329,7 +3383,7 @@ if (!function_exists('renderSearchResults')) {
                 <!-- Feedback Section -->
                 <div class="sr-section">
                     <div class="sr-card sr-center">
-                        <span class="sr-icon sr-icon-large"><?= $icons['search'] ?></span>
+                        <span class="sr-icon sr-icon-large"><i class="ri-search-line"></i></span>
                         <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: <?=$heading_color?>;">Not what you were looking for?</h2>
                         <p style="margin: 0 0 2rem 0; color: <?=$contrast_color?>;">Help us improve your search experience.</p>
                         <form action="<?= base_url('search') ?>" method="get" class="sr-form">
@@ -3346,6 +3400,15 @@ if (!function_exists('renderSearchResults')) {
     }
 }
 
+/**
+ * Renders filtered posts, and pages search results in grid with theme-agnostic styling
+ *
+ * @param string $searchQuery search query text
+ * @param array $blogsSearchResults Array of blog posts
+ * @param array $pagesSearchResults Array of pages
+ * @param string $type type of filter applied
+ * @return string HTML content
+ */
 if (!function_exists('renderFilterSearchResults')) {
     function renderFilterSearchResults($searchQuery, $blogsSearchResults, $pagesSearchResults, $type = '')
     {
@@ -3369,19 +3432,6 @@ if (!function_exists('renderFilterSearchResults')) {
         $surface_color = getThemeData($theme, "surface_color");
         $contrast_color = getThemeData($theme, "contrast_color");
         $background_color = getThemeData($theme, "background_color");
-        
-        // Unicode icons
-        $icons = [
-            'search' => '&#128269;', // 🔍
-            'heart' => '&#10084;&#65039;', // ❤️
-            'document' => '&#128221;', // 📝
-            'newspaper' => '&#128240;', // 📰
-            'tag' => '&#127991;', // 🏷️
-            'calendar' => '&#128197;', // 📅
-            'funnel' => '&#128193;', // 📁
-            'person' => '&#128100;', // 👤
-            'hash' => '&#035;', // #
-        ];
         
         ob_start();
         ?>
@@ -3639,7 +3689,7 @@ if (!function_exists('renderFilterSearchResults')) {
                 <!-- Feedback Card -->
                 <div class="fr-section">
                     <div class="fr-card fr-center">
-                        <span class="fr-icon fr-icon-large"><?= $icons['funnel'] ?></span>
+                        <span class="fr-icon fr-icon-large"><i class="ri-filter-line"></i></span>
                         <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: <?=$heading_color?>;">Refine Your Search</h2>
                         <p style="margin: 0 0 2rem 0; color: <?=$contrast_color?>;">Try a different <?= strtolower($typeLabel) ?> or search with different criteria.</p>
                         <form action="<?= base_url('search') ?>" method="get" class="fr-form">
@@ -3664,7 +3714,7 @@ if (!function_exists('renderFilterSearchResults')) {
                 <?php if (!empty($pagesSearchResults)): ?>
                     <div class="fr-section">
                         <h2 class="fr-section-title">
-                            <span class="fr-icon"><?= $icons['document'] ?></span>
+                            <span class="fr-icon"><i class="ri-file-line"></i></span>
                             Pages
                             <span class="fr-count"><?= count($pagesSearchResults) ?> result(s) found</span>
                         </h2>
@@ -3689,7 +3739,7 @@ if (!function_exists('renderFilterSearchResults')) {
                 <?php if (!empty($blogsSearchResults)): ?>
                     <div class="fr-section">
                         <h2 class="fr-section-title">
-                            <span class="fr-icon"><?= $icons['newspaper'] ?></span>
+                            <span class="fr-icon"><i class="ri-newspaper-line"></i></span>
                             Blog Posts
                             <span class="fr-count"><?= count($blogsSearchResults) ?> result(s) found</span>
                         </h2>
@@ -3707,7 +3757,7 @@ if (!function_exists('renderFilterSearchResults')) {
                                                 <?= getBlogCategoryName($blog['category']) ?: 'Uncategorized' ?>
                                             </span>
                                             <span class="fr-blog-date">
-                                                <span class="fr-icon"><?= $icons['calendar'] ?></span>
+                                                <span class="fr-icon"><i class="ri-calendar-line"></i></span>
                                                 <?= dateFormat($blog['created_at'], 'M j, Y') ?>
                                             </span>
                                         </div>
@@ -3726,7 +3776,7 @@ if (!function_exists('renderFilterSearchResults')) {
                 <!-- Final Feedback Section -->
                 <div class="fr-section">
                     <div class="fr-card fr-center">
-                        <span class="fr-icon fr-icon-large"><?= $icons['funnel'] ?></span>
+                        <span class="fr-icon fr-icon-large"><i class="ri-filter-line"></i></span>
                         <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: <?=$heading_color?>;">Need Different Results?</h2>
                         <p style="margin: 0 0 2rem 0; color: <?=$contrast_color?>;">Try searching with different criteria or browse all content.</p>
                         <form action="<?= base_url('search') ?>" method="get" class="fr-form">
@@ -3762,13 +3812,6 @@ if (!function_exists('renderBlogsGrid')) {
         $surface_color = getThemeData($theme, "surface_color");
         $contrast_color = getThemeData($theme, "contrast_color");
         $background_color = getThemeData($theme, "background_color");
-        
-        // Unicode icons
-        $icons = [
-            'calendar' => '&#128197;', // 📅
-            'category' => '&#127991;', // 🏷️
-            'read_more' => '&#8658;', // ⇒
-        ];
         
         ob_start();
         ?>
@@ -3883,7 +3926,7 @@ if (!function_exists('renderBlogsGrid')) {
                                         <?= !empty($blog['category']) ? getBlogCategoryName($blog['category']) : "Uncategorized" ?>
                                     </span>
                                     <span class="bg-date">
-                                        <span class="bg-icon"><?= $icons['calendar'] ?></span>
+                                        <span class="bg-icon"><i class="ri-calendar-line"></i></span>
                                         <?= dateFormat($blog['created_at'], 'M j, Y') ?>
                                     </span>
                                 </div>
@@ -3926,13 +3969,6 @@ if (!function_exists('renderBlogContent')) {
         $surface_color = getThemeData($theme, "surface_color");
         $contrast_color = getThemeData($theme, "contrast_color");
         $background_color = getThemeData($theme, "background_color");
-        
-        // Unicode icons
-        $icons = [
-            'calendar' => '&#128197;', // 📅
-            'user' => '&#128100;', // 👤
-            'category' => '&#127991;', // 🏷️
-        ];
         
         ob_start();
         ?>
@@ -4041,7 +4077,7 @@ if (!function_exists('renderBlogContent')) {
                     
                     <div class="bc-meta">
                         <div class="bc-meta-item">
-                            <span class="bc-icon"><?= $icons['calendar'] ?></span>
+                            <span class="bc-icon"><i class="ri-calendar-line"></i></span>
                             Posted on <?= dateFormat($blog_data['created_at'], 'F j, Y'); ?>
                         </div>
                         
@@ -4056,7 +4092,7 @@ if (!function_exists('renderBlogContent')) {
                     <?php $categoryName = !empty($blog_data['category']) ? getBlogCategoryName($blog_data['category']) : ""; ?>
                     <?php if ($categoryName): ?>
                         <a class="bc-category" href="<?= base_url('/search/filter/?type=category&key='.$categoryName) ?>">
-                            <!-- <span class="bc-icon"><?= $icons['category'] ?></span> -->
+                            <!-- <span class="bc-icon"><i class="ri-tag-line"></i></span> -->
                             <?= $categoryName?>
                         </a>
                     <?php endif; ?>
@@ -4097,15 +4133,6 @@ if (!function_exists('renderBlogSidebar')) {
         $surface_color = getThemeData($theme, "surface_color");
         $contrast_color = getThemeData($theme, "contrast_color");
         $background_color = getThemeData($theme, "background_color");
-        
-        // Unicode icons
-        $icons = [
-            'search' => '&#128269;', // 🔍
-            'category' => '&#127991;', // 🏷️
-            'tag' => '&#035;', // #
-            'recent' => '&#128240;', // 📰
-            'calendar' => '&#128197;', // 📅
-        ];
         
         ob_start();
         ?>
@@ -4266,7 +4293,7 @@ if (!function_exists('renderBlogSidebar')) {
             <!-- Search Widget -->
             <div class="bs-widget">
                 <h3 class="bs-title">
-                    <span class="bs-icon"><?= $icons['search'] ?></span>
+                    <span class="bs-icon"><i class="ri-search-line"></i></span>
                     Search
                 </h3>
                 <form action="<?= base_url('search') ?>" method="get" class="bs-search-form">
@@ -4281,7 +4308,7 @@ if (!function_exists('renderBlogSidebar')) {
             <?php if ($categories): ?>
                 <div class="bs-widget">
                     <h3 class="bs-title">
-                        <span class="bs-icon"><?= $icons['category'] ?></span>
+                        <span class="bs-icon"><i class="ri-tag-line"></i></span>
                         Categories
                     </h3>
                     <div class="bs-categories-grid">
@@ -4323,7 +4350,7 @@ if (!function_exists('renderBlogSidebar')) {
             <?php if (!empty($blog_data['tags'])): ?>
                 <div class="bs-widget">
                     <h3 class="bs-title">
-                        <span class="bs-icon"><?= $icons['tag'] ?></span>
+                        <span class="bs-icon"><i class="ri-price-tag-line"></i></span>
                         Tags
                     </h3>
                     <div class="bs-tags">
@@ -4344,7 +4371,7 @@ if (!function_exists('renderBlogSidebar')) {
             <?php if ($blogs): ?>
                 <div class="bs-widget">
                     <h3 class="bs-title">
-                        <span class="bs-icon"><?= $icons['recent'] ?></span>
+                        <span class="bs-icon"><i class="ri-newspaper-line"></i></span>
                         Recent Posts
                     </h3>
                     <ul class="bs-recent-list">
@@ -4363,7 +4390,7 @@ if (!function_exists('renderBlogSidebar')) {
                                         </a>
                                     </h4>
                                     <div class="bs-recent-meta">
-                                        <span class="bs-icon"><?= $icons['calendar'] ?></span>
+                                        <span class="bs-icon"><i class="ri-calendar-line"></i></span>
                                         <?= dateFormat($blog['created_at'], 'M j, Y'); ?>
                                     </div>
                                 </div>

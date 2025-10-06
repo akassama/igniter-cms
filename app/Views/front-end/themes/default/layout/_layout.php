@@ -38,16 +38,13 @@ $adminBar = renderAdminBar();
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Remix icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css" />
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
     <!-- Glightbox CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.3.1/css/glightbox.css" />
     <!-- Animate CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <?=loadSiteIcons()?>
 
     <!-- Core Theme CSS Variables -->
     <?php
@@ -100,9 +97,6 @@ $adminBar = renderAdminBar();
 
     <!-- Core Theme CSS -->
     <link href="<?= base_url('public/front-end/themes/' . $theme . '/assets/css/style.css') ?>" rel="stylesheet">
-
-    <!--Favicon-->
-    <link rel="icon" type="image/png" href="https://assets.aktools.net/image-stocks/logos/favicon/favicon.png" sizes="96x96" />
 
     <!-- Custom CSS -->
     <?php if (!empty($themeData['customCSS'])): ?>

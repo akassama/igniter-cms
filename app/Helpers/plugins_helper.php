@@ -66,6 +66,70 @@ if (!function_exists('loadMetaPluginHelpers')) {
                     log_message('error', 'Plugin file not found: ' . $pluginFile);
                 }
             }
+
+            if (count($activePlugins) == 0) {
+                // Set default meta data if no meta plugin loaded/active
+                $siteName = getConfigData("SiteName");
+                $siteDescription = getConfigData("SiteDescription");
+                $siteKeywords = getConfigData("SiteKeywords");
+                ?>
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Site variables
+                    var siteName = <?= json_encode($siteName ?? '') ?>;
+                    var siteDescription = <?= json_encode($siteDescription ?? '') ?>;
+                    var siteKeywords = <?= json_encode($siteKeywords ?? '') ?>;
+
+                    var changesMade = false;
+
+                    // 1. Check and add <title> if missing
+                    if (!document.title || document.title.trim() === '') {
+                        document.title = siteName;
+                        changesMade = true;
+                    }
+
+                    // 2. Check and add meta description if missing
+                    var metaDesc = document.querySelector('meta[name="description"]');
+                    if (!metaDesc) {
+                        var newMetaDesc = document.createElement('meta');
+                        newMetaDesc.name = 'description';
+                        newMetaDesc.content = siteDescription;
+                        document.head.appendChild(newMetaDesc);
+                        changesMade = true;
+                    }
+
+                    // 3. Check and add meta keywords if missing
+                    var metaKeywords = document.querySelector('meta[name="keywords"]');
+                    if (!metaKeywords) {
+                        var newMetaKeywords = document.createElement('meta');
+                        newMetaKeywords.name = 'keywords';
+                        newMetaKeywords.content = siteKeywords;
+                        document.head.appendChild(newMetaKeywords);
+                        changesMade = true;
+                    }
+
+                    // 4. Check and add favicon if missing
+                    var favicon = document.querySelector('link[rel="icon"], link[rel="shortcut icon"]');
+                    if (!favicon) {
+                        var newFavicon = document.createElement('link');
+                        newFavicon.rel = 'icon';
+                        newFavicon.type = 'image/png';
+                        newFavicon.href = 'https://assets.aktools.net/image-stocks/logos/favicon/igniter.png';
+                        document.head.appendChild(newFavicon);
+                        changesMade = true;
+                    }
+
+                    // If no changes were made, remove this script from the DOM
+                    if (!changesMade) {
+                        var scriptElement = document.currentScript;
+                        if (scriptElement) {
+                            scriptElement.parentNode.removeChild(scriptElement);
+                        }
+                    }
+                });
+                </script>
+                <?php
+            }
         } catch (\Exception $e) {
             log_message('error', 'Failed to load meta plugins: ' . $e->getMessage());
         }
