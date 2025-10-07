@@ -240,7 +240,7 @@ class AppModules extends Migration
                 'module_name'  => 'Content Blocks',
                 'module_description'  => 'Manage content blocks',
                 'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/content-blocks',
+                'module_link'    => 'account/content-blocks',
                 'module_search_terms' => 'content,blocks,widgets'
             ],
             //AI 
@@ -249,7 +249,7 @@ class AppModules extends Migration
                 'module_name'  => 'AI',
                 'module_description'  => 'AI chatbot',
                 'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/cms/policies',
+                'module_link'    => 'account/ask-ai',
                 'module_search_terms' => 'artificial intelligence,chat gpt,claude, gemini, deepseek'
             ],
         ];

@@ -179,7 +179,7 @@ $adminBar = renderAdminBar();
     </nav>
 
     <!-- Main Content -->
-    <main class="main">
+    <main class="main" id="template-html">
         <?= $this->renderSection('content') ?>
     </main>
     <!-- End Main Content -->

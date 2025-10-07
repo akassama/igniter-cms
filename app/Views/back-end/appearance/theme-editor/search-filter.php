@@ -86,7 +86,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <?=  $this->include('back-end/appearance/theme-editor/_file_editor_initiator.php'); ?>
 
 <!-- Include the files modal -->
-<?=  $this->include('back-end/layout/modals/files_modal.php'); ?>
+<?=  $this->include('back-end/layout/modals/_files_modal.php'); ?>
 
 <!-- end main content -->
 <?= $this->endSection() ?>

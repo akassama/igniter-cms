@@ -30,6 +30,10 @@ echo generateBreadcrumb($breadcrumb_links);
     <!--Content-->
     <div class="col-12">
         <h3>File Editor</h3>
+        <button type="button" class="btn btn-outline-dark float-start" data-bs-toggle="modal" data-bs-target="#blocksModal">
+            <i class="ri-layout-grid-line"></i>
+            Page Blocks
+        </button>
         <button class="btn btn-dark my-1 float-end" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
             <i class="ri-image-fill"></i> File Manager
         </button>
@@ -86,7 +90,10 @@ echo generateBreadcrumb($breadcrumb_links);
 <?=  $this->include('back-end/appearance/theme-editor/_file_editor_initiator.php'); ?>
 
 <!-- Include the files modal -->
-<?=  $this->include('back-end/layout/modals/files_modal.php'); ?>
+<?=  $this->include('back-end/layout/modals/_files_modal.php'); ?>
+
+<!-- Include the page blocks modal -->
+<?=  $this->include('back-end/layout/modals/_page_blocks_modal.php'); ?>
 
 <!-- end main content -->
 <?= $this->endSection() ?>
