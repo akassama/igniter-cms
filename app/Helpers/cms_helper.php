@@ -4474,15 +4474,13 @@ if (!function_exists('renderAdminBar')) {
 
         $adminBarHtml = '
         <style>
-            #navbar {
-                top: 40px !important;
-            }
-            .admin-bar {
+            /* Admin Bar Base Styles - Framework Agnostic */
+            .igniter-admin-bar {
                 position: fixed;
                 top: 0;
                 left: 0;
                 right: 0;
-                z-index: 10000;
+                z-index: 99999;
                 height: 40px;
                 background-color: #343a40;
                 color: #ffffff;
@@ -4490,9 +4488,65 @@ if (!function_exists('renderAdminBar')) {
                 border-bottom: 1px solid #dee2e6;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
                 font-size: 14px;
+                line-height: 1;
+                box-sizing: border-box;
             }
-            .admin-bar-container {
-                max-width: 1140px;
+            
+            /* Reset any potential framework conflicts */
+            .igniter-admin-bar * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            
+            /* Generic fixed header adjustment - applies to common fixed header patterns */
+            header[class*="fixed"],
+            header[class*="sticky"],
+            .navbar-fixed,
+            .navbar-sticky,
+            nav[class*="fixed"],
+            nav[class*="sticky"],
+            .fixed-header,
+            .sticky-header {
+                top: 40px !important;
+            }
+            
+            /* Common navbar classes adjustment */
+            .navbar,
+            nav.navbar,
+            [class*="navbar"] {
+                top: 40px !important;
+            }
+            
+            /* Specific adjustments for common frameworks */
+            /* Bootstrap */
+            .navbar.fixed-top {
+                top: 40px !important;
+            }
+            
+            /* Tailwind */
+            .fixed.top-0 {
+                top: 40px !important;
+            }
+            
+            /* Foundation */
+            .title-bar,
+            .top-bar {
+                top: 40px !important;
+            }
+            
+            /* Bulma */
+            .navbar.is-fixed-top {
+                top: 40px !important;
+            }
+            
+            /* Materialize */
+            nav.fixed {
+                top: 40px !important;
+            }
+            
+            .igniter-admin-bar-container {
+                max-width: 100%;
                 margin: 0 auto;
                 padding: 0 15px;
                 display: flex;
@@ -4500,107 +4554,203 @@ if (!function_exists('renderAdminBar')) {
                 height: 100%;
                 justify-content: space-between;
             }
-            .admin-bar-logo {
-                margin-right: 1rem;
-                border-radius: 0.25rem;
+            
+            .igniter-admin-bar-left {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .igniter-admin-bar-logo {
+                border-radius: 4px;
                 height: 24px;
                 width: 24px;
+                display: block;
+                flex-shrink: 0;
             }
-            .admin-bar-link {
+            
+            .igniter-admin-bar-link {
                 color: #ffffff;
                 text-decoration: none;
-                margin-right: 1rem;
                 display: flex;
                 align-items: center;
                 line-height: 1;
+                gap: 6px;
+                transition: opacity 0.2s ease;
+                white-space: nowrap;
+                padding: 4px 8px;
+                border-radius: 3px;
             }
-            .admin-bar-link:hover {
+            
+            .igniter-admin-bar-link:hover {
                 color: #ffffff;
-                text-decoration: none;
                 opacity: 0.8;
+                background-color: rgba(255, 255, 255, 0.1);
             }
-            .admin-bar-icon {
-                margin-right: 0.25rem;
-                font-size: 1.1rem;
+            
+            .igniter-admin-bar-icon {
+                font-size: 16px;
                 color: #ffffff;
+                display: inline-flex;
+                align-items: center;
+                width: 16px;
+                height: 16px;
+                flex-shrink: 0;
             }
-            .admin-bar-last-link {
-                margin-right: 0;
-            }
-            .admin-bar-user {
+            
+            .igniter-admin-bar-user {
                 position: relative;
                 color: #ffffff;
                 text-decoration: none;
                 display: flex;
                 align-items: center;
                 cursor: pointer;
-                margin-left: auto;
+                gap: 8px;
+                transition: opacity 0.2s ease;
+                padding: 4px 8px;
+                border-radius: 3px;
             }
-            .admin-bar-user:hover {
+            
+            .igniter-admin-bar-user:hover {
                 opacity: 0.8;
+                background-color: rgba(255, 255, 255, 0.1);
             }
-            .admin-bar-dropdown {
+            
+            .igniter-admin-bar-user-img {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                object-fit: cover;
+                flex-shrink: 0;
+            }
+            
+            .igniter-admin-bar-dropdown {
                 display: none;
                 position: absolute;
                 top: 100%;
                 right: 0;
                 background-color: #343a40;
                 border: 1px solid #dee2e6;
-                border-radius: 0.25rem;
-                min-width: 150px;
-                z-index: 10001;
-                box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+                border-radius: 4px;
+                min-width: 160px;
+                z-index: 100000;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                overflow: hidden;
             }
-            .admin-bar-user:hover .admin-bar-dropdown {
+            
+            .igniter-admin-bar-user:hover .igniter-admin-bar-dropdown {
                 display: block;
             }
-            .admin-bar-dropdown a {
+            
+            .igniter-admin-bar-dropdown a {
                 color: #ffffff;
                 text-decoration: none;
-                padding: 0.5rem 1rem;
+                padding: 8px 16px;
                 display: block;
                 line-height: 1.5;
+                transition: background-color 0.2s ease;
+                border: none;
             }
-            .admin-bar-dropdown a:hover {
+            
+            .igniter-admin-bar-dropdown a:hover {
                 background-color: #495057;
                 color: #ffffff;
             }
-            .admin-bar-user-img {
-                width: 24px;
-                height: 24px;
-                border-radius: 50%;
-                margin-right: 8px;
-                object-fit: cover;
+            
+            /* Mobile responsiveness */
+            @media (max-width: 768px) {
+                .igniter-admin-bar-container {
+                    padding: 0 10px;
+                }
+                
+                .igniter-admin-bar-left {
+                    gap: 8px;
+                }
+                
+                .igniter-admin-bar-link span,
+                .igniter-admin-bar-user span {
+                    display: none;
+                }
+                
+                .igniter-admin-bar-link {
+                    padding: 6px;
+                }
+                
+                .igniter-admin-bar-user {
+                    padding: 6px;
+                }
+            }
+            
+            /* Very small screens */
+            @media (max-width: 480px) {
+                .igniter-admin-bar {
+                    height: 36px;
+                    font-size: 13px;
+                }
+                
+                .igniter-admin-bar-logo,
+                .igniter-admin-bar-user-img {
+                    height: 20px;
+                    width: 20px;
+                }
+                
+                .igniter-admin-bar-icon {
+                    font-size: 14px;
+                    width: 14px;
+                    height: 14px;
+                }
             }
         </style>
-        <div class="admin-bar">
-            <div class="admin-bar-container">
-                <div class="d-flex align-items-center">
-                    <img src="https://i.ibb.co/Pv4XWmxv/Igniter-CMS.jpg" alt="Admin Logo" class="admin-bar-logo">
-                    <a href="' . base_url('/account') . '" class="admin-bar-link">
-                        <i class="ri-dashboard-line admin-bar-icon"></i>
-                        Dashboard
+        <div class="igniter-admin-bar">
+            <div class="igniter-admin-bar-container">
+                <div class="igniter-admin-bar-left">
+                    <img src="https://i.ibb.co/Pv4XWmxv/Igniter-CMS.jpg" alt="Admin Logo" class="igniter-admin-bar-logo">
+                    <a href="' . base_url('/account') . '" class="igniter-admin-bar-link" title="Dashboard">
+                        <i class="ri-dashboard-line igniter-admin-bar-icon"></i>
+                        <span>Dashboard</span>
                     </a>
-                    <a href="' . $editLayoutPageUrl . '" class="admin-bar-link">
-                        <i class="ri-layout-grid-line admin-bar-icon"></i>
-                        Edit Layout
+                    <a href="' . $editLayoutPageUrl . '" class="igniter-admin-bar-link" title="Edit Layout">
+                        <i class="ri-layout-grid-line igniter-admin-bar-icon"></i>
+                        <span>Edit Layout</span>
                     </a>
-                    <a href="' . $editPageUrl . '" class="admin-bar-link admin-bar-last-link">
-                        <i class="ri-edit-line admin-bar-icon"></i>
-                        Edit Current Page
+                    <a href="' . $editPageUrl . '" class="igniter-admin-bar-link" title="Edit Current Page">
+                        <i class="ri-edit-line igniter-admin-bar-icon"></i>
+                        <span>Edit Current Page</span>
                     </a>
                 </div>
-                <div class="admin-bar-user">
-                    <img src="' . $userImage . '" alt="User Profile" class="admin-bar-user-img">
-                    Hello, ' . esc($sessionName) . '
-                    <i class="ri-arrow-down-s-line admin-bar-icon" style="margin-left: 0.25rem;"></i>
-                    <div class="admin-bar-dropdown">
+                <div class="igniter-admin-bar-user">
+                    <img src="' . $userImage . '" alt="User Profile" class="igniter-admin-bar-user-img">
+                    <span>Hello, ' . esc($sessionName) . '</span>
+                    <i class="ri-arrow-down-s-line igniter-admin-bar-icon"></i>
+                    <div class="igniter-admin-bar-dropdown">
                         <a href="' . base_url('/account') . '">Dashboard</a>
                         <a href="' . base_url('/sign-out') . '">Logout</a>
                     </div>
                 </div>
             </div>
-        </div>';
+        </div>
+        <script>
+        // Auto-adjust fixed headers for admin bar
+        document.addEventListener("DOMContentLoaded", function() {
+            if (document.querySelector(".igniter-admin-bar")) {
+                // Find all fixed/sticky headers and adjust them
+                const fixedElements = document.querySelectorAll(
+                    "header, nav, .navbar, .header, [class*="fixed"], [class*="sticky"]"
+                );
+                
+                fixedElements.forEach(element => {
+                    const styles = window.getComputedStyle(element);
+                    const position = styles.position;
+                    const top = styles.top;
+                    
+                    if (position === "fixed" || position === "sticky") {
+                        element.style.top = "40px";
+                    }
+                });
+            }
+        });
+        </script>
+        ';
 
         return $adminBarHtml;
     }
