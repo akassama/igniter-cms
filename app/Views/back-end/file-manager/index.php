@@ -702,6 +702,10 @@ function cifGenerateFileManagerTable(
                 <div class="file-manager-actions">
                     <div class="row align-items-center">
                         <div class="col-md-8">
+                            <a class="btn btn-outline-dark" href="<?=base_url('account')?>" role="button">
+                                <i class="ri-dashboard-2-fill"></i>
+                                Dashboard
+                            </a>
                             <div class="btn-group btn-group-custom me-3" role="group">
                                 <button type="button" class="btn btn-primary" data-tippy-content="Upload new file" onclick="showUploadModal()">
                                     <i class="ri-upload-cloud-line me-1"></i>
