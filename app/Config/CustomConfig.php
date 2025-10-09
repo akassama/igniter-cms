@@ -69,6 +69,8 @@ class CustomConfig extends BaseConfig
         'Personal' => 'Personal & Resume',
         'Agency' => 'Agency & Marketing',
         'Landing' => 'Landing Pages',
+        'ComingSoon' => 'Coming Soon',
+        'Miscellaneous' => 'Miscellaneous',
     ];
     
     #--------------------------------------------------------------------
