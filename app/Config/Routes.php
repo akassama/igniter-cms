@@ -150,6 +150,8 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('appearance/theme-editor/view-page', 'AppearanceController::viewPageFileEditor');
         $routes->get('appearance/theme-editor/search', 'AppearanceController::searchFileEditor');
         $routes->get('appearance/theme-editor/search-filter', 'AppearanceController::searchFilterFileEditor');
+        $routes->get('appearance/theme-editor/site-css', 'AppearanceController::siteCSSFileEditor');
+        $routes->get('appearance/theme-editor/site-js', 'AppearanceController::siteJSFileEditor');
         $routes->post('appearance/theme-editor/save-file', 'AppearanceController::saveFile');
     }
 

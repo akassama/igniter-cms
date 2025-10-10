@@ -664,6 +664,54 @@ class AppearanceController extends BaseController
         return view('back-end/appearance/theme-editor/search-filter', $data);
     }
 
+    public function siteCSSFileEditor()
+    {
+        // Get the file you want to edit
+        $siteCSSFilePath = FCPATH . 'public/front-end/themes/' . getCurrentTheme() . '/assets/css/site.css';
+        
+        // Get only the file name (not the whole path) to display it
+        $siteCSSFilename = basename($siteCSSFilePath);
+
+        if (!file_exists($siteCSSFilePath)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
+        }
+
+        // Load the file content
+        $siteCSSFileContent = file_get_contents($siteCSSFilePath);
+        
+        $data = [
+            'siteCSSFilename' => $siteCSSFilename,
+            'siteCSSFilePath' => $siteCSSFilePath,
+            'siteCSSFileContent' => $siteCSSFileContent
+        ];
+
+        return view('back-end/appearance/theme-editor/site-css', $data);
+    }
+
+    public function siteJSFileEditor()
+    {
+        // Get the file you want to edit
+        $siteJSFilePath = FCPATH . 'public/front-end/themes/' . getCurrentTheme() . '/assets/js/site.js';
+        
+        // Get only the file name (not the whole path) to display it
+        $siteJSFilename = basename($siteJSFilePath);
+
+        if (!file_exists($siteJSFilePath)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("File not found");
+        }
+
+        // Load the file content
+        $siteJSFileContent = file_get_contents($siteJSFilePath);
+        
+        $data = [
+            'siteJSFilename' => $siteJSFilename,
+            'siteJSFilePath' => $siteJSFilePath,
+            'siteJSFileContent' => $siteJSFileContent
+        ];
+
+        return view('back-end/appearance/theme-editor/site-js', $data);
+    }
+
     public function saveFile()
     {
         $filePage = $this->request->getPost('filePage');

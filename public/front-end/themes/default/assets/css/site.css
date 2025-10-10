@@ -1,4 +1,4 @@
-/* ===== Base Styles ===== */
+/* ************ Base Styles ************ */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
@@ -27,12 +27,7 @@ a {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-/*
- * This CSS overrides Bootstrap 5's default primary color scheme
- * using custom CSS variables for a consistent theme.
- */
-
-/* ================== Navbar ================== */
+/* ************ Navigation Menu ************ */
 .navbar.bg-dark {
   background-color: var(--surface-color) !important;
   color: var(--default-color) !important;
@@ -58,14 +53,46 @@ a {
   color: var(--accent-color) !important;
 }
 
-/* Update the navbar toggler icon to be visible */
 .navbar-toggler-icon {
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23<?php echo str_replace('#', '', $headingColor); ?>' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* ================== Footer ================== */
+.navbar {
+  min-height: 75px;
+  padding: 15px 0;
+  font-size: 1.1rem;
+}
 
-/* Target the footer background and primary text color */
+.navbar-brand img {
+  height: 70px;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  padding: 10px 15px;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--accent-color);
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+  color: var(--accent-color);
+  font-weight: 600;
+  border-bottom: 3px solid var(--accent-color);
+}
+
+.navbar-toggler {
+  border: none;
+  font-size: 1.2rem;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* ************ Footer ************ */
 footer.bg-dark,
 footer.bg-dark .text-white,
 footer.bg-dark .small {
@@ -73,7 +100,6 @@ footer.bg-dark .small {
   color: var(--default-color) !important;
 }
 
-/* Target all text elements within the footer */
 footer.bg-dark h5,
 footer.bg-dark p,
 footer.bg-dark ul,
@@ -81,28 +107,23 @@ footer.bg-dark li {
   color: var(--default-color) !important;
 }
 
-/* Target all links (a tags) specifically */
 footer.bg-dark a {
   color: var(--heading-color) !important;
 }
 
-/* Set link hover color */
 footer.bg-dark a:hover {
   color: var(--accent-color) !important;
 }
 
-/* Set color for social media icons */
 footer.bg-dark .mt-4 a i {
   color: var(--heading-color) !important;
 }
 
-/* Set link hover color for social media icons */
 footer.bg-dark .mt-4 a:hover i {
   color: var(--accent-color) !important;
 }
 
-/* ================== Buttons ================== */
-
+/* ************ Buttons ************ */
 .btn-primary {
   --bs-btn-color: var(--background-color) !important;
   --bs-btn-bg: var(--accent-color) !important;
@@ -149,7 +170,6 @@ footer.bg-dark .mt-4 a:hover i {
   );
 }
 
-/* Override other primary elements for consistency */
 .alert-primary {
   --bs-alert-color: var(--heading-color) !important;
   --bs-alert-bg: var(--accent-color) !important;
@@ -187,7 +207,7 @@ footer.bg-dark .mt-4 a:hover i {
   transform: translateY(-2px);
 }
 
-/* ===== Hero Section ===== */
+/* ************ Hero Section ************ */
 .hero-carousel {
   position: relative;
   margin-top: -1px;
@@ -290,7 +310,7 @@ footer.bg-dark .mt-4 a:hover i {
   }
 }
 
-/* ===== About Section Styles ===== */
+/* ************ About Section ************ */
 .about.section {
   position: relative;
   background-color: var(--background-color);
@@ -380,7 +400,7 @@ footer.bg-dark .mt-4 a:hover i {
   }
 }
 
-/* ===== Icon Box ===== */
+/* ************ Icon Box ************ */
 .icon-box {
   width: 80px;
   height: 80px;
@@ -390,7 +410,7 @@ footer.bg-dark .mt-4 a:hover i {
   border-radius: 50%;
 }
 
-/* ===== Counter Section ===== */
+/* ************ Counter Section ************ */
 .counter-box {
   padding: 20px 0;
 }
@@ -399,7 +419,7 @@ footer.bg-dark .mt-4 a:hover i {
   font-size: 2.5rem;
 }
 
-/* ===== Portfolio Section ===== */
+/* ************ Portfolio Section ************ */
 .portfolio-item .card {
   display: flex;
   flex-direction: column;
@@ -418,14 +438,14 @@ footer.bg-dark .mt-4 a:hover i {
   transform: translateY(-10px);
 }
 
-/* ===== Portfolio Filter Buttons ===== */
+/* ************ Portfolio Filter Buttons ************ */
 .filter-btn.active {
   background-color: var(--accent-color);
   color: var(--background-color);
   border-color: var(--accent-color);
 }
 
-/* ===== Portfolio Carousel ===== */
+/* ************ Portfolio Carousel ************ */
 .portfolioCarousel .swiper-slide img {
   width: 100%;
   height: auto;
@@ -446,7 +466,7 @@ footer.bg-dark .mt-4 a:hover i {
   color: #007bff;
 }
 
-/* ===== Scroll to Top Button ===== */
+/* ************ Scroll to Top Button ************ */
 .scroll-to-top {
   position: fixed;
   bottom: 30px;
@@ -473,7 +493,7 @@ footer.bg-dark .mt-4 a:hover i {
   vertical-align: middle;
 }
 
-/* Preloader styles */
+/* ************ Preloader ************ */
 #preloader {
   position: fixed;
   top: 0;
@@ -523,7 +543,7 @@ footer.bg-dark .mt-4 a:hover i {
   pointer-events: none;
 }
 
-/* ===== Sponsors (Grayscale Effect) ===== */
+/* ************ Sponsors ************ */
 .grayscale {
   filter: grayscale(100%);
   opacity: 0.7;
@@ -535,7 +555,7 @@ footer.bg-dark .mt-4 a:hover i {
   opacity: 1;
 }
 
-/* ===== Pricing Section ===== */
+/* ************ Pricing Section ************ */
 .pricing {
   background-color: var(--surface-color);
 }
@@ -661,48 +681,12 @@ footer.bg-dark .mt-4 a:hover i {
   }
 }
 
-/* ===== Testimonial Section ===== */
+/* ************ Testimonial Section ************ */
 .testimonial-card {
   border-left: 4px solid var(--accent-color);
 }
 
-/* ===== Navigation Menu ===== */
-.navbar {
-  min-height: 75px;
-  padding: 15px 0;
-  font-size: 1.1rem;
-}
-
-.navbar-brand img {
-  height: 70px;
-}
-
-.navbar-nav .nav-link {
-  font-weight: 500;
-  padding: 10px 15px;
-  transition: color 0.3s ease-in-out;
-}
-
-.navbar-nav .nav-link:hover {
-  color: var(--accent-color);
-}
-
-.navbar-dark .navbar-nav .nav-link.active {
-  color: var(--accent-color);
-  font-weight: 600;
-  border-bottom: 3px solid var(--accent-color);
-}
-
-.navbar-toggler {
-  border: none;
-  font-size: 1.2rem;
-}
-
-.navbar-toggler:focus {
-  box-shadow: none;
-}
-
-/* ===== Breadcrumb Section ===== */
+/* ************ Breadcrumb Section ************ */
 .breadcrumb-section {
   border-bottom: 1px solid var(--surface-color);
 }
@@ -732,7 +716,7 @@ footer.bg-dark .mt-4 a:hover i {
   color: var(--default-color);
 }
 
-/* ===== Services Section ===== */
+/* ************ Services Section ************ */
 .card:hover .icon-box {
   transform: scale(1.2);
   transition: transform 0.3s ease;
@@ -743,7 +727,7 @@ footer.bg-dark .mt-4 a:hover i {
   transition: color 0.3s ease;
 }
 
-/* ===== Page Content Styling ===== */
+/* ************ Page Content ************ */
 .page {
   background-color: var(--background-color);
   padding: 50px 0;
@@ -785,7 +769,7 @@ footer.bg-dark .mt-4 a:hover i {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* ===== Frequently Asked Questions (FAQ) ===== */
+/* ************ Frequently Asked Questions (FAQ) ************ */
 #faq {
   background-color: var(--surface-color);
   padding: 60px 0;
@@ -892,7 +876,7 @@ footer.bg-dark .mt-4 a:hover i {
   color: var(--accent-color);
 }
 
-/* ===== Blog Details Page ===== */
+/* ************ Blog Details Page ************ */
 #blog-details {
   background-color: var(--background-color);
   padding: 60px 0;
@@ -953,7 +937,7 @@ footer.bg-dark .mt-4 a:hover i {
   color: var(--accent-color);
 }
 
-/* ===== Blog Categories ===== */
+/* ************ Blog Categories ************ */
 #blog-categories {
   background-color: var(--surface-color);
 }
@@ -983,7 +967,7 @@ footer.bg-dark .mt-4 a:hover i {
   font-size: 1rem;
 }
 
-/* ===== Sidebar Styling ===== */
+/* ************ Sidebar Styling ************ */
 .search-box input {
   border: 2px solid var(--default-color);
   padding: 10px;
@@ -1029,7 +1013,7 @@ footer.bg-dark .mt-4 a:hover i {
   transform: scale(1.05);
 }
 
-/* ===== Products Page ===== */
+/* ************ Products Page ************ */
 #products {
   background-color: var(--surface-color);
 }
@@ -1052,7 +1036,7 @@ footer.bg-dark .mt-4 a:hover i {
   color: var(--heading-color);
 }
 
-/* ===== Product Details ===== */
+/* ************ Product Details ************ */
 .product-main-image {
   border: 1px solid var(--surface-color);
   transition: all 0.3s ease;
@@ -1131,7 +1115,7 @@ footer.bg-dark .mt-4 a:hover i {
   }
 }
 
-/* ===== Similar Products Section ===== */
+/* ************ Similar Products Section ************ */
 .similar-products {
   background-color: rgba(var(--surface-color-rgb), 0.5);
 }
@@ -1203,7 +1187,7 @@ footer.bg-dark .mt-4 a:hover i {
   }
 }
 
-/* ===== Custom Pagination ===== */
+/* ************ Custom Pagination ************ */
 .pagination {
   display: flex;
   justify-content: center;
@@ -1239,7 +1223,7 @@ footer.bg-dark .mt-4 a:hover i {
   border: 1px solid var(--accent-color);
 }
 
-/* ===== Events Page Styles ===== */
+/* ************ Events Page ************ */
 .event-card {
   transition: all 0.3s ease;
   border-radius: 0.5rem;
@@ -1272,7 +1256,7 @@ footer.bg-dark .mt-4 a:hover i {
   }
 }
 
-/* ===== Donation Campaigns Page Styles ===== */
+/* ************ Donation Campaigns Page ************ */
 .campaign-card {
   transition: all 0.3s ease;
   border-radius: 0.5rem;
@@ -1305,11 +1289,11 @@ footer.bg-dark .mt-4 a:hover i {
   }
 }
 
-/* ===== Call To Action ===== */
+/* ************ Call To Action ************ */
 .cta-section {
   background:
     linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("https://assets.aktools.net/image-stocks/cta/cta-1.jpg") no-repeat
+    url("https://assets.aktools.net/image-stocks/cta/cta-1.jpg  ") no-repeat
       center center/cover;
   color: var(--surface-color);
   text-align: center;
@@ -1360,7 +1344,7 @@ footer.bg-dark .mt-4 a:hover i {
   }
 }
 
-/* ===== Subscription ===== */
+/* ************ Subscription ************ */
 #subscribe {
   background-color: var(--surface-color);
   padding: 60px 0;
@@ -1401,7 +1385,7 @@ footer.bg-dark .mt-4 a:hover i {
   background-color: var(--heading-color);
 }
 
-/* ===== Contact Section ===== */
+/* ************ Contact Section ************ */
 .contact .info-box {
   background-color: var(--surface-color);
   padding: 25px;
@@ -1496,7 +1480,7 @@ footer.bg-dark .mt-4 a:hover i {
   color: var(--success-color);
 }
 
-/* ===== Donation Campaign Details Styles ===== */
+/* ************ Donation Campaign Details ************ */
 #campaign-details .progress {
   height: 10px;
   background-color: rgba(var(--surface-color-rgb), 0.8);
@@ -1522,7 +1506,7 @@ footer.bg-dark .mt-4 a:hover i {
   }
 }
 
-/* ===== Responsive Styles ===== */
+/* ************ Responsive Styles ************ */
 @media (max-width: 768px) {
   body {
     padding-top: 62px;
@@ -1539,7 +1523,7 @@ footer.bg-dark .mt-4 a:hover i {
   }
 }
 
-/* ===== Animations ===== */
+/* ************ Animations ************ */
 @keyframes countUp {
   from {
     opacity: 0;

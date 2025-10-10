@@ -96,7 +96,7 @@ $adminBar = renderAdminBar();
     ?>
 
     <!-- Core Theme CSS -->
-    <link href="<?= base_url('public/front-end/themes/' . $theme . '/assets/css/style.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('public/front-end/themes/' . $theme . '/assets/css/site.css') ?>" rel="stylesheet">
 
     <!-- Custom CSS -->
     <?php if (!empty($themeData['customCSS'])): ?>
@@ -287,7 +287,7 @@ $adminBar = renderAdminBar();
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     
     <!-- Core theme JS -->
-    <script defer src="<?= base_url('public/front-end/themes/' . $theme . '/assets/js/script.js') ?>"></script>
+    <script defer src="<?= base_url('public/front-end/themes/' . $theme . '/assets/js/site.js') ?>"></script>
 
     <!-- Custom JavaScript in the footer -->
     <?php if (!empty($themeData['customJSFooter'])): ?>

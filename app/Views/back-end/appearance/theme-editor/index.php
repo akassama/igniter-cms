@@ -137,6 +137,34 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 </a>
             </div>
+            <div class="col-md-3 col-sm-4 col-6">
+                <a href="<?= base_url('account/appearance/theme-editor/site-css') ?>" class="text-decoration-none">
+                    <div class="card text-center h-100 shadow-sm">
+                        <h6 class="card-title text-dark mt-2">Site CSS</h6>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
+                            <h5 class="card-title mt-2"><?=getCurrentTheme()?>/site.css</h5>
+                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: public/front-end/themes/<?=getCurrentTheme()?>/assets/css/site.css">
+                                public/front-end/themes/<?=getCurrentTheme()?>/assets/css/site.css
+                            </small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-6">
+                <a href="<?= base_url('account/appearance/theme-editor/site-js') ?>" class="text-decoration-none">
+                    <div class="card text-center h-100 shadow-sm">
+                        <h6 class="card-title text-dark mt-2">Site JS</h6>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
+                            <h5 class="card-title mt-2"><?=getCurrentTheme()?>/site.js</h5>
+                            <small class="text-muted text-truncate w-100" style="max-width: 100%; overflow: hidden;" data-bs-toggle="tooltip" title="Path: public/front-end/themes/<?=getCurrentTheme()?>/assets/js/site.js">
+                                public/front-end/themes/<?=getCurrentTheme()?>/assets/js/site.js
+                            </small>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </div>
