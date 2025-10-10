@@ -18,3 +18,10 @@ jobs:
           password: ${{ secrets.FTPPASSWORD }}
           protocol: ftps
           server-dir: /
+          # 👇 Add the exclude parameter here
+          exclude: |
+            install/database.sql 
+            # You can add other files/folders you want to ignore below
+            # .git*
+            # .github/
+            # node_modules/
