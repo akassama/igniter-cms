@@ -4433,24 +4433,24 @@ if (!function_exists('renderAdminBar')) {
         $sessionName = session()->get('first_name') . ' ' . session()->get('last_name');
         $userId = getLoggedInUserId();
         $userImage = getImageUrl(getUserData($userId, "profile_picture") ?? getDefaultProfileImagePath());
-        
+
         // Determine edit page URL based on current URL
         $currentUrl = current_url();
         $baseUrl = base_url();
-        
+
         // Get the request instance to access URI segments
         $request = \Config\Services::request();
         $uri = $request->getUri();
         $path = $uri->getPath(); // Gets the path without query string
         $query = $uri->getQuery(); // Gets the query string
-        
+
         // Remove base path from the path if needed
         $basePath = rtrim($baseUrl, '/');
         $cleanPath = trim(str_replace(parse_url($baseUrl, PHP_URL_PATH), '', $path), '/');
 
         // Layout page
         $editLayoutPageUrl = base_url('/account/appearance/theme-editor/layout');
-        
+
         // Determine edit page URL based on path and query parameters
         if ($cleanPath === '' || $cleanPath === 'home') {
             // Home page
@@ -4473,283 +4473,338 @@ if (!function_exists('renderAdminBar')) {
         }
 
         $adminBarHtml = '
-        <style>
-            /* Admin Bar Base Styles - Framework Agnostic */
-            .igniter-admin-bar {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                z-index: 99999;
-                height: 40px;
-                background-color: #343a40;
-                color: #ffffff;
-                padding: 0;
-                border-bottom: 1px solid #dee2e6;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                font-size: 14px;
-                line-height: 1;
-                box-sizing: border-box;
-            }
-            
-            /* Reset any potential framework conflicts */
-            .igniter-admin-bar * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-            }
-            
-            /* Generic fixed header adjustment - applies to common fixed header patterns */
-            header[class*="fixed"],
-            header[class*="sticky"],
-            .navbar-fixed,
-            .navbar-sticky,
-            nav[class*="fixed"],
-            nav[class*="sticky"],
-            .fixed-header,
-            .sticky-header {
-                top: 40px !important;
-            }
-            
-            /* Common navbar classes adjustment */
-            .navbar,
-            nav.navbar,
-            [class*="navbar"] {
-                top: 40px !important;
-            }
-            
-            /* Specific adjustments for common frameworks */
-            /* Bootstrap */
-            .navbar.fixed-top {
-                top: 40px !important;
-            }
-            
-            /* Tailwind */
-            .fixed.top-0 {
-                top: 40px !important;
-            }
-            
-            /* Foundation */
-            .title-bar,
-            .top-bar {
-                top: 40px !important;
-            }
-            
-            /* Bulma */
-            .navbar.is-fixed-top {
-                top: 40px !important;
-            }
-            
-            /* Materialize */
-            nav.fixed {
-                top: 40px !important;
-            }
-            
-            .igniter-admin-bar-container {
-                max-width: 100%;
-                margin: 0 auto;
-                padding: 0 15px;
-                display: flex;
-                align-items: center;
-                height: 100%;
-                justify-content: space-between;
-            }
-            
-            .igniter-admin-bar-left {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-            }
-            
-            .igniter-admin-bar-logo {
-                border-radius: 4px;
-                height: 24px;
-                width: 24px;
-                display: block;
-                flex-shrink: 0;
-            }
-            
-            .igniter-admin-bar-link {
-                color: #ffffff;
-                text-decoration: none;
-                display: flex;
-                align-items: center;
-                line-height: 1;
-                gap: 6px;
-                transition: opacity 0.2s ease;
-                white-space: nowrap;
-                padding: 4px 8px;
-                border-radius: 3px;
-            }
-            
-            .igniter-admin-bar-link:hover {
-                color: #ffffff;
-                opacity: 0.8;
-                background-color: rgba(255, 255, 255, 0.1);
-            }
-            
-            .igniter-admin-bar-icon {
-                font-size: 16px;
-                color: #ffffff;
-                display: inline-flex;
-                align-items: center;
-                width: 16px;
-                height: 16px;
-                flex-shrink: 0;
-            }
-            
-            .igniter-admin-bar-user {
-                position: relative;
-                color: #ffffff;
-                text-decoration: none;
-                display: flex;
-                align-items: center;
-                cursor: pointer;
-                gap: 8px;
-                transition: opacity 0.2s ease;
-                padding: 4px 8px;
-                border-radius: 3px;
-            }
-            
-            .igniter-admin-bar-user:hover {
-                opacity: 0.8;
-                background-color: rgba(255, 255, 255, 0.1);
-            }
-            
-            .igniter-admin-bar-user-img {
-                width: 24px;
-                height: 24px;
-                border-radius: 50%;
-                object-fit: cover;
-                flex-shrink: 0;
-            }
-            
-            .igniter-admin-bar-dropdown {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                background-color: #343a40;
-                border: 1px solid #dee2e6;
-                border-radius: 4px;
-                min-width: 160px;
-                z-index: 100000;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-                overflow: hidden;
-            }
-            
-            .igniter-admin-bar-user:hover .igniter-admin-bar-dropdown {
-                display: block;
-            }
-            
-            .igniter-admin-bar-dropdown a {
-                color: #ffffff;
-                text-decoration: none;
-                padding: 8px 16px;
-                display: block;
-                line-height: 1.5;
-                transition: background-color 0.2s ease;
-                border: none;
-            }
-            
-            .igniter-admin-bar-dropdown a:hover {
-                background-color: #495057;
-                color: #ffffff;
-            }
-            
-            /* Mobile responsiveness */
-            @media (max-width: 768px) {
-                .igniter-admin-bar-container {
-                    padding: 0 10px;
-                }
-                
-                .igniter-admin-bar-left {
-                    gap: 8px;
-                }
-                
-                .igniter-admin-bar-link span,
-                .igniter-admin-bar-user span {
-                    display: none;
-                }
-                
-                .igniter-admin-bar-link {
-                    padding: 6px;
-                }
-                
-                .igniter-admin-bar-user {
-                    padding: 6px;
-                }
-            }
-            
-            /* Very small screens */
-            @media (max-width: 480px) {
+        <div id="igniterAdminBarContainer">
+            <style>
+                /* Admin Bar Base Styles - Framework Agnostic */
                 .igniter-admin-bar {
-                    height: 36px;
-                    font-size: 13px;
-                }
-                
-                .igniter-admin-bar-logo,
-                .igniter-admin-bar-user-img {
-                    height: 20px;
-                    width: 20px;
-                }
-                
-                .igniter-admin-bar-icon {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    z-index: 99999;
+                    height: 40px;
+                    background-color: #343a40;
+                    color: #ffffff;
+                    padding: 0;
+                    border-bottom: 1px solid #dee2e6;
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
                     font-size: 14px;
-                    width: 14px;
-                    height: 14px;
+                    line-height: 1;
+                    box-sizing: border-box;
                 }
-            }
-        </style>
-        <div class="igniter-admin-bar">
-            <div class="igniter-admin-bar-container">
-                <div class="igniter-admin-bar-left">
-                    <img src="https://i.ibb.co/Pv4XWmxv/Igniter-CMS.jpg" alt="Admin Logo" class="igniter-admin-bar-logo">
-                    <a href="' . base_url('/account') . '" class="igniter-admin-bar-link" title="Dashboard">
-                        <i class="ri-dashboard-line igniter-admin-bar-icon"></i>
-                        <span>Dashboard</span>
-                    </a>
-                    <a href="' . $editLayoutPageUrl . '" class="igniter-admin-bar-link" title="Edit Layout">
-                        <i class="ri-layout-grid-line igniter-admin-bar-icon"></i>
-                        <span>Edit Layout</span>
-                    </a>
-                    <a href="' . $editPageUrl . '" class="igniter-admin-bar-link" title="Edit Current Page">
-                        <i class="ri-edit-line igniter-admin-bar-icon"></i>
-                        <span>Edit Current Page</span>
-                    </a>
-                </div>
-                <div class="igniter-admin-bar-user">
-                    <img src="' . $userImage . '" alt="User Profile" class="igniter-admin-bar-user-img">
-                    <span>Hello, ' . esc($sessionName) . '</span>
-                    <i class="ri-arrow-down-s-line igniter-admin-bar-icon"></i>
-                    <div class="igniter-admin-bar-dropdown">
-                        <a href="' . base_url('/account') . '">Dashboard</a>
-                        <a href="' . base_url('/sign-out') . '">Logout</a>
+
+                /* Reset any potential framework conflicts */
+                .igniter-admin-bar * {
+                    box-sizing: border-box;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                /* Generic fixed header adjustment - applies to common fixed header patterns */
+                header[class*="fixed"],
+                header[class*="sticky"],
+                .navbar-fixed,
+                .navbar-sticky,
+                nav[class*="fixed"],
+                nav[class*="sticky"],
+                .fixed-header,
+                .sticky-header {
+                    top: 40px !important;
+                }
+
+                /* Common navbar classes adjustment */
+                .navbar,
+                nav.navbar,
+                [class*="navbar"] {
+                    top: 40px !important;
+                }
+
+                /* Specific adjustments for common frameworks */
+                /* Bootstrap */
+                .navbar.fixed-top {
+                    top: 40px !important;
+                }
+
+                /* Tailwind */
+                .fixed.top-0 {
+                    top: 40px !important;
+                }
+
+                /* Foundation */
+                .title-bar,
+                .top-bar {
+                    top: 40px !important;
+                }
+
+                /* Bulma */
+                .navbar.is-fixed-top {
+                    top: 40px !important;
+                }
+
+                /* Materialize */
+                nav.fixed {
+                    top: 40px !important;
+                }
+
+                .igniter-admin-bar-container {
+                    max-width: 100%;
+                    margin: 0 auto;
+                    padding: 0 15px;
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                    justify-content: space-between;
+                }
+
+                .igniter-admin-bar-left {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .igniter-admin-bar-right {
+                    display: flex; /* Added for the close button */
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .igniter-admin-bar-logo {
+                    border-radius: 4px;
+                    height: 24px;
+                    width: 24px;
+                    display: block;
+                    flex-shrink: 0;
+                }
+
+                .igniter-admin-bar-link {
+                    color: #ffffff;
+                    text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    line-height: 1;
+                    gap: 6px;
+                    transition: opacity 0.2s ease;
+                    white-space: nowrap;
+                    padding: 4px 8px;
+                    border-radius: 3px;
+                }
+
+                .igniter-admin-bar-link:hover {
+                    color: #ffffff;
+                    opacity: 0.8;
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+
+                .igniter-admin-bar-icon {
+                    font-size: 16px;
+                    color: #ffffff;
+                    display: inline-flex;
+                    align-items: center;
+                    width: 16px;
+                    height: 16px;
+                    flex-shrink: 0;
+                }
+
+                .igniter-admin-bar-user {
+                    position: relative;
+                    color: #ffffff;
+                    text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    gap: 8px;
+                    transition: opacity 0.2s ease;
+                    padding: 4px 8px;
+                    border-radius: 3px;
+                }
+
+                .igniter-admin-bar-user:hover {
+                    opacity: 0.8;
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+
+                .igniter-admin-bar-user-img {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    flex-shrink: 0;
+                }
+
+                .igniter-admin-bar-dropdown {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    right: 0;
+                    background-color: #343a40;
+                    border: 1px solid #dee2e6;
+                    border-radius: 4px;
+                    min-width: 160px;
+                    z-index: 100000;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                    overflow: hidden;
+                }
+
+                .igniter-admin-bar-user:hover .igniter-admin-bar-dropdown {
+                    display: block;
+                }
+
+                .igniter-admin-bar-dropdown a {
+                    color: #ffffff;
+                    text-decoration: none;
+                    padding: 8px 16px;
+                    display: block;
+                    line-height: 1.5;
+                    transition: background-color 0.2s ease;
+                    border: none;
+                }
+
+                .igniter-admin-bar-dropdown a:hover {
+                    background-color: #495057;
+                    color: #ffffff;
+                }
+
+                /* Style for the close button */
+                .igniter-admin-bar-close {
+                    color: #ffffff;
+                    cursor: pointer;
+                    padding: 4px 8px;
+                    border-radius: 3px;
+                    transition: opacity 0.2s ease;
+                }
+
+                .igniter-admin-bar-close:hover {
+                    opacity: 0.8;
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+
+                /* Mobile responsiveness */
+                @media (max-width: 768px) {
+                    .igniter-admin-bar-container {
+                        padding: 0 10px;
+                    }
+
+                    .igniter-admin-bar-left {
+                        gap: 8px;
+                    }
+
+                    .igniter-admin-bar-link span,
+                    .igniter-admin-bar-user span {
+                        display: none;
+                    }
+
+                    .igniter-admin-bar-link {
+                        padding: 6px;
+                    }
+
+                    .igniter-admin-bar-user {
+                        padding: 6px;
+                    }
+
+                    .igniter-admin-bar-close span { /* Hide "Close" text on small screens */
+                        display: none;
+                    }
+                }
+
+                /* Very small screens */
+                @media (max-width: 480px) {
+                    .igniter-admin-bar {
+                        height: 36px;
+                        font-size: 13px;
+                    }
+
+                    .igniter-admin-bar-logo,
+                    .igniter-admin-bar-user-img {
+                        height: 20px;
+                        width: 20px;
+                    }
+
+                    .igniter-admin-bar-icon {
+                        font-size: 14px;
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+            </style>
+            <div class="igniter-admin-bar" id="igniterAdminBar">
+                <div class="igniter-admin-bar-container">
+                    <div class="igniter-admin-bar-left">
+                        <img src="https://i.ibb.co/Pv4XWmxv/Igniter-CMS.jpg" alt="Admin Logo" class="igniter-admin-bar-logo">
+                        <a href="' . base_url('/account') . '" class="igniter-admin-bar-link" title="Dashboard">
+                            <i class="ri-dashboard-line igniter-admin-bar-icon"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="' . $editLayoutPageUrl . '" class="igniter-admin-bar-link" title="Edit Layout">
+                            <i class="ri-layout-grid-line igniter-admin-bar-icon"></i>
+                            <span>Edit Layout</span>
+                        </a>
+                        <a href="' . $editPageUrl . '" class="igniter-admin-bar-link" title="Edit Current Page">
+                            <i class="ri-edit-line igniter-admin-bar-icon"></i>
+                            <span>Edit Current Page</span>
+                        </a>
+                    </div>
+                    <div class="igniter-admin-bar-right">
+                        <div class="igniter-admin-bar-user">
+                            <img src="' . $userImage . '" alt="User Profile" class="igniter-admin-bar-user-img">
+                            <span>Hello, ' . esc($sessionName) . '</span>
+                            <i class="ri-arrow-down-s-line igniter-admin-bar-icon"></i>
+                            <div class="igniter-admin-bar-dropdown">
+                                <a href="' . base_url('/account') . '">Dashboard</a>
+                                <a href="' . base_url('/sign-out') . '">Logout</a>
+                            </div>
+                        </div>
+                        <div class="igniter-admin-bar-close" id="igniterAdminBarClose">
+                            <i class="ri-close-large-fill igniter-admin-bar-icon"></i>
+                            <span>Close</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script>
-        // Auto-adjust fixed headers for admin bar
-        document.addEventListener("DOMContentLoaded", function() {
-            if (document.querySelector(".igniter-admin-bar")) {
-                // Find all fixed/sticky headers and adjust them
-                const fixedElements = document.querySelectorAll(
-                    "header, nav, .navbar, .header, [class*="fixed"], [class*="sticky"]"
-                );
-                
-                fixedElements.forEach(element => {
-                    const styles = window.getComputedStyle(element);
-                    const position = styles.position;
-                    const top = styles.top;
-                    
-                    if (position === "fixed" || position === "sticky") {
-                        element.style.top = "40px";
+            <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const adminBarContainer = document.getElementById("igniterAdminBarContainer"); // Target the main container
+                const closeButton = document.getElementById("igniterAdminBarClose");
+
+                if (adminBarContainer) { // Check if the container exists
+                    // IMPORTANT: Capture fixed elements *before* any modifications
+                    const fixedElements = document.querySelectorAll(
+                        "header, nav, .navbar, .header, [class*=\'fixed\'], [class*=\'sticky\']"
+                    );
+
+                    // Store original top values and apply new ones
+                    fixedElements.forEach(element => {
+                        const styles = window.getComputedStyle(element);
+                        const position = styles.position;
+                        const currentTop = parseFloat(styles.top);
+
+                        if ((position === "fixed" || position === "sticky") && (isNaN(currentTop) || currentTop === 0 || currentTop === 40)) {
+                            element.dataset.originalTop = styles.top; // Store original top for restoration
+                            element.style.top = "40px";
+                        }
+                    });
+
+                    // Add event listener to the close button
+                    if (closeButton) {
+                        closeButton.addEventListener("click", function() {
+                            adminBarContainer.remove(); // Remove the ENTIRE container (including style and admin bar)
+
+                            // Restore original \'top\' values to fixed elements
+                            fixedElements.forEach(element => {
+                                if (element.dataset.originalTop !== undefined) {
+                                    element.style.top = element.dataset.originalTop;
+                                } else {
+                                    const currentTop = parseFloat(window.getComputedStyle(element).top);
+                                    if (currentTop === 40) {
+                                        element.style.top = "0"; // Reset to default or initial state
+                                    }
+                                }
+                            });
+                        });
                     }
-                });
-            }
-        });
-        </script>
+                }
+            });
+            </script>
+        </div>
         ';
 
         return $adminBarHtml;

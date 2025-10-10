@@ -1,0 +1,527 @@
+/* ************ Root Variables ************ */
+:root {
+    --border-color: #e9ecef;
+    --dark-bg: #1c1c1c;
+}
+
+/* ************ Base Styles ************ */
+body {
+    font-family: "Poppins", sans-serif;
+    color: var(--default-color);
+    background-color: var(--background-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Montserrat", sans-serif;
+    color: var(--heading-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent-color);
+}
+
+a:hover {
+    color: #e0a800;
+}
+
+/* ************ Buttons ************ */
+.btn-primary {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--heading-color);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e0a800;
+    border-color: #e0a800;
+    color: var(--heading-color);
+}
+
+/* ************ Section Layout ************ */
+.section {
+    padding: 60px 0;
+    overflow: hidden;
+}
+
+/* ************ Preloader ************ */
+#preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+#preloader.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: var(--accent-color);
+}
+
+/* ************ Header / Navigation ************ */
+.header {
+    transition: all 0.5s ease;
+    z-index: 997;
+    padding: 20px 0;
+}
+
+.header a {
+    color: var(--contrast-color);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header.scrolled {
+    padding: 10px 0;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+}
+
+.header.scrolled a {
+    color: var(--heading-color);
+}
+
+.logo img {
+    height: 40px;
+}
+
+.navmenu a {
+    padding: 10px 15px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navmenu a:hover {
+    color: var(--accent-color);
+}
+
+.header.scrolled .navmenu a:hover {
+    color: var(--accent-color);
+}
+
+/* ************ Hero Section ************ */
+#hero {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.4);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--contrast-color);
+}
+
+.hero-content h1 {
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-weight: 700;
+    color: var(--contrast-color);
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto 20px;
+}
+
+/* ************ Section Headers ************ */
+.section-header {
+    text-align: center;
+    padding-bottom: 60px;
+}
+
+.section-header h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.section-header p {
+    max-width: 700px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+/* ************ About Section ************ */
+#about {
+    background-color: var(--surface-color);
+}
+
+/* ************ Why Choose Us Section ************ */
+#why-choose {
+    background-color: var(--dark-bg);
+    color: var(--contrast-color);
+}
+
+#why-choose h2,
+#why-choose p {
+    color: var(--contrast-color);
+}
+
+.why-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.why-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.why-card .icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+/* ************ Choose Program Section ************ */
+.program-card {
+    background: var(--surface-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.program-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.program-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.program-card .card-body {
+    padding: 30px;
+}
+
+/* ************ Classes Section ************ */
+#classes {
+    background-color: var(--background-color);
+}
+
+.classes-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.classes-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.classes-card:hover img {
+    transform: scale(1.05);
+}
+
+.classes-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--contrast-color);
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.classes-card:hover .classes-info {
+    transform: translateY(0);
+}
+
+/* ************ Class Schedule Section ************ */
+.schedule-table {
+    background: var(--surface-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.schedule-table th,
+.schedule-table td {
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.schedule-table thead th {
+    background-color: var(--dark-bg);
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.class-item {
+    background-color: var(--accent-color);
+    color: var(--heading-color);
+    border-radius: 5px;
+    padding: 8px;
+    margin: 2px;
+    display: inline-block;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+/* ************ Our Expert Trainers Section ************ */
+.trainer-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.trainer-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.trainer-card:hover img {
+    transform: scale(1.05);
+}
+
+.trainer-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--contrast-color);
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.trainer-card:hover .trainer-info {
+    transform: translateY(0);
+}
+
+/* ************ Blog Section ************ */
+.blog-card {
+    background: var(--surface-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.blog-card:hover {
+    transform: translateY(-10px);
+}
+
+.blog-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.blog-card .card-body {
+    padding: 20px;
+}
+
+.blog-card .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.blog-card .read-more {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* ************ Testimonials Section ************ */
+#testimonials {
+    background-color: var(--dark-bg);
+    color: var(--contrast-color);
+}
+
+#testimonials .section-header h2,
+#testimonials .section-header p {
+    color: var(--contrast-color);
+}
+
+.testimonial-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.testimonial-item p {
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.testimonial-item h4 {
+    color: var(--accent-color);
+    margin-bottom: 5px;
+}
+
+.testimonial-item .swiper-pagination {
+    margin-top: 30px;
+    position: static;
+}
+
+/* ************ CTA Section ************ */
+#cta {
+    background-color: var(--accent-color);
+    text-align: center;
+    padding: 80px 0;
+}
+
+#cta h2 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--heading-color);
+}
+
+#cta p {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    font-weight: 500;
+    color: var(--default-color);
+}
+
+/* ************ Contact Section ************ */
+#contact {
+    background-color: var(--surface-color);
+}
+
+.contact-info-card {
+    background: var(--background-color);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.contact-info-card .icon {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-right: 20px;
+}
+
+.contact-form {
+    background: var(--surface-color);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ************ Footer ************ */
+footer {
+    background-color: var(--heading-color);
+    color: #ddd;
+    padding: 50px 0;
+}
+
+footer h4 {
+    color: var(--contrast-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+footer a {
+    color: #ddd;
+}
+
+footer a:hover {
+    color: var(--accent-color);
+}
+
+.social-links a {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* ************ Scroll to Top Button ************ */
+.scroll-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    color: var(--heading-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.scroll-top.show {
+    opacity: 1;
+    visibility: visible;
+}
