@@ -20,4 +20,12 @@ jobs:
           server-dir: /
           # 👇 Add the exclude parameter here
           exclude: |
+<<<<<<< HEAD
             install/database.sql
+=======
+            install/database.sql 
+            # You can add other files/folders you want to ignore below
+            # .git*
+            # .github/
+            # node_modules/
+>>>>>>> 8c1f740a4bc5b6add0a5c9eb4f7f286507a1df73
