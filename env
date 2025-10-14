@@ -129,6 +129,8 @@ FEATURE_FLAG_EXEMPTIONS="exempt-user1@example.com,exempt-user2@example.com"
 FEATURE_BACK_END=true
 FEATURE_FRONT_END=true
 FEATURE_CMS=true
+FEATURE_FORMS=true
+FEATURE_FILE_EDITOR=true
 FEATURE_APPEARANCE=true
 FEATURE_FILE_MANAGER=true
 FEATURE_CONTENT_BLOCKS=true
@@ -160,7 +162,7 @@ MAILJET_SECRET_KEY = "your-mailjet-secret-key"
 # OTHER SETTINGS
 #--------------------------------------------------------------------
 APP_NAME = "Igniter CMS App"
-APP_VERSION = 1.2.0
+APP_VERSION = 2.0.1
 APP_KEY=your-app-id
 APP_USE_CAPTCHA = "No"
 APP_API_KEY = "default"

@@ -632,7 +632,7 @@ class CMSController extends BaseController
             'data_group_list' => 'required',
         ];
     
-        $codeId = $this->request->getPost('data_group_id');
+        $dataGroupId = $this->request->getPost('data_group_id');
         $data['data_group_data'] = $dataGroupsModel->where('data_group_id', $dataGroupId)->first();
     
         if($this->validate($rules)){
@@ -652,7 +652,7 @@ class CMSController extends BaseController
             session()->setFlashdata('successAlert', $editSuccessMsg);
     
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::DATA_GROUP_UPDATE, 'Data group updated with id: ' . $codeId);
+            logActivity($loggedInUserId, ActivityTypes::DATA_GROUP_UPDATE, 'Data group updated with id: ' . $dataGroupId);
     
             return redirect()->to('/account/cms/data-groups');
         }

@@ -95,6 +95,24 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->post('cms/data-groups/edit-data-group', 'CMSController::updateDataGroup');
 	}
 
+    if (isFeatureEnabled('FEATURE_FORMS')) {
+        #####============================= FORMS MODULE =============================#####
+        #FORMS
+        $routes->get('forms', 'FormsController::index');
+        $routes->get('forms/contact-forms', 'FormsController::contactForms');
+        $routes->get('forms/booking-forms', 'FormsController::bookingForms');
+        $routes->get('forms/subscription-forms', 'FormsController::subscriptionForms');
+        $routes->get('forms/form-fields', 'FormsController::formFields');
+        $routes->get('forms/form-settings', 'FormsController::formSettings');
+        // POST routes for form actions
+        $routes->post('forms/contact-forms/save', 'FormsController::saveContactForm');
+        $routes->post('forms/booking-forms/save', 'FormsController::saveBookingForm');
+        $routes->post('forms/subscription-forms/save', 'FormsController::saveSubscriptionForm');
+        $routes->post('forms/form-fields/save', 'FormsController::saveFormField');
+        $routes->post('forms/form-settings/save', 'FormsController::saveFormSettings');
+    }
+
+
     if (isFeatureEnabled('FEATURE_CONTENT_BLOCKS')) {
         #####============================= CMS-CONTENT BLOCKS MODULE =============================#####
         #CMS-CONTENT BLOCKS
@@ -109,7 +127,7 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
     if (isFeatureEnabled('FEATURE_FILE_MANAGER')) {
         #####============================= FILE MANAGER MODULE =============================#####
         #FILE MANAGER
-        $routes->get('file-manager/', 'FileManagerController::index');
+        $routes->get('file-manager', 'FileManagerController::index');
         $routes->post('file-manager/renameFile', 'FileManagerController::renameFile');
         $routes->post('file-manager/deleteFile', 'FileManagerController::deleteFile');
         $routes->post('file-manager/uploadFiles', 'FileManagerController::uploadFiles');

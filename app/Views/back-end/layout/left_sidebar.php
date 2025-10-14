@@ -221,6 +221,8 @@ $userRole = getUserRole($sessionEmail);
                     <img src="<?=getImageUrl(getUserData(getLoggedInUserId(), "profile_picture") ?? getDefaultProfileImagePath())?>" class="rounded-circle" alt="Logged-In User" width="35" height="35">
                     <?= $sessionName ?> (<?=$userRole?>)
                 </span>
+                <br/>
+                <span class="small">Version <?=env("APP_VERSION")?></span>
             </div>
         </nav>
     </div>     
