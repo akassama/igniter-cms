@@ -450,7 +450,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'MaxUploadFileSize',
-                'config_value' => '1',
+                'config_value' => '10',
                 'group' => 'site',
                 'data_type' => 'Select',
                 'options' => '1,3,5,10,50,100,1000',
