@@ -37,7 +37,10 @@ echo generateBreadcrumb($breadcrumb_links);
                 </span>
             </div>
             <div class="card-body">
-                <div class="d-grid gap-3">
+                <div class="d-grid gap-2">
+                    <div class="alert alert-warning">
+                        <p><strong>Note:</strong> This easy-to-use backup feature is best suited for websites under 1 GB of data. For sites with more than 1 GB of images and files, you should use the more robust backup tools offered by your hosting or VPS provider.</p>
+                    </div>
                     <a href="<?= base_url('account/admin/backups/generate-db-backup')?>" class="btn btn-outline-primary btn-block">
                         <i class="ri-database-2-fill"></i>
                         Generate Backup

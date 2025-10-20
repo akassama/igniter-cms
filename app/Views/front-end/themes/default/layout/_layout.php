@@ -190,7 +190,7 @@ $adminBar = renderAdminBar();
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                     <a class="d-flex align-items-center mb-3 text-white text-decoration-none">
-                        <img src="https://assets.aktools.net/image-stocks/logos/ak-themes-logo-2.png" alt="GEXPOTECH Logo" height="40">
+                        <img src="<?=getImageUrl(getConfigData("SiteLogoLink") ?? getDefaultImagePath())?>" alt="<?=getConfigData("SiteLogoLink")?> Logo" height="50">
                     </a>
                     <p class="small">Your trusted partner for comprehensive IT solutions and services. Empowering businesses through technology since 2010.</p>
                 </div>
