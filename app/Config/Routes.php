@@ -112,6 +112,8 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->post('forms/booking-forms/edit-notes', 'FormsController::updateBookingNotes');
         $routes->post('forms/booking-forms/edit-booking', 'FormsController::updateBooking');
         $routes->get('forms/subscription-forms', 'FormsController::subscriptionForms');
+        $routes->get('forms/subscription-forms/unsubscribed', 'FormsController::unsubscribedForms');
+        $routes->post('forms/subscription-forms/edit-subscriber', 'FormsController::updateSubscriber');
     }
 
 

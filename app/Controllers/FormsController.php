@@ -346,6 +346,66 @@ class FormsController extends BaseController
         return view('back-end/forms/subscription-forms/index', $data);
     }
 
+    public function unsubscribedForms()
+    {
+        $tableName = 'subscription_form_submissions';
+        $subscriptionFormsModel = new SubscriptionFormsModel();
+
+        // Set data to pass in view
+        $data = [
+            'subscription_form_submissions' => $subscriptionFormsModel
+                ->where('status =', 'Unsubscribed')
+                ->orderBy('created_at', 'DESC')
+                ->paginate((int) env('QUERY_LIMIT_ULTRA_MAX', 10000)),
+
+            'pager' => $subscriptionFormsModel->pager,
+            'total_subscription_form_submissions' => $subscriptionFormsModel->pager->getTotal(),
+        ];
+
+        return view('back-end/forms/subscription-forms/unsubscribed', $data);
+    }
+
+    public function updateSubscriber()
+    {
+        $subscriptionFormsModel = new SubscriptionFormsModel();
+
+        $rules = [
+            'subscription_form_id' => 'required',
+            'email'        => 'required|valid_email|max_length[255]',
+            'name'         => 'permit_empty|max_length[255]',
+            'first_name'   => 'permit_empty|max_length[100]',
+            'last_name'    => 'permit_empty|max_length[100]',
+            'phone'        => 'permit_empty|max_length[50]',
+            'status'       => 'required|in_list[Pending Confirmation,Active,Unsubscribed,Bounced]',
+        ];
+
+        if (! $this->validate($rules)) {
+            session()->setFlashdata('toastrErrorAlert', 'Invalid input. Please check and try again.');
+            return redirect()->back()->withInput();
+        }
+
+        $subscriptionFormId = $this->request->getPost('subscription_form_id');
+        $payload = [
+            'email'       => $this->request->getPost('email'),
+            'name'        => $this->request->getPost('name') ?: null,
+            'first_name'  => $this->request->getPost('first_name') ?: null,
+            'last_name'   => $this->request->getPost('last_name') ?: null,
+            'phone'       => $this->request->getPost('phone') ?: null,
+            'status'      => $this->request->getPost('status'),
+        ];
+
+        try {
+            $subscriptionFormsModel->where('subscription_form_id', $subscriptionFormId)->set($payload)->update();
+
+            session()->setFlashdata('toastrSuccessAlert', 'Subscriber updated successfully.');
+            return redirect()->to(base_url('account/forms/subscription-forms'));
+        } catch (\Throwable $e) {
+            log_message('error', 'Update subscriber failed: ' . $e->getMessage());
+            session()->setFlashdata('toastrErrorAlert', 'Failed to update subscriber. Please try again.');
+            return redirect()->back()->withInput();
+        }
+    }
+
     /**
      * Small helper to normalize empty strings to null.
      */

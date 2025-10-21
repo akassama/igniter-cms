@@ -253,3 +253,12 @@ tippy(".remove-booking", {
   content: "Remove booking",
   placement: "top",
 });
+//Subscriber
+tippy(".edit-subscriber", {
+  content: "Edit subscriber",
+  placement: "top",
+});
+tippy(".remove-subscriber", {
+  content: "Remove subscriber",
+  placement: "top",
+});
