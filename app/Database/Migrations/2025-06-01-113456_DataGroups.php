@@ -48,29 +48,56 @@ class DataGroups extends Migration
             [
                 'data_group_id' => getGUID(),
                 'data_group_for'    => 'Page',
-                'data_group_list'    => 'business,ecommerce,restaurant,general',
-                //'data_group_list'    => 'business,ecommerce,portfolio,news,event,educational,restaurant,health,directory,entertainment,general',
+                'data_group_list'    => 'general,site',
                 'deletable'    => 0,
                 'created_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'data_group_id' => getGUID(),
                 'data_group_for'    => 'Category',
-                'data_group_list'    => 'business,ecommerce,restaurant,general',
+                'data_group_list'    => 'general,business,portfolio',
                 'deletable'    => 0,
                 'created_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'data_group_id' => getGUID(),
                 'data_group_for'    => 'Navigation',
-                'data_group_list'    => "top_nav,charity,services,footer_nav,business,ecommerce,restaurant,general",
+                'data_group_list'    => "general,top_nav,services,footer_nav",
                 'deletable'    => 0,
                 'created_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'data_group_id' => getGUID(),
                 'data_group_for'    => 'ContentBlock',
-                'data_group_list'    => 'business,ecommerce,restaurant,general',
+                'data_group_list'    => 'general',
+                'deletable'    => 0,
+                'created_by' => getGUID(getDefaultAdminGUID())
+            ],
+            [
+                'data_group_id' => getGUID(),
+                'data_group_for'    => 'ContactFomrStatus',
+                'data_group_list'    => "New,In Progress,Resolved,Archived",
+                'deletable'    => 0,
+                'created_by' => getGUID(getDefaultAdminGUID())
+            ],
+            [
+                'data_group_id' => getGUID(),
+                'data_group_for'    => 'BookingFomrStatus',
+                'data_group_list'    => "Pending,Confirmed,Cancelled",
+                'deletable'    => 0,
+                'created_by' => getGUID(getDefaultAdminGUID())
+            ],
+            [
+                'data_group_id' => getGUID(),
+                'data_group_for'    => 'BookingFomrPaymentStatus',
+                'data_group_list'    => "None,Unpain,Paid,Refunded",
+                'deletable'    => 0,
+                'created_by' => getGUID(getDefaultAdminGUID())
+            ],
+            [
+                'data_group_id' => getGUID(),
+                'data_group_for'    => 'SubscriptionFomrStatus',
+                'data_group_list'    => "Pending Confirmation,Active,Unsubscribed,Bounced",
                 'deletable'    => 0,
                 'created_by' => getGUID(getDefaultAdminGUID())
             ],

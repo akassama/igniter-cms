@@ -300,14 +300,14 @@ class HtmxController extends BaseController
     public function setMessageReadStatus()
     {
         $readStatus = $this->request->getPost('read_status');
-        $contactMessageId = $this->request->getPost('contact_message_id');
+        $contactMessageId = $this->request->getPost('contact_form_id');
 
         $readValue = (empty($readStatus) || $readStatus == "0") ? 1 : 0;
 
         //mark as read
         $updateColumn =  "'is_read' = '$readValue'";
-        $updateWhereClause = "contact_message_id = '$contactMessageId'";
-        $result = updateRecordColumn("contact_messages", $updateColumn, $updateWhereClause);
+        $updateWhereClause = "contact_form_id = '$contactMessageId'";
+        $result = updateRecordColumn("contact_form_submissions", $updateColumn, $updateWhereClause);
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
         exit();

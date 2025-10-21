@@ -100,16 +100,18 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         #FORMS
         $routes->get('forms', 'FormsController::index');
         $routes->get('forms/contact-forms', 'FormsController::contactForms');
+        $routes->get('forms/contact-forms/view-contact/(:any)', 'FormsController::viewContactMessage/$1');
+        $routes->post('forms/contact-forms/edit-notes', 'FormsController::updateContactNotes');
+        $routes->post('forms/contact-forms/edit-status', 'FormsController::updateContactStatus');
+        $routes->get('forms/contact-forms/archive-contact/(:any)', 'FormsController::archiveContactMessage/$1');
+        $routes->get('forms/contact-forms/archived', 'FormsController::archivedMessages');
+        $routes->get('forms/contact-forms/unarchive-contact/(:any)', 'FormsController::unArchiveContactMessage/$1');
         $routes->get('forms/booking-forms', 'FormsController::bookingForms');
+        $routes->get('forms/booking-forms/expired-bookings', 'FormsController::expiredBookingForms');
+        $routes->get('forms/booking-forms/view-booking/(:any)', 'FormsController::viewBooking/$1');
+        $routes->post('forms/booking-forms/edit-notes', 'FormsController::updateBookingNotes');
+        $routes->post('forms/booking-forms/edit-booking', 'FormsController::updateBooking');
         $routes->get('forms/subscription-forms', 'FormsController::subscriptionForms');
-        $routes->get('forms/form-fields', 'FormsController::formFields');
-        $routes->get('forms/form-settings', 'FormsController::formSettings');
-        // POST routes for form actions
-        $routes->post('forms/contact-forms/save', 'FormsController::saveContactForm');
-        $routes->post('forms/booking-forms/save', 'FormsController::saveBookingForm');
-        $routes->post('forms/subscription-forms/save', 'FormsController::saveSubscriptionForm');
-        $routes->post('forms/form-fields/save', 'FormsController::saveFormField');
-        $routes->post('forms/form-settings/save', 'FormsController::saveFormSettings');
     }
 
 

@@ -42,6 +42,9 @@ $session = session();
 <!-- Include sweet_alerts-->
 <?=  $this->include('back-end/layout/assets/sweet_alerts.php'); ?>
 
+<!-- Include toastr_alerts-->
+<?=  $this->include('back-end/layout/assets/toastr_alerts.php'); ?>
+
 <!--Load Plugin Helpers-->
 <?=loadPlugin("admin")?>
 </body>

@@ -19,6 +19,10 @@ $userRole = getUserRole($sessionEmail);
                 // Click the button with id "cmsButton"
                 document.getElementById("cmsButton").click();
             }
+            else if (current_url.includes("account/forms")) {
+                // Click the button with id "formsButton"
+                document.getElementById("formsButton").click();
+            }
             else if (current_url.includes("account/settings")) {
                 // Click the button with id "settingsButton"
                 document.getElementById("settingsButton").click();
@@ -76,6 +80,28 @@ $userRole = getUserRole($sessionEmail);
                                 </a>
                             </nav>
                         </div>                    
+                    <?php endif; ?>
+
+                    <?php if (isFeatureEnabled('FEATURE_FORMS')): ?>
+                        <!--Forms Feature Nav Links-->
+                        <a class="nav-link collapsed <?= (str_contains(current_url(), 'account/forms')) ? 'active' : ''; ?>" href="#" data-bs-toggle="collapse" data-bs-target="#collapseForms" aria-expanded="false" aria-controls="collapseForms" id="formsButton">
+                            <div class="sb-nav-link-icon"><i class="ri-news-line h5"></i></div>
+                            Forms
+                            <div class="sb-sidenav-collapse-arrow"><i class="ri-arrow-down-s-fill"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseForms" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link <?= (str_contains(current_url(), 'account/forms/contact-forms')) ? 'active' : ''; ?>" href="<?= base_url('/account/forms/contact-forms'); ?>">
+                                    <i class="ri-arrow-drop-right-fill"></i> Contact
+                                </a>
+                                <a class="nav-link <?= (str_contains(current_url(), 'account/forms/booking-forms')) ? 'active' : ''; ?>" href="<?= base_url('/account/forms/booking-forms'); ?>">
+                                    <i class="ri-arrow-drop-right-fill"></i> Bookings
+                                </a>
+                                <a class="nav-link <?= (str_contains(current_url(), 'account/forms/subscription-forms')) ? 'active' : ''; ?>" href="<?= base_url('/account/forms/subscription-forms'); ?>">
+                                    <i class="ri-arrow-drop-right-fill"></i> Subscription
+                                </a>
+                            </nav>
+                        </div>
                     <?php endif; ?>
 
                     <?php if (isFeatureEnabled('FEATURE_FILE_MANAGER')): ?>

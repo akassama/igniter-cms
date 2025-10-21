@@ -58,8 +58,8 @@ class ServicesController extends BaseController
                 }
             }
 
-            $createSuccessMsg = config('CustomConfig')->deleteSuccessMsg;
-            session()->setFlashdata('successAlert', $createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Data', config('CustomConfig')->deleteSuccessMsg);
+            session()->setFlashdata('toastrSuccessAlert', $createSuccessMsg);
 
             //log activity
             logActivity($loggedInUserId, ActivityTypes::DELETE_LOG, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue);
@@ -126,8 +126,8 @@ class ServicesController extends BaseController
                 }
             }
 
-            $createSuccessMsg = config('CustomConfig')->deleteSuccessMsg;
-            session()->setFlashdata('successAlert', $createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Data', config('CustomConfig')->deleteSuccessMsg);
+            session()->setFlashdata('toastrSuccessAlert', $createSuccessMsg);
 
             //log activity
             logActivity($loggedInUserId, ActivityTypes::FILE_DELETION, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue);
@@ -187,8 +187,8 @@ class ServicesController extends BaseController
             } 
           }
 
-          $createSuccessMsg = config('CustomConfig')->deleteSuccessMsg;
-          session()->setFlashdata('successAlert', $createSuccessMsg);
+          $createSuccessMsg = str_replace('[Record]', 'Data', config('CustomConfig')->deleteSuccessMsg);
+          session()->setFlashdata('toastrSuccessAlert', $createSuccessMsg);
 
           //log activity
           logActivity($loggedInUserId, ActivityTypes::FILE_DELETION, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue);
