@@ -272,11 +272,26 @@ class ServicesController extends BaseController
         $result = updateRecordColumn("subscription_form_submissions", $updateColumn, $updateWhereClause);
 
         if ($result) {
-            http_response_code(200);
-            echo json_encode(['success' => true, 'message' => 'You have unsubscribed and will no longer receive messages from this service.']);
+            $resubscribeUrl = base_url("services/resubscribe?identifier=" . urlencode($identifier));
+            echo "<!DOCTYPE html>
+            <html>
+            <head><title>Unsubscribed</title></head>
+            <body style='font-family: Arial, sans-serif; padding: 2rem;'>
+                <h2>You have been unsubscribed</h2>
+                <p>You will no longer receive messages from this service.</p>
+                <p>If you unsubscribed by mistake, you can <a href='{$resubscribeUrl}'>click here to re-subscribe</a>.</p>
+            </body>
+            </html>";
         } else {
             http_response_code(500);
-            echo json_encode(['success' => false, 'message' => 'Unable to process your unsubscribe request.']);
+            echo "<!DOCTYPE html>
+            <html>
+            <head><title>Error</title></head>
+            <body style='font-family: Arial, sans-serif; padding: 2rem;'>
+                <h2>Unsubscribe Failed</h2>
+                <p>We were unable to process your unsubscribe request. Please try again later.</p>
+            </body>
+            </html>";
         }
     }
 
@@ -300,11 +315,24 @@ class ServicesController extends BaseController
         $result = updateRecordColumn("subscription_form_submissions", $updateColumn, $updateWhereClause);
 
         if ($result) {
-            http_response_code(200);
-            echo json_encode(['success' => true, 'message' => 'You have re-subscribed and would now be receiving messages from this service.']);
+            echo "<!DOCTYPE html>
+            <html>
+            <head><title>Re-subscribed</title></head>
+            <body style='font-family: Arial, sans-serif; padding: 2rem;'>
+                <h2>You have been re-subscribed</h2>
+                <p>You will now receive messages from this service again.</p>
+            </body>
+            </html>";
         } else {
             http_response_code(500);
-            echo json_encode(['success' => false, 'message' => 'Unable to process your resubscribe request.']);
+            echo "<!DOCTYPE html>
+            <html>
+            <head><title>Error</title></head>
+            <body style='font-family: Arial, sans-serif; padding: 2rem;'>
+                <h2>Re-subscribe Failed</h2>
+                <p>We were unable to process your re-subscribe request. Please try again later.</p>
+            </body>
+            </html>";
         }
     }
 
