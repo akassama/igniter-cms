@@ -251,4 +251,61 @@ class ServicesController extends BaseController
             echo json_encode(['success' => false, 'message' => 'An error occurred while removing the record(s).']);
         }
     }
+
+    /**
+     * Unsubscribes a user from the service using either a subscription UUID or email address.
+     *
+     * Accepts a query parameter `identifier`, which can be a UUID or an email.
+     * Example: /services/unsubscribe?identifier=user@example.com
+     *
+     * @return void
+     */
+    public function unsubscribe()
+    {
+        $identifier = $this->request->getGet('identifier');
+
+        $updateColumn = "'status' = 'Unsubscribed'";
+        $updateWhereClause = isValidGUID($identifier)
+            ? "subscription_form_id = '$identifier'"
+            : "email = '$identifier'";
+
+        $result = updateRecordColumn("subscription_form_submissions", $updateColumn, $updateWhereClause);
+
+        if ($result) {
+            http_response_code(200);
+            echo json_encode(['success' => true, 'message' => 'You have unsubscribed and will no longer receive messages from this service.']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'message' => 'Unable to process your unsubscribe request.']);
+        }
+    }
+
+    /**
+     * Resubscribes a user to the service using either a subscription UUID or email address.
+     *
+     * Accepts a query parameter `identifier`, which can be a UUID or an email.
+     * Example: /services/resubscribe?identifier=user@example.com
+     *
+     * @return void
+     */
+    public function resubscribe()
+    {
+        $identifier = $this->request->getGet('identifier');
+
+        $updateColumn = "'status' = 'Active'";
+        $updateWhereClause = isValidGUID($identifier)
+            ? "subscription_form_id = '$identifier'"
+            : "email = '$identifier'";
+
+        $result = updateRecordColumn("subscription_form_submissions", $updateColumn, $updateWhereClause);
+
+        if ($result) {
+            http_response_code(200);
+            echo json_encode(['success' => true, 'message' => 'You have re-subscribed and would now be receiving messages from this service.']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'message' => 'Unable to process your resubscribe request.']);
+        }
+    }
+
 }

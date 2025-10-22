@@ -34,10 +34,10 @@ $routes->group('password-reset', ['filter' => ['siteStatsFilter','guestFilter','
 });
 
 //UNSUBSCRIBE
-$routes->get('services/unsubscribe/(:any)', 'ServicesController::unsubscribe/$1');
+$routes->get('services/unsubscribe', 'ServicesController::unsubscribe');
 
 //RE-SUBSCRIBE
-$routes->get('services/resubscribe/(:any)', 'ServicesController::resubscribe/$1');
+$routes->get('services/resubscribe', 'ServicesController::resubscribe');
 
 //ACCOUNT
 $routes->get('/account', 'AccountController::index', ['filter' => 'authFilter']);
