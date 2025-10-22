@@ -1146,9 +1146,6 @@ class AdminController extends BaseController
             }
             
         } catch (\Exception $e) { 
-
-            var_dump($e->getMessage());
-            exit();
             // Set flash message and redirect
             $errorMsg = config('CustomConfig')->errorMsg;
             session()->setFlashdata('errorAlert', $errorMsg);

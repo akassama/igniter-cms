@@ -26,7 +26,7 @@ class ActivityTypes
     const FAILED_USER_UPDATE = 'failed_user_update';
     const USER_DELETION = 'user_delete';
 
-    //USER LOGS
+    //FILE LOGS
     const FILE_UPLOADED = 'file_uploaded';
     const FILE_EDITED = 'file_edited';
     const FAILED_FILE_UPLOAD = 'failed_file_upload';
@@ -158,6 +158,33 @@ class ActivityTypes
     const PLUGIN_UPDATE = 'plugin_updated';
     const FAILED_PLUGIN_UPDATE = 'failed_plugin_update';
     const PLUGIN_DELETION = 'plugin_delete';
+
+    // CONTACT FORM LOGS
+    const CONTACT_FORM_SUBMISSION = 'contact_form_submitted';
+    const FAILED_CONTACT_FORM_SUBMISSION = 'failed_contact_form_submission';
+    const CONTACT_FORM_UPDATE = 'contact_form_updated';
+    const FAILED_CONTACT_FORM_UPDATE = 'failed_contact_form_update';
+    const CONTACT_FORM_DELETION = 'contact_form_deleted';
+    const FAILED_CONTACT_FORM_DELETION = 'failed_contact_form_deletion';
+    const CONTACT_FORM_ARCHIVED = 'contact_form_archived';
+    const CONTACT_FORM_UNARCHIVED = 'contact_form_unarchived';
+
+    // BOOKING FORM LOGS
+    const BOOKING_FORM_SUBMISSION = 'booking_form_submitted';
+    const FAILED_BOOKING_FORM_SUBMISSION = 'failed_booking_form_submission';
+    const BOOKING_FORM_UPDATE = 'booking_form_updated';
+    const FAILED_BOOKING_FORM_UPDATE = 'failed_booking_form_update';
+    const BOOKING_FORM_DELETION = 'booking_form_deleted';
+    const FAILED_BOOKING_FORM_DELETION = 'failed_booking_form_deletion';
+
+    // SUBSCRIPTION FORM LOGS
+    const SUBSCRIPTION_FORM_SUBMISSION = 'subscription_form_submitted';
+    const FAILED_SUBSCRIPTION_FORM_SUBMISSION = 'failed_subscription_form_submission';
+    const SUBSCRIPTION_FORM_UPDATE = 'subscription_form_updated';
+    const FAILED_SUBSCRIPTION_FORM_UPDATE = 'failed_subscription_form_update';
+    const SUBSCRIPTION_FORM_DELETION = 'subscription_form_deleted';
+    const FAILED_SUBSCRIPTION_FORM_DELETION = 'failed_subscription_form_deletion';
+
 
     // Add more activity types as needed
 
@@ -312,6 +339,31 @@ class ActivityTypes
             self::FAILED_PLUGIN_UPDATE => 'Plugin Update Failed',
             self::PLUGIN_CREATION => 'Plugin Deletion',
 
+            // Contact Form
+            self::CONTACT_FORM_SUBMISSION => 'Contact Form Submitted',
+            self::FAILED_CONTACT_FORM_SUBMISSION => 'Contact Form Submission Failed',
+            self::CONTACT_FORM_UPDATE => 'Contact Form Updated',
+            self::FAILED_CONTACT_FORM_UPDATE => 'Contact Form Update Failed',
+            self::CONTACT_FORM_DELETION => 'Contact Form Deleted',
+            self::FAILED_CONTACT_FORM_DELETION => 'Contact Form Deletion Failed',
+            self::CONTACT_FORM_ARCHIVED => 'Contact Form Archived',
+            self::CONTACT_FORM_UNARCHIVED => 'Contact Form Unarchived',
+
+            // Booking Form
+            self::BOOKING_FORM_SUBMISSION => 'Booking Form Submitted',
+            self::FAILED_BOOKING_FORM_SUBMISSION => 'Booking Form Submission Failed',
+            self::BOOKING_FORM_UPDATE => 'Booking Form Updated',
+            self::FAILED_BOOKING_FORM_UPDATE => 'Booking Form Update Failed',
+            self::BOOKING_FORM_DELETION => 'Booking Form Deleted',
+            self::FAILED_BOOKING_FORM_DELETION => 'Booking Form Deletion Failed',
+
+            // Subscription Form
+            self::SUBSCRIPTION_FORM_SUBMISSION => 'Subscription Form Submitted',
+            self::FAILED_SUBSCRIPTION_FORM_SUBMISSION => 'Subscription Form Submission Failed',
+            self::SUBSCRIPTION_FORM_UPDATE => 'Subscription Form Updated',
+            self::FAILED_SUBSCRIPTION_FORM_UPDATE => 'Subscription Form Update Failed',
+            self::SUBSCRIPTION_FORM_DELETION => 'Subscription Form Deleted',
+            self::FAILED_SUBSCRIPTION_FORM_DELETION => 'Subscription Form Deletion Failed',
 
             // Add more descriptions as needed
         ];

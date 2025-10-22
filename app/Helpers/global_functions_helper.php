@@ -1933,3 +1933,27 @@ if (!function_exists('formatAiResponse')) {
         return $response;
     }
 }
+
+
+/**
+ * Sanitize/Clean user input for search queries
+ *
+ * @param string $input
+ * @return string
+ */
+if (!function_exists('sanitizeSearchInput')) {
+    function sanitizeSearchInput($input)
+    {
+        // Remove HTML tags
+        $input = strip_tags($input);
+
+        // Remove non-printable characters
+        $input = preg_replace('/[\x00-\x1F\x7F]/u', '', $input);
+
+        // Escape special SQL wildcard characters
+        $input = str_replace(['%', '_'], ['\%', '\_'], $input);
+
+        // Trim whitespace
+        return trim($input);
+    }
+}

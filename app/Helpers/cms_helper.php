@@ -1596,6 +1596,27 @@ if (!function_exists('getDataGroupOptions')) {
     }
 }
 
+/**
+ * Fetches and displays data group list.
+ *
+ * @param int|null $data groupId The ID of the data group to be selected (optional).
+ * @return void
+ */
+if (!function_exists('getDataGroupList')) {
+    function getDataGroupList($dataGroupFor = null)
+    {
+        if(empty($dataGroupFor)){
+            return "";
+        }
+
+        $optionsList = "";
+        $whereClause = ['data_group_for' => $dataGroupFor];
+        $dataGrouList = getTableData('data_groups', $whereClause, 'data_group_list');
+
+        return $dataGrouList;
+    }
+}
+
 
 /**
  * Gets the countries as select options.
@@ -2979,6 +3000,35 @@ if (!function_exists('updateTotalViewCount')) {
         } catch (\Exception $e) {
             $db->transRollback(); // Rollback transaction on error
             log_message('error', $e->getMessage());
+        }
+    }
+}
+
+/**
+ * Get a badge indicating the booking date status.
+ *
+ * @param string $date Booking date in 'YYYY-MM-DD' format.
+ * @return string Badge HTML string representing the booking date status.
+ */
+if (!function_exists('getBookingDateBadge')) {
+    function getBookingDateBadge($date) {
+        // Get current date
+        $today = new DateTime();
+        $bookingDate = new DateTime($date);
+        
+        // Calculate the difference in days
+        $diff = $today->diff($bookingDate)->days;
+        $isPast = $bookingDate < $today;
+
+        // Determine badge based on booking date
+        if ($bookingDate->format('Y-m-d') == $today->format('Y-m-d')) {
+            return '<span class="badge bg-success">Today</span>';
+        } elseif ($bookingDate->format('Y-m-d') == $today->modify('+1 day')->format('Y-m-d')) {
+            return '<span class="badge bg-info">Tomorrow</span>';
+        } elseif ($isPast) {
+            return '<span class="badge bg-danger">Expired</span>';
+        } else {
+            return '<span class="badge bg-primary">In ' . $diff . ' day(s)</span>';
         }
     }
 }

@@ -219,3 +219,46 @@ tippy(".security-news-feed", {
   content: "Security update",
   placement: "top",
 });
+//Contact Messages
+tippy(".view-contact", {
+  content: "View contact message",
+  placement: "top",
+});
+tippy(".email-subscriber", {
+  content: "Email subscriber",
+  placement: "top",
+});
+tippy(".archive-contact", {
+  content: "Archive contact",
+  placement: "top",
+});
+tippy(".unarchive-contact", {
+  content: "Remove from Archive",
+  placement: "top",
+});
+tippy(".remove-contact", {
+  content: "Remove contact",
+  placement: "top",
+});
+//Bookings
+tippy(".view-booking", {
+  content: "View booking",
+  placement: "top",
+});
+tippy(".edit-booking", {
+  content: "Edit booking",
+  placement: "top",
+});
+tippy(".remove-booking", {
+  content: "Remove booking",
+  placement: "top",
+});
+//Subscriber
+tippy(".edit-subscriber", {
+  content: "Edit subscriber",
+  placement: "top",
+});
+tippy(".remove-subscriber", {
+  content: "Remove subscriber",
+  placement: "top",
+});

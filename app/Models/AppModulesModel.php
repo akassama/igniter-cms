@@ -58,6 +58,9 @@ class AppModulesModel extends Model
      */
     public function searchModules($searchTerm, $userRole)
     {
+        $searchTerm = sanitizeSearchInput($searchTerm);
+        $userRole = sanitizeSearchInput($userRole);
+
         return $this->select('module_name, module_description, module_search_terms, module_link')
             ->groupStart()
                 ->like('module_name', $searchTerm)

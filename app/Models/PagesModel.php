@@ -94,9 +94,7 @@ class PagesModel extends Model
             'meta_description' => $param['meta_description'],
             'meta_keywords' => $param['meta_keywords']
         ];
-        $this->save($data);
-
-        return true;
+        return $this->save($data);
     }
 
     public function updatePage($pageId, $param = [])

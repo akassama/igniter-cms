@@ -116,7 +116,7 @@ class SignInController extends BaseController
 
                 // Redirect to dashboard
                 $loginSuccessMsg = config('CustomConfig')->loginSuccessMsg;
-                session()->setFlashdata('successAlert', $loginSuccessMsg);
+                session()->setFlashdata('toastrSuccessAlert', $loginSuccessMsg);
 
                 // Log activity
                 logActivity($user['user_id'], ActivityTypes::USER_LOGIN, 'User logged in with id: ' . $user['user_id']);
