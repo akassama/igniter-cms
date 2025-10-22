@@ -5,12 +5,10 @@ namespace App\Controllers;
 use App\Constants\ActivityTypes;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Services\EmailService;
+use App\Libraries\EmailService;
 
 class ForgotPasswordController extends BaseController
 {
-    private EmailService $emailService;
-
     public function __construct()
     {
         $this->emailService = new EmailService();
@@ -65,7 +63,7 @@ class ForgotPasswordController extends BaseController
                         'unsubscribe_url' => site_url('services/unsubscribe?identifier='.$fromEmail)
                     ];
 
-                    $result = $this->emailService->sendPasswordRecoveryHtmlEmail($toEmail, $fullName, $subject, $templateData, $fromEmail);
+                    $result = $this->emailService->send($toEmail, $subject, $templateData);
 
                     if ($result) {
                         $resetLinkMsg = config('CustomConfig')->resetLinkMsg;

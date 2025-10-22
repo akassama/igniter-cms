@@ -8,13 +8,12 @@ use App\Models\CategoriesModel;
 use App\Models\NavigationsModel;
 use App\Models\ContentBlocksModel;
 use App\Models\PagesModel;
-use App\Services\EmailService;
+use App\Libraries\EmailService;
 use Gregwar\Captcha\CaptchaBuilder;
 use App\Constants\ActivityTypes;
 
 class FrontEndController extends BaseController
 {
-    private EmailService $emailService;
     private SimpleCacheService $cacheService;
 
     public function __construct()

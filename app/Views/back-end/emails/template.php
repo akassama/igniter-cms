@@ -5,7 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>{{SUBJECT}}</title>
     <style media="all" type="text/css">
-        /* Your existing CSS styles here */
         @media all {
             .btn-primary table td:hover {
                 background-color: #ec0867 !important;

@@ -154,9 +154,29 @@ CI_FM_LAST_UPDATED_DATE_FORMAT="F j, Y, g:i A"
 #--------------------------------------------------------------------
 # EMAIL
 #--------------------------------------------------------------------
-EMAIL_FROM = "example@email.com"
-MAILJET_API_KEY= "your-mailjet-api-key"
-MAILJET_SECRET_KEY = "your-mailjet-secret-key"
+email.fromEmail = "your_email@gmail.com"
+email.fromName = "Your Name"
+email.SMTPHost = "smtp.gmail.com"
+email.SMTPUser = "your_email@gmail.com"
+email.SMTPPass = "your_app_password"
+email.SMTPPort = 465
+email.SMTPTimeout = 30
+email.SMTPKeepAlive = true
+email.SMTPEncrypt = "smtps"
+email.protocol = "smtp"
+email.mailType = "html"
+email.charset = "utf-8"
+email.wordWrap = true
+
+#--------------------------------------------------------------------
+# FORM EMAILS
+#--------------------------------------------------------------------
+FORWARD_CONTACT_EMAIL = true
+FORWARD_CONTACT_EMAIL_TO = "example@email.com"
+FORWARD_BOOKING_EMAIL = true
+FORWARD_BOOKING_EMAIL_TO = "example@email.com"
+FORWARD_SUBSCRIPTION_EMAIL = true
+FORWARD_SUBSCRIPTION_EMAIL_TO = "example@email.com"
 
 #--------------------------------------------------------------------
 # OTHER SETTINGS

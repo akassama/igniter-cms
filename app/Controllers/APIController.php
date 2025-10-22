@@ -12,7 +12,7 @@ use App\Models\NavigationsModel;
 use App\Models\ContentBlocksModel;
 use App\Models\ThemesModel;
 use App\Models\DataGroupsModel;
-use App\Services\EmailService;
+use App\Libraries\EmailService;
 use CodeIgniter\Validation\Validation;
 
 class APIController extends BaseController
