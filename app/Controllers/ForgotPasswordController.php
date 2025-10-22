@@ -91,5 +91,4 @@ class ForgotPasswordController extends BaseController
             return redirect()->to('/sign-in');
         }
     }
-
 }
