@@ -37,6 +37,7 @@ class BookingFormsModel extends Model
         'payment_amount',
         'ip_address',
         'country',
+        'last_updated_by',
         'created_at',
         'updated_at'
     ];
@@ -115,6 +116,7 @@ class BookingFormsModel extends Model
             'payment_amount'       => $param['payment_amount']       ?? 0,
             'ip_address'           => $_SERVER['REMOTE_ADDR']        ?? null,
             'country'              => $param['country']              ?? null,
+            'last_updated_by'      => $param['last_updated_by']      ?? null,
             'created_at'           => date('Y-m-d H:i:s'),
             'updated_at'           => date('Y-m-d H:i:s')
         ];
@@ -131,9 +133,31 @@ class BookingFormsModel extends Model
             return false; // not found
         }
 
-        // Update only allowed fields safely
-        $existingBooking['site_id']     = $param['site_id']     ?? $existingBooking['site_id'];
-        $existingBooking['form_name']   = $param['form_name']   ?? $existingBooking['form_name'];
+        // Update
+        $existingBooking['site_id']             = $param['site_id']             ?? $existingBooking['site_id'];
+        $existingBooking['form_name']           = $param['form_name']           ?? $existingBooking['form_name'];
+        $existingBooking['name']                = $param['name']                ?? $existingBooking['name'];
+        $existingBooking['first_name']          = $param['first_name']          ?? $existingBooking['first_name'];
+        $existingBooking['last_name']           = $param['last_name']           ?? $existingBooking['last_name'];
+        $existingBooking['email']               = $param['email']               ?? $existingBooking['email'];
+        $existingBooking['phone']               = $param['phone']               ?? $existingBooking['phone'];
+        $existingBooking['service_id']          = $param['service_id']          ?? $existingBooking['service_id'];
+        $existingBooking['service_name']        = $param['service_name']        ?? $existingBooking['service_name'];
+        $existingBooking['appointment_date']    = $param['appointment_date']    ?? $existingBooking['appointment_date'];
+        $existingBooking['appointment_time']    = $param['appointment_time']    ?? $existingBooking['appointment_time'];
+        $existingBooking['duration']            = $param['duration']            ?? $existingBooking['duration'];
+        $existingBooking['number_of_attendees'] = $param['number_of_attendees'] ?? $existingBooking['number_of_attendees'];
+        $existingBooking['message']             = $param['message']             ?? $existingBooking['message'];
+        $existingBooking['status']              = $param['status']              ?? $existingBooking['status'];
+        $existingBooking['confirmation_code']   = $param['confirmation_code']   ?? $existingBooking['confirmation_code'];
+        $existingBooking['notes']               = $param['notes']               ?? $existingBooking['notes'];
+        $existingBooking['resource_id']         = $param['resource_id']         ?? $existingBooking['resource_id'];
+        $existingBooking['resource_name']       = $param['resource_name']       ?? $existingBooking['resource_name'];
+        $existingBooking['payment_status']      = $param['payment_status']      ?? $existingBooking['payment_status'];
+        $existingBooking['payment_amount']      = $param['payment_amount']      ?? $existingBooking['payment_amount'];
+        $existingBooking['ip_address']          = $_SERVER['REMOTE_ADDR']       ?? $existingBooking['ip_address'];
+        $existingBooking['country']             = $param['country']             ?? $existingBooking['country'];
+        $existingBooking['last_updated_by']     = $param['last_updated_by']     ?? $existingBooking['last_updated_by'];
 
         // Save the updated record
         $this->save($existingBooking);

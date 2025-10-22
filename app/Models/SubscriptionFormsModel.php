@@ -26,6 +26,7 @@ class SubscriptionFormsModel extends Model
         'unsubscribed_at',
         'ip_address',
         'country',
+        'last_updated_by',
         'created_at',
         'updated_at'
     ];
@@ -86,7 +87,8 @@ class SubscriptionFormsModel extends Model
             'status'               => $param['source']       ?? 0,
             'unsubscribed_at'      => $param['unsubscribed_at'] ?? null,
             'ip_address'           => $param['ip_address'] ?? (function_exists('getIPAddress') ? getIPAddress() : ($_SERVER['REMOTE_ADDR'] ?? null)),
-            'country'      => $param['country'] ?? null,
+            'country'              => $param['country'] ?? null,
+            'last_updated_by'      => $param['last_updated_by'] ?? null,
         ];
 
         return $this->save($data);
@@ -108,10 +110,11 @@ class SubscriptionFormsModel extends Model
         $existing['last_name']          = $param['last_name']          ?? $existing['last_name'];
         $existing['phone']              = $param['phone']              ?? $existing['phone'];
         $existing['source']             = $param['source']             ?? $existing['source'];
-        $existing['status']         = $param['status']         ?? $existing['status'];
+        $existing['status']             = $param['status']             ?? $existing['status'];
         $existing['unsubscribed_at']    = $param['unsubscribed_at']    ?? $existing['unsubscribed_at'];
         $existing['ip_address']         = $param['ip_address']         ?? $existing['ip_address'];
-        $existing['country']         = $param['country']         ?? $existing['country'];
+        $existing['country']            = $param['country']            ?? $existing['country'];
+        $existing['last_updated_by']    = $param['last_updated_by']    ?? $existing['last_updated_by'];
 
         // Save the updated record
         $this->save($existing);

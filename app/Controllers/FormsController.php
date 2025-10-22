@@ -69,12 +69,21 @@ class FormsController extends BaseController
 
     public function archiveContactMessage($contactMessageId)
     {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+        
         //mark as archived
-        $updateColumn =  "'is_archived' = '1'";
+        $updatedData = [
+            'is_archived' => 1,
+            'last_updated_by' => $loggedInUserId
+        ];
         $updateWhereClause = "contact_form_id = '$contactMessageId'";
-        $result = updateRecordColumn("contact_form_submissions", $updateColumn, $updateWhereClause);
+        updateRecord('contact_form_submissions', $updatedData, $updateWhereClause);
 
         session()->setFlashdata('toastrSuccessAlert', "Contact message archived.");
+
+        //log activity
+        logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_ARCHIVED, 'User archived contact form with id: ' . $contactMessageId);
 
         return redirect()->to('/account/forms/contact-forms');
     }
@@ -96,18 +105,30 @@ class FormsController extends BaseController
 
     public function unArchiveContactMessage($contactMessageId)
     {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
         //mark as un-archived
-        $updateColumn =  "'is_archived' = '0'";
+        $updatedData = [
+            'is_archived' => 0,
+            'last_updated_by' => $loggedInUserId
+        ];
         $updateWhereClause = "contact_form_id = '$contactMessageId'";
-        $result = updateRecordColumn("contact_form_submissions", $updateColumn, $updateWhereClause);
+        updateRecord('contact_form_submissions', $updatedData, $updateWhereClause);
 
         session()->setFlashdata('toastrSuccessAlert', "Contact message removed from archived.");
+
+        //log activity
+        logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_UNARCHIVED, 'User unarchived contact form with id: ' . $contactMessageId);
 
         return redirect()->to('/account/forms/contact-forms');
     }
 
     public function updateContactNotes()
     {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
         $contactFormsModel = new ContactFormsModel();
 
         // Basic validation
@@ -126,10 +147,17 @@ class FormsController extends BaseController
 
         // Try to update notes
         try {
-            $contactFormsModel->update($contactFormId, ['notes' => $notes]);
+            $contactFormsModel->update($contactFormId, ['notes' => $notes, 'last_updated_by' => $loggedInUserId]);
             session()->setFlashdata('toastrSuccessAlert', 'Notes updated successfully.');
+
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_UPDATE, 'User updated contact note with id: ' . $contactMessageId);
+
             return redirect()->to(base_url('account/forms/contact-forms/view-contact/' . $contactFormId));
         } catch (\Throwable $e) {
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::FAILED_CONTACT_FORM_UPDATE, 'Error updating contact notes with id: ' . $contactMessageId);
+
             log_message('error', 'Error updating contact notes: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update notes. Please try again.');
             return redirect()->back()->withInput();
@@ -138,6 +166,9 @@ class FormsController extends BaseController
 
     public function updateContactStatus()
     {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
         $contactFormsModel = new ContactFormsModel();
 
         // Basic validation
@@ -156,10 +187,17 @@ class FormsController extends BaseController
 
         // Try to update status
         try {
-            $contactFormsModel->update($contactFormId, ['status' => $status]);
+            $contactFormsModel->update($contactFormId, ['status' => $status, 'last_updated_by' => $loggedInUserId]);
             session()->setFlashdata('toastrSuccessAlert', 'Status updated successfully.');
+
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_UPDATE, 'User updated contact status with id: ' . $contactFormId);
+
             return redirect()->to(base_url('account/forms/contact-forms/view-contact/' . $contactFormId));
         } catch (\Throwable $e) {
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::FAILED_CONTACT_FORM_UPDATE, 'Error updating contact status with id: ' . $contactFormId);
+
             log_message('error', 'Error updating contact status: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update status. Please try again.');
             return redirect()->back()->withInput();
@@ -235,6 +273,9 @@ class FormsController extends BaseController
 
     public function updateBookingNotes()
     {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
         $bookingFormsModel = new BookingFormsModel();
 
         // Basic validation
@@ -253,18 +294,28 @@ class FormsController extends BaseController
 
         // Try to update notes
         try {
-            $bookingFormsModel->update($bookingFormId, ['notes' => $notes]);
+            $bookingFormsModel->update($bookingFormId, ['notes' => $notes, 'last_updated_by' => $loggedInUserId]);
             session()->setFlashdata('toastrSuccessAlert', 'Notes updated successfully.');
+
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::BOOKING_FORM_UPDATE, 'User updated booking note with id: ' . $bookingFormId);
+
             return redirect()->to(base_url('account/forms/booking-forms/view-booking/' . $bookingFormId));
         } catch (\Throwable $e) {
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::FAILED_BOOKING_FORM_UPDATE, 'Error updating booking note with id: ' . $bookingFormId);
+
             log_message('error', 'Error updating booking notes: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update notes. Please try again.');
             return redirect()->back()->withInput();
         }
     }
 
-        public function updateBooking()
+    public function updateBooking()
     {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
         $bookingFormsModel = new BookingFormsModel();
 
         // Validation rules (adjust if you allow more statuses)
@@ -289,7 +340,7 @@ class FormsController extends BaseController
             return redirect()->back()->withInput();
         }
 
-        $id = $this->request->getPost('booking_form_id');
+        $bookingFormId = $this->request->getPost('booking_form_id');
 
         // Build update payload (convert empty strings to null to keep DB clean)
         $payload = [
@@ -305,18 +356,23 @@ class FormsController extends BaseController
             'confirmation_code'    => $this->nullIfEmpty($this->request->getPost('confirmation_code')),
             'status'               => $this->nullIfEmpty($this->request->getPost('status')),
             'notes'                => $this->nullIfEmpty($this->request->getPost('notes')),
+            'last_updated_by'      => $loggedInUserId,
         ];
 
         try {
-            // If your model primaryKey is 'booking_form_id', this works:
-            $bookingFormsModel->update($id, $payload);
-
-            // If your model uses another PK, uncomment the fallback:
-            // $bookingFormsModel->where('booking_form_id', $id)->set($payload)->update();
+            // Update booking
+            $bookingFormsModel->update($bookingFormId, $payload);
 
             session()->setFlashdata('toastrSuccessAlert', 'Booking updated successfully.');
-            return redirect()->to(base_url('account/forms/booking-forms/view-booking/' . $id));
+
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::BOOKING_FORM_UPDATE, 'User updated booking with id: ' . $bookingFormId);
+
+            return redirect()->to(base_url('account/forms/booking-forms/view-booking/' . $bookingFormId));
         } catch (\Throwable $e) {
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::FAILED_BOOKING_FORM_UPDATE, 'Failed to update booking with id: ' . $bookingFormId);
+
             log_message('error', 'Error updating booking: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update booking. Please try again.');
             return redirect()->back()->withInput();
@@ -367,6 +423,9 @@ class FormsController extends BaseController
 
     public function updateSubscriber()
     {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
         $subscriptionFormsModel = new SubscriptionFormsModel();
 
         $rules = [
@@ -392,14 +451,22 @@ class FormsController extends BaseController
             'last_name'   => $this->request->getPost('last_name') ?: null,
             'phone'       => $this->request->getPost('phone') ?: null,
             'status'      => $this->request->getPost('status'),
+            'last_updated_by'      => $loggedInUserId,
         ];
 
         try {
             $subscriptionFormsModel->where('subscription_form_id', $subscriptionFormId)->set($payload)->update();
 
             session()->setFlashdata('toastrSuccessAlert', 'Subscriber updated successfully.');
+
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::SUBSCRIPTION_FORM_UPDATE, 'User updated subscription with id: ' . $subscriptionFormId);
+
             return redirect()->to(base_url('account/forms/subscription-forms'));
         } catch (\Throwable $e) {
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::FAILED_SUBSCRIPTION_FORM_UPDATE, 'Failed to update subscription with id: ' . $subscriptionFormId);
+
             log_message('error', 'Update subscriber failed: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update subscriber. Please try again.');
             return redirect()->back()->withInput();

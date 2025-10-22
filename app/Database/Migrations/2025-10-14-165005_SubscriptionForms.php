@@ -79,6 +79,11 @@ class SubscriptionForms extends Migration
                 'constraint' => 255,
                 'null'       => true,
             ],
+            'last_updated_by' => [
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+                'null' => true,
+            ],
             'created_at datetime default current_timestamp',
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);

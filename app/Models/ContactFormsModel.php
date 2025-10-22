@@ -15,7 +15,7 @@ class ContactFormsModel extends Model
     protected $allowedFields = [
         'contact_form_id', 'site_id', 'form_name', 'name', 'email', 'phone', 'subject', 'message',
         'company', 'website', 'ip_address', 'country', 'user_agent', 'referrer',
-        'is_read', 'is_archived', 'status', 'notes', 'created_at', 'updated_at'
+        'is_read', 'is_archived', 'status', 'notes', 'last_updated_by', 'created_at', 'updated_at'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -83,6 +83,7 @@ class ContactFormsModel extends Model
             'is_archived'     => 0,
             'status'          => $param['status'] ?? 'new',
             'notes'           => $param['notes'] ?? null,
+            'last_updated_by'           => $param['last_updated_by'] ?? null,
         ];
 
         return $this->save($data);
@@ -115,6 +116,7 @@ class ContactFormsModel extends Model
         $existingMessage['status']      = $param['status']      ?? $existingMessage['status'];
         $existingMessage['notes']       = $param['notes']       ?? $existingMessage['notes'];
         $existingMessage['country']     = $param['country']     ?? $existingMessage['country'];
+        $existingMessage['last_updated_by']     = $param['last_updated_by']     ?? $existingMessage['last_updated_by'];
 
         // Save the updated record
         $this->save($existingMessage);
