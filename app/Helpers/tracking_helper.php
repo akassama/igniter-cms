@@ -94,6 +94,29 @@ if (!function_exists('getBrowserName')) {
 }
 
 /**
+ * Get the current domain name from the HTTP request.
+ *
+ * @function getCurrentDomain
+ * @description Retrieves the current domain (e.g., example.com) from the server request.
+ *              Useful for identifying the site or setting the `site_id` field.
+ *
+ * @example
+ * // Usage:
+ * $domain = getCurrentDomain();
+ * // Output: "example.com"
+ *
+ * @returns {string} The current domain name.
+ */
+if (! function_exists('getCurrentDomain')) {
+    function getCurrentDomain(): string
+    {
+        $request = service('request');
+        return $request->getServer('HTTP_HOST');
+    }
+}
+
+
+/**
 * Get the referrer URL
 *
 * @return string
