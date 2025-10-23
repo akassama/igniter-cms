@@ -44,6 +44,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Form Name</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
@@ -63,6 +64,11 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <tr>
                                     <td>
                                         <?= $rowCount; ?>
+                                    </td>
+                                    <td>
+                                        <a class="text-dark td-none" href="<?=base_url('account/forms/booking-forms/view-booking/'.$booking['booking_form_id'])?>">
+                                            <?= $booking['form_name']; ?>
+                                        </a>
                                     </td>
                                     <td>
                                         <a class="text-dark td-none" href="<?=base_url('account/forms/booking-forms/view-booking/'.$booking['booking_form_id'])?>">

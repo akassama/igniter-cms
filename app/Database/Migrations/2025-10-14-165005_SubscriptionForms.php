@@ -13,6 +13,10 @@ class SubscriptionForms extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
             ],
+            'form_name' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+            ],
             'site_id' => [
                 'type'       => 'INT',
                 'constraint' => 11,

@@ -15,6 +15,7 @@ class SubscriptionFormsModel extends Model
     protected $allowedFields = [
         'subscription_form_id',
         'site_id',
+        'form_name',
         'list_name',
         'email',
         'name',
@@ -77,6 +78,7 @@ class SubscriptionFormsModel extends Model
         $data = [
             'subscription_form_id' => $subscriptionId,
             'site_id'              => $param['site_id']      ?? null,
+            'form_name'            => $param['form_name']    ?? null,
             'list_name'            => $param['list_name']    ?? null,
             'email'                => $param['email']        ?? null,
             'name'                 => $param['name']         ?? null,
@@ -84,7 +86,7 @@ class SubscriptionFormsModel extends Model
             'last_name'            => $param['last_name']    ?? null,
             'phone'                => $param['phone']        ?? null,
             'source'               => $param['source']       ?? null,
-            'status'               => $param['source']       ?? 0,
+            'status'               => $param['status']       ?? 'Pending Confirmation',
             'unsubscribed_at'      => $param['unsubscribed_at'] ?? null,
             'ip_address'           => $param['ip_address'] ?? (function_exists('getIPAddress') ? getIPAddress() : ($_SERVER['REMOTE_ADDR'] ?? null)),
             'country'              => $param['country'] ?? null,
@@ -103,6 +105,7 @@ class SubscriptionFormsModel extends Model
         }
 
         $existing['site_id']            = $param['site_id']            ?? $existing['site_id'];
+        $existing['form_name']          = $param['form_name']          ?? $existing['form_name'];
         $existing['list_name']          = $param['list_name']          ?? $existing['list_name'];
         $existing['email']              = $param['email']              ?? $existing['email'];
         $existing['name']               = $param['name']               ?? $existing['name'];

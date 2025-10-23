@@ -44,6 +44,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
+                            <th>Form Name</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>IP</th>
@@ -62,6 +63,11 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <a class="text-dark td-none" href="<?=base_url('account/forms/contact-forms/view-contact/'.$contact_message['contact_form_id'])?>">
                                             <?= $contact_message['is_read'] == 0 ? '<i class="h5 bi bi-dot text-primary"></i>' : ''; ?>
                                             <?= $rowCount; ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="text-dark td-none" href="<?=base_url('account/forms/contact-forms/view-contact/'.$contact_message['contact_form_id'])?>">
+                                            <?= $contact_message['form_name']; ?>
                                         </a>
                                     </td>
                                     <td>

@@ -682,6 +682,7 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
                     </div>
                     <div class="col-12">
                         <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()."?#subscribe"?>">
+                        <input type="hidden" class="form-control" name="form_name" id="form_name" value="Subscribe">
                     </div>
                     <!--hcaptcha validation-->
                     <?=renderHcaptcha()?>
@@ -697,7 +698,7 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
         </div>
       </section>
 
-      <!-- Appointment Booking Section -->
+    <!-- Appointment Booking Section -->
     <section id="appointment" class="py-5 bg-light">
         <div class="container">
             <div class="row justify-content-center mb-5">
@@ -708,51 +709,79 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <form action="<?= base_url('/api-form/add-booking') ?>" method="post" class="g-3 needs-validation">
+                    <form action="<?= base_url('/api-form/add-booking') ?>" method="post" class="row g-3 needs-validation">
                         <?= csrf_field() ?>
                         <?= getHoneypotInput() ?>
 
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
+                        <div class="col-md-6">
+                            <label for="first_name" class="form-label visually-hidden">First Name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
+                            <div class="invalid-feedback">
+                                Please provide your first name.
                             </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="last_name" placeholder="Last Name" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="last_name" class="form-label visually-hidden">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
+                            <div class="invalid-feedback">
+                                Please provide your last name.
                             </div>
-                            <div class="col-12">
-                                <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email" class="form-label visually-hidden">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid email address.
                             </div>
-                            <div class="col-12">
-                                <input type="tel" class="form-control" name="phone" placeholder="Phone (Optional)">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="phone" class="form-label visually-hidden">Phone (Optional)</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone (Optional)">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="appointment_date" class="form-label">Preferred Date</label>
+                            <input type="date" class="form-control" id="appointment_date" name="appointment_date" required min="<?= date('Y-m-d') ?>">
+                            <div class="invalid-feedback">
+                                Please select a valid appointment date.
                             </div>
-                            <div class="col-12">
-                                <label for="appointment_date" class="form-label visually-hidden">Preferred Date</label>
-                                <input type="date" class="form-control" id="appointment_date" name="appointment_date" required min="<?= date('Y-m-d') ?>">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="service_name" class="form-label">Service</label>
+                            <select class="form-select" id="service_name" name="service_name" required>
+                                <option value="" disabled selected>Select a Service</option>
+                                <option value="IT Hardware & Software Procurement">IT Procurement</option>
+                                <option value="Cloud Solutions">Cloud Migration</option>
+                                <option value="Cybersecurity Services">Security Audit</option>
+                                <option value="IT Consulting & Strategy">IT Strategy Session</option>
+                                <option value="Managed IT Support">Managed Support Setup</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a service.
                             </div>
-                            <div class="col-12">
-                                <label for="service_name" class="form-label visually-hidden">Service</label>
-                                <select class="form-select" name="service_name" required>
-                                    <option value="" disabled selected>Select a Service</option>
-                                    <option value="IT Hardware & Software Procurement">IT Procurement</option>
-                                    <option value="Cloud Solutions">Cloud Migration</option>
-                                    <option value="Cybersecurity Services">Security Audit</option>
-                                    <option value="IT Consulting & Strategy">IT Strategy Session</option>
-                                    <option value="Managed IT Support">Managed Support Setup</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <textarea class="form-control" name="message" rows="3" placeholder="Additional details (optional)"></textarea>
-                            </div>
-                            <div class="col-12">
-                                <?= renderHcaptcha() ?>
-                            </div>
-                            <div class="col-12">
-                                <input type="hidden" name="form_name" value="Homepage Appointment Form">
-                                <input type="hidden" name="return_url" value="<?= current_url() ?>?#appointment">
-                            </div>
-                            <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary btn-lg px-5">Book Appointment</button>
-                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="message" class="form-label visually-hidden">Additional details (optional)</label>
+                            <textarea class="form-control" id="message" name="message" rows="3" placeholder="Additional details (optional)"></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <?= renderHcaptcha() ?>
+                        </div>
+
+                        <div class="col-12">
+                            <input type="hidden" name="form_name" value="Homepage Appointment Form">
+                            <input type="hidden" name="return_url" value="<?= current_url() ?>?#appointment">
+                            <input type="hidden" class="form-control" name="form_name" id="form_name" value="Appointment">
+                        </div>
+
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 bg-primary">Book Appointment</button>
                         </div>
                     </form>
                 </div>
@@ -884,7 +913,8 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
                     <?=renderHcaptcha()?>
 
                     <div class="col-12">
-                        <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url('?#contact')?>">
+                        <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()."?#contact"?>">
+                        <input type="hidden" class="form-control" name="form_name" id="form_name" value="Contact">
                     </div>
 
                     <div class="col-md-12 text-center">

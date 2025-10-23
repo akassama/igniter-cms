@@ -11,7 +11,7 @@ use App\Models\SubscriptionFormsModel;
 use App\Libraries\EmailService;
 use Exception;
 
-class APIFormController extends BaseController
+class FormRequestsController extends BaseController
 {
     public function __construct()
     {
@@ -27,9 +27,10 @@ class APIFormController extends BaseController
         //Honeypot validator - Validate the inputs
         validateHoneypotInput($honeypotInput, $submittedTimestamp);
 
+        $forwardEmail = env('FORWARD_CONTACT_EMAIL');
+        $forwardToEmail = env('FORWARD_CONTACT_EMAIL_TO');
         $returnUrl = $this->request->getPost('return_url');
         $formName = $this->request->getPost('form_name');
-        $toEmail = env('FORWARD_CONTACT_EMAIL_TO');
         $name = $this->request->getPost('name');
         $fromEmail = $this->request->getPost('email');
         $phone = $this->request->getPost('phone');
@@ -37,8 +38,8 @@ class APIFormController extends BaseController
         $message = $this->request->getPost('message');
         $company = $this->request->getPost('company');
         $website = $this->request->getPost('website');
-        $companyName = getConfigData('CompanyName');
-        $companyAddress = getConfigData('CompanyAddress');
+        $siteName = getConfigData('SiteName');
+        $siteAddress = getConfigData('SiteAddress');
 
         // Validate hCaptcha
         $captchaValidation = validateHcaptcha();
@@ -86,24 +87,42 @@ class APIFormController extends BaseController
             //log activity
             logActivity($fromEmail, ActivityTypes::CONTACT_FORM_SUBMISSION, 'Contact message sent from user with email: ' . $fromEmail);
 
-            //try to send email
-            try {
-                $templateData = [
-                    'preheader' => $subject,
-                    'greeting' => 'New Contact Message',
-                    'main_content' => '<p>'.$message.'</p>',
-                    'cta_text' => '',
-                    'cta_url' => '',
-                    'footer_text' => 'Sent from <a href="'.base_url().'">'.$companyName.'</a>',
-                    'company_address' => $companyAddress,
-                    'unsubscribe_url' => base_url('services/unsubscribe?identifier='.$toEmail)
-                ];
-                $result = $this->emailService->send($toEmail, $subject, $templateData);
-            } catch (Exception $e) {
-                //log activity
-                logActivity($fromEmail, ActivityTypes::FAILED_CONTACT_FORM_SUBMISSION, 'Failed to send contact message from user with email: ' . $fromEmail);
+            if($forwardEmail){
+                //try to send email
+                try {
+                    $templateData = [
+                        'preheader' => $subject,
+                        'greeting' => 'New Contact Message',
+                        'main_content' =>
+                        '<p>You have received a new contact message.</p>'
+                        .'<h4>Message Details</h4>'
+                        .'<ul>'
+                        .'<li><strong>Subject:</strong> ' . htmlspecialchars($subject, ENT_QUOTES, 'UTF-8') . '</li>'
+                        .(!empty($message) ? '<li><strong>Message:</strong> ' . nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8')) . '</li>' : '')
+                        .'</ul>'
+                        .'<h4>Sender Information</h4>'
+                        .'<ul>'
+                        .(!empty($name) ? '<li><strong>Name:</strong> ' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .'<li><strong>Email:</strong> ' . htmlspecialchars($fromEmail, ENT_QUOTES, 'UTF-8') . '</li>'
+                        .(!empty($phone) ? '<li><strong>Phone:</strong> ' . htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .(!empty($company) ? '<li><strong>Company:</strong> ' . htmlspecialchars($company, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .(!empty($website) ? '<li><strong>Website:</strong> ' . htmlspecialchars($website, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .'</ul>'
+                        .'<p><small><strong>IP:</strong> ' . htmlspecialchars(getIPAddress(), ENT_QUOTES, 'UTF-8')
+                        . ' &middot; <strong>Country:</strong> ' . htmlspecialchars(getCountry(), ENT_QUOTES, 'UTF-8')
+                        . ' &middot; <strong>Submitted At:</strong> ' . htmlspecialchars(date('Y-m-d H:i:s'), ENT_QUOTES, 'UTF-8') . '</small></p>',
+                        'cta_text' => '',
+                        'cta_url' => '',
+                        'footer_text' => 'Sent from <a href="'.base_url().'">'.$siteName.'</a>',
+                        'company_address' => $siteAddress,
+                        'unsubscribe_url' => base_url('services/unsubscribe?identifier='.urlencode($forwardToEmail))
+                    ];
+                    $result = $this->emailService->send($forwardToEmail, $subject, $templateData);
+                } catch (Exception $e) {
+                    //log activity
+                    logActivity($fromEmail, ActivityTypes::FAILED_CONTACT_FORM_SUBMISSION, 'Failed to send contact message from user with email: ' . $fromEmail);
+                }
             }
-
 
             if(!empty($returnUrl)){
                 return redirect()->to($returnUrl);
@@ -162,6 +181,8 @@ class APIFormController extends BaseController
             return $this->response->setStatusCode(400)->setJSON(['message' => $errorMessage]);
         }
 
+        $forwardEmail = env('FORWARD_SUBSCRIPTION_EMAIL');
+        $forwardToEmail = env('FORWARD_SUBSCRIPTION_EMAIL_TO');
         // Extract data
         $returnUrl   = $this->request->getPost('return_url');
         $formName    = $this->request->getPost('form_name');
@@ -172,6 +193,8 @@ class APIFormController extends BaseController
         $lastName    = $this->request->getPost('last_name');
         $phone       = $this->request->getPost('phone');
         $source      = $this->request->getPost('source');
+        $siteName = getConfigData('SiteName');
+        $siteAddress = getConfigData('SiteAddress');
 
         $tableName = 'subscription_form_submissions';
         //Check if record exists
@@ -215,6 +238,7 @@ class APIFormController extends BaseController
 
             logActivity($email, ActivityTypes::SUBSCRIPTION_FORM_SUBMISSION, 'Subscription request received for: ' . $email);
 
+            // notify user to confirm subscription
             try {
                 $subject = 'Confirm your subscription';
                 $templateData = [
@@ -230,6 +254,39 @@ class APIFormController extends BaseController
                 $this->emailService->send($email, $subject, $templateData);
             } catch (Exception $e) {
                 logActivity($email, ActivityTypes::FAILED_SUBSCRIPTION_FORM_SUBMISSION, 'Failed to send subscription confirmation to: ' . $email);
+            }
+
+            if($forwardEmail){
+                //try to send email
+                try {
+                    $templateData = [
+                        'preheader' => $subject,
+                        'greeting' => 'New Subscription',
+                        'main_content' =>
+                        '<p>You have received a new subscription request.</p>'
+                        .'<h4>Subscriber Details</h4>'
+                        .'<ul>'
+                        .'<li><strong>Email:</strong> ' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</li>'
+                        .(!empty($name) ? '<li><strong>Name:</strong> ' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .(!empty($phone) ? '<li><strong>Phone:</strong> ' . htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .(!empty($formName) ? '<li><strong>Form:</strong> ' . htmlspecialchars($formName, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .(!empty($source) ? '<li><strong>Source:</strong> ' . htmlspecialchars($source, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .'</ul>'
+                        .'<p>The user has been sent a confirmation email. They will appear as "Active" in the system once they confirm.</p>'
+                        .'<p><small><strong>IP:</strong> ' . htmlspecialchars(getIPAddress(), ENT_QUOTES, 'UTF-8')
+                        . ' &middot; <strong>Country:</strong> ' . htmlspecialchars(getCountry(), ENT_QUOTES, 'UTF-8')
+                        . ' &middot; <strong>Submitted At:</strong> ' . htmlspecialchars(date('Y-m-d H:i:s'), ENT_QUOTES, 'UTF-8') . '</small></p>',
+                        'cta_text' => 'Manage Subscriptions',
+                        'cta_url' => base_url('account/forms/subscription-forms'),
+                        'footer_text' => 'Sent from <a href="'.base_url().'">'.$siteName.'</a>',
+                        'company_address' => $siteAddress,
+                        'unsubscribe_url' => base_url('services/unsubscribe?identifier='.urlencode($forwardToEmail))
+                    ];
+                    $result = $this->emailService->send($forwardToEmail, $subject, $templateData);
+                } catch (Exception $e) {
+                    //log activity
+                    logActivity($fromEmail, ActivityTypes::FAILED_CONTACT_FORM_SUBMISSION, 'Failed to send contact message from user with email: ' . $fromEmail);
+                }
             }
 
             if (!empty($returnUrl)) {
@@ -286,6 +343,8 @@ class APIFormController extends BaseController
             return $this->response->setStatusCode(400)->setJSON(['message' => $errorMessage]);
         }
 
+        $forwardEmail = env('FORWARD_BOOKING_EMAIL');
+        $forwardToEmail = env('FORWARD_BOOKING_EMAIL_TO');
         // Extract and sanitize input
         $returnUrl          = $this->request->getPost('return_url');
         $formName           = $this->request->getPost('form_name') ?? 'Default Booking Form';
@@ -303,6 +362,8 @@ class APIFormController extends BaseController
         $message            = $this->request->getPost('message');
         $resourceId         = $this->request->getPost('resource_id');
         $resourceName       = $this->request->getPost('resource_name');
+        $siteName = getConfigData('SiteName');
+        $siteAddress = getConfigData('SiteAddress');
 
         // Optional: auto-generate name if not provided
         if (empty($name) && (!empty($firstName) || !empty($lastName))) {
@@ -351,23 +412,62 @@ class APIFormController extends BaseController
             // Log activity
             logActivity($email, ActivityTypes::BOOKING_FORM_SUBMISSION, 'Booking request submitted for: ' . $email . ' on ' . $appointmentDate);
 
-            // Optional: Send confirmation email to user
+            // Send confirmation email to user
             try {
-                $companyName = getConfigData('CompanyName');
                 $subject = 'Booking Request Received';
                 $templateData = [
                     'preheader'      => $subject,
                     'greeting'       => 'Thank you for your booking request!',
                     'main_content'   => '<p>We’ve received your request for an appointment on <strong>' . htmlspecialchars($appointmentDate, ENT_QUOTES, 'UTF-8') . '</strong>.</p><p>We’ll review it and get back to you shortly.</p>',
-                    'cta_text'       => 'View Our Services',
-                    'cta_url'        => base_url('services'),
-                    'footer_text'    => 'Sent from ' . $companyName,
-                    'company_address'=> getConfigData('CompanyAddress'),
+                    'cta_text'       => 'Visit Site',
+                    'cta_url'        => base_url(),
+                    'footer_text'    => 'Sent from ' . $siteName,
+                    'company_address'=> $siteAddress,
                     'unsubscribe_url'=> base_url('services/unsubscribe?identifier=' . urlencode($email)),
                 ];
                 $this->emailService->send($email, $subject, $templateData);
             } catch (Exception $e) {
                 logActivity($email, ActivityTypes::FAILED_BOOKING_FORM_SUBMISSION, 'Failed to send booking confirmation to: ' . $email);
+            }
+
+            if($forwardEmail){
+                //try to send email
+                try {
+                    $templateData = [
+                        'preheader' => $subject,
+                        'greeting' => 'New Booking',
+                        'main_content' =>
+                        '<p>You have received a new booking request.</p>'
+                        .'<h4>Booking Details</h4>'
+                        .'<ul>'
+                        .'<li><strong>Date:</strong> ' . htmlspecialchars($appointmentDate, ENT_QUOTES, 'UTF-8') . '</li>'
+                        .(!empty($appointmentTime) ? '<li><strong>Time:</strong> ' . htmlspecialchars($appointmentTime, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .(!empty($serviceName) ? '<li><strong>Service:</strong> ' . htmlspecialchars($serviceName, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .(!empty($duration) ? '<li><strong>Duration:</strong> ' . htmlspecialchars($duration, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .(!empty($numberOfAttendees) ? '<li><strong>Attendees:</strong> ' . htmlspecialchars($numberOfAttendees, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .(!empty($resourceName) ? '<li><strong>Resource:</strong> ' . htmlspecialchars($resourceName, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .(!empty($message) ? '<li><strong>Message:</strong> ' . nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8')) . '</li>' : '')
+                        .'</ul>'
+                        .'<h4>Client Details</h4>'
+                        .'<ul>'
+                        .(!empty($name) ? '<li><strong>Name:</strong> ' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .'<li><strong>Email:</strong> ' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</li>'
+                        .(!empty($phone) ? '<li><strong>Phone:</strong> ' . htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .'</ul>'
+                        .'<p><small><strong>IP:</strong> ' . htmlspecialchars(getIPAddress(), ENT_QUOTES, 'UTF-8')
+                        . ' &middot; <strong>Country:</strong> ' . htmlspecialchars(getCountry(), ENT_QUOTES, 'UTF-8')
+                        . ' &middot; <strong>Submitted At:</strong> ' . htmlspecialchars(date('Y-m-d H:i:s'), ENT_QUOTES, 'UTF-8') . '</small></p>',
+                        'cta_text' => 'Manage Bookings',
+                        'cta_url' => base_url('account/forms/subscription-forms'),
+                        'footer_text' => 'Sent from <a href="'.base_url().'">'.$siteName.'</a>',
+                        'company_address' => $siteAddress,
+                        'unsubscribe_url' => base_url('services/unsubscribe?identifier='.urlencode($forwardToEmail))
+                    ];
+                    $result = $this->emailService->send($forwardToEmail, $subject, $templateData);
+                } catch (Exception $e) {
+                    //log activity
+                    logActivity($fromEmail, ActivityTypes::FAILED_CONTACT_FORM_SUBMISSION, 'Failed to send contact message from user with email: ' . $fromEmail);
+                }
             }
 
             // Redirect or return JSON

@@ -44,11 +44,13 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
+                            <th>Form Name</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Status</th>
                             <th>IP</th>
                             <th>Country</th>
+                            <th>Status</th>
                             <th>Created</th>
                             <th>Actions</th>
                         </tr>
@@ -62,7 +64,15 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <?= $rowCount; ?>
                                     </td>
                                     <td>
-                                        <?= $subscriber['name']; ?>
+                                        <?= $subscriber['form_name']; ?>
+                                    </td>
+                                    <td>
+                                        <?= esc($subscriber['name']); ?>
+                                        <?php if (!empty($subscriber['first_name']) || !empty($subscriber['last_name'])): ?>
+                                            <span class="badge bg-primary ms-2">
+                                                <?= esc(trim($subscriber['first_name'] . ' ' . $subscriber['last_name'])); ?>
+                                            </span>
+                                        <?php endif; ?>
                                     </td>
                                     <td>
                                         <?= $subscriber['email']; ?>
@@ -76,6 +86,21 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td>
                                         <span class="fi fi-<?= strtolower(esc($subscriber['country'])) ?>"></span>
                                         <?= esc($subscriber['country']) ?>
+                                    </td>
+                                    <!-- Status badge (read-only visual) with icon -->
+                                    <?php
+                                        $status = $subscriber['status'] ?? '';
+                                        $badgeClass = 'bg-secondary';
+                                        $statusIcon = 'ri-time-line';
+                                        if ($status === 'Pending Confirmation') { $badgeClass = 'bg-warning'; $statusIcon = 'ri-mail-send-line'; }
+                                        elseif ($status === 'Active') { $badgeClass = 'bg-success'; $statusIcon = 'ri-checkbox-circle-line'; }
+                                        elseif ($status === 'Unsubscribed') { $badgeClass = 'bg-danger'; $statusIcon = 'ri-user-unfollow-line'; }
+                                        elseif ($status === 'Bounced') { $badgeClass = 'bg-secondary'; $statusIcon = 'ri-mail-close-line'; }
+                                    ?>
+                                    <td>
+                                        <span class="badge <?= esc($badgeClass) ?>">
+                                            <i class="<?= esc($statusIcon) ?> me-1"></i><?= esc($status) ?>
+                                        </span>
                                     </td>
                                     <td><?= dateFormat($subscriber['created_at']); ?></td>
                                     <td>
