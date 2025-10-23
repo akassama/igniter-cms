@@ -39,6 +39,9 @@ $routes->get('services/unsubscribe', 'ServicesController::unsubscribe');
 //RE-SUBSCRIBE
 $routes->get('services/subscribe', 'ServicesController::subscribe');
 
+//CONFRIM-SUBSCRIPTION
+$routes->get('services/confirm-subscription', 'ServicesController::confirmSubscription');
+
 //ACCOUNT
 $routes->get('/account', 'AccountController::index', ['filter' => 'authFilter']);
 

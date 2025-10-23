@@ -193,12 +193,18 @@ class FormRequestsController extends BaseController
         $lastName    = $this->request->getPost('last_name');
         $phone       = $this->request->getPost('phone');
         $source      = $this->request->getPost('source');
+        $confirmationToken      = getGUID();
         $siteName = getConfigData('SiteName');
         $siteAddress = getConfigData('SiteAddress');
-
-        $tableName = 'subscription_form_submissions';
+        
         //Check if record exists
-        if (recordExists($tableName, "email", $email)) {
+        $tableName = 'subscription_form_submissions';
+        $where = [
+            'email' => $email,
+            'form_name' => $formName
+        ];
+
+        if (checkRecordExists($tableName, $where)) {
             //Resubscribe user email
             $updateColumn =  "'status' = 'Active'";
             $updateWhereClause = "email = '$email'";
@@ -223,7 +229,8 @@ class FormRequestsController extends BaseController
                 'last_name'        => $lastName,
                 'phone'            => $phone,
                 'source'           => $source,
-                'status'           => 'Pending Confirmation',
+                'status'           => env('DEFAULT_SUBSCRIPTION_STATUS'),
+                'confirmation_token' => $confirmationToken,
                 'unsubscribed_at'  => null,
                 'ip_address'       => getIPAddress(),
                 'country'          => getCountry(),
@@ -246,7 +253,7 @@ class FormRequestsController extends BaseController
                     'greeting'       => 'Please confirm your subscription',
                     'main_content'   => '<p>Thanks for subscribing. Please confirm your email address to complete your subscription.</p>',
                     'cta_text'       => 'Confirm Subscription',
-                    'cta_url'        => base_url('services/confirm-subscription?email=' . urlencode($email)),
+                    'cta_url'        => base_url('services/confirm-subscription?email=' . urlencode($confirmationToken)),
                     'footer_text'    => '',
                     'company_address'=> '',
                     'unsubscribe_url'=> base_url('services/unsubscribe?identifier=' . urlencode($email)),
@@ -259,6 +266,7 @@ class FormRequestsController extends BaseController
             if($forwardEmail){
                 //try to send email
                 try {
+                    $subject = 'New Subscription';
                     $templateData = [
                         'preheader' => $subject,
                         'greeting' => 'New Subscription',
@@ -365,7 +373,7 @@ class FormRequestsController extends BaseController
         $siteName = getConfigData('SiteName');
         $siteAddress = getConfigData('SiteAddress');
 
-        // Optional: auto-generate name if not provided
+        // Auto-generate name if not provided
         if (empty($name) && (!empty($firstName) || !empty($lastName))) {
             $name = trim(($firstName ?? '') . ' ' . ($lastName ?? ''));
         }
@@ -374,7 +382,6 @@ class FormRequestsController extends BaseController
             $bookingModel = new BookingFormsModel();
 
             $data = [
-                'booking_form_id'     => getGUID(), // assuming this helper exists
                 'site_id'             => getCurrentDomain(),
                 'form_name'           => $formName,
                 'name'                => $name,
@@ -390,7 +397,7 @@ class FormRequestsController extends BaseController
                 'number_of_attendees' => $numberOfAttendees,
                 'message'             => $message,
                 'status'              => 'Pending',
-                'confirmation_code'   => null, // can be generated later if needed
+                'confirmation_code'   => null,
                 'notes'               => null,
                 'resource_id'         => $resourceId,
                 'resource_name'       => $resourceName,

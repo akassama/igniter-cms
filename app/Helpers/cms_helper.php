@@ -703,21 +703,20 @@ if(!function_exists('recordExists')) {
  * Checks if a record exists in the specified table based on a WHERE clause.
  *
  * @param {string} $tableName - The name of the table to search.
- * @param {string} $whereClause - The condition for checking (e.g., 'emp_id = 123').
+ * @param {string} $whereClause - The condition for checking. checkRecordExists('users', ['email' => $email, 'emp_id' => $empId]);.
  * @return {bool} Returns true if a matching record exists, otherwise false.
  */
 if (!function_exists('checkRecordExists')) {
-    function checkRecordExists(string $tableName, string $primaryKey, string $whereClause): bool
+    function checkRecordExists(string $tableName, array $where): bool
     {
         $db = \Config\Database::connect();
 
-        // Build the query
+        // Build and execute the query
         $query = $db->table($tableName)
-            ->select($primaryKey) // Assuming 'emp_id' is the primary key or unique identifier
-            ->where($whereClause)
+            ->where($where)
             ->get();
 
-        // Check if any rows match the condition
+        // Return true if any rows match
         return $query->getNumRows() > 0;
     }
 }

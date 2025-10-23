@@ -336,4 +336,37 @@ class ServicesController extends BaseController
         }
     }
 
+    public function confirmSubscription()
+    {
+        $identifier = $this->request->getGet('identifier');
+
+        $updateColumn = "'status' = 'Active'";
+        $updateWhereClause = isValidGUID($identifier)
+            ? "confirmation_token = '$identifier'"
+            : "email = '$identifier'";
+
+        $result = updateRecordColumn("subscription_form_submissions", $updateColumn, $updateWhereClause);
+
+        if ($result) {
+            echo "<!DOCTYPE html>
+            <html>
+            <head><title>Subscription Confirmed</title></head>
+            <body style='font-family: Arial, sans-serif; padding: 2rem;'>
+                <h2>Thanks for confirming your subscription</h2>
+                <p>You will now receive messages from this service.</p>
+            </body>
+            </html>";
+        } else {
+            http_response_code(500);
+            echo "<!DOCTYPE html>
+            <html>
+            <head><title>Error</title></head>
+            <body style='font-family: Arial, sans-serif; padding: 2rem;'>
+                <h2>Confirmation Failed</h2>
+                <p>We were unable to process your confirmation request. Please try again later.</p>
+            </body>
+            </html>";
+        }
+    }
+
 }

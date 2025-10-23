@@ -18,8 +18,8 @@ class SubscriptionForms extends Migration
                 'constraint' => 255,
             ],
             'site_id' => [
-                'type'       => 'INT',
-                'constraint' => 11,
+                'type'       => 'VARCHAR',
+                'constraint' => 50,
             ],
             'list_name' => [ // Which mailing list they subscribed to
                 'type'       => 'VARCHAR',
