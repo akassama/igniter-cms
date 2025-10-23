@@ -685,7 +685,7 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
                         <input type="hidden" class="form-control" name="form_name" id="form_name" value="Subscribe">
                     </div>
                     <!--captcha validation-->
-                    <?=renderHcaptcha()?>
+                    <?=renderCaptcha()?>
                 </form>
               </div>
             </div>
@@ -911,7 +911,7 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
                         <textarea class="form-control" id="message" name="message" rows="4" placeholder="Message" required></textarea>
                     </div>
                     <!--captcha validation-->
-                    <?=renderHcaptcha()?>
+                    <?=renderCaptcha()?>
 
                     <div class="col-12">
                         <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()."?#contact"?>">
