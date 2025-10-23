@@ -171,7 +171,7 @@ class Navigations extends Migration
                 'group'    => 'top_nav',
                 'order'    => 20,
                 'parent'    => null,
-                'link'    => 'contact',
+                'link'    => '#contact',
                 'new_tab'    => false,
                 'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),

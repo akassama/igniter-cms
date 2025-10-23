@@ -44,6 +44,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
+                            <th>Form Name</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Status</th>
@@ -61,6 +62,9 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <tr>
                                     <td>
                                         <?= $rowCount; ?>
+                                    </td>
+                                    <td>
+                                        <?= $subscriber['form_name']; ?>
                                     </td>
                                     <td>
                                         <?= $subscriber['name']; ?>

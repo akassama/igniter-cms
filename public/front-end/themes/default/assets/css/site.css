@@ -1385,6 +1385,61 @@ footer.bg-dark .mt-4 a:hover i {
   background-color: var(--heading-color);
 }
 
+/* ************ Appointment Section ************ */
+#appointment {
+  background-color: var(--surface-color);
+}
+
+#appointment .form-control,
+#appointment .form-select {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 16px;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+#appointment .form-control:focus,
+#appointment .form-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.25rem rgba(var(--accent-rgb), 0.15);
+  outline: none;
+}
+
+#appointment .btn-primary {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  font-weight: 600;
+  padding: 12px 24px;
+  font-size: 18px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+#appointment .btn-primary:hover {
+  background-color: var(--accent-color-dark);
+  border-color: var(--accent-color-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#appointment h2 {
+  color: var(--heading-color);
+}
+
+#appointment .form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--heading-color);
+}
+
+#appointment .card,
+#appointment .card-body {
+  border: none;
+}
+
 /* ************ Contact Section ************ */
 .contact .info-box {
   background-color: var(--surface-color);
@@ -1420,7 +1475,7 @@ footer.bg-dark .mt-4 a:hover i {
   color: var(--heading-color);
 }
 
-.contact .php-email-form {
+.contact .email-form {
   background-color: var(--surface-color);
   padding: 35px;
   border-radius: 12px;
@@ -1428,9 +1483,9 @@ footer.bg-dark .mt-4 a:hover i {
   transition: all 0.3s ease-in-out;
 }
 
-.contact .php-email-form input[type="text"],
-.contact .php-email-form input[type="email"],
-.contact .php-email-form textarea {
+.contact .email-form input[type="text"],
+.contact .email-form input[type="email"],
+.contact .email-form textarea {
   font-size: 16px;
   padding: 14px;
   border: 1px solid var(--default-color);
@@ -1438,14 +1493,14 @@ footer.bg-dark .mt-4 a:hover i {
   transition: all 0.3s ease-in-out;
 }
 
-.contact .php-email-form input[type="text"]:focus,
-.contact .php-email-form input[type="email"]:focus,
-.contact .php-email-form textarea:focus {
+.contact .email-form input[type="text"]:focus,
+.contact .email-form input[type="email"]:focus,
+.contact .email-form textarea:focus {
   border-color: var(--accent-color);
   box-shadow: 0 0 8px rgba(13, 110, 253, 0.5);
 }
 
-.contact .php-email-form button[type="submit"] {
+.contact .email-form button[type="submit"] {
   background-color: var(--accent-color);
   color: var(--surface-color);
   border: none;
@@ -1455,7 +1510,7 @@ footer.bg-dark .mt-4 a:hover i {
   transition: all 0.3s ease-in-out;
 }
 
-.contact .php-email-form button[type="submit"]:hover {
+.contact .email-form button[type="submit"]:hover {
   background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 

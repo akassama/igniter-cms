@@ -87,6 +87,7 @@ class EmailService
             '{{MAIN_CONTENT}}' => $data['main_content'] ?? '',
             '{{CTA_TEXT}}' => $data['cta_text'] ?? 'Call To Action',
             '{{CTA_URL}}' => $data['cta_url'] ?? '#',
+            '{{CTA_DISPLAY}}' =>  !empty($data['cta_url']) ? "block" : "none",
             '{{FOOTER_TEXT}}' => $data['footer_text'] ?? '',
             '{{COMPANY_ADDRESS}}' => $data['company_address'] ?? 'Company Inc',
             '{{UNSUBSCRIBE_URL}}' => $data['unsubscribe_url'] ?? '#'

@@ -177,14 +177,19 @@ FORWARD_BOOKING_EMAIL = true
 FORWARD_BOOKING_EMAIL_TO = "booking@email.com"
 FORWARD_SUBSCRIPTION_EMAIL = true
 FORWARD_SUBSCRIPTION_EMAIL_TO = "subscription@email.com"
+DEFAULT_SUBSCRIPTION_STATUS = "Pending Confirmation" #'Pending Confirmation', 'Active', 'Unsubscribed', 'Bounced'
 
 #--------------------------------------------------------------------
 # CAPTCHA SETTINGS
 #--------------------------------------------------------------------
-APP_USE_CAPTCHA = "No"
-APP_USE_HCAPTCHA = "Yes"
-HCAPTCHA_SITE_KEY = "hcaptcha-site-key"
-HCAPTCHA_SECRET_KEY = "ES_hcaptcha-secret-key"
+USE_CAPTCHA = "Yes"
+CAPTCHA_TYPE = "recaptcha,hecaptcha,cloudflare"
+RECAPTCHA_SITE_KEY = "your-recaptcha-site-key"
+RECAPTCHA_SECRET = "your-recaptcha-secret"
+HCAPTCHA_SITE_KEY = "your-hcaptcha-site-key"
+HCAPTCHA_SECRET = "your-hcaptcha-secret"
+TURNSTILE_SITE_KEY = "your-turnstile-site-key"
+TURNSTILE_SECRET = "your-turnstile-secret"
 
 #--------------------------------------------------------------------
 # OTHER SETTINGS

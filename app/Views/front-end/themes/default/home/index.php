@@ -673,11 +673,19 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
               <div class="subscribe-content">
                 <h2>Subscribe to our newsletter</h2>
                 <p>Proin eget tortor risus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Curabitur aliquet quam id dui posuere blandit.</p>
-                <form action="#" method="post">
-                  <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Email address..." aria-label="Email address" aria-describedby="button-subscribe">
-                    <button class="btn btn-primary px-4" type="submit" id="button-subscribe">Subscribe</button>
-                  </div>
+                <form action="<?= base_url('/api-form/add-subscriber') ?>" method="post" class="g-3 needs-validation" id="subscribeForm">
+                    <?= csrf_field() ?>
+                    <?=getHoneypotInput()?>
+                    <div class="input-group mb-3">
+                        <input class="form-control" type="email" name="email" id="email" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" required />
+                        <button class="btn btn-primary px-4" type="submit" id="button-subscribe">Subscribe</button>
+                    </div>
+                    <div class="col-12">
+                        <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()."?#subscribe"?>">
+                        <input type="hidden" class="form-control" name="form_name" id="form_name" value="Subscribe">
+                    </div>
+                    <!--captcha validation-->
+                    <?=renderHcaptcha()?>
                 </form>
               </div>
             </div>
@@ -689,6 +697,98 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
           </div>
         </div>
       </section>
+
+    <!-- Appointment Booking Section -->
+    <section id="appointment" class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold mb-3">Book an Appointment</h2>
+                    <p class="lead">Schedule a consultation with our experts at your convenience.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <form action="<?= base_url('/api-form/add-booking') ?>" method="post" class="row g-3 needs-validation">
+                        <?= csrf_field() ?>
+                        <?= getHoneypotInput() ?>
+
+                        <div class="col-md-6">
+                            <label for="first_name" class="form-label visually-hidden">First Name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
+                            <div class="invalid-feedback">
+                                Please provide your first name.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="last_name" class="form-label visually-hidden">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
+                            <div class="invalid-feedback">
+                                Please provide your last name.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email" class="form-label visually-hidden">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid email address.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="phone" class="form-label visually-hidden">Phone (Optional)</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone (Optional)">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="appointment_date" class="form-label">Preferred Date</label>
+                            <input type="date" class="form-control" id="appointment_date" name="appointment_date" required min="<?= date('Y-m-d') ?>">
+                            <div class="invalid-feedback">
+                                Please select a valid appointment date.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="service_name" class="form-label">Service</label>
+                            <select class="form-select" id="service_name" name="service_name" required>
+                                <option value="" disabled selected>Select a Service</option>
+                                <option value="IT Hardware & Software Procurement">IT Procurement</option>
+                                <option value="Cloud Solutions">Cloud Migration</option>
+                                <option value="Cybersecurity Services">Security Audit</option>
+                                <option value="IT Consulting & Strategy">IT Strategy Session</option>
+                                <option value="Managed IT Support">Managed Support Setup</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a service.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="message" class="form-label visually-hidden">Additional details (optional)</label>
+                            <textarea class="form-control" id="message" name="message" rows="3" placeholder="Additional details (optional)"></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <!--captcha validation-->
+                            <?= renderCaptcha() ?>
+                        </div>
+
+                        <div class="col-12">
+                            <input type="hidden" name="form_name" value="Homepage Appointment Form">
+                            <input type="hidden" name="return_url" value="<?= current_url() ?>?#appointment">
+                            <input type="hidden" class="form-control" name="form_name" id="form_name" value="Appointment">
+                        </div>
+
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 bg-primary">Book Appointment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Blog Section -->
     <section class="py-5 bg-light">
@@ -794,7 +894,7 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
     
             <!-- Contact Form -->
             <div class="col-lg-8">
-            <form action="<?= base_url('/api-form/send-contact-message') ?>" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+            <form action="<?= base_url('/api-form/send-contact-message') ?>" method="post" class="g-3 needs-validation email-form" data-aos="fade-up" data-aos-delay="200">
                 <?= csrf_field() ?>
                 <?=getHoneypotInput()?>
                 <div class="row gy-4">
@@ -814,7 +914,8 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
                     <?=renderHcaptcha()?>
 
                     <div class="col-12">
-                        <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url('?#contact')?>">
+                        <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()."?#contact"?>">
+                        <input type="hidden" class="form-control" name="form_name" id="form_name" value="Contact">
                     </div>
 
                     <div class="col-md-12 text-center">
@@ -822,7 +923,8 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
                     </div>
                 </div>
             </form>
-            </div><!-- End Contact Form -->
+            </div>
+            <!-- End Contact Form -->
     
         </div>
     

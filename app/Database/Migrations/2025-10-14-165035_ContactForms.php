@@ -14,8 +14,8 @@ class ContactForms extends Migration
                 'constraint' => 100,
             ],
             'site_id' => [
-                'type'       => 'INT',
-                'constraint' => 11,
+                'type'       => 'VARCHAR',
+                'constraint' => 50,
             ],
             'form_name' => [ // Allows multiple contact forms per site
                 'type'       => 'VARCHAR',

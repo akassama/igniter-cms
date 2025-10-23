@@ -233,83 +233,111 @@ if (!function_exists('getHoneypotInput')) {
 }
 
 /**
- * Render hCaptcha widget if enabled.
+ * Render Captcha widget if enabled.
  *
  * @return void
  */
-if (!function_exists('renderHcaptcha')) {
-    function renderHcaptcha()
-    {
-        $useHCaptcha = env('APP_USE_HCAPTCHA', "No");
-        if(strtolower($useHCaptcha) === "yes")
-        {
-            // Get the hCaptcha site key from environment or configuration
-            $hcaptchaSiteKey = env("HCAPTCHA_SITE_KEY");
-            if (!empty($hcaptchaSiteKey)) {
-                // Render the hCaptcha widget
-                echo '<div class="col-12">';
-                echo '<div class="h-captcha" data-sitekey="' . $hcaptchaSiteKey . '"></div>';
-                echo '</div>';
-            } else {
-                log_message('error', 'hCaptcha site key is not set.');
-            }
+function renderCaptcha()
+{
+    $types = explode(',', strtolower(env('CAPTCHA_TYPE', 'recaptcha')));
+    foreach ($types as $type) {
+        if ($type === 'recaptcha') {
+            // Google reCAPTCHA v3 (invisible, auto-token)
+            $siteKey = env('RECAPTCHA_SITE_KEY');
+            echo '<script src="https://www.google.com/recaptcha/api.js?render='.$siteKey.'"></script>';
+            echo '<script>
+                grecaptcha.ready(function() {
+                    grecaptcha.execute("'.$siteKey.'", {action: "submit"}).then(function(token) {
+                        var recaptchaResponse = document.getElementById("g-recaptcha-response");
+                        if (recaptchaResponse) recaptchaResponse.value = token;
+                        else {
+                            var input = document.createElement("input");
+                            input.type = "hidden";
+                            input.id = "g-recaptcha-response";
+                            input.name = "g-recaptcha-response";
+                            input.value = token;
+                            document.forms[0].appendChild(input);
+                        }
+                    });
+                });
+            </script>';
+        }
+        elseif ($type === 'hecaptcha') {
+            // hCaptcha (visible)
+            $siteKey = env('HCAPTCHA_SITE_KEY');
+            echo '<script src="https://hcaptcha.com/1/api.js" async defer></script>';
+            echo '<div class="h-captcha" data-sitekey="'.$siteKey.'"></div>';
+        }
+        elseif ($type === 'cloudflare') {
+            // Cloudflare Turnstile (visible, nice UX)
+            $siteKey = env('TURNSTILE_SITE_KEY');
+            echo '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>';
+            echo '<div class="cf-turnstile" data-sitekey="'.$siteKey.'"></div>';
         }
     }
 }
 
+
 /**
- * Validate hCaptcha response.
+ * Validate Captcha response.
  *
  * @return bool|string Returns true if CAPTCHA is valid, otherwise returns an error message.
  */
-if (!function_exists('validateHcaptcha')) {
-    function validateHcaptcha($returnUrl = null)
-    {
-        // Check if CAPTCHA is enabled
-        $useHCaptcha = env('APP_USE_HCAPTCHA', "No");
-        if (strtolower($useHCaptcha) !== "yes") {
-            return true; // HCAPTCHA is not enabled, so validation is skipped
+function validateCaptcha($returnUrl = null)
+{
+    $useCaptcha = env('USE_CAPTCHA', "No");
+    if (strtolower($useCaptcha) !== "yes") return true;
+
+    $types = explode(',', strtolower(env('CAPTCHA_TYPE', 'recaptcha')));
+
+    foreach ($types as $type) {
+        if ($type === 'recaptcha' && !empty($_POST['g-recaptcha-response'])) {
+            $secret = env('RECAPTCHA_SECRET');
+            $response = $_POST['g-recaptcha-response'];
+            $verify = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$response);
+            $responseData = json_decode($verify);
+            if (!$responseData->success || $responseData->score < 0.5) {
+                return 'Google reCAPTCHA validation failed. Please try again.'; // Score might be used if you want stricter spam checks
+            }
         }
-
-        // Get hCaptcha secret key
-        $hcaptcha_secret = env("HCAPTCHA_SECRET_KEY");
-        if (empty($hcaptcha_secret)) {
-            log_message('error', 'hCaptcha secret key is not set.');
-            return 'CAPTCHA configuration error. Please contact support.';
+        elseif ($type === 'hecaptcha' && !empty($_POST['h-captcha-response'])) {
+            $secret = env('HCAPTCHA_SECRET');
+            $response = $_POST['h-captcha-response'];
+            $post_data = http_build_query([
+                'secret' => $secret,
+                'response' => $response
+            ]);
+            $opts = ['http'=>['method'=>"POST", 'header'=>"Content-type: application/x-www-form-urlencoded", 'content'=>$post_data]];
+            $context = stream_context_create($opts);
+            $verify = file_get_contents('https://hcaptcha.com/siteverify', false, $context);
+            $responseData = json_decode($verify);
+            if (empty($responseData->success)) {
+                return 'hCaptcha validation failed.';
+            }
         }
-
-        // Get hCaptcha response from the form
-        $hcaptcha_response = service('request')->getPost('h-captcha-response');
-        if (empty($hcaptcha_response)) {
-            return 'CAPTCHA response is missing. Please complete the CAPTCHA.';
+        elseif ($type === 'cloudflare' && !empty($_POST['cf-turnstile-response'])) {
+            $secret = env('TURNSTILE_SECRET');
+            $response = $_POST['cf-turnstile-response'];
+            $ch = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+                'secret' => $secret,
+                'response' => $response,
+                'remoteip' => $_SERVER['REMOTE_ADDR'] ?? null
+            ]));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $res = curl_exec($ch);
+            curl_close($ch);
+            $responseData = json_decode($res);
+            if (empty($responseData->success)) {
+                return 'Cloudflare Turnstile verification failed.';
+            }
         }
-
-        // Verify the CAPTCHA with hCaptcha API
-        $verify_url = "https://hcaptcha.com/siteverify";
-        $data = [
-            'secret' => $hcaptcha_secret,
-            'response' => $hcaptcha_response
-        ];
-
-        $options = [
-            'http' => [
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'POST',
-                'content' => http_build_query($data)
-            ]
-        ];
-
-        $context = stream_context_create($options);
-        $result = file_get_contents($verify_url, false, $context);
-        $response = json_decode($result);
-
-        if (!$response->success) {
-            return 'CAPTCHA validation failed. Please try again.';
-        }
-
-        return true; // CAPTCHA validation successful
     }
+
+    return true;
 }
+
 
 /**
  * Blocks the IP address and logs the activity.

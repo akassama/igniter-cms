@@ -39,6 +39,9 @@ $routes->get('services/unsubscribe', 'ServicesController::unsubscribe');
 //RE-SUBSCRIBE
 $routes->get('services/subscribe', 'ServicesController::subscribe');
 
+//CONFRIM-SUBSCRIPTION
+$routes->get('services/confirm-subscription', 'ServicesController::confirmSubscription');
+
 //ACCOUNT
 $routes->get('/account', 'AccountController::index', ['filter' => 'authFilter']);
 
@@ -362,13 +365,13 @@ $routes->group('api', ['filter' => ['apiAccessFilter', 'corsFilter', 'rateLimitF
 $routes->group('api-form', ['filter' => ['corsFilter']],  function($routes) {
     if (isFeatureEnabled('FEATURE_FRONT_END')) {
 	    // Add Contact Message
-        $routes->post('send-contact-message', 'APIFormController::sendContactMessage');
+        $routes->post('send-contact-message', 'FormRequestsController::sendContactMessage');
         
         // Add Subscription
-        $routes->post('add-subscriber', 'APIFormController::addSubscription');
+        $routes->post('add-subscriber', 'FormRequestsController::addSubscription');
         
         // Add Booking
-        $routes->post('add-booking', 'APIFormController::addBooking');
+        $routes->post('add-booking', 'FormRequestsController::addBooking');
     }
 });
 
