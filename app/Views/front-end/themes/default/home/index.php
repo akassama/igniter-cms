@@ -684,7 +684,7 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
                         <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()."?#subscribe"?>">
                         <input type="hidden" class="form-control" name="form_name" id="form_name" value="Subscribe">
                     </div>
-                    <!--hcaptcha validation-->
+                    <!--captcha validation-->
                     <?=renderHcaptcha()?>
                 </form>
               </div>
@@ -771,7 +771,8 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
                         </div>
 
                         <div class="col-12">
-                            <?= renderHcaptcha() ?>
+                            <!--captcha validation-->
+                            <?= renderCaptcha() ?>
                         </div>
 
                         <div class="col-12">

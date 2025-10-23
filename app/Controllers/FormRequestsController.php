@@ -41,8 +41,8 @@ class FormRequestsController extends BaseController
         $siteName = getConfigData('SiteName');
         $siteAddress = getConfigData('SiteAddress');
 
-        // Validate hCaptcha
-        $captchaValidation = validateHcaptcha();
+        // Validate Captcha
+        $captchaValidation = validateCaptcha();
         if ($captchaValidation !== true) {
             // CAPTCHA validation failed
             $errorMessage = $captchaValidation; // Error message returned by the helper function
@@ -152,8 +152,8 @@ class FormRequestsController extends BaseController
         $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
         validateHoneypotInput($honeypotInput, $submittedTimestamp);
 
-        // Validate hCaptcha
-        $captchaValidation = validateHcaptcha();
+        // Validate Captcha
+        $captchaValidation = validateCaptcha();
         if ($captchaValidation !== true) {
             $errorMessage = $captchaValidation;
             $returnUrl = $this->request->getPost('return_url');
@@ -196,7 +196,7 @@ class FormRequestsController extends BaseController
         $confirmationToken      = getGUID();
         $siteName = getConfigData('SiteName');
         $siteAddress = getConfigData('SiteAddress');
-        
+
         //Check if record exists
         $tableName = 'subscription_form_submissions';
         $where = [
@@ -321,8 +321,8 @@ class FormRequestsController extends BaseController
         $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
         validateHoneypotInput($honeypotInput, $submittedTimestamp);
 
-        // Validate hCaptcha
-        $captchaValidation = validateHcaptcha();
+        // Validate Captcha
+        $captchaValidation = validateCaptcha();
         if ($captchaValidation !== true) {
             $errorMessage = $captchaValidation;
             $returnUrl = $this->request->getPost('return_url');
