@@ -13,9 +13,27 @@ class ContactFormsModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields = [
-        'contact_form_id', 'site_id', 'form_name', 'name', 'email', 'phone', 'subject', 'message',
-        'company', 'website', 'ip_address', 'country', 'user_agent', 'referrer',
-        'is_read', 'is_archived', 'status', 'notes', 'last_updated_by', 'created_at', 'updated_at'
+        'contact_form_id', 
+		'site_id', 
+		'form_name', 
+		'name', 
+		'email', 
+		'phone', 
+		'subject', 
+		'message',
+        'company', 
+		'website', 
+		'ip_address', 
+		'country', 
+		'user_agent', 
+		'referrer',
+        'is_read', 
+		'is_archived', 
+		'status', 
+		'notes', 
+		'last_updated_by', 
+		'created_at', 
+		'updated_at'
     ];
 
     protected bool $allowEmptyInserts = false;

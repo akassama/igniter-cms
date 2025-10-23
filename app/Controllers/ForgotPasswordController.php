@@ -5,12 +5,10 @@ namespace App\Controllers;
 use App\Constants\ActivityTypes;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Services\EmailService;
+use App\Libraries\EmailService;
 
 class ForgotPasswordController extends BaseController
 {
-    private EmailService $emailService;
-
     public function __construct()
     {
         $this->emailService = new EmailService();
@@ -18,79 +16,79 @@ class ForgotPasswordController extends BaseController
 
     public function index()
     {
-        $result = $this->emailService->sendHtmlEmail($toEmail, $name, $subject, $templateData, $fromEmail);
-
         return view('front-end/forgot-password/index');
     }
 
     public function sendResetLinkEmail()
     {
-        //show demo message
-        if(boolval(env('DEMO_MODE', "false"))){
+        if (boolval(env('DEMO_MODE', "false"))) {
             $errorMsg = "Reset password not available in the demo mode.";
             session()->setFlashdata('errorAlert', $errorMsg);
             return view('front-end/sign-up/index');
         }
 
-        // Retrieve the honeypot and timestamp values
-        $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
-        $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
-        //Honeypot validator - Validate the inputs
-        validateHoneypotInput($honeypotInput, $submittedTimestamp);
-        
-        $rules = [
-            'email' => 'required|valid_email',
-        ];
+        try {
+            $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
+            $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
+            validateHoneypotInput($honeypotInput, $submittedTimestamp);
 
-        if ($this->validate($rules)) {
-            $fromEmail = getConfigData("SiteEmail");
-            $toEmail = $this->request->getPost('email');
-            $tableName = 'users';
+            $rules = [
+                'email' => 'required|valid_email',
+            ];
 
-            if (recordExists($tableName, "email", $toEmail)) {
-                $whereClause = ['email' => $toEmail];
-                $firstName = getTableData($tableName, $whereClause, 'first_name');
-                $lastName = getTableData($tableName, $whereClause, 'last_name');
-                $userId = getTableData($tableName, $whereClause, 'user_id');
-                $fullName = $firstName . " " . $lastName;
+            if ($this->validate($rules)) {
+                $fromEmail = env("EMAIL_FROM");
+                $toEmail = $this->request->getPost('email');
+                $tableName = 'users';
 
-                $resetToken = generateResetLink($toEmail);
-                $siteAddress = getConfigData("SiteAddress");
-                $subject = 'Password Reset Request';
+                if (recordExists($tableName, "email", $toEmail)) {
+                    $whereClause = ['email' => $toEmail];
+                    $firstName = getTableData($tableName, $whereClause, 'first_name');
+                    $lastName = getTableData($tableName, $whereClause, 'last_name');
+                    $userId = getTableData($tableName, $whereClause, 'user_id');
+                    $fullName = $firstName . " " . $lastName;
 
-                $templateData = [
-                    'preheader' => 'Password reset request for your account',
-                    'greeting' => 'Hi ' . $fullName . ',',
-                    'main_content' => "We received a request to reset your password. Click the link below to choose a new password:",
-                    'cta_text' => 'Reset Password',
-                    'cta_url' => site_url("password-reset/{$resetToken}"),
-                    'footer_text' => '<p>If you did not request a password reset, please ignore this email or contact support if you have any questions.</p><br/><p>Password reset links are valid for 30 minutes.</p>',
-                    'company_address' => $siteAddress,
-                    'unsubscribe_url' => site_url('unsubscribe')
-                ];
+                    $resetToken = generateResetLink($toEmail);
+                    $siteAddress = getConfigData("SiteAddress");
+                    $subject = 'Password Reset Request';
 
-                //send email
-                $result = $this->emailService->sendPasswordRecoveryHtmlEmail($toEmail, $fullName, $subject, $templateData, $fromEmail);
+                    $templateData = [
+                        'preheader' => 'Password reset request for your account',
+                        'greeting' => 'Hi ' . $fullName . ',',
+                        'main_content' => "We received a request to reset your password. Click the link below to choose a new password:",
+                        'cta_text' => 'Reset Password',
+                        'cta_url' => site_url("password-reset/{$resetToken}"),
+                        'footer_text' => '<p>If you did not request a password reset, please ignore this email or contact support if you have any questions.</p><br/><p>Password reset links are valid for 30 minutes.</p>',
+                        'company_address' => $siteAddress,
+                        'unsubscribe_url' => site_url('services/unsubscribe?identifier='.$fromEmail)
+                    ];
 
-                if ($result) {
-                    $resetLinkMsg = config('CustomConfig')->resetLinkMsg;
-                    session()->setFlashdata('successAlert', $resetLinkMsg);
-                    logActivity($userId, ActivityTypes::PASSWORD_RESET_SENT, 'Password reset link sent for user with id: ' . $userId);
+                    $result = $this->emailService->send($toEmail, $subject, $templateData);
+
+                    if ($result) {
+                        $resetLinkMsg = config('CustomConfig')->resetLinkMsg;
+                        session()->setFlashdata('successAlert', $resetLinkMsg);
+                        logActivity($userId, ActivityTypes::PASSWORD_RESET_SENT, 'Password reset link sent for user with id: ' . $userId);
+                    } else {
+                        $errorMsg = config('CustomConfig')->errorMsg;
+                        session()->setFlashdata('errorAlert', "$errorMsg");
+                        logActivity($userId, ActivityTypes::PASSWORD_RESET_FAILED, 'Failed to send reset link for user with id: ' . $userId);
+                    }
                 } else {
                     $nonExistingResetEmailMsg = config('CustomConfig')->nonExistingResetEmailMsg;
                     session()->setFlashdata('errorAlert', $nonExistingResetEmailMsg);
-                    logActivity($userId, ActivityTypes::PASSWORD_RESET_FAILED, 'Failed to send reset link for user with id: ' . $userId);
                 }
-            } else {
-                $nonExistingResetEmailMsg = config('CustomConfig')->nonExistingResetEmailMsg;
-                session()->setFlashdata('errorAlert', $nonExistingResetEmailMsg);
-            }
 
+                return redirect()->to('/sign-in');
+            } else {
+                $data['validation'] = $this->validator;
+                logActivity($this->request->getPost('email'), ActivityTypes::PASSWORD_RESET_FAILED, 'Invalid email provided for password reset');
+                return view('front-end/forgot-password/index', $data);
+            }
+        } catch (\Throwable $e) {
+            session()->setFlashdata('errorAlert', 'An unexpected error occurred. Please try again later.');
+            logActivity(null, ActivityTypes::PASSWORD_RESET_FAILED, 'Exception during password reset: ' . $e->getMessage());
             return redirect()->to('/sign-in');
-        } else {
-            $data['validation'] = $this->validator;
-            logActivity($this->request->getPost('email'), ActivityTypes::PASSWORD_RESET_FAILED, 'Invalid email provided for password reset');
-            return view('front-end/forgot-password/index', $data);
         }
     }
 }

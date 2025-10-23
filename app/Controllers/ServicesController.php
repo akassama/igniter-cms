@@ -251,4 +251,89 @@ class ServicesController extends BaseController
             echo json_encode(['success' => false, 'message' => 'An error occurred while removing the record(s).']);
         }
     }
+
+    /**
+     * Unsubscribes a user from the service using either a subscription UUID or email address.
+     *
+     * Accepts a query parameter `identifier`, which can be a UUID or an email.
+     * Example: /services/unsubscribe?identifier=user@example.com
+     *
+     * @return void
+     */
+    public function unsubscribe()
+    {
+        $identifier = $this->request->getGet('identifier');
+
+        $updateColumn = "'status' = 'Unsubscribed'";
+        $updateWhereClause = isValidGUID($identifier)
+            ? "subscription_form_id = '$identifier'"
+            : "email = '$identifier'";
+
+        $result = updateRecordColumn("subscription_form_submissions", $updateColumn, $updateWhereClause);
+
+        if ($result) {
+            $subscribeUrl = base_url("services/subscribe?identifier=" . urlencode($identifier));
+            echo "<!DOCTYPE html>
+            <html>
+            <head><title>Unsubscribed</title></head>
+            <body style='font-family: Arial, sans-serif; padding: 2rem;'>
+                <h2>You have been unsubscribed</h2>
+                <p>You will no longer receive messages from this service.</p>
+                <p>If you unsubscribed by mistake, you can <a href='{$subscribeUrl}'>click here to re-subscribe</a>.</p>
+            </body>
+            </html>";
+        } else {
+            http_response_code(500);
+            echo "<!DOCTYPE html>
+            <html>
+            <head><title>Error</title></head>
+            <body style='font-family: Arial, sans-serif; padding: 2rem;'>
+                <h2>Unsubscribe Failed</h2>
+                <p>We were unable to process your unsubscribe request. Please try again later.</p>
+            </body>
+            </html>";
+        }
+    }
+
+    /**
+     * Resubscribes a user to the service using either a subscription UUID or email address.
+     *
+     * Accepts a query parameter `identifier`, which can be a UUID or an email.
+     * Example: /services/subscribe?identifier=user@example.com
+     *
+     * @return void
+     */
+    public function subscribe()
+    {
+        $identifier = $this->request->getGet('identifier');
+
+        $updateColumn = "'status' = 'Active'";
+        $updateWhereClause = isValidGUID($identifier)
+            ? "subscription_form_id = '$identifier'"
+            : "email = '$identifier'";
+
+        $result = updateRecordColumn("subscription_form_submissions", $updateColumn, $updateWhereClause);
+
+        if ($result) {
+            echo "<!DOCTYPE html>
+            <html>
+            <head><title>Re-subscribed</title></head>
+            <body style='font-family: Arial, sans-serif; padding: 2rem;'>
+                <h2>You have been re-subscribed</h2>
+                <p>You will now receive messages from this service again.</p>
+            </body>
+            </html>";
+        } else {
+            http_response_code(500);
+            echo "<!DOCTYPE html>
+            <html>
+            <head><title>Error</title></head>
+            <body style='font-family: Arial, sans-serif; padding: 2rem;'>
+                <h2>Re-subscribe Failed</h2>
+                <p>We were unable to process your re-subscribe request. Please try again later.</p>
+            </body>
+            </html>";
+        }
+    }
+
 }
