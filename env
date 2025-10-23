@@ -172,11 +172,19 @@ email.wordWrap = true
 # FORM EMAILS
 #--------------------------------------------------------------------
 FORWARD_CONTACT_EMAIL = true
-FORWARD_CONTACT_EMAIL_TO = "example@email.com"
+FORWARD_CONTACT_EMAIL_TO = "contact@email.com"
 FORWARD_BOOKING_EMAIL = true
-FORWARD_BOOKING_EMAIL_TO = "example@email.com"
+FORWARD_BOOKING_EMAIL_TO = "booking@email.com"
 FORWARD_SUBSCRIPTION_EMAIL = true
-FORWARD_SUBSCRIPTION_EMAIL_TO = "example@email.com"
+FORWARD_SUBSCRIPTION_EMAIL_TO = "subscription@email.com"
+
+#--------------------------------------------------------------------
+# CAPTCHA SETTINGS
+#--------------------------------------------------------------------
+APP_USE_CAPTCHA = "No"
+APP_USE_HCAPTCHA = "Yes"
+HCAPTCHA_SITE_KEY = "hcaptcha-site-key"
+HCAPTCHA_SECRET_KEY = "ES_hcaptcha-secret-key"
 
 #--------------------------------------------------------------------
 # OTHER SETTINGS
@@ -184,7 +192,6 @@ FORWARD_SUBSCRIPTION_EMAIL_TO = "example@email.com"
 APP_NAME = "Igniter CMS App"
 APP_VERSION = 2.0.1
 APP_KEY=your-app-id
-APP_USE_CAPTCHA = "No"
 APP_API_KEY = "default"
 DEMO_MODE = false
 CUSTOM_GEMINI_REQUEST_URL = https://api.ignitercms.com/ai/get-ai-response/

@@ -105,7 +105,7 @@ public function up()
             ],
             'payment_status' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 50, // e.g., 'Unpaid', 'Paid', 'Refunded'
+                'constraint' => 50, // e.g., 'None','Unpaid', 'Paid', 'Refunded'
                 'default'    => 'Unpaid',
             ],
             'payment_amount' => [

@@ -272,14 +272,14 @@ class ServicesController extends BaseController
         $result = updateRecordColumn("subscription_form_submissions", $updateColumn, $updateWhereClause);
 
         if ($result) {
-            $resubscribeUrl = base_url("services/resubscribe?identifier=" . urlencode($identifier));
+            $subscribeUrl = base_url("services/subscribe?identifier=" . urlencode($identifier));
             echo "<!DOCTYPE html>
             <html>
             <head><title>Unsubscribed</title></head>
             <body style='font-family: Arial, sans-serif; padding: 2rem;'>
                 <h2>You have been unsubscribed</h2>
                 <p>You will no longer receive messages from this service.</p>
-                <p>If you unsubscribed by mistake, you can <a href='{$resubscribeUrl}'>click here to re-subscribe</a>.</p>
+                <p>If you unsubscribed by mistake, you can <a href='{$subscribeUrl}'>click here to re-subscribe</a>.</p>
             </body>
             </html>";
         } else {
@@ -299,11 +299,11 @@ class ServicesController extends BaseController
      * Resubscribes a user to the service using either a subscription UUID or email address.
      *
      * Accepts a query parameter `identifier`, which can be a UUID or an email.
-     * Example: /services/resubscribe?identifier=user@example.com
+     * Example: /services/subscribe?identifier=user@example.com
      *
      * @return void
      */
-    public function resubscribe()
+    public function subscribe()
     {
         $identifier = $this->request->getGet('identifier');
 

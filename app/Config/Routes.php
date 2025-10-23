@@ -37,7 +37,7 @@ $routes->group('password-reset', ['filter' => ['siteStatsFilter','guestFilter','
 $routes->get('services/unsubscribe', 'ServicesController::unsubscribe');
 
 //RE-SUBSCRIBE
-$routes->get('services/resubscribe', 'ServicesController::resubscribe');
+$routes->get('services/subscribe', 'ServicesController::subscribe');
 
 //ACCOUNT
 $routes->get('/account', 'AccountController::index', ['filter' => 'authFilter']);
@@ -358,6 +358,19 @@ $routes->group('api', ['filter' => ['apiAccessFilter', 'corsFilter', 'rateLimitF
     $routes->post('(:segment)/delete-plugin-data', 'APIController::deletePluginData/$1');
 });
 
+//API Form Endpoints
+$routes->group('api-form', ['filter' => ['corsFilter']],  function($routes) {
+    if (isFeatureEnabled('FEATURE_FRONT_END')) {
+	    // Add Contact Message
+        $routes->post('send-contact-message', 'APIFormController::sendContactMessage');
+        
+        // Add Subscription
+        $routes->post('add-subscriber', 'APIFormController::addSubscription');
+        
+        // Add Booking
+        $routes->post('add-booking', 'APIFormController::addBooking');
+    }
+});
 
 $frontEndFormat = getConfigData("FrontEndFormat");
 if(strtolower($frontEndFormat) === "mvc")
