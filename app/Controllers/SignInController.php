@@ -12,16 +12,6 @@ class SignInController extends BaseController
 {
     public function index()
     {
-        //get use captcha config
-        $useCaptcha = env('USE_CAPTCHA', "No");
-        if(strtolower($useCaptcha) === "yes"){
-            // Generate captcha
-            $builder = new CaptchaBuilder;
-            $builder->build();
-            session()->set('captcha', $builder->getPhrase());
-            $data['captcha_image'] = $builder->inline();
-        }
-
         // Get the returnUrl parameter from the query string
         $returnUrl = $this->request->getGet('returnUrl');
         $data['returnUrl'] = $returnUrl;
@@ -59,14 +49,16 @@ class SignInController extends BaseController
             $password = $this->request->getPost('password');
             $returnUrl = $this->request->getPost('return_url');
 
-            if (strtolower($useCaptcha) === "yes") {
-                $captcha = $this->request->getPost('captcha');
-                $captchaSession = session('captcha');
-                // Verify captcha.
-                if ($captcha !== $captchaSession) {
-                    session()->setFlashdata('errorAlert', 'Invalid captcha');
-                    return redirect()->to('/sign-in');
+            // Validate Captcha
+            $captchaValidation = validateCaptcha();
+            if ($captchaValidation !== true) {
+                $errorMessage = $captchaValidation;
+                $returnUrl = $this->request->getPost('return_url');
+                if (!empty($returnUrl)) {
+                    session()->setFlashdata('errorAlert', $errorMessage);
+                    return redirect()->to($returnUrl);
                 }
+                return $this->response->setStatusCode(500)->setJSON(['message' => $errorMessage]);
             }
 
             // Load the UsersModel
@@ -168,14 +160,6 @@ class SignInController extends BaseController
             }
         } else {
             $data['validation'] = $this->validator;
-
-            if (strtolower($useCaptcha) === "yes") {
-                // Regenerate captcha for the next attempt
-                $builder = new CaptchaBuilder;
-                $builder->build();
-                session()->set('captcha', $builder->getPhrase());
-                $data['captcha_image'] = $builder->inline();
-            }
 
             // Log activity
             logActivity($this->request->getPost('email'), ActivityTypes::FAILED_USER_LOGIN, 'User failed to log in with email: ' . $this->request->getPost('email'));

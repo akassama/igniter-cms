@@ -274,6 +274,57 @@ function renderCaptcha()
             echo '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>';
             echo '<div class="cf-turnstile" data-sitekey="'.$siteKey.'"></div>';
         }
+        elseif ($type === 'gregwar') {
+            // Generate Gregwar CAPTCHA image with easier settings
+            $builder = new \Gregwar\Captcha\CaptchaBuilder;
+            
+            // Make CAPTCHA easier to read
+            $builder->setBackgroundColor(255, 255, 255);
+            $builder->setMaxAngle(8); 
+            $builder->setMaxBehindLines(1); 
+            $builder->setMaxFrontLines(1);  
+            $builder->setDistortion(false);
+            $builder->setInterpolation(false);
+            $builder->setIgnoreAllEffects(true);
+            
+            $builder->build(150, 40);
+            
+            $captchaPhrase = $builder->getPhrase();
+            session()->set('gregwar_captcha', $captchaPhrase);
+            $captcha_image = $builder->inline();
+            
+            echo '<style>
+                    .captcha-image {
+                            border: 1px solid #ddd;
+                            padding: 5px;
+                            background: #fff;
+                        }
+
+                        .gregwar-captcha-container {
+                            background: #f8f9fa;
+                            padding: 15px;
+                            border-radius: 5px;
+                            border: 1px solid #e9ecef;
+                        }
+
+                        .form-text {
+                            font-size: 0.875em;
+                            color: #6c757d;
+                            margin-top: 0.25rem;
+                        }
+                    </style>
+                <div class="mb-2 gregwar-captcha-container">
+                    <label for="gregwar_response" class="form-label">Enter the text shown in the image:</label>
+                    <div class="mb-2">
+                        <img loading="lazy" src="'.$captcha_image.'" alt="CAPTCHA" class="captcha-image border rounded">
+                    </div>
+                    <input type="text" class="form-control" id="gregwar_response" name="gregwar_response" required placeholder="Type the text you see above">
+                    <div class="form-text">Letters are not case sensitive</div>
+                    <div class="invalid-feedback">
+                        Please enter the captcha text shown in the image
+                    </div>
+                </div>';
+        }
     }
 }
 
@@ -333,9 +384,26 @@ function validateCaptcha($returnUrl = null)
                 return 'Cloudflare Turnstile verification failed.';
             }
         }
+        elseif ($type === 'gregwar' && !empty($_POST['gregwar_response'])) {
+            $userInput = $_POST['gregwar_response'];
+            $storedPhrase = session('gregwar_captcha');
+            
+            // Clear the session captcha after validation (one-time use)
+            session()->remove('gregwar_captcha');
+            
+            if (empty($storedPhrase) || strtolower(trim($userInput)) !== strtolower(trim($storedPhrase))) {
+                return 'Captcha validation failed. Please try again.';
+            }
+            return true;
+        }
     }
 
-    return true;
+    // If we get here and Gregwar is the only CAPTCHA type, check if input was provided
+    if (in_array('gregwar', $types) && empty($_POST['gregwar_response'])) {
+        return 'Please complete the captcha.';
+    }
+
+    return 'Captcha validation required.';
 }
 
 

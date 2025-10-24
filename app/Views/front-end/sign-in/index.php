@@ -50,22 +50,8 @@
                     <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me" value="true"> Remember me
                 </label>
             </div>
-            <?php if (!empty($captcha_image)) { ?>
-                <div class="mb-2">
-                    <label for="captcha" class="form-label">Captcha</label>
-                    <img loading="lazy" src="<?= $captcha_image ?>" alt="CAPTCHA" class="mb-2">
-                    <input type="text" class="form-control" id="captcha" name="captcha" required>
-                    <input type="hidden" name="captcha_session" value="<?= session('captcha') ?>">
-                    <?php if ($validation->getError('captcha')) { ?>
-                        <div class='alert alert-danger mt-2'>
-                            <?= $error = $validation->getError('captcha'); ?>
-                        </div>
-                    <?php } ?>
-                    <div class="invalid-feedback">
-                        Please enter the captcha
-                    </div>
-                </div>
-            <?php } ?>
+            
+            <?= renderCaptcha()?>
             
             <!--hidden inputs -->
             <div class="col-12">
