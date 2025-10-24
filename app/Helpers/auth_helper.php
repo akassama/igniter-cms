@@ -275,19 +275,56 @@ function renderCaptcha()
             echo '<div class="cf-turnstile" data-sitekey="'.$siteKey.'"></div>';
         }
         elseif ($type === 'gregwar') {
-            // Generate Gregwar CAPTCHA image with easier settings
+            // Get difficulty level from environment
+            $difficulty = strtolower(env('GREGWAR_DIFFICULTY', 'easy'));
+            
+            // Generate Gregwar CAPTCHA image with configurable difficulty
             $builder = new \Gregwar\Captcha\CaptchaBuilder;
             
-            // Make CAPTCHA easier to read
-            $builder->setBackgroundColor(255, 255, 255);
-            $builder->setMaxAngle(8); 
-            $builder->setMaxBehindLines(1); 
-            $builder->setMaxFrontLines(1);  
-            $builder->setDistortion(false);
-            $builder->setInterpolation(false);
-            $builder->setIgnoreAllEffects(true);
+            // Configure based on difficulty
+            switch ($difficulty) {
+                case 'hard':
+                    // Hard: Maximum security, harder to read
+                    $builder->setBackgroundColor(255, 255, 255);
+                    $builder->setMaxAngle(25);                    // More angled text
+                    $builder->setMaxBehindLines(3);               // More background lines
+                    $builder->setMaxFrontLines(3);                // More foreground lines  
+                    $builder->setDistortion(true);                // Enable distortion
+                    $builder->setInterpolation(true);             // Enable interpolation
+                    $builder->setIgnoreAllEffects(false);         // Enable all effects
+                    $width = 180;
+                    $height = 50;
+                    break;
+                    
+                case 'medium':
+                    // Medium: Balanced security and readability
+                    $builder->setBackgroundColor(255, 255, 255);
+                    $builder->setMaxAngle(15);                    // Moderate text angle
+                    $builder->setMaxBehindLines(2);               // Some background lines
+                    $builder->setMaxFrontLines(2);                // Some foreground lines  
+                    $builder->setDistortion(true);                // Light distortion
+                    $builder->setInterpolation(false);            // No interpolation
+                    $builder->setIgnoreAllEffects(false);         // Some effects enabled
+                    $width = 160;
+                    $height = 45;
+                    break;
+                    
+                case 'easy':
+                default:
+                    // Easy: Maximum readability, basic security
+                    $builder->setBackgroundColor(255, 255, 255);
+                    $builder->setMaxAngle(8);                     // Minimal text angle
+                    $builder->setMaxBehindLines(1);               // Few background lines
+                    $builder->setMaxFrontLines(1);                // Few foreground lines  
+                    $builder->setDistortion(false);               // No distortion
+                    $builder->setInterpolation(false);            // No interpolation
+                    $builder->setIgnoreAllEffects(true);          // Ignore all effects for clarity
+                    $width = 150;
+                    $height = 40;
+                    break;
+            }
             
-            $builder->build(150, 40);
+            $builder->build($width, $height);
             
             $captchaPhrase = $builder->getPhrase();
             session()->set('gregwar_captcha', $captchaPhrase);
@@ -295,30 +332,46 @@ function renderCaptcha()
             
             echo '<style>
                     .captcha-image {
-                            border: 1px solid #ddd;
-                            padding: 5px;
-                            background: #fff;
-                        }
+                        border: 1px solid #ddd;
+                        padding: 5px;
+                        background: #fff;
+                    }
 
-                        .gregwar-captcha-container {
-                            background: #f8f9fa;
-                            padding: 15px;
-                            border-radius: 5px;
-                            border: 1px solid #e9ecef;
-                        }
+                    .gregwar-captcha-container {
+                        background: #f8f9fa;
+                        padding: 15px;
+                        border-radius: 5px;
+                        border: 1px solid #e9ecef;
+                    }
 
-                        .form-text {
-                            font-size: 0.875em;
-                            color: #6c757d;
-                            margin-top: 0.25rem;
-                        }
-                    </style>
+                    .form-text {
+                        font-size: 0.875em;
+                        color: #6c757d;
+                        margin-top: 0.25rem;
+                    }
+                    
+                    .difficulty-indicator {
+                        font-size: 0.75em;
+                        padding: 2px 6px;
+                        border-radius: 3px;
+                        background: #e9ecef;
+                        display: inline-block;
+                        margin-left: 5px;
+                    }
+                    
+                    .difficulty-easy { background: #d4edda; color: #155724; }
+                    .difficulty-medium { background: #fff3cd; color: #856404; }
+                    .difficulty-hard { background: #f8d7da; color: #721c24; }
+                </style>
                 <div class="mb-2 gregwar-captcha-container">
-                    <label for="gregwar_response" class="form-label">Enter the text shown in the image:</label>
+                    <label for="gregwar_response" class="form-label">
+                        Enter the text shown in the image:
+                        <span class="difficulty-indicator difficulty-' . $difficulty . '">' . ucfirst($difficulty) . '</span>
+                    </label>
                     <div class="mb-2">
-                        <img loading="lazy" src="'.$captcha_image.'" alt="CAPTCHA" class="captcha-image border rounded">
+                        <img loading="lazy" src="' . $captcha_image . '" alt="CAPTCHA" class="captcha-image border rounded">
                     </div>
-                    <input type="text" class="form-control" id="gregwar_response" name="gregwar_response" required placeholder="Type the text you see above">
+                    <input type="text" class="form-control" id="gregwar_response" name="gregwar_response" required placeholder="Type the text you see above" autocomplete="off">
                     <div class="form-text">Letters are not case sensitive</div>
                     <div class="invalid-feedback">
                         Please enter the captcha text shown in the image

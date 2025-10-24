@@ -183,13 +183,14 @@ DEFAULT_SUBSCRIPTION_STATUS = "Pending Confirmation" #'Pending Confirmation', 'A
 # CAPTCHA SETTINGS
 #--------------------------------------------------------------------
 USE_CAPTCHA = "Yes"
-CAPTCHA_TYPE = "recaptcha" # Options: recaptcha,hcaptcha,cloudflare
+CAPTCHA_TYPE = "gregwar" # Options: gregwar,recaptcha,hcaptcha,cloudflare
 RECAPTCHA_SITE_KEY = "your-recaptcha-site-key"
 RECAPTCHA_SECRET = "your-recaptcha-secret"
 HCAPTCHA_SITE_KEY = "your-hcaptcha-site-key"
 HCAPTCHA_SECRET = "your-hcaptcha-secret"
 TURNSTILE_SITE_KEY = "your-turnstile-site-key"
 TURNSTILE_SECRET = "your-turnstile-secret"
+GREGWAR_DIFFICULTY = "" # Options easy, medium, hard
 
 #--------------------------------------------------------------------
 # OTHER SETTINGS
