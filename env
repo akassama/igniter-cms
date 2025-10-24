@@ -169,7 +169,7 @@ email.charset = "utf-8"
 email.wordWrap = true
 
 #--------------------------------------------------------------------
-# FORM EMAILS
+# FORM EMAIL SETTINGS
 #--------------------------------------------------------------------
 FORWARD_CONTACT_EMAIL = true
 FORWARD_CONTACT_EMAIL_TO = "contact@email.com"
@@ -183,7 +183,7 @@ DEFAULT_SUBSCRIPTION_STATUS = "Pending Confirmation" #'Pending Confirmation', 'A
 # CAPTCHA SETTINGS
 #--------------------------------------------------------------------
 USE_CAPTCHA = "Yes"
-CAPTCHA_TYPE = "recaptcha,hecaptcha,cloudflare"
+CAPTCHA_TYPE = "recaptcha" # Options: recaptcha,hcaptcha,cloudflare
 RECAPTCHA_SITE_KEY = "your-recaptcha-site-key"
 RECAPTCHA_SECRET = "your-recaptcha-secret"
 HCAPTCHA_SITE_KEY = "your-hcaptcha-site-key"

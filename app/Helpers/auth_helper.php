@@ -262,7 +262,7 @@ function renderCaptcha()
                 });
             </script>';
         }
-        elseif ($type === 'hecaptcha') {
+        elseif ($type === 'hcaptcha') {
             // hCaptcha (visible)
             $siteKey = env('HCAPTCHA_SITE_KEY');
             echo '<script src="https://hcaptcha.com/1/api.js" async defer></script>';
@@ -297,10 +297,10 @@ function validateCaptcha($returnUrl = null)
             $verify = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$response);
             $responseData = json_decode($verify);
             if (!$responseData->success || $responseData->score < 0.5) {
-                return 'Google reCAPTCHA validation failed. Please try again.'; // Score might be used if you want stricter spam checks
+                return 'Google reCAPTCHA validation failed. Please try again.';
             }
         }
-        elseif ($type === 'hecaptcha' && !empty($_POST['h-captcha-response'])) {
+        elseif ($type === 'hcaptcha' && !empty($_POST['h-captcha-response'])) {
             $secret = env('HCAPTCHA_SECRET');
             $response = $_POST['h-captcha-response'];
             $post_data = http_build_query([

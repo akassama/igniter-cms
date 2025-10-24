@@ -44,8 +44,8 @@ class FormRequestsController extends BaseController
         // Validate Captcha
         $captchaValidation = validateCaptcha();
         if ($captchaValidation !== true) {
-            // CAPTCHA validation failed
-            $errorMessage = $captchaValidation; // Error message returned by the helper function
+            $errorMessage = $captchaValidation;
+            $returnUrl = $this->request->getPost('return_url');
             if (!empty($returnUrl)) {
                 session()->setFlashdata('errorAlert', $errorMessage);
                 return redirect()->to($returnUrl);

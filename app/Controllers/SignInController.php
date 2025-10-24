@@ -13,7 +13,7 @@ class SignInController extends BaseController
     public function index()
     {
         //get use captcha config
-        $useCaptcha = env('APP_USE_CAPTCHA', "No");
+        $useCaptcha = env('USE_CAPTCHA', "No");
         if(strtolower($useCaptcha) === "yes"){
             // Generate captcha
             $builder = new CaptchaBuilder;
@@ -45,7 +45,7 @@ class SignInController extends BaseController
         validateHoneypotInput($honeypotInput, $submittedTimestamp);
 
         // Get use captcha config
-        $useCaptcha = env('APP_USE_CAPTCHA', "No");
+        $useCaptcha = env('USE_CAPTCHA', "No");
 
         // Set validation rules
         $rules = [
