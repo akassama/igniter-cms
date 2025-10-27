@@ -239,6 +239,9 @@ if (!function_exists('getHoneypotInput')) {
  */
 function renderCaptcha()
 {
+    $useCaptcha = env('USE_CAPTCHA', "No");
+    if (strtolower($useCaptcha) !== "yes") return "";
+
     $types = explode(',', strtolower(env('CAPTCHA_TYPE', 'recaptcha')));
     foreach ($types as $type) {
         if ($type === 'recaptcha') {
