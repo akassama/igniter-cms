@@ -29,7 +29,7 @@ class SignUpController extends BaseController
         }
         
         //get use captcha config
-        $useCaptcha = env('APP_USE_CAPTCHA', "No");
+        $useCaptcha = env('USE_CAPTCHA', "No");
         if(strtolower($useCaptcha) === "yes"){
             // Generate captcha
             $builder = new CaptchaBuilder;
@@ -74,7 +74,7 @@ class SignUpController extends BaseController
         }
 
         //get use captcha config
-        $useCaptcha = env('APP_USE_CAPTCHA', "No");
+        $useCaptcha = env('USE_CAPTCHA', "No");
 
         if(strtolower($useCaptcha) === "yes"){
             $captcha = $this->request->getPost('captcha');

@@ -239,6 +239,9 @@ if (!function_exists('getHoneypotInput')) {
  */
 function renderCaptcha()
 {
+    $useCaptcha = env('USE_CAPTCHA', "No");
+    if (strtolower($useCaptcha) !== "yes") return "";
+
     $types = explode(',', strtolower(env('CAPTCHA_TYPE', 'recaptcha')));
     foreach ($types as $type) {
         if ($type === 'recaptcha') {
@@ -262,7 +265,7 @@ function renderCaptcha()
                 });
             </script>';
         }
-        elseif ($type === 'hecaptcha') {
+        elseif ($type === 'hcaptcha') {
             // hCaptcha (visible)
             $siteKey = env('HCAPTCHA_SITE_KEY');
             echo '<script src="https://hcaptcha.com/1/api.js" async defer></script>';
@@ -273,6 +276,110 @@ function renderCaptcha()
             $siteKey = env('TURNSTILE_SITE_KEY');
             echo '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>';
             echo '<div class="cf-turnstile" data-sitekey="'.$siteKey.'"></div>';
+        }
+        elseif ($type === 'gregwar') {
+            // Get difficulty level from environment
+            $difficulty = strtolower(env('GREGWAR_DIFFICULTY', 'easy'));
+            
+            // Generate Gregwar CAPTCHA image with configurable difficulty
+            $builder = new \Gregwar\Captcha\CaptchaBuilder;
+            
+            // Configure based on difficulty
+            switch ($difficulty) {
+                case 'hard':
+                    // Hard: Maximum security, harder to read
+                    $builder->setBackgroundColor(255, 255, 255);
+                    $builder->setMaxAngle(25);                    // More angled text
+                    $builder->setMaxBehindLines(3);               // More background lines
+                    $builder->setMaxFrontLines(3);                // More foreground lines  
+                    $builder->setDistortion(true);                // Enable distortion
+                    $builder->setInterpolation(true);             // Enable interpolation
+                    $builder->setIgnoreAllEffects(false);         // Enable all effects
+                    $width = 180;
+                    $height = 50;
+                    break;
+                    
+                case 'medium':
+                    // Medium: Balanced security and readability
+                    $builder->setBackgroundColor(255, 255, 255);
+                    $builder->setMaxAngle(15);                    // Moderate text angle
+                    $builder->setMaxBehindLines(2);               // Some background lines
+                    $builder->setMaxFrontLines(2);                // Some foreground lines  
+                    $builder->setDistortion(true);                // Light distortion
+                    $builder->setInterpolation(false);            // No interpolation
+                    $builder->setIgnoreAllEffects(false);         // Some effects enabled
+                    $width = 160;
+                    $height = 45;
+                    break;
+                    
+                case 'easy':
+                default:
+                    // Easy: Maximum readability, basic security
+                    $builder->setBackgroundColor(255, 255, 255);
+                    $builder->setMaxAngle(8);                     // Minimal text angle
+                    $builder->setMaxBehindLines(1);               // Few background lines
+                    $builder->setMaxFrontLines(1);                // Few foreground lines  
+                    $builder->setDistortion(false);               // No distortion
+                    $builder->setInterpolation(false);            // No interpolation
+                    $builder->setIgnoreAllEffects(true);          // Ignore all effects for clarity
+                    $width = 150;
+                    $height = 40;
+                    break;
+            }
+            
+            $builder->build($width, $height);
+            
+            $captchaPhrase = $builder->getPhrase();
+            session()->set('gregwar_captcha', $captchaPhrase);
+            $captcha_image = $builder->inline();
+            
+            echo '<style>
+                    .captcha-image {
+                        border: 1px solid #ddd;
+                        padding: 5px;
+                        background: #fff;
+                    }
+
+                    .gregwar-captcha-container {
+                        background: #f8f9fa;
+                        padding: 15px;
+                        border-radius: 5px;
+                        border: 1px solid #e9ecef;
+                    }
+
+                    .form-text {
+                        font-size: 0.875em;
+                        color: #6c757d;
+                        margin-top: 0.25rem;
+                    }
+                    
+                    .difficulty-indicator {
+                        font-size: 0.75em;
+                        padding: 2px 6px;
+                        border-radius: 3px;
+                        background: #e9ecef;
+                        display: inline-block;
+                        margin-left: 5px;
+                    }
+                    
+                    .difficulty-easy { background: #d4edda; color: #155724; }
+                    .difficulty-medium { background: #fff3cd; color: #856404; }
+                    .difficulty-hard { background: #f8d7da; color: #721c24; }
+                </style>
+                <div class="mb-2 gregwar-captcha-container">
+                    <label for="gregwar_response" class="form-label">
+                        Enter the text shown in the image:
+                        <span class="difficulty-indicator difficulty-' . $difficulty . '">' . ucfirst($difficulty) . '</span>
+                    </label>
+                    <div class="mb-2">
+                        <img loading="lazy" src="' . $captcha_image . '" alt="CAPTCHA" class="captcha-image border rounded">
+                    </div>
+                    <input type="text" class="form-control" id="gregwar_response" name="gregwar_response" required placeholder="Type the text you see above" autocomplete="off">
+                    <div class="form-text">Letters are not case sensitive</div>
+                    <div class="invalid-feedback">
+                        Please enter the captcha text shown in the image
+                    </div>
+                </div>';
         }
     }
 }
@@ -297,10 +404,10 @@ function validateCaptcha($returnUrl = null)
             $verify = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$response);
             $responseData = json_decode($verify);
             if (!$responseData->success || $responseData->score < 0.5) {
-                return 'Google reCAPTCHA validation failed. Please try again.'; // Score might be used if you want stricter spam checks
+                return 'Google reCAPTCHA validation failed. Please try again.';
             }
         }
-        elseif ($type === 'hecaptcha' && !empty($_POST['h-captcha-response'])) {
+        elseif ($type === 'hcaptcha' && !empty($_POST['h-captcha-response'])) {
             $secret = env('HCAPTCHA_SECRET');
             $response = $_POST['h-captcha-response'];
             $post_data = http_build_query([
@@ -333,9 +440,26 @@ function validateCaptcha($returnUrl = null)
                 return 'Cloudflare Turnstile verification failed.';
             }
         }
+        elseif ($type === 'gregwar' && !empty($_POST['gregwar_response'])) {
+            $userInput = $_POST['gregwar_response'];
+            $storedPhrase = session('gregwar_captcha');
+            
+            // Clear the session captcha after validation (one-time use)
+            session()->remove('gregwar_captcha');
+            
+            if (empty($storedPhrase) || strtolower(trim($userInput)) !== strtolower(trim($storedPhrase))) {
+                return 'Captcha validation failed. Please try again.';
+            }
+            return true;
+        }
     }
 
-    return true;
+    // If we get here and Gregwar is the only CAPTCHA type, check if input was provided
+    if (in_array('gregwar', $types) && empty($_POST['gregwar_response'])) {
+        return 'Please complete the captcha.';
+    }
+
+    return 'Captcha validation required.';
 }
 
 

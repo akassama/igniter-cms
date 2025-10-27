@@ -127,8 +127,7 @@ class Filters extends BaseFilters
             'before' => [],
             'after' => [
                 'assets/*', // Cache assets for 1 year
-                'pages/*:3600', // Cache pages for 1 hour
-                'page/*:3600', // Cache pages for 1 hour
+                '/*:3600', // Cache pages for 1 hour
                 'blogs/*:1800', // Cache blog for 30 minutes
                 'blog/*:1800' // Cache blog for 30 minutes
             ]

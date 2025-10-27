@@ -309,7 +309,7 @@ class FrontEndController extends BaseController
         // Add dynamic URLs from models
         foreach ($sitemapData as $type => $items) {
             foreach ($items as $item) {
-                $url = base_url("/{$type}/{$item['slug']}");
+                $url = strtolower($type) === "page" ? base_url("/{$item['slug']}") : base_url("/{$type}/{$item['slug']}");
                 $lastmod = !empty($item['updated_at']) ? $item['updated_at'] : $item['created_at'];
                 $priority = $this->calculatePriority($type);
 
@@ -459,7 +459,7 @@ class FrontEndController extends BaseController
         // Add dynamic items from models
         foreach ($rssData as $type => $items) {
             foreach ($items as $item) {
-                $url = base_url("/{$type}/{$item['slug']}");
+                $url = strtolower($type) === "page" ? base_url("/{$item['slug']}") : base_url("/{$type}/{$item['slug']}");
                 $title = htmlspecialchars($item['title'], ENT_XML1, 'UTF-8');
                 $summaryField = $this->getSummaryField($type);
                 $description = $summaryField ? htmlspecialchars($item[$summaryField] ?? '', ENT_XML1, 'UTF-8') : '';

@@ -162,7 +162,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for'    => 'SiteLogoLink',
-                'config_value'    => 'public/uploads/files/ci-cms-logo.png',
+                'config_value'    => 'https://assets.aktools.net/image-stocks/logos/ci-cms-logo.png',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,
@@ -178,7 +178,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'SiteFaviconLink',
-                'config_value' => 'public/uploads/files/favicon/favicon.ico',
+                'config_value' => 'https://assets.aktools.net/image-stocks/favicon/favicon.ico',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,
@@ -210,7 +210,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for'    => 'BackendLogoLink',
-                'config_value'    => 'public/uploads/files/ci-cms-logo.png',
+                'config_value'    => 'https://assets.aktools.net/image-stocks/logos/ci-cms-logo.png',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,
@@ -226,7 +226,7 @@ class Configurations extends Migration
             [
                 'config_id' => getGUID(),
                 'config_for' => 'BackendFaviconLink',
-                'config_value' => 'public/uploads/files/favicon/favicon.ico',
+                'config_value' => 'https://assets.aktools.net/image-stocks/favicon/favicon.ico',
                 'group' => 'meta_seo',
                 'data_type' => 'Text',
                 'options' => null,
