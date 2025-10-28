@@ -29,28 +29,28 @@ a {
 
 /* ************ Navigation Menu ************ */
 .navbar.bg-dark {
-  background-color: var(--surface-color) !important;
+  background-color: var(--heading-color) !important;
   color: var(--default-color) !important;
 }
 
 .navbar.bg-dark .navbar-brand {
-  color: var(--heading-color) !important;
+  color: var(--surface-color) !important;
 }
 
 .navbar.bg-dark .form-control {
   background-color: var(--background-color);
   border-color: var(--background-color);
-  color: var(--heading-color);
+  color: var(--surface-color);
 }
 
 .navbar.bg-dark .navbar-nav .nav-link {
-  color: var(--heading-color) !important;
+  color: var(--surface-color) !important;
 }
 
 .navbar.bg-dark .navbar-nav .nav-link:hover,
 .navbar.bg-dark .navbar-nav .nav-link.active,
 .navbar.bg-dark .navbar-nav .nav-link:focus {
-  color: var(--accent-color) !important;
+  color: var(--default-color) !important;
 }
 
 .navbar-toggler-icon {
@@ -74,13 +74,13 @@ a {
 }
 
 .navbar-nav .nav-link:hover {
-  color: var(--accent-color);
+  color: var(--heading-color);
 }
 
 .navbar-dark .navbar-nav .nav-link.active {
-  color: var(--accent-color);
+  color: var(--heading-color);
   font-weight: 600;
-  border-bottom: 3px solid var(--accent-color);
+  border-bottom: 3px solid var(--heading-color);
 }
 
 .navbar-toggler {
@@ -96,15 +96,15 @@ a {
 footer.bg-dark,
 footer.bg-dark .text-white,
 footer.bg-dark .small {
-  background-color: var(--surface-color) !important;
-  color: var(--default-color) !important;
+  background-color: var(--heading-color) !important;
+  color: var(--contrast-color) !important;
 }
 
 footer.bg-dark h5,
 footer.bg-dark p,
 footer.bg-dark ul,
 footer.bg-dark li {
-  color: var(--default-color) !important;
+  color: var(--contrast-color) !important;
 }
 
 footer.bg-dark a {
@@ -112,7 +112,7 @@ footer.bg-dark a {
 }
 
 footer.bg-dark a:hover {
-  color: var(--accent-color) !important;
+  color: var(--default-color) !important;
 }
 
 footer.bg-dark .mt-4 a i {
@@ -120,7 +120,7 @@ footer.bg-dark .mt-4 a i {
 }
 
 footer.bg-dark .mt-4 a:hover i {
-  color: var(--accent-color) !important;
+  color: var(--default-color) !important;
 }
 
 /* ************ Buttons ************ */
@@ -214,7 +214,7 @@ footer.bg-dark .mt-4 a:hover i {
 }
 
 .hero-carousel .carousel-item {
-  min-height: 65vh;
+  min-height: 70vh;
 }
 
 .hero-slide {
@@ -232,7 +232,7 @@ footer.bg-dark .mt-4 a:hover i {
 .hero-carousel .carousel-control-next-icon {
   width: 3rem;
   height: 3rem;
-  background-color: var(--contrast-color);
+  background-color: var(--default-color);
   border-radius: 50%;
   background-size: 60%;
   transition: all 0.3s ease;
@@ -245,7 +245,7 @@ footer.bg-dark .mt-4 a:hover i {
 }
 
 .hero-carousel .carousel-indicators {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .hero-carousel .carousel-indicators button {

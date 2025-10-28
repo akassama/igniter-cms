@@ -66,6 +66,9 @@ echo generateBreadcrumb($breadcrumb_links);
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="featured-tab" data-bs-toggle="tab" data-bs-target="#featured" type="button" role="tab">Featured</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="premium-tab" data-bs-toggle="tab" data-bs-target="#premium" type="button" role="tab">Premium</button>
+                </li>
             </ul>
             
             <!-- Themes Grid -->
@@ -86,7 +89,14 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </div>
                                     
                                     <div class="card-body">
-                                        <h3 class="theme-name h5"><?= esc($theme['name']) ?></h3>
+                                        <h3 class="theme-name h5">
+                                            <?= esc($theme['name']) ?>
+                                            <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
+                                                <span class="badge bg-warning text-dark ms-2 premium-badge">
+                                                    <i class="ri-vip-crown-line me-1"></i> Premium
+                                                </span>
+                                            <?php endif; ?>
+                                        </h3>
                                         <div class="theme-actions d-flex justify-content-between align-items-center">
                                             <div class="theme-details">
                                                 <span class="badge bg-light text-dark">v<?= esc($theme['version']) ?></span>
@@ -95,11 +105,25 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 <a href="<?= esc($theme['theme_url']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Preview">
                                                     <i class="ri-eye-line"></i>
                                                 </a>
-                                                <a href="<?= esc($theme['download_url']) ?>" download class="btn btn-sm btn-primary download-icon-btn" 
-                                                        data-theme-name="<?= esc($theme['name']) ?>"
-                                                        data-download-url="<?= esc($theme['download_url']) ?>" title="Install">
-                                                    <i class="ri-download-line"></i>
-                                                </a>
+                                                <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
+                                                    <!-- If the theme is paid -->
+                                                    <a href="<?= esc($theme['payment_url']) ?>" 
+                                                    target="_blank" 
+                                                    class="btn btn-sm btn-primary" 
+                                                    title="Buy Now">
+                                                        <i class="ri-shopping-cart-line"></i>
+                                                    </a>
+                                                <?php else: ?>
+                                                    <!-- If the theme is free -->
+                                                    <a href="<?= esc($theme['download_url']) ?>" 
+                                                    download 
+                                                    class="btn btn-sm btn-primary download-icon-btn" 
+                                                    data-theme-name="<?= esc($theme['name']) ?>" 
+                                                    data-download-url="<?= esc($theme['download_url']) ?>" 
+                                                    title="Install">
+                                                        <i class="ri-download-line"></i>
+                                                    </a>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -135,7 +159,14 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </div>
                                     
                                     <div class="card-body">
-                                        <h3 class="theme-name h5"><?= esc($theme['name']) ?></h3>
+                                        <h3 class="theme-name h5">
+                                            <?= esc($theme['name']) ?>
+                                            <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
+                                                <span class="badge bg-warning text-dark ms-2 premium-badge">
+                                                    <i class="ri-vip-crown-line me-1"></i> Premium
+                                                </span>
+                                            <?php endif; ?>
+                                        </h3>
                                         <div class="theme-actions d-flex justify-content-between align-items-center">
                                             <div class="theme-details">
                                                 <span class="badge bg-light text-dark">v<?= esc($theme['version']) ?></span>
@@ -144,11 +175,25 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 <a href="<?= esc($theme['theme_url']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Preview">
                                                     <i class="ri-eye-line"></i>
                                                 </a>
-                                                <a href="<?= esc($theme['download_url']) ?>" download class="btn btn-sm btn-primary download-icon-btn" 
-                                                        data-theme-name="<?= esc($theme['name']) ?>"
-                                                        data-download-url="<?= esc($theme['download_url']) ?>" title="Install">
-                                                    <i class="ri-download-line"></i>
-                                                </a>
+                                                <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
+                                                    <!-- If the theme is paid -->
+                                                    <a href="<?= esc($theme['payment_url']) ?>" 
+                                                    target="_blank" 
+                                                    class="btn btn-sm btn-primary" 
+                                                    title="Buy Now">
+                                                        <i class="ri-shopping-cart-line"></i>
+                                                    </a>
+                                                <?php else: ?>
+                                                    <!-- If the theme is free -->
+                                                    <a href="<?= esc($theme['download_url']) ?>" 
+                                                    download 
+                                                    class="btn btn-sm btn-primary download-icon-btn" 
+                                                    data-theme-name="<?= esc($theme['name']) ?>" 
+                                                    data-download-url="<?= esc($theme['download_url']) ?>" 
+                                                    title="Install">
+                                                        <i class="ri-download-line"></i>
+                                                    </a>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -184,7 +229,14 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </div>
                                     
                                     <div class="card-body">
-                                        <h3 class="theme-name h5"><?= esc($theme['name']) ?></h3>
+                                        <h3 class="theme-name h5">
+                                            <?= esc($theme['name']) ?>
+                                            <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
+                                                <span class="badge bg-warning text-dark ms-2 premium-badge">
+                                                    <i class="ri-vip-crown-line me-1"></i> Premium
+                                                </span>
+                                            <?php endif; ?>
+                                        </h3>
                                         <div class="theme-actions d-flex justify-content-between align-items-center">
                                             <div class="theme-details">
                                                 <span class="badge bg-light text-dark">v<?= esc($theme['version']) ?></span>
@@ -193,11 +245,25 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 <a href="<?= esc($theme['theme_url']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Preview">
                                                     <i class="ri-eye-line"></i>
                                                 </a>
-                                                <a href="<?= esc($theme['download_url']) ?>" download class="btn btn-sm btn-primary download-icon-btn" 
-                                                        data-theme-name="<?= esc($theme['name']) ?>"
-                                                        data-download-url="<?= esc($theme['download_url']) ?>" title="Install">
-                                                    <i class="ri-download-line"></i>
-                                                </a>
+                                                <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
+                                                    <!-- If the theme is paid -->
+                                                    <a href="<?= esc($theme['payment_url']) ?>" 
+                                                    target="_blank" 
+                                                    class="btn btn-sm btn-primary" 
+                                                    title="Buy Now">
+                                                        <i class="ri-shopping-cart-line"></i>
+                                                    </a>
+                                                <?php else: ?>
+                                                    <!-- If the theme is free -->
+                                                    <a href="<?= esc($theme['download_url']) ?>" 
+                                                    download 
+                                                    class="btn btn-sm btn-primary download-icon-btn" 
+                                                    data-theme-name="<?= esc($theme['name']) ?>" 
+                                                    data-download-url="<?= esc($theme['download_url']) ?>" 
+                                                    title="Install">
+                                                        <i class="ri-download-line"></i>
+                                                    </a>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -233,7 +299,14 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </div>
                                     
                                     <div class="card-body">
-                                        <h3 class="theme-name h5"><?= esc($theme['name']) ?></h3>
+                                        <h3 class="theme-name h5">
+                                            <?= esc($theme['name']) ?>
+                                            <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
+                                                <span class="badge bg-warning text-dark ms-2 premium-badge">
+                                                    <i class="ri-vip-crown-line me-1"></i> Premium
+                                                </span>
+                                            <?php endif; ?>
+                                        </h3>
                                         <div class="theme-actions d-flex justify-content-between align-items-center">
                                             <div class="theme-details">
                                                 <span class="badge bg-light text-dark">v<?= esc($theme['version']) ?></span>
@@ -242,11 +315,95 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 <a href="<?= esc($theme['theme_url']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Preview">
                                                     <i class="ri-eye-line"></i>
                                                 </a>
-                                                <a href="<?= esc($theme['download_url']) ?>" download class="btn btn-sm btn-primary download-icon-btn" 
-                                                        data-theme-name="<?= esc($theme['name']) ?>"
-                                                        data-download-url="<?= esc($theme['download_url']) ?>" title="Install">
-                                                    <i class="ri-download-line"></i>
+                                                <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
+                                                    <!-- If the theme is paid -->
+                                                    <a href="<?= esc($theme['payment_url']) ?>" 
+                                                    target="_blank" 
+                                                    class="btn btn-sm btn-primary" 
+                                                    title="Buy Now">
+                                                        <i class="ri-shopping-cart-line"></i>
+                                                    </a>
+                                                <?php else: ?>
+                                                    <!-- If the theme is free -->
+                                                    <a href="<?= esc($theme['download_url']) ?>" 
+                                                    download 
+                                                    class="btn btn-sm btn-primary download-icon-btn" 
+                                                    data-theme-name="<?= esc($theme['name']) ?>" 
+                                                    data-download-url="<?= esc($theme['download_url']) ?>" 
+                                                    title="Install">
+                                                        <i class="ri-download-line"></i>
+                                                    </a>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-footer bg-transparent border-top-0">
+                                        <div class="theme-meta text-muted small">
+                                            <div class="d-flex justify-content-between">
+                                                <span><i class="ri-user-line"></i> <?= esc($theme['author']) ?></span>
+                                                <span><i class="ri-calendar-line"></i> <?= esc($theme['last_updated']) ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="premium" role="tabpanel" aria-labelledby="premium-tab">
+                    <!-- Premium themes content -->
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                        <?php foreach ($premiumThemes as $theme): ?>
+                            <div class="col">
+                                <div class="card theme-card h-100">
+                                    <div class="theme-screenshot">
+                                        <?php if (!empty($theme['image'])): ?>
+                                            <img src="<?= esc($theme['image']) ?>" class="img-fluid" alt="<?= esc($theme['name']) ?>">
+                                        <?php else: ?>
+                                            <div class="theme-screenshot-placeholder bg-light d-flex align-items-center justify-content-center">
+                                                <i class="ri-image-line fs-1 text-muted"></i>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                    <div class="card-body">
+                                        <h3 class="theme-name h5">
+                                            <?= esc($theme['name']) ?>
+                                            <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
+                                                <span class="badge bg-warning text-dark ms-2 premium-badge">
+                                                    <i class="ri-vip-crown-line me-1"></i> Premium
+                                                </span>
+                                            <?php endif; ?>
+                                        </h3>
+                                        <div class="theme-actions d-flex justify-content-between align-items-center">
+                                            <div class="theme-details">
+                                                <span class="badge bg-light text-dark">v<?= esc($theme['version']) ?></span>
+                                            </div>
+                                            <div class="action-buttons">
+                                                <a href="<?= esc($theme['theme_url']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Preview">
+                                                    <i class="ri-eye-line"></i>
                                                 </a>
+                                                <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
+                                                    <!-- If the theme is paid -->
+                                                    <a href="<?= esc($theme['payment_url']) ?>" 
+                                                    target="_blank" 
+                                                    class="btn btn-sm btn-primary" 
+                                                    title="Buy Now">
+                                                        <i class="ri-shopping-cart-line"></i>
+                                                    </a>
+                                                <?php else: ?>
+                                                    <!-- If the theme is free -->
+                                                    <a href="<?= esc($theme['download_url']) ?>" 
+                                                    download 
+                                                    class="btn btn-sm btn-primary download-icon-btn" 
+                                                    data-theme-name="<?= esc($theme['name']) ?>" 
+                                                    data-download-url="<?= esc($theme['download_url']) ?>" 
+                                                    title="Install">
+                                                        <i class="ri-download-line"></i>
+                                                    </a>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -319,6 +476,36 @@ echo generateBreadcrumb($breadcrumb_links);
         color: #2271b1;
         border-bottom: 2px solid #2271b1;
     }
+
+    .premium-badge {
+        font-size: 0.7rem;
+        vertical-align: middle;
+        padding: 0.3em 0.5em;
+        font-weight: 600;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .premium-badge:hover {
+        background-color: var(--accent-color);
+        color: #fff;
+    }
+
+    .premium-badge-top {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        font-size: 0.7rem;
+        padding: 0.35em 0.6em;
+        border-radius: 0.4rem;
+        font-weight: 600;
+        background-color: #ffc107;
+        color: #212529;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .premium-badge-top:hover {
+        background-color: var(--accent-color);
+        color: #fff;
+    }
+
 </style>
 
 <script>
