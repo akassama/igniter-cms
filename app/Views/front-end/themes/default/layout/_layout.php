@@ -79,16 +79,12 @@ $adminBar = renderAdminBar();
                 <style>
                     /* ===== Root Variables ===== */
                     :root {
-                    --default-color: #6c757d;
-                    --heading-color: #212529;
-                    --accent-color: #0d6efd;
-                    --surface-color: #f8f9fa;
-                    --contrast-color: rgba(var(--accent-color-rgb), 0.8);
-                    --background-color: #ffffff;
-                    --success-color: #198754;
-                    --danger-color: #dc3545;
-                    --warning-color: #ffc107;
-                    --info-color: #0dcaf0;
+                        --default-color: #6c757d;
+                        --heading-color: #212529;
+                        --accent-color: #0d6efd;
+                        --surface-color: #ffffff;
+                        --contrast-color: #f8f9fa;
+                        --background-color: #ffffff;
                     }
                 </style>
             <?php
@@ -120,9 +116,17 @@ $adminBar = renderAdminBar();
             <a class="navbar-brand border border-white rounded p-2" href="<?= base_url()?>">
                 <img src="<?=getImageUrl(getConfigData("SiteLogoLink") ?? getDefaultImagePath())?>" alt="<?=getConfigData("SiteLogoLink")?> Logo" height="75">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">

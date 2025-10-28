@@ -48,12 +48,14 @@ class AppearanceController extends BaseController
         $popularThemes = array_filter($allThemes, fn($theme) => !empty($theme['is_popular']));
         $latestThemes = array_filter($allThemes, fn($theme) => !empty($theme['is_new']));
         $featuredThemes = array_filter($allThemes, fn($theme) => !empty($theme['is_featured']));
+        $premiumThemes = array_filter($allThemes, fn($theme) => !empty($theme['is_paid']));
 
         $data = [
             'themes' => $allThemes,
             'popularThemes' => $popularThemes,
             'latestThemes' => $latestThemes,
             'featuredThemes' => $featuredThemes,
+            'premiumThemes' => $premiumThemes,
             'has_error' => session()->getFlashdata('warning'),
         ];
 
@@ -423,7 +425,7 @@ class AppearanceController extends BaseController
 
     protected function getThemesData()
     {
-        $url = 'https://ignitercms.com/themes/';
+        $url =  env('THEMES_API_ENDPOINT');
         $json = @file_get_contents($url);
 
         if ($json === false) {

@@ -53,12 +53,26 @@ echo generateBreadcrumb($breadcrumb_links);
                         <?php endif; ?>
                         
                         <div class="card-body">
-                            <h5 class="card-title"><?= esc($plugin['name']) ?> <span class="d-none"><?= esc($plugin['slug']) ?></span> </h5>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title mb-0">
+                                    <?= esc($plugin['name']) ?> 
+                                    <span class="d-none"><?= esc($plugin['slug']) ?></span>
+                                </h5>
+
+                                <?php if (!empty($plugin['is_paid']) && $plugin['is_paid'] === true): ?>
+                                    <span class="badge bg-warning text-dark">
+                                        <i class="ri-vip-crown-line me-1"></i> Premium
+                                    </span>
+                                <?php endif; ?>
+                            </div>
+
                             <h6 class="card-subtitle mb-2 text-muted">v<?= esc($plugin['version']) ?></h6>
                             <p class="card-text"><?= esc($plugin['description']) ?></p>
+
                             <p class="text-muted small mb-2">
                                 <i class="ri-user-line"></i> <?= esc($plugin['author']) ?>
                             </p>
+
                             <p class="text-muted small mb-3">
                                 <i class="ri-calendar-line"></i> Last updated: <?= esc($plugin['last_updated']) ?>
                             </p>
@@ -75,11 +89,19 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <a href="<?= esc($plugin['plugin_url']) ?>" target="_blank" class="btn btn-sm btn-outline-primary">
                                     <i class="ri-information-line"></i> Details
                                 </a>
-                                <a href="<?= esc($plugin['download_url']) ?>" download class="btn btn-sm btn-success download-icon-btn" 
-                                        data-plugin-name="<?= esc($plugin['name']) ?>"
-                                        data-download-url="<?= esc($plugin['download_url']) ?>">
-                                    <i class="ri-download-line"></i> Download
-                                </a>
+                                <?php if (!empty($plugin['is_paid']) && $plugin['is_paid'] === true): ?>
+                                    <!-- If the plugin is paid -->
+                                    <a href="<?= esc($plugin['payment_url']) ?>" class="btn btn-sm btn-primary" title="Buy Now" target="_blank">
+                                        <i class="ri-shopping-cart-line"></i> Purchase Plugin
+                                    </a>
+                                <?php else: ?>
+                                    <!-- If the plugin is free -->
+                                    <a href="<?= esc($plugin['download_url']) ?>" download class="btn btn-sm btn-success download-icon-btn" 
+                                            data-plugin-name="<?= esc($plugin['name']) ?>"
+                                            data-download-url="<?= esc($plugin['download_url']) ?>">
+                                        <i class="ri-download-line"></i> Download
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

@@ -625,7 +625,7 @@ class PluginsController extends BaseController
 
     protected function getPluginsData()
     {
-        $url = 'https://ignitercms.com/plugins/';
+        $url = env('PLUGINS_API_ENDPOINT');
         $json = @file_get_contents($url);
 
         if ($json === false) {
