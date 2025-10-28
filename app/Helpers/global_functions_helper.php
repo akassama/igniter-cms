@@ -1187,600 +1187,69 @@ function formatLastUpdated($date)
  * Retrieves Igniter-CMS knowledge base in JSON format.
  *
  * @function getSiteKnowledgeBaseInJson
- * @returns {string} JSON string containing Igniter-CMS knowledge base.
+ * @returns {string} JSON string containing Igniter-CMS knowledge base, or an error object if fetch/decode fails.
  */
-if(!function_exists('getSiteKnowledgeBaseInJson'))
-{
+if (!function_exists('getSiteKnowledgeBaseInJson')) {
     function getSiteKnowledgeBaseInJson()
     {
-        $knowledgeBase = [
-            "cms_name" => "Igniter-CMS",
-            "version" => "1.0.0",
-            "description" => "Igniter CMS is a free, open-source content management system built on CodeIgniter, designed to help you manage various types of content with flexibility and extensibility. Supports both MVC and headless architecture.",
-            "website" => "https://ignitercms.com/",
-            "documentation" => "https://docs.ignitercms.com/",
-            "github" => "https://github.com/akassama/igniter-cms",
-            "demo" => "https://demo.ignitercms.com/",
-            "modules" => [
-                [
-                    "name" => "Dashboard",
-                    "description" => "The dashboard is the landing page of the backend and includes the following features.",
-                    "endpoints" => [
-                        "/account/dashboard",
-                        "/account/"
-                    ]
-                ],
-                [
-                    "name" => "CMS (Content Management System)",
-                    "description" => "The CMS module allows you to manage the website's content, including blogs, pages, and navigations.",
-                    "endpoints" => [
-                        // CMS Home
-                        "/account/cms",
+        $cache = \Config\Services::cache();
+        $cacheKey = 'igniter_knowledge_base';
 
-                        // Blogs
-                        "/account/cms/blogs",
-                        "/account/cms/blogs/new-blog",
-                        "/account/cms/blogs/edit-blog/{blog-id}",
-                        "/account/cms/blogs/view-blog/{blog-id}",
+        // Check cache first
+        $cachedData = $cache->get($cacheKey);
+        if ($cachedData !== null) {
+            return $cachedData;
+        }
 
-                        // Categories
-                        "/account/cms/categories",
-                        "/account/cms/categories/new-category",
-                        "/account/cms/categories/edit-category/{category-id}",
-                        "/account/cms/categories/view-category/{category-id}",
+        $url = env('AI_KNOWLEDGE_BASE_URL');
 
-                        // Navigations
-                        "/account/cms/navigations",
-                        "/account/cms/navigations/new-navigation",
-                        "/account/cms/navigations/edit-navigation/{navigation-id}",
-                        "/account/cms/navigations/view-navigation/{navigation-id}",
+        $client = \Config\Services::curlrequest();
+        
+        try {
+            // Perform the GET request
+            $response = $client->request('GET', $url, [
+                'timeout' => 30,
+                'verify' => false,
+                'http_errors' => false 
+            ]);
 
-                        // Pages
-                        "/account/cms/pages",
-                        "/account/cms/pages/new-page",
-                        "/account/cms/pages/edit-page/{page-id}",
-                        "/account/cms/pages/view-page/{page-id}",
+            $statusCode = $response->getStatusCode();
+            if ($statusCode !== 200) {
+                $errorData = json_encode([
+                    'error' => 'HTTP Error',
+                    'code' => $statusCode,
+                    'body_preview' => substr($response->getBody(), 0, 200)
+                ], JSON_PRETTY_PRINT);
+                return $errorData;
+            }
 
-                        // Content Blocks
-                        "/account/cms/blocks",
-                        "/account/cms/blocks/new-block",
-                        "/account/cms/blocks/edit-block/{block-id}",
-                        "/account/cms/blocks/view-block/{block-id}",
-                    ],
-                    "management" => "All CMS sub-modules can be manage from '/account/cms/{module-name}'",
-                    "deletion" => "To delete any record, go to the management page ('/account/cms/{module-name}'), e.g. '/account/cms/blogs' and click on the delete (x) button, then confirm deletion prompt.",
-                ],
-                [
-                    "name" => "File Manager",
-                    "description" => "Upload, manage, and organize files (images, videos, audios, documents, etc.) for use within the application.",
-                    "endpoints" => [
-                        // File Manager Home
-                        "/account/file-manager",
-
-                        // File Uploads
-                        "/account/file-manager/upload-file",
-                        "/account/file-manager/add-file-url",
-                    ],
-                    "management" => "All files can be manage from '/account/file-manager'",
-                    "deletion" => "To delete any file, go to the management page ('/account/file-manager'), and click on the delete (x) button, then confirm deletion prompt.",
-                    "edit name" => "To edit any file data, go to the management page ('/account/file-manager'), and click on the edit file icon (pen) under the 'File' table column.",
-                    "file editing" => "To edit any file (e.g. crop or resize), go to the management page ('/account/file-manager'), and click on the edit file icon (pen) under the 'Actions' table column.",
-                    "copy file" => "To copy any file, go to the management page ('/account/file-manager'), and click on the copy icon under the 'Actions' table column.",
-                    "download file" => "To download any file, go to the management page ('/account/file-manager'), and click on the download icon under the 'Actions' table column.",
-                ],
-                [
-                    "name" => "Settings",
-                    "description" => "This is the module for managing your account details and changing passwords.",
-                    "endpoints" => [
-                        // Settings Home
-                        "/account/settings",
-
-                        // Update Account Details
-                        "/account/settings/update-details",
-
-                        // Change Password
-                        "/account/settings/change-password",
-                    ],
-                    "management" => "To update your account details, go to '/account/settings/update-details'. To update/change your account password, go to '/account/settings/change-password', enter old and new passwords."
-                ],
-                [
-                    "name" => "Admin Management",
-                    "description" => "The Admin module provides features for managing users, system configurations, and website functionality.",
-                    "endpoints" => [
-                        // Admin Home
-                        "/account/settings",
-
-                        // Manage Users
-                        "/account/admin/users",
-                        "/account/admin/users/new-user",
-                        "/account/admin/users/edit-user/{user-id}",
-                        "/account/admin/users/view-user/{user-id}",
-
-                        // Configurations
-                        "/account/admin/configurations",
-
-                        // Codes (No View)
-                        "/account/admin/codes",
-                        "/account/admin/codes/new-code",
-                        "/account/admin/codes/edit-code/{code-id}",
-
-                        // API Keys (No View)
-                        "/account/admin/api-keys",
-                        "/account/admin/api-keys/new-api-key",
-                        "/account/admin/api-keys/edit-api-key/{api-key-id}",
-
-                        // Activity Logs (Only View)
-                        "/account/admin/activity-logs",
-
-                        // Logs (Only View)
-                        "/account/admin/logs",
-
-                        // Visit Stats (Only View or Delete)
-                        "/account/admin/visit-stats",
-
-                        // Blocked IPs (Only Delete)
-                        "/account/admin/blocked-ips",
-
-                        // Whitelisted IPs (Only Delete)
-                        "/account/admin/whitelisted-ips",
-
-                        // Backups (Only Delete or Download)
-                        "/account/admin/backups",
-
-                        // File Editor
-                        "/account/appearance/theme-editor/layout",
-                        "/account/appearance/theme-editor/home",
-                        "/account/appearance/theme-editor/blogs",
-                        "/account/appearance/theme-editor/view-blog",
-                        "/account/appearance/theme-editor/view-page",
-                        "/account/appearance/theme-editor/search",
-                        "/account/appearance/theme-editor/search-filter",
-                        "/account/appearance/theme-editor/sitemap",
-                    ],
-                    "management" => "All Admin sub-modules can be manage from '/account/admin/{module-name}'",
-                    "deletion" => "To delete any record, go to the management page ('/account/admin/{module-name}'), e.g. '/account/admin/users' and click on the delete (x) button, then confirm deletion prompt.",
-                ]
-            ],
-            "frontend" => [
-                "framework" => "Bootstrap, PHP, and any CSS or JavaScript framework of your choice.",
-                "features" => [
-                    "Responsive design",
-                    "AI assistance support",
-                    "Theme customization",
-                ],
-                "customization" => "To customize your theme, manage theme files in '/your-app/app/Views/front-end/themes/{theme-name}/'. The themes folder has the following directories and files: blogs (index.php, view-blog.php), home (index.php), includes (_functions.php), layout (_layout.php), pages (view-page.php), search (index.php, filter.php)",
-                "endpoints" => [
-                    // Home Page
-                    "/api/{api-key}/get-home-pages", // Retrieves the main homepage content and layout configuration.
-
-                    // Generic Model Data
-                    "/api/{api-key}/get-model-data?model=navigations&take=10&skip=0", // Fetch navigations (10 items, skip 0).
-                    "/api/{api-key}/get-model-data?model=categories&where_clause={'status':1}", // Filtered categories.
-                    "/api/{api-key}/get-model-data?model=blogs&where_clause={'blog_id':'{blog-id}'}", // Filtered blog by ID.
-                    "/api/{api-key}/get-model-data?model=blogs&where_clause={'blog_id':'{blog-id}','status':1}", // Multiple filter.
-
-                    // Blogs
-                    "/api/{api-key}/get-all-blogs", // All published blogs.
-                    "/api/{api-key}/get-blog/{blog_id}", // Blog by ID.
-                    "/api/{api-key}/get-blogs?take=10&skip=0", // Paginated blogs.
-
-                    // Categories
-                    "/api/{api-key}/get-category/{category_id}",
-                    "/api/{api-key}/get-categories",
-                    "/api/{api-key}/get-categories?take=10&skip=0",
-
-                    // Codes
-                    "/api/{api-key}/get-code/{code_id}",
-                    "/api/{api-key}/get-codes",
-                    "/api/{api-key}/get-codes?take=10&skip=0",
-
-                    // Content Blocks
-                    "/api/{api-key}/get-content-block/{content_id}",
-                    "/api/{api-key}/get-content-blocks",
-                    "/api/{api-key}/get-content-blocks?take=10&skip=0",
-
-                    // Countries
-                    "/api/{api-key}/get-country/{country_id}",
-                    "/api/{api-key}/get-countries",
-                    "/api/{api-key}/get-countries?take=10&skip=0",
-
-                    // Navigation
-                    "/api/{api-key}/get-navigation/{navigation_id}",
-                    "/api/{api-key}/get-navigations?take=10&skip=0",
-
-                    // Pages
-                    "/api/{api-key}/get-all-pages",
-                    "/api/{api-key}/get-page/{page_id}",
-                    "/api/{api-key}/get-pages?take=10&skip=0",
-
-                    // Search
-                    "/api/{api-key}/search-results?key=the",
-                    "/api/{api-key}/model-search-results?type=blog&key=the",
-                    "/api/{api-key}/filter-search-results?type=author&key=admin",
-
-                    // Themes
-                    "/api/{api-key}/get-theme/{theme_id}",
-                    "/api/{api-key}/get-themes",
-                    "/api/{api-key}/get-themes?take=10&skip=0",
-                ]
-            ],
-            "backend" => [
-                "framework" => "CodeIgniter",
-                "features" => [
-                    "Admin dashboard",
-                    "Advanced logging",
-                    "CMS module",
-                    "File Management",
-                    "Settings & Configurations",
-                    "Admin Management",
-                    "API-driven architecture"
-                ]
-            ],
-            "setup_instructions" => [
-                "Ensure your system meets the following requirements: PHP 8.0+, Composer, MySQL, a web server (Apache/Nginx), and the PHP zip extension enabled.",
-                "Clone the repository: `git clone https://github.com/akassama/igniter-cms`.",
-                "Navigate into the project directory: `cd igniter-cms`.",
-                "Install dependencies using Composer: `composer install`.",
-                "Configure the database in the `.env` file (create one if it doesn't exist) with your `hostname`, `database`, `username`, and `password`.",
-                "Create the database using your preferred database tool (e.g., PhpMyAdmin) with the name specified in your configuration.",
-                "Set the base URL in `.env` to match your local or deployment URL.",
-                "Generate App Key: `php spark generate:key`. This command will generate/update the application key (APP_KEY) in `.env` file.",
-                "Run migrations to set up database tables: `php spark migrate`.",
-                "Ensure the `writable/` and `public/uploads/` directories are writable by the web server.",
-                "Start your local web server and access the CMS at `https://localhost/igniter-cms`.",
-                "Log in with the default admin credentials: Email: `admin@example.com`, Password: `Admin@1`.",
-                "To change the default login, edit the `$ data[]` array in the migration file: `app/Database/Migrations/2024-08-27-210112_Users.php`.",
-                "For email features, configure `EmailConfigType` via the Admin Panel: `/account/admin/configurations`.",
-                "Delete Tables: if you want to clear all tables from the database, run the command `php spark delete:tables` and type `yes`."
-            ],
-            "troubleshooting" => [
-                "database_connection" => [
-                    "issue" => "Unable to connect to the database.",
-                    "solution" => "Ensure database settings are correct in the `.env` file (or `app/Config/Database.php` if using that). Also verify the database server is running and accessible."
-                ],
-                "404_error" => [
-                    "issue" => "Page not found.",
-                    "solution" => "Check if routes are properly defined in `app/Config/Routes.php` and the controller/method exists. Also ensure mod_rewrite is enabled if using Apache."
-                ],
-                "500_internal_server" => [
-                    "issue" => "Internal server error.",
-                    "solution" => "Check `writable/logs/` for detailed error messages. This often indicates a misconfiguration, syntax error, or missing file."
-                ],
-                "env_file_missing" => [
-                    "issue" => "Environment variables not loading.",
-                    "solution" => "Ensure you have a valid `.env` file in the root directory and that it's not named `.env.example`. Clear cache with `php spark config:clear` if needed."
-                ],
-                "migrations_fail" => [
-                    "issue" => "Migrations not running or failing.",
-                    "solution" => "Check the migration files in `app/Database/Migrations/` for syntax or logic errors. Ensure your database exists and is properly connected."
-                ],
-                "permissions_error" => [
-                    "issue" => "Permission denied on certain folders or files.",
-                    "solution" => "Ensure `writable/` and `public/uploads/` directories are writable by the web server (e.g., using `chmod -R 775 writable/`)."
-                ],
-                "email_not_sending" => [
-                    "issue" => "Emails are not being sent.",
-                    "solution" => "Verify that your email settings are correctly configured in the Admin Panel (`/account/admin/configurations`). Also confirm your server allows outgoing mail and check logs for errors."
-                ],
-                "css_js_not_loading" => [
-                    "issue" => "CSS or JS files are not loading.",
-                    "solution" => "Check that the `baseURL` is correctly set in `app/Config/App.php` and that `public/` is the document root of your server."
-                ],
-                "composer_autoload" => [
-                    "issue" => "Class not found or autoloading issues.",
-                    "solution" => "Run `composer dump-autoload` to refresh the autoloader. Ensure namespaces and file paths follow PSR-4."
-                ]
-            ],
-            "faq" => [
-                [
-                    "question" => "How do I reset my admin password?",
-                    "answer" => "You can reset your password using the `Forgot Password` link on the login page or via the database."
-                ],
-                [
-                    "question" => "Can I extend the CMS with plugins?",
-                    "answer" => "Yes! You can create and integrate modules to extend functionality."
-                ],
-                [
-                    "question" => "Can I buy themes for Igniter CMS?",
-                    "answer" => "Yes, you cn buy modern and professional themes from https://themes.ignitercms.com"
-                ],
-                [
-                    "question" => "How do I reset the database?",
-                    "answer" => "Run 'php spark delete:tables' then run 'php spark migrate'"
-                ],
-                [
-                    "question" => "How do I generate an app key?",
-                    "answer" => "Run 'php spark generate:key'. This command will generate/update the application key (APP_KEY) in .env file."
-                ],
-                [
-                    "question" => "How do I set it to demo mode?",
-                    "answer" => "Set it to true (DEMO_MODE = true) in the .env file."
-                ],
-                [
-                    "question" => "How do I set, customize the theme colors, set background/slider images, or footer copyright of the themes?",
-                    "answer" => "To change any of these (colors, background, copyright) for the theme, go to admin/edit-theme and set it there."
-                ],
-                [
-                    "question" => "How do I configure the email?",
-                    "answer" => "In the .env file, see MAILJET_API_KEY, MAILJET_SECRET_KEY, anbd EMAIL_FROM. Default is Mailjet. The EmailService.php is in Services folder."
-                ],
-                [
-                    "question" => "How do I install themes",
-                    "answer" => "Go to Themes '/account/appearance/themes', if already added set as active, if not, click on '+ Add Theme' and download the theme. Go back to Theme and 'Upload Theme'."
-                ],
-                [
-                    "question" => "How do I install plugins",
-                    "answer" => "Go to Themes '/account/plugins', if already added set as activate and manage the plugin settings, if not, click on '+ Add Plugin' and download the plugin. Go back to Plugins and 'Upload Plugin'."
-                ],
-            ],
-            "image_assets" => [
-                [
-                    "image_url" => "https://docs.ignitercms.com/images/upload/01-dashboard.png",
-                    "image_description" => "Dashboard image"
-                ],
-                [
-                    "image_url" => "https://docs.ignitercms.com/images/upload/02-cms.png",
-                    "image_description" => "CMS management image"
-                ],
-                [
-                    "image_url" => "https://docs.ignitercms.com/images/upload/48-files.png",
-                    "image_description" => "File manager image"
-                ],
-                [
-                    "image_url" => "https://docs.ignitercms.com/images/upload/50-settings.png",
-                    "image_description" => "Settings management image"
-                ],
-                [
-                    "image_url" => "https://docs.ignitercms.com/images/upload/53-admin.png",
-                    "image_description" => "Admin Management"
-                ],
-            ],
-            "configurations" => [
-                [
-                    "config_for" => "SiteName",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SiteEmail",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "siteSecondaryEmail",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SiteEnquiryEmail",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SitePhoneNumber",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SiteSecondaryNumber",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SiteAddress",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SiteAddressMap",
-                    "data_type" => "Code",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "CompanyOpeningHours",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MaintenanceMode",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "MaintenanceModeTitle",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MaintenanceModeText",
-                    "data_type" => "Textarea",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MetaTitle",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SiteTitle",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MetaKeywords",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MetaAuthor",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MetaOgImage",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "BlogsPageMetaTitle",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "BlogsPageSiteTitle",
-                    "data_type" => "Textarea",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "BlogsPageMetaKeywords",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SearchPageMetaTitle",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SearchPageSiteTitle",
-                    "data_type" => "Textarea",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SearchPageMetaKeywords",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SearchFilterPageMetaTitle",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SearchFilterPageSiteTitle",
-                    "data_type" => "Textarea",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SearchFilterPageMetaKeywords",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "BackendLogoLink",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "BackendFaviconLink",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SiteLogoLink",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SiteLogoTwoLink",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SiteFaviconLink",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SiteFaviconLink96",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SiteFaviconLinkAppleTouch",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "SiteFaviconManifestLink",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "FrontEndFormat",
-                    "data_type" => "Select",
-                    "options" => "MVC,API"
-                ],
-                [
-                    "config_for" => "AllowedApiGetModels",
-                    "data_type" => "Textarea",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "EnableGeminiAI",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "EnableGeminiAIAnalysis",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "GeminiAPIKey",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "GeminiBaseURL",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "EnableGlobalSearchIcon",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ],
-                [
-                    "config_for" => "HoneypotKey",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "TimestampKey",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "MaxFailedAttempts",
-                    "data_type" => "Text",
-                    "options" => null
-                ],
-                [
-                    "config_for" => "FailedLoginsSuspensionPeriod",
-                    "data_type" => "Select",
-                    "options" => "+5 minutes,+10 minutes,+30 minutes,+1 hour,+3 hours,+24 hours"
-                ],
-                [
-                    "config_for" => "BlockedIPSuspensionPeriod",
-                    "data_type" => "Select",
-                    "options" => "+1 day,+1 days,+1 month,+3 months,+6 months,+1 year,+3 years,+5 years,+10 years"
-                ],
-                [
-                    "config_for" => "MaxUploadFileSize",
-                    "data_type" => "Select",
-                    "options" => "1,3,5,10,50,100,1000"
-                ],
-                [
-                    "config_for" => "EnableIgniterNewsFeed",
-                    "data_type" => "Select",
-                    "options" => "Yes,No"
-                ]
-            ],
+            $body = trim($response->getBody());
             
-        ];
-
-        return json_encode($knowledgeBase, JSON_PRETTY_PRINT);
+            // Ensure it's valid JSON
+            $decoded = json_decode($body, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $jsonData = json_encode($decoded, JSON_PRETTY_PRINT);
+                
+                // Cache for 24 hours (86400 seconds)
+                $cache->save($cacheKey, $jsonData, 86400);
+                
+                return $jsonData;
+            } else {
+                $errorData = json_encode([
+                    'error' => 'JSON Decode Error',
+                    'message' => json_last_error_msg(),
+                    'body_preview' => substr($body, 0, 200)
+                ], JSON_PRETTY_PRINT);
+                return $errorData;
+            }
+            
+        } catch (\Exception $e) {
+            $errorData = json_encode([
+                'error' => 'Request Exception',
+                'message' => $e->getMessage(),
+            ], JSON_PRETTY_PRINT);
+            return $errorData;
+        }
     }
 }
 
