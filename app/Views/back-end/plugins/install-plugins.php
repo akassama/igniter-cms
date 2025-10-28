@@ -57,6 +57,11 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <h5 class="card-title mb-0">
                                     <?= esc($plugin['name']) ?> 
                                     <span class="d-none"><?= esc($plugin['slug']) ?></span>
+                                    <?php if (!empty($plugin['is_paid']) && $plugin['is_paid'] === true): ?>
+                                        <span class="d-none">paid/premium</span>
+                                    <?php else: ?>
+                                        <span class="d-none">free</span>
+                                    <?php endif; ?>
                                 </h5>
 
                                 <?php if (!empty($plugin['is_paid']) && $plugin['is_paid'] === true): ?>
