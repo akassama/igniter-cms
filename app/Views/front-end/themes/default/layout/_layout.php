@@ -137,7 +137,7 @@ $adminBar = renderAdminBar();
                             </a>
                         </li>                                                    
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url('#about') ?>" target="_self">
+                            <a class="nav-link" href="<?= base_url('about-us') ?>" target="_self">
                                 About Us
                             </a>
                         </li>                                                    
@@ -304,5 +304,8 @@ $adminBar = renderAdminBar();
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
     <?= $this->include('front-end/layout/assets/sweet_alerts.php'); ?>
+
+    <!--Load Footer Plugin Helpers-->
+    <?=$this->include('front-end/themes/_shared/_load_footer_plugin_helpers.php'); ?>
 </body>
 </html>

@@ -30,7 +30,7 @@ CI_ENVIRONMENT = development
 # DATABASE
 #--------------------------------------------------------------------
 # database.default.hostname = localhost
-# database.default.database = igniter_cms_pro_db
+# database.default.database = igniter_cms_db
 # database.default.username = root
 # database.default.password = 
 # database.default.DBDriver = MySQLi
@@ -200,10 +200,10 @@ APP_VERSION = 2.1.1
 APP_KEY=your-app-id
 APP_API_KEY = "default"
 DEMO_MODE = false
-AI_KNOWLEDGE_BASE_URL = https://api.ignitercms.com/ai/get-ai-knowledge-base
-CUSTOM_GEMINI_REQUEST_URL = https://api.ignitercms.com/ai/get-ai-response/
+AI_KNOWLEDGE_BASE_URL = https://api.ignitercms.com/api-service/get-ai-knowledge-base/
+CUSTOM_GEMINI_REQUEST_URL = https://api.ignitercms.com/api-service/get-ai-response/
 PUBLIC_GEMINI_REQUEST_KEY = HL3SG0Q3Fm9mDDK57raurKnQ5Pfs1LJm0UgR1RXS1EeIFraw6oPE3p2o9OLo8MwKX0loW6EXGELhXP0aB3k48PYSZTpYM82JlyE2RZlVYfNZvWOgoeMOmVBHVIAz1xaB
 PLUGIN_API_REQUEST_KEY = plugin-api-request-key
 REMEMBER_ME_COOKIE = "__ci_token"
-THEMES_API_ENDPOINT = https://ignitercms.com/themes/
-PLUGINS_API_ENDPOINT = https://ignitercms.com/plugins/
+THEMES_API_ENDPOINT = https://api.ignitercms.com/api-service/get-themes/
+PLUGINS_API_ENDPOINT = https://api.ignitercms.com/api-service/get-plugins/

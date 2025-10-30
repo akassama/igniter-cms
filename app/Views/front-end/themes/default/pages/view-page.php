@@ -16,7 +16,7 @@ updateTotalViewCount("pages", "page_id", $page_data['page_id']);
 <?= $this->section('content') ?>
 
     <!-- Breadcrumb -->
-    <section class="breadcrumb-section py-3 bg-light mt-md-3 mt-sm-4">
+    <section class="breadcrumb-section py-3 bg-light mt-4 mt-md-5 mt-sm-4">
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">

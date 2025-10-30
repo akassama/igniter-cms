@@ -17,7 +17,12 @@ jobs:
           username: ${{ secrets.FTPUSERNAME }}
           password: ${{ secrets.FTPPASSWORD }}
           protocol: ftps
+          timeout: 120000
           server-dir: /
           # 👇 Add the exclude parameter here
           exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .github/**
             install/database.sql
