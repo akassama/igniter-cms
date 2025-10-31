@@ -94,6 +94,9 @@ $userRole = getUserRole($sessionEmail);
                                 <a class="nav-link <?= (str_contains(current_url(), 'account/forms/contact-forms')) ? 'active' : ''; ?>" href="<?= base_url('/account/forms/contact-forms'); ?>">
                                     <i class="ri-arrow-drop-right-fill"></i> Contact
                                 </a>
+                                <a class="nav-link <?= (str_contains(current_url(), 'account/forms/comment-forms')) ? 'active' : ''; ?>" href="<?= base_url('/account/forms/comment-forms'); ?>">
+                                    <i class="ri-arrow-drop-right-fill"></i> Comments
+                                </a>
                                 <a class="nav-link <?= (str_contains(current_url(), 'account/forms/booking-forms')) ? 'active' : ''; ?>" href="<?= base_url('/account/forms/booking-forms'); ?>">
                                     <i class="ri-arrow-drop-right-fill"></i> Bookings
                                 </a>

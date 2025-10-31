@@ -117,6 +117,9 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('forms/subscription-forms', 'FormsController::subscriptionForms');
         $routes->get('forms/subscription-forms/unsubscribed', 'FormsController::unsubscribedForms');
         $routes->post('forms/subscription-forms/edit-subscriber', 'FormsController::updateSubscriber');
+        $routes->get('forms/comment-forms', 'FormsController::commentForms');
+        $routes->get('forms/comment-forms/unapproved', 'FormsController::unapprovedCommentForms');
+        $routes->post('forms/comment-forms/edit-comment', 'FormsController::updateComment');
     }
 
 
@@ -372,6 +375,9 @@ $routes->group('api-form', ['filter' => ['corsFilter']],  function($routes) {
         
         // Add Booking
         $routes->post('add-booking', 'FormRequestsController::addBooking');
+        
+        // Add Comment
+        $routes->post('add-comment', 'FormRequestsController::addComment');
     }
 });
 

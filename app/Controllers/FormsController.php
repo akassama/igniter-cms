@@ -8,6 +8,7 @@ use App\Models\DataGroupsModel;
 use App\Models\BookingFormsModel;
 use App\Models\ContactFormsModel;
 use App\Models\SubscriptionFormsModel;
+use App\Models\CommentFormsModel;
 
 class FormsController extends BaseController
 {
@@ -174,7 +175,7 @@ class FormsController extends BaseController
         // Basic validation
         $rules = [
             'contact_form_id' => 'required',
-            'status'           => 'permit_empty|in_list['.getDataGroupList("ContactFomrStatus").']',
+            'status'           => 'permit_empty|in_list['.getDataGroupList("ContactFormStatus").']',
         ];
 
         if (! $this->validate($rules)) {
@@ -328,10 +329,10 @@ class FormsController extends BaseController
             'appointment_time'    => 'permit_empty|regex_match[/^\d{2}:\d{2}(:\d{2})?$/]',
             'duration'            => 'permit_empty|integer',
             'number_of_attendees' => 'permit_empty|integer',
-            'payment_status'      => 'permit_empty|in_list['.getDataGroupList("BookingFomrPaymentStatus").']',
+            'payment_status'      => 'permit_empty|in_list['.getDataGroupList("BookingFormPaymentStatus").']',
             'payment_amount'      => 'permit_empty|decimal',
             'confirmation_code'   => 'permit_empty|max_length[50]',
-            'status'              => 'permit_empty|in_list['.getDataGroupList("BookingFomrStatus").']',
+            'status'              => 'permit_empty|in_list['.getDataGroupList("BookingFormStatus").']',
             'notes'               => 'permit_empty|max_length[5000]',
         ];
 
@@ -472,6 +473,47 @@ class FormsController extends BaseController
             return redirect()->back()->withInput();
         }
     }
+
+    //############################//
+    //         Comments           //
+    //############################//
+    public function commentForms()
+    {
+        $tableName = 'comment_form_submissions';
+        $commentFormsModel = new CommentFormsModel();
+
+        // Set data to pass in view
+        $data = [
+            'comment_form_submissions' => $commentFormsModel
+                ->orderBy('created_at', 'DESC')
+                ->paginate((int) env('QUERY_LIMIT_ULTRA_MAX', 10000)),
+
+            'pager' => $commentFormsModel->pager,
+            'total_comment_form_submissions' => $commentFormsModel->pager->getTotal(),
+        ];
+
+        return view('back-end/forms/comment-forms/index', $data);
+    }
+
+    public function unapprovedCommentForms()
+    {
+        $tableName = 'comment_form_submissions';
+        $commentFormsModel = new CommentFormsModel();
+
+        // Set data to pass in view
+        $data = [
+            'comment_form_submissions' => $commentFormsModel
+                ->where('status', '0')
+                ->orderBy('created_at', 'DESC')
+                ->paginate((int) env('QUERY_LIMIT_ULTRA_MAX', 10000)),
+
+            'pager' => $commentFormsModel->pager,
+            'total_comment_form_submissions' => $commentFormsModel->pager->getTotal(),
+        ];
+
+        return view('back-end/forms/comment-forms/unapproved', $data);
+    }
+
 
     /**
      * Small helper to normalize empty strings to null.

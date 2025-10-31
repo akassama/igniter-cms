@@ -710,13 +710,13 @@ CREATE TABLE `data_groups` (
 
 INSERT INTO `data_groups` (`data_group_id`, `data_group_for`, `data_group_list`, `deletable`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 ('0FAE4AE5-989D-43A6-8C4B-4652B00ABCC5', 'Page', 'general,site', 0, 'D0134833-E0EC-437F-8531-CAC9E2F48EB3', NULL, '2025-10-27 16:15:19', '2025-10-27 16:15:19'),
-('23BA0704-76CF-40D0-8043-88C9A7231406', 'BookingFomrPaymentStatus', 'None,Unpain,Paid,Refunded', 0, 'D0134833-E0EC-437F-8531-CAC9E2F48EB3', NULL, '2025-10-27 16:15:19', '2025-10-27 16:15:19'),
+('23BA0704-76CF-40D0-8043-88C9A7231406', 'BookingFormPaymentStatus', 'None,Unpain,Paid,Refunded', 0, 'D0134833-E0EC-437F-8531-CAC9E2F48EB3', NULL, '2025-10-27 16:15:19', '2025-10-27 16:15:19'),
 ('34EA0976-F90C-43A8-80CE-B26629D52A4B', 'Category', 'general,business,portfolio', 0, 'D0134833-E0EC-437F-8531-CAC9E2F48EB3', NULL, '2025-10-27 16:15:19', '2025-10-27 16:15:19'),
 ('34EEFA13-2A71-4DB7-8C24-285351EAC41F', 'Navigation', 'general,top_nav,services,footer_nav', 0, 'D0134833-E0EC-437F-8531-CAC9E2F48EB3', NULL, '2025-10-27 16:15:19', '2025-10-27 16:15:19'),
 ('3C1BA0FA-9448-4856-921F-71C47A37E0A1', 'ContentBlock', 'general', 0, 'D0134833-E0EC-437F-8531-CAC9E2F48EB3', NULL, '2025-10-27 16:15:19', '2025-10-27 16:15:19'),
-('B4F89AA3-4F1B-4664-B5EB-6A9C2637F8F0', 'BookingFomrStatus', 'Pending,Confirmed,Cancelled', 0, 'D0134833-E0EC-437F-8531-CAC9E2F48EB3', NULL, '2025-10-27 16:15:19', '2025-10-27 16:15:19'),
-('E923E447-1957-4322-BFDD-AFC83A6C1281', 'ContactFomrStatus', 'New,In Progress,Resolved,Archived', 0, 'D0134833-E0EC-437F-8531-CAC9E2F48EB3', NULL, '2025-10-27 16:15:19', '2025-10-27 16:15:19'),
-('F6CF096B-E955-4BF5-882E-8E710E597F5C', 'SubscriptionFomrStatus', 'Pending Confirmation,Active,Unsubscribed,Bounced', 0, 'D0134833-E0EC-437F-8531-CAC9E2F48EB3', NULL, '2025-10-27 16:15:19', '2025-10-27 16:15:19');
+('B4F89AA3-4F1B-4664-B5EB-6A9C2637F8F0', 'BookingFormStatus', 'Pending,Confirmed,Cancelled', 0, 'D0134833-E0EC-437F-8531-CAC9E2F48EB3', NULL, '2025-10-27 16:15:19', '2025-10-27 16:15:19'),
+('E923E447-1957-4322-BFDD-AFC83A6C1281', 'ContactFormStatus', 'New,In Progress,Resolved,Archived', 0, 'D0134833-E0EC-437F-8531-CAC9E2F48EB3', NULL, '2025-10-27 16:15:19', '2025-10-27 16:15:19'),
+('F6CF096B-E955-4BF5-882E-8E710E597F5C', 'SubscriptionFormStatus', 'Pending Confirmation,Active,Unsubscribed,Bounced', 0, 'D0134833-E0EC-437F-8531-CAC9E2F48EB3', NULL, '2025-10-27 16:15:19', '2025-10-27 16:15:19');
 
 -- --------------------------------------------------------
 

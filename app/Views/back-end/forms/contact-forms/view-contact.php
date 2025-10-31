@@ -1,6 +1,9 @@
 <!-- include layout -->
 <?= $this->extend('back-end/layout/_layout') ?>
 
+<!-- page title -->
+<?= $this->section('title') ?>View Contact Messages<?= $this->endSection() ?>
+
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
@@ -167,7 +170,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="edit_status" class="form-label">Status</label>
                 <?php $cStatus = $contact_message_data['status'] ?? 'Pending'; ?>
                 <select class="form-select" id="edit_status" name="status">
-                <?=getDataGroupOptions($cStatus, "ContactFomrStatus")?>
+                <?=getDataGroupOptions($cStatus, "ContactFormStatus")?>
                 </select>
             </div>
         </div>

@@ -8,6 +8,7 @@ use App\Constants\ActivityTypes;
 use App\Models\BookingFormsModel;
 use App\Models\ContactFormsModel;
 use App\Models\SubscriptionFormsModel;
+use App\Models\CommentFormsModel;
 use App\Libraries\EmailService;
 use Exception;
 
@@ -494,4 +495,186 @@ class FormRequestsController extends BaseController
             return $this->response->setStatusCode(500)->setJSON(['message' => 'Failed to process booking']);
         }
     }
+
+    // COMMENTS
+    public function addComment()
+    {
+        // Retrieve honeypot and timestamp values
+        $honeypotInput     = $this->request->getPost(getConfigData("HoneypotKey"));
+        $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
+        validateHoneypotInput($honeypotInput, $submittedTimestamp);
+
+        // Validate Captcha
+        $captchaValidation = validateCaptcha();
+        if ($captchaValidation !== true) {
+            $errorMessage = $captchaValidation;
+            $returnUrl = $this->request->getPost('return_url');
+            if (!empty($returnUrl)) {
+                session()->setFlashdata('errorAlert', $errorMessage);
+                return redirect()->to($returnUrl);
+            }
+            return $this->response->setStatusCode(500)->setJSON(['message' => $errorMessage]);
+        }
+
+        // VALIDATION: name, email, comment are required
+        $rules = [
+            'name'    => 'required',
+            'email'   => 'required|valid_email',
+            'comment' => 'required',
+        ];
+
+        if (!$this->validate($rules)) {
+            $errors = $this->validator->getErrors();
+            $errorMessage = implode(' ', $errors);
+
+            $returnUrl = $this->request->getPost('return_url');
+            if (!empty($returnUrl)) {
+                session()->setFlashdata('errorAlert', $errorMessage);
+                return redirect()->to($returnUrl);
+            }
+            return $this->response->setStatusCode(400)->setJSON(['message' => $errorMessage]);
+        }
+
+        $forwardEmail    = env('FORWARD_COMMENT_EMAIL');
+        $forwardToEmail  = env('FORWARD_COMMENT_EMAIL_TO');
+        $defaultCommentStatus  = env('DEFAULT_COMMENT_STATUS');
+
+        // Inputs
+        $returnUrl         = $this->request->getPost('return_url');
+        $name              = trim($this->request->getPost('name'));
+        $email             = trim($this->request->getPost('email'));
+        $commentBody       = $this->request->getPost('comment');
+        $pageId            = $this->request->getPost('page_id');
+        $pageUrl            = $this->request->getPost('page_url');
+        $browserSignature  = $this->request->getPost('browser_signature');
+        $isReply           = (int) ($this->request->getPost('is_reply') ?? 0);
+        $rememberMe        = (int) ($this->request->getPost('remember_me') ?? 0);
+        $status        = (int) $defaultCommentStatus;
+        $replyCommentId    = $this->request->getPost('reply_comment_form_id') ?: null;
+
+        // Useful site info
+        $siteName    = getConfigData('SiteName');
+        $siteAddress = getConfigData('SiteAddress');
+
+        // Build gravatar (optional)
+        $gravatarUrl = null;
+        if (!empty($email)) {
+            $hash = md5(strtolower(trim($email)));
+            $gravatarUrl = "https://www.gravatar.com/avatar/{$hash}?d=identicon";
+        }
+
+        try {
+            $commentsModel = new CommentFormsModel();
+
+            $data = [
+                'name'              => $name,
+                'email'             => $email,
+                'gravatar'          => $gravatarUrl,
+                'comment'           => $commentBody,
+                'page_id'           => $pageId,
+                'page_url'           => $pageUrl,
+                'ip_address'        => getIPAddress(),
+                'country'           => getCountry(),
+                'browser_signature' => md5(getUserAgent()),
+                'is_reply'          => $isReply,
+                'reply_comment_form_id'  => $replyCommentId,
+                'remember_me'       => $rememberMe,
+                'updated_by'        => null,
+            ];
+
+            $commentsModel->createComment($data);
+
+            // Success flash
+            $commentSuccessful = config('CustomConfig')->commentSuccessful
+                ?? 'Thanks! Your comment has been received.';
+            session()->setFlashdata('successAlert', $commentSuccessful);
+
+            // Log activity
+            logActivity(
+                $email,
+                ActivityTypes::COMMENT_FORM_SUBMISSION,
+                'Comment submitted by: ' . $email . (!empty($pageId) ? (' on page: ' . $pageId) : '')
+            );
+
+            // Send confirmation email to commenter
+            try {
+                $subject = 'Comment Received';
+                $templateData = [
+                    'preheader'       => $subject,
+                    'greeting'        => 'Thanks for your comment!',
+                    'main_content'    => '<p>We\'ve received your comment'
+                                        . (!empty($pageUrl) ? ' on <strong>' . htmlspecialchars($pageUrl, ENT_QUOTES, 'UTF-8') . '</strong>' : '')
+                                        . '.</p>'
+                                        . '<blockquote style="margin:0.5rem 0 0 0; padding-left:10px; border-left:3px solid #ccc;">'
+                                        . nl2br(htmlspecialchars($commentBody, ENT_QUOTES, 'UTF-8'))
+                                        . '</blockquote>',
+                    'cta_text'        => 'Visit Site',
+                    'cta_url'         => base_url(),
+                    'footer_text'     => 'Sent from ' . $siteName,
+                    'company_address' => $siteAddress,
+                    'unsubscribe_url' => base_url('services/unsubscribe?identifier=' . urlencode($email)),
+                ];
+                $this->emailService->send($email, $subject, $templateData);
+            } catch (\Exception $e) {
+                logActivity($email, ActivityTypes::FAILED_COMMENT_FORM_SUBMISSION, 'Failed to send comment confirmation to: ' . $email);
+            }
+
+            // Forward to team if enabled
+            if ($forwardEmail && !empty($forwardToEmail)) {
+                try {
+                    $subject = 'New Comment Submitted';
+                    $templateData = [
+                        'preheader' => $subject,
+                        'greeting'  => 'New Comment',
+                        'main_content' =>
+                            '<p>You have received a new comment.</p>'
+                            . (!empty($pageUrl) ? '<p><strong>Page:</strong> ' . htmlspecialchars($pageUrl, ENT_QUOTES, 'UTF-8') . '</p>' : '')
+                            . '<h4>Comment</h4>'
+                            . '<blockquote style="margin:0.5rem 0 0 0; padding-left:10px; border-left:3px solid #ccc;">'
+                            . nl2br(htmlspecialchars($commentBody, ENT_QUOTES, 'UTF-8'))
+                            . '</blockquote>'
+                            . '<h4>Author</h4>'
+                            . '<ul>'
+                            . '<li><strong>Name:</strong> ' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . '</li>'
+                            . '<li><strong>Email:</strong> ' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</li>'
+                            . (!empty($replyCommentId) ? '<li><strong>In reply to Comment ID:</strong> ' . htmlspecialchars($replyCommentId, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                            . '</ul>'
+                            . '<p><small><strong>IP:</strong> ' . htmlspecialchars(getIPAddress(), ENT_QUOTES, 'UTF-8')
+                            . ' &middot; <strong>Country:</strong> ' . htmlspecialchars(getCountry(), ENT_QUOTES, 'UTF-8')
+                            . ' &middot; <strong>Submitted At:</strong> ' . htmlspecialchars(date('Y-m-d H:i:s'), ENT_QUOTES, 'UTF-8') . '</small></p>',
+                        'cta_text'        => 'Manage Comments',
+                        'cta_url'         => base_url('account/forms/comment-forms'),
+                        'footer_text'     => 'Sent from <a href="'.base_url().'">'.$siteName.'</a>',
+                        'company_address' => $siteAddress,
+                        'unsubscribe_url' => base_url('services/unsubscribe?identifier=' . urlencode($forwardToEmail)),
+                    ];
+                    $this->emailService->send($forwardToEmail, $subject, $templateData);
+                } catch (\Exception $e) {
+                    logActivity($email, ActivityTypes::FAILED_COMMENT_FORM_SUBMISSION, 'Failed to forward comment notification to: ' . $forwardToEmail);
+                }
+            }
+
+            // Redirect or return JSON
+            if (!empty($returnUrl)) {
+                return redirect()->to($returnUrl);
+            }
+            return $this->response->setStatusCode(200)->setJSON(['message' => 'Comment submitted successfully.']);
+
+        } catch (\Exception $e) {
+            $commentFailed = config('CustomConfig')->commentFailed ?? 'Failed to submit comment.';
+            session()->setFlashdata('errorAlert', $commentFailed);
+
+            logActivity(
+                $email ?? 'unknown',
+                ActivityTypes::FAILED_COMMENT_FORM_SUBMISSION,
+                'Comment submission failed: ' . $e->getMessage()
+            );
+
+            if (!empty($returnUrl)) {
+                return redirect()->to($returnUrl);
+            }
+            return $this->response->setStatusCode(500)->setJSON(['message' => 'Failed to submit comment']);
+        }
+    }
+
 }

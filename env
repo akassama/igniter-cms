@@ -178,6 +178,7 @@ FORWARD_BOOKING_EMAIL_TO = "booking@email.com"
 FORWARD_SUBSCRIPTION_EMAIL = true
 FORWARD_SUBSCRIPTION_EMAIL_TO = "subscription@email.com"
 DEFAULT_SUBSCRIPTION_STATUS = "Pending Confirmation" #'Pending Confirmation', 'Active', 'Unsubscribed', 'Bounced'
+DEFAULT_COMMENT_STATUS = 0
 
 #--------------------------------------------------------------------
 # CAPTCHA SETTINGS
@@ -196,7 +197,7 @@ GREGWAR_DIFFICULTY = "" # Options easy, medium, hard
 # OTHER SETTINGS
 #--------------------------------------------------------------------
 APP_NAME = "Igniter CMS App"
-APP_VERSION = 2.1.1
+APP_VERSION = 2.2.0
 APP_KEY=your-app-id
 APP_API_KEY = "default"
 DEMO_MODE = false
