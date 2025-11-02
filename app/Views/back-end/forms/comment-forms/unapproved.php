@@ -80,7 +80,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <?php 
                                             if(!empty($comment['page_url'])){
                                                 ?>
-                                                    <a href="<?= $comment['page_url']; ?>" target="_blank" class="td-none fw-bold">
+                                                    <a href="<?= $comment['page_url']; ?>" target="_blank" class="td-none fw-bold" data-bs-toggle="tooltip" title="<?= $comment['page_url']; ?>">
                                                         <i class="ri-link-m"></i> View Page
                                                     </a>
                                                 <?php

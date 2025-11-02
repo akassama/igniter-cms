@@ -192,6 +192,8 @@ class ActivityTypes
     const FAILED_COMMENT_FORM_UPDATE = 'failed_comment_update';
     const COMMENT_FORM_DELETION = 'comment_deleted';
     const FAILED_COMMENT_FORM_DELETION = 'failed_comment_deletion';
+    const COMMENT_FORM_UNAPPROVED = 'comment_unapproved';
+    const COMMENT_FORM_APPROVED = 'comment_approved';
 
 
     // Add more activity types as needed
@@ -380,6 +382,8 @@ class ActivityTypes
             self::FAILED_COMMENT_FORM_UPDATE => 'Comment Update Failed',
             self::COMMENT_FORM_DELETION => 'Comment Deleted',
             self::FAILED_COMMENT_FORM_DELETION => 'Comment Deletion Failed',
+            self::COMMENT_FORM_UNAPPROVED => 'Comment Form Unapproved',
+            self::COMMENT_FORM_APPROVED => 'Comment Form Approved',
 
             // Add more descriptions as needed
         ];

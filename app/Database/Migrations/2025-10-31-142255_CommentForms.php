@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Comments extends Migration
+class CommentForms extends Migration
 {
     public function up()
     {
@@ -76,7 +76,7 @@ class Comments extends Migration
                 'constraint' => 1,
                 'default'    => 0,
             ],
-            'updated_by' => [
+            'last_updated_by' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
                 'null'       => true,

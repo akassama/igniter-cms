@@ -80,7 +80,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <?php 
                                             if(!empty($comment['page_url'])){
                                                 ?>
-                                                    <a href="<?= $comment['page_url']; ?>" target="_blank" class="td-none fw-bold">
+                                                    <a href="<?= $comment['page_url']; ?>" target="_blank" class="td-none fw-bold" data-bs-toggle="tooltip" title="<?= $comment['page_url']; ?>">
                                                         <i class="ri-link-m"></i> View Page
                                                     </a>
                                                 <?php
@@ -125,13 +125,28 @@ echo generateBreadcrumb($breadcrumb_links);
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#editCommentModal"
                                                     data-id="<?= esc($comment['comment_form_id']) ?>"
-                                                    data-name="<?= esc($comment['name']) ?>"
-                                                    data-email="<?= esc($comment['email']) ?>"
-                                                    data-comment="<?= esc($comment['comment']) ?>"
-                                                    data-status="<?= esc($comment['status']) ?>">
+                                                    data-comment="<?= esc($comment['comment']) ?>">
                                                     <i class="h5 ri-edit-box-line"></i>
                                                 </a>
 
+                                            </div>
+                                            <div class="col mb-1">
+                                                <?php
+                                                    if ($status === '0') {
+                                                        ?>
+                                                            <a class="text-dark td-none mr-1 approve-comment" href="<?=base_url('account/forms/comment-forms/approve-comment/'.$comment['comment_form_id'])?>">
+                                                                <i class="h5 ri-file-check-fill"></i>
+                                                            </a>
+                                                        <?php
+                                                    }
+                                                    elseif ($status === '1') {
+                                                        ?>
+                                                            <a class="text-dark td-none mr-1 unapprove-comment" href="<?=base_url('account/forms/comment-forms/unapprove-comment/'.$comment['comment_form_id'])?>">
+                                                                <i class="h5 ri-chat-delete-fill"></i>
+                                                            </a>
+                                                        <?php
+                                                    }
+                                                ?>
                                             </div>
                                             <div class="col mb-1">
                                                 <a class="text-dark td-none mr-1 remove-comment" href="javascript:void(0)" onclick="deleteRecord('comment_form_submissions', 'comment_form_id', '<?=$comment['comment_form_id'];?>', '', 'account/forms/comment-forms')">
@@ -168,31 +183,10 @@ echo generateBreadcrumb($breadcrumb_links);
       <div class="modal-body">
         <div class="row g-3">
           <input type="hidden" name="comment_form_id" id="com_id">
-
-          <div class="col-12 col-md-4">
-            <label for="com_name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="com_name" name="name" maxlength="255">
-          </div>
-
-          <div class="col-12 col-md-4">
-            <label for="com_email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="com_email" name="email" maxlength="255" required>
-            <div class="invalid-feedback">Please enter a valid email.</div>
-          </div>
-          <div class="col-12 col-md-4">
-            <label for="com_status" class="form-label">Status</label>
-            <select class="form-select" id="com_status" name="status" required>
-              <option value="">Select status</option>
-              <option value="1">Approved</option>
-              <option value="0">Pending Approval</option>
-            </select>
-            <div class="invalid-feedback">Please select a status.</div>
-          </div>
-          
-          <div class="col-12 col-md-12">
-            <label for="com_comment" class="form-label">Comment</label>
-            <textarea class="form-control" id="com_comment" name="comment" maxlength="100" required></textarea>
-          </div>
+            <div class="col-12 col-md-12">
+                <label for="com_comment" class="form-label">Comment</label>
+                <textarea class="form-control" id="com_comment" name="comment" maxlength="100" required></textarea>
+            </div>
         </div>
       </div>
 
@@ -215,19 +209,12 @@ echo generateBreadcrumb($breadcrumb_links);
 document.addEventListener('DOMContentLoaded', function () {
     const modalEl = document.getElementById('editCommentModal');
     const idEl = document.getElementById('com_id');
-    const nameEl = document.getElementById('com_name');
-    const emailEl = document.getElementById('com_email');
     const commentEl = document.getElementById('com_comment');
-    const statusEl = document.getElementById('com_status');
 
-    document.querySelectorAll('.edit-blog').forEach(function (btn) {
+    document.querySelectorAll('.edit-comment').forEach(function (btn) {
         btn.addEventListener('click', function () {
             idEl.value = this.dataset.id || '';
-            emailEl.value = this.dataset.email || '';
-            nameEl.value = this.dataset.name || '';
             commentEl.value = this.dataset.comment || '';
-            // Set status if present and matches an option
-            const st = this.dataset.status || '';
             Array.from(statusEl.options).forEach(o => o.selected = (o.value === st));
         });
     });

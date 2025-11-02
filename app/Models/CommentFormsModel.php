@@ -33,7 +33,7 @@ class CommentFormsModel extends Model
         'reply_comment_form_id',
         'remember_me',
         'status',
-        'updated_by'
+        'last_updated_by'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -98,7 +98,7 @@ class CommentFormsModel extends Model
             'remember_me'       => $param['remember_me'] ?? 0,
             'status'            => $param['status'] ?? 0,
             'created_by'        => $param['created_by'] ?? null,
-            'updated_by'        => $param['updated_by'] ?? null,
+            'last_updated_by'        => $param['last_updated_by'] ?? null,
         ];
 
         $this->save($data);
@@ -133,8 +133,8 @@ class CommentFormsModel extends Model
         $existingComment['is_reply']          = $param['is_reply'] ?? $existingComment['is_reply'];
         $existingComment['reply_comment_form_id']  = $param['reply_comment_form_id'] ?? $existingComment['reply_comment_form_id'];
         $existingComment['remember_me']       = $param['remember_me'] ?? $existingComment['remember_me'];
-        $existingComment['status']       = $param['status'] ?? $existingComment['status'];
-        $existingComment['updated_by']        = $param['updated_by'] ?? $existingComment['updated_by'];
+        $existingComment['status']            = $param['status'] ?? $existingComment['status'];
+        $existingComment['last_updated_by']   = $param['last_updated_by'] ?? $existingComment['last_updated_by'];
 
         // Save updated record
         $this->save($existingComment);

@@ -538,6 +538,7 @@ class FormRequestsController extends BaseController
         $forwardEmail    = env('FORWARD_COMMENT_EMAIL');
         $forwardToEmail  = env('FORWARD_COMMENT_EMAIL_TO');
         $defaultCommentStatus  = env('DEFAULT_COMMENT_STATUS');
+        $notifyCommenterEmail  = env('NOTIFY_COMMENTER_EMAIL');
 
         // Inputs
         $returnUrl         = $this->request->getPost('return_url');
@@ -579,6 +580,7 @@ class FormRequestsController extends BaseController
                 'is_reply'          => $isReply,
                 'reply_comment_form_id'  => $replyCommentId,
                 'remember_me'       => $rememberMe,
+                'status'       => $status,
                 'updated_by'        => null,
             ];
 
@@ -597,26 +599,28 @@ class FormRequestsController extends BaseController
             );
 
             // Send confirmation email to commenter
-            try {
-                $subject = 'Comment Received';
-                $templateData = [
-                    'preheader'       => $subject,
-                    'greeting'        => 'Thanks for your comment!',
-                    'main_content'    => '<p>We\'ve received your comment'
-                                        . (!empty($pageUrl) ? ' on <strong>' . htmlspecialchars($pageUrl, ENT_QUOTES, 'UTF-8') . '</strong>' : '')
-                                        . '.</p>'
-                                        . '<blockquote style="margin:0.5rem 0 0 0; padding-left:10px; border-left:3px solid #ccc;">'
-                                        . nl2br(htmlspecialchars($commentBody, ENT_QUOTES, 'UTF-8'))
-                                        . '</blockquote>',
-                    'cta_text'        => 'Visit Site',
-                    'cta_url'         => base_url(),
-                    'footer_text'     => 'Sent from ' . $siteName,
-                    'company_address' => $siteAddress,
-                    'unsubscribe_url' => base_url('services/unsubscribe?identifier=' . urlencode($email)),
-                ];
-                $this->emailService->send($email, $subject, $templateData);
-            } catch (\Exception $e) {
-                logActivity($email, ActivityTypes::FAILED_COMMENT_FORM_SUBMISSION, 'Failed to send comment confirmation to: ' . $email);
+            if ($notifyCommenterEmail && !empty($email)) {
+                try {
+                    $subject = 'Comment Received';
+                    $templateData = [
+                        'preheader'       => $subject,
+                        'greeting'        => 'Thanks for your comment!',
+                        'main_content'    => '<p>We\'ve received your comment'
+                                            . (!empty($pageUrl) ? ' on <strong>' . htmlspecialchars($pageUrl, ENT_QUOTES, 'UTF-8') . '</strong>' : '')
+                                            . '.</p>'
+                                            . '<blockquote style="margin:0.5rem 0 0 0; padding-left:10px; border-left:3px solid #ccc;">'
+                                            . nl2br(htmlspecialchars($commentBody, ENT_QUOTES, 'UTF-8'))
+                                            . '</blockquote>',
+                        'cta_text'        => 'Visit Site',
+                        'cta_url'         => base_url(),
+                        'footer_text'     => 'Sent from ' . $siteName,
+                        'company_address' => $siteAddress,
+                        'unsubscribe_url' => base_url('services/unsubscribe?identifier=' . urlencode($email)),
+                    ];
+                    $this->emailService->send($email, $subject, $templateData);
+                } catch (\Exception $e) {
+                    logActivity($email, ActivityTypes::FAILED_COMMENT_FORM_SUBMISSION, 'Failed to send comment confirmation to: ' . $email);
+                }
             }
 
             // Forward to team if enabled

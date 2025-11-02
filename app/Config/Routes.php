@@ -120,6 +120,8 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('forms/comment-forms', 'FormsController::commentForms');
         $routes->get('forms/comment-forms/unapproved', 'FormsController::unapprovedCommentForms');
         $routes->post('forms/comment-forms/edit-comment', 'FormsController::updateComment');
+        $routes->get('forms/comment-forms/unapprove-comment/(:any)', 'FormsController::unApproveComment/$1');
+        $routes->get('forms/comment-forms/approve-comment/(:any)', 'FormsController::approveComment/$1');
     }
 
 
