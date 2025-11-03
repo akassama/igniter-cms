@@ -135,9 +135,11 @@ $userRole = getUserRole($sessionEmail);
                                 <a class="nav-link <?= (str_contains(current_url(), 'account/appearance/themes')) ? 'active' : ''; ?>" href="<?= base_url('/account/appearance/themes'); ?>">
                                     <i class="ri-arrow-drop-right-fill"></i> Themes
                                 </a>
-                                <a class="nav-link <?= (str_contains(current_url(), 'account/appearance/theme-editor')) ? 'active' : ''; ?>" href="<?= base_url('/account/appearance/theme-editor'); ?>">
-                                    <i class="ri-arrow-drop-right-fill"></i> Theme Editor
-                                </a>
+                                <?php if (isFeatureEnabled('FEATURE_THEME_EDITOR')): ?>
+                                    <a class="nav-link <?= (str_contains(current_url(), 'account/appearance/theme-editor')) ? 'active' : ''; ?>" href="<?= base_url('/account/appearance/theme-editor'); ?>">
+                                        <i class="ri-arrow-drop-right-fill"></i> Theme Editor
+                                    </a>
+                                <?php endif; ?>
                             </nav>
                         </div>
                     <?php endif; ?>
