@@ -75,28 +75,28 @@ class DataGroups extends Migration
             ],
             [
                 'data_group_id' => getGUID(),
-                'data_group_for'    => 'ContactFomrStatus',
+                'data_group_for'    => 'ContactFormStatus',
                 'data_group_list'    => "New,In Progress,Resolved,Archived",
                 'deletable'    => 0,
                 'created_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'data_group_id' => getGUID(),
-                'data_group_for'    => 'BookingFomrStatus',
+                'data_group_for'    => 'BookingFormStatus',
                 'data_group_list'    => "Pending,Confirmed,Cancelled",
                 'deletable'    => 0,
                 'created_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'data_group_id' => getGUID(),
-                'data_group_for'    => 'BookingFomrPaymentStatus',
+                'data_group_for'    => 'BookingFormPaymentStatus',
                 'data_group_list'    => "None,Unpain,Paid,Refunded",
                 'deletable'    => 0,
                 'created_by' => getGUID(getDefaultAdminGUID())
             ],
             [
                 'data_group_id' => getGUID(),
-                'data_group_for'    => 'SubscriptionFomrStatus',
+                'data_group_for'    => 'SubscriptionFormStatus',
                 'data_group_list'    => "Pending Confirmation,Active,Unsubscribed,Bounced",
                 'deletable'    => 0,
                 'created_by' => getGUID(getDefaultAdminGUID())

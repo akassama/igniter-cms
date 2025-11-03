@@ -185,6 +185,16 @@ class ActivityTypes
     const SUBSCRIPTION_FORM_DELETION = 'subscription_form_deleted';
     const FAILED_SUBSCRIPTION_FORM_DELETION = 'failed_subscription_form_deletion';
 
+    // COMMENT FORM LOGS
+    const COMMENT_FORM_SUBMISSION = 'comment_submitted';
+    const FAILED_COMMENT_FORM_SUBMISSION = 'failed_comment_submission';
+    const COMMENT_FORM_UPDATE = 'comment_updated';
+    const FAILED_COMMENT_FORM_UPDATE = 'failed_comment_update';
+    const COMMENT_FORM_DELETION = 'comment_deleted';
+    const FAILED_COMMENT_FORM_DELETION = 'failed_comment_deletion';
+    const COMMENT_FORM_UNAPPROVED = 'comment_unapproved';
+    const COMMENT_FORM_APPROVED = 'comment_approved';
+
 
     // Add more activity types as needed
 
@@ -364,6 +374,16 @@ class ActivityTypes
             self::FAILED_SUBSCRIPTION_FORM_UPDATE => 'Subscription Form Update Failed',
             self::SUBSCRIPTION_FORM_DELETION => 'Subscription Form Deleted',
             self::FAILED_SUBSCRIPTION_FORM_DELETION => 'Subscription Form Deletion Failed',
+
+            // Comment Form
+            self::COMMENT_FORM_SUBMISSION => 'Comment Submitted',
+            self::FAILED_COMMENT_FORM_SUBMISSION => 'Comment Submission Failed',
+            self::COMMENT_FORM_UPDATE => 'Comment Updated',
+            self::FAILED_COMMENT_FORM_UPDATE => 'Comment Update Failed',
+            self::COMMENT_FORM_DELETION => 'Comment Deleted',
+            self::FAILED_COMMENT_FORM_DELETION => 'Comment Deletion Failed',
+            self::COMMENT_FORM_UNAPPROVED => 'Comment Form Unapproved',
+            self::COMMENT_FORM_APPROVED => 'Comment Form Approved',
 
             // Add more descriptions as needed
         ];

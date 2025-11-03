@@ -4,10 +4,12 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Constants\ActivityTypes;
 use App\Models\DataGroupsModel;
 use App\Models\BookingFormsModel;
 use App\Models\ContactFormsModel;
 use App\Models\SubscriptionFormsModel;
+use App\Models\CommentFormsModel;
 
 class FormsController extends BaseController
 {
@@ -151,12 +153,12 @@ class FormsController extends BaseController
             session()->setFlashdata('toastrSuccessAlert', 'Notes updated successfully.');
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_UPDATE, 'User updated contact note with id: ' . $contactMessageId);
+            logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_UPDATE, 'User updated contact note with id: ' . $contactFormId);
 
             return redirect()->to(base_url('account/forms/contact-forms/view-contact/' . $contactFormId));
         } catch (\Throwable $e) {
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_CONTACT_FORM_UPDATE, 'Error updating contact notes with id: ' . $contactMessageId);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_CONTACT_FORM_UPDATE, 'Error updating contact notes with id: ' . $contactFormId);
 
             log_message('error', 'Error updating contact notes: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update notes. Please try again.');
@@ -174,7 +176,7 @@ class FormsController extends BaseController
         // Basic validation
         $rules = [
             'contact_form_id' => 'required',
-            'status'           => 'permit_empty|in_list['.getDataGroupList("ContactFomrStatus").']',
+            'status'           => 'permit_empty|in_list['.getDataGroupList("ContactFormStatus").']',
         ];
 
         if (! $this->validate($rules)) {
@@ -328,10 +330,10 @@ class FormsController extends BaseController
             'appointment_time'    => 'permit_empty|regex_match[/^\d{2}:\d{2}(:\d{2})?$/]',
             'duration'            => 'permit_empty|integer',
             'number_of_attendees' => 'permit_empty|integer',
-            'payment_status'      => 'permit_empty|in_list['.getDataGroupList("BookingFomrPaymentStatus").']',
+            'payment_status'      => 'permit_empty|in_list['.getDataGroupList("BookingFormPaymentStatus").']',
             'payment_amount'      => 'permit_empty|decimal',
             'confirmation_code'   => 'permit_empty|max_length[50]',
-            'status'              => 'permit_empty|in_list['.getDataGroupList("BookingFomrStatus").']',
+            'status'              => 'permit_empty|in_list['.getDataGroupList("BookingFormStatus").']',
             'notes'               => 'permit_empty|max_length[5000]',
         ];
 
@@ -470,6 +472,128 @@ class FormsController extends BaseController
             log_message('error', 'Update subscriber failed: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update subscriber. Please try again.');
             return redirect()->back()->withInput();
+        }
+    }
+
+    //############################//
+    //         Comments           //
+    //############################//
+    public function commentForms()
+    {
+        $tableName = 'comment_form_submissions';
+        $commentFormsModel = new CommentFormsModel();
+
+        // Set data to pass in view
+        $data = [
+            'comment_form_submissions' => $commentFormsModel
+                ->orderBy('created_at', 'DESC')
+                ->paginate((int) env('QUERY_LIMIT_ULTRA_MAX', 10000)),
+
+            'pager' => $commentFormsModel->pager,
+            'total_comment_form_submissions' => $commentFormsModel->pager->getTotal(),
+        ];
+
+        return view('back-end/forms/comment-forms/index', $data);
+    }
+
+    public function unapprovedCommentForms()
+    {
+        $tableName = 'comment_form_submissions';
+        $commentFormsModel = new CommentFormsModel();
+
+        // Set data to pass in view
+        $data = [
+            'comment_form_submissions' => $commentFormsModel
+                ->where('status', '0')
+                ->orderBy('created_at', 'DESC')
+                ->paginate((int) env('QUERY_LIMIT_ULTRA_MAX', 10000)),
+
+            'pager' => $commentFormsModel->pager,
+            'total_comment_form_submissions' => $commentFormsModel->pager->getTotal(),
+        ];
+
+        return view('back-end/forms/comment-forms/unapproved', $data);
+    }
+    
+    public function unApproveComment($commentId)
+    {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
+        //mark as unapproved
+        $updatedData = [
+            'status' => 0,
+            'last_updated_by' => $loggedInUserId
+        ];
+        $updateWhereClause = "comment_form_id = '$commentId'";
+        updateRecord('comment_form_submissions', $updatedData, $updateWhereClause);
+
+        session()->setFlashdata('toastrSuccessAlert', "Comment message unapproved.");
+
+        //log activity
+        logActivity($loggedInUserId, ActivityTypes::COMMENT_FORM_UNAPPROVED, 'User unapproved comment form with id: ' . $commentId);
+
+        return redirect()->to('/account/forms/comment-forms');
+    }
+    
+    public function approveComment($commentId)
+    {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
+        //mark as approved
+        $updatedData = [
+            'status' => 1,
+            'last_updated_by' => $loggedInUserId
+        ];
+        $updateWhereClause = "comment_form_id = '$commentId'";
+        updateRecord('comment_form_submissions', $updatedData, $updateWhereClause);
+
+        session()->setFlashdata('toastrSuccessAlert', "Comment message approved.");
+
+        //log activity
+        logActivity($loggedInUserId, ActivityTypes::COMMENT_FORM_APPROVED, 'User approved comment form with id: ' . $commentId);
+
+        return redirect()->to('/account/forms/comment-forms');
+    }
+
+    public function updateComment()
+    {
+        //get logged-in user id
+        $loggedInUserId = $this->session->get('user_id');
+
+        $commentFormsModel = new CommentFormsModel();
+
+        // Basic validation
+        $rules = [
+            'comment_form_id' => 'required',
+            'comment'           => 'permit_empty|max_length[5000]',
+        ];
+
+        if (! $this->validate($rules)) {
+            session()->setFlashdata('toastrErrorAlert', 'Invalid input. Please check and try again.');
+            return redirect()->to('/account/forms/comment-forms');
+        }
+
+        $commentFormId    = $this->request->getPost('comment_form_id');
+        $comment = $this->request->getPost('comment');
+
+        // Try to update comment
+        try {
+            $commentFormsModel->update($commentFormId, ['comment' => $comment, 'last_updated_by' => $loggedInUserId]);
+            session()->setFlashdata('toastrSuccessAlert', 'Notes updated successfully.');
+
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::COMMENT_FORM_UPDATE, 'User updated comment with id: ' . $commentFormId);
+
+            return redirect()->to('/account/forms/comment-forms');
+        } catch (\Throwable $e) {
+            //log activity
+            logActivity($loggedInUserId, ActivityTypes::FAILED_COMMENT_FORM_UPDATE, 'Error updating comment with id: ' . $commentFormId);
+
+            log_message('error', 'Error updating comment: ' . $e->getMessage());
+            session()->setFlashdata('toastrErrorAlert', 'Failed to update comment. Please try again.');
+            return redirect()->to('/account/forms/comment-forms');
         }
     }
 

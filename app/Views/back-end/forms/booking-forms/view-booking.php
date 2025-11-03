@@ -1,6 +1,9 @@
 <!-- include layout -->
 <?= $this->extend('back-end/layout/_layout') ?>
 
+<!-- page title -->
+<?= $this->section('title') ?>View Bookings<?= $this->endSection() ?>
+
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
@@ -281,7 +284,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <label for="edit_payment_status" class="form-label">Payment Status</label>
             <?php $payStatus = $booking['payment_status'] ?? 'Unpaid'; ?>
             <select class="form-select" id="edit_payment_status" name="payment_status">
-              <?=getDataGroupOptions($payStatus, "BookingFomrPaymentStatus")?>
+              <?=getDataGroupOptions($payStatus, "BookingFormPaymentStatus")?>
             </select>
           </div>
           <div class="col-12 col-md-6">
@@ -297,7 +300,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <label for="edit_status" class="form-label">Status</label>
             <?php $bStatus = $booking['status'] ?? 'Pending'; ?>
             <select class="form-select" id="edit_status" name="status">
-              <?=getDataGroupOptions($bStatus, "BookingFomrStatus")?>
+              <?=getDataGroupOptions($bStatus, "BookingFormStatus")?>
             </select>
           </div>
 

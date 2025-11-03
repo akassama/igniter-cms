@@ -164,7 +164,7 @@
         <!--News Feed-->
         <div class="card mb-4">
             <?php
-                $newsFeedUrl = "https://ignitercms.com/api/igniter-cms-news-feed";
+                $newsFeedUrl = env("NEWS_FEED_URL");
                 try {
                     // Attempt to fetch the news feed
                     $newsFeedJson = @file_get_contents($newsFeedUrl);
@@ -192,19 +192,23 @@
                         <?php foreach ($newsFeed as $news) { ?>
                             <div class="col">
                                 <div class="card h-100">
-                                    <img src="<?php echo htmlspecialchars($news['image']); ?>" class="card-img-top" alt="News Image">
+                                    <img src="<?php echo htmlspecialchars($news['featured_image']); ?>" class="card-img-top" alt="News Image">
                                     <div class="card-body">
                                         <h5 class="card-title">
                                             <?php echo htmlspecialchars($news['title']); ?>
-                                            <?php if ($news['category'] === "Security") { ?>
-                                                <i class="ri-shield-keyhole-line text-danger security-news-feed"></i>
+                                            <?php if (strtolower($news['category']) === "security" || str_contains(strtolower($news['title']), 'security') || str_contains(strtolower($news['tags']), 'security')) { ?>
+                                                <i class="ri-shield-keyhole-line text-danger"></i>
                                             <?php } ?>
                                         </h5>
-                                        <p class="card-text"><small class="text-muted"><?php echo htmlspecialchars($news['date']); ?></small></p>
+                                        <p class="card-text">
+                                            <small class="text-muted">
+                                                <i class="ri-calendar-schedule-line"></i> <?= dateFormat($news['created_at'], 'M j, Y'); ?>
+                                            </small>
+                                        </p>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <a href="<?php echo htmlspecialchars($news['link']); ?>" target="_blank" class="btn btn-outline-primary">
-                                            Read More <i class="ri-arrow-right-fill"></i>
+                                        <a href="javascript:void(0)" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#blogModal-<?php echo htmlspecialchars($news['blog_id']); ?>">
+                                            View Details <i class="ri-expand-diagonal-2-line"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -483,6 +487,76 @@ if (typeof IntersectionObserver !== 'undefined') {
     min-height: 300px;
 }
 </style>
+
+
+<!--Display Modals -->
+<?php foreach ($newsFeed as $news) { ?>
+    <div class="modal fade" id="blogModal-<?php echo htmlspecialchars($news['blog_id']); ?>" tabindex="-1" aria-labelledby="#blogModal-<?php echo htmlspecialchars($news['blog_id']); ?>" aria-hidden="true" style="height: 100%">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <?php echo htmlspecialchars($news['title']); ?>
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                
+                <div class="text-center mb-4">
+                <img 
+                    src="<?php echo htmlspecialchars($news['featured_image']); ?>" 
+                    alt="<?php echo htmlspecialchars($news['title']); ?>" 
+                    class="img-fluid rounded shadow-sm"
+                    style="max-height: 400px; object-fit: cover; width: 100%;"
+                >
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3 text-muted small">
+                <div>
+                    <strong>Author:</strong> 
+                    <?php echo htmlspecialchars($news['created_by']); ?>
+                </div>
+                <div>
+                    <strong>Category:</strong> 
+                    <?php echo htmlspecialchars($news['category']); ?>
+                </div>
+                <div>
+                    <strong>Published:</strong> 
+                    <?= dateFormat($news['created_at'], 'M j, Y'); ?>
+                </div>
+                </div>
+                
+                <hr>
+
+                <div id="blog-content">
+                    <?= $news['content']; ?>
+                </div>
+
+                <hr>
+
+                <div class="mb-3">
+                    <strong>Tags:</strong>
+                    <?php
+                        $blogTags = htmlspecialchars($news['tags']);
+                        $tagsArray = explode(',', $blogTags);
+                        foreach ($tagsArray as $tag) {
+                            echo "<span class='badge bg-secondary me-1'>$tag</span>";
+                        }
+                    ?>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+
+            </div>
+        </div>
+    </div>
+<?php } ?>
 
 <!-- end main content -->
 <?= $this->endSection() ?>

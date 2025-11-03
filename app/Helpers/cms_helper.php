@@ -4,6 +4,7 @@ use App\Constants\ActivityTypes;
 use App\Models\SiteStatsModel;
 use App\Models\BlogsModel;
 use App\Models\CategoriesModel;
+use App\Models\CommentFormsModel;
 
 /**
  * Get the logged-in user ID from the session
@@ -4456,6 +4457,368 @@ if (!function_exists('renderBlogSidebar')) {
 
 
 /**
+ * Renders the comments section, including existing comments, replies, and the submission form.
+ * Uses custom, theme-agnostic CSS classes.
+ *
+ * @param array $blog_data Blog post data (used to get 'blog_id')
+ * @return string HTML content
+ */
+if (!function_exists('renderBlogComments')) {
+    function renderBlogComments($blog_data) 
+    {
+        // Define Model and helper functions needed inside this scope
+        $commentsModel = new CommentFormsModel();
+
+        /**
+         * Helper function to fetch replies for a given comment ID
+         * @param CommentFormsModel $commentsModel
+         * @param string $parentCommentId
+         * @return array
+         */
+        $getCommentReplies = function ($commentsModel, $parentCommentId) {
+            return $commentsModel
+                ->where('status', '1')
+                ->where('is_reply', '1')
+                ->where('reply_comment_form_id', $parentCommentId)
+                ->orderBy('created_at', 'ASC')
+                ->findAll();
+        };
+
+        // 1. Fetch only top-level comments for the current page
+        $topLevelComments = $commentsModel
+            ->where('status', '1')
+            ->where('page_id', $blog_data['blog_id'])
+            ->groupStart() // Start grouping the OR condition
+                ->where('is_reply', '0')
+                ->orWhere('is_reply IS NULL') // Include older comments/null safety
+            ->groupEnd() // End grouping
+            ->orderBy('created_at', 'DESC')
+            ->limit(intval(env('QUERY_LIMIT_500', 500)))
+            ->findAll();
+
+        ob_start();
+        ?>
+
+        <style>
+            /* --- Custom Comment Styling --- */
+            
+            /* Section container */
+            .c-section {
+                margin: 1.5rem 0;
+            }
+
+            /* Comment Item Styling */
+            .c-comment-item, .c-reply-item {
+                display: flex;
+                margin-bottom: 2rem;
+            }
+            .c-reply-item {
+                margin-top: 1rem; 
+            }
+
+            /* Avatar container */
+            .c-avatar-container {
+                flex-shrink: 0;
+                margin-right: 1rem; 
+            }
+            .c-avatar {
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                object-fit: cover;
+                display: block;
+            }
+
+            /* Content container */
+            .c-content-container {
+                flex-grow: 1;
+            }
+
+            /* Reply link/button */
+            .c-reply-link {
+                display: inline-block;
+                text-decoration: none;
+                font-size: 0.9em;
+                color: #0d6efd; 
+                cursor: pointer;
+            }
+            .c-reply-link i {
+                margin-right: 0.25rem;
+            }
+
+            /* Replies Group */
+            .c-replies-group {
+                margin-top: 1.5rem; /* mt-4 equivalent */
+            }
+
+            /* Reply Badge */
+            .c-reply-badge {
+                display: inline-block;
+                padding: 0.35em 0.65em;
+                margin-left: 0.5rem;
+                font-size: 0.75em;
+                font-weight: 700;
+                line-height: 1;
+                color: #fff;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: baseline;
+                border-radius: 0.25rem;
+                background-color: #6c757d;
+            }
+            
+            /* Divider */
+            .c-divider {
+                border: 0;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                margin: 2rem 0; /* my-4 equivalent */
+            }
+            
+            /* Form elements within the helper must be styled */
+            .c-form-field {
+                margin-bottom: 1rem;
+            }
+            .c-form-label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 500;
+            }
+            .c-input-group {
+                display: flex;
+                gap: 1rem;
+            }
+            .c-input-group > div {
+                flex: 1;
+            }
+            .c-input {
+                display: block;
+                width: 100%;
+                padding: 0.375rem 0.75rem;
+                font-size: 1rem;
+                line-height: 1.5;
+                color: #212529;
+                background-color: #fff;
+                border: 1px solid #ced4da;
+                border-radius: 0.25rem;
+            }
+            .c-textarea {
+                min-height: 8rem;
+            }
+            .c-form-check {
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+            }
+            .c-checkbox {
+                margin-right: 0.5rem;
+            }
+            .c-btn {
+                display: inline-block;
+                font-weight: 400;
+                line-height: 1.5;
+                text-align: center;
+                text-decoration: none;
+                vertical-align: middle;
+                cursor: pointer;
+                padding: 0.375rem 0.75rem;
+                font-size: 1rem;
+                border-radius: 0.25rem;
+                transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+            }
+            .c-btn-primary {
+                color: #fff;
+                background-color: #0d6efd;
+                border-color: #0d6efd;
+            }
+            .c-btn-success {
+                color: #fff;
+                background-color: #198754;
+                border-color: #198754;
+                font-size: 0.875rem; /* btn-sm equivalent */
+                padding: 0.25rem 0.5rem;
+            }
+            .c-btn-secondary-outline {
+                color: #6c757d;
+                background-color: transparent;
+                border: 1px solid #6c757d;
+                font-size: 0.875rem; /* btn-sm equivalent */
+                padding: 0.25rem 0.5rem;
+                margin-left: 0.5rem;
+            }
+            .c-alert-info {
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border: 1px solid #bce8f1;
+                color: #31708f;
+                background-color: #d9edf7;
+                border-radius: 0.25rem;
+            }
+            /* End of Custom Styling */
+        </style>
+
+        <div class="c-section" id="comment-section">
+            <h2>Comments</h2>
+
+            <div class="c-comment-list-wrapper" style="margin-bottom: 3rem;">
+                <?php if ($topLevelComments): ?>
+                    <?php foreach ($topLevelComments as $comment): ?>
+                        <div class="c-comment-item">
+                            <div class="c-avatar-container">
+                                <img src="<?= getImageUrl($comment['gravatar'] ?? getDefaultImagePath()) ?>" 
+                                    class="c-avatar" 
+                                    alt="<?= esc($comment['name']) ?>">
+                            </div>
+                            <div class="c-content-container">
+                                <div style="font-weight: bold;"><?=$comment['name']?></div>
+                                <small style="color: #6c757d; display: block; margin-bottom: 0.5rem;"><?=dateFormat($comment['created_at'], 'F j, Y \a\t g:i A')?></small>
+                                <p style="margin-top: 0.5rem; margin-bottom: 0.5rem;"><?= esc($comment['comment']) ?></p>
+                                
+                                <a href="javascript:void(0);" class="c-reply-link" data-bs-toggle="collapse" data-bs-target="#replyForm-<?=$comment['comment_form_id']?>" aria-expanded="false" aria-controls="replyForm-<?=$comment['comment_form_id']?>">
+                                    <i class="bi bi-reply-fill"></i> Reply
+                                </a>
+
+                                <div class="collapse" id="replyForm-<?=$comment['comment_form_id']?>" style="margin-top: 1rem;">
+                                    <h5 style="margin-bottom: 0.5rem; font-size: 1.15rem;">Reply to <?=$comment['name']?></h5>
+                                    <form action="<?= base_url('/api-form/add-comment') ?>" method="post" class="reply-form" style="border: 1px solid #eee; padding: 1rem; border-radius: 0.25rem;">
+                                        <?= csrf_field() ?>
+                                        <?=getHoneypotInput()?>
+                                        
+                                        <input type="hidden" name="page_id" value="<?= $blog_data['blog_id']; ?>">
+                                        <input type="hidden" name="page_url" value="<?=current_url()?>">
+                                        <input type="hidden" name="return_url" value="<?=current_url()."?#comment"?>">
+                                        
+                                        <input type="hidden" name="is_reply" value="1">
+                                        <input type="hidden" name="reply_comment_form_id" value="<?=$comment['comment_form_id']?>">
+
+                                        <div class="c-input-group">
+                                            <div class="c-form-field">
+                                                <input type="text" class="c-input" name="name" required placeholder="Your name">
+                                            </div>
+                                            <div class="c-form-field">
+                                                <input type="email" class="c-input" name="email" required placeholder="Email address">
+                                            </div>
+                                        </div>
+
+                                        <div class="c-form-field">
+                                            <textarea class="c-input c-textarea" name="comment" rows="3" required placeholder="Write your reply here..."></textarea>
+                                        </div>
+
+                                        <button type="submit" class="c-btn c-btn-success">Post Reply</button>
+                                        <button type="button" class="c-btn c-btn-secondary-outline" data-bs-toggle="collapse" data-bs-target="#replyForm-<?=$comment['comment_form_id']?>">Cancel</button>
+                                    </form>
+                                </div>
+                                
+                                <?php $replies = $getCommentReplies($commentsModel, $comment['comment_form_id']); ?>
+                                <?php if ($replies): ?>
+                                    <div class="c-replies-group">
+                                        <?php foreach ($replies as $reply): ?>
+                                            <div class="c-comment-item c-reply-item">
+                                                <div class="c-avatar-container">
+                                                    <img src="<?= getImageUrl($reply['gravatar'] ?? getDefaultImagePath()) ?>" 
+                                                        class="c-avatar" 
+                                                        alt="<?= esc($reply['name']) ?>">
+                                                </div>
+                                                <div class="c-content-container">
+                                                    <div style="font-weight: bold;"><?=$reply['name']?> <span class="c-reply-badge">Reply</span></div>
+                                                    <small style="color: #6c757d; display: block; margin-bottom: 0.5rem;"><?=dateFormat($reply['created_at'], 'F j, Y \a\t g:i A')?></small>
+                                                    <p style="margin-top: 0.5rem; margin-bottom: 0.5rem;"><?= esc($reply['comment']) ?></p>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <hr class="c-divider">
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="c-alert-info">Be the first to leave a comment!</p>
+                <?php endif; ?>
+            </div>
+            
+            <h3 style="margin-bottom: 1rem;">Leave a Comment</h3>
+            
+            <form action="<?= base_url('/api-form/add-comment') ?>" method="post" class="needs-validation" id="subscribeForm">
+                <?= csrf_field() ?>
+                <?=getHoneypotInput()?>
+
+                <input type="hidden" name="page_id" value="<?= $blog_data['blog_id']; ?>">
+                <input type="hidden" name="page_url" value="<?=current_url()?>">
+                <input type="hidden" name="return_url" value="<?=current_url()."?#comment"?>">
+
+                <div class="c-form-field">
+                    <label for="name" class="c-form-label">Name <span style="color: red;">*</span></label>
+                    <input type="text" class="c-input" id="name" name="name" required placeholder="Your name">
+                </div>
+
+                <div class="c-form-field">
+                    <label for="email" class="c-form-label">Email <span style="color: red;">*</span></label>
+                    <input type="email" class="c-input" id="email" name="email" required placeholder="you@example.com">
+                </div>
+
+                <div class="c-form-field">
+                    <label for="comment_content" class="c-form-label">Comment <span style="color: red;">*</span></label>
+                    <textarea class="c-input c-textarea" id="comment_content" name="comment" rows="5" required placeholder="Write your comment here..."></textarea>
+                </div>
+
+                <div class="c-form-check">
+                    <input class="c-checkbox" type="checkbox" id="remember_me" name="remember_me" value="1">
+                    <label for="remember_me">
+                    Save my name and email in this browser for the next time I comment.
+                    </label>
+                </div>
+
+                <button type="submit" class="c-btn c-btn-primary">Post Comment</button>
+            </form>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const nameField  = document.getElementById('name');
+                    const emailField = document.getElementById('email');
+                    const remember   = document.getElementById('remember_me');
+
+                    // Function to load values from localStorage
+                    function loadFormFields() {
+                        if (localStorage.getItem('comment_name')) {
+                            nameField.value  = localStorage.getItem('comment_name');
+                        }
+                        if (localStorage.getItem('comment_email')) {
+                            emailField.value = localStorage.getItem('comment_email');
+                        }
+                    }
+
+                    // Pre-fill main form if stored
+                    loadFormFields();
+
+                    // Apply pre-filled values to all reply forms as well
+                    document.querySelectorAll('.reply-form').forEach(form => {
+                        // Note: Using querySelector to find the name/email inputs within each reply form
+                        const replyName = form.querySelector('input[name="name"]');
+                        const replyEmail = form.querySelector('input[name="email"]');
+                        if(replyName) replyName.value = nameField.value;
+                        if(replyEmail) replyEmail.value = emailField.value;
+                    });
+                    
+                    // Save on main form submit if checked
+                    document.querySelector('#subscribeForm').addEventListener('submit', function() {
+                        if (remember.checked) {
+                            localStorage.setItem('comment_name', nameField.value);
+                            localStorage.setItem('comment_email', emailField.value);
+                        } else {
+                            localStorage.removeItem('comment_name');
+                            localStorage.removeItem('comment_email');
+                        }
+                    });
+                });
+            </script>
+        </div>
+
+        <?php
+        return ob_get_clean();
+    }
+}
+
+/**
  * Renders the admin bar for logged-in admin users on the frontend.
  *
  * This function generates an HTML admin bar similar to WordPress, visible only to logged-in admins.
@@ -4483,48 +4846,40 @@ if (!function_exists('renderAdminBar')) {
         $userId = getLoggedInUserId();
         $userImage = getImageUrl(getUserData($userId, "profile_picture") ?? getDefaultProfileImagePath());
 
-        // Determine edit page URL based on current URL
         $currentUrl = current_url();
         $baseUrl = base_url();
 
-        // Get the request instance to access URI segments
         $request = \Config\Services::request();
         $uri = $request->getUri();
-        $path = $uri->getPath(); // Gets the path without query string
-        $query = $uri->getQuery(); // Gets the query string
+        $path = $uri->getPath();
+        $query = $uri->getQuery();
 
-        // Remove base path from the path if needed
         $basePath = rtrim($baseUrl, '/');
         $cleanPath = trim(str_replace(parse_url($baseUrl, PHP_URL_PATH), '', $path), '/');
 
-        // Layout page
         $editLayoutPageUrl = base_url('/account/appearance/theme-editor/layout');
 
-        // Determine edit page URL based on path and query parameters
         if ($cleanPath === '' || $cleanPath === 'home') {
-            // Home page
             $editPageUrl = base_url('/account/appearance/theme-editor/home');
         } elseif ($cleanPath === 'blogs') {
-            // Blogs listing page
             $editPageUrl = base_url('/account/appearance/theme-editor/blogs');
         } elseif (strpos($cleanPath, 'blog/') === 0 && substr_count($cleanPath, '/') === 1) {
-            // Individual blog post (matches blog/slug pattern)
             $editPageUrl = base_url('/account/appearance/theme-editor/view-blog');
         } elseif ($cleanPath === 'search' && strpos($query, 'q=') !== false) {
-            // Search results page
             $editPageUrl = base_url('/account/appearance/theme-editor/search');
         } elseif ($cleanPath === 'search/filter' && strpos($query, 'type=') !== false) {
-            // Filtered search results page
             $editPageUrl = base_url('/account/appearance/theme-editor/search-filter');
         } else {
-            // Other pages
             $editPageUrl = base_url('/account/appearance/theme-editor/view-page');
         }
 
         $adminBarHtml = '
         <div id="igniterAdminBarContainer">
             <style>
-                /* Admin Bar Base Styles - Framework Agnostic */
+                body.igniter-admin-bar-active {
+                    padding-top: 40px;
+                }
+
                 .igniter-admin-bar {
                     position: fixed;
                     top: 0;
@@ -4540,16 +4895,59 @@ if (!function_exists('renderAdminBar')) {
                     font-size: 14px;
                     line-height: 1;
                     box-sizing: border-box;
+                    transition: transform 0.3s ease, opacity 0.3s ease;
                 }
 
-                /* Reset any potential framework conflicts */
+                .igniter-admin-bar.collapsed {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                    pointer-events: none;
+                }
+
                 .igniter-admin-bar * {
                     box-sizing: border-box;
                     margin: 0;
                     padding: 0;
                 }
 
-                /* Generic fixed header adjustment - applies to common fixed header patterns */
+                body.igniter-admin-bar-active header[class*="fixed"],
+                body.igniter-admin-bar-active header[class*="sticky"],
+                body.igniter-admin-bar-active .navbar-fixed,
+                body.igniter-admin-bar-active .navbar-sticky,
+                body.igniter-admin-bar-active nav[class*="fixed"],
+                body.igniter-admin-bar-active nav[class*="sticky"],
+                body.igniter-admin-bar-active .fixed-header,
+                body.igniter-admin-bar-active .sticky-header {
+                    top: 40px !important;
+                }
+
+                body.igniter-admin-bar-active .navbar,
+                body.igniter-admin-bar-active nav.navbar,
+                body.igniter-admin-bar-active [class*="navbar"] {
+                    top: 40px !important;
+                }
+
+                body.igniter-admin-bar-active .navbar.fixed-top {
+                    top: 40px !important;
+                }
+
+                body.igniter-admin-bar-active .fixed.top-0 {
+                    top: 40px !important;
+                }
+
+                body.igniter-admin-bar-active .title-bar,
+                body.igniter-admin-bar-active .top-bar {
+                    top: 40px !important;
+                }
+
+                body.igniter-admin-bar-active .navbar.is-fixed-top {
+                    top: 40px !important;
+                }
+
+                body.igniter-admin-bar-active nav.fixed {
+                    top: 40px !important;
+                }
+
                 header[class*="fixed"],
                 header[class*="sticky"],
                 .navbar-fixed,
@@ -4557,42 +4955,17 @@ if (!function_exists('renderAdminBar')) {
                 nav[class*="fixed"],
                 nav[class*="sticky"],
                 .fixed-header,
-                .sticky-header {
-                    top: 40px !important;
-                }
-
-                /* Common navbar classes adjustment */
+                .sticky-header,
                 .navbar,
                 nav.navbar,
-                [class*="navbar"] {
-                    top: 40px !important;
-                }
-
-                /* Specific adjustments for common frameworks */
-                /* Bootstrap */
-                .navbar.fixed-top {
-                    top: 40px !important;
-                }
-
-                /* Tailwind */
-                .fixed.top-0 {
-                    top: 40px !important;
-                }
-
-                /* Foundation */
+                [class*="navbar"],
+                .navbar.fixed-top,
+                .fixed.top-0,
                 .title-bar,
-                .top-bar {
-                    top: 40px !important;
-                }
-
-                /* Bulma */
-                .navbar.is-fixed-top {
-                    top: 40px !important;
-                }
-
-                /* Materialize */
+                .top-bar,
+                .navbar.is-fixed-top,
                 nav.fixed {
-                    top: 40px !important;
+                    transition: top 0.3s ease;
                 }
 
                 .igniter-admin-bar-container {
@@ -4612,7 +4985,7 @@ if (!function_exists('renderAdminBar')) {
                 }
 
                 .igniter-admin-bar-right {
-                    display: flex; /* Added for the close button */
+                    display: flex;
                     align-items: center;
                     gap: 1rem;
                 }
@@ -4713,8 +5086,7 @@ if (!function_exists('renderAdminBar')) {
                     color: #ffffff;
                 }
 
-                /* Style for the close button */
-                .igniter-admin-bar-close {
+                .igniter-admin-bar-toggle {
                     color: #ffffff;
                     cursor: pointer;
                     padding: 4px 8px;
@@ -4722,12 +5094,46 @@ if (!function_exists('renderAdminBar')) {
                     transition: opacity 0.2s ease;
                 }
 
-                .igniter-admin-bar-close:hover {
+                .igniter-admin-bar-toggle:hover {
                     opacity: 0.8;
                     background-color: rgba(255, 255, 255, 0.1);
                 }
 
-                /* Mobile responsiveness */
+                .igniter-admin-bar-toggle i {
+                    transition: transform 0.3s ease;
+                }
+
+                .igniter-admin-bar.collapsed .igniter-admin-bar-toggle i {
+                    transform: rotate(180deg);
+                }
+
+                .igniter-admin-bar-tab {
+                    position: fixed;
+                    top: 0;
+                    right: 20px;
+                    z-index: 99998;
+                    background-color: #343a40;
+                    color: #ffffff;
+                    padding: 8px 12px 6px;
+                    border-radius: 0 0 6px 6px;
+                    cursor: pointer;
+                    transition: opacity 0.2s ease, transform 0.3s ease;
+                    opacity: 0;
+                    transform: translateY(-100%);
+                    pointer-events: none;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                }
+
+                .igniter-admin-bar.collapsed ~ .igniter-admin-bar-tab {
+                    opacity: 1;
+                    transform: translateY(0);
+                    pointer-events: auto;
+                }
+
+                .igniter-admin-bar-tab:hover {
+                    background-color: #495057;
+                }
+
                 @media (max-width: 768px) {
                     .igniter-admin-bar-container {
                         padding: 0 10px;
@@ -4750,16 +5156,39 @@ if (!function_exists('renderAdminBar')) {
                         padding: 6px;
                     }
 
-                    .igniter-admin-bar-close span { /* Hide "Close" text on small screens */
+                    .igniter-admin-bar-toggle span {
                         display: none;
                     }
                 }
 
-                /* Very small screens */
                 @media (max-width: 480px) {
+                    body.igniter-admin-bar-active {
+                        padding-top: 36px;
+                    }
+
                     .igniter-admin-bar {
                         height: 36px;
                         font-size: 13px;
+                    }
+
+                    body.igniter-admin-bar-active header[class*="fixed"],
+                    body.igniter-admin-bar-active header[class*="sticky"],
+                    body.igniter-admin-bar-active .navbar-fixed,
+                    body.igniter-admin-bar-active .navbar-sticky,
+                    body.igniter-admin-bar-active nav[class*="fixed"],
+                    body.igniter-admin-bar-active nav[class*="sticky"],
+                    body.igniter-admin-bar-active .fixed-header,
+                    body.igniter-admin-bar-active .sticky-header,
+                    body.igniter-admin-bar-active .navbar,
+                    body.igniter-admin-bar-active nav.navbar,
+                    body.igniter-admin-bar-active [class*="navbar"],
+                    body.igniter-admin-bar-active .navbar.fixed-top,
+                    body.igniter-admin-bar-active .fixed.top-0,
+                    body.igniter-admin-bar-active .title-bar,
+                    body.igniter-admin-bar-active .top-bar,
+                    body.igniter-admin-bar-active .navbar.is-fixed-top,
+                    body.igniter-admin-bar-active nav.fixed {
+                        top: 36px !important;
                     }
 
                     .igniter-admin-bar-logo,
@@ -4802,53 +5231,65 @@ if (!function_exists('renderAdminBar')) {
                                 <a href="' . base_url('/sign-out') . '">Logout</a>
                             </div>
                         </div>
-                        <div class="igniter-admin-bar-close" id="igniterAdminBarClose">
-                            <i class="ri-close-large-fill igniter-admin-bar-icon"></i>
-                            <span>Close</span>
+                        <div class="igniter-admin-bar-toggle" id="igniterAdminBarToggle">
+                            <i class="ri-arrow-up-s-line igniter-admin-bar-icon"></i>
+                            <span>Collapse</span>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="igniter-admin-bar-tab" id="igniterAdminBarTab">
+                <i class="ri-arrow-down-s-line igniter-admin-bar-icon"></i>
+            </div>
             <script>
             document.addEventListener("DOMContentLoaded", function() {
-                const adminBarContainer = document.getElementById("igniterAdminBarContainer"); // Target the main container
-                const closeButton = document.getElementById("igniterAdminBarClose");
+                const adminBar = document.getElementById("igniterAdminBar");
+                const toggleButton = document.getElementById("igniterAdminBarToggle");
+                const tabButton = document.getElementById("igniterAdminBarTab");
 
-                if (adminBarContainer) { // Check if the container exists
-                    // IMPORTANT: Capture fixed elements *before* any modifications
-                    const fixedElements = document.querySelectorAll(
-                        "header, nav, .navbar, .header, [class*=\'fixed\'], [class*=\'sticky\']"
-                    );
+                function getCookie(name) {
+                    const value = `; ${document.cookie}`;
+                    const parts = value.split(`; ${name}=`);
+                    if (parts.length === 2) return parts.pop().split(";").shift();
+                    return null;
+                }
 
-                    // Store original top values and apply new ones
-                    fixedElements.forEach(element => {
-                        const styles = window.getComputedStyle(element);
-                        const position = styles.position;
-                        const currentTop = parseFloat(styles.top);
+                function setCookie(name, value, days) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    const expires = `expires=${date.toUTCString()}`;
+                    document.cookie = `${name}=${value};${expires};path=/`;
+                }
 
-                        if ((position === "fixed" || position === "sticky") && (isNaN(currentTop) || currentTop === 0 || currentTop === 40)) {
-                            element.dataset.originalTop = styles.top; // Store original top for restoration
-                            element.style.top = "40px";
+                if (adminBar) {
+                    const savedState = getCookie("igniterAdminBarCollapsed");
+                    
+                    if (savedState === "true") {
+                        adminBar.classList.add("collapsed");
+                    } else {
+                        document.body.classList.add("igniter-admin-bar-active");
+                    }
+
+                    function toggleAdminBar() {
+                        const isCurrentlyCollapsed = adminBar.classList.contains("collapsed");
+                        
+                        adminBar.classList.toggle("collapsed");
+                        
+                        if (isCurrentlyCollapsed) {
+                            document.body.classList.add("igniter-admin-bar-active");
+                            setCookie("igniterAdminBarCollapsed", "false", 365);
+                        } else {
+                            document.body.classList.remove("igniter-admin-bar-active");
+                            setCookie("igniterAdminBarCollapsed", "true", 365);
                         }
-                    });
+                    }
 
-                    // Add event listener to the close button
-                    if (closeButton) {
-                        closeButton.addEventListener("click", function() {
-                            adminBarContainer.remove(); // Remove the ENTIRE container (including style and admin bar)
+                    if (toggleButton) {
+                        toggleButton.addEventListener("click", toggleAdminBar);
+                    }
 
-                            // Restore original \'top\' values to fixed elements
-                            fixedElements.forEach(element => {
-                                if (element.dataset.originalTop !== undefined) {
-                                    element.style.top = element.dataset.originalTop;
-                                } else {
-                                    const currentTop = parseFloat(window.getComputedStyle(element).top);
-                                    if (currentTop === 40) {
-                                        element.style.top = "0"; // Reset to default or initial state
-                                    }
-                                }
-                            });
-                        });
+                    if (tabButton) {
+                        tabButton.addEventListener("click", toggleAdminBar);
                     }
                 }
             });

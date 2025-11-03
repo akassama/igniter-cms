@@ -262,3 +262,24 @@ tippy(".remove-subscriber", {
   content: "Remove subscriber",
   placement: "top",
 });
+//Comment
+tippy(".view-comment", {
+  content: "View comment",
+  placement: "top",
+});
+tippy(".edit-comment", {
+  content: "Edit comment",
+  placement: "top",
+});
+tippy(".remove-comment", {
+  content: "Remove comment",
+  placement: "top",
+});
+tippy(".approve-comment", {
+  content: "Approve comment",
+  placement: "top",
+});
+tippy(".unapprove-comment", {
+  content: "Unapprove comment",
+  placement: "top",
+});

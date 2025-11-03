@@ -96,7 +96,7 @@ class RecreateTables extends BaseCommand
         CLI::write('Cache cleared.', 'green');
     }
 
-        /**
+    /**
      * Deletes all plugin directories and their contents inside APPPATH/Plugins.
      */
     protected function clearPluginFiles()

@@ -27,20 +27,16 @@ updateTotalViewCount("blogs", "blog_id", $blog_data['blog_id']);
             </nav>
         </div>
 
-        <div class="row">
-            <div class="col-lg-8">
-                <?= renderBlogContent($blog_data) ?>
-                
-                <!-- Comments section-->
-                <section class="mb-5">
-                    <!-- Include Comment Script -->
-                </section>
-            </div>
-            
-            <div class="col-lg-4">
-                <?= renderBlogSidebar($categories, $blogs, $blog_data) ?>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-lg-8">
+        <?= renderBlogContent($blog_data) ?>
+        <hr>
+        <section id="comment" class="my-3">
+           <?= renderBlogComments($blog_data) ?>
+        </section>
+    </div>
+    <div class="col-lg-4">
+        <?= renderBlogSidebar($categories, $blogs, $blog_data) ?>
     </div>
 </section>
 

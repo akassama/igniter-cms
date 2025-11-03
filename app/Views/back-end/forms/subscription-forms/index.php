@@ -1,6 +1,9 @@
 <!-- include layout -->
 <?= $this->extend('back-end/layout/_layout') ?>
 
+<!-- page title -->
+<?= $this->section('title') ?>View Subscriptions<?= $this->endSection() ?>
+
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
@@ -174,7 +177,7 @@ echo generateBreadcrumb($breadcrumb_links);
           <div class="col-12 col-md-6">
             <label for="sub_status" class="form-label">Status</label>
             <select class="form-select" id="sub_status" name="status" required>
-              <?=getDataGroupOptions(null, "SubscriptionFomrStatus")?>
+              <?=getDataGroupOptions(null, "SubscriptionFormFomrStatus")?>
             </select>
             <div class="invalid-feedback">Please select a status.</div>
           </div>

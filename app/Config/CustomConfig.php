@@ -39,6 +39,8 @@ class CustomConfig extends BaseConfig
     public $subscriptionFailed = 'Sorry, something went wrong with your subscription. Please try again.';
     public $currentPasswordMissMatch = 'The current password you entered is incorrect.';
     public $currentNewPasswordMissMatch = 'The new password and confirmation do not match.';
+    public $commentSuccessful = 'Thanks! Your comment has been received.';
+    public $commentFailed = 'Failed to submit comment.';
 
     #--------------------------------------------------------------------
     # THEME CATEGORIES
