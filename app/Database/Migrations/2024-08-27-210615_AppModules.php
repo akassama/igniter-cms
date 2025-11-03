@@ -88,6 +88,14 @@ class AppModules extends Migration
                 'module_link'    => 'account/appearance/themes',
                 'module_search_terms' => 'themes,appearance,design'
             ],
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'Themes',
+                'module_description'  => 'Manage theme files',
+                'module_roles'    => 'Admin',
+                'module_link'    => 'account/appearance/theme-editor',
+                'module_search_terms' => 'themes,appearance,design,the files'
+            ],
             //Admin
             [
                 'app_module_id' => getGUID(),
@@ -177,14 +185,6 @@ class AppModules extends Migration
                 'module_link'    => 'account/admin/backups',
                 'module_search_terms' => 'backup,restore,database'
             ],
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'File Editor',
-                'module_description'  => 'Edit and update theme files',
-                'module_roles'    => 'Admin',
-                'module_link'    => 'account/admin/file-editor',
-                'module_search_terms' => 'themes,customize,ui'
-            ],
             //FILE MANAGER
             [
                 'app_module_id' => getGUID(),
@@ -195,14 +195,6 @@ class AppModules extends Migration
                 'module_search_terms' => 'files,media,storage'
             ],
             //CMS
-            [
-                'app_module_id' => getGUID(),
-                'module_name'  => 'File Management',
-                'module_description'  => 'Manage files and media (images, videos, documents)',
-                'module_roles'    => 'Admin,Manager,User',
-                'module_link'    => 'account/file-manager',
-                'module_search_terms' => 'files,media,storage'
-            ],
             [
                 'app_module_id' => getGUID(),
                 'module_name'  => 'Blogs',
@@ -237,6 +229,15 @@ class AppModules extends Migration
             ],
             [
                 'app_module_id' => getGUID(),
+                'module_name'  => 'Data Groups',
+                'module_description'  => 'Manage dat groups',
+                'module_roles'    => 'Admin,Manager,User',
+                'module_link'    => 'account/cms/data-groups',
+                'module_search_terms' => 'data,content,data-groups'
+            ],
+            //Content Blocks 
+            [
+                'app_module_id' => getGUID(),
                 'module_name'  => 'Content Blocks',
                 'module_description'  => 'Manage content blocks',
                 'module_roles'    => 'Admin,Manager,User',
@@ -251,6 +252,47 @@ class AppModules extends Migration
                 'module_roles'    => 'Admin,Manager,User',
                 'module_link'    => 'account/ask-ai',
                 'module_search_terms' => 'artificial intelligence,chat gpt,claude, gemini, deepseek'
+            ],
+            //Contact Forms
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'Forms',
+                'module_description'  => 'Manage forms',
+                'module_roles'    => 'Admin,Manager,User',
+                'module_link'    => 'account/forms',
+                'module_search_terms' => 'contact,forms'
+            ],
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'Contact Forms',
+                'module_description'  => 'Manage contact forms',
+                'module_roles'    => 'Admin,Manager,User',
+                'module_link'    => 'account/forms/contact-forms',
+                'module_search_terms' => 'contact,forms'
+            ],
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'Comment Forms',
+                'module_description'  => 'Manage comment forms',
+                'module_roles'    => 'Admin,Manager,User',
+                'module_link'    => 'account/forms/comment-forms',
+                'module_search_terms' => 'comments,feedback,forms'
+            ],
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'Booking Forms',
+                'module_description'  => 'Manage booking forms',
+                'module_roles'    => 'Admin,Manager,User',
+                'module_link'    => 'account/forms/booking-forms',
+                'module_search_terms' => 'booking,appointments,forms'
+            ],
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'Subscription Forms',
+                'module_description'  => 'Manage subscription forms',
+                'module_roles'    => 'Admin,Manager,User',
+                'module_link'    => 'account/forms/contact-forms',
+                'module_search_terms' => 'subscription,newsletter,forms'
             ],
         ];
         
