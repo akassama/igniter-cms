@@ -35,6 +35,9 @@ updateTotalViewCount("blogs", "blog_id", $blog_data['blog_id']);
            <?= renderBlogComments($blog_data) ?>
         </section>
     </div>
+    <div class="col-lg-4">
+        <?= renderBlogSidebar($categories, $blogs, $blog_data) ?>
+    </div>
 </section>
 
 <?php if (ENVIRONMENT !== 'production'): ?>

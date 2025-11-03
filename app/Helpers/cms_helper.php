@@ -4846,48 +4846,40 @@ if (!function_exists('renderAdminBar')) {
         $userId = getLoggedInUserId();
         $userImage = getImageUrl(getUserData($userId, "profile_picture") ?? getDefaultProfileImagePath());
 
-        // Determine edit page URL based on current URL
         $currentUrl = current_url();
         $baseUrl = base_url();
 
-        // Get the request instance to access URI segments
         $request = \Config\Services::request();
         $uri = $request->getUri();
-        $path = $uri->getPath(); // Gets the path without query string
-        $query = $uri->getQuery(); // Gets the query string
+        $path = $uri->getPath();
+        $query = $uri->getQuery();
 
-        // Remove base path from the path if needed
         $basePath = rtrim($baseUrl, '/');
         $cleanPath = trim(str_replace(parse_url($baseUrl, PHP_URL_PATH), '', $path), '/');
 
-        // Layout page
         $editLayoutPageUrl = base_url('/account/appearance/theme-editor/layout');
 
-        // Determine edit page URL based on path and query parameters
         if ($cleanPath === '' || $cleanPath === 'home') {
-            // Home page
             $editPageUrl = base_url('/account/appearance/theme-editor/home');
         } elseif ($cleanPath === 'blogs') {
-            // Blogs listing page
             $editPageUrl = base_url('/account/appearance/theme-editor/blogs');
         } elseif (strpos($cleanPath, 'blog/') === 0 && substr_count($cleanPath, '/') === 1) {
-            // Individual blog post (matches blog/slug pattern)
             $editPageUrl = base_url('/account/appearance/theme-editor/view-blog');
         } elseif ($cleanPath === 'search' && strpos($query, 'q=') !== false) {
-            // Search results page
             $editPageUrl = base_url('/account/appearance/theme-editor/search');
         } elseif ($cleanPath === 'search/filter' && strpos($query, 'type=') !== false) {
-            // Filtered search results page
             $editPageUrl = base_url('/account/appearance/theme-editor/search-filter');
         } else {
-            // Other pages
             $editPageUrl = base_url('/account/appearance/theme-editor/view-page');
         }
 
         $adminBarHtml = '
         <div id="igniterAdminBarContainer">
             <style>
-                /* Admin Bar Base Styles - Framework Agnostic */
+                body.igniter-admin-bar-active {
+                    padding-top: 40px;
+                }
+
                 .igniter-admin-bar {
                     position: fixed;
                     top: 0;
@@ -4903,16 +4895,59 @@ if (!function_exists('renderAdminBar')) {
                     font-size: 14px;
                     line-height: 1;
                     box-sizing: border-box;
+                    transition: transform 0.3s ease, opacity 0.3s ease;
                 }
 
-                /* Reset any potential framework conflicts */
+                .igniter-admin-bar.collapsed {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                    pointer-events: none;
+                }
+
                 .igniter-admin-bar * {
                     box-sizing: border-box;
                     margin: 0;
                     padding: 0;
                 }
 
-                /* Generic fixed header adjustment - applies to common fixed header patterns */
+                body.igniter-admin-bar-active header[class*="fixed"],
+                body.igniter-admin-bar-active header[class*="sticky"],
+                body.igniter-admin-bar-active .navbar-fixed,
+                body.igniter-admin-bar-active .navbar-sticky,
+                body.igniter-admin-bar-active nav[class*="fixed"],
+                body.igniter-admin-bar-active nav[class*="sticky"],
+                body.igniter-admin-bar-active .fixed-header,
+                body.igniter-admin-bar-active .sticky-header {
+                    top: 40px !important;
+                }
+
+                body.igniter-admin-bar-active .navbar,
+                body.igniter-admin-bar-active nav.navbar,
+                body.igniter-admin-bar-active [class*="navbar"] {
+                    top: 40px !important;
+                }
+
+                body.igniter-admin-bar-active .navbar.fixed-top {
+                    top: 40px !important;
+                }
+
+                body.igniter-admin-bar-active .fixed.top-0 {
+                    top: 40px !important;
+                }
+
+                body.igniter-admin-bar-active .title-bar,
+                body.igniter-admin-bar-active .top-bar {
+                    top: 40px !important;
+                }
+
+                body.igniter-admin-bar-active .navbar.is-fixed-top {
+                    top: 40px !important;
+                }
+
+                body.igniter-admin-bar-active nav.fixed {
+                    top: 40px !important;
+                }
+
                 header[class*="fixed"],
                 header[class*="sticky"],
                 .navbar-fixed,
@@ -4920,42 +4955,17 @@ if (!function_exists('renderAdminBar')) {
                 nav[class*="fixed"],
                 nav[class*="sticky"],
                 .fixed-header,
-                .sticky-header {
-                    top: 40px !important;
-                }
-
-                /* Common navbar classes adjustment */
+                .sticky-header,
                 .navbar,
                 nav.navbar,
-                [class*="navbar"] {
-                    top: 40px !important;
-                }
-
-                /* Specific adjustments for common frameworks */
-                /* Bootstrap */
-                .navbar.fixed-top {
-                    top: 40px !important;
-                }
-
-                /* Tailwind */
-                .fixed.top-0 {
-                    top: 40px !important;
-                }
-
-                /* Foundation */
+                [class*="navbar"],
+                .navbar.fixed-top,
+                .fixed.top-0,
                 .title-bar,
-                .top-bar {
-                    top: 40px !important;
-                }
-
-                /* Bulma */
-                .navbar.is-fixed-top {
-                    top: 40px !important;
-                }
-
-                /* Materialize */
+                .top-bar,
+                .navbar.is-fixed-top,
                 nav.fixed {
-                    top: 40px !important;
+                    transition: top 0.3s ease;
                 }
 
                 .igniter-admin-bar-container {
@@ -4975,7 +4985,7 @@ if (!function_exists('renderAdminBar')) {
                 }
 
                 .igniter-admin-bar-right {
-                    display: flex; /* Added for the close button */
+                    display: flex;
                     align-items: center;
                     gap: 1rem;
                 }
@@ -5076,8 +5086,7 @@ if (!function_exists('renderAdminBar')) {
                     color: #ffffff;
                 }
 
-                /* Style for the close button */
-                .igniter-admin-bar-close {
+                .igniter-admin-bar-toggle {
                     color: #ffffff;
                     cursor: pointer;
                     padding: 4px 8px;
@@ -5085,12 +5094,46 @@ if (!function_exists('renderAdminBar')) {
                     transition: opacity 0.2s ease;
                 }
 
-                .igniter-admin-bar-close:hover {
+                .igniter-admin-bar-toggle:hover {
                     opacity: 0.8;
                     background-color: rgba(255, 255, 255, 0.1);
                 }
 
-                /* Mobile responsiveness */
+                .igniter-admin-bar-toggle i {
+                    transition: transform 0.3s ease;
+                }
+
+                .igniter-admin-bar.collapsed .igniter-admin-bar-toggle i {
+                    transform: rotate(180deg);
+                }
+
+                .igniter-admin-bar-tab {
+                    position: fixed;
+                    top: 0;
+                    right: 20px;
+                    z-index: 99998;
+                    background-color: #343a40;
+                    color: #ffffff;
+                    padding: 8px 12px 6px;
+                    border-radius: 0 0 6px 6px;
+                    cursor: pointer;
+                    transition: opacity 0.2s ease, transform 0.3s ease;
+                    opacity: 0;
+                    transform: translateY(-100%);
+                    pointer-events: none;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                }
+
+                .igniter-admin-bar.collapsed ~ .igniter-admin-bar-tab {
+                    opacity: 1;
+                    transform: translateY(0);
+                    pointer-events: auto;
+                }
+
+                .igniter-admin-bar-tab:hover {
+                    background-color: #495057;
+                }
+
                 @media (max-width: 768px) {
                     .igniter-admin-bar-container {
                         padding: 0 10px;
@@ -5113,16 +5156,39 @@ if (!function_exists('renderAdminBar')) {
                         padding: 6px;
                     }
 
-                    .igniter-admin-bar-close span { /* Hide "Close" text on small screens */
+                    .igniter-admin-bar-toggle span {
                         display: none;
                     }
                 }
 
-                /* Very small screens */
                 @media (max-width: 480px) {
+                    body.igniter-admin-bar-active {
+                        padding-top: 36px;
+                    }
+
                     .igniter-admin-bar {
                         height: 36px;
                         font-size: 13px;
+                    }
+
+                    body.igniter-admin-bar-active header[class*="fixed"],
+                    body.igniter-admin-bar-active header[class*="sticky"],
+                    body.igniter-admin-bar-active .navbar-fixed,
+                    body.igniter-admin-bar-active .navbar-sticky,
+                    body.igniter-admin-bar-active nav[class*="fixed"],
+                    body.igniter-admin-bar-active nav[class*="sticky"],
+                    body.igniter-admin-bar-active .fixed-header,
+                    body.igniter-admin-bar-active .sticky-header,
+                    body.igniter-admin-bar-active .navbar,
+                    body.igniter-admin-bar-active nav.navbar,
+                    body.igniter-admin-bar-active [class*="navbar"],
+                    body.igniter-admin-bar-active .navbar.fixed-top,
+                    body.igniter-admin-bar-active .fixed.top-0,
+                    body.igniter-admin-bar-active .title-bar,
+                    body.igniter-admin-bar-active .top-bar,
+                    body.igniter-admin-bar-active .navbar.is-fixed-top,
+                    body.igniter-admin-bar-active nav.fixed {
+                        top: 36px !important;
                     }
 
                     .igniter-admin-bar-logo,
@@ -5165,53 +5231,65 @@ if (!function_exists('renderAdminBar')) {
                                 <a href="' . base_url('/sign-out') . '">Logout</a>
                             </div>
                         </div>
-                        <div class="igniter-admin-bar-close" id="igniterAdminBarClose">
-                            <i class="ri-close-large-fill igniter-admin-bar-icon"></i>
-                            <span>Close</span>
+                        <div class="igniter-admin-bar-toggle" id="igniterAdminBarToggle">
+                            <i class="ri-arrow-up-s-line igniter-admin-bar-icon"></i>
+                            <span>Collapse</span>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="igniter-admin-bar-tab" id="igniterAdminBarTab">
+                <i class="ri-arrow-down-s-line igniter-admin-bar-icon"></i>
+            </div>
             <script>
             document.addEventListener("DOMContentLoaded", function() {
-                const adminBarContainer = document.getElementById("igniterAdminBarContainer"); // Target the main container
-                const closeButton = document.getElementById("igniterAdminBarClose");
+                const adminBar = document.getElementById("igniterAdminBar");
+                const toggleButton = document.getElementById("igniterAdminBarToggle");
+                const tabButton = document.getElementById("igniterAdminBarTab");
 
-                if (adminBarContainer) { // Check if the container exists
-                    // IMPORTANT: Capture fixed elements *before* any modifications
-                    const fixedElements = document.querySelectorAll(
-                        "header, nav, .navbar, .header, [class*=\'fixed\'], [class*=\'sticky\']"
-                    );
+                function getCookie(name) {
+                    const value = `; ${document.cookie}`;
+                    const parts = value.split(`; ${name}=`);
+                    if (parts.length === 2) return parts.pop().split(";").shift();
+                    return null;
+                }
 
-                    // Store original top values and apply new ones
-                    fixedElements.forEach(element => {
-                        const styles = window.getComputedStyle(element);
-                        const position = styles.position;
-                        const currentTop = parseFloat(styles.top);
+                function setCookie(name, value, days) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    const expires = `expires=${date.toUTCString()}`;
+                    document.cookie = `${name}=${value};${expires};path=/`;
+                }
 
-                        if ((position === "fixed" || position === "sticky") && (isNaN(currentTop) || currentTop === 0 || currentTop === 40)) {
-                            element.dataset.originalTop = styles.top; // Store original top for restoration
-                            element.style.top = "40px";
+                if (adminBar) {
+                    const savedState = getCookie("igniterAdminBarCollapsed");
+                    
+                    if (savedState === "true") {
+                        adminBar.classList.add("collapsed");
+                    } else {
+                        document.body.classList.add("igniter-admin-bar-active");
+                    }
+
+                    function toggleAdminBar() {
+                        const isCurrentlyCollapsed = adminBar.classList.contains("collapsed");
+                        
+                        adminBar.classList.toggle("collapsed");
+                        
+                        if (isCurrentlyCollapsed) {
+                            document.body.classList.add("igniter-admin-bar-active");
+                            setCookie("igniterAdminBarCollapsed", "false", 365);
+                        } else {
+                            document.body.classList.remove("igniter-admin-bar-active");
+                            setCookie("igniterAdminBarCollapsed", "true", 365);
                         }
-                    });
+                    }
 
-                    // Add event listener to the close button
-                    if (closeButton) {
-                        closeButton.addEventListener("click", function() {
-                            adminBarContainer.remove(); // Remove the ENTIRE container (including style and admin bar)
+                    if (toggleButton) {
+                        toggleButton.addEventListener("click", toggleAdminBar);
+                    }
 
-                            // Restore original \'top\' values to fixed elements
-                            fixedElements.forEach(element => {
-                                if (element.dataset.originalTop !== undefined) {
-                                    element.style.top = element.dataset.originalTop;
-                                } else {
-                                    const currentTop = parseFloat(window.getComputedStyle(element).top);
-                                    if (currentTop === 40) {
-                                        element.style.top = "0"; // Reset to default or initial state
-                                    }
-                                }
-                            });
-                        });
+                    if (tabButton) {
+                        tabButton.addEventListener("click", toggleAdminBar);
                     }
                 }
             });
