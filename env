@@ -123,7 +123,7 @@ CI_FM_LAST_MODIFIED_DATE_FORMAT="d/m/Y g:i A"
 CI_FM_LAST_UPDATED_DATE_FORMAT="F j, Y, g:i A"
 
 #--------------------------------------------------------------------
-# EMAIL
+# EMAIL CONFIG
 #--------------------------------------------------------------------
 email.fromEmail = "your_email@gmail.com"
 email.fromName = "Your Name"
