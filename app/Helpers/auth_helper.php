@@ -348,7 +348,7 @@ if (!function_exists('renderCaptcha')) {
                             border: 1px solid #e9ecef;
                         }
 
-                        .form-text {
+                        .gregwar-form-text {
                             font-size: 0.875em;
                             color: #6c757d;
                             margin-top: 0.25rem;
@@ -373,6 +373,16 @@ if (!function_exists('renderCaptcha')) {
                             -0.5px 0.5px 0 #000,
                             0.5px 0.5px 0 #000;
                         }
+
+                        #gregwar_response {
+                            border: 1px solid #ced4da !important;
+                            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                        }
+                        
+                        #gregwar_response:focus {
+                            border-color: #86b7fe !important;
+                            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.1);
+                        }
                     </style>
                     <div class="mb-2 gregwar-captcha-container">
                         <label for="gregwar_response" class="form-label">
@@ -383,7 +393,7 @@ if (!function_exists('renderCaptcha')) {
                             <img loading="lazy" src="' . $captcha_image . '" alt="CAPTCHA" class="captcha-image border rounded">
                         </div>
                         <input type="text" class="form-control" id="gregwar_response" name="gregwar_response" required placeholder="Type the text you see above" autocomplete="off">
-                        <div class="form-text">Letters are not case sensitive</div>
+                        <div class="gregwar-form-text">Letters are not case sensitive</div>
                         <div class="invalid-feedback">
                             Please enter the captcha text shown in the image
                         </div>

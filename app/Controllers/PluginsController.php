@@ -197,7 +197,7 @@ class PluginsController extends BaseController
         return view('back-end/plugins/upload-plugin');
     }
 
-   public function addPlugin()
+    public function addPlugin()
     {
         // Get logged-in user id
         $loggedInUserId = $this->session->get('user_id');
@@ -225,43 +225,7 @@ class PluginsController extends BaseController
         $override = boolval($this->request->getPost('override_if_exists'));
 
         if ($pluginFile->isValid() && !$pluginFile->hasMoved()) {
-            // Get the filename without extension
-            $filename = pathinfo($pluginFile->getName(), PATHINFO_FILENAME);
-            $pluginDir = APPPATH . 'Plugins/' . $filename;
-
-            // Check if plugin directory already exists
-            if (is_dir($pluginDir)) {
-                if (!$override) {
-                    $alreadyExistMsg = config('CustomConfig')->alreadyExistMsg;
-                    $alreadyExistMsg = str_replace('[Record]', 'Plugin', $alreadyExistMsg);
-                    session()->setFlashdata('errorAlert', $alreadyExistMsg);
-                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Plugin already exists: ' . $filename);
-                    return redirect()->to('/account/plugins/upload-plugin');
-                }
-
-                // Remove existing directory recursively
-                try {
-                    if (!$this->deleteDirectory($pluginDir)) {
-                        throw new \Exception('Failed to delete existing plugin directory');
-                    }
-                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Existing plugin directory deleted: ' . $filename);
-                } catch (\Exception $e) {
-                    session()->setFlashdata('errorAlert', 'Failed to delete existing plugin directory');
-                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to delete directory: ' . $filename . ' - ' . $e->getMessage());
-                    return redirect()->to('/account/plugins/upload-plugin');
-                }
-            }
-
-            // Create plugins directory if it doesn't exist
-            if (!is_dir(APPPATH . 'Plugins')) {
-                if (!mkdir(APPPATH . 'Plugins', 0755, true)) {
-                    session()->setFlashdata('errorAlert', 'Failed to create Plugins directory');
-                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to create Plugins directory');
-                    return redirect()->to('/account/plugins/upload-plugin');
-                }
-            }
-
-            // Move the uploaded file to temp directory
+            // Move the uploaded file to temp directory *first* for processing
             try {
                 // Ensure the upload directory exists and is writable
                 $uploadPath = WRITEPATH . 'uploads/';
@@ -278,217 +242,326 @@ class PluginsController extends BaseController
                 return redirect()->to('/account/plugins/upload-plugin');
             }
 
-            // Extract the archive
-            $zip = new ZipArchive(); // Use ZipArchive directly
+            // --- NEW LOGIC: Extract plugin.json to get the slug ---
+            $zip = new ZipArchive();
+            $pluginSlug = null;
+            $jsonContents = '';
+
             if ($zip->open($tempPath) === true) {
-                try {
-                    // Create plugin directory
-                    if (!mkdir($pluginDir, 0755, true)) {
-                        throw new \Exception('Failed to create plugin directory');
-                    }
-
-                    // Extract files
-                    if (!$zip->extractTo($pluginDir)) {
-                        throw new \Exception('Failed to extract plugin archive');
-                    }
-                    $zip->close();
-
-                    // Delete the temp archive
-                    if (!unlink($tempPath)) {
-                        // Log this but don't fail the entire process, as extraction was successful.
-                        log_message('warning', 'Failed to delete temporary archive: ' . $tempPath);
-                    }
-                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin extracted to: ' . $pluginDir);
-                } catch (\Exception $e) {
-                    if ($zip->status !== ZipArchive::ER_NOZIP) { // Only close if it was opened
-                        $zip->close();
-                    }
-                    $this->deleteDirectory($pluginDir); // Clean up partially extracted plugin
-                    // Attempt to delete the temp file if it still exists after extraction failure
-                    if (file_exists($tempPath)) {
-                        unlink($tempPath);
-                    }
-                    session()->setFlashdata('errorAlert', 'Failed during extraction: ' . $e->getMessage()); // Show specific error
-                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Extraction failed: ' . $filename . ' - ' . $e->getMessage());
-                    return redirect()->to('/account/plugins/upload-plugin');
-                }
-
-                // Verify the extracted structure
-                if (!file_exists($pluginDir . '/manage.php')) {
-                    $this->deleteDirectory($pluginDir);
-                    // Attempt to delete the temp file if it still exists
-                    if (file_exists($tempPath)) {
-                        unlink($tempPath);
-                    }
-                    session()->setFlashdata('errorAlert', 'Invalid plugin structure - manage.php not found. Make sure the plugin is at the root of the ZIP file.');
-                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Invalid plugin structure: ' . $filename);
-                    return redirect()->to('/account/plugins/upload-plugin');
-                }
-
-                // Check for database.php and execute queries if present
-                $databaseFile = $pluginDir . '/database.php';
-                if (file_exists($databaseFile)) {
-                    // Initialize variables to avoid undefined variable errors
-                    $createTablesQuery = '';
-                    $createTableDataQuery = '';
-                    $createConfigQuery = '';
-                    $pluginKey = $filename; // Ensure pluginKey is set for database.php
-
-                    // --- Sandboxed inclusion of database.php ---
-                    $dbFileContent = file_get_contents($databaseFile);
-
-                    // A very basic and limited parse to get the variables.
-                    try {
-                        // Start output buffering to prevent any accidental output from the included file
-                        ob_start();
-                        include $databaseFile; // This is the risky part; ensure variables are defined in that file.
-                        ob_end_clean(); // Discard any output
-                    } catch (\Throwable $e) { // Catch both Exceptions and Errors (like parse errors)
-                        $this->deleteDirectory($pluginDir);
-                        if (file_exists($tempPath)) {
-                            unlink($tempPath);
-                        }
-                        session()->setFlashdata('errorAlert', 'Error parsing plugin database script: ' . $e->getMessage());
-                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Error parsing database.php for plugin: ' . $filename . ' - ' . $e->getMessage());
-                        return redirect()->to('/account/plugins/upload-plugin');
-                    }
-                    // --- END CRITICAL SECURITY ---
-
-                    $db = \Config\Database::connect();
-
-                    try {
-                        // --- Check createTablesQuery table name prefix ---
-                        if (!empty($createTablesQuery)) {
-                            // Extract table name from createTablesQuery
-                            if (preg_match('/CREATE TABLE\s+`?([a-zA-Z0-9_-]+)`?/i', $createTablesQuery, $matches)) {
-                                $tableName = $matches[1];
-                                if (!str_starts_with($tableName, 'icp_')) {
-                                    throw new \Exception("Table name '$tableName' in createTablesQuery must start with 'icp_'.");
+                // Locate 'plugin.json' within the archive
+                $numFiles = $zip->numFiles;
+                for ($i = 0; $i < $numFiles; $i++) {
+                    $filenameInZip = $zip->getNameIndex($i);
+                    // Check if the file path is exactly 'plugin.json' or ends with '/plugin.json'
+                    // This handles cases where plugin.json might be at the root or in a subfolder within the zip
+                    if (basename($filenameInZip) === 'plugin.json') {
+                        // Ensure it's a direct file, not in a sub-sub-directory if we only want root level
+                        // If plugin.json is expected *only* at the root level, use:
+                        // if ($filenameInZip === 'plugin.json') {
+                        $jsonContents = $zip->getFromIndex($i);
+                        if ($jsonContents !== false) {
+                            $pluginJson = json_decode($jsonContents, true);
+                            if ($pluginJson && isset($pluginJson['slug']) && is_string($pluginJson['slug']) && !empty($pluginJson['slug'])) {
+                                $pluginSlug = trim($pluginJson['slug']);
+                                // Basic validation for slug format (alphanumeric, dashes, underscores)
+                                if (preg_match('/^[a-zA-Z0-9_-]+$/', $pluginSlug)) {
+                                    break; // Found a valid slug, exit loop
+                                } else {
+                                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Invalid slug format in plugin.json: ' . $pluginSlug);
+                                    $zip->close();
+                                    session()->setFlashdata('errorAlert', 'Invalid slug format found in plugin.json.');
+                                    if (file_exists($tempPath)) {
+                                        unlink($tempPath);
+                                    }
+                                    return redirect()->to('/account/plugins/upload-plugin');
                                 }
-                                // Drop existing table if override is true
-                                // And execute the query.
-                                $db->query("DROP TABLE IF EXISTS `$tableName`"); // Use backticks for table name
-                                logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Dropped existing table: ' . $tableName);
                             } else {
-                                // If CREATE TABLE syntax is unexpected, reject it.
-                                throw new \Exception('Invalid or unrecognized CREATE TABLE statement in database.php.');
-                            }
-
-                            // Execute create tables query
-                            // Split queries by semicolon, filter out empty ones
-                            $queries = array_filter(array_map('trim', explode(';', $createTablesQuery)));
-                            foreach ($queries as $query) {
-                                if (!empty($query)) {
-                                    // Basic validation that it's a DDL (Data Definition Language) statement.
-                                    if (!preg_match('/^\s*(CREATE|ALTER|DROP|TRUNCATE)\s+/i', $query)) {
-                                        throw new \Exception('Disallowed SQL command detected in createTablesQuery: ' . substr($query, 0, 50) . '...');
-                                    }
-                                    $db->query($query);
-                                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed create table query for: ' . $filename);
+                                logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Invalid or missing slug in plugin.json');
+                                $zip->close();
+                                session()->setFlashdata('errorAlert', 'Invalid or missing slug in plugin.json.');
+                                if (file_exists($tempPath)) {
+                                    unlink($tempPath);
                                 }
+                                return redirect()->to('/account/plugins/upload-plugin');
                             }
                         }
-                        // --- END PREFIX VALIDATION ---
+                    }
+                }
+                $zip->close();
 
-                        // Execute plugin table data if existing
-                        if (!empty($createTableDataQuery)) {
-                            // Similar to above, validate insert queries more strictly
-                            $queries = array_filter(array_map('trim', explode(';', $createTableDataQuery)));
-                            foreach ($queries as $query) {
-                                if (!empty($query)) {
-                                    if (!preg_match('/^\s*(INSERT|UPDATE|DELETE)\s+/i', $query)) {
-                                        throw new \Exception('Disallowed SQL command detected in createTableDataQuery: ' . substr($query, 0, 50) . '...');
-                                    }
-                                    $db->query($query);
-                                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed insert table data query for: ' . $filename);
-                                }
-                            }
-                        }
+                if ($pluginSlug === null) {
+                    session()->setFlashdata('errorAlert', 'plugin.json with a valid "slug" is required in the plugin ZIP file.');
+                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'plugin.json with slug not found in archive: ' . $pluginFile->getName());
+                    if (file_exists($tempPath)) {
+                        unlink($tempPath);
+                    }
+                    return redirect()->to('/account/plugins/upload-plugin');
+                }
 
-                        // Delete existing plugin_configs entries and execute config query if not empty
-                        if (!empty($createConfigQuery)) {
-                            // Ensure pluginKey is correctly escaped for the DELETE query
-                            $db->query("DELETE FROM plugin_configs WHERE plugin_slug = ?", [$pluginKey]);
-                            logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Deleted existing plugin_configs for: ' . $pluginKey);
+                // Now that we have the slug, define the target plugin directory
+                $pluginDir = APPPATH . 'Plugins/' . $pluginSlug;
 
-                            $queries = array_filter(array_map('trim', explode(';', $createConfigQuery)));
-                            foreach ($queries as $query) {
-                                if (!empty($query)) {
-                                    if (!preg_match('/^\s*(INSERT|UPDATE)\s+/i', $query)) {
-                                        throw new \Exception('Disallowed SQL command detected in createConfigQuery: ' . substr($query, 0, 50) . '...');
-                                    }
-                                    $db->query($query);
-                                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed config query for: ' . $filename);
-                                }
-                            }
-                        }
-
-                    } catch (\Exception $e) {
-                        $this->deleteDirectory($pluginDir);
+                // Check if plugin directory already exists using the slug
+                if (is_dir($pluginDir)) {
+                    if (!$override) {
+                        $alreadyExistMsg = config('CustomConfig')->alreadyExistMsg;
+                        $alreadyExistMsg = str_replace('[Record]', 'Plugin', $alreadyExistMsg);
+                        session()->setFlashdata('errorAlert', $alreadyExistMsg);
+                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Plugin already exists (using slug): ' . $pluginSlug);
                         if (file_exists($tempPath)) {
                             unlink($tempPath);
                         }
-                        session()->setFlashdata('errorAlert', 'Failed to execute database queries: ' . $e->getMessage()); // Display specific error
-                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Database query failed for plugin: ' . $filename . ' - ' . $e->getMessage());
+                        return redirect()->to('/account/plugins/upload-plugin');
+                    }
+
+                    // Remove existing directory recursively
+                    try {
+                        if (!$this->deleteDirectory($pluginDir)) {
+                            throw new \Exception('Failed to delete existing plugin directory');
+                        }
+                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Existing plugin directory deleted (using slug): ' . $pluginSlug);
+                    } catch (\Exception $e) {
+                        session()->setFlashdata('errorAlert', 'Failed to delete existing plugin directory');
+                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to delete directory (using slug): ' . $pluginSlug . ' - ' . $e->getMessage());
+                        if (file_exists($tempPath)) {
+                            unlink($tempPath);
+                        }
                         return redirect()->to('/account/plugins/upload-plugin');
                     }
                 }
 
-                // Success
-                $createSuccessMsg = str_replace('[Record]', 'Plugin', config('CustomConfig')->createSuccessMsg);
-                session()->setFlashdata('successAlert', $createSuccessMsg);
-                logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin uploaded: ' . $filename);
-
-                // Load plugin.json
-                $loadPlugins = "";
-                $pluginPath = $pluginDir . '/plugin.json';
-                if (is_file($pluginPath)) {
-                    $json = file_get_contents($pluginPath);
-                    $meta = json_decode($json, true);
-                    if ($meta && isset($meta['load'])) {
-                        // Sanitize the 'load' value if it's meant to be a string path or class name
-                        $loadPlugins = esc($meta['load']); // Basic string escape
+                // Create plugins directory if it doesn't exist
+                if (!is_dir(APPPATH . 'Plugins')) {
+                    if (!mkdir(APPPATH . 'Plugins', 0755, true)) {
+                        session()->setFlashdata('errorAlert', 'Failed to create Plugins directory');
+                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to create Plugins directory');
+                        if (file_exists($tempPath)) {
+                            unlink($tempPath);
+                        }
+                        return redirect()->to('/account/plugins/upload-plugin');
                     }
                 }
 
-                // Add plugin to database
-                $tableName = "plugins";
-                $pluginsData = [
-                    'plugin_id' => getGUID(),
-                    'plugin_key' => $filename, // The filename is assumed to be safe (alpha-numeric with dashes/underscores)
-                    'status' => 0,
-                    'update_available' => 0,
-                    'load' => $loadPlugins,
-                    'created_by' => $loggedInUserId,
-                    'updated_by' => null
-                ];
-                try {
-                    $pluginExists = recordExists($tableName, 'plugin_key', $filename);
-                    if ($pluginExists) {
-                        deleteRecord($tableName, 'plugin_key', $filename);
+                // --- Re-open ZIP and Extract the archive using the slug ---
+                $zip = new ZipArchive();
+                if ($zip->open($tempPath) === true) { // Re-open the zip
+                    try {
+                        // Create plugin directory (using slug)
+                        if (!mkdir($pluginDir, 0755, true)) {
+                            throw new \Exception('Failed to create plugin directory');
+                        }
+
+                        // Extract ALL files to the slug-based directory
+                        if (!$zip->extractTo($pluginDir)) {
+                            throw new \Exception('Failed to extract plugin archive');
+                        }
+                        $zip->close();
+
+                        // Delete the temp archive
+                        if (!unlink($tempPath)) {
+                            // Log this but don't fail the entire process, as extraction was successful.
+                            log_message('warning', 'Failed to delete temporary archive: ' . $tempPath);
+                        }
+                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin extracted to directory (using slug): ' . $pluginDir);
+                    } catch (\Exception $e) {
+                        if ($zip->status !== ZipArchive::ER_NOZIP) { // Only close if it was opened
+                            $zip->close();
+                        }
+                        $this->deleteDirectory($pluginDir); // Clean up partially extracted plugin
+                        // Attempt to delete the temp file if it still exists after extraction failure
+                        if (file_exists($tempPath)) {
+                            unlink($tempPath);
+                        }
+                        session()->setFlashdata('errorAlert', 'Failed during extraction: ' . $e->getMessage()); // Show specific error
+                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Extraction failed (using slug): ' . $pluginSlug . ' - ' . $e->getMessage());
+                        return redirect()->to('/account/plugins/upload-plugin');
                     }
-                    addRecord($tableName, $pluginsData);
-                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin added to database: ' . $filename);
-                } catch (\Exception $e) {
-                    $this->deleteDirectory($pluginDir); // Rollback: delete extracted files
+
+                    // Verify the extracted structure (e.g., manage.php exists in the slug-named dir)
+                    if (!file_exists($pluginDir . '/manage.php')) {
+                        $this->deleteDirectory($pluginDir);
+                        // Attempt to delete the temp file if it still exists
+                        if (file_exists($tempPath)) {
+                            unlink($tempPath);
+                        }
+                        session()->setFlashdata('errorAlert', 'Invalid plugin structure - manage.php not found. Make sure the plugin is at the root of the ZIP file.');
+                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Invalid plugin structure (using slug): ' . $pluginSlug);
+                        return redirect()->to('/account/plugins/upload-plugin');
+                    }
+
+                    // Check for database.php and execute queries if present
+                    $databaseFile = $pluginDir . '/database.php';
+                    if (file_exists($databaseFile)) {
+                        // Initialize variables to avoid undefined variable errors
+                        $createTablesQuery = '';
+                        $createTableDataQuery = '';
+                        $createConfigQuery = '';
+                        $pluginKey = $pluginSlug; // Use the slug as the plugin key for database.php and database operations
+
+                        // --- Sandboxed inclusion of database.php ---
+                        try {
+                            // Start output buffering to prevent any accidental output from the included file
+                            ob_start();
+                            include $databaseFile; // This is the risky part; ensure variables are defined in that file.
+                            ob_end_clean(); // Discard any output
+                        } catch (\Throwable $e) {
+                            $this->deleteDirectory($pluginDir);
+                            if (file_exists($tempPath)) {
+                                unlink($tempPath);
+                            }
+                            session()->setFlashdata('errorAlert', 'Error parsing plugin database script: ' . $e->getMessage());
+                            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Error parsing database.php for plugin (using slug): ' . $pluginSlug . ' - ' . $e->getMessage());
+                            return redirect()->to('/account/plugins/upload-plugin');
+                        }
+                        // --- END CRITICAL SECURITY ---
+
+                        $db = \Config\Database::connect();
+
+                        try {
+                            // --- Check createTablesQuery table name prefix ---
+                            if (!empty($createTablesQuery)) {
+                                // Extract table name from createTablesQuery
+                                if (preg_match('/CREATE TABLE\s+`?([a-zA-Z0-9_-]+)`?/i', $createTablesQuery, $matches)) {
+                                    $tableName = $matches[1];
+                                    if (!str_starts_with($tableName, 'icp_')) {
+                                        throw new \Exception("Table name '$tableName' in createTablesQuery must start with 'icp_'.");
+                                    }
+                                    // Drop existing table if override is true
+                                    // And execute the query.
+                                    $db->query("DROP TABLE IF EXISTS `$tableName`"); // Use backticks for table name
+                                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Dropped existing table: ' . $tableName);
+                                } else {
+                                    // If CREATE TABLE syntax is unexpected, reject it.
+                                    throw new \Exception('Invalid or unrecognized CREATE TABLE statement in database.php.');
+                                }
+
+                                // Execute create tables query
+                                // Split queries by semicolon, filter out empty ones
+                                $queries = array_filter(array_map('trim', explode(';', $createTablesQuery)));
+                                foreach ($queries as $query) {
+                                    if (!empty($query)) {
+                                        // Basic validation that it's a DDL (Data Definition Language) statement.
+                                        if (!preg_match('/^\s*(CREATE|ALTER|DROP|TRUNCATE)\s+/i', $query)) {
+                                            throw new \Exception('Disallowed SQL command detected in createTablesQuery: ' . substr($query, 0, 50) . '...');
+                                        }
+                                        $db->query($query);
+                                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed create table query for plugin (using slug): ' . $pluginSlug);
+                                    }
+                                }
+                            }
+                            // --- END PREFIX VALIDATION ---
+
+                            // Execute plugin table data if existing
+                            if (!empty($createTableDataQuery)) {
+                                // Similar to above, validate insert queries more strictly
+                                $queries = array_filter(array_map('trim', explode(';', $createTableDataQuery)));
+                                foreach ($queries as $query) {
+                                    if (!empty($query)) {
+                                        if (!preg_match('/^\s*(INSERT|UPDATE|DELETE)\s+/i', $query)) {
+                                            throw new \Exception('Disallowed SQL command detected in createTableDataQuery: ' . substr($query, 0, 50) . '...');
+                                        }
+                                        $db->query($query);
+                                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed insert table data query for plugin (using slug): ' . $pluginSlug);
+                                    }
+                                }
+                            }
+
+                            // Delete existing plugin_configs entries and execute config query if not empty
+                            if (!empty($createConfigQuery)) {
+                                // Ensure pluginKey (which is the slug) is correctly escaped for the DELETE query
+                                $db->query("DELETE FROM plugin_configs WHERE plugin_slug = ?", [$pluginKey]);
+                                logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Deleted existing plugin_configs for plugin (using slug): ' . $pluginKey);
+
+                                $queries = array_filter(array_map('trim', explode(';', $createConfigQuery)));
+                                foreach ($queries as $query) {
+                                    if (!empty($query)) {
+                                        if (!preg_match('/^\s*(INSERT|UPDATE)\s+/i', $query)) {
+                                            throw new \Exception('Disallowed SQL command detected in createConfigQuery: ' . substr($query, 0, 50) . '...');
+                                        }
+                                        $db->query($query);
+                                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed config query for plugin (using slug): ' . $pluginSlug);
+                                    }
+                                }
+                            }
+
+                        } catch (\Exception $e) {
+                            $this->deleteDirectory($pluginDir);
+                            if (file_exists($tempPath)) {
+                                unlink($tempPath);
+                            }
+                            session()->setFlashdata('errorAlert', 'Failed to execute database queries: ' . $e->getMessage()); // Display specific error
+                            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Database query failed for plugin (using slug): ' . $pluginSlug . ' - ' . $e->getMessage());
+                            return redirect()->to('/account/plugins/upload-plugin');
+                        }
+                    }
+
+                    // Success
+                    $createSuccessMsg = str_replace('[Record]', 'Plugin', config('CustomConfig')->createSuccessMsg);
+                    session()->setFlashdata('successAlert', $createSuccessMsg);
+                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin uploaded and processed (using slug): ' . $pluginSlug);
+
+                    // Load plugin.json (already read earlier, but re-read from the extracted file for safety if needed)
+                    $loadPlugins = "";
+                    $pluginPath = $pluginDir . '/plugin.json';
+                    if (is_file($pluginPath)) {
+                        $json = file_get_contents($pluginPath);
+                        $meta = json_decode($json, true);
+                        if ($meta && isset($meta['load'])) {
+                            // Sanitize the 'load' value if it's meant to be a string path or class name
+                            $loadPlugins = esc($meta['load']); // Basic string escape
+                        }
+                    }
+
+                    // Add plugin to database using the slug
+                    $tableName = "plugins";
+                    $pluginsData = [
+                        'plugin_id' => getGUID(),
+                        'plugin_key' => $pluginSlug, // Use the slug from plugin.json
+                        'status' => 0,
+                        'update_available' => 0,
+                        'load' => $loadPlugins,
+                        'created_by' => $loggedInUserId,
+                        'updated_by' => null
+                    ];
+                    try {
+                        $pluginExists = recordExists($tableName, 'plugin_key', $pluginSlug);
+                        if ($pluginExists) {
+                            deleteRecord($tableName, 'plugin_key', $pluginSlug);
+                        }
+                        addRecord($tableName, $pluginsData);
+                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin added to database (using slug): ' . $pluginSlug);
+                    } catch (\Exception $e) {
+                        $this->deleteDirectory($pluginDir); // Rollback: delete extracted files
+                        if (file_exists($tempPath)) {
+                            unlink($tempPath);
+                        }
+                        session()->setFlashdata('errorAlert', 'Failed to update plugin database record.');
+                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Database record update failed (using slug): ' . $pluginSlug . ' - ' . $e->getMessage());
+                        return redirect()->to('/account/plugins/upload-plugin');
+                    }
+
+                    return redirect()->to('/account/plugins');
+                } else {
+                    // This 'else' block handles if the *second* $zip->open($tempPath) fails (should be very rare if first open worked)
                     if (file_exists($tempPath)) {
-                        unlink($tempPath);
+                        unlink($tempPath); // Ensure temp file is removed
                     }
-                    session()->setFlashdata('errorAlert', 'Failed to update plugin database record.');
-                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Database record update failed: ' . $filename . ' - ' . $e->getMessage());
+                    session()->setFlashdata('errorAlert', 'Failed to re-open plugin archive for extraction. It might be corrupted or not a valid ZIP file.');
+                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to re-open plugin archive (using slug): ' . $pluginSlug);
                     return redirect()->to('/account/plugins/upload-plugin');
                 }
 
-                return redirect()->to('/account/plugins');
             } else {
-                // This 'else' block handles if $zip->open($tempPath) fails
+                // This 'else' block handles if the *first* $zip->open($tempPath) fails
                 if (file_exists($tempPath)) {
                     unlink($tempPath); // Ensure temp file is removed
                 }
                 session()->setFlashdata('errorAlert', 'Failed to open plugin archive. It might be corrupted or not a valid ZIP file.');
-                logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to open plugin archive: ' . $filename);
+                logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to open plugin archive (for reading plugin.json): ' . $pluginFile->getName());
                 return redirect()->to('/account/plugins/upload-plugin');
             }
+
+
         } else {
             $errorMsg = $pluginFile->getErrorString() ?: config('CustomConfig')->errorMsg;
             session()->setFlashdata('errorAlert', $errorMsg);

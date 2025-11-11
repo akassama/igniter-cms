@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Remove the highlight after a few seconds
             setTimeout(() => {
                 targetElement.classList.remove('highlight-theme');
-            }, 5000); // Highlight for 5 seconds
+            }, 5000);
         }
     }
 });
