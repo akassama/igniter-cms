@@ -52,7 +52,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="row">
         <?php if($themes): ?>
             <?php foreach($themes as $theme): ?>
-            <div class="col-md-3 mb-4">
+            <div class="col-md-3 mb-4" id="theme-<?= str_replace('/', '', $theme['path']); ?>">
                 <div class="card h-100 border border-2 border-<?= $theme['selected'] == "1" ? 'success' : 'light' ?>">
                     <div class="card-img-top ratio ratio-4x3 bg-light overflow-hidden border-bottom">
                         <a href="<?= $theme['theme_url']; ?>" target="_blank">
@@ -146,11 +146,55 @@ echo generateBreadcrumb($breadcrumb_links);
         });
     }
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Get the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // 2. Check if the 'tid' parameter exists and has a value
+    if (urlParams.has('tid') && urlParams.get('tid')) {
+        const themeId = urlParams.get('tid');
+        // The theme card ID is formatted as 'theme-TID_VALUE'
+        const themeCardId = 'theme-' + themeId; 
+        
+        // 3. Find the element (the theme card)
+        const targetElement = document.getElementById(themeCardId);
+
+        if (targetElement) {
+            // 4. Highlight the element by adding a class
+            targetElement.classList.add('highlight-theme');
+            
+            // 5. Scroll the element into view
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+            
+            // Remove the highlight after a few seconds
+            setTimeout(() => {
+                targetElement.classList.remove('highlight-theme');
+            }, 5000);
+        }
+    }
+});
+</script>
 
 <style>
     /* Minimal custom CSS */
     .object-fit-cover {
         object-fit: cover;
+    }
+
+    /* CSS to visually highlight the element */
+    .highlight-theme {
+        box-shadow: 0 0 20px 5px rgba(139, 42, 13, 0.75);
+        transition: box-shadow 0.5s ease-in-out;
+        border-radius: 0.25rem;
+    }
+
+    .highlight-theme > .card {
+        border-color: #d13f13 !important;
+        border-width: 2px !important;
     }
 </style>
 

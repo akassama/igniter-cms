@@ -683,9 +683,9 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
                     <div class="col-12">
                         <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()."?#subscribe"?>">
                         <input type="hidden" class="form-control" name="form_name" id="form_name" value="Subscribe">
+                        <!--captcha validation-->
+                        <?=renderCaptcha()?>
                     </div>
-                    <!--captcha validation-->
-                    <?=renderCaptcha()?>
                 </form>
               </div>
             </div>
@@ -773,9 +773,7 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
                         <div class="col-12">
                             <!--captcha validation-->
                             <?= renderCaptcha() ?>
-                        </div>
 
-                        <div class="col-12">
                             <input type="hidden" name="form_name" value="Homepage Appointment Form">
                             <input type="hidden" name="return_url" value="<?= current_url() ?>?#appointment">
                             <input type="hidden" class="form-control" name="form_name" id="form_name" value="Appointment">
@@ -910,10 +908,11 @@ $enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 
                     <div class="col-md-12">
                         <textarea class="form-control" id="message" name="message" rows="4" placeholder="Message" required></textarea>
                     </div>
-                    <!--captcha validation-->
-                    <?=renderCaptcha()?>
 
                     <div class="col-12">
+                        <!--captcha validation-->
+                        <?= renderCaptcha() ?>
+
                         <input type="hidden" class="form-control" name="return_url" id="return_url" placeholder="return url" value="<?=current_url()."?#contact"?>">
                         <input type="hidden" class="form-control" name="form_name" id="form_name" value="Contact">
                     </div>

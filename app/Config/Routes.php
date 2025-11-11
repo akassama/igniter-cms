@@ -171,18 +171,21 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('appearance/themes/activate/(:any)', 'AppearanceController::activateTheme/$1');
         $routes->post('appearance/themes/remove-theme', 'AppearanceController::removeTheme');
 
-        #FILE EDITORS
-        $routes->get('appearance/theme-editor', 'AppearanceController::viewFiles');
-        $routes->get('appearance/theme-editor/layout', 'AppearanceController::layoutFileEditor');
-        $routes->get('appearance/theme-editor/home', 'AppearanceController::homeFileEditor');
-        $routes->get('appearance/theme-editor/blogs', 'AppearanceController::blogsFileEditor');
-        $routes->get('appearance/theme-editor/view-blog', 'AppearanceController::viewBlogFileEditor');
-        $routes->get('appearance/theme-editor/view-page', 'AppearanceController::viewPageFileEditor');
-        $routes->get('appearance/theme-editor/search', 'AppearanceController::searchFileEditor');
-        $routes->get('appearance/theme-editor/search-filter', 'AppearanceController::searchFilterFileEditor');
-        $routes->get('appearance/theme-editor/site-css', 'AppearanceController::siteCSSFileEditor');
-        $routes->get('appearance/theme-editor/site-js', 'AppearanceController::siteJSFileEditor');
-        $routes->post('appearance/theme-editor/save-file', 'AppearanceController::saveFile');
+        if (isFeatureEnabled('FEATURE_THEME_EDITOR')) {
+            #####============================= THEME FILE EDITOR =============================#####
+            #THEME FILE EDITORS
+            $routes->get('appearance/theme-editor', 'AppearanceController::viewFiles');
+            $routes->get('appearance/theme-editor/layout', 'AppearanceController::layoutFileEditor');
+            $routes->get('appearance/theme-editor/home', 'AppearanceController::homeFileEditor');
+            $routes->get('appearance/theme-editor/blogs', 'AppearanceController::blogsFileEditor');
+            $routes->get('appearance/theme-editor/view-blog', 'AppearanceController::viewBlogFileEditor');
+            $routes->get('appearance/theme-editor/view-page', 'AppearanceController::viewPageFileEditor');
+            $routes->get('appearance/theme-editor/search', 'AppearanceController::searchFileEditor');
+            $routes->get('appearance/theme-editor/search-filter', 'AppearanceController::searchFilterFileEditor');
+            $routes->get('appearance/theme-editor/site-css', 'AppearanceController::siteCSSFileEditor');
+            $routes->get('appearance/theme-editor/site-js', 'AppearanceController::siteJSFileEditor');
+            $routes->post('appearance/theme-editor/save-file', 'AppearanceController::saveFile');
+        }
     }
 
     if (isFeatureEnabled('FEATURE_ADMIN')) {

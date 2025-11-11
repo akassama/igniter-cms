@@ -42,6 +42,11 @@ class ContactForms extends Migration
                 'constraint' => 255,
                 'null'       => true,
             ],
+            'service' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true,
+            ],
             'message' => [
                 'type'       => 'TEXT',
                 'null'       => true,

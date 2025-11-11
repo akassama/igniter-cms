@@ -233,6 +233,7 @@ CREATE TABLE `booking_form_submissions` (
   `appointment_time` time DEFAULT NULL,
   `duration` int DEFAULT NULL,
   `number_of_attendees` int DEFAULT NULL,
+  `location` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `message` text COLLATE utf8mb4_general_ci,
   `status` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
   `confirmation_code` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -1101,6 +1102,7 @@ CREATE TABLE `users` (
   `password_change_required` tinyint(1) DEFAULT '0',
   `remember_token` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
+  `last_login` timestamp DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

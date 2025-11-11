@@ -93,36 +93,6 @@ PAGINATE_VERY_HIGH = 500
 PAGINATE_MAX = 1000
 
 #--------------------------------------------------------------------
-# MESSAGES
-#--------------------------------------------------------------------
-MESSAGE_WRONG_CREDENTIALS = "Sign In Failed. The provided username/email or password is incorrect."
-MESSAGE_LOGIN_SUCCESS = "Login successful."
-MESSAGE_LOGOUT_SUCCESS = "You have been successfully logged out."
-MESSAGE_PENDING_ACTIVATION = "Your account has not been activated yet or is no longer active. Please contact the administrator."
-MESSAGE_TOO_MANY_FAILED_LOGINS = "Too many failed login attempts. Your IP has been blocked for 1 hour."
-MESSAGE_INVALID_ACCESS = "You do not have access to this area."
-MESSAGE_CREATE_SUCCESS = "Record created successfully."
-MESSAGE_EDIT_SUCCESS = "Record updated successfully."
-MESSAGE_DELETE_SUCCESS = "Record removed successfully."
-MESSAGE_MISSING_REQUIRED_INPUTS = "There are validation errors. Possible missing required inputs."
-MESSAGE_SENT_CONTACT = "Message sent successfully."
-MESSAGE_FAILED_CONTACT = "Form submission failed."
-MESSAGE_NOT_FOUND = "Record not found."
-MESSAGE_ALREADY_EXIST = "[Record] already exists in table."
-MESSAGE_ERROR = "Oops! Something went wrong. Please try again later."
-MESSAGE_RESET_LINK = "A password reset link has been sent to your email address. Please check your inbox and follow the instructions to reset your password. If you do not see the email in your inbox, please check your spam or junk folder."
-MESSAGE_INVALID_RESET_LINK = "Invalid or expired password reset link."
-MESSAGE_PASSWORD_RESET_REQUIRED = "For security reasons, you need to change your password before continuing. Your current password was either set by an administrator or is a default password."
-MESSAGE_PASSWORD_RESET_SUCCESSFUL = "Your password has been reset successfully. You can now log in with your new password."
-MESSAGE_PASSWORD_RESET_FAILED = "Unable to reset password. Please try again"
-MESSAGE_NON_EXISTING_RESET_EMAIL = "We are sorry, but the email address you entered is not associated with any account. Please check the email address and try again."
-MESSAGE_EXCEPTION = "There was an error processing your request. Please try again. If this error persists, please see or send an email to system administrator."
-MESSAGE_CONTACT_SUCCESSFUL = "Your message has been sent successfully."
-MESSAGE_CONTACT_FAILED = "Oops! Something went wrong with your message submission. Please try again later."
-MESSAGE_SUBSCRIPTION_SUCCESSFUL = "You have successfully subscribed!"
-MESSAGE_SUBSCRIPTION_FAILED = "Sorry, something went wrong with your subscription. Please try again."
-
-#--------------------------------------------------------------------
 # FAETURE FLAGS
 #--------------------------------------------------------------------
 FEATURE_FLAG_EXEMPTIONS="exempt-user1@example.com,exempt-user2@example.com"
@@ -133,6 +103,7 @@ FEATURE_FORMS=true
 FEATURE_FILE_EDITOR=true
 FEATURE_APPEARANCE=true
 FEATURE_FILE_MANAGER=true
+FEATURE_THEME_EDITOR=true
 FEATURE_CONTENT_BLOCKS=true
 FEATURE_SETTINGS=true
 FEATURE_ADMIN=true
@@ -198,14 +169,14 @@ GREGWAR_DIFFICULTY = "" # Options easy, medium, hard
 # OTHER SETTINGS
 #--------------------------------------------------------------------
 APP_NAME = "Igniter CMS App"
-APP_VERSION = 2.2.0
+APP_VERSION = 2.9.0
 APP_KEY=your-app-id
 APP_API_KEY = "default"
 DEMO_MODE = false
 NEWS_FEED_URL = https://api.ignitercms.com/api-service/get-news-feed
 AI_KNOWLEDGE_BASE_URL = https://api.ignitercms.com/api-service/get-ai-knowledge-base/
 CUSTOM_GEMINI_REQUEST_URL = https://api.ignitercms.com/api-service/get-ai-response/
-PUBLIC_GEMINI_REQUEST_KEY = HL3SG0Q3Fm9mDDK57raurKnQ5Pfs1LJm0UgR1RXS1EeIFraw6oPE3p2o9OLo8MwKX0loW6EXGELhXP0aB3k48PYSZTpYM82JlyE2RZlVYfNZvWOgoeMOmVBHVIAz1xaB
+PUBLIC_GEMINI_REQUEST_KEY = public.UfRMZG3eizjP87Pnvsh51X3A6DHop0lnUi4LSym7LbT73kU83kpDd9Z1vb517AGK3rHElOpm4UpGBflUE3V9D60js7OMUsPtyGCDroGtAyxYJSCihSWD8xdCronVlttH
 PLUGIN_API_REQUEST_KEY = plugin-api-request-key
 REMEMBER_ME_COOKIE = "__ci_token"
 THEMES_API_ENDPOINT = https://api.ignitercms.com/api-service/get-themes/

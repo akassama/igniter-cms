@@ -63,6 +63,10 @@ echo generateBreadcrumb($breadcrumb_links);
                     <label for="subject" class="form-label">Subject</label>
                     <input type="text" class="form-control" id="subject" name="subject" value="<?= $contact_message_data['subject'] ?>" readonly>
                 </div>
+                <div class="col-sm-12 col-md-3 mb-3">
+                    <label for="service" class="form-label">Service</label>
+                    <input type="text" class="form-control" id="service" name="service" value="<?= $contact_message_data['service'] ?>" readonly>
+                </div>
                 <div class="col-sm-12 col-md-12 mb-3">
                     <label for="message" class="form-label">Message</label>
                     <div class="border border-dark rounded p-2" id="message" name="message"><?= $contact_message_data['message'] ?></div>
