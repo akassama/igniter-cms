@@ -233,6 +233,7 @@ CREATE TABLE `booking_form_submissions` (
   `appointment_time` time DEFAULT NULL,
   `duration` int DEFAULT NULL,
   `number_of_attendees` int DEFAULT NULL,
+  `location` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `message` text COLLATE utf8mb4_general_ci,
   `status` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
   `confirmation_code` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,

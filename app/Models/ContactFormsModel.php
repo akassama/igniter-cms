@@ -19,7 +19,8 @@ class ContactFormsModel extends Model
 		'name', 
 		'email', 
 		'phone', 
-		'subject', 
+		'subject',
+		'service',
 		'message',
         'company', 
 		'website', 
@@ -90,6 +91,7 @@ class ContactFormsModel extends Model
             'email'           => $param['email'] ?? null,
             'phone'           => $param['phone'] ?? null,
             'subject'         => $param['subject'] ?? null,
+            'service'         => $param['service'] ?? null,
             'message'         => $param['message'] ?? null,
             'company'         => $param['company'] ?? null,
             'website'         => $param['website'] ?? null,
@@ -123,6 +125,7 @@ class ContactFormsModel extends Model
         $existingMessage['email']       = $param['email']       ?? $existingMessage['email'];
         $existingMessage['phone']       = $param['phone']       ?? $existingMessage['phone'];
         $existingMessage['subject']     = $param['subject']     ?? $existingMessage['subject'];
+        $existingMessage['service']     = $param['service']     ?? $existingMessage['service'];
         $existingMessage['message']     = $param['message']     ?? $existingMessage['message'];
         $existingMessage['company']     = $param['company']     ?? $existingMessage['company'];
         $existingMessage['website']     = $param['website']     ?? $existingMessage['website'];

@@ -36,6 +36,7 @@ class FormRequestsController extends BaseController
         $fromEmail = $this->request->getPost('email');
         $phone = $this->request->getPost('phone');
         $subject = $this->request->getPost('subject') ?? 'Contact Message';
+        $service = $this->request->getPost('service');
         $message = $this->request->getPost('message');
         $company = $this->request->getPost('company');
         $website = $this->request->getPost('website');
@@ -64,6 +65,7 @@ class FormRequestsController extends BaseController
                 'email' => $fromEmail,
                 'phone' => $phone,
                 'subject' => $subject,
+                'service' => $service,
                 'message' => $message,
                 'company' => $company,
                 'website' => $website,
@@ -106,6 +108,7 @@ class FormRequestsController extends BaseController
                         .(!empty($name) ? '<li><strong>Name:</strong> ' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . '</li>' : '')
                         .'<li><strong>Email:</strong> ' . htmlspecialchars($fromEmail, ENT_QUOTES, 'UTF-8') . '</li>'
                         .(!empty($phone) ? '<li><strong>Phone:</strong> ' . htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') . '</li>' : '')
+                        .(!empty($service) ? '<li><strong>Phone:</strong> ' . htmlspecialchars($service, ENT_QUOTES, 'UTF-8') . '</li>' : '')
                         .(!empty($company) ? '<li><strong>Company:</strong> ' . htmlspecialchars($company, ENT_QUOTES, 'UTF-8') . '</li>' : '')
                         .(!empty($website) ? '<li><strong>Website:</strong> ' . htmlspecialchars($website, ENT_QUOTES, 'UTF-8') . '</li>' : '')
                         .'</ul>'
@@ -337,7 +340,6 @@ class FormRequestsController extends BaseController
         // VALIDATION: email and appointment_date are required
         $rules = [
             'email'              => 'required|valid_email',
-            'appointment_date'   => 'required',
         ];
 
         if (!$this->validate($rules)) {
@@ -368,6 +370,7 @@ class FormRequestsController extends BaseController
         $appointmentTime    = $this->request->getPost('appointment_time');
         $duration           = $this->request->getPost('duration');
         $numberOfAttendees  = $this->request->getPost('number_of_attendees');
+        $location           = $this->request->getPost('location');
         $message            = $this->request->getPost('message');
         $resourceId         = $this->request->getPost('resource_id');
         $resourceName       = $this->request->getPost('resource_name');
@@ -396,6 +399,7 @@ class FormRequestsController extends BaseController
                 'appointment_time'    => $appointmentTime,
                 'duration'            => $duration,
                 'number_of_attendees' => $numberOfAttendees,
+                'location'            => $location,
                 'message'             => $message,
                 'status'              => 'Pending',
                 'confirmation_code'   => null,

@@ -27,6 +27,7 @@ class BookingFormsModel extends Model
         'appointment_time',
         'duration',
         'number_of_attendees',
+        'location',
         'message',
         'status',
         'confirmation_code',
@@ -106,6 +107,7 @@ class BookingFormsModel extends Model
             'appointment_time'     => $param['appointment_time']     ?? null,
             'duration'             => $param['duration']             ?? null,
             'number_of_attendees'  => $param['number_of_attendees']  ?? null,
+            'location'             => $param['location']             ?? null,
             'message'              => $param['message']              ?? null,
             'status'               => $param['status']               ?? 'pending',
             'confirmation_code'    => $param['confirmation_code']    ?? null,
@@ -147,6 +149,7 @@ class BookingFormsModel extends Model
         $existingBooking['appointment_time']    = $param['appointment_time']    ?? $existingBooking['appointment_time'];
         $existingBooking['duration']            = $param['duration']            ?? $existingBooking['duration'];
         $existingBooking['number_of_attendees'] = $param['number_of_attendees'] ?? $existingBooking['number_of_attendees'];
+        $existingBooking['location']            = $param['location']            ?? $existingBooking['location'];
         $existingBooking['message']             = $param['message']             ?? $existingBooking['message'];
         $existingBooking['status']              = $param['status']              ?? $existingBooking['status'];
         $existingBooking['confirmation_code']   = $param['confirmation_code']   ?? $existingBooking['confirmation_code'];

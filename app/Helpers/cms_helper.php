@@ -3124,7 +3124,7 @@ if (!function_exists('renderSearchResults')) {
             margin: 0 auto;
             padding: 2rem 1rem;
             font-family: system-ui, -apple-system, sans-serif;
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
         }
         .sr-grid {
             display: grid;
@@ -3154,7 +3154,7 @@ if (!function_exists('renderSearchResults')) {
         }
         .sr-subtitle {
             font-size: 1.25rem;
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             margin: 0;
         }
         .sr-section {
@@ -3213,7 +3213,7 @@ if (!function_exists('renderSearchResults')) {
             font-weight: 500;
         }
         .sr-item-desc {
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             margin: 0 0 0.5rem 0;
             line-height: 1.5;
         }
@@ -3263,7 +3263,7 @@ if (!function_exists('renderSearchResults')) {
             font-weight: 500;
         }
         .sr-blog-date {
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             font-size: 0.875rem;
         }
         .sr-blog-title {
@@ -3274,7 +3274,7 @@ if (!function_exists('renderSearchResults')) {
             line-height: 1.4;
         }
         .sr-blog-excerpt {
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             margin: 0 0 1.25rem 0;
             line-height: 1.5;
         }
@@ -3354,7 +3354,7 @@ if (!function_exists('renderSearchResults')) {
                     <div class="sr-card sr-center">
                         <span class="sr-icon sr-icon-large"><i class="ri-heart-fill text-danger"></i></span>
                         <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: <?=$heading_color?>;">Not the results you were looking for?</h2>
-                        <p style="margin: 0 0 2rem 0; color: <?=$contrast_color?>;">Help us improve your search experience by telling us what you were looking for.</p>
+                        <p style="margin: 0 0 2rem 0; color: <?=$default_color?>;">Help us improve your search experience by telling us what you were looking for.</p>
                         <form action="<?= base_url('search') ?>" method="get" class="sr-form">
                             <input type="text" name="q" class="sr-input" placeholder="What were you searching for?" value="<?= esc($searchQuery) ?>" required>
                             <button type="submit" class="sr-button">Search Again</button>
@@ -3435,7 +3435,7 @@ if (!function_exists('renderSearchResults')) {
                     <div class="sr-card sr-center">
                         <span class="sr-icon sr-icon-large"><i class="ri-search-line"></i></span>
                         <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: <?=$heading_color?>;">Not what you were looking for?</h2>
-                        <p style="margin: 0 0 2rem 0; color: <?=$contrast_color?>;">Help us improve your search experience.</p>
+                        <p style="margin: 0 0 2rem 0; color: <?=$default_color?>;">Help us improve your search experience.</p>
                         <form action="<?= base_url('search') ?>" method="get" class="sr-form">
                             <input type="text" name="q" class="sr-input" placeholder="Try a different search term" value="<?= esc($searchQuery) ?>">
                             <button type="submit" class="sr-button">Search Again</button>
@@ -3491,7 +3491,7 @@ if (!function_exists('renderFilterSearchResults')) {
             margin: 0 auto;
             padding: 2rem 1rem;
             font-family: system-ui, -apple-system, sans-serif;
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
         }
         .fr-header {
             background: <?=$default_color?>;
@@ -3592,7 +3592,7 @@ if (!function_exists('renderFilterSearchResults')) {
             font-weight: 500;
         }
         .fr-item-desc {
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             margin: 0 0 0.5rem 0;
             line-height: 1.5;
         }
@@ -3642,7 +3642,7 @@ if (!function_exists('renderFilterSearchResults')) {
             font-weight: 500;
         }
         .fr-blog-date {
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             font-size: 0.875rem;
         }
         .fr-blog-title {
@@ -3653,7 +3653,7 @@ if (!function_exists('renderFilterSearchResults')) {
             line-height: 1.4;
         }
         .fr-blog-excerpt {
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             margin: 0 0 1.25rem 0;
             line-height: 1.5;
         }
@@ -3741,7 +3741,7 @@ if (!function_exists('renderFilterSearchResults')) {
                     <div class="fr-card fr-center">
                         <span class="fr-icon fr-icon-large"><i class="ri-filter-line"></i></span>
                         <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: <?=$heading_color?>;">Refine Your Search</h2>
-                        <p style="margin: 0 0 2rem 0; color: <?=$contrast_color?>;">Try a different <?= strtolower($typeLabel) ?> or search with different criteria.</p>
+                        <p style="margin: 0 0 2rem 0; color: <?=$default_color?>;">Try a different <?= strtolower($typeLabel) ?> or search with different criteria.</p>
                         <form action="<?= base_url('search') ?>" method="get" class="fr-form">
                             <input type="text" name="q" class="fr-input" placeholder="Try a different keyword" value="<?= esc($searchQuery) ?>">
                             <button type="submit" class="fr-button">Search Again</button>
@@ -3828,7 +3828,7 @@ if (!function_exists('renderFilterSearchResults')) {
                     <div class="fr-card fr-center">
                         <span class="fr-icon fr-icon-large"><i class="ri-filter-line"></i></span>
                         <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: <?=$heading_color?>;">Need Different Results?</h2>
-                        <p style="margin: 0 0 2rem 0; color: <?=$contrast_color?>;">Try searching with different criteria or browse all content.</p>
+                        <p style="margin: 0 0 2rem 0; color: <?=$default_color?>;">Try searching with different criteria or browse all content.</p>
                         <form action="<?= base_url('search') ?>" method="get" class="fr-form">
                             <input type="text" name="q" class="fr-input" placeholder="Search again..." value="<?= esc($searchQuery) ?>">
                             <button type="submit" class="fr-button">Search</button>
@@ -3912,7 +3912,7 @@ if (!function_exists('renderBlogsGrid')) {
             font-weight: 500;
         }
         .bg-date {
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             font-size: 0.875rem;
             display: flex;
             align-items: center;
@@ -3926,7 +3926,7 @@ if (!function_exists('renderBlogsGrid')) {
             line-height: 1.4;
         }
         .bg-excerpt {
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             margin: 0 0 1.5rem 0;
             line-height: 1.5;
         }
@@ -3951,7 +3951,7 @@ if (!function_exists('renderBlogsGrid')) {
         .bg-empty {
             text-align: center;
             padding: 3rem 2rem;
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             grid-column: 1 / -1;
         }
         .bg-icon {
@@ -4043,7 +4043,7 @@ if (!function_exists('renderBlogContent')) {
             gap: 1.5rem;
             margin-bottom: 1.5rem;
             flex-wrap: wrap;
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             font-size: 0.95rem;
         }
         .bc-meta-item {
@@ -4112,7 +4112,7 @@ if (!function_exists('renderBlogContent')) {
             padding-left: 1.5rem;
             margin: 2rem 0;
             font-style: italic;
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
         }
         .bc-icon {
             font-size: 1.1em;
@@ -4251,7 +4251,7 @@ if (!function_exists('renderBlogSidebar')) {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             text-decoration: none;
             transition: color 0.3s ease;
             padding: 0.25rem 0;
@@ -4327,7 +4327,7 @@ if (!function_exists('renderBlogSidebar')) {
             color: <?=$default_color?>;
         }
         .bs-recent-meta {
-            color: <?=$contrast_color?>;
+            color: <?=$default_color?>;
             font-size: 0.875rem;
             display: flex;
             align-items: center;
@@ -4703,6 +4703,11 @@ if (!function_exists('renderBlogComments')) {
                                             <textarea class="c-input c-textarea" name="comment" rows="3" required placeholder="Write your reply here..."></textarea>
                                         </div>
 
+                                        <div class="col-12">
+                                            <!--captcha validation-->
+                                            <?= renderCaptcha() ?>
+                                        </div>
+
                                         <button type="submit" class="c-btn c-btn-success">Post Reply</button>
                                         <button type="button" class="c-btn c-btn-secondary-outline" data-bs-toggle="collapse" data-bs-target="#replyForm-<?=$comment['comment_form_id']?>">Cancel</button>
                                     </form>
@@ -4766,6 +4771,11 @@ if (!function_exists('renderBlogComments')) {
                     <label for="remember_me">
                     Save my name and email in this browser for the next time I comment.
                     </label>
+                </div>
+
+                <div class="col-12">
+                    <!--captcha validation-->
+                    <?= renderCaptcha() ?>
                 </div>
 
                 <button type="submit" class="c-btn c-btn-primary">Post Comment</button>

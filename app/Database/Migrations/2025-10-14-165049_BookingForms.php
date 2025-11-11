@@ -75,6 +75,11 @@ public function up()
                 'constraint' => 11,
                 'null'       => true,
             ],
+            'location' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true,
+            ],
             'message' => [
                 'type'       => 'TEXT',
                 'null'       => true,
