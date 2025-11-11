@@ -211,7 +211,7 @@ class AppearanceController extends BaseController
         // Theme uploaded successfully. Redirect to themes
         $createSuccessMsg = str_replace('[Record]', 'Theme', config('CustomConfig')->createSuccessMsg);
         session()->setFlashdata('successAlert', $createSuccessMsg);
-        return redirect()->to('/account/appearance/themes');
+        return redirect()->to('/account/appearance/themes?tid='.$themeConfig['path']);
     }
   
     public function editTheme($themeId)
