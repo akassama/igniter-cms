@@ -113,6 +113,14 @@ class SignInController extends BaseController
                 // Log activity
                 logActivity($user['user_id'], ActivityTypes::USER_LOGIN, 'User logged in with id: ' . $user['user_id']);
 
+                // Update last login date
+                $userId = $user['user_id'];
+                $updatedData = [
+                    'last_login' => date('Y-m-d H:i:s')
+                ];
+                $updateWhereClause = "user_id = '$userId'";
+                updateRecord('users', $updatedData, $updateWhereClause);
+
                 if (!empty($returnUrl)) {
                     return redirect()->to($returnUrl);
                 }

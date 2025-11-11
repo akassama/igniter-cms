@@ -25,7 +25,7 @@ class UsersModel extends Model
     protected $protectFields    = true;
     protected $allowedFields = [
         'user_id', 
-        'first_name', 
+        'first_name',
         'last_name', 
         'username', 
         'email', 
@@ -42,6 +42,7 @@ class UsersModel extends Model
         'password_change_required',
         'remember_token',
         'expires_at',
+        'last_login',
     ];
 
     protected bool $allowEmptyInserts = false;

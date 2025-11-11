@@ -104,6 +104,10 @@ class Users extends Migration
                 'type' => 'TIMESTAMP',
                 'null' => true
             ],
+            'last_login' => [
+                'type' => 'TIMESTAMP',
+                'null' => true
+            ],
             'created_at datetime default current_timestamp',
             'updated_at datetime default current_timestamp on update current_timestamp',
         ]);
