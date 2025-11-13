@@ -49,6 +49,9 @@ echo generateBreadcrumb($breadcrumb_links);
                         Editing <?='.../Views/front-end/themes/'.getCurrentTheme().'/search/'.$siteCSSFilename?>
                     </div>
                     <div>
+                        <a href="<?= base_url('account/appearance/theme-editor/save-version?id=site-css') ?>" class="btn btn-outline-secondary me-2" id="saveVersionBtn">
+                            <i class="ri-history-line"></i> Save Version
+                        </a>
                         <button type="submit" class="btn btn-outline-primary">
                             <i class="ri-save-line"></i> Save File
                         </button>

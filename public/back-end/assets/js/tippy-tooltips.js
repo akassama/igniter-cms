@@ -283,3 +283,8 @@ tippy(".unapprove-comment", {
   content: "Unapprove comment",
   placement: "top",
 });
+//Revision
+tippy(".remove-revision", {
+  content: "Remove revision",
+  placement: "top",
+});

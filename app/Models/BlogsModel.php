@@ -33,11 +33,13 @@ class BlogsModel extends Model
         'category', 
         'tags', 
         'is_featured',
+        'is_breaking',
         'status',
         'total_views',
         'meta_title', 
         'meta_description', 
         'meta_keywords',
+        'author',
         'created_by', 
         'updated_by'
     ];
@@ -95,10 +97,12 @@ class BlogsModel extends Model
             'category' => $param['category'],
             'tags' => $param['tags'],
             'is_featured' => $param['is_featured'],
+            'is_breaking' => $param['is_breaking'],
             'status' => $param['status'],
             'meta_title' => $param['meta_title'],
             'meta_description' => $param['meta_description'],
             'meta_keywords' => $param['meta_keywords'],
+            'author' => $param['author'],
             'created_by' => $param['created_by'],
             'updated_by' => $param['updated_by']
         ];
@@ -126,7 +130,9 @@ class BlogsModel extends Model
         $existingBlog['category'] = $param['category'];
         $existingBlog['tags'] = $param['tags'];
         $existingBlog['is_featured'] = $param['is_featured'];
+        $existingBlog['is_breaking'] = $param['is_breaking'];
         $existingBlog['status'] = $param['status'];
+        $existingBlog['author'] = $param['author'];
         $existingBlog['meta_title'] = $param['meta_title'];
         $existingBlog['meta_description'] = $param['meta_description'];
         $existingBlog['meta_keywords'] = $param['meta_keywords'];

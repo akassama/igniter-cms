@@ -1994,6 +1994,30 @@ if(!function_exists('getBlogCategorySelectOptions'))
     }
 }
 
+/**
+ * Fetches and displays user options in a dropdown.
+ *
+ * @param int|null $userId The ID of the userId to be selected (optional).
+ * @return void
+ */
+if(!function_exists('getUserSelectOptions'))
+{
+    function getUserSelectOptions($userId = null)
+    {
+        $tableName = "users";
+        $db = \Config\Database::connect();
+        $query = $db->table($tableName)
+                     ->orderBy('username', 'ASC')
+                     ->get();
+
+        $selected = "";
+        foreach ($query->getResult() as $row) {
+            $selected = $row->user_id == $userId ? "selected" : "";
+            echo "<option value='$row->user_id' $selected>$row->first_name $row->last_name</option>";
+        }
+    }
+}
+
 
 /**
  * Fetches and displays blog category options in a dropdown.
@@ -2226,6 +2250,7 @@ if(!function_exists('getRecentPosts'))
             $status = $row->status;
             $statusLabel = $status == "1" ? "Published" : "Draft";
             $statusClass = $status == "1" ? "success" : "danger";
+            $author = $row->author;
             $createdBy = $row->created_by;
             $createdAt = $row->created_at;
 
@@ -2236,7 +2261,7 @@ if(!function_exists('getRecentPosts'))
                     <td>".$title."</td>
                     <td>".getBlogCategoryName($category)."</td>
                     <td><span class='badge bg-".$statusClass." p-2'>".$statusLabel."</span></td>
-                    <td>".getActivityBy(esc($createdBy))."</td>
+                    <td>".getActivityBy(esc($author))."</td>
                     <td>".dateFormat($createdAt, 'd-m-Y')."</td>
                 </tr>";
             $rowCount++;
@@ -2371,6 +2396,7 @@ if (!function_exists('getMostVisitedPages')) {
             $statusLabel = $status == "1" ? "Published" : "Draft";
             $statusClass = $status == "1" ? "success" : "danger";
             $totalViews = $row->total_views;
+            $author = $row->author;
             $createdBy = $row->created_by;
             $createdAt = $row->created_at;
 
@@ -2908,7 +2934,7 @@ if (!function_exists('configDataDecryption')) {
  *
  * @param string $themePath The path of the theme.
  * @param string $returnColumn The column to return in the query result.
- * @return mixed The value of the specified column if found, or null if no record is found.
+ * @return mixed The value of the specified column if found, or null if no record is found, or an empty string on error.
  */
 if (!function_exists('getThemeData')) {
     function getThemeData(string $themePath, string $returnColumn)
@@ -2931,19 +2957,30 @@ if (!function_exists('getThemeData')) {
                 ->where($whereClause)
                 ->orWhere($orWhereClause)
                 ->get();
-    
+
+            // Check if the query execution failed (returns false on error in CI4)
+            if ($query === false) {
+                return "";
+            }
+            
             // Check if any rows are returned
             if ($query->getNumRows() === 0) {
-                // No record found, return null
                 return null;
             }
     
             // Retrieve the result
             $row = $query->getRow();
-            return $row->$returnColumn;
+
+            // Validate that the property exists before accessing it
+            if (property_exists($row, $returnColumn)) {
+                return $row->$returnColumn;
+            } else {
+                return "";
+            }
+
         }
-            //catch exception
-        catch(Exception $e) {
+        // Catch any other exceptions
+        catch(\Exception $e) {
             return "";
         }
     }
@@ -4132,9 +4169,9 @@ if (!function_exists('renderBlogContent')) {
                         </div>
                         
                         <div class="bc-meta-item">
-                            <a href="<?= base_url('/search/filter/?type=author&key='.getUserData($blog_data['created_by'], "username"))?>" class="bc-author">
-                                <img loading="lazy" src="<?=getImageUrl(getUserData($blog_data['created_by'], "profile_picture") ?? getDefaultProfileImagePath())?>" class="bc-author-image" alt="<?= $blog_data['title'] ?>">
-                                <?= getActivityBy(esc($blog_data['created_by'])); ?>
+                            <a href="<?= base_url('/search/filter/?type=author&key='.getUserData($blog_data['author'], "username"))?>" class="bc-author">
+                                <img loading="lazy" src="<?=getImageUrl(getUserData($blog_data['author'], "profile_picture") ?? getDefaultProfileImagePath())?>" class="bc-author-image" alt="<?= $blog_data['title'] ?>">
+                                <?= getActivityBy(esc($blog_data['author'])); ?>
                             </a>
                         </div>
                     </div>

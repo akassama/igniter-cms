@@ -139,6 +139,10 @@ $userRole = getUserRole($sessionEmail);
                                     <a class="nav-link <?= (str_contains(current_url(), 'account/appearance/theme-editor')) ? 'active' : ''; ?>" href="<?= base_url('/account/appearance/theme-editor'); ?>">
                                         <i class="ri-arrow-drop-right-fill"></i> Theme Editor
                                     </a>
+
+                                    <a class="nav-link <?= (str_contains(current_url(), 'account/appearance/theme-editor/revisions')) ? 'active' : ''; ?>" href="<?= base_url('/account/appearance/theme-editor/revisions'); ?>">
+                                        <i class="ri-arrow-drop-right-fill"></i> Theme Revisions
+                                    </a>
                                 <?php endif; ?>
                             </nav>
                         </div>

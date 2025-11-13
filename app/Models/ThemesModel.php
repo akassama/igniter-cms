@@ -33,6 +33,7 @@ class ThemesModel extends Model
         'selected',
         'override_default_style',
         'use_static_theme_nav',
+        'plugins_required',
         'deletable',
         'created_by',
         'updated_by'
@@ -93,6 +94,7 @@ class ThemesModel extends Model
             'selected' => $param['selected'],
             'override_default_style' => $param['override_default_style'],
             'use_static_theme_nav' => $param['use_static_theme_nav'],
+            'plugins_required' => $param['plugins_required'],
             'deletable' => $param['deletable'],
             'created_by' => $param['created_by'],
             'updated_by' => $param['updated_by']
@@ -126,6 +128,7 @@ class ThemesModel extends Model
         $existingTheme['selected'] = $param['selected'];
         $existingTheme['override_default_style'] = $param['override_default_style'];
         $existingTheme['use_static_theme_nav'] = $param['use_static_theme_nav'];
+        $existingTheme['plugins_required'] = $param['plugins_required'];
         $existingTheme['deletable'] = $param['deletable'];
         $existingTheme['created_by'] = $param['created_by'];
         $existingTheme['updated_by'] = $param['updated_by'];

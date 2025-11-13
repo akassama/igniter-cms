@@ -48,10 +48,19 @@ class Blogs extends Migration
                 'default' => false,
                 'null' => true,
             ],
+            'is_breaking' => [
+                'type' => 'BOOLEAN',
+                'default' => false,
+                'null' => true,
+            ],
             'status' => [
                 'type' => 'INT',
                 'default' => 0,
                 'null' => true,
+            ],
+            'author' => [
+                'type' => 'VARCHAR',
+                'constraint' => 50,
             ],
             'created_by' => [
                 'type' => 'VARCHAR',
@@ -107,6 +116,7 @@ class Blogs extends Migration
                 'tags' => 'AI, healthcare, technology, future',
                 'is_featured' => false,
                 'status' => 1,
+                'author' => getGUID(getDefaultAdminGUID()),
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'created_at' => date('Y-m-d H:i:s', strtotime('-1 hour')),
@@ -126,6 +136,7 @@ class Blogs extends Migration
                 'tags' => 'office, stakes, competitive',
                 'is_featured' => false,
                 'status' => 1,
+                'author' => getGUID(getDefaultAdminGUID()),
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'created_at' => date('Y-m-d H:i:s', strtotime('-2 hours')),
@@ -145,6 +156,7 @@ class Blogs extends Migration
                 'tags' => 'sustainability, eco-friendly, lifestyle',
                 'is_featured' => false,
                 'status' => 1,
+                'author' => getGUID(getDefaultAdminGUID()),
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null,
                 'created_at' => date('Y-m-d H:i:s', strtotime('-3 hours')),
