@@ -329,9 +329,6 @@ $adminBar = renderAdminBar();
         <?= $themeData['customJSFooter'] ?>
     <?php endif; ?>
 
-    <!-- Global modal for search -->
-    <?=$this->include('front-end/themes/_shared/_global_search_modal.php'); ?>
-
     <?= $this->include('front-end/layout/assets/sweet_alerts.php'); ?>
 
     <!--Load Footer Plugin Helpers-->

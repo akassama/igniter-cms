@@ -369,22 +369,6 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
-                'config_for' => 'EnableGlobalSearchIcon',
-                'config_value' => 'Yes',
-                'group' => 'site',
-                'data_type' => 'Select',
-                'options' => 'Yes,No',
-                'default_value' => 'Yes',
-                'deletable' => 0,
-                'description' => 'Enable or disable global search icon feature.',
-                'created_by' => getGUID(getDefaultAdminGUID()),
-                'updated_by' => null,
-                'custom_class' => '',
-                'icon' => 'ri-search-line',
-                'search_terms' => 'search,global search,search modal'
-            ],
-            [
-                'config_id' => getGUID(),
                 'config_for' => 'HoneypotKey',
                 'config_value' => 'igniter_hpot_val',
                 'group' => 'security',

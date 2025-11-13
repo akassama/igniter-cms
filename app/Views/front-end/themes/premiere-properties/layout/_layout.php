@@ -287,9 +287,6 @@ $adminBar = renderAdminBar();
         <?= $themeData['customJSFooter'] ?>
     <?php endif; ?>
 
-    <!-- Global modal for search -->
-    <?=$this->include('front-end/themes/_shared/_global_search_modal.php'); ?>
-
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
     <?= $this->include('front-end/layout/assets/sweet_alerts.php'); ?>
