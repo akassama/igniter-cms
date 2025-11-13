@@ -31,6 +31,7 @@ class PagesModel extends Model
         'group',
         'status',
         'total_views',
+        'author',
         'created_by',
         'updated_by',
         'meta_title',
@@ -88,6 +89,7 @@ class PagesModel extends Model
             'content' => $param['content'],
             'group' => $param['group'],
             'status' => $param['status'],
+            'author' => $param['author'],
             'created_by' => $param['created_by'],
             'updated_by' => $param['updated_by'],
             'meta_title' => $param['meta_title'],
@@ -111,6 +113,7 @@ class PagesModel extends Model
         $existingPage['content'] = $param['content'];
         $existingPage['group'] = $param['group'];
         $existingPage['status'] = $param['status'];
+        $existingPage['author'] = $param['author'];
         $existingPage['created_by'] = $param['created_by'];
         $existingPage['updated_by'] = $param['updated_by'];
         $existingPage['meta_title'] = $param['meta_title'];
