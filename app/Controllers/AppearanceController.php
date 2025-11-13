@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Constants\ActivityTypes;
 use App\Models\ThemesModel;
+use App\Models\ThemeRevisionsModel;
 
 class AppearanceController extends BaseController
 {
@@ -729,5 +730,109 @@ class AppearanceController extends BaseController
         }
     
         return redirect()->to('/account/appearance/theme-editor/'.$filePage)->with('success', 'File saved successfully.');
+    }
+
+    // In AppearanceController.php (assuming necessary setup and ThemeRevisionsModel)
+    public function saveVersion()
+    {
+        // Load the model
+        $revisionModel = new ThemeRevisionsModel();
+        $session = session();
+
+        // 1. Get identifiers
+        $loggedInUserId = $session->get('user_id');
+        // Assuming getCurrentTheme() is a helper/method that returns the active theme name
+        $themeName = getCurrentTheme(); 
+        $fileId = $this->request->getGet('id');
+        
+        // Base path for theme files
+        $baseThemePath = APPPATH . 'Views/front-end/themes/' . $themeName; 
+
+        if (empty($fileId)) {
+            return redirect()->to('/account/appearance/theme-editor');
+        }
+
+        // 2. Determine File Path and Content
+        $filePathName = ""; // Relative path (for DB storage)
+        $fullFilePath = ""; // Full system path (for reading)
+
+        switch ($fileId) {
+            case "layout":
+                $filePathName = "/layout/_layout.php";
+                break;
+            case "home":
+                $filePathName = "/home/index.php";
+                break;
+            case "blogs":
+                $filePathName = "/blogs/index.php";
+                break;
+            case "view-blog":
+                $filePathName = "/blogs/view-blog.php";
+                break;
+            case "view-page":
+                $filePathName = "/pages/view-page.php";
+                break;
+            case "search":
+                $filePathName = "/search/index.php";
+                break;
+            case "filter":
+                $filePathName = "/search/filter.php";
+                break;
+            case "site-css":
+                $filePathName = "/assets/css/site.css";
+                break;
+            case "site-js":
+                $filePathName = "/assets/js/site.js";
+                break;
+            default:
+                return redirect()->to('/account/appearance/theme-editor')->with('error', 'Invalid file identifier.');
+        }
+        
+        $fullFilePath = $baseThemePath . $filePathName;
+
+        // Check if the file exists on the disk
+        if (!is_file($fullFilePath)) {
+            return redirect()->to('/account/appearance/theme-editor')->with('error', 'Theme file not found on the server.');
+        }
+        
+        // Read the content of the file from the filesystem
+        $fileContent = file_get_contents($fullFilePath);
+        
+        // 3. Save file copy in db
+        $themeRevisionId = getGUID(); // Generating UUID for custom primary key
+
+        $data = [
+            'theme_revision_id' => $themeRevisionId,
+            'theme_name'        => $themeName,
+            'file_path'         => $filePathName, // Save the relative path
+            'file_content'      => $fileContent,  // Content from the disk
+            'revision_note'     => 'Revision saved via editor button.',
+            'created_by'        => $loggedInUserId,
+        ];
+
+        $fileSaved = $revisionModel->insert($data);
+
+        // 4. Redirect with status
+        if (!$fileSaved) {
+            // Use $fileId for redirect since that's what's expected by the editor view
+            return redirect()->to('/account/appearance/theme-editor/' . $fileId)->with('error', 'Failed to save the file version to the database.');
+        }
+
+        return redirect()->to('/account/appearance/theme-editor/' . $fileId)->with('success', 'File version saved successfully.');
+    }
+
+    public function themeVersions()
+    {
+        $tableName = 'theme_revisions';
+        $themesRevisionsModel = new ThemeRevisionsModel();
+
+        // Set data to pass in view
+        $data = [
+            'theme_revisions' => $themesRevisionsModel->orderBy('created_at', 'DESC')->paginate(intval(env('PAGINATE_HIGH', 100))),
+            'pager' => $themesRevisionsModel->pager,
+            'total_revisions' => $themesRevisionsModel->pager->getTotal()
+        ];
+    
+        return view('back-end/appearance/revisions/index', $data);
     }
 }

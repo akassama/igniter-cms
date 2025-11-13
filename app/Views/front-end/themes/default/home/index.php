@@ -1,5 +1,5 @@
 <?php
-// This is to get current impact
+// v1 - Home This is to get current impact
 $theme = getCurrentTheme();
 
 //page settings

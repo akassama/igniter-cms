@@ -185,6 +185,8 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
             $routes->get('appearance/theme-editor/site-css', 'AppearanceController::siteCSSFileEditor');
             $routes->get('appearance/theme-editor/site-js', 'AppearanceController::siteJSFileEditor');
             $routes->post('appearance/theme-editor/save-file', 'AppearanceController::saveFile');
+            $routes->get('appearance/theme-editor/save-version', 'AppearanceController::saveVersion');
+            $routes->get('appearance/theme-editor/revisions', 'AppearanceController::themeVersions');
         }
     }
 
