@@ -775,7 +775,7 @@ class AppearanceController extends BaseController
             case "search":
                 $filePathName = "/search/index.php";
                 break;
-            case "filter":
+            case "search-filter":
                 $filePathName = "/search/filter.php";
                 break;
             case "site-css":
@@ -785,14 +785,20 @@ class AppearanceController extends BaseController
                 $filePathName = "/assets/js/site.js";
                 break;
             default:
-                return redirect()->to('/account/appearance/theme-editor')->with('error', 'Invalid file identifier.');
+                return redirect()->to('/account/appearance/theme-editor')->with('errorAlert', 'Invalid file identifier.');
+        }
+
+        //update base path if site.css or site.js
+        if($fileId === "site-css" || $fileId === "site-js"){
+            // Base path for theme files
+            $baseThemePath = FCPATH . 'public/front-end/themes/' . $themeName; 
         }
         
         $fullFilePath = $baseThemePath . $filePathName;
 
         // Check if the file exists on the disk
         if (!is_file($fullFilePath)) {
-            return redirect()->to('/account/appearance/theme-editor')->with('error', 'Theme file not found on the server.');
+            return redirect()->to('/account/appearance/theme-editor')->with('errorAlert', 'Theme file not found on the server.');
         }
         
         // Read the content of the file from the filesystem
@@ -815,7 +821,7 @@ class AppearanceController extends BaseController
         // 4. Redirect with status
         if (!$fileSaved) {
             // Use $fileId for redirect since that's what's expected by the editor view
-            return redirect()->to('/account/appearance/theme-editor/' . $fileId)->with('error', 'Failed to save the file version to the database.');
+            return redirect()->to('/account/appearance/theme-editor/' . $fileId)->with('errorAlert', 'Failed to save the file version to the database.');
         }
 
         return redirect()->to('/account/appearance/theme-editor/' . $fileId)->with('success', 'File version saved successfully.');
