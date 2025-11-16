@@ -16,6 +16,7 @@
     echo generateBreadcrumb($breadcrumb_links);
 ?>
 <div class="row">
+    <p><?=getSiteKnowledgeBaseInJson()?></p>
     <!--Content-->
     <div class="col-12">
         <div class="row">

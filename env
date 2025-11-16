@@ -155,7 +155,7 @@ NOTIFY_COMMENTER_EMAIL = true
 #--------------------------------------------------------------------
 # CAPTCHA SETTINGS
 #--------------------------------------------------------------------
-USE_CAPTCHA = "Yes"
+USE_CAPTCHA = "No"
 CAPTCHA_TYPE = "gregwar" # Options: gregwar,recaptcha,hcaptcha,cloudflare
 RECAPTCHA_SITE_KEY = "your-recaptcha-site-key"
 RECAPTCHA_SECRET = "your-recaptcha-secret"

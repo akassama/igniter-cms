@@ -29,7 +29,7 @@ class Database extends Config
         'hostname'     => ENVIRONMENT === 'production' ? 'prod_hostname' : 'localhost',
         'username'     => ENVIRONMENT === 'production' ? 'prod_db_username' : 'root',
         'password'     => ENVIRONMENT === 'production' ? 'prod_db_password' : 'mysql',
-        'database'     => ENVIRONMENT === 'production' ? 'prod_db' : 'igniter_cms_pro_db',
+        'database'     => ENVIRONMENT === 'production' ? 'prod_db' : 'igniter_cms_db',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,

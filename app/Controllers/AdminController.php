@@ -1059,7 +1059,7 @@ class AdminController extends BaseController
         try {
             // Get database configuration
             $hostname = env('database.default.hostname', 'localhost');
-            $databaseName = env('database.default.database', 'igniter_cms_pro_db');
+            $databaseName = env('database.default.database', 'igniter_cms_db');
             
             // Generate file name with date and time
             $fileName = 'backup_' . date('Y-m-d_H-i-s') .'-'. rand(). '.sql';

@@ -1210,7 +1210,8 @@ if (!function_exists('getSiteKnowledgeBaseInJson')) {
             $response = $client->request('GET', $url, [
                 'timeout' => 30,
                 'verify' => false,
-                'http_errors' => false 
+                'http_errors' => false,
+                'allow_redirects' => true
             ]);
 
             $statusCode = $response->getStatusCode();
