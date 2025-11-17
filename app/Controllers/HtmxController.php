@@ -738,7 +738,6 @@ class HtmxController extends BaseController
             $question = $this->request->getPost('ai_question');
 
             $prompt = "Here is a question about Igniter CMS.\n Question: '$question'. Provide the answer to the question and structure the response EXACTLY as follows:
-
             <div class=\"row response-text\">
                 <h4 class=\"text-primary mb-2\">'$question'</h4>
                 <div class=\"col-12 mt-4\">
