@@ -185,7 +185,7 @@ class Navigations extends Migration
                 'group'    => 'services',
                 'order'    => 22,
                 'parent'    => null,
-                'link'    => 'javascript:void(0)',
+                'link'    => '#!',
                 'new_tab'    => false,
                 'status'    => 1,
                 'created_by' => getGUID(getDefaultAdminGUID()),

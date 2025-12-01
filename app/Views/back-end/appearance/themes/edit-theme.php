@@ -268,6 +268,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <input type="hidden" class="form-control" id="theme_url" name="theme_url" value="<?= $theme_data['theme_url']; ?>" />
                 <input type="hidden" class="form-control" id="deletable" name="deletable" value="<?= $theme_data['deletable']; ?>" />
                 <input type="hidden" class="form-control" id="created_by" name="created_by" value="<?= $theme_data['created_by']; ?>" />
+                <input type="hidden" class="form-control" id="plugins_required" name="plugins_required" value="<?= $theme_data['plugins_required']; ?>" />
             </div>
 
             <div class="mb-3 mt-3">

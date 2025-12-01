@@ -169,7 +169,7 @@ GREGWAR_DIFFICULTY = "" # Options easy, medium, hard
 # OTHER SETTINGS
 #--------------------------------------------------------------------
 APP_NAME = "Igniter CMS App"
-APP_VERSION = 2.9.0
+APP_VERSION = 2.9.1
 APP_KEY=your-app-id
 APP_API_KEY = "default"
 DEMO_MODE = false

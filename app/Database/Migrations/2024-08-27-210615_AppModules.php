@@ -84,7 +84,7 @@ class AppModules extends Migration
                 'app_module_id' => getGUID(),
                 'module_name'  => 'Themes',
                 'module_description'  => 'Manage themes',
-                'module_roles'    => 'Admin',
+                'module_roles'    => 'Admin,Manager,User',
                 'module_link'    => 'account/appearance/themes',
                 'module_search_terms' => 'themes,appearance,design'
             ],
@@ -92,9 +92,26 @@ class AppModules extends Migration
                 'app_module_id' => getGUID(),
                 'module_name'  => 'Themes',
                 'module_description'  => 'Manage theme files',
-                'module_roles'    => 'Admin',
+                'module_roles'    => 'Admin,Manager,User',
                 'module_link'    => 'account/appearance/theme-editor',
                 'module_search_terms' => 'themes,appearance,design,the files'
+            ],
+            //Plugins
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'Plugins',
+                'module_description'  => 'Manage plugins',
+                'module_roles'    => 'Admin',
+                'module_link'    => 'account/plugins',
+                'module_search_terms' => 'extension,plugins,package'
+            ],
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'Plugin Configurations',
+                'module_description'  => 'Manage plugin configurations',
+                'module_roles'    => 'Admin',
+                'module_link'    => 'account/plugins/configurations',
+                'module_search_terms' => 'extension,plugins,package,configurations'
             ],
             //Admin
             [

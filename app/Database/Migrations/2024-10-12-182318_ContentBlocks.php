@@ -49,6 +49,16 @@ class ContentBlocks extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
+            'video' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
+            ],
+            'file' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
+            ],
             'link' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
@@ -59,7 +69,43 @@ class ContentBlocks extends Migration
                 'default' => false,
                 'null' => true,
             ],
-            'custom_field' => [
+            'custom_field_1' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'custom_field_2' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'custom_field_3' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'custom_field_4' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'custom_field_5' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'custom_field_6' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'custom_field_7' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'custom_field_8' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'custom_field_9' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'custom_field_10' => [
                 'type' => 'TEXT',
                 'null' => true,
             ],
@@ -106,7 +152,7 @@ class ContentBlocks extends Migration
                 'image' => 'https://placehold.co/600x400/06b6d4/ffffff?text=Business+Services',
                 'link' => 'https://example.com/business-services',
                 'new_tab' => true,
-                'custom_field' => '{"color": "#007bff", "priority": "high"}',
+                'custom_field_1' => '{"color": "#007bff", "priority": "high"}',
                 'order' => 2,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
@@ -123,7 +169,7 @@ class ContentBlocks extends Migration
                 'image' => 'https://placehold.co/600x400/1c91e6/ffffff?text=Saving+Investments',
                 'link' => 'https://example.com/saving-investments',
                 'new_tab' => false,
-                'custom_field' => '{"color": "#28a745", "priority": "medium"}',
+                'custom_field_1' => '{"color": "#28a745", "priority": "medium"}',
                 'order' => 4,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null
@@ -140,7 +186,7 @@ class ContentBlocks extends Migration
                 'image' => 'https://placehold.co/600x400/1d2eb3/ffffff?text=Online+Consulting',
                 'link' => 'https://example.com/online-consulting',
                 'new_tab' => true,
-                'custom_field' => '{"color": "#dc3545", "priority": "low"}',
+                'custom_field_1' => '{"color": "#dc3545", "priority": "low"}',
                 'order' => 6,
                 'created_by' => getGUID(getDefaultAdminGUID()),
                 'updated_by' => null

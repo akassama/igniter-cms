@@ -47,6 +47,18 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             <?php
         }
+
+        $currentTheme = getCurrentTheme();
+        $missingPlugins = getMissingPluginsForActiveTheme();
+        if(!empty($missingPlugins)){
+            ?>
+                <div class="alert alert-danger">
+                    The active theme (<strong><?=$currentTheme?></strong>) requires the following missing plugins: 
+                    <strong><?= implode(", ", $missingPlugins); ?></strong>. 
+                    Please install and activate these plugins to ensure proper functionality of the theme.
+                </div>
+            <?php
+        }
     ?>
     
     <div class="row">

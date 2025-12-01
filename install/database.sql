@@ -849,7 +849,7 @@ INSERT INTO `navigations` (`navigation_id`, `title`, `description`, `icon`, `gro
 ('e1ae5499-4847-4abf-ae00-f402d56d0063', 'Services', 'Services page', '', 'top_nav', 6, NULL, '#services', 0, 1, '7B746E07-F591-4B85-9BBC-6A98B5951967', NULL, '2025-11-19 16:39:26', '2025-11-19 16:39:26'),
 ('e6249c88-468b-44eb-92d6-9b8ef6ae68b5', 'Web Development', 'Web Developmentns nav', '', 'services', 24, NULL, '#!', 0, 1, '7B746E07-F591-4B85-9BBC-6A98B5951967', NULL, '2025-11-19 16:39:26', '2025-11-19 16:39:26'),
 ('ef1ee0ca-2420-47f3-ba8a-ad18d78ae424', 'Portfolio', 'Portfolio page', '', 'top_nav', 8, NULL, '#portfolio', 0, 1, '7B746E07-F591-4B85-9BBC-6A98B5951967', NULL, '2025-11-19 16:39:26', '2025-11-19 16:39:26'),
-('f478adf7-74d8-4a2e-b3d4-30d159be6fa7', 'Web Design', 'Web Design nav', '', 'services', 22, NULL, 'javascript:void(0)', 0, 1, '7B746E07-F591-4B85-9BBC-6A98B5951967', NULL, '2025-11-19 16:39:26', '2025-11-19 16:39:26');
+('f478adf7-74d8-4a2e-b3d4-30d159be6fa7', 'Web Design', 'Web Design nav', '', 'services', 22, NULL, '#!', 0, 1, '7B746E07-F591-4B85-9BBC-6A98B5951967', NULL, '2025-11-19 16:39:26', '2025-11-19 16:39:26');
 
 -- --------------------------------------------------------
 

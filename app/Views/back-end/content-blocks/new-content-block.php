@@ -27,6 +27,20 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/content-blocks/new-content-block'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
+                <label for="identifier" class="form-label">Identifier</label>
+                <input type="text" class="form-control title-text" id="identifier" name="identifier" data-show-err="true" maxlength="250" value="<?= set_value('identifier') ?>" required>
+                <!-- Error -->
+                <?php if($validation->getError('identifier')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('identifier'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide identifier
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= set_value('title') ?>" required>
                 <!-- Error -->
@@ -40,7 +54,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-6 mb-3">
+            <div class="col-sm-12 col-md-12 mb-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <label for="description" class="form-label">Description</label>
                         <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
@@ -132,6 +146,52 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 mb-3">
+                        <label for="video" class="form-label">Video</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="video" name="video" value="<?= set_value('video') ?>" placeholder="select video">
+                            <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
+                                <i class="ri-video-fill"></i>
+                            </button>
+                            <div class="invalid-feedback">
+                                Please provide video
+                            </div>
+                        </div>
+                        <!-- Error -->
+                        <?php if($validation->getError('video')) {?>
+                            <div class='text-danger mt-2'>
+                                <?= $error = $validation->getError('video'); ?>
+                            </div>
+                        <?php }?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 mb-3">
+                        <label for="file" class="form-label">File</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="file" name="file" value="<?= set_value('file') ?>" placeholder="select file">
+                            <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
+                                <i class="ri-file-fill"></i>
+                            </button>
+                            <div class="invalid-feedback">
+                                Please provide file
+                            </div>
+                        </div>
+                        <!-- Error -->
+                        <?php if($validation->getError('file')) {?>
+                            <div class='text-danger mt-2'>
+                                <?= $error = $validation->getError('file'); ?>
+                            </div>
+                        <?php }?>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-sm-12 col-md-12 mb-3">
                 <div class="row">
                     <div class="col-sm-12 col-md-9">
@@ -204,17 +264,34 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-12 mb-3">
-                <label for="custom_field" class="form-label">Custom Data</label>
-                <textarea rows="1" class="form-control" id="custom_field" name="custom_field"><?= set_value('custom_field') ?></textarea>
-                <!-- Error -->
-                <?php if($validation->getError('custom_field')) {?>
-                    <div class='text-danger mt-2'>
-                        <?= $error = $validation->getError('custom_field'); ?>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseCustom" aria-expanded="false" aria-controls="flush-collapseCustom">
+                            <h6>Custom Data</h6>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseCustom" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row">
+                                <?php for ($i = 1; $i <= 10; $i++): ?>
+                                    <div class="col-sm-12 col-md-6 mb-3">
+                                        <label for="custom_field_<?= $i ?>" class="form-label">Custom Field <?= $i ?></label>
+                                        <textarea rows="1" class="form-control" id="custom_field_<?= $i ?>" name="custom_field_<?= $i ?>"><?= set_value("custom_field_{$i}") ?></textarea>
+                                        <!-- Error -->
+                                        <?php if ($validation->getError("custom_field_{$i}")): ?>
+                                            <div class='text-danger mt-2'>
+                                                <?= $validation->getError("custom_field_{$i}") ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="invalid-feedback">
+                                            Please provide custom field <?= $i ?>
+                                        </div>
+                                    </div>
+                                <?php endfor; ?>
+                            </div>
+                        </div>
                     </div>
-                <?php }?>
-                <div class="invalid-feedback">
-                    Please provide custom_field
                 </div>
             </div>
 

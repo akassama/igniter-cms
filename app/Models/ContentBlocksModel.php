@@ -24,21 +24,32 @@ class ContentBlocksModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields = [
-        'content_id', 
-        'identifier', 
-        'author', 
-        'title', 
-        'description', 
-        'content', 
+        'content_id',
+        'identifier',
+        'author',
+        'title',
+        'description',
+        'content',
         'icon',
         'group',
-        'image', 
-        'link', 
+        'image',
+        'video',
+        'file',
+        'link',
         'new_tab',
-        'order', 
-        'custom_field',
-        'created_by', 
-        'updated_by', 
+        'order',
+        'custom_field_1',
+        'custom_field_2',
+        'custom_field_3',
+        'custom_field_4',
+        'custom_field_5',
+        'custom_field_6',
+        'custom_field_7',
+        'custom_field_8',
+        'custom_field_9',
+        'custom_field_10',
+        'created_by',
+        'updated_by',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -77,28 +88,39 @@ class ContentBlocksModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function createContentBlock($param = array())
+    public function createContentBlock($param = [])
     {
         $contentId = getGUID();
         $data = [
-            'content_id' => $contentId,
-            'identifier' => $param['identifier'],
-            'author' => $param['author'],
-            'title' => $param['title'],
-            'description' => $param['description'],
-            'content' => $param['content'],
-            'icon' => $param['icon'],
-            'group' => $param['group'],
-            'image' => $param['image'],
-            'link' => $param['link'],
-            'new_tab' => $param['new_tab'],
-            'order' => $param['order'],
-            'custom_field' => $param['custom_field'],
-            'created_by' => $param['created_by'],
-            'updated_by' => $param['updated_by']
+            'content_id'      => $contentId,
+            'identifier'      => $param['identifier'] ?? '',
+            'author'          => $param['author'] ?? '',
+            'title'           => $param['title'] ?? '',
+            'description'     => $param['description'] ?? '',
+            'content'         => $param['content'] ?? '',
+            'icon'            => $param['icon'] ?? '',
+            'group'           => $param['group'] ?? '',
+            'image'           => $param['image'] ?? '',
+            'video'           => $param['video'] ?? '',
+            'file'            => $param['file'] ?? '', // Fixed: was using 'image' again
+            'link'            => $param['link'] ?? '',
+            'new_tab'         => $param['new_tab'] ?? 0,
+            'order'           => $param['order'] ?? 0,
+            'custom_field_1'  => $param['custom_field_1'] ?? '',
+            'custom_field_2'  => $param['custom_field_2'] ?? '',
+            'custom_field_3'  => $param['custom_field_3'] ?? '',
+            'custom_field_4'  => $param['custom_field_4'] ?? '',
+            'custom_field_5'  => $param['custom_field_5'] ?? '',
+            'custom_field_6'  => $param['custom_field_6'] ?? '',
+            'custom_field_7'  => $param['custom_field_7'] ?? '',
+            'custom_field_8'  => $param['custom_field_8'] ?? '',
+            'custom_field_9'  => $param['custom_field_9'] ?? '',
+            'custom_field_10' => $param['custom_field_10'] ?? '',
+            'created_by'      => $param['created_by'] ?? null,
+            'updated_by'      => $param['updated_by'] ?? null,
         ];
-        $this->save($data);
 
+        $this->save($data);
         return true;
     }
 
@@ -119,13 +141,23 @@ class ContentBlocksModel extends Model
         $existingContentBlock['icon'] = $param['icon'];
         $existingContentBlock['group'] = $param['group'];
         $existingContentBlock['image'] = $param['image'];
+        $existingContentBlock['video'] = $param['video'];
+        $existingContentBlock['file'] = $param['file'];
         $existingContentBlock['link'] = $param['link'];
         $existingContentBlock['new_tab'] = $param['new_tab'];
         $existingContentBlock['order'] = $param['order'];
-        $existingContentBlock['custom_field'] = $param['custom_field'];
+        $existingContentBlock['custom_field_1'] = $param['custom_field_1'];
+        $existingContentBlock['custom_field_2'] = $param['custom_field_2'];
+        $existingContentBlock['custom_field_3'] = $param['custom_field_3'];
+        $existingContentBlock['custom_field_4'] = $param['custom_field_4'];
+        $existingContentBlock['custom_field_5'] = $param['custom_field_5'];
+        $existingContentBlock['custom_field_6'] = $param['custom_field_6'];
+        $existingContentBlock['custom_field_7'] = $param['custom_field_7'];
+        $existingContentBlock['custom_field_8'] = $param['custom_field_8'];
+        $existingContentBlock['custom_field_9'] = $param['custom_field_9'];
+        $existingContentBlock['custom_field_10'] = $param['custom_field_10'];
         $existingContentBlock['created_by'] = $param['created_by'];
         $existingContentBlock['updated_by'] = $param['updated_by'];
-
 
         // Save the updated data
         $this->save($existingContentBlock);

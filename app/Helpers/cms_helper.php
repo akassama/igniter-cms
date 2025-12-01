@@ -2833,6 +2833,71 @@ if (!function_exists('getCurrentTheme')) {
 }
 
 /**
+ * Retrieves any missing or inactive plugins for the active theme.
+ * 
+ * @return array|null List of missing/inactive plugin keys, or null if none or on error.
+ */
+if (!function_exists('getMissingPluginsForActiveTheme')) {
+    function getMissingPluginsForActiveTheme()
+    {
+        try {
+            $currentTheme = getCurrentTheme();
+            if (empty($currentTheme)) {
+                return null;
+            }
+
+            // Get required plugins from themes table
+            $db = \Config\Database::connect();
+            $themeData = $db->table('themes')
+                ->select('plugins_required')
+                ->where('path', $currentTheme)
+                ->get()
+                ->getRow();
+
+            if (!$themeData || empty($themeData->plugins_required)) {
+                return null;
+            }
+
+            // Parse plugins_required (support JSON or comma-separated string)
+            $requiredPlugins = [];
+            $raw = $themeData->plugins_required;
+
+            if (is_string($raw)) {
+                // Try JSON decode first
+                $decoded = json_decode($raw, true);
+                if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                    $requiredPlugins = array_filter(array_map('trim', $decoded));
+                } else {
+                    // Fall back to comma-separated
+                    $requiredPlugins = array_filter(array_map('trim', explode(',', $raw)));
+                }
+            }
+
+            if (empty($requiredPlugins)) {
+                return null;
+            }
+
+            // Get all active plugin keys from plugins table
+            $activePlugins = $db->table('plugins')
+                ->select('plugin_key')
+                ->where('status', 1)
+                ->get()
+                ->getResultArray();
+
+            $activePluginKeys = array_column($activePlugins, 'plugin_key');
+
+            // Find missing or inactive plugins
+            $missingPlugins = array_diff($requiredPlugins, $activePluginKeys);
+
+            return !empty($missingPlugins) ? array_values($missingPlugins) : null;
+        } catch (Exception $e) {
+            log_message('error', 'Error in getMissingPluginsForActiveTheme: ' . $e->getMessage());
+            return null;
+        }
+    }
+}
+
+/**
  * Retrieves configuration data for a specific configuration type.
  * 
  * @param {string} $configFor - The type of configuration to retrieve.

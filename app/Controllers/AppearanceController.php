@@ -188,6 +188,7 @@ class AppearanceController extends BaseController
             'selected' => 0,
             'override_default_style' => 0,
             'use_static_theme_nav' => $themeConfig['use_static_theme_nav'] ?? 0,
+            'plugins_required' => $themeConfig['plugins_required'] ?? '',
             'deletable' => 1,
             'created_by' => $loggedInUserId,
             'updated_by' => null
@@ -284,6 +285,7 @@ class AppearanceController extends BaseController
                 'selected'  => $this->request->getPost('selected') ?? 0,
                 'override_default_style'  => $this->request->getPost('override_default_style') ?? 0,
                 'use_static_theme_nav'  => $this->request->getPost('use_static_theme_nav') ?? 0,
+                'plugins_required' => $this->request->getPost('plugins_required') ?? '',
                 'deletable' => $this->request->getPost('deletable') ?? 1,
                 'created_by' => $this->request->getPost('created_by'),
                 'updated_by' => $loggedInUserId
