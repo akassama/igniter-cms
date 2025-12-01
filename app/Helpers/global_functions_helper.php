@@ -385,7 +385,7 @@ if(!function_exists('getDefaultProfileImagePath'))
 {
     function getDefaultProfileImagePath()
     {
-        return 'https://ignitercms.com/assets/img/default/default-profile.png';
+        return 'public/uploads/default/default-profile.png';
     }
 }
 
