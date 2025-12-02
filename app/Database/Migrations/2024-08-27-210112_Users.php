@@ -46,7 +46,7 @@ class Users extends Migration
             'role' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
-                'default' => getDefaultProfileImagePath(),
+                'default' => $customConfig->userRoles['User'],
             ],
             'profile_picture' => [
                 'type' => 'VARCHAR',
