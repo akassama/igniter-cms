@@ -29,11 +29,66 @@ class FrontEndController extends BaseController
     {
         $slug = 'home';
         $tableName = 'pages';
-        //Check if record exists
+
+        // Check if record exists
         if (!recordExists($tableName, "slug", $slug)) {
-            $errorMsg = str_replace('[Record]', 'Page', config('CustomConfig')->notFoundMsg);
-            session()->setFlashdata('errorAlert', $errorMsg);
-            return redirect()->to('/');
+            $errorMsg = str_replace('[Record]', 'Home page', config('CustomConfig')->notFoundMsg);
+
+            // Render a simple text string with inline CSS
+            return "<!DOCTYPE html>
+            <html lang=\"en\">
+            <head>
+                <meta charset=\"UTF-8\">
+                <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+                <title>Error - Page Not Found</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        background-color: #f8f9fa;
+                        color: #333;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        min-height: 100vh;
+                        margin: 0;
+                    }
+                    .container {
+                        background-color: #fff;
+                        padding: 30px;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                        text-align: center;
+                        max-width: 500px;
+                        width: 90%;
+                    }
+                    h1 {
+                        color: #dc3545; /* Bootstrap's danger red */
+                        margin-bottom: 20px;
+                        font-size: 2.5em;
+                    }
+                    p {
+                        font-size: 1.1em;
+                        line-height: 1.6;
+                        margin-bottom: 20px;
+                    }
+                    a {
+                        color: #007bff; /* Bootstrap's primary blue */
+                        text-decoration: none;
+                    }
+                    a:hover {
+                        text-decoration: underline;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class=\"container\">
+                    <h1>Error!</h1>
+                    <p>{$errorMsg}</p>
+                    <p>The requested home page could not be found. Please contact support if this issue persists.</p>
+                    <p><a href=\"https://github.com/akassama/igniter-cms/issues\">Report a Bug</a></p>
+                </div>
+            </body>
+            </html>";
         }
 
         $whereClause = ['slug' => $slug];
