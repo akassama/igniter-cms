@@ -94,7 +94,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                                                 </div>';
                                                     } else {
                                                     echo '<div class="col mb-1">
-                                                                <a class="text-dark td-none mr-1 remove-api-key disabled text-muted" href="javascript:void(0)">
+                                                                <a class="text-dark td-none mr-1 disabled disabled-btn text-muted" href="javascript:void(0)">
                                                                     <i class="h5 ri-close-circle-fill"></i>
                                                                 </a>
                                                             </div>';

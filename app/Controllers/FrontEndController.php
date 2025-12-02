@@ -27,8 +27,24 @@ class FrontEndController extends BaseController
     //############################//
     public function index()
     {
+        $slug = 'home';
+        $tableName = 'pages';
+        //Check if record exists
+        if (!recordExists($tableName, "slug", $slug)) {
+            $errorMsg = str_replace('[Record]', 'Page', config('CustomConfig')->notFoundMsg);
+            session()->setFlashdata('errorAlert', $errorMsg);
+            return redirect()->to('/');
+        }
+
+        $whereClause = ['slug' => $slug];
+        $pageId = getTableData($tableName, $whereClause, 'page_id');
+        $pagesModel = new PagesModel();
+        $data = [
+            'page_data' => $pagesModel->find($pageId)
+        ];
+
         //load home view
-        return view('front-end/themes/'.getCurrentTheme().'/home/index');
+        return view('front-end/themes/'.getCurrentTheme().'/home/index', $data);
     }
 
     //############################//

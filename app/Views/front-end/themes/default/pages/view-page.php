@@ -4,10 +4,9 @@ $theme = getCurrentTheme();
 
 //page settings
 $currentPage = "pages";
-$popUpWhereClause = ['status' => 1];
 
 //update view count
-updateTotalViewCount("pages", "page_id", $page_data['page_id']);
+updateTotalViewCount($currentPage, "page_id", $page_data['page_id']);
 ?>
 <!-- include theme layout -->
 <?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>

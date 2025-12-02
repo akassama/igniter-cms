@@ -2,10 +2,9 @@
 // Get current theme impact
 $theme = getCurrentTheme();
 $currentPage = "blogs";
-$popUpWhereClause = ['status' => 1];
 
 //update view count
-updateTotalViewCount("blogs", "blog_id", $blog_data['blog_id']);
+updateTotalViewCount($currentPage, "blog_id", $blog_data['blog_id']);
 ?>
 <!-- include theme layout -->
 <?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>

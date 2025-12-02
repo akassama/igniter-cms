@@ -57,7 +57,13 @@ echo generateBreadcrumb($breadcrumb_links);
                             <?php foreach($pages as $page): ?>
                                 <tr>
                                     <td><?= $rowCount; ?></td>
-                                    <td><?= $page['title']; ?></td>
+                                    <td>
+                                        <?php if ($page['slug'] == "home"): ?>
+                                            <span class="badge rounded-pill text-bg-dark"><?= $page['title']; ?></span>
+                                        <?php else: ?>
+                                            <?= $page['title']; ?>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?= $page['slug']; ?></td>
                                     <td><?= $page['group']; ?></td>
                                     <td>
@@ -69,19 +75,37 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td>
                                         <div class="row text-center p-1">
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 mb-1 view-page" href="<?=base_url('account/cms/pages/view-page/'.$page['page_id'])?>">
-                                                    <i class="h5 ri-eye-line"></i>
-                                                </a>
+                                                <?php if ($page['slug'] == "home"): ?>
+                                                    <a class="text-dark td-none mr-1 view-page mb-1" href="<?=base_url('home')?>" target="_blank">
+                                                        <i class="h5 ri-eye-line"></i>
+                                                    </a>
+                                                <?php else: ?>
+                                                    <a class="text-dark td-none mr-1 mb-1 view-page" href="<?=base_url('account/cms/pages/view-page/'.$page['page_id'])?>">
+                                                        <i class="h5 ri-eye-line"></i>
+                                                    </a>
+                                                <?php endif; ?> 
                                             </div>
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 mb-1 edit-page" href="<?=base_url('account/cms/pages/edit-page/'.$page['page_id'])?>">
-                                                    <i class="h5 ri-edit-box-line"></i>
-                                                </a>
+                                                <?php if ($page['slug'] == "home"): ?>
+                                                    <a class="text-dark td-none mr-1 mb-1 edit-page" href="<?=base_url('account/appearance/theme-editor/home')?>" target="_blank">
+                                                        <i class="h5 ri-edit-box-line"></i>
+                                                    </a>
+                                                <?php else: ?>
+                                                    <a class="text-dark td-none mr-1 mb-1 edit-page" href="<?=base_url('account/cms/pages/edit-page/'.$page['page_id'])?>">
+                                                        <i class="h5 ri-edit-box-line"></i>
+                                                    </a>
+                                                <?php endif; ?>
                                             </div>
                                             <div class="col mb-1">
-                                                <a class="text-dark td-none mr-1 remove-page" href="#!" onclick="deleteRecord('pages', 'page_id', '<?=$page['page_id'];?>', '', 'account/cms/pages')">
-                                                    <i class="h5 ri-close-circle-fill"></i>
-                                                </a>
+                                                <?php if ($page['slug'] == "home"): ?>
+                                                    <a class="text-secondary td-none mr-1 disabled disabled-btn mb-1" href="#!" onclick="return false;">
+                                                        <i class="h5 ri-close-circle-fill"></i>
+                                                    </a>
+                                                <?php else: ?>
+                                                    <a class="text-dark td-none mr-1 remove-page" href="#!" onclick="deleteRecord('pages', 'page_id', '<?=$page['page_id'];?>', '', 'account/cms/pages')">
+                                                        <i class="h5 ri-close-circle-fill"></i>
+                                                    </a>
+                                                <?php endif; ?>                                             
                                             </div>
                                         </div>
                                     </td>

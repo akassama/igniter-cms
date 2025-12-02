@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $step == 2) {
 
     $replacements = [
         "# database.default.hostname = localhost" => "database.default.hostname = {$db_host}",
-        "# database.default.database = igniter_cms_pro_db" => "database.default.database = {$db_name}",
+        "# database.default.database = igniter_cms_db" => "database.default.database = {$db_name}",
         "# database.default.username = root" => "database.default.username = {$db_user}",
         "# database.default.password =" => "database.default.password = {$db_pass}",
         "# app.baseURL = ''" => "app.baseURL = '{$app_url}'",
