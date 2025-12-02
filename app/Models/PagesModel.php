@@ -30,6 +30,7 @@ class PagesModel extends Model
         'content',
         'group',
         'status',
+        'is_home_page',
         'total_views',
         'author',
         'created_by',

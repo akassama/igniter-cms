@@ -48,7 +48,7 @@ class DataGroups extends Migration
             [
                 'data_group_id' => getGUID(),
                 'data_group_for'    => 'Page',
-                'data_group_list'    => 'general,site',
+                'data_group_list'    => 'home,general,about,services,contact',
                 'deletable'    => 0,
                 'created_by' => getGUID(getDefaultAdminGUID())
             ],

@@ -1,12 +1,12 @@
 <?php
-// v1 - Home This is to get current impact
+// This is to get current theme
 $theme = getCurrentTheme();
 
 //page settings
-$currentPage = "home";
-$popUpWhereClause = ['status' => 1];
+$currentPage = "pages";
 
-$enableHomeSeo = getTableData('plugin_configs', ['plugin_slug' => 'seo-master', 'config_key' => 'enable_home_seo'], 'config_value');
+//update view count
+updateTotalViewCount($currentPage, "page_id", $page_data['page_id']);
 ?>
 
 <!-- include theme layout -->

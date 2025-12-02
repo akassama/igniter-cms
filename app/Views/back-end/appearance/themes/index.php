@@ -84,7 +84,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <a href="<?=base_url('account/appearance/themes/activate/'.$theme['theme_id'])?>" 
                                 class="btn btn-sm btn-primary">Activate</a>
                             <?php else: ?>
-                                <span class="btn btn-sm btn-success disabled">Active</span>
+                                <span class="btn btn-sm btn-success disabled-btn disabled">Active</span>
                             <?php endif; ?>
                             
                             <a href="<?=base_url('account/appearance/themes/edit-theme/'.$theme['theme_id'])?>" 

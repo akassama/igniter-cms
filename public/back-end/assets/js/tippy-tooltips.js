@@ -19,6 +19,7 @@ tippy(".remove-file", {
   content: "Remove file",
   placement: "top",
 });
+
 tippy(".reload-files", {
   content: "Reload file manger",
   placement: "top",
@@ -286,5 +287,10 @@ tippy(".unapprove-comment", {
 //Revision
 tippy(".remove-revision", {
   content: "Remove revision",
+  placement: "top",
+});
+//Disabled button
+tippy(".disabled-btn", {
+  content: "Button disabled",
   placement: "top",
 });
