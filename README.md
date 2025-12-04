@@ -77,4 +77,4 @@ If you find this project helpful, consider buying me a coffee:
 
 ## License
 
-The Lavalite CMS is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+The CMS is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

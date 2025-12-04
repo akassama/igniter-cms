@@ -73,8 +73,9 @@ class Configurations extends Migration
                 'default' => null,
             ],
             'deletable' => [
-                'type' => 'INT',
-                'default' => 1,
+                'type' => 'TINYINT',
+                'default' => 0,
+                'null' => false,
             ],
             'created_by' => [
                 'type' => 'VARCHAR',

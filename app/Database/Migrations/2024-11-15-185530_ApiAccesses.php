@@ -24,9 +24,9 @@ class ApiAccesses extends Migration
                 'null' => true,
             ],
             'status' => [
-                'type' => 'INT',
+                'type' => 'TINYINT',
                 'default' => 0,
-                'null' => true,
+                'null' => false,
             ],
             'created_by' => [
                 'type' => 'VARCHAR',

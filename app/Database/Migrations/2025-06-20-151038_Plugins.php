@@ -19,14 +19,14 @@ class Plugins extends Migration
                 'null' => false,
             ],
             'status' => [
-                'type' => 'INT',
+                'type' => 'TINYINT',
                 'default' => 0,
-                'null' => true,
+                'null' => false,
             ],
             'update_available' => [
-                'type' => 'INT',
+                'type' => 'TINYINT',
                 'default' => 0,
-                'null' => true,
+                'null' => false,
             ],
             'load' => [
                 'type' => 'VARCHAR',

@@ -39,9 +39,9 @@ class Users extends Migration
                 'constraint' => '255',
             ],
             'status' => [
-                'type' => 'INT',
+                'type' => 'TINYINT',
                 'default' => 0,
-                'null' => true,
+                'null' => false,
             ],
             'role' => [
                 'type' => 'VARCHAR',

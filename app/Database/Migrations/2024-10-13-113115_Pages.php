@@ -28,14 +28,14 @@ class Pages extends Migration
                 'default' => 'portfolio',
             ],
             'status' => [
-                'type' => 'INT',
+                'type' => 'TINYINT',
                 'default' => 0,
-                'null' => true,
+                'null' => false,
             ],
             'is_home_page' => [
-                'type' => 'INT',
+                'type' => 'TINYINT',
                 'default' => 0,
-                'null' => true,
+                'null' => false,
             ],
             'total_views' => [
                 'type' => 'INT',

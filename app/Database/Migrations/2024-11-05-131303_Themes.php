@@ -98,8 +98,9 @@ class Themes extends Migration
                 'null' => true,
             ],
             'deletable' => [
-                'type' => 'INT',
+                'type' => 'TINYINT',
                 'default' => 1,
+                'null' => false,
             ],
             'created_by' => [
                 'type' => 'VARCHAR',

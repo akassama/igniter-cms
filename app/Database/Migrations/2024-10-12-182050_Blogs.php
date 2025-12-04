@@ -54,9 +54,9 @@ class Blogs extends Migration
                 'null' => true,
             ],
             'status' => [
-                'type' => 'INT',
+                'type' => 'TINYINT',
                 'default' => 0,
-                'null' => true,
+                'null' => false,
             ],
             'author' => [
                 'type' => 'VARCHAR',

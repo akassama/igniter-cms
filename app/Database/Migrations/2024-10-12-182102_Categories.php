@@ -44,14 +44,14 @@ class Categories extends Migration
                 'null' => true,
             ],
             'order' => [
-                'type' => 'INT',
+                'type' => 'TINYINT',
                 'default' => 10,
-                'null' => true,
+                'null' => false,
             ],
             'status' => [
-                'type' => 'INT',
+                'type' => 'TINYINT',
                 'default' => 0,
-                'null' => true,
+                'null' => false,
             ],
             'created_by' => [
                 'type' => 'VARCHAR',

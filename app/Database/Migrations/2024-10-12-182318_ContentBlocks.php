@@ -18,8 +18,8 @@ class ContentBlocks extends Migration
                 'constraint' => 255,
             ],
             'author' => [
-                'type' => 'INT',
-                'null' => true,
+                'type' => 'VARCHAR',
+                'constraint' => 50,
             ],
             'title' => [
                 'type' => 'VARCHAR',
@@ -110,9 +110,9 @@ class ContentBlocks extends Migration
                 'null' => true,
             ],
             'order' => [
-                'type' => 'INT',
-                'null' => true,
+                'type' => 'TINYINT',
                 'default' => 10,
+                'null' => false,
             ],
             'created_by' => [
                 'type' => 'VARCHAR',

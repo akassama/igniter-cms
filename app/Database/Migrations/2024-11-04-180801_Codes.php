@@ -23,8 +23,9 @@ class Codes extends Migration
                 'null' => false,
             ],
             'deletable' => [
-                'type' => 'INT',
+                'type' => 'TINYINT',
                 'default' => 1,
+                'null' => false,
             ],
             'created_by' => [
                 'type' => 'VARCHAR',
