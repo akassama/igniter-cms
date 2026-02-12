@@ -177,9 +177,11 @@ APP_API_KEY = "default"
 DEMO_MODE = false
 NEWS_FEED_URL = https://api.ignitercms.com/api-service/get-news-feed
 AI_KNOWLEDGE_BASE_URL = https://api.ignitercms.com/api-service/get-ai-knowledge-base/
-CUSTOM_GEMINI_REQUEST_URL = https://api.ignitercms.com/api-service/get-ai-response/
-PUBLIC_GEMINI_REQUEST_KEY = public.UfRMZG3eizjP87Pnvsh51X3A6DHop0lnUi4LSym7LbT73kU83kpDd9Z1vb517AGK3rHElOpm4UpGBflUE3V9D60js7OMUsPtyGCDroGtAyxYJSCihSWD8xdCronVlttH
+GEMINI_REQUEST_URL = https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent
+GEMINI_REQUEST_KEY = your-gemini-key
 PLUGIN_API_REQUEST_KEY = plugin-api-request-key
 REMEMBER_ME_COOKIE = "__ci_token"
 THEMES_API_ENDPOINT = https://api.ignitercms.com/api-service/get-themes/
 PLUGINS_API_ENDPOINT = https://api.ignitercms.com/api-service/get-plugins/
+# Cron security key - CHANGE THIS!
+CRON_SECRET_KEY = "your-strong-secret-key-here-12345"

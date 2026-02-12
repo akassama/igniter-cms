@@ -1336,8 +1336,13 @@ function isDate($date) {
 if (!function_exists('makeGeminiCall')) {
     function makeGeminiCall($prompt)
     {
-        $apiKey = getConfigData("GeminiAPIKey");
-        $requestUrl = !empty($apiKey) ? getConfigData("GeminiBaseURL") . $apiKey : env('CUSTOM_GEMINI_REQUEST_URL') . env('PUBLIC_GEMINI_REQUEST_KEY');
+        // 1. Pull correct keys from .env
+        $baseUrl = env('GEMINI_REQUEST_URL'); 
+        $apiKey = env('GEMINI_REQUEST_KEY');
+
+        if (empty($baseUrl) || empty($apiKey)) {
+            return "Configuration Error: API Key or URL missing.";
+        }
 
         $postData = [
             "contents" => [
@@ -1351,21 +1356,39 @@ if (!function_exists('makeGeminiCall')) {
 
         $ch = curl_init();
         curl_setopt_array($ch, [
-            CURLOPT_URL             => $requestUrl,
-            CURLOPT_RETURNTRANSFER  => true,
-            CURLOPT_POST            => true,
-            CURLOPT_POSTFIELDS      => json_encode($postData),
-            CURLOPT_HTTPHEADER      => ['Content-Type: application/json'],
-            CURLOPT_SSL_VERIFYPEER  => false,
+            CURLOPT_URL            => $baseUrl,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => json_encode($postData),
+            CURLOPT_HTTPHEADER     => [
+                'Content-Type: application/json',
+                'x-goog-api-key: ' . $apiKey // Pass the key as a header, not in the URL
+            ],
+            // Recommended: Keep this true in production for security!
+            CURLOPT_SSL_VERIFYPEER => false, 
         ]);
 
         $response = curl_exec($ch);
+        
+        // Check for cURL errors
+        if (curl_errno($ch)) {
+            $error_msg = curl_error($ch);
+            curl_close($ch);
+            return "CURL Error: " . $error_msg;
+        }
+        
         curl_close($ch);
 
         if (!$response) return null;
 
         $json = json_decode($response, true);
-        $returnData =  $json['candidates'][0]['content']['parts'][0]['text'] ?? null;
+        
+        // Check if API returned an error message
+        if (isset($json['error'])) {
+            return "API Error: " . ($json['error']['message'] ?? 'Unknown error');
+        }
+
+        $returnData = $json['candidates'][0]['content']['parts'][0]['text'] ?? null;
         return formatAiResponse($returnData);
     }
 }
