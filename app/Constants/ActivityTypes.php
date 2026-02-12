@@ -195,6 +195,10 @@ class ActivityTypes
     const COMMENT_FORM_UNAPPROVED = 'comment_unapproved';
     const COMMENT_FORM_APPROVED = 'comment_approved';
 
+    //CRON LOG
+    const CRON_EXECUTION = 'cron_executed';
+    const FAILED_CRON_EXECUTION = 'failed_cron';
+
 
     // Add more activity types as needed
 
@@ -384,6 +388,10 @@ class ActivityTypes
             self::FAILED_COMMENT_FORM_DELETION => 'Comment Deletion Failed',
             self::COMMENT_FORM_UNAPPROVED => 'Comment Form Unapproved',
             self::COMMENT_FORM_APPROVED => 'Comment Form Approved',
+
+            self::CRON_EXECUTION => 'Cron Executed',
+            self::FAILED_CRON_EXECUTION => 'Failed to execute Cron',
+            
 
             // Add more descriptions as needed
         ];
