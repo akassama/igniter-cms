@@ -42,6 +42,9 @@ $routes->get('services/subscribe', 'ServicesController::subscribe');
 //CONFRIM-SUBSCRIPTION
 $routes->get('services/confirm-subscription', 'ServicesController::confirmSubscription');
 
+//CRON ROUTE
+$routes->get('cron/run', 'CronController::run');
+
 //ACCOUNT
 $routes->get('/account', 'AccountController::index', ['filter' => 'authFilter']);
 
