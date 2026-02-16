@@ -1331,10 +1331,11 @@ function isDate($date) {
  * Makes a request to Gemini API and returns plain text response.
  *
  * @param string $prompt The input prompt for the AI.
+ * @param bool $formatResponse Format response by remoming markdown.
  * @return string|null Plain text response or null if failed.
  */
 if (!function_exists('makeGeminiCall')) {
-    function makeGeminiCall($prompt)
+    function makeGeminiCall($prompt, $formatResponse = true)
     {
         // 1. Pull correct keys from .env
         $baseUrl = env('GEMINI_REQUEST_URL'); 
@@ -1389,7 +1390,10 @@ if (!function_exists('makeGeminiCall')) {
         }
 
         $returnData = $json['candidates'][0]['content']['parts'][0]['text'] ?? null;
-        return formatAiResponse($returnData);
+        if($formatResponse){
+            return formatAiResponse($returnData);
+        }
+        return $returnData;
     }
 }
 

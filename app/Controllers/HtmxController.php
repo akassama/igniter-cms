@@ -313,8 +313,29 @@ class HtmxController extends BaseController
         exit();
     }
 
-    //AI REQUESTS 
-    ## BLOGS ##  
+    //AI REQUESTS
+    ## BLOG CONTENT ##  
+    public function getContentAI()
+    {
+        $blogDescription = $this->request->getPost('blog_description');
+        if(empty($blogDescription)){
+            $blogDescription = $this->request->getPost('title');
+        }
+
+        $blogDescription = getTextSummary(strip_tags($blogDescription), 500);
+        $prompt = "Write a blog for the following.\n\Blog Description:\n$blogDescription";
+
+        $content = makeGeminiCall($prompt);
+
+        $contentDiv = '<div id="content-div" class="mt-2 text-dark" style="white-space: pre-wrap;">'.$content.'</div>';
+        
+        echo preg_replace('/\s*\R\s*/', ' ', trim($contentDiv));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
+    ## BLOG EXCERP ##  
     public function getExcerptAI()
     {
         $content = $this->request->getPost('content');

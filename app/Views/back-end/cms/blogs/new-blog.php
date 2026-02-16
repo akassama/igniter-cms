@@ -95,7 +95,12 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="content" class="form-label">Content</label>
+                <div class="d-flex justify-content-between align-items-center">
+                    <label for="content" class="form-label">Content</label>
+                    <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-bs-toggle="modal" data-bs-target="#blogPromptModal">
+                        <i class="ri-robot-2-fill"></i> Write With AI
+                    </button>
+                </div>
                 <textarea rows="1" class="form-control content-editor" id="content" name="content" required><?= set_value('content') ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('content')) {?>
@@ -343,6 +348,101 @@ echo generateBreadcrumb($breadcrumb_links);
         $('#'+inputId).css('width', '100%');
     }
 </script>
+
+<!-- Prompt Modal -->
+<div class="modal fade" id="blogPromptModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">AI Blog Generator</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="blogGeneratorForm">
+                    <div class="mb-3">
+                        <label for="blog_description" class="form-label">Describe your blog topic</label>
+                        <textarea class="form-control" id="blog_description" name="blog_description" rows="4" 
+                                  placeholder="e.g. A travel guide about the hidden gems in Kyoto..."
+                                  oninput="validateInput()"></textarea>
+                        <div id="char-count" class="form-text text-danger">Minimum 10 characters required.</div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary w-100 mb-4 use-ai-btn" id="generate-blog-button"
+                            hx-post="<?=base_url()?>/htmx/get-content-via-ai"
+                            hx-trigger="click delay:250ms"
+                            hx-target="#content-div"
+                            hx-include="#blog_description"
+                            hx-swap="innerHTML" disabled>
+                        <i class="ri-robot-2-fill"></i> Generate Blog
+                    </button>
+                </form>
+
+                <hr>
+
+                <div class="position-relative p-3 border rounded bg-light" style="min-height: 200px;">
+                    <label class="text-muted small fw-bold">Generated Content:</label>
+                    
+                    <button type="button" 
+                            class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2" 
+                            onclick="copyGeneratedContent()" 
+                            title="Copy to clipboard">
+                        <i class="ri-file-copy-line"></i>
+                    </button>
+
+                    <div id="content-div" class="mt-2 text-dark" style="white-space: pre-wrap;">
+                        Your generated blog post will appear here...
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Disables/Enables button based on input length
+         */
+        function validateInput() {
+            const textarea = document.getElementById('blog_description');
+            const btn = document.getElementById('generate-blog-button');
+            const hint = document.getElementById('char-count');
+            
+            if (textarea.value.trim().length >= 10) {
+                btn.disabled = false;
+                hint.classList.add('d-none');
+            } else {
+                btn.disabled = true;
+                hint.classList.remove('d-none');
+            }
+        }
+
+        /**
+         * Copies content from #content-div (Fixed ID mapping)
+         */
+        function copyGeneratedContent() {
+            const outputDiv = document.getElementById('content-div');
+            const copyBtn = document.querySelector('[onclick="copyGeneratedContent()"]');
+            const icon = copyBtn.querySelector('i');
+            
+            const textToCopy = outputDiv.innerText || outputDiv.textContent;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalClass = icon.className;
+                icon.className = 'ri-check-line text-success';
+                
+                setTimeout(() => {
+                    icon.className = originalClass;
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed', err);
+            });
+        }
+    </script>
+</div>
 
 <!-- end main content -->
 <?= $this->endSection() ?>
