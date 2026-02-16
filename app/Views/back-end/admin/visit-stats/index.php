@@ -153,7 +153,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
     <!-- Check for enabling or disabling AI integration (sensitive data) -->
     <?php $enableGeminiAIAnalysis = getConfigData("EnableGeminiAIAnalysis"); ?>
-    <?php if(strtolower($enableGeminiAIAnalysis) === "yes"):?>
+    <?php if(strtolower($enableGeminiAIAnalysis) === "yes" && isValidGeminiKey()):?>
         <!--AI Analysis Setion-->
         <div class="row">
             <div class="col-12 my-3">

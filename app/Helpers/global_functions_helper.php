@@ -1427,6 +1427,31 @@ if (!function_exists('formatAiResponse')) {
     }
 }
 
+/**
+ * Checks if the GEMINI_REQUEST_KEY in the .env file is valid.
+ * * @return bool
+ */
+if (! function_exists('isValidGeminiKey')) {
+    function isValidGeminiKey(): bool
+    {
+        $apiKey = env('GEMINI_REQUEST_KEY');
+
+        if (empty($apiKey)) {
+            return false;
+        }
+
+        /**
+         * Pattern Breakdown:
+         * ^AIza       - Must start with 'AIza' (Standard for Google Cloud/AI keys)
+         * [a-zA-Z0-9_-] - Allows letters, numbers, underscores, and hyphens
+         * {35}        - Expects 35 more characters (39 total)
+         */
+        $pattern = '/^AIza[a-zA-Z0-9_-]{35}$/';
+
+        return (bool) preg_match($pattern, $apiKey);
+    }
+}
+
 
 /**
  * Sanitize/Clean user input for search queries

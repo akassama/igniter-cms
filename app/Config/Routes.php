@@ -252,7 +252,7 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
     }
 
 
-    if (isFeatureEnabled('FEATURE_ASK_AI')) {
+    if (isFeatureEnabled('FEATURE_ASK_AI') && isValidGeminiKey()) {
         //Ask AI
         $routes->get('ask-ai', 'AIController::index');
     }
