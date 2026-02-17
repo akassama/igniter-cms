@@ -16,6 +16,7 @@ class GenerateKey extends BaseCommand
         // Generate a 256-bit key
         $key1 = bin2hex(random_bytes(32));
         $key2 = bin2hex(random_bytes(32));
+        $key3 = bin2hex(random_bytes(32));
 
         // Define .env file path
         $envFile = ROOTPATH . '.env';
@@ -46,9 +47,18 @@ class GenerateKey extends BaseCommand
             $envContent .= PHP_EOL . "PLUGIN_API_REQUEST_KEY={$key2}";
         }
 
+        // Check if CRON_SECRET_KEY already exists
+        if (preg_match('/CRON_SECRET_KEY\s*=\s*/', $envContent)) {
+            // Replace existing key
+            $envContent = preg_replace('/CRON_SECRET_KEY\s*=\s*[^\n]*/', "CRON_SECRET_KEY={$key3}", $envContent);
+        } else {
+            // Append new CRON_SECRET_KEY
+            $envContent .= PHP_EOL . "CRON_SECRET_KEY={$key3}";
+        }
+
         // Write back to .env file
         file_put_contents($envFile, $envContent);
 
-        CLI::write("New application keys generated and saved: ({$key1},{$key2})", 'green');
+        CLI::write("New application keys generated and saved: ({$key1},{$key2},{$key3})", 'green');
     }
 }

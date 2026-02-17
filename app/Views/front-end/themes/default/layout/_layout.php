@@ -137,7 +137,7 @@ $adminBar = renderAdminBar();
                             </a>
                         </li>                                                    
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url('about-us') ?>" target="_self">
+                            <a class="nav-link" href="#!" target="_self">
                                 About Us
                             </a>
                         </li>                                                    

@@ -64,7 +64,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= $category['title']; ?></td>
                                     <td><?= $category['description']; ?></td>
                                     <td><?= $category['order']; ?></td>
-                                    <td><?= $category['status'] == "1" ? "<span class='badge bg-success'>Published</span>" : "<span class='badge bg-secondary'>Unpublished</span>" ?></td>                               
+                                    <td><?= $category['status'] == "1" ? "<span class='badge bg-success'><i class='ri-check-line'></i> Published</span>" : "<span class='badge bg-secondary'><i class='ri-close-line'></i> Unpublished</span>" ?></td>                               
                                     <td>
                                         <?= getInputLinkTag($category['category_id'], $category['link']); ?>
                                     </td>

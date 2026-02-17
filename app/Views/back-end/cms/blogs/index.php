@@ -63,7 +63,17 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </td>
                                     <td><?= $blog['title']; ?></td>
                                     <td><?= !empty($blog['category']) ? getBlogCategoryName($blog['category']) : "" ?></td>
-                                    <td><?= $blog['status'] == "1" ? "<span class='badge bg-success'>Published</span>" : "<span class='badge bg-secondary'>Unpublished</span>" ?></td>
+                                    <td>
+                                        <?php 
+                                            if ($blog['status'] == "1") {
+                                                echo "<span class='badge bg-success'><i class='ri-check-line'></i> Published</span>";
+                                            } elseif ($blog['status'] == "2") {
+                                                echo "<span class='badge bg-warning'><i class='ri-time-line'></i> Scheduled</span>";
+                                            } else {
+                                                echo "<span class='badge bg-secondary'><i class='ri-close-line'></i> Unpublished</span>";
+                                            }
+                                        ?>
+                                    </td>
                                     <td>
                                         <span class="text-primary">
                                             <?= getActivityBy(esc($blog['created_by'])) ?>

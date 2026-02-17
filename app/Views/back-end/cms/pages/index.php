@@ -46,6 +46,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>Title</th>
                             <th>Slug</th>
                             <th>Group</th>
+                            <th>Status</th>
                             <th>Author</th>
                             <th>Views</th>
                             <th>Actions</th>
@@ -66,6 +67,17 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </td>
                                     <td><?= $page['slug']; ?></td>
                                     <td><?= $page['group']; ?></td>
+                                    <td>
+                                        <?php 
+                                            if ($page['status'] == "1") {
+                                                echo "<span class='badge bg-success'><i class='ri-check-line'></i> Published</span>";
+                                            } elseif ($page['status'] == "2") {
+                                                echo "<span class='badge bg-warning'><i class='ri-time-line'></i> Scheduled</span>";
+                                            } else {
+                                                echo "<span class='badge bg-secondary'><i class='ri-close-line'></i> Unpublished</span>";
+                                            }
+                                        ?>
+                                    </td>
                                     <td>
                                         <span class="text-primary">
                                             <?= getActivityBy(esc($page['created_by'])) ?>

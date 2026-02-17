@@ -112,7 +112,7 @@ class FrontEndController extends BaseController
 
         // Set data to pass in view
         $data = [
-            'blogs' => $blogsModel->orderBy('created_at', 'DESC')->paginate(intval(env('PAGINATE_LOW', 20))),
+            'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->paginate(intval(env('PAGINATE_LOW', 20))),
             'pager' => $blogsModel->pager,
             'total_blogs' => $blogsModel->pager->getTotal()
         ];
@@ -123,8 +123,9 @@ class FrontEndController extends BaseController
     public function getBlogDetails($slug)
     { 
         $tableName = 'blogs';
+        $blogStatus = getTableData($tableName, ['slug' => $slug], "status");
         //Check if record exists
-        if (!recordExists($tableName, "slug", $slug)) {
+        if (!recordExists($tableName, "slug", $slug) || $blogStatus != 1) {
             $errorMsg = str_replace('[Record]', 'Blog', config('CustomConfig')->notFoundMsg);
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/');
@@ -148,8 +149,9 @@ class FrontEndController extends BaseController
     public function getPageDetails($slug)
     {
         $tableName = 'pages';
+        $pageStatus = getTableData($tableName, ['slug' => $slug], "status");
         //Check if record exists
-        if (!recordExists($tableName, "slug", $slug)) {
+        if (!recordExists($tableName, "slug", $slug) || $pageStatus != 1) {
             $errorMsg = str_replace('[Record]', 'Page', config('CustomConfig')->notFoundMsg);
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/');
