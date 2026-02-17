@@ -68,7 +68,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             if ($blog['status'] == "1") {
                                                 echo "<span class='badge bg-success'><i class='ri-check-line'></i> Published</span>";
                                             } elseif ($blog['status'] == "2") {
-                                                echo "<span class='badge bg-warning'><i class='ri-time-line'></i> Scheduled</span>";
+                                                echo "<span class='badge bg-warning' data-bs-toggle='tooltip' data-bs-title='". dateFormat($blog['scheduled_date_time'], 'M j, Y - H:i:s')."'><i class='ri-time-line'></i> Scheduled</span>";
                                             } else {
                                                 echo "<span class='badge bg-secondary'><i class='ri-close-line'></i> Unpublished</span>";
                                             }

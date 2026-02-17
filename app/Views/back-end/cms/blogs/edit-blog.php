@@ -155,6 +155,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <option value="">Select status</option>
                     <option value="0" <?= ($blog_data['status'] == '0') ? 'selected' : '' ?>>Unpublished</option>
                     <option value="1" <?= ($blog_data['status'] == '1') ? 'selected' : '' ?>>Published</option>
+                    <option value="2" <?= ($blog_data['status'] == '2') ? 'selected' : '' ?>>Schedule</option>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('status')) {?>
@@ -183,6 +184,34 @@ echo generateBreadcrumb($breadcrumb_links);
                     Please provide author
                 </div>
             </div>
+
+            <div class="col-12 mb-3" id="schedule-date" style="display:<?= ($blog_data['status'] == '2') ? 'block' : 'none' ?>">
+                <label for="scheduled_date_time" class="form-label">Scheduled Date</label>
+                <input type="text" class="form-control tempus-datetime-picker" id="scheduled_date_time" name="scheduled_date_time" maxlength="250" value="<?= $blog_data['scheduled_date_time'] ?>">
+                <!-- Error -->
+                <?php if($validation->getError('scheduled_date_time')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('scheduled_date_time'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    Please provide scheduled_date_time
+                </div>
+            </div>
+            <script>
+                document.getElementById('status').addEventListener('change', function() {
+                    var scheduleDateDiv = document.getElementById('schedule-date');
+                    var scheduledDateInput = document.getElementById('scheduled_date_time');
+                    
+                    if (this.value === '2') {
+                        scheduleDateDiv.style.display = 'block';
+                        scheduledDateInput.setAttribute('required', 'required');
+                    } else {
+                        scheduleDateDiv.style.display = 'none';
+                        scheduledDateInput.removeAttribute('required');
+                    }
+                });
+            </script>
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="is_featured" class="form-label">Featured</label>

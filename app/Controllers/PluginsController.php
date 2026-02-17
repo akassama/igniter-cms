@@ -33,7 +33,7 @@ class PluginsController extends BaseController
                     $meta = json_decode($json, true);
 
                     if ($meta) {
-                        $meta['folder'] = $folder; // Keep the folder name for reference
+                        $meta['folder'] = $folder;
                         $plugins[] = $meta;
                     }
                 }
