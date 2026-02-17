@@ -44,7 +44,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>#</th>
                             <th>IP</th>
                             <th>Block Start Time</th>
-                            <th>Block Start Time</th>
+                            <th>Block End Time</th>
                             <th>Reason</th>
                             <th>Notes</th>
                             <th>URL</th>

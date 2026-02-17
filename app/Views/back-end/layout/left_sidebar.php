@@ -212,11 +212,6 @@ $userRole = getUserRole($sessionEmail);
                             </div>     
                         <?php endif; ?>
 
-                        <a class="nav-link" href="https://docs.ignitercms.com/" target="_blank" id="documentationButton">
-                            <div class="sb-nav-link-icon"><i class="ri-code-s-slash-line h5"></i></div>
-                            Documentation
-                        </a>
-
                         <?php if ($userRole == "Admin"): ?>
                             <?php if (isFeatureEnabled('FEATURE_PLUGINS')): ?>
                                 <!--Plugins Feature Nav Links-->
@@ -238,14 +233,18 @@ $userRole = getUserRole($sessionEmail);
                             <?php endif; ?>
                         <?php endif; ?>
 
-
-                        <?php if (isFeatureEnabled('FEATURE_ASK_AI')): ?>
+                        <?php if (isFeatureEnabled('FEATURE_ASK_AI') && isValidGeminiKey()): ?>
                             <!--Aks AI Feature Nav Links-->
                             <a class="nav-link <?= (str_contains(current_url(), 'account/ask-ai')) ? 'active' : ''; ?>" href="<?= base_url('/account/ask-ai'); ?>" id="askAiButton">
                                 <div class="sb-nav-link-icon"><i class="ri-chat-ai-line h5"></i></div>
                                 Ask AI
                             </a>
                         <?php endif; ?>
+
+                        <a class="nav-link" href="https://docs.ignitercms.com/" target="_blank" id="documentationButton">
+                            <div class="sb-nav-link-icon"><i class="ri-code-s-slash-line h5"></i></div>
+                            Documentation
+                        </a>
                         
                     <?php endif; ?>
                 </div>

@@ -58,6 +58,10 @@ class Blogs extends Migration
                 'default' => 0,
                 'null' => true,
             ],
+            'scheduled_date_time' => [
+                'type' => 'TIMESTAMP',
+                'null' => true
+            ],
             'author' => [
                 'type' => 'VARCHAR',
                 'constraint' => 50,

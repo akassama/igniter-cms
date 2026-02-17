@@ -35,6 +35,7 @@ class BlogsModel extends Model
         'is_featured',
         'is_breaking',
         'status',
+        'scheduled_date_time',
         'total_views',
         'meta_title', 
         'meta_description', 
@@ -99,6 +100,7 @@ class BlogsModel extends Model
             'is_featured' => $param['is_featured'],
             'is_breaking' => $param['is_breaking'],
             'status' => $param['status'],
+            'scheduled_date_time' => $param['scheduled_date_time'],
             'meta_title' => $param['meta_title'],
             'meta_description' => $param['meta_description'],
             'meta_keywords' => $param['meta_keywords'],
@@ -132,6 +134,7 @@ class BlogsModel extends Model
         $existingBlog['is_featured'] = $param['is_featured'];
         $existingBlog['is_breaking'] = $param['is_breaking'];
         $existingBlog['status'] = $param['status'];
+        $existingBlog['scheduled_date_time'] = $param['scheduled_date_time'];
         $existingBlog['author'] = $param['author'];
         $existingBlog['meta_title'] = $param['meta_title'];
         $existingBlog['meta_description'] = $param['meta_description'];

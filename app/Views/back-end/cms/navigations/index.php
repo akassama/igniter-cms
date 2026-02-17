@@ -70,7 +70,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= !empty($navigation['parent']) ? getTableData("navigations", ['navigation_id' => $navigation['navigation_id']], 'title') : "" ?></td>
                                     <td>
                                         <?= getInputLinkTag($navigation['navigation_id'], $navigation['link']); ?>
-                                    </td><td><?= $navigation['status'] == "1" ? "<span class='badge bg-success'>Published</span>" : "<span class='badge bg-secondary'>Unpublished</span>" ?></td> 
+                                    </td><td><?= $navigation['status'] == "1" ? "<span class='badge bg-success'><i class='ri-check-line'></i> Published</span>" : "<span class='badge bg-secondary'><i class='ri-close-line'></i> Unpublished</span>" ?></td> 
                                     <td><?= getActivityBy(esc($navigation['created_by']) , ""); ?></td>
                                     <td><?= getActivityBy(esc($navigation['updated_by']) , ""); ?></td>
                                     <td>
