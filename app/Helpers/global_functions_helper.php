@@ -1404,30 +1404,60 @@ if (!function_exists('makeGeminiCall')) {
  * @return string|null Cleaned response in plain text or HTML format
  */
 if (!function_exists('formatAiResponse')) {
-    function formatAiResponse($response)
+    function formatAiResponse($response, $format = "text")
     {
-        if (empty($response)) {
-            return null;
+        if (empty($response)) return null;
+
+        // 1. Clean up Gemini's triple backtick code blocks (```markdown ... ```)
+        $response = preg_replace('/```(?:markdown|html|json)?\n?|```/', '', $response);
+        $response = trim($response);
+
+        // 2. Handle Plain Text format
+        if ($format === 'text') {
+            $response = preg_replace('/\*\*(.*?)\*\*/', '$1', $response); // Remove Bold stars
+            $response = preg_replace('/^#+\s+/m', '', $response);        // Remove Headers
+            $response = preg_replace('/^\s*[\*\-]\s+/m', '• ', $response); // Bullets to dots
+            return nl2br($response);
         }
 
-        // Check if response is HTML (contains HTML tags)
-        if (strpos($response, '<div') !== false || strpos($response, '<ul') !== false || strpos($response, '<li') !== false) {
-            // For HTML responses, return as-is after basic cleanup
-            $response = preg_replace('/```html/', '', $response);
-            $response = preg_replace('/```/', '', $response);
-            return trim($response);
+        // 3. Handle HTML format (The "Raw" Parser)
+        if ($format === 'html') {
+            // Headings: # Header -> <h1>Header</h1>
+            $response = preg_replace_callback('/^#{1,6} (.*)$/m', function ($matches) {
+                $level = strlen(explode(' ', $matches[0])[0]);
+                return "<h$level>" . trim($matches[1]) . "</h$level>";
+            }, $response);
+
+            // Bold: **text** -> <strong>text</strong>
+            $response = preg_replace('/\*\*(.*?)\*\*/', '<strong>$1</strong>', $response);
+
+            // Italics: *text* or _text_ -> <em>text</em>
+            $response = preg_replace('/\*([^\*]+)\*/', '<em>$1</em>', $response);
+
+            // Unordered Lists: * item -> <li>item</li> (wrapped in <ul>)
+            $response = preg_replace_callback('/^[\*\-]\s+(.*)$/m', function($matches) {
+                return "<ul><li>" . trim($matches[1]) . "</li></ul>";
+            }, $response);
+            
+            // Clean up multiple <ul> tags created by the line-by-line regex
+            $response = str_replace("</ul>\n<ul>", "", $response);
+
+            // Horizontal Rule: --- -> <hr>
+            $response = preg_replace('/^---$/m', '<hr>', $response);
+
+            // Paragraphs: Wrap blocks of text separated by double newlines
+            // (Only if not already an HTML tag)
+            $lines = explode("\n", $response);
+            foreach ($lines as &$line) {
+                $line = trim($line);
+                if (!empty($line) && $line[0] !== '<') {
+                    $line = "<p>$line</p>";
+                }
+            }
+            return implode("\n", $lines);
         }
 
-        // For plain text responses, enhance formatting
-        $response = preg_replace('/\*\*(.*?)\*\*/', '<strong>$1</strong>', $response); // Bold to strong
-        $response = preg_replace('/\*(.*?)\*/', '<em>$1</em>', $response); // Italics to em
-        $response = preg_replace('/\n\s*\n/', "\n\n", $response); // Remove extra line breaks
-        $response = nl2br(trim($response)); // Convert newlines to <br> tags
-
-        // Remove any remaining markdown artifacts
-        $response = str_replace(['# ', '## ', '### '], ['', '', ''], $response);
-
-        return $response;
+        return $response; // Return raw markdown for 'markdown' format
     }
 }
 

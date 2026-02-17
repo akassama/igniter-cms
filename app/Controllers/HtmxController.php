@@ -325,7 +325,7 @@ class HtmxController extends BaseController
         $blogDescription = getTextSummary(strip_tags($blogDescription), 500);
         $prompt = "Write a blog for the following.\n\Blog Description:\n$blogDescription";
 
-        $content = makeGeminiCall($prompt);
+        $content = makeGeminiCall($prompt, "html");
 
         $contentDiv = '<div id="content-div" class="mt-2 text-dark" style="white-space: pre-wrap;">'.$content.'</div>';
         

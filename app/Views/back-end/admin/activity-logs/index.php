@@ -121,10 +121,10 @@ echo generateBreadcrumb($breadcrumb_links);
                                         hx-post="<?=base_url()?>/htmx/get-activity-logs-analysis-via-ai"
                                         hx-trigger="click delay:250ms"
                                         hx-target="#analysis-div"
-                                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Analize With AI</button>
+                                        hx-swap="innerHTML" hx-indicator="#spinner"><i class="ri-robot-2-fill"></i> Analize With AI</button>
                                     </div>
                                     <div id="analysis-div">
-                                        
+                                        <img  id="spinner" class="htmx-indicator" src="<?=base_url('public/uploads/default/loading.gif')?>" style="height: 75px"/>
                                     </div>
                                 </div>
                             </div>

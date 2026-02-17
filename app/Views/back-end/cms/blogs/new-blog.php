@@ -373,7 +373,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             hx-trigger="click delay:250ms"
                             hx-target="#content-div"
                             hx-include="#blog_description"
-                            hx-swap="innerHTML" disabled>
+                            hx-swap="innerHTML" hx-indicator="#spinner" disabled>
                         <i class="ri-robot-2-fill"></i> Generate Blog
                     </button>
                 </form>
@@ -390,8 +390,9 @@ echo generateBreadcrumb($breadcrumb_links);
                         <i class="ri-file-copy-line"></i>
                     </button>
 
-                    <div id="content-div" class="mt-2 text-dark" style="white-space: pre-wrap;">
+                    <div id="content-div" class="mt-2 text-dark">
                         Your generated blog post will appear here...
+                        <img  id="spinner" class="htmx-indicator" src="<?=base_url('public/uploads/default/loading.gif')?>" style="height: 75px"/>
                     </div>
                 </div>
             </div>
