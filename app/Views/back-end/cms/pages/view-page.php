@@ -23,6 +23,11 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="col-12">
         <h3>View Page</h3>
     </div>
+    <div class="col-12 d-flex justify-content-end mb-2">
+        <button class="btn btn-outline-dark mx-1" data-bs-toggle="modal" data-bs-target="#previewPageModal" data-page-url="<?= base_url($page_data['slug']) ?>">
+            <i class="ri-search-eye-line"></i> Preview Page
+        </button>
+    </div>
     <div class="col-12 bg-light rounded p-4">
         <div class="row">
             <div class="col-sm-12 col-md-12 mb-3">
@@ -108,6 +113,9 @@ echo generateBreadcrumb($breadcrumb_links);
         </div>
     </div>
 </div>
+
+<!-- Include the preview page modal -->
+<?=  $this->include('back-end/layout/modals/_preview_page_modal.php'); ?>
 
 <!-- Include the files modal -->
 <?=  $this->include('back-end/layout/modals/_files_modal.php'); ?>
