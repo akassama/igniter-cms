@@ -30,6 +30,9 @@ echo generateBreadcrumb($breadcrumb_links);
     <!--Content-->
     <div class="col-12">
         <h3>File Editor</h3>
+        <button class="btn btn-outline-dark mx-1" data-bs-toggle="modal" data-bs-target="#previewPageModal" data-page-url="<?= base_url('/search?q=the') ?>">
+            <i class="ri-search-eye-line"></i> Preview Page
+        </button>
         <button class="btn btn-dark my-1 float-end" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
             <i class="ri-image-fill"></i> File Manager
         </button>
@@ -90,6 +93,9 @@ echo generateBreadcrumb($breadcrumb_links);
 
 <!-- Include the files modal -->
 <?=  $this->include('back-end/layout/modals/_files_modal.php'); ?>
+
+<!-- Include the preview page modal -->
+<?=  $this->include('back-end/layout/modals/_preview_page_modal.php'); ?>
 
 <!-- end main content -->
 <?= $this->endSection() ?>
