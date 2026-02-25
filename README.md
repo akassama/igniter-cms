@@ -43,7 +43,7 @@ Visit [Documentation](https://docs.ignitercms.com/) section in the website
      Make sure to update the `hostname`, `username`, `password`, and `database` fields with your database connection details.
 
    - Create the Database: Using your database management system (e.g., PhpMyAdmin), create a new database with the same name specified in `.env`.
-   - Set Up Base URL: Set your base URL in the `.env` file. `app_baseURL = 'http://localhost/apps/igniter-cms/'`
+   - Set Up Base URL: Set your base URL in the `.env` file. `app_baseURL = 'http://localhost/igniter-cms/'`
    - Generate App Key: `php spark generate:key` This command will generate/update the application key `(APP_KEY)` in the `.env` file
    - Run migrations: `php spark recreate:tables` and type `yes`.. This command will execute all available migrations, creating the necessary database tables.
    - Start the Application

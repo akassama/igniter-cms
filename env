@@ -22,7 +22,7 @@ CI_ENVIRONMENT = development
 
 # app.baseURL = ''
 # If you have trouble with `.`, you could also use `_`.
-# app_baseURL = 'http://localhost/apps/igniter-cms/'
+# app_baseURL = 'http://localhost/igniter-cms/'
 # app.forceGlobalSecureRequests = false
 # app.CSPEnabled = false
 
@@ -167,6 +167,12 @@ TURNSTILE_SITE_KEY = "your-turnstile-site-key"
 TURNSTILE_SECRET = "your-turnstile-secret"
 GREGWAR_DIFFICULTY = "" # Options easy, medium, hard
 
+# GOOGLE OAUTH CREDENTIALS
+ENABLE_GOOGLE_OAUTH = true
+GOOGLE_CLIENT_ID     = my-google-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET = my-google-client-secret
+GOOGLE_REDIRECT_URI = http://localhost/igniter-cms/auth/google/callback
+
 #--------------------------------------------------------------------
 # OTHER SETTINGS
 #--------------------------------------------------------------------
@@ -185,3 +191,4 @@ THEMES_API_ENDPOINT = https://api.ignitercms.com/api-service/get-themes/
 PLUGINS_API_ENDPOINT = https://api.ignitercms.com/api-service/get-plugins/
 # Cron security key - CHANGE THIS!
 CRON_SECRET_KEY = "your-strong-secret-key-here-12345"
+
