@@ -35,7 +35,7 @@ class SignInController extends BaseController
         validateHoneypotInput($honeypotInput, $submittedTimestamp);
 
         // Get use captcha config
-        $useCaptcha = env('USE_CAPTCHA', "No");
+        $useCaptcha = env('USE_CAPTCHA', false);
 
         // Set validation rules
         $rules = [
@@ -100,6 +100,7 @@ class SignInController extends BaseController
                     'email' => $user['email'],
                     'role' => $user['role'],
                     'upload_directory' => $user['upload_directory'],
+                    'is_social_login' => $user['is_social_login'],
                     'is_logged_in' => TRUE
                 ]);
 

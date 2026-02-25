@@ -157,7 +157,7 @@ NOTIFY_COMMENTER_EMAIL = true
 #--------------------------------------------------------------------
 # CAPTCHA SETTINGS
 #--------------------------------------------------------------------
-USE_CAPTCHA = "No"
+USE_CAPTCHA = false
 CAPTCHA_TYPE = "gregwar" # Options: gregwar,recaptcha,hcaptcha,cloudflare
 RECAPTCHA_SITE_KEY = "your-recaptcha-site-key"
 RECAPTCHA_SECRET = "your-recaptcha-secret"
@@ -168,7 +168,7 @@ TURNSTILE_SECRET = "your-turnstile-secret"
 GREGWAR_DIFFICULTY = "" # Options easy, medium, hard
 
 # GOOGLE OAUTH CREDENTIALS
-ENABLE_GOOGLE_OAUTH = true
+ENABLE_GOOGLE_OAUTH = false
 GOOGLE_CLIENT_ID     = my-google-client-id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET = my-google-client-secret
 GOOGLE_REDIRECT_URI = http://localhost/igniter-cms/auth/google/callback

@@ -128,6 +128,7 @@ class GoogleAuthController extends BaseController
             'email' => $user['email'],
             'role' => $user['role'],
             'upload_directory' => $user['upload_directory'],
+            'is_social_login' => $user['is_social_login'],
             'is_logged_in' => TRUE
         ]);
 
@@ -164,6 +165,7 @@ class GoogleAuthController extends BaseController
             'facebook_link' => null,
             'instagram_link' => null,
             'linkedin_link' => null,
+            'is_social_login' => true,
             'password_change_required' => false
         ];
 
@@ -197,6 +199,7 @@ class GoogleAuthController extends BaseController
                 'email' => $newUser['email'],
                 'role' => $newUser['role'],
                 'upload_directory' => $newUser['upload_directory'],
+                'is_social_login' => $newUser['is_social_login'],
                 'is_logged_in' => TRUE
             ]);
 

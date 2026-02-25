@@ -240,8 +240,8 @@ if (!function_exists('getHoneypotInput')) {
 if (!function_exists('renderCaptcha')) {
     function renderCaptcha()
     {
-        $useCaptcha = env('USE_CAPTCHA', "No");
-        if (strtolower($useCaptcha) !== "yes") return "";
+        $useCaptcha = env('USE_CAPTCHA', false);
+        if (!$useCaptcha) return "";
 
         $types = explode(',', strtolower(env('CAPTCHA_TYPE', 'recaptcha')));
         foreach ($types as $type) {
@@ -411,8 +411,8 @@ if (!function_exists('renderCaptcha')) {
  */
 function validateCaptcha($returnUrl = null)
 {
-    $useCaptcha = env('USE_CAPTCHA', "No");
-    if (strtolower($useCaptcha) !== "yes") return true;
+    $useCaptcha = env('USE_CAPTCHA', false);
+    if (!$useCaptcha) return true;
 
     $types = explode(',', strtolower(env('CAPTCHA_TYPE', 'recaptcha')));
 

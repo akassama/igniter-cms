@@ -61,6 +61,7 @@ class AuthFilter implements FilterInterface
                         'email' => $user->email,
                         'role' => $user->role,
                         'upload_directory' => $user->upload_directory,
+                        'is_social_login' => $user->is_social_login,
                         'is_logged_in' => TRUE
                     ]);
                 } else {

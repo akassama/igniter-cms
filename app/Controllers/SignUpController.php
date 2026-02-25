@@ -29,8 +29,8 @@ class SignUpController extends BaseController
         }
         
         //get use captcha config
-        $useCaptcha = env('USE_CAPTCHA', "No");
-        if(strtolower($useCaptcha) === "yes"){
+        $useCaptcha = env('USE_CAPTCHA', false);
+        if($useCaptcha){
             // Generate captcha
             $builder = new CaptchaBuilder;
             $builder->build();
@@ -74,9 +74,8 @@ class SignUpController extends BaseController
         }
 
         //get use captcha config
-        $useCaptcha = env('USE_CAPTCHA', "No");
-
-        if(strtolower($useCaptcha) === "yes"){
+        $useCaptcha = env('USE_CAPTCHA', false);
+        if($useCaptcha){
             $captcha = $this->request->getPost('captcha');
             $captchaSession = session('captcha');
             // Verify captcha.
@@ -93,6 +92,7 @@ class SignUpController extends BaseController
             'username' => $this->request->getPost('username'),
             'email' => $this->request->getPost('email'),
             'password' => $this->request->getPost('password'),
+            'is_social_login' => false,
             'profile_picture'=> null,
             'twitter_link'=> null,
             'facebook_link'=> null,
