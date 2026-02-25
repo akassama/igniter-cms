@@ -151,6 +151,23 @@
                     Already have an account? Login <a href="<?= base_url('/sign-in'); ?>">here</a>
                 </p>
             </div>
+
+            <!-- Google Auth -->
+            <?php if(env('ENABLE_GOOGLE_OAUTH')) {?>
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="social-login-divider d-flex align-items-center my-4">
+                            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                        </div>
+
+                        <div class="text-center">
+                            <a href="<?= base_url('auth/google/login') ?>" class="btn btn-danger btn-block w-100 mb-2">
+                                <i class="ri-google-fill"></i> Sign in with Google
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <?php }?>
         </form>
     </div>
 </div>

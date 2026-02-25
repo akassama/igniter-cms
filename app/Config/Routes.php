@@ -33,6 +33,12 @@ $routes->group('password-reset', ['filter' => ['siteStatsFilter','guestFilter','
     $routes->post('/', 'PasswordResetController::resetPassword');
 });
 
+if(env('ENABLE_GOOGLE_OAUTH')){
+    // Google OAuth Routes
+    $routes->get('auth/google/login', 'GoogleAuthController::login');
+    $routes->get('auth/google/callback', 'GoogleAuthController::callback');
+}
+
 //UNSUBSCRIBE
 $routes->get('services/unsubscribe', 'ServicesController::unsubscribe');
 
