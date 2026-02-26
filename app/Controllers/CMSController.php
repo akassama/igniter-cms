@@ -162,7 +162,7 @@ class CMSController extends BaseController
         ];
 
         if ($blogsModel->updateBlog($blogId, $data)) {
-            $editSuccessMsg = str_replace('[Record]', 'Plugin', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Blog', config('CustomConfig')->editSuccessMsg);
             session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::BLOG_UPDATE, 'Blog updated with id: ' . $blogId);
             return redirect()->to('/account/cms/blogs');
@@ -270,7 +270,7 @@ class CMSController extends BaseController
         ];
 
         if ($categoriesModel->updateCategory($categoryId, $data)) {
-            $editSuccessMsg = str_replace('[Record]', 'Plugin', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Category', config('CustomConfig')->editSuccessMsg);
             session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::CATEGORY_UPDATE, 'Category updated with id: ' . $categoryId);
             return redirect()->to('/account/cms/categories');

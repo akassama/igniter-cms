@@ -47,6 +47,24 @@ class ActivityLogs extends Migration
                 'null' => true,
                 'after' => 'ip_address'
             ],
+            'auditable_type' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
+            ],
+            'auditable_id' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
+            ],
+            'old_values' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'new_values' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
             'updated_at datetime default current_timestamp on update current_timestamp',
             'created_at datetime default current_timestamp',
         ]);
