@@ -44,6 +44,11 @@ class Roles extends Migration
                 'role'  => 'Manager',
                 'role_description'  => 'Manager Role',
             ],
+            [
+                'role_id' => getGUID(),
+                'role'  => 'User',
+                'role_description'  => 'User Role',
+            ],
         ];
 
         // Using Query Builder
