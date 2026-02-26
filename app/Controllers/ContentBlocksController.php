@@ -48,6 +48,8 @@ class ContentBlocksController extends BaseController
             return view('back-end/content-blocks/new-content-block', ['validation' => $this->validator]);
         }
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
         $data = [
             'identifier' => $this->request->getPost('identifier'),
             'author' => $loggedInUserId,
@@ -80,11 +82,11 @@ class ContentBlocksController extends BaseController
             $insertedId = $contentBlocksModel->getInsertID();
             $createSuccessMsg = str_replace('[Record]', 'Content Block', config('CustomConfig')->createSuccessMsg);
             session()->setFlashdata('successAlert', $createSuccessMsg);
-            logActivity($loggedInUserId, ActivityTypes::CONTENT_BLOCK_CREATION, 'Content block created with id: ' . $insertedId);
+            logActivity($loggedInUserId, ActivityTypes::CONTENT_BLOCK_CREATION, 'Content block created with id: ' . $insertedId, $actionUrl, get_class($contentBlocksModel), $insertedId, json_encode($previousData), null);
             return redirect()->to('/account/content-blocks');
         } else {
             session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
-            logActivity($loggedInUserId, ActivityTypes::FAILED_CONTENT_BLOCK_CREATION, 'Failed to create content block with title: ' . $data['title']);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_CONTENT_BLOCK_CREATION, 'Failed to create content block with title: ' . $data['title'], $actionUrl, get_class($contentBlocksModel), null, json_encode($previousData), null);
             return view('back-end/content-blocks/new-content-block');
         }
     }
@@ -129,6 +131,8 @@ class ContentBlocksController extends BaseController
             return view('back-end/content-blocks/edit-content-block', ['validation' => $this->validator, 'content_block_data' => $contentBlocksModel->find($contentBlockId)]);
         }
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = $contentBlocksModel->find($contentBlockId);
         $data = [
             'identifier' => $this->request->getPost('identifier'),
             'author' => $loggedInUserId,
@@ -160,11 +164,11 @@ class ContentBlocksController extends BaseController
         if ($contentBlocksModel->updateContentBlock($contentBlockId, $data)) {
             $editSuccessMsg = str_replace('[Record]', 'Content Block', config('CustomConfig')->editSuccessMsg);
             session()->setFlashdata('successAlert', $editSuccessMsg);
-            logActivity($loggedInUserId, ActivityTypes::CONTENT_BLOCK_UPDATE, 'Content block updated with id: ' . $contentBlockId);
+            logActivity($loggedInUserId, ActivityTypes::CONTENT_BLOCK_UPDATE, 'Content block updated with id: ' . $contentBlockId, $actionUrl, get_class($contentBlocksModel), $contentBlockId, json_encode($previousData), json_encode($data));
             return redirect()->to('/account/content-blocks');
         } else {
             session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
-            logActivity($loggedInUserId, ActivityTypes::FAILED_CONTENT_BLOCK_UPDATE, 'Failed to update content block with id: ' . $contentBlockId);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_CONTENT_BLOCK_UPDATE, 'Failed to update content block with id: ' . $contentBlockId, $actionUrl, get_class($contentBlocksModel), null, json_encode($previousData), json_encode($data));
             return redirect()->to('/account/edit-content-block/' . $contentBlockId);
         }
     }

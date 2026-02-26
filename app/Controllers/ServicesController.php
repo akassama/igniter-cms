@@ -36,6 +36,9 @@ class ServicesController extends BaseController
         $childTables = $this->request->getPost('child_table');
         $returnUrl = $this->request->getPost('return_url');
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
+
         //show demo message
         if(boolval(env('DEMO_MODE', "false"))){
             $errorMsg = "Action not available in the demo mode.";
@@ -62,7 +65,7 @@ class ServicesController extends BaseController
             session()->setFlashdata('toastrSuccessAlert', $createSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::DELETE_LOG, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue);
+            logActivity($loggedInUserId, ActivityTypes::DELETE_LOG, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue, $actionUrl, $tableName, $pkValue, json_encode($previousData), null);
 
             //return
             return redirect()->to($returnUrl);
@@ -72,7 +75,7 @@ class ServicesController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete record for table name: ' . $tableName .' with id: ' . $pkValue);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete record for table name: ' . $tableName .' with id: ' . $pkValue, $actionUrl, $tableName, $pkValue, json_encode($previousData), null);
 
             return redirect()->to($returnUrl);
         }
@@ -94,6 +97,9 @@ class ServicesController extends BaseController
         $childTables = $this->request->getPost('child_table');
         $filePath = $this->request->getPost('file_path');
         $returnUrl = $this->request->getPost('return_url');
+
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
 
         //show demo message
         if(boolval(env('DEMO_MODE', "false"))){
@@ -130,7 +136,7 @@ class ServicesController extends BaseController
             session()->setFlashdata('toastrSuccessAlert', $createSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FILE_DELETION, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue);
+            logActivity($loggedInUserId, ActivityTypes::FILE_DELETION, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue, $actionUrl, $tableName, $pkValue, json_encode($previousData), null);
 
             //return
             return redirect()->to($returnUrl);
@@ -140,7 +146,7 @@ class ServicesController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete record for table name: ' . $tableName .' with id: ' . $pkValue);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete record for table name: ' . $tableName .' with id: ' . $pkValue, $actionUrl, $tableName, $pkValue, json_encode($previousData), null);
 
             return redirect()->to($returnUrl);
         }
@@ -163,6 +169,9 @@ class ServicesController extends BaseController
       $pkValue = $this->request->getPost('pk_value');
       $fileName = $this->request->getPost('file_path');
       $returnUrl = $this->request->getPost('return_url');
+
+      $actionUrl = $this->request->getUri()->getPath();
+      $previousData = null;
 
       //show demo message
       if(boolval(env('DEMO_MODE', "false"))){
@@ -191,7 +200,7 @@ class ServicesController extends BaseController
           session()->setFlashdata('toastrSuccessAlert', $createSuccessMsg);
 
           //log activity
-          logActivity($loggedInUserId, ActivityTypes::FILE_DELETION, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue);
+          logActivity($loggedInUserId, ActivityTypes::FILE_DELETION, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue, $actionUrl, $tableName, $pkValue, json_encode($previousData), null);
 
           //return
           return redirect()->to($returnUrl);
@@ -201,7 +210,7 @@ class ServicesController extends BaseController
           session()->setFlashdata('errorAlert', $errorMsg);
 
           //log activity
-          logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete record for table name: ' . $tableName .' with id: ' . $pkValue);
+          logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete record for table name: ' . $tableName .' with id: ' . $pkValue, $actionUrl, $tableName, $pkValue, json_encode($previousData), null);
 
           return redirect()->to($returnUrl);
       }

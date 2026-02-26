@@ -47,7 +47,7 @@ class ApiAccesses extends Migration
         $data = [
             'api_id' => getGUID(),
             'api_key' => generateApiKey(),
-            'assigned_to' => getGUID(getDefaultAdminGUID()),
+            'assigned_to' => "default",
             'status' => 1,
             'created_by' => getGUID(getDefaultAdminGUID()),
             'updated_by' => null

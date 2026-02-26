@@ -77,6 +77,8 @@ class AdminController extends BaseController
             return view('back-end/admin/users/new-user');
         }
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
         // If validation passes, create the user
         $userData = [
             'first_name' => $this->request->getPost('first_name'),
@@ -105,7 +107,7 @@ class AdminController extends BaseController
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::USER_CREATION, 'User created with id: ' . $insertedId);
+            logActivity($loggedInUserId, ActivityTypes::USER_CREATION, 'User created with id: ' . $insertedId, $actionUrl, get_class($usersModel), $insertedId, json_encode($previousData), json_encode($userData));
 
             return redirect()->to('/account/admin/users');
         } else {
@@ -114,7 +116,7 @@ class AdminController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_USER_CREATION, 'Failed to create user with email: ' . $this->request->getPost('email'));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_USER_CREATION, 'Failed to create user with email: ' . $this->request->getPost('email'), $actionUrl, get_class($usersModel), null, json_encode($userData));
 
             return view('back-end/admin/users/new-user');
         }
@@ -157,11 +159,13 @@ class AdminController extends BaseController
             'role' => 'required',
         ];
 
+        
         $userId = $this->request->getPost('user_id');
         $data['user_data'] = $usersModel->where('user_id', $userId)->first();
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $userId;
+        $previousData = $usersModel->find($userId);
 
         if($this->validate($rules)){
-            $userId = $this->request->getPost('user_id');
 
             $db = \Config\Database::connect();
             $builder = $db->table('users');
@@ -187,7 +191,7 @@ class AdminController extends BaseController
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::USER_UPDATE, 'User updated with id: ' . $userId);
+            logActivity($loggedInUserId, ActivityTypes::USER_UPDATE, 'User updated with id: ' . $userId, $actionUrl, get_class($usersModel), $userId, json_encode($previousData), json_encode($data));
 
             return redirect()->to('/account/admin/users');
         }
@@ -197,7 +201,7 @@ class AdminController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_USER_UPDATE, 'Failed to update user with id: ' . $userId);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_USER_UPDATE, 'Failed to update user with id: ' . $userId, $actionUrl, get_class($usersModel), $userId, json_encode($previousData), json_encode($data));
 
             return view('back-end/admin/users/edit-user', $data);
         }
@@ -264,6 +268,8 @@ class AdminController extends BaseController
             return view('back-end/admin/api-keys/new-api-key');
         }
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
         // If validation passes, create the key
         $data = [
             'api_key' => $this->request->getPost('api_key'),
@@ -283,7 +289,7 @@ class AdminController extends BaseController
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::API_KEY_CREATION, 'ApiKey created with id: ' . $insertedId);
+            logActivity($loggedInUserId, ActivityTypes::API_KEY_CREATION, 'ApiKey created with id: ' . $insertedId, $actionUrl, get_class($apiKeysModel), $insertedId, json_encode($previousData), json_encode($data));
 
             return redirect()->to('/account/admin/api-keys');
         } else {
@@ -292,7 +298,7 @@ class AdminController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_API_KEY_CREATION, 'Failed to create api-key with key: ' . $this->request->getPost('api_key'));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_API_KEY_CREATION, 'Failed to create api-key with key: ' . $this->request->getPost('api_key'), $actionUrl, get_class($apiKeysModel), null, json_encode($previousData), json_encode($data));
 
             return view('back-end/admin/api-keys/new-api-key');
         }
@@ -337,6 +343,8 @@ class AdminController extends BaseController
         $apiId = $this->request->getPost('api_id');
         $data['api_key_data'] = $apiKeysModel->where('api_id', $apiId)->first();
 
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $apiId;
+        $previousData = $apiKeysModel->find($apiId);
         if($this->validate($rules)){
             $db = \Config\Database::connect();
             $builder = $db->table('api_accesses');
@@ -356,7 +364,7 @@ class AdminController extends BaseController
             session()->setFlashdata('successAlert', $editSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::API_KEY_UPDATE, 'ApiKey updated with id: ' . $apiId);
+            logActivity($loggedInUserId, ActivityTypes::API_KEY_UPDATE, 'ApiKey updated with id: ' . $apiId, $actionUrl, get_class($apiKeysModel), $apiId, json_encode($previousData), json_encode($data));
 
             return redirect()->to('/account/admin/api-keys');
         }
@@ -366,7 +374,7 @@ class AdminController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_API_KEY_UPDATE, 'Failed to update ApiKey with id: ' . $apiId);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_API_KEY_UPDATE, 'Failed to update ApiKey with id: ' . $apiId, $actionUrl, get_class($apiKeysModel), $apiId, json_encode($previousData), json_encode($data));
 
             return view('back-end/admin/api-keys/edit-api-key', $data);
         }
@@ -411,6 +419,9 @@ class AdminController extends BaseController
             $data['validation'] = $this->validator;
             return view('back-end/admin/configurations/new-config');
         }
+    
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
 
         // If validation passes, create the config
         $dataType = $this->request->getPost('data_type') ;
@@ -441,7 +452,7 @@ class AdminController extends BaseController
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::CONFIG_CREATION, 'Configuration created with id: ' . $insertedId);
+            logActivity($loggedInUserId, ActivityTypes::CONFIG_CREATION, 'Configuration created with id: ' . $insertedId, $actionUrl, get_class($configModel), $insertedId, json_encode($previousData), json_encode($configData));
 
             return redirect()->to('/account/admin/configurations');
         } else {
@@ -450,7 +461,7 @@ class AdminController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_CONFIG_CREATION, 'Failed to create configuration with config_for: ' . $this->request->getPost('config_for'));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_CONFIG_CREATION, 'Failed to create configuration with config_for: ' . $this->request->getPost('config_for'), $actionUrl, get_class($configModel), null, json_encode($previousData), json_encode($configData));
 
             return view('back-end/admin/configurations/new-config');
         }
@@ -515,6 +526,9 @@ class AdminController extends BaseController
         $configId = $this->request->getPost('config_id');
         $data['config_data'] = $configModel->where('config_id', $configId)->first();
 
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $configId;
+        $previousData = $configModel->find($configId);
+
         $dataType = $this->request->getPost('data_type') ;
         $configValue = $this->request->getPost('config_value') ?? $this->request->getPost('default_value');
         if($this->validate($rules)){
@@ -544,7 +558,7 @@ class AdminController extends BaseController
             session()->setFlashdata('successAlert', $editSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::CONFIG_UPDATE, 'Config updated with id: ' . $configId);
+            logActivity($loggedInUserId, ActivityTypes::CONFIG_UPDATE, 'Config updated with id: ' . $configId, $actionUrl, get_class($configModel), $configId, json_encode($previousData), json_encode($data));
 
             return redirect()->to('/account/admin/configurations?dt-key='.$data["config_for"]);
         }
@@ -554,7 +568,7 @@ class AdminController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_CONFIG_UPDATE, 'Failed to update config with id: ' . $configId);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_CONFIG_UPDATE, 'Failed to update config with id: ' . $configId, $actionUrl, get_class($configModel), $configId, json_encode($previousData), json_encode($data));
 
             return view('back-end/admin/configurations/edit-config', $data);
         }
@@ -600,6 +614,8 @@ class AdminController extends BaseController
             return view('back-end/admin/codes/new-code');
         }
     
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
         // If validation passes, create the code
         $codeData = [
             'code_for' => $this->request->getPost('code_for'),
@@ -619,7 +635,7 @@ class AdminController extends BaseController
             session()->setFlashdata('successAlert', $createSuccessMsg);
     
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::CODE_CREATION, 'Code created with id: ' . $insertedId);
+            logActivity($loggedInUserId, ActivityTypes::CODE_CREATION, 'Code created with id: ' . $insertedId, $actionUrl, get_class($codesModel), $insertedId, json_encode($previousData), json_encode($codeData));
     
             return redirect()->to('/account/admin/codes');
         } else {
@@ -628,7 +644,7 @@ class AdminController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
     
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_CODE_CREATION, 'Failed to create codeuration with code_for: ' .$this->request->getPost('code_for'));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_CODE_CREATION, 'Failed to create code with code_for: ' .$this->request->getPost('code_for'), $actionUrl, get_class($codesModel), null, json_encode($previousData), json_encode($codeData));
     
             return view('back-end/admin/codes/new-code');
         }
@@ -671,6 +687,8 @@ class AdminController extends BaseController
     
         $codeId = $this->request->getPost('code_id');
         $data['code_data'] = $codesModel->where('code_id', $codeId)->first();
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $codeId;
+        $previousData = $codesModel->find($codeId);
     
         if($this->validate($rules)){
             $db = \Config\Database::connect();
@@ -689,7 +707,7 @@ class AdminController extends BaseController
             session()->setFlashdata('successAlert', $editSuccessMsg);
     
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::CODE_UPDATE, 'Code updated with id: ' . $codeId);
+            logActivity($loggedInUserId, ActivityTypes::CODE_UPDATE, 'Code updated with id: ' . $codeId, $actionUrl, get_class($codesModel), $codeId, json_encode($previousData), json_encode($data));
     
             return redirect()->to('/account/admin/codes');
         }
@@ -699,7 +717,7 @@ class AdminController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
     
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_CODE_UPDATE, 'Failed to update code with id: ' . $codeId);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_CODE_UPDATE, 'Failed to update code with id: ' . $codeId, $actionUrl, get_class($codesModel), $codeId, json_encode($previousData), json_encode($data));
     
             return view('back-end/admin/codes/edit-code', $data);
         }
@@ -923,6 +941,9 @@ class AdminController extends BaseController
             return view('back-end/admin/blocked-ips/new-blocked-ip');
         }
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
+
         // If validation passes, create the user
         $blockedIPData = [
             'ip_address' => $this->request->getPost('ip_address'),
@@ -944,7 +965,7 @@ class AdminController extends BaseController
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::BLOCKED_IP_CREATION, 'Blocked IP added with id: ' . $insertedId);
+            logActivity($loggedInUserId, ActivityTypes::BLOCKED_IP_CREATION, 'Blocked IP added with id: ' . $insertedId, $actionUrl, get_class($blockedIPsModel), $insertedId, json_encode($previousData), json_encode($blockedIPData));
 
             return redirect()->to('/account/admin/blocked-ips');
         } else {
@@ -953,7 +974,7 @@ class AdminController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_BLOCKED_IP_CREATION, 'Failed to add blocked IP with IP: ' . $this->request->getPost('ip_address'));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_BLOCKED_IP_CREATION, 'Failed to add blocked IP with IP: ' . $this->request->getPost('ip_address'), $actionUrl, get_class($blockedIPsModel), null, json_encode($previousData), json_encode($blockedIPData));
 
             return view('back-end/admin/blocked-ips/new-blocked-ip');
         }
@@ -1117,6 +1138,8 @@ class AdminController extends BaseController
             }
             file_put_contents($filePath, $backup);
 
+            $actionUrl = $this->request->getUri()->getPath();
+            $previousData = null;
             // Prepare data for insertion
             $data = [
                 'backup_file_path' => $fileName,
@@ -1131,7 +1154,7 @@ class AdminController extends BaseController
                 session()->setFlashdata('successAlert', $createSuccessMsg);
     
                 //log activity
-                logActivity($loggedInUserId, ActivityTypes::BACKUP_CREATION, 'Backup created with id: ' . $insertedId);
+                logActivity($loggedInUserId, ActivityTypes::BACKUP_CREATION, 'Backup created with id: ' . $insertedId, $actionUrl, get_class($backupsModel), $insertedId, json_encode($previousData), json_encode($data));
     
                 return redirect()->to('/account/admin/backups');
             } else {
@@ -1140,7 +1163,7 @@ class AdminController extends BaseController
                 session()->setFlashdata('errorAlert', $errorMsg);
     
                 //log activity
-                logActivity($loggedInUserId, ActivityTypes::FAILED_BACKUP_CREATION, 'Failed to create backup.');
+                logActivity($loggedInUserId, ActivityTypes::FAILED_BACKUP_CREATION, 'Failed to create backup.', $actionUrl, get_class($backupsModel), null, json_encode($previousData), json_encode($data));
     
                 return view('back-end/admin/backups');
             }

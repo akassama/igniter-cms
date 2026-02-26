@@ -73,7 +73,10 @@ class FormsController extends BaseController
     {
         //get logged-in user id
         $loggedInUserId = $this->session->get('user_id');
+        $contactFormsModel = new ContactFormsModel();
         
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = $contactFormsModel->where('contact_form_id', $contactMessageId)->first();
         //mark as archived
         $updatedData = [
             'is_archived' => 1,
@@ -85,7 +88,7 @@ class FormsController extends BaseController
         session()->setFlashdata('toastrSuccessAlert', "Contact message archived.");
 
         //log activity
-        logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_ARCHIVED, 'User archived contact form with id: ' . $contactMessageId);
+        logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_ARCHIVED, 'User archived contact form with id: ' . $contactMessageId, $actionUrl, get_class($contactFormsModel), $contactMessageId, json_encode($previousData), null);
 
         return redirect()->to('/account/forms/contact-forms');
     }
@@ -110,6 +113,8 @@ class FormsController extends BaseController
         //get logged-in user id
         $loggedInUserId = $this->session->get('user_id');
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
         //mark as un-archived
         $updatedData = [
             'is_archived' => 0,
@@ -121,7 +126,7 @@ class FormsController extends BaseController
         session()->setFlashdata('toastrSuccessAlert', "Contact message removed from archived.");
 
         //log activity
-        logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_UNARCHIVED, 'User unarchived contact form with id: ' . $contactMessageId);
+        logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_UNARCHIVED, 'User unarchived contact form with id: ' . $contactMessageId, $actionUrl, get_class($contactFormsModel), $contactMessageId, json_encode($previousData), null);
 
         return redirect()->to('/account/forms/contact-forms');
     }
@@ -147,18 +152,21 @@ class FormsController extends BaseController
         $contactFormId    = $this->request->getPost('contact_form_id'); // UUID as string
         $notes = $this->request->getPost('notes');
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = $contactFormsModel->find($contactFormId);
+
         // Try to update notes
         try {
             $contactFormsModel->update($contactFormId, ['notes' => $notes, 'last_updated_by' => $loggedInUserId]);
             session()->setFlashdata('toastrSuccessAlert', 'Notes updated successfully.');
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_UPDATE, 'User updated contact note with id: ' . $contactFormId);
+            logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_UPDATE, 'User updated contact note with id: ' . $contactFormId, $actionUrl, get_class($contactFormsModel), $contactFormId, json_encode($previousData), json_encode(['notes' => $notes]));
 
             return redirect()->to(base_url('account/forms/contact-forms/view-contact/' . $contactFormId));
         } catch (\Throwable $e) {
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_CONTACT_FORM_UPDATE, 'Error updating contact notes with id: ' . $contactFormId);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_CONTACT_FORM_UPDATE, 'Error updating contact notes with id: ' . $contactFormId, $actionUrl, get_class($contactFormsModel), null, json_encode($previousData), json_encode(['notes' => $notes]));
 
             log_message('error', 'Error updating contact notes: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update notes. Please try again.');
@@ -187,18 +195,21 @@ class FormsController extends BaseController
         $contactFormId    = $this->request->getPost('contact_form_id');
         $status = $this->request->getPost('status');
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = $contactFormsModel->find($contactFormId);
+
         // Try to update status
         try {
             $contactFormsModel->update($contactFormId, ['status' => $status, 'last_updated_by' => $loggedInUserId]);
             session()->setFlashdata('toastrSuccessAlert', 'Status updated successfully.');
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_UPDATE, 'User updated contact status with id: ' . $contactFormId);
+            logActivity($loggedInUserId, ActivityTypes::CONTACT_FORM_UPDATE, 'User updated contact status with id: ' . $contactFormId, $actionUrl, get_class($contactFormsModel), $contactFormId, json_encode($previousData), json_encode(['status' => $status]));
 
             return redirect()->to(base_url('account/forms/contact-forms/view-contact/' . $contactFormId));
         } catch (\Throwable $e) {
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_CONTACT_FORM_UPDATE, 'Error updating contact status with id: ' . $contactFormId);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_CONTACT_FORM_UPDATE, 'Error updating contact status with id: ' . $contactFormId, $actionUrl, get_class($contactFormsModel), null, json_encode($previousData), json_encode(['status' => $status]));
 
             log_message('error', 'Error updating contact status: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update status. Please try again.');
@@ -294,18 +305,21 @@ class FormsController extends BaseController
         $bookingFormId    = $this->request->getPost('booking_form_id'); // UUID as string
         $notes = $this->request->getPost('notes');
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = $bookingFormsModel->find($bookingFormId);
+
         // Try to update notes
         try {
             $bookingFormsModel->update($bookingFormId, ['notes' => $notes, 'last_updated_by' => $loggedInUserId]);
             session()->setFlashdata('toastrSuccessAlert', 'Notes updated successfully.');
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::BOOKING_FORM_UPDATE, 'User updated booking note with id: ' . $bookingFormId);
+            logActivity($loggedInUserId, ActivityTypes::BOOKING_FORM_UPDATE, 'User updated booking note with id: ' . $bookingFormId, $actionUrl, get_class($bookingFormsModel), $bookingFormId, json_encode($previousData), json_encode(['notes' => $notes]));
 
             return redirect()->to(base_url('account/forms/booking-forms/view-booking/' . $bookingFormId));
         } catch (\Throwable $e) {
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_BOOKING_FORM_UPDATE, 'Error updating booking note with id: ' . $bookingFormId);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_BOOKING_FORM_UPDATE, 'Error updating booking note with id: ' . $bookingFormId, $actionUrl, get_class($bookingFormsModel), null, json_encode($previousData), json_encode(['notes' => $notes]));
 
             log_message('error', 'Error updating booking notes: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update notes. Please try again.');
@@ -363,6 +377,9 @@ class FormsController extends BaseController
             'last_updated_by'      => $loggedInUserId,
         ];
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = $bookingFormsModel->find($bookingFormId);
+
         try {
             // Update booking
             $bookingFormsModel->update($bookingFormId, $payload);
@@ -370,12 +387,12 @@ class FormsController extends BaseController
             session()->setFlashdata('toastrSuccessAlert', 'Booking updated successfully.');
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::BOOKING_FORM_UPDATE, 'User updated booking with id: ' . $bookingFormId);
+            logActivity($loggedInUserId, ActivityTypes::BOOKING_FORM_UPDATE, 'User updated booking with id: ' . $bookingFormId, $actionUrl, get_class($bookingFormsModel), $bookingFormId, json_encode($previousData), json_encode($payload));
 
             return redirect()->to(base_url('account/forms/booking-forms/view-booking/' . $bookingFormId));
         } catch (\Throwable $e) {
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_BOOKING_FORM_UPDATE, 'Failed to update booking with id: ' . $bookingFormId);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_BOOKING_FORM_UPDATE, 'Failed to update booking with id: ' . $bookingFormId, $actionUrl, get_class($bookingFormsModel), null, json_encode($previousData), json_encode($payload));
 
             log_message('error', 'Error updating booking: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update booking. Please try again.');
@@ -458,18 +475,21 @@ class FormsController extends BaseController
             'last_updated_by'      => $loggedInUserId,
         ];
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = $subscriptionFormsModel->find($subscriptionFormId);
+
         try {
             $subscriptionFormsModel->where('subscription_form_id', $subscriptionFormId)->set($payload)->update();
 
             session()->setFlashdata('toastrSuccessAlert', 'Subscriber updated successfully.');
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::SUBSCRIPTION_FORM_UPDATE, 'User updated subscription with id: ' . $subscriptionFormId);
+            logActivity($loggedInUserId, ActivityTypes::SUBSCRIPTION_FORM_UPDATE, 'User updated subscription with id: ' . $subscriptionFormId, $actionUrl, get_class($subscriptionFormsModel), $subscriptionFormId, json_encode($previousData), json_encode($payload));
 
             return redirect()->to(base_url('account/forms/subscription-forms'));
         } catch (\Throwable $e) {
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_SUBSCRIPTION_FORM_UPDATE, 'Failed to update subscription with id: ' . $subscriptionFormId);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_SUBSCRIPTION_FORM_UPDATE, 'Failed to update subscription with id: ' . $subscriptionFormId, $actionUrl, get_class($subscriptionFormsModel), null, json_encode($previousData), json_encode($payload));
 
             log_message('error', 'Update subscriber failed: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update subscriber. Please try again.');
@@ -532,8 +552,11 @@ class FormsController extends BaseController
 
         session()->setFlashdata('toastrSuccessAlert', "Comment message unapproved.");
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
+
         //log activity
-        logActivity($loggedInUserId, ActivityTypes::COMMENT_FORM_UNAPPROVED, 'User unapproved comment form with id: ' . $commentId);
+        logActivity($loggedInUserId, ActivityTypes::COMMENT_FORM_UNAPPROVED, 'User unapproved comment form with id: ' . $commentId, $actionUrl, get_class($commentFormsModel), $commentId, json_encode($previousData), null);
 
         return redirect()->to('/account/forms/comment-forms');
     }
@@ -553,8 +576,11 @@ class FormsController extends BaseController
 
         session()->setFlashdata('toastrSuccessAlert', "Comment message approved.");
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
+
         //log activity
-        logActivity($loggedInUserId, ActivityTypes::COMMENT_FORM_APPROVED, 'User approved comment form with id: ' . $commentId);
+        logActivity($loggedInUserId, ActivityTypes::COMMENT_FORM_APPROVED, 'User approved comment form with id: ' . $commentId, $actionUrl, get_class($commentFormsModel), $commentId, json_encode($previousData), null);
 
         return redirect()->to('/account/forms/comment-forms');
     }
@@ -580,18 +606,21 @@ class FormsController extends BaseController
         $commentFormId    = $this->request->getPost('comment_form_id');
         $comment = $this->request->getPost('comment');
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = $commentFormsModel->find($commentFormId);
+
         // Try to update comment
         try {
             $commentFormsModel->update($commentFormId, ['comment' => $comment, 'last_updated_by' => $loggedInUserId]);
             session()->setFlashdata('toastrSuccessAlert', 'Notes updated successfully.');
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::COMMENT_FORM_UPDATE, 'User updated comment with id: ' . $commentFormId);
+            logActivity($loggedInUserId, ActivityTypes::COMMENT_FORM_UPDATE, 'User updated comment with id: ' . $commentFormId, $actionUrl, get_class($commentFormsModel), $commentFormId, json_encode($previousData), json_encode(['comment' => $comment]));
 
             return redirect()->to('/account/forms/comment-forms');
         } catch (\Throwable $e) {
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_COMMENT_FORM_UPDATE, 'Error updating comment with id: ' . $commentFormId);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_COMMENT_FORM_UPDATE, 'Error updating comment with id: ' . $commentFormId, $actionUrl, get_class($commentFormsModel), $commentFormId, json_encode($previousData), json_encode(['comment' => $comment]));
 
             log_message('error', 'Error updating comment: ' . $e->getMessage());
             session()->setFlashdata('toastrErrorAlert', 'Failed to update comment. Please try again.');

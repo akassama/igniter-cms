@@ -47,6 +47,12 @@ class ActivityLogs extends Migration
                 'null' => true,
                 'after' => 'ip_address'
             ],
+            'url' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
+                'after' => 'ip_address'
+            ],
             'auditable_type' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,

@@ -54,7 +54,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <th>#</th>
                                 <th>Created By</th>
                                 <th>Date Created</th>
-                                <th>Created By</th>
+                                <th>File</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -70,7 +70,11 @@ echo generateBreadcrumb($breadcrumb_links);
                                             </span>
                                         </td>
                                         <td><?= esc($backup['created_at']) ?></td>
-                                        <td><?= getActivityBy(esc($backup['created_by']) , ""); ?></td>
+                                        <td>
+                                            <a class="text-dark td-none mr-1 mb-1 download-btn" href="<?= base_url('account/admin/backups/download-db/' . $backup['backup_file_path']) ?>">   
+                                                <?= esc($backup['backup_file_path']) ?>
+                                            </a>
+                                        </td>
                                         <td>
                                             <div class="row text-center p-1">
                                                 <div class="col mb-1">

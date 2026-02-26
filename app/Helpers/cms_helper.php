@@ -1689,7 +1689,7 @@ if(!function_exists('getCountryTextName')){
  * @return {bool} Returns true if the activity was successfully logged, false otherwise.
  */
 if (!function_exists('logActivity')) {
-    function logActivity($activityBy, $activityType, $activityDetails = '')
+    function logActivity($activityBy, $activityType, $activityDetails = '', $url='', $auditableType = '', $auditableId = '', $oldValues = '', $newValues = '')
     {
         $activityLogsModel = new ActivityLogsModel();
 
@@ -1705,6 +1705,11 @@ if (!function_exists('logActivity')) {
                 'ip_address' => getIPAddress(),
                 'country' => getCountry(getIPAddress()),
                 'device' => getUserDevice(),
+                'url' => $url,
+                'auditable_type' => $auditableType,
+                'auditable_id' => $auditableId,
+                'old_values' => $oldValues,
+                'new_values' => $newValues,
                 'created_at' => date('Y-m-d H:i:s')
             ];
 
