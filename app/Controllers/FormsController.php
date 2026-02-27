@@ -113,6 +113,8 @@ class FormsController extends BaseController
         //get logged-in user id
         $loggedInUserId = $this->session->get('user_id');
 
+        $contactFormsModel = new ContactFormsModel();
+
         $actionUrl = $this->request->getUri()->getPath();
         $previousData = null;
         //mark as un-archived
@@ -541,6 +543,8 @@ class FormsController extends BaseController
     {
         //get logged-in user id
         $loggedInUserId = $this->session->get('user_id');
+        
+        $commentFormsModel  = new CommentFormsModel();
 
         //mark as unapproved
         $updatedData = [
@@ -565,6 +569,8 @@ class FormsController extends BaseController
     {
         //get logged-in user id
         $loggedInUserId = $this->session->get('user_id');
+        
+        $commentFormsModel  = new CommentFormsModel();
 
         //mark as approved
         $updatedData = [

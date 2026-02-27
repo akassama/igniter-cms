@@ -161,6 +161,7 @@ class ActivityTypes
     const PLUGIN_UPDATE = 'plugin_updated';
     const FAILED_PLUGIN_UPDATE = 'failed_plugin_update';
     const PLUGIN_DELETION = 'plugin_delete';
+    const FAILED_PLUGIN_DELETION = 'failed_plugin_deletion';
 
     // CONTACT FORM LOGS
     const CONTACT_FORM_SUBMISSION = 'contact_form_submitted';
@@ -357,7 +358,8 @@ class ActivityTypes
             self::FAILED_PLUGIN_CREATION => 'Plugin Creation Failed',
             self::PLUGIN_UPDATE => 'Plugin Updated',
             self::FAILED_PLUGIN_UPDATE => 'Plugin Update Failed',
-            self::PLUGIN_CREATION => 'Plugin Deletion',
+            self::PLUGIN_DELETION => 'Plugin Deleted',
+            self::FAILED_PLUGIN_DELETION => 'Plugin Deletion Failed',
 
             // Contact Form
             self::CONTACT_FORM_SUBMISSION => 'Contact Form Submitted',

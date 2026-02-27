@@ -255,6 +255,9 @@ class AppearanceController extends BaseController
     
         $themeId = $this->request->getPost('theme_id');
         $data['theme_data'] = $themesModel->where('theme_id', $themeId)->first();
+
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $themeId;
+        $previousData = $themesModel->where('theme_id', $themeId)->first();
     
         if($this->validate($rules)){       
 
@@ -268,9 +271,6 @@ class AppearanceController extends BaseController
 
                 updateRecord('themes', $updatedData, $updateWhereClause);
             }
-
-            $actionUrl = $this->request->getUri()->getPath() . '/' . $themeId;
-            $previousData = $themesModel->where('theme_id', $themeId)->first();
 
             $db = \Config\Database::connect();
             $builder = $db->table('themes');
@@ -379,9 +379,13 @@ class AppearanceController extends BaseController
             return redirect()->to('/account/appearance/themes');
         }
 
+        
+        $themesModel = new ThemesModel();
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = $themesModel->where('theme_id', $themeId)->first();
+
         try {
             // First get theme data to check if it's deletable
-            $themesModel = new ThemesModel();
             $theme = $themesModel->where('theme_id', $themeId)->first();
             
             if (!$theme) {
@@ -417,9 +421,6 @@ class AppearanceController extends BaseController
 
             $createSuccessMsg = config('CustomConfig')->deleteSuccessMsg;
             session()->setFlashdata('successAlert', $createSuccessMsg);
-
-            $actionUrl = $this->request->getUri()->getPath();
-            $previousData = $theme;
 
             // Log activity
             logActivity($loggedInUserId, ActivityTypes::THEME_DELETION, 'User with id: ' . $loggedInUserId . ' deleted theme for table name: ' . $tableName .' with path: ' . $themePath, $actionUrl, get_class($themesModel), $themeId, json_encode($previousData), null);

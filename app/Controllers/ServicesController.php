@@ -70,7 +70,7 @@ class ServicesController extends BaseController
             //return
             return redirect()->to($returnUrl);
         }
-        catch (Exception $e){
+        catch (\Exception $e){
             $errorMsg = config('CustomConfig')->exceptionMsg;
             session()->setFlashdata('errorAlert', $errorMsg);
 
@@ -141,7 +141,7 @@ class ServicesController extends BaseController
             //return
             return redirect()->to($returnUrl);
         }
-        catch (Exception $e){
+        catch (\Exception $e){
             $errorMsg = config('CustomConfig')->exceptionMsg;
             session()->setFlashdata('errorAlert', $errorMsg);
 
@@ -205,7 +205,7 @@ class ServicesController extends BaseController
           //return
           return redirect()->to($returnUrl);
       }
-      catch (Exception $e){
+      catch (\Exception $e){
           $errorMsg = config('CustomConfig')->exceptionMsg;
           session()->setFlashdata('errorAlert', $errorMsg);
 
@@ -254,7 +254,7 @@ class ServicesController extends BaseController
             // Return a successful response (HTTP 200 OK)
             http_response_code(200);
             echo json_encode(['success' => true, 'message' => 'Record(s) successfully removed.']);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             // Return an error response (HTTP 500 Internal Server Error)
             http_response_code(500);
             echo json_encode(['success' => false, 'message' => 'An error occurred while removing the record(s).']);

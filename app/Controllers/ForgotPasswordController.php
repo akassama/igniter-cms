@@ -9,6 +9,8 @@ use App\Libraries\EmailService;
 
 class ForgotPasswordController extends BaseController
 {
+    protected $emailService;
+    
     public function __construct()
     {
         $this->emailService = new EmailService();

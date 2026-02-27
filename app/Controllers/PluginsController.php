@@ -79,8 +79,10 @@ class PluginsController extends BaseController
         $configValue = $this->request->getPost('config_value');
         $configKey = $this->request->getPost('config_key');
 
+        $configModel = new PluginConfigModel();
+
         $actionUrl = $this->request->getUri()->getPath() . '/' . $pluginId;
-        $previousData = $this->getPluginConfigById($pluginId);
+        $previousData = $configModel->where('plugin_id', $pluginId)->first();
 
         // Validate input
         $validation = \Config\Services::validation();

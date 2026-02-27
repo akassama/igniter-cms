@@ -14,7 +14,8 @@ use App\Constants\ActivityTypes;
 
 class FrontEndController extends BaseController
 {
-    private SimpleCacheService $cacheService;
+    protected $emailService;
+    protected $curlrequest;
 
     public function __construct()
     {

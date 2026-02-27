@@ -14,6 +14,8 @@ use Exception;
 
 class FormRequestsController extends BaseController
 {
+    protected $emailService;
+
     public function __construct()
     {
         $this->emailService = new EmailService();
@@ -297,7 +299,7 @@ class FormRequestsController extends BaseController
                     $result = $this->emailService->send($forwardToEmail, $subject, $templateData);
                 } catch (Exception $e) {
                     //log activity
-                    logActivity($fromEmail, ActivityTypes::FAILED_CONTACT_FORM_SUBMISSION, 'Failed to send contact message from user with email: ' . $fromEmail);
+                    logActivity($email, ActivityTypes::FAILED_CONTACT_FORM_SUBMISSION, 'Failed to send contact message from user with email: ' . $email);
                 }
             }
 
@@ -478,7 +480,7 @@ class FormRequestsController extends BaseController
                     $result = $this->emailService->send($forwardToEmail, $subject, $templateData);
                 } catch (Exception $e) {
                     //log activity
-                    logActivity($fromEmail, ActivityTypes::FAILED_CONTACT_FORM_SUBMISSION, 'Failed to send contact message from user with email: ' . $fromEmail);
+                    logActivity($email, ActivityTypes::FAILED_CONTACT_FORM_SUBMISSION, 'Failed to send contact message from user with email: ' . $email);
                 }
             }
 

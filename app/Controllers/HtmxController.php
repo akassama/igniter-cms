@@ -785,7 +785,7 @@ class HtmxController extends BaseController
         }
 
         //catch exception
-        catch(Exception $e) {
+        catch(\Exception $e) {
             echo '<div class="ai-response-placeholder text-muted"><p class="mb-0"><strong>An Error Occurred!<strong> <br/>Your AI response will appear here after you ask a question.</p></div>';
             exit();
         }

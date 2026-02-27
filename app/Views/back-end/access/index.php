@@ -24,7 +24,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <p class="text-danger">
                 Access Denied
             </p>
-            <p>You do not have permission to access this page.</p>
+            <p>You do not have permission to access that page.</p>
             <p>Please contact your administrator if you believe this is a mistake.</p>
             <a href="<?= base_url('/account'); ?>">Go Back to Dashboard</a>
         </div>

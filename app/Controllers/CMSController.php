@@ -60,7 +60,7 @@ class CMSController extends BaseController
         }
 
 
-        $actionUrl = $this->request->getUri()->getPath() . '/' . $insertedId;
+        $actionUrl = $this->request->getUri()->getPath();
         $previousData = null;
         $data = [
             'title' => $this->request->getPost('title'),
