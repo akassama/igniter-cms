@@ -127,5 +127,4 @@ class SignUpController extends BaseController
             return view('front-end/sign-up/index');
         }
     }
-
 }

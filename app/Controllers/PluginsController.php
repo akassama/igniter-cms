@@ -106,7 +106,7 @@ class PluginsController extends BaseController
             $db->query("UPDATE plugin_configs SET config_value = ? WHERE id = ?", [$configValue, $pluginId]);
             $editSuccessMsg = str_replace('[Record]', 'Plugin Config', config('CustomConfig')->editSuccessMsg);
             session()->setFlashdata('successAlert', $editSuccessMsg);
-            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin config ' . $configKey . ' updated.');
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin config ' . $configKey . ' updated.', $actionUrl, null, null, json_encode($previousData), null);
         } catch (\Exception $e) {
             session()->setFlashdata('errorAlert', 'Failed to update plugin config: ' . $e->getMessage());
             logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin config ' . $configKey . ' update failed: ' . $e->getMessage(), $actionUrl, null, null, json_encode($previousData), null);
