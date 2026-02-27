@@ -131,6 +131,9 @@ class ActivityTypes
     const THEME_UPDATE = 'theme_updated';
     const FAILED_THEME_UPDATE = 'failed_theme_update';
     const THEME_DELETION = 'theme_delete';
+    const FAILED_THEME_DELETION = 'failed_theme_deletion';
+    const THEME_REVISION_SAVE = 'theme_revision_saved';
+    const FAILED_THEME_REVISION_SAVE = 'failed_theme_revision_save';
 
     // BLOCKED IP REASONS
     const BLOCKED_IP_CREATION = 'blocked_ip_created';
@@ -325,6 +328,9 @@ class ActivityTypes
             self::THEME_UPDATE => 'Theme Updated',
             self::FAILED_THEME_UPDATE => 'Theme Update Failed',
             self::THEME_DELETION => 'Theme Deletion',
+            self::FAILED_THEME_DELETION => 'Theme Deletion Failed',
+            self::THEME_REVISION_SAVE => 'Theme Revision Saved',
+            self::FAILED_THEME_REVISION_SAVE => 'Failed to Save Theme Revision',
 
             // BLOCKED IP REASONS
             self::BLOCKED_IP_CREATION => 'Blocked IP Created',

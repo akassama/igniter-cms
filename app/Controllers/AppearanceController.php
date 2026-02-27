@@ -430,8 +430,8 @@ class AppearanceController extends BaseController
             $errorMsg = $e->getMessage();
             session()->setFlashdata('errorAlert', $errorMsg);
 
-            // Log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete theme for table name: ' . $tableName .' with path: ' . $themePath . '. Error: ' . $errorMsg, $actionUrl, get_class($themesModel), $themeId, json_encode($previousData), null);
+            // Log activity (use specific constant for theme deletion failure)
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_DELETION, 'User with id: ' . $loggedInUserId . ' failed to delete theme for table name: ' . $tableName .' with path: ' . $themePath . '. Error: ' . $errorMsg, $actionUrl, get_class($themesModel), $themeId, json_encode($previousData), null);
 
             return redirect()->to('/account/appearance/themes');
         }
@@ -813,6 +813,9 @@ class AppearanceController extends BaseController
         if (!is_file($fullFilePath)) {
             return redirect()->to('/account/appearance/theme-editor')->with('errorAlert', 'Theme file not found on the server.');
         }
+
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $fileId;
+        $previousData = null;
         
         // Read the content of the file from the filesystem
         $fileContent = file_get_contents($fullFilePath);
@@ -833,10 +836,14 @@ class AppearanceController extends BaseController
 
         // 4. Redirect with status
         if (!$fileSaved) {
+            // Log the error for debugging
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_REVISION_SAVE, 'Failed to save theme revision for file: ' . $filePathName, $actionUrl, get_class($revisionModel), $themeRevisionId, json_encode($previousData), json_encode($data));
             // Use $fileId for redirect since that's what's expected by the editor view
             return redirect()->to('/account/appearance/theme-editor/' . $fileId)->with('errorAlert', 'Failed to save the file version to the database.');
         }
 
+        // Log successful save        
+        logActivity($loggedInUserId, ActivityTypes::THEME_REVISION_SAVE, 'Saved theme revision for file: ' . $filePathName, $actionUrl, get_class($revisionModel), $themeRevisionId, json_encode($previousData), json_encode($data));
         return redirect()->to('/account/appearance/theme-editor/' . $fileId)->with('success', 'File version saved successfully.');
     }
 
