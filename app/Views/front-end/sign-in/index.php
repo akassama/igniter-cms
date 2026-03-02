@@ -70,29 +70,31 @@
                 $allowRegistration = getConfigData("EnableRegistration");
                 if(strtolower($allowRegistration) === "yes"){
                     ?>
-                        <div class="my-2">
-                            <p>
-                                Don't have an account? Register <a href="<?= base_url('/sign-up'); ?>">here</a>
-                            </p>
-                        </div>
-                        
-                        <!-- Google Auth -->
-                        <?php if(env('ENABLE_GOOGLE_OAUTH')) {?>
-                            <div class="row justify-content-center">
-                                <div class="col-12">
-                                    <div class="social-login-divider d-flex align-items-center my-4">
-                                        <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
-                                    </div>
 
-                                    <div class="text-center">
-                                        <a href="<?= base_url('auth/google/login') ?>" class="btn btn-danger btn-block w-100 mb-2">
-                                            <i class="ri-google-fill"></i> Sign in with Google
-                                        </a>
-                                    </div>
+                    <div class="my-2 text-center">
+                        <p>
+                            Don't have an account? Register <a href="<?= base_url('/sign-up'); ?>">here</a>
+                        </p>
+                    </div>
+                    
+                    <!-- Google Auth -->
+                    <?php if(env('ENABLE_GOOGLE_OAUTH')) {?>
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <div class="social-login-divider d-flex align-items-center my-4">
+                                    <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                                </div>
+
+                                <div class="google-btn-wrapper">
+                                    <a href="<?= base_url('auth/google/login') ?>" class="google-signin-btn">
+                                        <img src="https://ik.imagekit.io/oju3vfr0u/websites/igniter-cms/google.png" alt="Google logo">
+                                        Sign in with Google
+                                    </a>
                                 </div>
                             </div>
-                        <?php }?>
-                    <?php
+                        </div>
+                    <?php }?>
+                <?php
                 }
             ?>
         </form>
