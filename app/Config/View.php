@@ -11,17 +11,16 @@ use CodeIgniter\View\ViewDecoratorInterface;
  */
 class View extends BaseView
 {
-    /**
-     * When false, the view method will clear the data between each
-     * call. This keeps your data safe and ensures there is no accidental
-     * leaking between calls, so you would need to explicitly pass the data
-     * to each view. You might prefer to have the data stick around between
-     * calls so that it is available to all views. If that is the case,
-     * set $saveData to true.
-     *
-     * @var bool
-     */
+
     public $saveData = true;
+
+    /**
+     * The folder where app-specific overrides for library views can be placed.
+     * This allows customization of package views.
+     *
+     * @var string
+     */
+    public $appOverridesFolder = APPPATH . 'Views/Libraries';
 
     /**
      * Parser Filters map a filter name with any PHP callable. When the
