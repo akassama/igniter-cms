@@ -54,6 +54,9 @@ $routes->get('cron/run', 'CronController::run');
 //ACCOUNT
 $routes->get('/account', 'AccountController::index', ['filter' => 'authFilter']);
 
+// LANGUAGE SWITCHER
+$routes->get('language/switch/(:any)', 'LanguageController::switch/$1');
+
 //ACCOUNT
 $routes->group('account', ['filter' => ['authFilter', 'demoCheckFilter', 'featureCheckFilter:FEATURE_BACK_END']], function($routes) {
 //BACK_ENABLED_ENABLED
@@ -163,6 +166,7 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->post('settings/update-details/update-user', 'SettingsController::updateUser');
         $routes->get('settings/change-password', 'SettingsController::changePassword');
         $routes->post('settings/change-password/update-password', 'SettingsController::updatePassword');    
+        $routes->get('settings/language', 'SettingsController::language');
     }
 
     if (isFeatureEnabled('FEATURE_APPEARANCE')) {

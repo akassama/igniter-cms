@@ -109,6 +109,30 @@ class App extends BaseConfig
 
     /**
      * --------------------------------------------------------------------------
+     * Locale Cookie Name
+     * --------------------------------------------------------------------------
+     *
+     * The name of the cookie that stores the user's selected locale.
+     *
+     * @var string
+     */
+    public $localeCookieName = 'cms_locale';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Locale Cookie Expiration
+     * --------------------------------------------------------------------------
+     *
+     * The number of seconds the locale cookie should last.
+     * Set to 0 for session cookie (expires when browser closes).
+     * Set to 365*24*60*60 for one year.
+     *
+     * @var int
+     */
+    public $localeCookieExpires = 30 * 24 * 60 * 60; // 30 days
+
+    /**
+     * --------------------------------------------------------------------------
      * Supported Locales
      * --------------------------------------------------------------------------
      *
@@ -120,7 +144,7 @@ class App extends BaseConfig
      *
      * @var list<string>
      */
-    public array $supportedLocales = ['en'];
+    public array $supportedLocales = ['en', 'fr'];
 
     /**
      * --------------------------------------------------------------------------

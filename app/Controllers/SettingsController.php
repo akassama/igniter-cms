@@ -187,4 +187,10 @@ class SettingsController extends BaseController
             return view('back-end/settings/change-password/index', $data);
         }
     }
+    
+
+    public function language()
+    {
+        return view('back-end/settings/language/index');
+    }
 }
