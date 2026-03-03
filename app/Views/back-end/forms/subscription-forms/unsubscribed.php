@@ -82,7 +82,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <?= $subscriber['ip_address']; ?>
                                     </td>
                                     <td>
-                                        <span class="fi fi-<?= strtolower(esc($subscriber['country'])) ?>"></span>
+                                        <span class="fi fi-<?= strtolower((string)esc($subscriber['country'])) ?>"></span>
                                         <?= esc($subscriber['country']) ?>
                                     </td>
                                     <td><?= dateFormat($subscriber['unsubscribed_at']); ?></td>

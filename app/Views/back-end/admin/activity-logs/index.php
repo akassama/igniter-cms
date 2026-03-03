@@ -63,7 +63,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= esc($activity['ip_address']) ?></td>
                                     <td><?= esc($activity['device']) ?></td>
                                     <td>
-                                        <span class="fi fi-<?= strtolower(esc($activity['country'])) ?>"></span>
+                                        <span class="fi fi-<?= strtolower((string)esc($activity['country'])) ?>"></span>
                                         <?= esc($activity['country']) ?>
                                     </td>
                                     <td><?= esc($activity['created_at']) ?></td>

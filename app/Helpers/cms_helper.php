@@ -1698,7 +1698,7 @@ if (!function_exists('logActivity')) {
             $db->transStart(); // Start transaction
 
             $data = [
-                'activity_id' => uniqid(), // Generate a unique ID
+                'activity_id' => getGUID(), // Generate a unique ID
                 'activity_by' => $activityBy,
                 'activity_type' => $activityType,
                 'activity' => ActivityTypes::getDescription($activityType) . ($activityDetails ? ': ' . $activityDetails : ''),

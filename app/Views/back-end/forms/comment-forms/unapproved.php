@@ -91,7 +91,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <?= $comment['ip_address']; ?>
                                     </td>
                                     <td>
-                                        <span class="fi fi-<?= strtolower(esc($comment['country'])) ?>"></span>
+                                        <span class="fi fi-<?= strtolower((string)$comment['country']) ?>"></span>
                                         <?= esc($comment['country']) ?>
                                     </td>
                                     <!-- Status badge (read-only visual) with icon -->

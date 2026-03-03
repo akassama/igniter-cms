@@ -91,8 +91,8 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </td>
                                     <td>
                                         <a class="text-dark td-none" href="<?=base_url('account/forms/contact-forms/view-contact/'.$contact_message['contact_form_id'])?>">
-                                            <span class="fi fi-<?= strtolower(esc($contact_message['country'])) ?>"></span>
-                                            <?= esc($contact_message['country']) ?>
+                                            <span class="fi fi-<?= strtolower(esc((string)$contact_message['country'])) ?>"></span>
+                                            <?= esc((string)$contact_message['country']) ?>
                                         </a>
                                     </td>
                                     <!-- Status badge (read-only visual) with icon -->

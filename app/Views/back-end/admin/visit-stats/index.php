@@ -68,7 +68,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </td>
                                     <td><?= esc($visit['operating_system']) ?></td>
                                     <td>
-                                        <span class="fi fi-<?= strtolower(esc($visit['country'])) ?>"></span>
+                                        <span class="fi fi-<?= strtolower((string)esc($visit['country'])) ?>"></span>
                                         <?= esc($visit['country']) ?>
                                     </td>
                                     <td><?= esc($visit['created_at']) ?></td>

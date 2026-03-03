@@ -87,7 +87,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <?= $subscriber['ip_address']; ?>
                                     </td>
                                     <td>
-                                        <span class="fi fi-<?= strtolower(esc($subscriber['country'])) ?>"></span>
+                                        <span class="fi fi-<?= strtolower((string)$subscriber['country']) ?>"></span>
                                         <?= esc($subscriber['country']) ?>
                                     </td>
                                     <!-- Status badge (read-only visual) with icon -->
