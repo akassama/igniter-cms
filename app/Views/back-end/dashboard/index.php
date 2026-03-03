@@ -2,16 +2,16 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Dashboard<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.dashboard') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h1 class="mt-4">Dashboard </h1>
+<h1 class="mt-4"><?= lang('App.dashboard') ?> </h1>
 <?php
     // Breadcrumbs
     $breadcrumb_links = array(
-        array('title' => 'Dashboard')
+        array('title' => lang('App.dashboard'))
     );
     echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -22,7 +22,7 @@
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-primary text-white mb-4">
                     <div class="card-body">
-                        Users
+                        <?= lang('App.users') ?>
                         <span class="badge rounded-pill bg-dark border border-light">
                             <?= getTotalRecords("users") ?>
                         </span>
@@ -36,7 +36,7 @@
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-warning text-white mb-4">
                     <div class="card-body">
-                        Blogs
+                        <?= lang('App.blogs') ?>
                         <span class="badge rounded-pill bg-dark border border-light">
                             <?= getTotalRecords("blogs") ?>
                         </span>
@@ -50,7 +50,7 @@
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-success text-white mb-4">
                     <div class="card-body">
-                        Pages
+                        <?= lang('App.pages') ?>
                         <span class="badge rounded-pill bg-dark border border-light">
                             <?= getTotalRecords("pages") ?>
                         </span>
@@ -64,7 +64,7 @@
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-danger text-white mb-4">
                     <div class="card-body">
-                        Themes
+                        <?= lang('App.themes') ?>
                         <span class="badge rounded-pill bg-dark border border-light">
                             <?= getTotalRecords("themes") ?>
                         </span>
@@ -81,14 +81,14 @@
         <div class="row">
             <div class="col-12">
                 <h4 class="text-start">
-                    Site Analytics
+                    <?= lang('App.site_analytics') ?>
                 </h4>
             </div>
             <div class="col-sm-12 col-xl-6">
                 <div class="card mb-4">
                     <div class="card-header fw-bold">
                         <i class="fas fa-chart-area me-1"></i>
-                        Recent Visits (Last 7 Days)
+                        <?= lang('App.recent_visits') ?> (<?= lang('App.last_7_days') ?>)
                     </div>
                     <div class="card-body position-relative">
                         <!-- Loading overlay -->
@@ -106,7 +106,7 @@
                 <div class="card mb-4">
                     <div class="card-header fw-bold">
                         <i class="fas fa-chart-bar me-1"></i>
-                        Recent Visits (Last 6 Months)
+                        <?= lang('App.recent_visits') ?> (<?= lang('App.last_6_months') ?>)
                     </div>
                     <div class="card-body position-relative">
                         <!-- Loading overlay -->
@@ -128,7 +128,7 @@
                 <div class="card mb-4">
                     <div class="card-header fw-bold">
                         <i class="fas fa-chart-area me-1"></i>
-                        Most Pages Visited
+                        <?= lang('App.most_pages_visited') ?>
                     </div>
                     <div class="card-body">
                         <?=getMostVisitedPages()?>
@@ -139,7 +139,7 @@
                 <div class="card mb-4">
                     <div class="card-header fw-bold">
                         <i class="fas fa-chart-bar me-1"></i>
-                        Top Browsers
+                        <?= lang('App.top_browsers') ?>
                     </div>
                     <div class="card-body">
                         <?=getTopBrowsers()?>
@@ -154,7 +154,7 @@
         <div class="card mb-4">
             <div class="card-header fw-bold">
                 <i class="fas fa-table me-1"></i>
-                Recent Posts
+                <?= lang('App.recent_posts') ?>
             </div>
             <div class="card-body">
                 <?=getRecentPosts()?>
@@ -185,7 +185,7 @@
                 ?>
                 <div class="card-header fw-bold">
                     <i class="fas fa-table me-1"></i>
-                    News Feed
+                    <?= lang('App.news_feed') ?>
                 </div>
                 <div class="card-body">
                     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -208,7 +208,7 @@
                                     </div>
                                     <div class="card-footer text-center">
                                         <a href="javascript:void(0)" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#blogModal-<?php echo htmlspecialchars($news['blog_id']); ?>">
-                                            View Details <i class="ri-expand-diagonal-2-line"></i>
+                                            <?= lang('App.view_details') ?> <i class="ri-expand-diagonal-2-line"></i>
                                         </a>
                                     </div>
                                 </div>
