@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Plugins', 'url' => '/account/plugins'),
     array('title' => 'Install Plugins')
 );

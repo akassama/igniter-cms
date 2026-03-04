@@ -28,7 +28,7 @@
                         </span>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="<?= base_url('/account/admin/users'); ?>">View Details</a>
+                        <a class="small text-white stretched-link" href="<?= base_url('/account/admin/users'); ?>"><?= lang('App.view_details') ?></a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                         </span>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="<?= base_url('/account/cms/blogs'); ?>">View Details</a>
+                        <a class="small text-white stretched-link" href="<?= base_url('/account/cms/blogs'); ?>"><?= lang('App.view_details') ?></a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         </span>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="<?= base_url('/account/cms/pages'); ?>">View Details</a>
+                        <a class="small text-white stretched-link" href="<?= base_url('/account/cms/pages'); ?>"><?= lang('App.view_details') ?></a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                         </span>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="<?= base_url('/account/appearance/themes'); ?>">View Details</a>
+                        <a class="small text-white stretched-link" href="<?= base_url('/account/appearance/themes'); ?>"><?= lang('App.view_details') ?></a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>

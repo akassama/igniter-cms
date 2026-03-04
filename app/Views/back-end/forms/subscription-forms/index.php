@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Forms', 'url' => '/account/forms'),
     array('title' => 'Subscription Forms')
 );
@@ -48,14 +48,14 @@ echo generateBreadcrumb($breadcrumb_links);
                         <tr>
                             <th>#</th>
                             <th>Form Name</th>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th><?= lang('App.name') ?></th>
+                            <th><?= lang('App.email') ?></th>
                             <th>Status</th>
-                            <th>IP</th>
-                            <th>Country</th>
+                            <th><?= lang('App.ip') ?></th>
+                            <th><?= lang('App.country') ?></th>
                             <th>Status</th>
                             <th>Created</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -161,17 +161,17 @@ echo generateBreadcrumb($breadcrumb_links);
           <input type="hidden" name="subscription_form_id" id="sub_id">
 
           <div class="col-12 col-md-6">
-            <label for="sub_email" class="form-label">Email</label>
+            <label for="sub_email" class="form-label"><?= lang('App.email') ?></label>
             <input type="email" class="form-control" id="sub_email" name="email" maxlength="255" required>
             <div class="invalid-feedback">Please enter a valid email.</div>
           </div>
           <div class="col-12 col-md-6">
-            <label for="sub_phone" class="form-label">Phone</label>
+            <label for="sub_phone" class="form-label"><?= lang('App.phone') ?></label>
             <input type="text" class="form-control" id="sub_phone" name="phone" maxlength="50">
           </div>
 
           <div class="col-12 col-md-6">
-            <label for="sub_name" class="form-label">Name</label>
+            <label for="sub_name" class="form-label"><?= lang('App.name') ?></label>
             <input type="text" class="form-control" id="sub_name" name="name" maxlength="255">
           </div>
           <div class="col-12 col-md-6">
@@ -183,11 +183,11 @@ echo generateBreadcrumb($breadcrumb_links);
           </div>
           
           <div class="col-12 col-md-6">
-            <label for="sub_first_name" class="form-label">First Name</label>
+            <label for="sub_first_name" class="form-label"><?= lang('App.first_name') ?></label>
             <input type="text" class="form-control" id="sub_first_name" name="first_name" maxlength="100">
           </div>
           <div class="col-12 col-md-6">
-            <label for="sub_last_name" class="form-label">Last Name</label>
+            <label for="sub_last_name" class="form-label"><?= lang('App.last_name') ?></label>
             <input type="text" class="form-control" id="sub_last_name" name="last_name" maxlength="100">
           </div>
         </div>

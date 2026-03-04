@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Activity Logs<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.activity_logs') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,9 +10,9 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'Activity Logs')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
+    array('title' => lang('App.activity_logs'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,13 +20,13 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Activity Logs</h3>
+        <h3><?= lang('App.activity_logs') ?></h3>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Activities
+                <?= lang('App.activities') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_activities ?>
                 </span>
@@ -40,11 +40,11 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>Activity By</th>
                             <th>Activity Type</th>
                             <th>Activity</th>
-                            <th>IP Address</th>
-                            <th>Device</th>
-                            <th>Country</th>
-                            <th>Date/Time</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.ip') ?></th>
+                            <th><?= lang('App.device') ?></th>
+                            <th><?= lang('App.country') ?></th>
+                            <th><?= lang('App.date_or_time') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -108,7 +108,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        <i class="ri-cpu-line"></i> AI Analysis
+                        <i class="ri-cpu-line"></i> <?= lang('App.ai_analysis') ?>
                     </button>
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">

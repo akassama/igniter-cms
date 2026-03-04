@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'CMS', 'url' => '/account/cms'),
     array('title' => 'Pages', 'url' => '/account/cms/pages'),
     array('title' => 'New Page')
@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/cms/pages/new-page'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label"><?= lang('App.title') ?></label>
                 <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= set_value('title') ?>" required
                     hx-post="<?=base_url()?>/htmx/get-page-title-slug"
                     hx-trigger="keyup, changed delay:250ms"
@@ -46,7 +46,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="slug" class="form-label">Slug</label>
+                <label for="slug" class="form-label"><?= lang('App.slug') ?></label>
                 <div class="input-group mb-3" id="slug-div">
                     <span class="input-group-text"><?= base_url('/'); ?></span>
                     <input type="text" class="form-control" id="slug" name="slug" value="<?= set_value('slug') ?>" required>
@@ -127,7 +127,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <div class="row">
                                     <div class="col-12 mb-3">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <label for="meta_title" class="form-label">Meta Title</label>
+                                            <label for="meta_title" class="form-label"><?= lang('App.meta_title') ?></label>
                                             <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="meta_title"
                                             hx-post="<?=base_url()?>/htmx/set-meta-title-via-ai"
                                             hx-trigger="click delay:250ms"
@@ -149,7 +149,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </div>
                                     <div class="col-12 mb-3">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <label for="meta_description" class="form-label">Meta Description</label>
+                                            <label for="meta_description" class="form-label"><?= lang('App.meta_description') ?></label>
                                             <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="meta_description"
                                             hx-post="<?=base_url()?>/htmx/set-meta-description-via-ai"
                                             hx-trigger="click delay:250ms"
@@ -171,7 +171,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </div>
                                     <div class="col-12 mb-3">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <label for="meta_keywords" class="form-label">Meta Keywords</label>
+                                            <label for="meta_keywords" class="form-label"><?= lang('App.meta_keywords') ?></label>
                                             <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-target="meta_keywords"
                                             hx-post="<?=base_url()?>/htmx/set-meta-keywords-via-ai"
                                             hx-trigger="click delay:250ms"
@@ -201,7 +201,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/cms/pages') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_submit_buttons.php'); ?>
             </div>

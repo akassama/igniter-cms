@@ -18,8 +18,8 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => 'Configurations', 'url' => '/account/admin/configurations'),
     array('title' => 'Edit Configuration')
 );
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row">
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="config_for" class="form-label">Config For <small>(read-only)</small> </label>
+                <label for="config_for" class="form-label">Config For <small>(<?= lang('app.read_only') ?>)</small> </label>
                 <input type="text" class="form-control" id="config_for" name="config_for" value="<?= $config_data['config_for'] ?>" required readonly>
                 <!-- Error -->
                 <?php if($validation->getError('config_for')) {?>
@@ -53,7 +53,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <?php
                 $dataType = $config_data['data_type'];
                 $readonlyInputs = $config_data['deletable'] == 1 ? "" : "readonly";
-                $readonlyLabel = $config_data['deletable'] == 1 ? "" : "<small>(read-only)</small>";
+                $readonlyLabel = $config_data['deletable'] == 1 ? "" : "<small>(".lang('app.read_only').")</small>";
                 $options = $config_data['options'];
                 $configValue = getConfigData($config_data['config_for']);
                 $encryptedLabel = strtolower($dataType) === "secret" ? "<small>(Encrtpted)</small>" : "";
@@ -99,7 +99,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label"><?= lang('App.description') ?></label>
                 <textarea rows="1" class="form-control" id="description" name="description" maxlength="500"><?= $config_data['description'] ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('description')) {?>
@@ -155,7 +155,7 @@ echo generateBreadcrumb($breadcrumb_links);
             
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="icon" class="form-label">
-                    Icon <?=$readonlyLabel?>
+                    <?= lang('app.icon') ?> <?=$readonlyLabel?>
                 </label>
                 <input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="<?= htmlspecialchars($config_data['icon']) ?>" placeholder="E.g. ri-user-line" <?=$readonlyInputs?>>
                 <!-- Error -->
@@ -196,7 +196,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/admin/configurations') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

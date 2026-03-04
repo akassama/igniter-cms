@@ -10,8 +10,8 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => 'Users', 'url' => '/account/admin/users'),
     array('title' => 'New User')
 );
@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/admin/users/new-user'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="first_name" class="form-label">First Name</label>
+                <label for="first_name" class="form-label"><?= lang('App.first_name') ?></label>
                 <input type="text" class="form-control" id="first_name" name="first_name" value="<?= set_value('first_name') ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('first_name')) {?>
@@ -41,7 +41,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="last_name" class="form-label">Last Name</label>
+                <label for="last_name" class="form-label"><?= lang('App.last_name') ?></label>
                 <input type="text" class="form-control" id="last_name" name="last_name" value="<?= set_value('last_name') ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('last_name')) {?>
@@ -54,7 +54,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label"><?= lang('App.username') ?></label>
                 <input type="text" class="form-control" id="username" name="username" minlength="6" maxlength="50" value="<?= set_value('username') ?>" required
                        hx-post="<?=base_url()?>/htmx/check-contact-number-exists"
                        hx-trigger="keyup, changed delay:250ms"
@@ -73,7 +73,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label"><?= lang('App.email') ?></label>
                 <input type="email" class="form-control" id="email" name="email" minlength="6" maxlength="50" value="<?= set_value('email') ?>" required
                        hx-post="<?=base_url()?>/htmx/check-contact-number-exists"
                        hx-trigger="keyup, changed delay:250ms"
@@ -245,7 +245,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/admin/users/') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_submit_buttons.php'); ?>
             </div>

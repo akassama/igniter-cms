@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'CMS', 'url' => '/account/cms'),
     array('title' => 'Navigations', 'url' => '/account/cms/navigations'),
     array('title' => 'Edit Navigation')
@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/cms/navigations/edit-navigation'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label"><?= lang('App.title') ?></label>
                 <input type="text" class="form-control alphanumeric-plus-space" id="title" name="title" data-show-err="true" maxlength="100" value="<?= $navigation_data['title'] ?>" maxlength="50" required>
                 <!-- Error -->
                 <?php if($validation->getError('title')) {?>
@@ -42,7 +42,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label"><?= lang('App.description') ?></label>
                 <textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required><?= $navigation_data['description'] ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('description')) {?>
@@ -108,7 +108,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
             
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="parent" class="form-label">Parent</label>
+                <label for="parent" class="form-label"><?= lang('App.parent') ?></label>
                 <select class="form-select" id="parent" name="parent">
                     <option value="">Select parent (optional)</option>
                     <?= getNavigationParentSelectOptions($navigation_data['parent']) ?>
@@ -143,7 +143,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="link" class="form-label">Link</label>
+                <label for="link" class="form-label"><?= lang('App.link') ?></label>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><?= base_url('/'); ?></span>
                     <input type="text" class="form-control" id="link" name="link" value="<?= $navigation_data['link'] ?>" required>
@@ -168,7 +168,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/cms/navigations') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

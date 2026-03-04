@@ -10,8 +10,8 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => 'Whitelisted IP Addresses')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -42,10 +42,10 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>IP</th>
+                            <th><?= lang('App.ip') ?></th>
                             <th>Reason</th>
                             <th>Created At</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>

@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Page File Editor<?= $this->endSection() ?>
+<?= $this->section('title') ?>Blog File Editor<?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -18,10 +18,10 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Appearance', 'url' => '/account/appearance'),
     array('title' => 'Theme Editor', 'url' => '/account/appearance/theme-editor'),
-    array('title' => 'Edit View Page File')
+    array('title' => 'Edit View Blog File')
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -45,7 +45,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>
                         <a href="<?= base_url('/account/appearance/theme-editor') ?>" class="btn btn-outline-danger">
-                            <i class="ri-arrow-left-fill"></i> Back
+                            <i class="ri-arrow-left-fill"></i> <?= lang('App.back') ?>
                         </a>
                     </div>
                     <div>

@@ -18,8 +18,8 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => 'Codes', 'url' => '/account/admin/codes'),
     array('title' => 'Edit Code')
 );
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row">
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="code_for" class="form-label">Code For <small>(read-only)</small> </label>
+                <label for="code_for" class="form-label">Code For <small>(<?= lang('app.read_only') ?>)</small> </label>
                 <input type="text" class="form-control" id="code_for" name="code_for" value="<?= $code_data['code_for'] ?>" required readonly>
                 <!-- Error -->
                 <?php if($validation->getError('code_for')) {?>
@@ -77,7 +77,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/admin/codes') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

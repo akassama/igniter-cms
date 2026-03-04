@@ -18,7 +18,7 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Appearance')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -84,7 +84,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <a href="<?=base_url('account/appearance/themes/activate/'.$theme['theme_id'])?>" 
                                 class="btn btn-sm btn-primary">Activate</a>
                             <?php else: ?>
-                                <span class="btn btn-sm btn-success disabled-btn disabled">Active</span>
+                                <span class="btn btn-sm btn-success disabled-btn disabled"><?= lang('App.active') ?></span>
                             <?php endif; ?>
                             
                             <a href="<?=base_url('account/appearance/themes/edit-theme/'.$theme['theme_id'])?>" 

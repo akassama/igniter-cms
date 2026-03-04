@@ -18,8 +18,8 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => 'Users', 'url' => '/account/admin/users'),
     array('title' => 'Edit User')
 );
@@ -36,7 +36,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/admin/users/edit-user'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="first_name" class="form-label">First Name</label>
+                <label for="first_name" class="form-label"><?= lang('App.first_name') ?></label>
                 <input type="text" class="form-control" id="first_name" name="first_name" value="<?= $user_data['first_name'] ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('first_name')) {?>
@@ -49,7 +49,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="last_name" class="form-label">Last Name</label>
+                <label for="last_name" class="form-label"><?= lang('App.last_name') ?></label>
                 <input type="text" class="form-control" id="last_name" name="last_name" value="<?= $user_data['last_name'] ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('last_name')) {?>
@@ -62,11 +62,11 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="username" class="form-label">Username <small>(read-only)</small></label>
+                <label for="username" class="form-label">Username <small>(<?= lang('app.read_only') ?>)</small></label>
                 <input type="text" class="form-control" id="username" name="username" minlength="6" maxlength="20" value="<?= $user_data['username'] ?>" required readonly>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="email" class="form-label">Email <small>(read-only)</small></label>
+                <label for="email" class="form-label">Email <small>(<?= lang('app.read_only') ?>)</small></label>
                 <input type="email" class="form-control" id="email" name="email" minlength="6" maxlength="20" value="<?= $user_data['email'] ?>" required readonly>
             </div>
 
@@ -81,7 +81,7 @@ echo generateBreadcrumb($breadcrumb_links);
             ?>
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="status" class="form-label">
-                    Status <?= $isCurrentUser ? '<small>(read-only)</small>' : '' ?>
+                    Status <?= $isCurrentUser ? '<small>('.lang('app.read_only').')</small>' : '' ?>
                 </label>
 
                 <?php if ($isCurrentUser) : ?>
@@ -108,7 +108,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <!--Role-->
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="role" class="form-label">
-                    Role <?= $isCurrentUser ? '<small>(read-only)</small>' : '' ?>
+                    Role <?= $isCurrentUser ? '<small>('.lang('app.read_only').')</small>' : '' ?>
                 </label>
 
                 <?php if ($isCurrentUser) : ?>
@@ -241,7 +241,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/admin/users') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

@@ -920,10 +920,10 @@ if(!function_exists('getRecentActivityLogs'))
                         <th>Activity By</th>
                         <th>Activity Type</th>
                         <th>Activity</th>
-                        <th>IP Address</th>
-                        <th>Device</th>
-                        <th>Country</th>
-                        <th>Date/Time</th>
+                        <th><?= lang('App.ip') ?></th>
+                        <th><?= lang('App.device') ?></th>
+                        <th><?= lang('App.country') ?></th>
+                        <th><?= lang('App.date_or_time') ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -1026,14 +1026,14 @@ if(!function_exists('getRecentVisitStats'))
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>IP</th>
-                        <th>Device</th>
+                        <th><?= lang('App.ip') ?></th>
+                        <th><?= lang('App.device') ?></th>
                         <th>Browser</th>
-                        <th>URL</th>
+                        <th><?= lang('App.url') ?></th>
                         <th>User</th>
-                        <th>OS</th>
-                        <th>Country</th>
-                        <th>Visit Date</th>
+                        <th><?= lang('App.os') ?></th>
+                        <th><?= lang('App.country') ?></th>
+                        <th><?= lang('App.visit_date') ?></th>
                     </tr>
                     </thead>
                     <tbody>

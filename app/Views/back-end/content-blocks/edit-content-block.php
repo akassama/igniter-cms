@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Content Blocks', 'url' => '/account/content-blocks'),
     array('title' => 'Edit Content Block')
 );
@@ -27,7 +27,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/content-blocks/edit-content-block'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="identifier" class="form-label">Identifier</label>
+                <label for="identifier" class="form-label"><?= lang('App.identifier') ?></label>
                 <input type="text" class="form-control title-text" id="identifier" name="identifier" data-show-err="true" maxlength="250" value="<?= $content_block_data['identifier']; ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('identifier')) {?>
@@ -41,7 +41,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label"><?= lang('App.title') ?></label>
                 <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= $content_block_data['title']; ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('title')) {?>
@@ -55,7 +55,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label"><?= lang('App.description') ?></label>
                 <textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required><?= $content_block_data['description']; ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('description')) {?>
@@ -106,7 +106,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 mb-3">
-                        <label for="image" class="form-label">Image</label>
+                        <label for="image" class="form-label"><?= lang('App.image') ?></label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="image" name="image"  value="<?= $content_block_data['image'] ?>" placeholder="select image"
                             hx-post="<?=base_url()?>/htmx/set-image-display"
@@ -195,7 +195,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3">
-                        <label for="new_tab" class="form-label">New Tab</label>
+                        <label for="new_tab" class="form-label"><?= lang('App.new_tab') ?></label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="new_tab" name="new_tab" value="1" <?= ($content_block_data['new_tab'] == '1') ? 'checked' : '' ?>>
                             <label class="form-check-label small" for="new_tab">Toggle to open as new tab</label>
@@ -289,7 +289,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/content-blocks') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

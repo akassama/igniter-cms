@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Appearance', 'url' => '/account/appearance'),
     array('title' => 'Themes', 'url' => '/account/appearance/themes'),
     array('title' => 'Edit Theme')
@@ -215,7 +215,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="category" class="form-label">Category</label>
+                <label for="category" class="form-label"><?= lang('App.category') ?></label>
                 <input type="text" class="form-control" id="category" name="category" value="<?= $theme_data['category'] ?>" readonly>
                 <!-- Error -->
                 <?php if($validation->getError('category')) {?>
@@ -274,11 +274,11 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/appearance/themes') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <button type="submit" class="btn btn-outline-primary float-end" id="submit-btn">
                     <i class="ri-edit-box-line"></i>
-                    Update
+                    <?= lang('App.update') ?>
                 </button>
             </div>
         </div>

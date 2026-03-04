@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'CMS', 'url' => '/account/cms'),
     array('title' => 'Navigations')
 );
@@ -43,17 +43,17 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Icon</th>
-                            <th>Group</th>
-                            <th>Order</th>
-                            <th>Parent</th>
-                            <th>Link</th>
+                            <th><?= lang('App.title') ?></th>
+                            <th><?= lang('App.description') ?></th>
+                            <th><?= lang('App.icon') ?></th>
+                            <th><?= lang('App.group') ?></th>
+                            <th><?= lang('App.order') ?></th>
+                            <th><?= lang('App.parent') ?></th>
+                            <th><?= lang('App.link') ?></th>
                             <th>Status</th>
-                            <th>Created By</th>
-                            <th>Updated By</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.created_by') ?></th>
+                            <th><?= lang('App.updated_by') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>

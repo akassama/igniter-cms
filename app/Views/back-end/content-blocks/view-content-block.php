@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Content Blocks', 'url' => '/account/content-blocks'),
     array('title' => 'View Content Block')
 );
@@ -25,17 +25,17 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="col-12 bg-light rounded p-4">
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="identifier" class="form-label">Identifier</label>
+                <label for="identifier" class="form-label"><?= lang('App.identifier') ?></label>
                 <input type="text" class="form-control title-text" id="identifier" name="identifier" data-show-err="true" maxlength="250" value="<?= $content_block_data['identifier']; ?>" readonly>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label"><?= lang('App.title') ?></label>
                 <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= $content_block_data['title']; ?>" readonly>
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label"><?= lang('App.description') ?></label>
                 <textarea rows="1" class="form-control" id="description" name="description" readonly><?= $content_block_data['description']; ?></textarea>
             </div>
 
@@ -59,7 +59,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 mb-3">
-                        <label for="image" class="form-label">Image</label>
+                        <label for="image" class="form-label"><?= lang('App.image') ?></label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="image" name="image"  value="<?= $content_block_data['image'] ?>" readonly>
                             <button class="btn btn-dark" type="button">
@@ -108,7 +108,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <input type="text" class="form-control" id="link" name="link" value="<?= $content_block_data['link']; ?>" readonly>
                     </div>
                     <div class="col-sm-12 col-md-3">
-                        <label for="new_tab" class="form-label">New Tab</label>
+                        <label for="new_tab" class="form-label"><?= lang('App.new_tab') ?></label>
                         <input type="text" class="form-control" id="new_tab" name="new_tab" value="<?= ($content_block_data['new_tab'] == '0') ? 'No' : 'Yes'?>" readonly>
                     </div>
                 </div>
@@ -180,18 +180,18 @@ echo generateBreadcrumb($breadcrumb_links);
             
             <!-- entry data -->
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="created_by" class="form-label">Created BY</label>
+                <label for="created_by" class="form-label"><?= lang('App.created_by') ?></label>
                 <input type="text" class="form-control" id="created_by" name="created_by" maxlength="250" value="<?= getActivityBy(esc($content_block_data['created_by']) , ""); ?>" readonly>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="updated_by" class="form-label">Updated BY</label>
+                <label for="updated_by" class="form-label"><?= lang('App.updated_by') ?></label>
                 <input type="text" class="form-control" id="updated_by" name="updated_by" maxlength="250" value="<?= getActivityBy(esc($content_block_data['updated_by']) , ""); ?>" readonly>
             </div>
             
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/content-blocks') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
             </div>
         </div>

@@ -102,10 +102,10 @@ if (!function_exists('getUserStatus')) {
 if (!function_exists('getUserStatusLabel')) {
     function getUserStatusLabel($status) {
         if($status == '0'){
-            return "<span class='badge bg-secondary'>Inactive</span>";
+            return "<span class='badge bg-secondary'><?= lang('App.inactive') ?></span>";
         }
         else if($status == '1'){
-            return "<span class='badge bg-success'>Active</span>";
+            return "<span class='badge bg-success'><?= lang('App.active') ?></span>";
         }
         else if($status == '2'){
             return "<span class='badge bg-danger'>Closed</span>";
@@ -1970,7 +1970,7 @@ if(!function_exists('getNavigationParentSelectOptions'))
         $selected = "";
         foreach ($query->getResult() as $row) {
             $selected = $row->navigation_id == $navigationId ? "selected" : "";
-            echo "<option value='$row->navigation_id' $selected>$row->title</option>";
+            echo "<option value='$row->navigation_id' $selected>$row-><?= lang('app.title') ?></option>";
         }
     }
 }
@@ -1994,7 +1994,7 @@ if(!function_exists('getBlogCategorySelectOptions'))
         $selected = "";
         foreach ($query->getResult() as $row) {
             $selected = $row->category_id == $categoryId ? "selected" : "";
-            echo "<option value='$row->category_id' $selected>$row->title</option>";
+            echo "<option value='$row->category_id' $selected>$row-><?= lang('app.title') ?></option>";
         }
     }
 }
@@ -2235,11 +2235,11 @@ if(!function_exists('getRecentPosts'))
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Image</th>
-                        <th>Title</th>
-                        <th>Category</th>
+                        <th><?= lang('App.image') ?></th>
+                        <th><?= lang('App.title') ?></th>
+                        <th><?= lang('App.category') ?></th>
                         <th>Status</th>
-                        <th>Author</th>
+                        <th><?= lang('App.author') ?></th>
                         <th>Post Date</th>
                     </tr>
                 </thead>
@@ -2387,7 +2387,7 @@ if (!function_exists('getMostVisitedPages')) {
                 <thead>
                     <tr>
                         <th>Page</th>
-                        <th>Views</th>
+                        <th><?= lang('App.views') ?></th>
                     </tr>
                 </thead>
             <tbody>";

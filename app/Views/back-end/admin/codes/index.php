@@ -18,8 +18,8 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => 'Codes')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -51,10 +51,10 @@ echo generateBreadcrumb($breadcrumb_links);
                         <tr>
                             <th>#</th>
                             <th>Code For</th>
-                            <th>Last Modified</th>
-                            <th>Created By</th>
-                            <th>Updated By</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.last_modified') ?></th>
+                            <th><?= lang('App.created_by') ?></th>
+                            <th><?= lang('App.updated_by') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>

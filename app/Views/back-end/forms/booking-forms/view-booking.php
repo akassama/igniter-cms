@@ -27,7 +27,7 @@ $paymentAmountText = isset($booking['payment_amount']) && $booking['payment_amou
 $countryText = !empty($booking['country']) ? getCountryTextName($booking['country']) : '';
 
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Forms', 'url' => '/account/forms'),
     array('title' => 'Booking Forms', 'url' => '/account/forms/booking-forms'),
     array('title' => 'View Booking')
@@ -90,19 +90,19 @@ echo generateBreadcrumb($breadcrumb_links);
 
                 <!-- Person -->
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="full_name" class="form-label">Name</label>
+                    <label for="full_name" class="form-label"><?= lang('App.name') ?></label>
                     <input type="text" class="form-control" id="full_name" value="<?= esc($fullName) ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label"><?= lang('App.email') ?></label>
                     <input type="email" class="form-control" id="email" value="<?= esc($booking['email'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="phone" class="form-label">Phone</label>
+                    <label for="phone" class="form-label"><?= lang('App.phone') ?></label>
                     <input type="text" class="form-control" id="phone" value="<?= esc($booking['phone'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="country" class="form-label">Country</label>
+                    <label for="country" class="form-label"><?= lang('App.country') ?></label>
                     <input type="text" class="form-control" id="country" value="<?= esc($countryText) ?>" readonly>
                 </div>
 
@@ -136,7 +136,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
                 <!-- Message -->
                 <div class="col-sm-12 col-md-12 mb-3">
-                    <label for="message" class="form-label">Message</label>
+                    <label for="message" class="form-label"><?= lang('App.message') ?></label>
                     <div class="border border-dark rounded p-2" id="message"><?= esc($booking['message'] ?? '') ?></div>
                 </div>
 
@@ -166,7 +166,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <input type="text" class="form-control" id="confirmation_code" value="<?= esc($booking['confirmation_code'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-4 mb-3">
-                    <label for="ip_address" class="form-label">IP Address</label>
+                    <label for="ip_address" class="form-label"><?= lang('App.ip') ?></label>
                     <input type="text" class="form-control" id="ip_address" value="<?= esc($booking['ip_address'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-4 mb-3">
@@ -250,15 +250,15 @@ echo generateBreadcrumb($breadcrumb_links);
           <input type="hidden" name="booking_form_id" value="<?= esc($booking['booking_form_id'] ?? '') ?>">
 
           <div class="col-12 col-md-4">
-            <label for="edit_name" class="form-label">Name</label>
+            <label for="edit_name" class="form-label"><?= lang('App.name') ?></label>
             <input type="text" class="form-control" id="edit_name" name="name" value="<?= esc($fullName) ?>">
           </div>
           <div class="col-12 col-md-4">
-            <label for="edit_email" class="form-label">Email</label>
+            <label for="edit_email" class="form-label"><?= lang('App.email') ?></label>
             <input type="email" class="form-control" id="edit_email" name="email" value="<?= esc($booking['email'] ?? '') ?>">
           </div>
           <div class="col-12 col-md-4">
-            <label for="edit_phone" class="form-label">Phone</label>
+            <label for="edit_phone" class="form-label"><?= lang('App.phone') ?></label>
             <input type="text" class="form-control" id="edit_phone" name="phone" value="<?= esc($booking['phone'] ?? '') ?>">
           </div>
 

@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Settings', 'url' => '/account/settings'),
     array('title' => 'Change Password')
 );
@@ -84,7 +84,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3">
                 <a href="<?= base_url('/account/settings') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

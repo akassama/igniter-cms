@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'CMS', 'url' => '/account/cms'),
     array('title' => 'Blogs', 'url' => '/account/cms/blogs'),
     array('title' => 'Edit Blog')
@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/cms/blogs/edit-blog'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label"><?= lang('App.title') ?></label>
                 <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= $blog_data['title'] ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('title')) {?>
@@ -42,7 +42,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="slug" class="form-label">Slug</label>
+                <label for="slug" class="form-label"><?= lang('App.slug') ?></label>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><?= base_url('/blog/'); ?></span>
                     <input type="text" class="form-control" id="slug" name="slug" value="<?= $blog_data['slug'] ?>" required>
@@ -119,7 +119,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="category" class="form-label">Category</label>
+                <label for="category" class="form-label"><?= lang('App.category') ?></label>
                 <select class="form-select" id="category" name="category" required>
                     <option value="">Select category</option>
                     <?= getBlogCategorySelectOptions($blog_data['category']) ?>
@@ -169,7 +169,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="author" class="form-label">Author</label>
+                <label for="author" class="form-label"><?= lang('App.author') ?></label>
                 <select class="form-select" id="author" name="author" required>
                     <option value="">Select author</option>
                     <?= getUserSelectOptions($blog_data['author']) ?>
@@ -259,7 +259,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <div class="accordion-body">
                                 <div class="row">
                                     <div class="col-12 mb-3">
-                                        <label for="meta_title" class="form-label">Meta Title</label>
+                                        <label for="meta_title" class="form-label"><?= lang('App.meta_title') ?></label>
                                         <input type="text" class="form-control" id="meta_title" name="meta_title" value="<?= $blog_data['meta_title'] ?>">
                                         <!-- Error -->
                                         <?php if($validation->getError('meta_title')) {?>
@@ -272,7 +272,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3">
-                                        <label for="meta_description" class="form-label">Meta Description</label>
+                                        <label for="meta_description" class="form-label"><?= lang('App.meta_description') ?></label>
                                         <textarea type="text" class="form-control" id="meta_description" name="meta_description"><?= $blog_data['meta_description'] ?></textarea>
                                         <!-- Error -->
                                         <?php if($validation->getError('meta_description')) {?>
@@ -285,7 +285,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3 mt-3">
-                                        <label for="meta_keywords" class="form-label">Meta Keywords</label>
+                                        <label for="meta_keywords" class="form-label"><?= lang('App.meta_keywords') ?></label>
                                         <input type="text" class="form-control tags-input" id="meta_keywords" name="meta_keywords" value="<?= $blog_data['meta_keywords'] ?>">
                                         <!-- Error -->
                                         <?php if($validation->getError('meta_keywords')) {?>
@@ -313,7 +313,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/cms/blogs') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

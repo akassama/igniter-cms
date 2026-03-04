@@ -15,7 +15,7 @@
             <?= csrf_field() ?>
             <?=getHoneypotInput()?>
             <div class="mb-2">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label"><?= lang('App.email') ?></label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="<?= set_value('email') ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('email')) {?>

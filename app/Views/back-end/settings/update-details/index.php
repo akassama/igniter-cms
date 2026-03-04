@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Settings', 'url' => '/account/settings'),
     array('title' => 'Account Details')
 );
@@ -27,7 +27,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/settings/update-details/update-user'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="first_name" class="form-label">First Name</label>
+                <label for="first_name" class="form-label"><?= lang('App.first_name') ?></label>
                 <input type="text" class="form-control" id="first_name" name="first_name" value="<?= $user_data['first_name'] ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('first_name')) {?>
@@ -41,7 +41,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="last_name" class="form-label">Last Name</label>
+                <label for="last_name" class="form-label"><?= lang('App.last_name') ?></label>
                 <input type="text" class="form-control" id="last_name" name="last_name" value="<?= $user_data['last_name'] ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('last_name')) {?>
@@ -57,7 +57,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="email" class="form-label">
                     Email
-                    <small>(read-only)</small>
+                    <small>(<?= lang('app.read_only') ?>)</small>
                 </label>
                 <input type="email" class="form-control" id="email" name="email" value="<?= $user_data['email'] ?>" required readonly>
                 <!-- Error -->
@@ -74,7 +74,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="username" class="form-label">
                     Username
-                    <small>(read-only)</small>
+                    <small>(<?= lang('app.read_only') ?>)</small>
                 </label>
                 <input type="text" class="form-control" id="username" name="username" value="<?= $user_data['username'] ?>" required readonly>
                 <!-- Error -->
@@ -91,7 +91,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="username" class="form-label">
                     Status
-                    <small>(read-only)</small>
+                    <small>(<?= lang('app.read_only') ?>)</small>
                 </label>
                 <input type="text" class="form-control" id="status" name="status" value="<?= getUserStatusOnly($user_data['status']) ?>" required readonly>
                 <!-- Error -->
@@ -108,7 +108,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="username" class="form-label">
                     Role
-                    <small>(read-only)</small>
+                    <small>(<?= lang('app.read_only') ?>)</small>
                 </label>
                 <input type="text" class="form-control" id="role" name="role" value="<?= $user_data['role'] ?>" required readonly>
                 <!-- Error -->
@@ -226,7 +226,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/settings') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

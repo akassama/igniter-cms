@@ -18,7 +18,7 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
      array('title' => 'Plugins', 'url' => '/account/plugins'),
     array('title' => 'Plugin Configurations')
 );
@@ -51,9 +51,9 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <th>#</th>
                                 <th>Plugin Slug</th>
                                 <th>Key</th>
-                                <th>Value</th>
+                                <th><?= lang('App.value') ?></th>
                                 <th>Created At</th>
-                                <th>Actions</th>
+                                <th><?= lang('App.actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>

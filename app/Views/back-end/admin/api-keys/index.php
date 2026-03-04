@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>API Keys<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.api_keys') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -18,9 +18,9 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'API Keys')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
+    array('title' => lang('App.api_keys'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -39,7 +39,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                API Keys
+                <?= lang('App.api_keys') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_api_keys ?>
                 </span>
@@ -50,13 +50,13 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>API Key</th>
+                            <th><?= lang('App.api_key') ?></th>
                             <th>Assigned To</th>
-                            <th>Status</th>
+                            <th><?= lang('App.status') ?></th>
                             <th>Created On</th>
-                            <th>Created By</th>
-                            <th>Updated By</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.created_by') ?></th>
+                            <th><?= lang('App.updated_by') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -71,7 +71,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td>
                                         <?= $api_key['assigned_to']; ?>
                                     </td>
-                                    <td><?= $api_key['status'] == "1" ? "<span class='badge bg-success'>Active</span>" : "<span class='badge bg-secondary'>Inactive</span>" ?></td>
+                                    <td><?= $api_key['status'] == "1" ? "<span class='badge bg-success'><?= lang('App.active') ?></span>" : "<span class='badge bg-secondary'><?= lang('App.inactive') ?></span>" ?></td>
                                     <td><?= dateFormat($api_key['created_at']) ?></td>
                                     <td><?= getActivityBy(esc($api_key['created_by']) , ""); ?></td>
                                     <td><?= getActivityBy(esc($api_key['updated_by']) , ""); ?></td>

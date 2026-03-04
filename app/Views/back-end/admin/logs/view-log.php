@@ -18,8 +18,8 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => 'Logs', 'url' => '/account/admin/logs'),
     array('title' => 'View Log')
 );
@@ -36,7 +36,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="mb-3 mt-3">
                     <a href="<?= base_url('/account/admin/logs') ?>" class="btn btn-outline-danger">
                         <i class="ri-arrow-left-fill"></i>
-                        Back
+                        <?= lang('App.back') ?>
                     </a>
                 </div>
             </div>

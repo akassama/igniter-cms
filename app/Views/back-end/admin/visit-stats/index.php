@@ -10,8 +10,8 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => 'Visit Stats')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -37,15 +37,15 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>IP</th>
-                            <th>Device</th>
+                            <th><?= lang('App.ip') ?></th>
+                            <th><?= lang('App.device') ?></th>
                             <th>Browser</th>
-                            <th>URL</th>
+                            <th><?= lang('App.url') ?></th>
                             <th>User</th>
-                            <th>OS</th>
-                            <th>Country</th>
-                            <th>Visit Date</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.os') ?></th>
+                            <th><?= lang('App.country') ?></th>
+                            <th><?= lang('App.visit_date') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>

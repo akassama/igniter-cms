@@ -7,7 +7,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Appearance', 'url' => '/account/appearance'),
     array('title' => 'Themes', 'url' => '/account/appearance/themes'),
     array('title' => 'New Theme')

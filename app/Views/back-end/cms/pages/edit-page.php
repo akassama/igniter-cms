@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'CMS', 'url' => '/account/cms'),
     array('title' => 'Pages', 'url' => '/account/cms/pages'),
     array('title' => 'Edit Page')
@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/cms/pages/edit-page'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label"><?= lang('App.title') ?></label>
                 <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= $page_data['title'] ?>" required
                        hx-post="<?=base_url()?>/htmx/set-meta-title"
                        hx-trigger="keyup, changed delay:250ms"
@@ -46,7 +46,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="slug" class="form-label">Slug</label>
+                <label for="slug" class="form-label"><?= lang('App.slug') ?></label>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><?= base_url('/'); ?></span>
                     <input type="text" class="form-control" id="slug" name="slug" value="<?= $page_data['slug'] ?>" required>
@@ -126,7 +126,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <div class="accordion-body">
                                 <div class="row">
                                     <div class="col-12 mb-3">
-                                        <label for="meta_title" class="form-label">Meta Title</label>
+                                        <label for="meta_title" class="form-label"><?= lang('App.meta_title') ?></label>
                                         <div id="meta-title-div">
                                             <input type="text" class="form-control" id="meta_title" name="meta_title" value="<?= $page_data['meta_title'] ?>">
                                         </div>
@@ -141,7 +141,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3">
-                                        <label for="meta_description" class="form-label">Meta Description</label>
+                                        <label for="meta_description" class="form-label"><?= lang('App.meta_description') ?></label>
                                         <div id="meta-description-div">
                                             <textarea type="text" class="form-control" id="meta_description" name="meta_description"><?= $page_data['meta_description'] ?></textarea>
                                         </div>
@@ -156,7 +156,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3">
-                                        <label for="meta_keywords" class="form-label">Meta Keywords</label>
+                                        <label for="meta_keywords" class="form-label"><?= lang('App.meta_keywords') ?></label>
                                         <div id="meta-keywords-div">
                                             <input type="text" class="form-control tags-input" id="meta_keywords" name="meta_keywords" value="<?= $page_data['meta_keywords'] ?>">
                                         </div>
@@ -185,7 +185,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3">
                 <a href="<?= base_url('/account/cms/pages') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

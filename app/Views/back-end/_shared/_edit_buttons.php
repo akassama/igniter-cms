@@ -6,12 +6,12 @@ $demoMode = boolval(env('DEMO_MODE', "false"));
 <?php if($demoMode): ?>
     <button type="button" class="btn btn-outline-primary float-end demo-submit-btn" id="submit-btn">
         <i class="ri-edit-box-line"></i>
-        Update
+        <?= lang('App.update') ?>
     </button>
 <?php else: ?>
     <button type="submit" class="btn btn-outline-primary float-end live-edit-btn" id="submit-btn">
         <i class="ri-edit-box-line"></i>
-        Update
+        <?= lang('App.update') ?>
     </button>
 <?php endif; ?>
 

@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Forms', 'url' => '/account/forms'),
     array('title' => 'Subscription Forms (Unsubscribed)')
 );
@@ -48,14 +48,14 @@ echo generateBreadcrumb($breadcrumb_links);
                         <tr>
                             <th>#</th>
                             <th>Form Name</th>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th><?= lang('App.name') ?></th>
+                            <th><?= lang('App.email') ?></th>
                             <th>Status</th>
-                            <th>IP</th>
-                            <th>Country</th>
+                            <th><?= lang('App.ip') ?></th>
+                            <th><?= lang('App.country') ?></th>
                             <th>Unsubscribed At</th>
                             <th>Created</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>

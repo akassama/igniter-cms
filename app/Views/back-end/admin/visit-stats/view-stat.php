@@ -18,8 +18,8 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => 'Visit Stats', 'url' => '/account/admin/visit-stats'),
     array('title' => 'View Stat')
 );
@@ -36,7 +36,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <ul class="list-group mb-2">
                 <li class="list-group-item">Visit Stat ID: <span><?= $visit_data['site_stat_id'] ?></span></li>
                 <li class="list-group-item">Visit By: <span  data-bs-toggle="tooltip" data-bs-placement="top" title="User ID: <?= esc($visit_data['user_id']) ?>"><?= getActivityBy(esc($visit_data['user_id'])) ?></span></li>
-                <li class="list-group-item">IP Address: <span><?= $visit_data['ip_address'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.ip') ?>: <span><?= $visit_data['ip_address'] ?></span></li>
                 <li class="list-group-item">Device Type: <span><?= $visit_data['device_type'] ?></span></li>
                 <li class="list-group-item">Browser Type: <span><?= $visit_data['browser_type'] ?></span></li>
                 <li class="list-group-item">Page Type: <span><?= $visit_data['page_type'] ?></span></li>
@@ -56,7 +56,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3">
                 <a href="<?= base_url('/account/admin/visit-stats') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
             </div>
         </div>

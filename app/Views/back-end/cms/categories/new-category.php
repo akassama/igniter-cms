@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'CMS', 'url' => '/account/cms'),
     array('title' => 'Categories', 'url' => '/account/cms/categories'),
     array('title' => 'New Category')
@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/cms/categories/new-category'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label"><?= lang('App.title') ?></label>
                 <input type="text" class="form-control alphanumeric-plus-space" id="title" name="title" data-show-err="true" maxlength="100" value="<?= set_value('title') ?>" maxlength="50" required>
                 <!-- Error -->
                 <?php if($validation->getError('title')) {?>
@@ -43,7 +43,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <label for="description" class="form-label">Description</label>
+                    <label for="description" class="form-label"><?= lang('App.description') ?></label>
                         <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
                         hx-post="<?=base_url()?>/htmx/get-blog-category-description-via-ai"
                         hx-trigger="click delay:250ms"
@@ -85,7 +85,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="parent" class="form-label">Parent</label>
+                <label for="parent" class="form-label"><?= lang('App.parent') ?></label>
                 <select class="form-select" id="parent" name="parent">
                     <option value="">Select parent</option>
                     <?= getBlogCategorySelectOptions() ?>
@@ -120,7 +120,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3">
-                        <label for="new_tab" class="form-label">New Tab</label>
+                        <label for="new_tab" class="form-label"><?= lang('App.new_tab') ?></label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="new_tab" name="new_tab" value="1">
                             <label class="form-check-label small" for="new_tab">Toggle to open as new tab</label>
@@ -175,7 +175,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/cms/categories') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_submit_buttons.php'); ?>
             </div>

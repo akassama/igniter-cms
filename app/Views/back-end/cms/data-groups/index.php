@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'CMS', 'url' => '/account/cms'),
     array('title' => 'Data Groups')
 );
@@ -45,8 +45,8 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <th>#</th>
                                 <th>Data Group For</th>
                                 <th>Data Group List</th>
-                                <th>Created By</th>
-                                <th>Actions</th>
+                                <th><?= lang('App.created_by') ?></th>
+                                <th><?= lang('App.actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>

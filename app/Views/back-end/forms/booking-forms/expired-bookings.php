@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Forms', 'url' => '/account/forms'),
     array('title' => 'Expired Booking Forms')
 );
@@ -47,15 +47,15 @@ echo generateBreadcrumb($breadcrumb_links);
                             <tr>
                                 <th>#</th>
                                 <th>Form Name</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Date</th>
-                                <th>Time</th>
+                                <th><?= lang('App.name') ?></th>
+                                <th><?= lang('App.email') ?></th>
+                                <th><?= lang('App.phone') ?></th>
+                                <th><?= lang('App.date') ?></th>
+                                <th><?= lang('App.time') ?></th>
                                 <th>No. of Attendees</th>
-                                <th>Message</th>
+                                <th><?= lang('App.message') ?></th>
                                 <th>Created</th>
-                                <th>Actions</th>
+                                <th><?= lang('App.actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>

@@ -12,7 +12,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Forms')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -26,7 +26,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 Contact Forms
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/forms/contact-forms'); ?>">View Details</a>
+                <a class="small text-white stretched-link" href="<?= base_url('/account/forms/contact-forms'); ?>"><?= lang('App.view_details') ?></a>
                 <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
             </div>
         </div>
@@ -40,7 +40,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 Comment Forms
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/forms/comment-forms'); ?>">View Details</a>
+                <a class="small text-white stretched-link" href="<?= base_url('/account/forms/comment-forms'); ?>"><?= lang('App.view_details') ?></a>
                 <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
             </div>
         </div>
@@ -54,7 +54,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 Booking Forms
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/forms/booking-forms'); ?>">View Details</a>
+                <a class="small text-white stretched-link" href="<?= base_url('/account/forms/booking-forms'); ?>"><?= lang('App.view_details') ?></a>
                 <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
             </div>
         </div>
@@ -68,7 +68,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 Subscription Forms
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/forms/subscription-forms'); ?>">View Details</a>
+                <a class="small text-white stretched-link" href="<?= base_url('/account/forms/subscription-forms'); ?>"><?= lang('App.view_details') ?></a>
                 <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
             </div>
         </div>

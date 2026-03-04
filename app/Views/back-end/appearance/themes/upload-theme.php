@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Themes<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.themes') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Appearance', 'url' => '/account/appearance'),
     array('title' => 'Themes', 'url' => '/account/appearance/themes'),
     array('title' => 'New Theme')
@@ -21,14 +21,14 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Upload Theme</h3>
+        <h3><?= lang('App.upload_theme') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
         <?php echo form_open(base_url('account/appearance/themes/upload-theme'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="theme_file" class="form-label">Theme File</label>
+                <label for="theme_file" class="form-label"><?= lang('App.theme_file') ?></label>
                 <input class="form-control" type="file" id="theme_file" name="theme_file" accept=".zip,.rar,.7zip" required>
                 <!-- Error -->
                 <?php if($validation->getError('theme_file')) {?>
@@ -51,7 +51,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/appearance/themes') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= view('back-end/_shared/_submit_buttons', ['submitLabel' => 'Upload Theme']) ?>
             </div>

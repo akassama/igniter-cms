@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Backups<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.backups') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,9 +10,9 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'Backups')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
+    array('title' => lang('App.backups'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,18 +20,18 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Backups</h3>
+        <h3><?= lang('App.backups') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?= base_url('account/admin/backups/download-public-folder-backup')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-folder-download-fill"></i> Generate Public Folder Backup
+            <i class="ri-folder-download-fill"></i> <?= lang('App.generate_public_folder_backup') ?>
         </a>
     </div>
     <div class="col-12">
         <div class="card mb-4">
         <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Database Backups
+                <?= lang('App.database_backups') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_backups ?>
                 </span>
@@ -43,7 +43,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                     <a href="<?= base_url('account/admin/backups/generate-db-backup')?>" class="btn btn-outline-primary btn-block">
                         <i class="ri-database-2-fill"></i>
-                        Generate Backup
+                        <?= lang('App.generate_backups') ?>
                     </a>
                 </div>
                 <div class="col-12 mt-4">
@@ -52,10 +52,10 @@ echo generateBreadcrumb($breadcrumb_links);
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Created By</th>
+                                <th><?= lang('App.created_by') ?></th>
                                 <th>Date Created</th>
                                 <th>File</th>
-                                <th>Actions</th>
+                                <th><?= lang('App.actions') ?></th>
                             </tr>
                             </thead>
                             <tbody>

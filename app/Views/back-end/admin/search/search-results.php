@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Search Results')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -30,7 +30,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <p>
                             <strong><?= $result['module_name'] ?>:</strong> (<?= $result['module_description'] ?>)
                         </p>
-                        <a href="<?= base_url('/' . $result['module_link']) ?>">View Details</a>
+                        <a href="<?= base_url('/' . $result['module_link']) ?>"><?= lang('App.view_details') ?></a>
                     </li>
                 <?php endforeach; ?>
             </ul>

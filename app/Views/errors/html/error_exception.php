@@ -176,7 +176,7 @@ $errorId = uniqid('error', true);
                                 <thead>
                                 <tr>
                                     <th>Key</th>
-                                    <th>Value</th>
+                                    <th><?= lang('App.value') ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -206,7 +206,7 @@ $errorId = uniqid('error', true);
                                 <thead>
                                 <tr>
                                     <th>Key</th>
-                                    <th>Value</th>
+                                    <th><?= lang('App.value') ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -242,7 +242,7 @@ $errorId = uniqid('error', true);
                                 <td><?= esc($request->getMethod()) ?></td>
                             </tr>
                             <tr>
-                                <td>IP Address</td>
+                                <td><?= lang('App.ip') ?></td>
                                 <td><?= esc($request->getIPAddress()) ?></td>
                             </tr>
                             <tr>
@@ -281,7 +281,7 @@ $errorId = uniqid('error', true);
                                 <thead>
                                 <tr>
                                     <th>Key</th>
-                                    <th>Value</th>
+                                    <th><?= lang('App.value') ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -319,7 +319,7 @@ $errorId = uniqid('error', true);
                                 <thead>
                                 <tr>
                                     <th>Header</th>
-                                    <th>Value</th>
+                                    <th><?= lang('App.value') ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -366,7 +366,7 @@ $errorId = uniqid('error', true);
                                 <thead>
                                 <tr>
                                     <th>Header</th>
-                                    <th>Value</th>
+                                    <th><?= lang('App.value') ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>

@@ -16,7 +16,7 @@
             <?= csrf_field() ?>
             <?=getHoneypotInput()?>
             <div class="mb-3">
-                <label for="first_name" class="form-label">First Name</label>
+                <label for="first_name" class="form-label"><?= lang('App.first_name') ?></label>
                 <input type="text" class="form-control" id="first_name" name="first_name" placeholder="first name" required>
                 <!-- Error -->
                 <?php if($validation->getError('first_name')) {?>
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="last_name" class="form-label">Last Name</label>
+                <label for="last_name" class="form-label"><?= lang('App.last_name') ?></label>
                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder="last name" required>
                 <!-- Error -->
                 <?php if($validation->getError('last_name')) {?>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label"><?= lang('App.username') ?></label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="username" required
                        hx-post="<?=base_url()?>/htmx/check-user-username-exists"
                        hx-trigger="keyup, changed delay:250ms"
@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label"><?= lang('App.email') ?></label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required
                        hx-post="<?=base_url()?>/htmx/check-user-email-exists"
                        hx-trigger="keyup, changed delay:250ms"

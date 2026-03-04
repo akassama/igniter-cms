@@ -29,9 +29,9 @@ $activityUserName = getActivityBy(esc($activity['activity_by'])); // Using your 
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'Activity Logs', 'url' => '/account/admin/activity-logs'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
+    array('title' => lang('App.activity_logs'), 'url' => '/account/admin/activity-logs'),
     array('title' => 'View Activity')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -158,7 +158,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <td><span class="badge bg-secondary"><?= esc($activity['activity_id']) ?></span></td>
                                     </tr>
                                     <tr>
-                                        <td><strong>IP Address:</strong></td>
+                                        <td><strong><?= lang('App.ip') ?>:</strong></td>
                                         <td>
                                             <code><?= esc($activity['ip_address']) ?></code>
                                             <?php if(!empty($activity['country'])): ?>
@@ -185,7 +185,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </tr>
                                     <?php if(!empty($activity['url'])): ?>
                                     <tr>
-                                        <td><strong>URL:</strong></td>
+                                        <td><strong><?= lang('App.url') ?>:</strong></td>
                                         <td>
                                             <small class="text-break">
                                                 <i class="ri-link me-1"></i>
@@ -304,8 +304,8 @@ echo generateBreadcrumb($breadcrumb_links);
                 <p>Are you sure you want to delete this activity log? This action cannot be undone.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a href="#" id="confirmDeleteBtn" class="btn btn-danger">Delete</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= lang('App.cancel') ?></button>
+                <a href="#" id="confirmDeleteBtn" class="btn btn-danger"><?= lang('App.delete') ?></a>
             </div>
         </div>
     </div>

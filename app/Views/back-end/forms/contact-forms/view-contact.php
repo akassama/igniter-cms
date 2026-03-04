@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Forms', 'url' => '/account/forms'),
     array('title' => 'Contact Forms', 'url' => '/account/forms/contact-forms'),
     array('title' => 'View Contact Form')
@@ -48,15 +48,15 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
 
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="name" class="form-label">Name</label>
+                    <label for="name" class="form-label"><?= lang('App.name') ?></label>
                     <input type="text" class="form-control" id="name" name="name" value="<?= $contact_message_data['name'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label"><?= lang('App.email') ?></label>
                     <input type="email" class="form-control" id="email" name="email" minlength="6" maxlength="20" value="<?= $contact_message_data['email'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="phone" class="form-label">Phone</label>
+                    <label for="phone" class="form-label"><?= lang('App.phone') ?></label>
                     <input type="text" class="form-control" id="phone" name="phone" minlength="6" maxlength="20" value="<?= $contact_message_data['phone'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
@@ -68,7 +68,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <input type="text" class="form-control" id="service" name="service" value="<?= $contact_message_data['service'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-12 mb-3">
-                    <label for="message" class="form-label">Message</label>
+                    <label for="message" class="form-label"><?= lang('App.message') ?></label>
                     <div class="border border-dark rounded p-2" id="message" name="message"><?= $contact_message_data['message'] ?></div>
                 </div>
 
@@ -81,11 +81,11 @@ echo generateBreadcrumb($breadcrumb_links);
                     <input type="text" class="form-control" id="website" name="website" minlength="6" maxlength="20" value="<?= $contact_message_data['website'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="ip_address" class="form-label">IP Address</label>
+                    <label for="ip_address" class="form-label"><?= lang('App.ip') ?></label>
                     <input type="text" class="form-control" id="ip_address" name="ip_address" minlength="6" maxlength="20" value="<?= $contact_message_data['ip_address'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="country" class="form-label">Country</label>
+                    <label for="country" class="form-label"><?= lang('App.country') ?></label>
                     <input type="text" class="form-control" id="country" name="country" value="<?= getCountryTextName($contact_message_data['country']) ?>" readonly>
                 </div>
 
