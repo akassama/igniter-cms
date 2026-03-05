@@ -32,7 +32,7 @@ echo generateBreadcrumb($breadcrumb_links);
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/admin/api-keys/new-api-key')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New API Key
+            <i class="ri-add-fill"></i> <?= lang('App.new_api_key') ?>
         </a>
     </div>
     <div class="col-12">

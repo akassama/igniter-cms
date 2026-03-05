@@ -8,8 +8,8 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Appearance', 'url' => '/account/appearance'),
-    array('title' => 'Themes', 'url' => '/account/appearance/themes'),
+    array('title' => lang('App.appearance'), 'url' => '/account/appearance'),
+    array('title' => lang('App.themes'), 'url' => '/account/appearance/themes'),
     array('title' => 'New Theme')
 );
 echo generateBreadcrumb($breadcrumb_links);

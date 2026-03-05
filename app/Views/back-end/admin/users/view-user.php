@@ -42,17 +42,17 @@ echo generateBreadcrumb($breadcrumb_links);
                 <input type="text" class="form-control" id="last_name" name="last_name" value="<?= $user_data['last_name'] ?>" readonly>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="username" class="form-label">Username <small>(<?= lang('app.read_only') ?>)</small></label>
+                <label for="username" class="form-label"><?= lang('App.username') ?> <small>(<?= lang('app.read_only') ?>)</small></label>
                 <input type="text" class="form-control" id="username" name="username" minlength="6" maxlength="20" value="<?= $user_data['username'] ?>" readonly>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="email" class="form-label">Email <small>(<?= lang('app.read_only') ?>)</small></label>
+                <label for="email" class="form-label"><?= lang('App.email') ?> <small>(<?= lang('app.read_only') ?>)</small></label>
                 <input type="email" class="form-control" id="email" name="email" minlength="6" maxlength="20" value="<?= $user_data['email'] ?>" readonly>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="status" class="form-label">
-                    Status
+                    <?= lang('App.status') ?>
                 </label>
                 <input type="text" class="form-control" id="status" name="status" minlength="6" maxlength="20" value="<?= getUserStatusOnly($user_data['status']) ?>" readonly />
             </div>
@@ -60,12 +60,12 @@ echo generateBreadcrumb($breadcrumb_links);
             <!--Role-->
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="role" class="form-label">
-                    Role
+                    <?= lang('App.role') ?>
                 </label>
                 <input type="text" class="form-control" id="role" name="role" minlength="6" maxlength="20" value="<?= $user_data['role'] ?>" readonly />
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="profile_picture" class="form-label">Profile Picture</label>
+                <label for="profile_picture" class="form-label"><?= lang('App.profile_picture') ?></label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="profile_picture" name="profile_picture" placeholder="select picture" value="<?= $user_data['profile_picture'] ?>" readonly>
                     <button class="btn btn-dark" type="button" >

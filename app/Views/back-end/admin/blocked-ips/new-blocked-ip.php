@@ -86,7 +86,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="reason" class="form-label">Reason</label>
+                <label for="reason" class="form-label"><?= lang('App.reason') ?></label>
                 <select class="form-select" aria-label="Block Reason" id="reason" name="reason" required>
                     <option value="">Select reason</option>
                     <option value="too_many_failed_logins" <?= set_select('reason', 'too_many_failed_logins');?>><?= lang('App.too_many_failed_logins') ?></option>
@@ -114,7 +114,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="notes" class="form-label">Notes</label>
+                <label for="notes" class="form-label"><?= lang('App.notes') ?></label>
                 <textarea rows="1" class="form-control" id="notes" name="notes" maxlength="1000"><?= set_value('notes') ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('notes')) {?>
@@ -128,7 +128,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="page_visited_url" class="form-label">Page Visited URL</label>
+                <label for="page_visited_url" class="form-label"><?= lang('App.page_visited_url') ?></label>
                 <input type="url" class="form-control" id="page_visited_url" name="page_visited_url" maxlength="255" value="<?= set_value('page_visited_url') ?>">
                 <!-- Error -->
                 <?php if($validation->getError('page_visited_url')) {?>

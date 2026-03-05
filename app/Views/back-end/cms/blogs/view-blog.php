@@ -11,7 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
+    array('title' => lang('App.cms'), 'url' => '/account/cms'),
     array('title' => 'Blogs', 'url' => '/account/cms/blogs'),
     array('title' => 'View Blog')
 );
@@ -63,7 +63,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="content" class="form-label">Content</label>
+                <label for="content" class="form-label"><?= lang('App.content') ?></label>
                 <div class="border border-dark rounded p-2" id="content" name="content"><?= $blog_data['content'] ?></div>
             </div>
 
@@ -78,7 +78,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="status" class="form-label">Status</label>
+                <label for="status" class="form-label"><?= lang('App.status') ?></label>
                 <input type="text" class="form-control" id="status" name="status" value="<?= ($blog_data['status'] == '0') ? 'Unpublished' : 'Published'?>" readonly>
             </div>
 

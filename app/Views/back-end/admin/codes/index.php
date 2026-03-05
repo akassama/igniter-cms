@@ -20,7 +20,7 @@ $userRole = getUserRole($sessionEmail);
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Codes')
+    array('title' => lang('App.codes'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -39,7 +39,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Codes
+                <?= lang('App.codes') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_codes ?>
                 </span>
@@ -50,7 +50,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Code For</th>
+                            <th><?= lang('App.code_for') ?></th>
                             <th><?= lang('App.last_modified') ?></th>
                             <th><?= lang('App.created_by') ?></th>
                             <th><?= lang('App.updated_by') ?></th>

@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>New Configuration<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.new_configuration') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -12,8 +12,8 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Configurations', 'url' => '/account/admin/configurations'),
-    array('title' => 'New Configuration')
+    array('title' => lang('App.configurations'), 'url' => '/account/admin/configurations'),
+    array('title' => lang('App.new_configuration'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,14 +21,14 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>New Configuration</h3>
+        <h3><?= lang('App.new_configuration') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
         <?php echo form_open(base_url('account/admin/configurations/new-config'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="config_for" class="form-label">Config For</label>
+                <label for="config_for" class="form-label"><?= lang('App.config_for') ?></label>
                 <input type="text" class="form-control" id="config_for" name="config_for" value="<?= set_value('config_for') ?>" required
                        hx-post="<?=base_url()?>/htmx/check-config-exists"
                        hx-trigger="keyup, changed delay:250ms"
@@ -95,7 +95,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <option value="Textarea"><?= lang('App.textarea') ?></option>
                     <option value="Code"><?= lang('App.code') ?></option>
                     <option value="Select"><?= lang('App.select') ?></option>
-                    <option value="Secret"><?= lang('App.secret') ?> <small>(Would be stored encrypted)</small></option>
+                    <option value="Secret"><?= lang('App.secret') ?> <small>(<?= lang('App.stored_encrypted_hint') ?>)</small></option>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('data_type')) {?>

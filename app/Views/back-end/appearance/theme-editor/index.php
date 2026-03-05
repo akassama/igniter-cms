@@ -22,8 +22,8 @@ $customConfig = config('CustomConfig');
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Appearance', 'url' => '/account/appearance'),
-    array('title' => 'File Editor')
+    array('title' => lang('App.appearance'), 'url' => '/account/appearance'),
+    array('title' => lang('App.file_editor'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -42,7 +42,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-md-3 col-sm-4 col-6">
                 <a href="<?= base_url('account/appearance/theme-editor/layout') ?>" class="text-decoration-none">
                     <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">Layout</h6>
+                        <h6 class="card-title text-dark mt-2"><?= lang('App.layout') ?></h6>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
                             <h5 class="card-title mt-2">layout/_layout.php</h5>
@@ -56,7 +56,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-md-3 col-sm-4 col-6">
                 <a href="<?= base_url('account/appearance/theme-editor/home') ?>" class="text-decoration-none">
                     <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">Home</h6>
+                        <h6 class="card-title text-dark mt-2"><?= lang('App.home') ?></h6>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
                             <h5 class="card-title mt-2">home/index.php</h5>
@@ -70,7 +70,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-md-3 col-sm-4 col-6">
                 <a href="<?= base_url('account/appearance/theme-editor/blogs') ?>" class="text-decoration-none">
                     <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">Blogs</h6>
+                        <h6 class="card-title text-dark mt-2"><?= lang('App.blogs') ?></h6>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
                             <h5 class="card-title mt-2">blogs/index.php</h5>
@@ -84,7 +84,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-md-3 col-sm-4 col-6">
                 <a href="<?= base_url('account/appearance/theme-editor/view-blog') ?>" class="text-decoration-none">
                     <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">View Blog</h6>
+                        <h6 class="card-title text-dark mt-2"><?= lang('App.view_blog') ?></h6>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
                             <h5 class="card-title mt-2">blogs/view-blog.php</h5>
@@ -98,7 +98,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-md-3 col-sm-4 col-6">
                 <a href="<?= base_url('account/appearance/theme-editor/view-page') ?>" class="text-decoration-none">
                     <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">View Page</h6>
+                        <h6 class="card-title text-dark mt-2"><?= lang('App.view_page') ?></h6>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
                             <h5 class="card-title mt-2">pages/view-page.php</h5>
@@ -112,7 +112,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-md-3 col-sm-4 col-6">
                 <a href="<?= base_url('account/appearance/theme-editor/search') ?>" class="text-decoration-none">
                     <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">Search</h6>
+                        <h6 class="card-title text-dark mt-2"><?= lang('App.search') ?></h6>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
                             <h5 class="card-title mt-2">search/index.php</h5>
@@ -140,7 +140,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-md-3 col-sm-4 col-6">
                 <a href="<?= base_url('account/appearance/theme-editor/site-css') ?>" class="text-decoration-none">
                     <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">Site CSS</h6>
+                        <h6 class="card-title text-dark mt-2"><?= lang('App.site_css') ?></h6>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
                             <h5 class="card-title mt-2"><?=getCurrentTheme()?>/site.css</h5>
@@ -154,7 +154,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-md-3 col-sm-4 col-6">
                 <a href="<?= base_url('account/appearance/theme-editor/site-js') ?>" class="text-decoration-none">
                     <div class="card text-center h-100 shadow-sm">
-                        <h6 class="card-title text-dark mt-2">Site JS</h6>
+                        <h6 class="card-title text-dark mt-2"><?= lang('App.site_js') ?></h6>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             <i class="ri-code-block text-dark" style="font-size: 4rem;"></i>
                             <h5 class="card-title mt-2"><?=getCurrentTheme()?>/site.js</h5>

@@ -20,7 +20,7 @@ $userRole = getUserRole($sessionEmail);
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Users', 'url' => '/account/admin/users'),
+    array('title' => lang('App.users'), 'url' => '/account/admin/users'),
     array('title' => 'Edit User')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -62,11 +62,11 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="username" class="form-label">Username <small>(<?= lang('app.read_only') ?>)</small></label>
+                <label for="username" class="form-label"><?= lang('app.username') ?> <small>(<?= lang('app.read_only') ?>)</small></label>
                 <input type="text" class="form-control" id="username" name="username" minlength="6" maxlength="20" value="<?= $user_data['username'] ?>" required readonly>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="email" class="form-label">Email <small>(<?= lang('app.read_only') ?>)</small></label>
+                <label for="email" class="form-label"><?= lang('app.email') ?> <small>(<?= lang('app.read_only') ?>)</small></label>
                 <input type="email" class="form-control" id="email" name="email" minlength="6" maxlength="20" value="<?= $user_data['email'] ?>" required readonly>
             </div>
 
@@ -81,14 +81,14 @@ echo generateBreadcrumb($breadcrumb_links);
             ?>
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="status" class="form-label">
-                    Status <?= $isCurrentUser ? '<small>('.lang('app.read_only').')</small>' : '' ?>
+                    <?= lang('App.status') ?> <?= $isCurrentUser ? '<small>('.lang('app.read_only').')</small>' : '' ?>
                 </label>
 
                 <?php if ($isCurrentUser) : ?>
                     <input type="text" class="form-control" id="status" name="status" minlength="6" maxlength="20" value="<?= getUserStatusOnly($user_data['status']) ?>" readonly />
                 <?php else : ?>
                     <select class="form-select" id="status" name="status" required>
-                        <option value="">Select status</option>
+                        <option value=""><?= lang('App.select_status') ?></option>
                         <?php foreach ($statusOptions as $option) : ?>
                             <option value="<?= $option['value'] ?>" <?= ($user_data['status'] == $option['value']) ? 'selected' : '' ?>>
                                 <?= $option['label'] ?>
@@ -108,7 +108,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <!--Role-->
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="role" class="form-label">
-                    Role <?= $isCurrentUser ? '<small>('.lang('app.read_only').')</small>' : '' ?>
+                    <?= lang('App.role') ?> <?= $isCurrentUser ? '<small>('.lang('app.read_only').')</small>' : '' ?>
                 </label>
 
                 <?php if ($isCurrentUser) : ?>
@@ -130,7 +130,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php endif; ?>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="profile_picture" class="form-label">Profile Picture</label>
+                <label for="profile_picture" class="form-label"><?= lang('App.profile_picture') ?></label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="profile_picture" name="profile_picture" placeholder="select picture" value="<?= $user_data['profile_picture'] ?>">
                     <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">

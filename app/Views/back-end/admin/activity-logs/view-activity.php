@@ -21,7 +21,7 @@ $activityUserName = getActivityBy(esc($activity['activity_by'])); // Using your 
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>View Activity<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.view_activity') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -32,7 +32,7 @@ $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => lang('App.activity_logs'), 'url' => '/account/admin/activity-logs'),
-    array('title' => 'View Activity')
+    array('title' => lang('App.view_activity'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -40,7 +40,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3 class="mb-3">View Activity</h3>
+        <h3 class="mb-3"><?= lang('App.view_activity') ?></h3>
     </div>
     
     <div class="col-12">
@@ -55,11 +55,11 @@ echo generateBreadcrumb($breadcrumb_links);
                          onerror="this.src='<?= getDefaultProfileImagePath() ?>'">
                     
                     <div>
-                        <h5 class="mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="User ID: <?= esc($activity['activity_by']) ?>">
+                        <h5 class="mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="<?= lang('App.user_id') ?>: <?= esc($activity['activity_by']) ?>">
                             <?= $activityUserName ?>
                         </h5>
                         <p class="mb-0 text-muted small">
-                            <i class="ri-user-line me-1"></i>User ID: <?= esc($activity['activity_by']) ?>
+                            <i class="ri-user-line me-1"></i><?= lang('App.user_id') ?>: <?= esc($activity['activity_by']) ?>
                         </p>
                     </div>
                 </div>
@@ -119,7 +119,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="row mb-4">
                     <div class="col-md-8">
                         <h6 class="text-muted mb-2">
-                            <i class="ri-file-text-line me-1"></i>Activity Description
+                            <i class="ri-file-text-line me-1"></i><?= lang('App.activity_description') ?>
                         </h6>
                         <div class="p-3 bg-light rounded">
                             <p class="mb-0"><?= esc($activity['activity']) ?></p>
@@ -127,7 +127,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                     <div class="col-md-4">
                         <h6 class="text-muted mb-2">
-                            <i class="ri-time-line me-1"></i>Date & Time
+                            <i class="ri-time-line me-1"></i><?= lang('App.date_and_time') ?>
                         </h6>
                         <div class="p-3 bg-light rounded">
                             <p class="mb-1">
@@ -148,13 +148,13 @@ echo generateBreadcrumb($breadcrumb_links);
                         <div class="card bg-light">
                             <div class="card-header bg-transparent">
                                 <h6 class="mb-0">
-                                    <i class="ri-information-line me-1"></i>Technical Information
+                                    <i class="ri-information-line me-1"></i><?= lang('App.technical_information') ?>
                                 </h6>
                             </div>
                             <div class="card-body">
                                 <table class="table table-sm table-borderless">
                                     <tr>
-                                        <td width="120"><strong>Activity ID:</strong></td>
+                                        <td width="120"><strong><?= lang('App.activity_id') ?>:</strong></td>
                                         <td><span class="badge bg-secondary"><?= esc($activity['activity_id']) ?></span></td>
                                     </tr>
                                     <tr>
@@ -167,7 +167,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Device:</strong></td>
+                                        <td><strong><?= lang('App.device') ?>:</strong></td>
                                         <td>
                                             <?php
                                             $deviceIcon = 'ri-device-line';
@@ -205,14 +205,14 @@ echo generateBreadcrumb($breadcrumb_links);
                         <div class="card bg-light">
                             <div class="card-header bg-transparent">
                                 <h6 class="mb-0">
-                                    <i class="ri-folder-history-line me-1"></i>Audit Information
+                                    <i class="ri-folder-history-line me-1"></i><?= lang('App.audit_information') ?>
                                 </h6>
                             </div>
                             <div class="card-body">
                                 <table class="table table-sm table-borderless">
                                     <?php if(!empty($activity['auditable_type'])): ?>
                                     <tr>
-                                        <td width="120"><strong>Auditable Type:</strong></td>
+                                        <td width="120"><strong><?= lang('App.auditable_type') ?>:</strong></td>
                                         <td>
                                             <span class="badge bg-secondary">
                                                 <?= esc($activity['auditable_type']) ?>
@@ -223,7 +223,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     
                                     <?php if(!empty($activity['auditable_id'])): ?>
                                     <tr>
-                                        <td><strong>Auditable ID:</strong></td>
+                                        <td><strong><?= lang('App.auditable_id') ?>:</strong></td>
                                         <td>
                                             <span class="badge bg-secondary">
                                                 <?= esc($activity['auditable_id']) ?>
@@ -245,7 +245,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <div class="card">
                             <div class="card-header bg-light">
                                 <h6 class="mb-0">
-                                    <i class="ri-file-copy-line me-1"></i>Data Changes
+                                    <i class="ri-file-copy-line me-1"></i><?= lang('App.data_changes') ?>
                                 </h6>
                             </div>
                             <div class="card-body">
@@ -253,7 +253,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <?php if($oldValues): ?>
                                     <div class="col-md-6">
                                         <h6 class="text-danger mb-3">
-                                            <i class="ri-arrow-left-circle-line me-1"></i>Old Values
+                                            <i class="ri-arrow-left-circle-line me-1"></i><?= lang('App.old_values') ?>
                                         </h6>
                                         <pre class="bg-light p-3 rounded" style="max-height: 300px; overflow-y: auto;"><code><?= json_encode($oldValues, JSON_PRETTY_PRINT) ?></code></pre>
                                     </div>
@@ -262,7 +262,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <?php if($newValues): ?>
                                     <div class="col-md-6">
                                         <h6 class="text-success mb-3">
-                                            <i class="ri-arrow-right-circle-line me-1"></i>New Values
+                                            <i class="ri-arrow-right-circle-line me-1"></i><?= lang('App.new_values') ?>
                                         </h6>
                                         <pre class="bg-light p-3 rounded" style="max-height: 300px; overflow-y: auto;"><code><?= json_encode($newValues, JSON_PRETTY_PRINT) ?></code></pre>
                                     </div>
@@ -278,13 +278,13 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="card-footer bg-light">
                 <a href="<?= base_url('/account/admin/activity-logs') ?>" class="btn btn-outline-secondary">
                     <i class="ri-arrow-left-line me-1"></i>
-                    Back to Activity Logs
+                    <?= lang('App.back_to_logs') ?>
                 </a>
                 
                 <?php if($userRole === 'admin'): ?>
                 <button type="button" class="btn btn-outline-danger float-end" onclick="confirmDelete('<?= $activity['activity_id'] ?>')">
                     <i class="ri-delete-bin-line me-1"></i>
-                    Delete Activity
+                    <?= lang('App.delete_activity') ?>
                 </button>
                 <?php endif; ?>
             </div>
@@ -297,11 +297,11 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Confirm Delete</h5>
+                <h5 class="modal-title"><?= lang('App.confirm_delete') ?></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete this activity log? This action cannot be undone.</p>
+                <p><?= lang('App.delete_activity_confirm') ?></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= lang('App.cancel') ?></button>

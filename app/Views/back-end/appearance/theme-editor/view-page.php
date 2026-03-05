@@ -19,8 +19,8 @@ $userRole = getUserRole($sessionEmail);
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Appearance', 'url' => '/account/appearance'),
-    array('title' => 'Theme Editor', 'url' => '/account/appearance/theme-editor'),
+    array('title' => lang('App.appearance'), 'url' => '/account/appearance'),
+    array('title' => lang('App.theme_editor'), 'url' => '/account/appearance/theme-editor'),
     array('title' => 'Edit View Page File')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -29,13 +29,13 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>File Editor</h3>
+        <h3><?= lang('App.file_editor') ?></h3>
         <button type="button" class="btn btn-outline-dark float-start" data-bs-toggle="modal" data-bs-target="#blocksModal">
             <i class="ri-layout-grid-line"></i>
             Page Blocks
         </button>
         <button class="btn btn-dark my-1 float-end" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
-            <i class="ri-image-fill"></i> File Manager
+            <i class="ri-image-fill"></i> <?= lang('App.file_manager') ?>
         </button>
     </div>
     <div class="col-12">  
@@ -50,14 +50,14 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                     <div>
                         <i class="ri-file-edit-line"></i>
-                        Editing <?='.../Views/front-end/themes/'.getCurrentTheme().'/pages/'.$viewPageFilename?>
+                        <?= lang('App.editing') ?> <?='.../Views/front-end/themes/'.getCurrentTheme().'/pages/'.$viewPageFilename?>
                     </div>
                     <div>
                         <a href="<?= base_url('account/appearance/theme-editor/save-version?id=view-page') ?>" class="btn btn-outline-secondary me-2" id="saveVersionBtn">
-                            <i class="ri-history-line"></i> Save Version
+                            <i class="ri-history-line"></i> <?= lang('App.save_version') ?>
                         </a>
                         <button type="submit" class="btn btn-outline-primary">
-                            <i class="ri-save-line"></i> Save File
+                            <i class="ri-save-line"></i> <?= lang('App.save_file') ?>
                         </button>
                     </div>
                 </div>

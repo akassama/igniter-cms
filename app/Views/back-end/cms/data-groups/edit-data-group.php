@@ -11,7 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
+    array('title' => lang('App.cms'), 'url' => '/account/cms'),
     array('title' => 'Data Groups', 'url' => '/account/cms/data-groups'),
     array('title' => 'Edit Data Group')
 );

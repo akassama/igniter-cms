@@ -39,7 +39,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="card-body">
                 <div class="d-grid gap-2">
                     <div class="alert alert-warning">
-                        <p><strong>Note:</strong> This easy-to-use backup feature is best suited for websites under 1 GB of data. For sites with more than 1 GB of images and files, you should use the more robust backup tools offered by your hosting or VPS provider.</p>
+                        <p><?= lang('App.backup_guidance_note') ?></p>
                     </div>
                     <a href="<?= base_url('account/admin/backups/generate-db-backup')?>" class="btn btn-outline-primary btn-block">
                         <i class="ri-database-2-fill"></i>
@@ -52,9 +52,9 @@ echo generateBreadcrumb($breadcrumb_links);
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th><?= lang('App.created_by') ?></th>
-                                <th>Date Created</th>
-                                <th>File</th>
+                                <th><?= lang('App.date_created') ?></th>
+                                <th><?= lang('App.created_at') ?></th>
+                                <th><?= lang('App.file') ?></th>
                                 <th><?= lang('App.actions') ?></th>
                             </tr>
                             </thead>

@@ -37,9 +37,9 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Activity By</th>
-                            <th>Activity Type</th>
-                            <th>Activity</th>
+                            <th><?= lang('App.activity_by') ?></th>
+                            <th><?= lang('App.activity_type') ?></th>
+                            <th><?= lang('App.activity') ?></th>
                             <th><?= lang('App.ip') ?></th>
                             <th><?= lang('App.device') ?></th>
                             <th><?= lang('App.country') ?></th>
@@ -91,7 +91,7 @@ echo generateBreadcrumb($breadcrumb_links);
             ?>
                 <!--Show pagination if more than 1000 records-->
                 <div class="col-12 text-start">
-                    <p>Pagination</p>
+                    <p><?= lang('App.pagination') ?></p>
                     <?= $pager->links('default', 'bootstrap') ?>
                 </div>
             <?php
@@ -113,7 +113,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <p><strong>Analyze this data with AI</strong> - This would use the most recent records for analysis (max 200)</p>
+                            <p><?= lang('App.ai_analysis_hint') ?></p>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="d-flex justify-content-between align-items-center">
@@ -121,7 +121,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         hx-post="<?=base_url()?>/htmx/get-activity-logs-analysis-via-ai"
                                         hx-trigger="click delay:250ms"
                                         hx-target="#analysis-div"
-                                        hx-swap="innerHTML" hx-indicator="#spinner"><i class="ri-robot-2-fill"></i> Analize With AI</button>
+                                        hx-swap="innerHTML" hx-indicator="#spinner"><i class="ri-robot-2-fill"></i> <?= lang('App.analyze_with_ai') ?></button>
                                     </div>
                                     <div id="analysis-div">
                                         <img  id="spinner" class="htmx-indicator" src="<?=base_url('public/uploads/default/loading.gif')?>" style="height: 75px"/>
@@ -135,7 +135,6 @@ echo generateBreadcrumb($breadcrumb_links);
         </div>
     </div>
 <?php endif;?>
-
 
 </div>
 

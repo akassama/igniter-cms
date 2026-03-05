@@ -43,7 +43,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <tr>
                             <th>#</th>
                             <th><?= lang('App.ip') ?></th>
-                            <th>Reason</th>
+                            <th><?= lang('App.reason') ?></th>
                             <th>Created At</th>
                             <th><?= lang('App.actions') ?></th>
                         </tr>
@@ -81,7 +81,7 @@ echo generateBreadcrumb($breadcrumb_links);
             ?>
                 <!--Show pagination if more than 100 records-->
                 <div class="col-12 text-start">
-                    <p>Pagination</p>
+                    <p><?= lang('App.pagination') ?></p>
                     <?= $pager->links('default', 'bootstrap') ?>
                 </div>
             <?php

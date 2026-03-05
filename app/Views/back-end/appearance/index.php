@@ -13,7 +13,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Appearance')
+    array('title' => lang('App.appearance'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>

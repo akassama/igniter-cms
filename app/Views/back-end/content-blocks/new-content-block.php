@@ -78,7 +78,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="content" class="form-label">Content</label>
+                <label for="content" class="form-label"><?= lang('App.content') ?></label>
                 <textarea rows="1" class="form-control content-editor" id="content" name="content"><?= set_value('content') ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('content')) {?>

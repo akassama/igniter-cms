@@ -11,7 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
+    array('title' => lang('App.cms'), 'url' => '/account/cms'),
     array('title' => 'Blogs', 'url' => '/account/cms/blogs'),
     array('title' => 'New Blog')
 );
@@ -96,7 +96,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <div class="col-sm-12 col-md-12 mb-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <label for="content" class="form-label">Content</label>
+                    <label for="content" class="form-label"><?= lang('App.content') ?></label>
                     <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-bs-toggle="modal" data-bs-target="#blogPromptModal">
                         <i class="ri-robot-2-fill"></i> Write With AI
                     </button>
@@ -177,9 +177,9 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="status" class="form-label">Status</label>
+                <label for="status" class="form-label"><?= lang('App.status') ?></label>
                 <select class="form-select" id="status" name="status" required>
-                    <option value="">Select status</option>
+                    <option value=""><?= lang('App.select_status') ?></option>
                     <option value="0">Unpublished</option>
                     <option value="1">Published</option>
                     <option value="2">Schedule</option>

@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>New API Key<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.new_api_key') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -13,7 +13,7 @@ $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => lang('App.api_keys'), 'url' => '/account/admin/api-keys'),
-    array('title' => 'New API Key')
+    array('title' => lang('App.new_api_key'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,14 +21,14 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>New API Key</h3>
+        <h3><?= lang('App.new_api_key') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
         <?php echo form_open(base_url('account/admin/api-keys/new-api-key'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="assigned_to" class="form-label">Assigned To</label>
+                <label for="assigned_to" class="form-label"><?= lang('App.assigned_to') ?></label>
                 <input type="text" class="form-control" id="assigned_to" name="assigned_to" value="<?= set_value('assigned_to') ?>" maxlength="50" required>
                 <!-- Error -->
                 <?php if($validation->getError('assigned_to')) {?>
@@ -43,7 +43,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="status" class="form-label"><?= lang('App.status') ?></label>
                 <select class="form-select" id="status" name="status" required>
-                    <option value="">Select status</option>
+                    <option value=""><?= lang('App.select_status') ?></option>
                     <option value="0"><?= lang('App.inactive') ?></option>
                     <option value="1"><?= lang('App.active') ?></option>
                 </select>

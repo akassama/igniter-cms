@@ -58,13 +58,13 @@
                         <input class="form-check-input" type="checkbox" id="select-all">
                     </th>
                     <th>
-                        Plugin
+                        <?= lang('App.plugin') ?>
                     </th>
                     <th>
-                        Description
+                        <?= lang('App.description') ?>
                     </th>
                     <th>
-                        Actions
+                        <?= lang('App.actions') ?>
                     </th>
                 </tr>
                 </thead>
@@ -105,7 +105,7 @@
                 </tbody>
             </table>
          <?php else : ?>
-            <p>No plugins are currently available.</p>
+            <p><?= lang('App.no_plugins_available') ?></p>
          <?php endif; ?>
 
          <!-- jQuery for "Select All" and Modal Content Loading -->

@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Edit API Key<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.edit_api_key') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -12,8 +12,8 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'API Keys', 'url' => '/account/admin/api-keys'),
-    array('title' => 'Edit API Key')
+    array('title' => lang('App.api_keys'), 'url' => '/account/admin/api-keys'),
+    array('title' => lang('App.edit_api_key'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,7 +21,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Edit API Key</h3>
+        <h3><?= lang('App.edit_api_key') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
@@ -29,7 +29,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
                 <?php $apiReadonly = strtolower($api_key_data['assigned_to']) === "default" ? "readonly" : "" ?>
-                <label for="assigned_to" class="form-label">Assigned To</label>
+                <label for="assigned_to" class="form-label"><?= lang('App.assigned_to') ?></label>
                 <input type="text" class="form-control" id="assigned_to" name="assigned_to" value="<?= $api_key_data['assigned_to'] ?>" maxlength="50" required <?= $apiReadonly ?> >
                 <!-- Error -->
                 <?php if($validation->getError('assigned_to')) {?>
@@ -44,7 +44,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="status" class="form-label"><?= lang('App.status') ?></label>
                 <select class="form-select" id="status" name="status" required>
-                    <option value="">Select status</option>
+                    <option value=""><?= lang('App.select_status') ?></option>
                     <option value="0" <?= ($api_key_data['status'] == '0') ? 'selected' : '' ?>><?= lang('App.inactive') ?></option>
                     <option value="1" <?= ($api_key_data['status'] == '1') ? 'selected' : '' ?>><?= lang('App.active') ?></option>
                 </select>

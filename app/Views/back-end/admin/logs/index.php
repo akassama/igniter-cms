@@ -36,8 +36,8 @@ echo generateBreadcrumb($breadcrumb_links);
                     <table class="table table-bordered datatable">
                         <thead>
                             <tr>
-                                <th>File</th>
-                                <th>Level</th>
+                                <th><?= lang('App.file') ?></th>
+                                <th><?= lang('App.level') ?></th>
                                 <th><?= lang('App.timestamp') ?></th>
                                 <th><?= lang('App.message') ?></th>
                                 <th><?= lang('App.actions') ?></th>
@@ -74,7 +74,7 @@ echo generateBreadcrumb($breadcrumb_links);
             ?>
                 <!--Show pagination if more than 100 records-->
                 <div class="col-12 text-start">
-                    <p>Pagination</p>
+                    <p><?= lang('App.pagination') ?></p>
                     <?= $pager ?>
                 </div>
             <?php

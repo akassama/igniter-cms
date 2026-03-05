@@ -43,7 +43,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <input type="text" class="form-control" id="site_id" name="site_id" value="<?= $contact_message_data['site_id'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-6 mb-3">
-                    <label for="form_name" class="form-label">Form Name</label>
+                    <label for="form_name" class="form-label"><?= lang('App.form_name') ?></label>
                     <input type="text" class="form-control" id="form_name" name="form_name" maxlength="200" value="<?= $contact_message_data['form_name'] ?>" readonly>
                 </div>
 
@@ -104,7 +104,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <label for="status" class="form-label mb-0">Status</label>
+                        <label for="status" class="form-label mb-0"><?= lang('App.status') ?></label>
 
                         <!-- Edit button opens modal -->
                         <button type="button"
@@ -171,7 +171,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <!-- Status -->
             <div class="col-12 col-md-6">
-                <label for="edit_status" class="form-label">Status</label>
+                <label for="edit_status" class="form-label"><?= lang('App.status') ?></label>
                 <?php $cStatus = $contact_message_data['status'] ?? 'Pending'; ?>
                 <select class="form-select" id="edit_status" name="status">
                 <?=getDataGroupOptions($cStatus, "ContactFormStatus")?>

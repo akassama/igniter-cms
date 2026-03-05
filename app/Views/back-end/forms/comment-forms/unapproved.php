@@ -11,7 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Forms', 'url' => '/account/forms'),
+    array('title' => lang('App.forms'), 'url' => '/account/forms'),
     array('title' => 'Comment Forms (Unapproved)')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -53,8 +53,8 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>Page</th>
                             <th><?= lang('App.ip') ?></th>
                             <th><?= lang('App.country') ?></th>
-                            <th>Status</th>
-                            <th>Created</th>
+                            <th><?= lang('App.status') ?></th>
+                            <th><?= lang('App.created_at') ?></th>
                             <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>

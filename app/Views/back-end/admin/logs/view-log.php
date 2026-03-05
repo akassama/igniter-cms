@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>View Log<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.view_log') ?><?= $this->endSection() ?>
 
     <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -20,8 +20,8 @@ $userRole = getUserRole($sessionEmail);
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Logs', 'url' => '/account/admin/logs'),
-    array('title' => 'View Log')
+    array('title' => lang('App.logs'), 'url' => '/account/admin/logs'),
+    array('title' => lang('App.view_log'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -29,7 +29,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="row">
         <!--Content-->
         <div class="col-12">
-            <h3>View Log: <?= esc($filename) ?></h3>
+            <h3><?= lang('App.view_log') ?>: <?= esc($filename) ?></h3>
         </div>
         <div class="col-12 bg-light rounded p-4">
             <div class="row">
@@ -78,7 +78,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                                 hx-post="<?=base_url()?>/htmx/get-error-logs-analysis-via-ai"
                                                 hx-trigger="click delay:250ms"
                                                 hx-target="#analysis-div"
-                                                hx-swap="innerHTML" hx-indicator="#spinner"><i class="ri-robot-2-fill"></i> Analize With AI</button>
+                                                hx-swap="innerHTML" hx-indicator="#spinner"><i class="ri-robot-2-fill"></i> <?= lang('App.analyze_with_ai') ?></button>
                                             </div>
                                             <div class="row">
                                                 <input type="hidden" name="error_log" id="error_log" class="form-control" readonly value="<?=$erroLogData?>" />

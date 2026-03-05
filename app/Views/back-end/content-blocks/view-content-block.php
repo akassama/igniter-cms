@@ -40,7 +40,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="content" class="form-label">Content</label>
+                <label for="content" class="form-label"><?= lang('App.content') ?></label>
                 <div class="border border-dark rounded p-2" id="content" name="content"><?= $content_block_data['content'] ?></div>
             </div>
             

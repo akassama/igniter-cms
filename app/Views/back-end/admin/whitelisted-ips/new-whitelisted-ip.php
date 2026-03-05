@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/admin/whitelisted-ips/new-whitelisted-ip'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="ip_address" class="form-label">IP Adress</label>
+                <label for="ip_address" class="form-label"><?= lang('App.ip') ?></label>
                 <input type="text" class="form-control" id="ip_address" name="ip_address" maxlength="250" value="<?= set_value('ip_address') ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('ip_address')) {?>
@@ -42,7 +42,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="reason" class="form-label">Reason for Whitelisting</label>
+                <label for="reason" class="form-label"><?= lang('App.reason') ?></label>
                 <textarea rows="1" class="form-control" id="reason" name="reason" maxlength="1000" required><?= set_value('reason') ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('reason')) {?>

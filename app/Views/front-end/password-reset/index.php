@@ -17,7 +17,7 @@
             <?=getHoneypotInput()?>
             <input type="hidden" name="token" value="<?= $token ?>">
             <div class="mb-3">
-                <label for="password" class="form-label">New Password</label>
+                <label for="password" class="form-label"><?= lang('App.new_password') ?></label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
                 <!-- Error -->
                 <?php if($validation->getError('password')) {?>

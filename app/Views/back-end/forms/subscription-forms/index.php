@@ -47,13 +47,13 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Form Name</th>
+                            <th><?= lang('App.form_name') ?></th>
                             <th><?= lang('App.name') ?></th>
                             <th><?= lang('App.email') ?></th>
-                            <th>Status</th>
+                            <th><?= lang('App.status') ?></th>
                             <th><?= lang('App.ip') ?></th>
                             <th><?= lang('App.country') ?></th>
-                            <th>Status</th>
+                            <th><?= lang('App.status') ?></th>
                             <th>Created</th>
                             <th><?= lang('App.actions') ?></th>
                         </tr>
@@ -175,7 +175,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <input type="text" class="form-control" id="sub_name" name="name" maxlength="255">
           </div>
           <div class="col-12 col-md-6">
-            <label for="sub_status" class="form-label">Status</label>
+            <label for="sub_status" class="form-label"><?= lang('App.status') ?></label>
             <select class="form-select" id="sub_status" name="status" required>
               <?=getDataGroupOptions(null, "SubscriptionFormFomrStatus")?>
             </select>

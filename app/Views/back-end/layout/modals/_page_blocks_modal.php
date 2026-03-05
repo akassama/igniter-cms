@@ -386,7 +386,7 @@
             </li>
             </ul>
 
-            <h6><i class="bi bi-text-paragraph"></i>Content</h6>
+            <h6><i class="bi bi-text-paragraph"></i><?= lang('App.content') ?></h6>
             <ul>
             <li><a href="#" data-block-id="block-heading">Heading</a></li>
             <li><a href="#" data-block-id="block-text">Text</a></li>

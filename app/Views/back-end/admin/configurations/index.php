@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Configurations<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_configurations') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -20,7 +20,7 @@ $userRole = getUserRole($sessionEmail);
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Configurations')
+    array('title' => lang('App.configurations'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -28,11 +28,11 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Configurations</h3>
+        <h3><?= lang('App.manage_configurations') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/admin/configurations/new-config')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Configuration
+            <i class="ri-add-fill"></i> <?= lang('App.new_configuration') ?>
         </a>
     </div>
     <div class="col-12">

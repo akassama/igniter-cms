@@ -11,8 +11,8 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
-    array('title' => 'Categories', 'url' => '/account/cms/categories'),
+    array('title' => lang('App.cms'), 'url' => '/account/cms'),
+    array('title' => lang('App.categories'), 'url' => '/account/cms/categories'),
     array('title' => 'New Category')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -67,7 +67,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="group" class="form-label">
                     Group
-                    <small class="text-muted">(Optional - use this if you want to filter data by group)</small>
+                    <small class="text-muted">(<?= lang('App.group_filter_hint') ?>)</small>
                 </label>
                 <select class="form-select" aria-label="group" id="group" name="group">
                     <option value="">Select group</option>
@@ -155,9 +155,9 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="status" class="form-label">Status</label>
+                <label for="status" class="form-label"><?= lang('App.status') ?></label>
                 <select class="form-select" id="status" name="status" required>
-                    <option value="">Select status</option>
+                    <option value=""><?= lang('App.select_status') ?></option>
                     <option value="0">Unpublished</option>
                     <option value="1">Published</option>
                 </select>

@@ -2235,12 +2235,12 @@ if(!function_exists('getRecentPosts'))
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th><?= lang('App.image') ?></th>
-                        <th><?= lang('App.title') ?></th>
-                        <th><?= lang('App.category') ?></th>
-                        <th>Status</th>
-                        <th><?= lang('App.author') ?></th>
-                        <th>Post Date</th>
+                        <th>".lang('App.image')."</th>
+                        <th>".lang('App.title')."</th>
+                        <th>".lang('App.category')."</th>
+                        <th>".lang('App.status')."</th>
+                        <th>".lang('App.author')."</th>
+                        <th>".lang('App.post_date')."</th>
                     </tr>
                 </thead>
             <tbody>";

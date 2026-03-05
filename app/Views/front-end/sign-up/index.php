@@ -124,22 +124,7 @@
                 <div id="password-match-error">
                 </div>
             </div>
-            <?php if (!empty($captcha_image)) { ?>
-                <div class="mb-3">
-                    <label for="captcha" class="form-label">Captcha</label>
-                    <img loading="lazy" src="<?= $captcha_image ?>" alt="CAPTCHA" class="mb-2">
-                    <input type="text" class="form-control" id="captcha" name="captcha" required>
-                    <input type="hidden" name="captcha_session" value="<?= session('captcha') ?>">
-                    <?php if ($validation->getError('captcha')) { ?>
-                        <div class='alert alert-danger mt-2'>
-                            <?= $error = $validation->getError('captcha'); ?>
-                        </div>
-                    <?php } ?>
-                    <div class="invalid-feedback">
-                        Please enter the captcha
-                    </div>
-                </div>
-            <?php } ?>
+            <?= renderCaptcha()?>
             
             <div class="mb-3">
                 <div class="d-grid">

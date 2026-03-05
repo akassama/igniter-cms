@@ -11,8 +11,8 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
-    array('title' => 'Categories')
+    array('title' => lang('App.cms'), 'url' => '/account/cms'),
+    array('title' => lang('App.categories'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -46,7 +46,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.title') ?></th>
                             <th><?= lang('App.description') ?></th>
                             <th><?= lang('App.order') ?></th>
-                            <th>Status</th>
+                            <th><?= lang('App.status') ?></th>
                             <th><?= lang('App.link') ?></th>
                             <th><?= lang('App.new_tab') ?></th>
                             <th><?= lang('App.group') ?></th>

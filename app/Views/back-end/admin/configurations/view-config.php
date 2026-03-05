@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>View Configuration<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.view_configuration') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -20,8 +20,8 @@ $userRole = getUserRole($sessionEmail);
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Configurations', 'url' => '/account/admin/configurations'),
-    array('title' => 'View Configuration')
+    array('title' => lang('App.configurations'), 'url' => '/account/admin/configurations'),
+    array('title' => lang('App.view_configuration'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -29,7 +29,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>View Configuration</h3>
+        <h3><?= lang('App.view_configuration') ?></h3>
         <p>
             <?= $config_data['description'] ?>
         </p>
@@ -38,7 +38,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row">
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="config_for" class="form-label">Config For <small>(<?= lang('app.read_only') ?>)</small> </label>
+                <label for="config_for" class="form-label"><?= lang('App.config_for') ?> <small>(<?= lang('app.read_only') ?>)</small> </label>
                 <input type="text" class="form-control" id="config_for" name="config_for" value="<?= $config_data['config_for'] ?>" readonly>
             </div>
 

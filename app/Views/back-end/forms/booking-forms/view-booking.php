@@ -84,7 +84,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <input type="text" class="form-control" id="site_id" value="<?= esc($booking['site_id'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-6 mb-3">
-                    <label for="form_name" class="form-label">Form Name</label>
+                    <label for="form_name" class="form-label"><?= lang('App.form_name') ?></label>
                     <input type="text" class="form-control" id="form_name" value="<?= esc($booking['form_name'] ?? '') ?>" readonly>
                 </div>
 
@@ -170,7 +170,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <input type="text" class="form-control" id="ip_address" value="<?= esc($booking['ip_address'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-4 mb-3">
-                    <label for="status" class="form-label">Status</label>
+                    <label for="status" class="form-label"><?= lang('App.status') ?></label>
                     <input type="text" class="form-control" id="status" value="<?= esc($status) ?>" readonly>
                 </div>
 
@@ -297,7 +297,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <input type="text" class="form-control" id="edit_confirmation_code" name="confirmation_code" value="<?= esc($booking['confirmation_code'] ?? '') ?>">
           </div>
           <div class="col-12 col-md-6">
-            <label for="edit_status" class="form-label">Status</label>
+            <label for="edit_status" class="form-label"><?= lang('App.status') ?></label>
             <?php $bStatus = $booking['status'] ?? 'Pending'; ?>
             <select class="form-select" id="edit_status" name="status">
               <?=getDataGroupOptions($bStatus, "BookingFormStatus")?>

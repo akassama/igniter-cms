@@ -12,7 +12,7 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Users', 'url' => '/account/admin/users'),
+    array('title' => lang('App.users'), 'url' => '/account/admin/users'),
     array('title' => 'New User')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -92,7 +92,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label"><?= lang('App.password') ?></label>
                 <input type="password" class="form-control" id="password" name="password" value="<?= set_value('password') ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('password')) {?>
@@ -105,7 +105,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="status" class="form-label">Status <small>(default : inactive)</small></label>
+                <label for="status" class="form-label"><?= lang('App.status') ?> <small>(default : inactive)</small></label>
                 <input type="text" class="form-control" id="status" name="status" value="0" required readonly>
                 <!-- Error -->
                 <?php if($validation->getError('status')) {?>
@@ -118,7 +118,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="role" class="form-label">Role <small>(default : user)</small></label>
+                <label for="role" class="form-label"><?= lang('App.role') ?> <small>(default : user)</small></label>
                 <input type="text" class="form-control" id="role" name="role" value="User" required readonly>
                 <!-- Error -->
                 <?php if($validation->getError('role')) {?>
@@ -131,7 +131,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="profile_picture" class="form-label">Profile Picture</label>
+                <label for="profile_picture" class="form-label"><?= lang('App.profile_picture') ?></label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="profile_picture" name="profile_picture" placeholder="select picture">
                     <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">

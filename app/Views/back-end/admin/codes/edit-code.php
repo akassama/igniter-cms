@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Edit Code<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.edit_code') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -20,8 +20,8 @@ $userRole = getUserRole($sessionEmail);
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Codes', 'url' => '/account/admin/codes'),
-    array('title' => 'Edit Code')
+    array('title' => lang('App.codes'), 'url' => '/account/admin/codes'),
+    array('title' => lang('App.edit_code'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -29,7 +29,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Edit Code</h3>
+        <h3><?= lang('App.edit_code') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row">
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="code_for" class="form-label">Code For <small>(<?= lang('app.read_only') ?>)</small> </label>
+                <label for="code_for" class="form-label"><?= lang('App.code_for') ?> <small>(<?= lang('app.read_only') ?>)</small> </label>
                 <input type="text" class="form-control" id="code_for" name="code_for" value="<?= $code_data['code_for'] ?>" required readonly>
                 <!-- Error -->
                 <?php if($validation->getError('code_for')) {?>
@@ -52,8 +52,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="code" class="form-label">
-                    Code
-                    <small>(Include script tags for JavaScript, exclude the style tag for CSS)</small>
+                    <?= lang('App.code') ?> <small>(<?= lang('app.script_style_hint') ?>)</small>
                 </label>
                 <textarea rows="4" class="form-control html-editor" id="code" name="code" required><?= $code_data['code'] ?></textarea>
                 <!-- Error -->

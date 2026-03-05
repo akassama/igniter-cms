@@ -69,7 +69,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="content" class="form-label">Content</label>
+                <label for="content" class="form-label"><?= lang('App.content') ?></label>
                 <textarea rows="1" class="form-control content-editor" id="content" name="content"><?= $content_block_data['content']; ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('content')) {?>
@@ -84,7 +84,7 @@ echo generateBreadcrumb($breadcrumb_links);
             
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="icon" class="form-label">
-                    Icon
+                    <?= lang('App.icon') ?>
                 </label>
                 <input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="<?= htmlspecialchars($content_block_data['icon']); ?>" placeholder="E.g. ri-user-line">
                 <!-- Error -->

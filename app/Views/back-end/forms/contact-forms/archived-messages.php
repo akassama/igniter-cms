@@ -47,13 +47,13 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Form Name</th>
+                            <th><?= lang('App.form_name') ?></th>
                             <th><?= lang('App.name') ?></th>
                             <th><?= lang('App.email') ?></th>
                             <th><?= lang('App.ip') ?></th>
                             <th><?= lang('App.country') ?></th>
-                            <th>Status</th>
-                            <th>Created</th>
+                            <th><?= lang('App.status') ?></th>
+                            <th><?= lang('App.created_at') ?></th>
                             <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>

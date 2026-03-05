@@ -12,7 +12,7 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Blocked IP Addresses')
+    array('title' => lang('App.blocked_ips'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,7 +20,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Blocked IP Addresses</h3>
+        <h3><?= lang('App.blocked_ips') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/admin/blocked-ips/new-blocked-ip')?>" class="btn btn-outline-dark mx-1">
@@ -31,7 +31,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                    Blocked IP Addresses
+                    <?= lang('App.blocked_ips') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_blocked_ips ?>
                 </span>
@@ -45,8 +45,8 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.ip') ?></th>
                             <th><?= lang('App.block_start_time') ?></th>
                             <th><?= lang('App.block_end_time') ?></th>
-                            <th>Reason</th>
-                            <th>Notes</th>
+                            <th><?= lang('App.reason') ?></th>
+                            <th><?= lang('App.notes') ?></th>
                             <th><?= lang('App.url') ?></th>
                             <th><?= lang('App.country') ?></th>
                             <th><?= lang('App.visit_date') ?></th>
@@ -94,7 +94,7 @@ echo generateBreadcrumb($breadcrumb_links);
             ?>
                 <!--Show pagination if more than 100 records-->
                 <div class="col-12 text-start">
-                    <p>Pagination</p>
+                    <p><?= lang('App.pagination') ?></p>
                     <?= $pager->links('default', 'bootstrap') ?>
                 </div>
             <?php
