@@ -12,7 +12,7 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.forms'), 'url' => '/account/forms'),
-    array('title' => lang('manage_archived_contact'))
+    array('title' => lang('App.manage_archived_contact'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>

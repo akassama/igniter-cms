@@ -1970,7 +1970,7 @@ if(!function_exists('getNavigationParentSelectOptions'))
         $selected = "";
         foreach ($query->getResult() as $row) {
             $selected = $row->navigation_id == $navigationId ? "selected" : "";
-            echo "<option value='$row->navigation_id' $selected>$row-><?= lang('app.title') ?></option>";
+            echo "<option value='$row->navigation_id' $selected>$row->title ?></option>";
         }
     }
 }
@@ -1994,7 +1994,7 @@ if(!function_exists('getBlogCategorySelectOptions'))
         $selected = "";
         foreach ($query->getResult() as $row) {
             $selected = $row->category_id == $categoryId ? "selected" : "";
-            echo "<option value='$row->category_id' $selected>$row-><?= lang('app.title') ?></option>";
+            echo "<option value='$row->category_id' $selected>$row->title</option>";
         }
     }
 }
