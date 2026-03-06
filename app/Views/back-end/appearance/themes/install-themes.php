@@ -22,10 +22,10 @@ echo generateBreadcrumb($breadcrumb_links);
                 <h1 class="h3 mb-0"><?= lang('App.new_theme') ?></h1>
                 <div>
                     <a href="<?=base_url('/account/appearance/themes/install-themes')?>" class="btn btn-outline-dark mx-1">
-                        <i class="ri-restart-line"></i> Refresh Page
+                        <i class="ri-restart-line"></i> <?= lang('App.refresh_page') ?>
                     </a>
                     <a href="<?=base_url('/account/appearance/themes/upload-theme')?>" class="btn btn-outline-success mx-1">
-                        <i class="ri-upload-2-fill"></i> Upload Theme
+                        <i class="ri-upload-2-fill"></i> <?= lang('App.upload_theme') ?>
                     </a>
                 </div>
             </div>
@@ -55,19 +55,19 @@ echo generateBreadcrumb($breadcrumb_links);
             <!-- Filter Tabs -->
             <ul class="nav nav-tabs mb-4" id="themeTabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab">All</button>
+                    <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab"><?= lang('App.all') ?></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="popular-tab" data-bs-toggle="tab" data-bs-target="#popular" type="button" role="tab">Popular</button>
+                    <button class="nav-link" id="popular-tab" data-bs-toggle="tab" data-bs-target="#popular" type="button" role="tab"><?= lang('App.popular') ?></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="latest-tab" data-bs-toggle="tab" data-bs-target="#latest" type="button" role="tab">Latest</button>
+                    <button class="nav-link" id="latest-tab" data-bs-toggle="tab" data-bs-target="#latest" type="button" role="tab"><?= lang('App.latest') ?></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="featured-tab" data-bs-toggle="tab" data-bs-target="#featured" type="button" role="tab">Featured</button>
+                    <button class="nav-link" id="featured-tab" data-bs-toggle="tab" data-bs-target="#featured" type="button" role="tab"><?= lang('App.featured') ?></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="premium-tab" data-bs-toggle="tab" data-bs-target="#premium" type="button" role="tab">Premium</button>
+                    <button class="nav-link" id="premium-tab" data-bs-toggle="tab" data-bs-target="#premium" type="button" role="tab"><?= lang('App.premium') ?></button>
                 </li>
             </ul>
             
@@ -93,7 +93,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             <?= esc($theme['name']) ?>
                                             <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
                                                 <span class="badge bg-warning text-dark ms-2 premium-badge">
-                                                    <i class="ri-vip-crown-line me-1"></i> Premium
+                                                    <i class="ri-vip-crown-line me-1"></i> <?= lang('App.premium') ?>
                                                 </span>
                                             <?php endif; ?>
                                         </h3>
@@ -163,7 +163,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             <?= esc($theme['name']) ?>
                                             <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
                                                 <span class="badge bg-warning text-dark ms-2 premium-badge">
-                                                    <i class="ri-vip-crown-line me-1"></i> Premium
+                                                    <i class="ri-vip-crown-line me-1"></i> <?= lang('App.premium') ?>
                                                 </span>
                                             <?php endif; ?>
                                         </h3>
@@ -233,7 +233,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             <?= esc($theme['name']) ?>
                                             <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
                                                 <span class="badge bg-warning text-dark ms-2 premium-badge">
-                                                    <i class="ri-vip-crown-line me-1"></i> Premium
+                                                    <i class="ri-vip-crown-line me-1"></i> <?= lang('App.premium') ?>
                                                 </span>
                                             <?php endif; ?>
                                         </h3>
@@ -303,7 +303,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             <?= esc($theme['name']) ?>
                                             <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
                                                 <span class="badge bg-warning text-dark ms-2 premium-badge">
-                                                    <i class="ri-vip-crown-line me-1"></i> Premium
+                                                    <i class="ri-vip-crown-line me-1"></i> <?= lang('App.premium') ?>
                                                 </span>
                                             <?php endif; ?>
                                         </h3>
@@ -373,7 +373,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             <?= esc($theme['name']) ?>
                                             <?php if (!empty($theme['is_paid']) && $theme['is_paid'] === true): ?>
                                                 <span class="badge bg-warning text-dark ms-2 premium-badge">
-                                                    <i class="ri-vip-crown-line me-1"></i> Premium
+                                                    <i class="ri-vip-crown-line me-1"></i> <?= lang('App.premium') ?>
                                                 </span>
                                             <?php endif; ?>
                                         </h3>

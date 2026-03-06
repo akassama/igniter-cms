@@ -70,7 +70,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 mb-3">
-                        <label for="featured_image" class="form-label">Featured Image</label>
+                        <label for="featured_image" class="form-label"><?= lang('App.featured_image') ?></label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="featured_image" name="featured_image" placeholder="select featured image" value="<?= set_value('featured_image') ?>"
                             hx-post="<?=base_url()?>/htmx/set-image-display"
@@ -427,7 +427,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?= lang('App.close') ?></button>
             </div>
         </div>
     </div>

@@ -94,9 +94,9 @@
                         <!-- Loading overlay -->
                         <div id="areaChartLoading" class="chart-loading-overlay">
                             <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Loading chart...</span>
+                                <span class="visually-hidden"><?= lang('App.loading_chart') ?></span>
                             </div>
-                            <p class="mt-2 mb-0">Loading chart data...</p>
+                            <p class="mt-2 mb-0"><?= lang('App.loading_chart_data') ?></p>
                         </div>
                         <canvas id="myAreaChart" width="100%" height="40"></canvas>
                     </div>
@@ -112,9 +112,9 @@
                         <!-- Loading overlay -->
                         <div id="barChartLoading" class="chart-loading-overlay">
                             <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Loading chart...</span>
+                                <span class="visually-hidden"><?= lang('App.loading_chart') ?></span>
                             </div>
-                            <p class="mt-2 mb-0">Loading chart data...</p>
+                            <p class="mt-2 mb-0"><?= lang('App.loading_chart_data') ?></p>
                         </div>
                         <canvas id="myBarChart" width="100%" height="40"></canvas>
                     </div>
@@ -550,7 +550,7 @@ if (typeof IntersectionObserver !== 'undefined') {
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= lang('App.close') ?></button>
             </div>
 
             </div>

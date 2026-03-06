@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Configurations<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_configurations') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -19,8 +19,8 @@ $userRole = getUserRole($sessionEmail);
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-     array('title' => 'Plugins', 'url' => '/account/plugins'),
-    array('title' => 'Plugin Configurations')
+     array('title' => lang('App.plugins'), 'url' => '/account/plugins'),
+    array('title' => lang('App.plugin_configurations'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -28,17 +28,17 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Plugin Configurations</h3>
+        <h3><?= lang('App.manage_plugin_configs') ?></h3>
     </div>
     <div class="col-12">
         
         <div class="alert alert-warning">
-            <strong>Warning!</strong> This page allows direct access to your site plugin settings. You can break things here. Please be cautious!.
+            <strong><?= lang('App.warning') ?></strong> <?= lang('App.plugin_safety_warning') ?>
         </div>
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Configurations
+                <?= lang('App.configurations') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_configurations ?>
                 </span>
@@ -49,10 +49,10 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Plugin Slug</th>
-                                <th>Key</th>
+                                <th><?= lang('App.plugin_slug') ?></th>
+                                <th><?= lang('App.key') ?></th>
                                 <th><?= lang('App.value') ?></th>
-                                <th>Created At</th>
+                                <th><?= lang('App.created_at') ?></th>
                                 <th><?= lang('App.actions') ?></th>
                             </tr>
                         </thead>
@@ -93,7 +93,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <script>
 function editSwalModal(pluginConfig_id, configValue, configKey) {
     Swal.fire({
-        title: 'Edit Plugin Configuration',
+        title: <?= json_encode(lang('App.edit_plugin_config')) ?>,
         html: `
             <form id="editPluginConfigForm" method="POST" action="<?= base_url('/account/plugins/update-plugin-config') ?>">
                 <input type="hidden" name="plugin_id" value="${pluginConfig_id}">

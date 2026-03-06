@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="text-start mt-1">
-                <a href="<?= base_url('forgot-password') ?>" class="text-decoration-none text-dark">Forgot your password?</a>
+                <a href="<?= base_url('forgot-password') ?>" class="text-decoration-none text-dark"><?= lang('App.forgot_your_password') ?></a>
             </div>
             <?php
                 $allowRegistration = getConfigData("EnableRegistration");

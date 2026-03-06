@@ -229,7 +229,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="password_change_required" class="form-label"><?= lang('App.password_change_required') ?></label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="password_change_required" name="password_change_required" value="1">
-                    <label class="form-check-label small" for="password_change_required">Toggle to set as required</label>
+                    <label class="form-check-label small" for="password_change_required"><?= lang('App.toggle_required_hint') ?></label>
                 </div>
                 <!-- Error -->
                 <?php if($validation->getError('password_change_required')) {?>

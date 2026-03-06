@@ -1,12 +1,12 @@
 <!-- include layout -->
 <?= $this->extend('front-end/layout/_layout') ?>
 
-<?= $this->section('title') ?>Sign-Up<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.sign_up') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h2 class="text-center">Sign-Up</h2>
+<h2 class="text-center"><?= lang('App.sign_up') ?></h2>
 <div class="row justify-content-center">
     <div class="col-md-6 col-sm-12 bg-light rounded p-4">
 
@@ -25,7 +25,7 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide first name
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="mb-3">
@@ -38,7 +38,7 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide last name
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="mb-3">
@@ -55,7 +55,7 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide your username
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div id="existing-username-error">
                 </div>
@@ -74,14 +74,14 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide an email
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div id="existing-user-email-error">
                 </div>
             </div>
             <div class="mb-3">
                 <div x-data="{ showPassword: false }">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label"><?= lang('App.password') ?></label>
                     <div class="input-group mb-3">
                         <input x-bind:type="showPassword ? 'text' : 'password'" class="form-control" id="password" name="password" placeholder="enter password" required
                                hx-post="<?=base_url()?>/htmx/check-password-is-valid"
@@ -92,7 +92,7 @@
                             <i x-bind:class="{'ri-eye-fill text-dark': !showPassword, 'ri-eye-off-fill text-dark': showPassword}" id="eye-icon"></i>
                         </span>
                         <div class="invalid-feedback">
-                            Please provide a password
+                            <?= lang('App.input_required') ?>
                         </div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="repeat_password" class="form-label">Repeat Password</label>
+                <label for="repeat_password" class="form-label"><?= lang('App.repeat_password') ?></label>
                 <input type="password" class="form-control" id="repeat_password" name="repeat_password" placeholder="re-enter password" required
                        hx-post="<?=base_url()?>/htmx/check-passwords-match"
                        hx-trigger="keyup[target.value.length > 2], changed delay:250ms"
@@ -119,7 +119,7 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please re-type password
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div id="password-match-error">
                 </div>
@@ -133,7 +133,7 @@
             </div>
             <div class="my-2">
                 <p>
-                    Already have an account? Login <a href="<?= base_url('/sign-in'); ?>">here</a>
+                    <?= lang('App.already_have_account') ?> <a href="<?= base_url('/sign-in'); ?>"><?= lang('App.login') ?></a>
                 </p>
             </div>
 
@@ -148,7 +148,7 @@
                         <div class="google-btn-wrapper">
                             <a href="<?= base_url('auth/google/login') ?>" class="google-signin-btn">
                                 <img src="https://ik.imagekit.io/oju3vfr0u/websites/igniter-cms/google.png" alt="Google logo">
-                                Sign in with Google
+                                <span><?= lang('App.sign_up_with_google') ?></span>
                             </a>
                         </div>
                     </div>

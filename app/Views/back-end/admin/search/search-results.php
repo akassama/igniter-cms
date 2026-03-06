@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Search Results<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.search_results') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -11,7 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Search Results')
+    array('title' => lang('App.search_results'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -19,7 +19,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Search Results for <span class="text-danger">"<?= $searchQuery ?>"</span></h3>
+        <h3><?= lang('App.search_results_for') ?> <span class="text-danger">"<?= $searchQuery ?>"</span></h3>
     </div>
 
     <div class="col-12">

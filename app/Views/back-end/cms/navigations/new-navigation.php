@@ -93,7 +93,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <small class="text-muted">(<?= lang('App.group_filter_hint') ?>)</small>
                 </label>
                 <select class="form-select" aria-label="group" id="group" name="group">
-                    <option value="">Select group</option>
+                    <option value=""><?= lang('App.select_group') ?></option>
                     <?=getDataGroupOptions(null, "Navigation")?>
                 </select>
                 <!-- Error -->
@@ -109,7 +109,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <div class="col-sm-12 col-md-4 mb-3">
                 <label for="order" class="form-label">
-                    Order
+                     <?= lang('App.order') ?>
                 </label>
                 <input type="text" class="form-control integer-plus-only" id="order" name="order" data-show-err="true" maxlength="2" maxlength="2" value="<?= set_value('order') ?>">
                 <!-- Error -->
@@ -126,7 +126,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="parent" class="form-label"><?= lang('App.parent') ?></label>
                 <select class="form-select" id="parent" name="parent">
-                    <option value="">Select parent (optional)</option>
+                    <option value=""><?= lang('App.select_parent') ?> (<?= lang('app.optional') ?>)</option>
                     <?= getNavigationParentSelectOptions() ?>
                 </select>
                 <!-- Error -->

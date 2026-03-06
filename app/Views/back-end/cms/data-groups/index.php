@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Data Groups<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_data_groups') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -20,11 +20,11 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Data Groups</h3>
+        <h3><?= lang('App.manage_data_groups') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/cms/data-groups/new-data-group')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Data Group
+            <i class="ri-add-fill"></i> <?= lang('App.new_data_group') ?>
         </a>
     </div>
     <div class="col-12">
@@ -43,8 +43,8 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Data Group For</th>
-                                <th>Data Group List</th>
+                                <th><?= lang('App.data_group_for') ?></th>
+                                <th><?= lang('App.data_group_list') ?></th>
                                 <th><?= lang('App.created_by') ?></th>
                                 <th><?= lang('App.actions') ?></th>
                             </tr>

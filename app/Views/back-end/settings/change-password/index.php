@@ -34,7 +34,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row">
             <div class="col-8 offset-2">
                 <div class="col-12 mb-3">
-                    <label for="current_password" class="form-label">Current Password</label>
+                    <label for="current_password" class="form-label"><?= lang('App.current_password') ?></label>
                     <input type="password" class="form-control" id="current_password" name="current_password" value="" required>
                     <!-- Error -->
                     <?php if($validation->getError('current_password')) {?>

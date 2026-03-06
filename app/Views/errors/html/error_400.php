@@ -30,7 +30,7 @@ logSiteStatistic(
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <title>400 - Bad Request</title>
+    <title><?= lang('App.error_400_title') ?></title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -59,11 +59,11 @@ logSiteStatistic(
 <div class="container text-center error-container">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-            <h1 class="headline">400 - BAD REQUEST!</h1>
-            <p class="lead">The page you are looking for was moved, removed or might never existed.</p>
-            <p class="lead">Please check your request and try again.  This is often due to typos in the URL, incorrect data sent in a form, or a malformed request header.</p>
+            <h1 class="headline"><?= lang('App.error_400_title') ?></h1>
+            <p class="lead"><?= lang('App.error_400_desc') ?></p>
+            <p class="lead"><?= lang('App.error_400_detail') ?></p>
             
-            <a href="<?= base_url()?>" class="btn btn-primary btn-lg mt-4">Go Back to Home</a>
+            <a href="<?= base_url()?>" class="btn btn-primary btn-lg mt-4"><?= lang('App.go_back_home') ?></a>
         </div>
     </div>
     <div class="row text-center mt-5">

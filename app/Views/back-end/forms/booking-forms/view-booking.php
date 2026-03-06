@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>View Bookings<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.view_bookings') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -29,8 +29,8 @@ $countryText = !empty($booking['country']) ? getCountryTextName($booking['countr
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.forms'), 'url' => '/account/forms'),
-    array('title' => 'Booking Forms', 'url' => '/account/forms/booking-forms'),
-    array('title' => 'View Booking')
+    array('title' => lang('App.booking_forms'), 'url' => '/account/forms/booking-forms'),
+    array('title' => lang('App.view_booking'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -38,7 +38,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>View Booking</h3>
+        <h3><?= lang('App.view_booking') ?></h3>
     </div>
 
     <form action="#" method="post">
@@ -80,7 +80,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
                 <!-- IDs / Context -->
                 <div class="col-sm-12 col-md-6 mb-3">
-                    <label for="site_id" class="form-label">Site ID</label>
+                    <label for="site_id" class="form-label"><?= lang('App.site_id') ?></label>
                     <input type="text" class="form-control" id="site_id" value="<?= esc($booking['site_id'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-6 mb-3">
@@ -108,29 +108,29 @@ echo generateBreadcrumb($breadcrumb_links);
 
                 <!-- Service -->
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="service_id" class="form-label">Service ID</label>
+                    <label for="service_id" class="form-label"><?= lang('App.service_id') ?></label>
                     <input type="text" class="form-control" id="service_id" value="<?= esc($booking['service_id'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="service_name" class="form-label">Service Name</label>
+                    <label for="service_name" class="form-label"><?= lang('App.service_name') ?></label>
                     <input type="text" class="form-control" id="service_name" value="<?= esc($booking['service_name'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="appointment_date" class="form-label">Appointment Date</label>
+                    <label for="appointment_date" class="form-label"><?= lang('App.appointment_date') ?></label>
                     <input type="text" class="form-control" id="appointment_date" value="<?= esc($apptDateText) ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="appointment_time" class="form-label">Appointment Time</label>
+                    <label for="appointment_time" class="form-label"><?= lang('App.appointment_time') ?>    </label>
                     <input type="text" class="form-control" id="appointment_time" value="<?= esc($apptTimeText) ?>" readonly>
                 </div>
 
                 <!-- Duration / Attendees -->
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="duration" class="form-label">Duration (mins)</label>
+                    <label for="duration" class="form-label"><?= lang('App.duration_mins') ?> (mins)</label>
                     <input type="text" class="form-control" id="duration" value="<?= esc($booking['duration'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="number_of_attendees" class="form-label">Attendees</label>
+                    <label for="number_of_attendees" class="form-label"><?= lang('App.attendees') ?></label>
                     <input type="text" class="form-control" id="number_of_attendees" value="<?= esc($booking['number_of_attendees'] ?? '') ?>" readonly>
                 </div>
 
@@ -142,27 +142,27 @@ echo generateBreadcrumb($breadcrumb_links);
 
                 <!-- Resource -->
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="resource_id" class="form-label">Resource ID</label>
+                    <label for="resource_id" class="form-label"><?= lang('App.resource_id') ?></label>
                     <input type="text" class="form-control" id="resource_id" value="<?= esc($booking['resource_id'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="resource_name" class="form-label">Resource Name</label>
+                    <label for="resource_name" class="form-label"><?= lang('App.resource_name') ?></label>
                     <input type="text" class="form-control" id="resource_name" value="<?= esc($booking['resource_name'] ?? '') ?>" readonly>
                 </div>
 
                 <!-- Payment -->
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="payment_status" class="form-label">Payment Status</label>
+                    <label for="payment_status" class="form-label"><?= lang('App.payment_status') ?></label>
                     <input type="text" class="form-control" id="payment_status" value="<?= esc($booking['payment_status'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="payment_amount" class="form-label">Payment Amount</label>
+                    <label for="payment_amount" class="form-label"><?= lang('App.payment_amount') ?></label>
                     <input type="text" class="form-control" id="payment_amount" value="<?= esc($paymentAmountText) ?>" readonly>
                 </div>
 
                 <!-- Meta -->
                 <div class="col-sm-12 col-md-4 mb-3">
-                    <label for="confirmation_code" class="form-label">Confirmation Code</label>
+                    <label for="confirmation_code" class="form-label"><?= lang('App.confirmation_code') ?></label>
                     <input type="text" class="form-control" id="confirmation_code" value="<?= esc($booking['confirmation_code'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-4 mb-3">
@@ -215,7 +215,7 @@ echo generateBreadcrumb($breadcrumb_links);
    <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="editNotesModalLabel"> <i class="ri-edit-line me-2"></i>Edit Notes </h5>
+            <h5 class="modal-title" id="editNotesModalLabel"> <i class="ri-edit-line me-2"></i> <?= lang('App.edit_notes') ?> </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
          </div>
          <?php echo form_open(base_url('account/forms/booking-forms/edit-notes'), 'method="post" class="row g-3 needs-validation" enctype="multipart/form-data" novalidate'); ?> 
@@ -224,7 +224,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-12">
                <label for="notesTextarea" class="form-label"><?= lang('App.notes') ?></label> 
                <textarea class="form-control" id="notesTextarea" name="notes" rows="8" required><?= esc($booking['notes'] ?? '') ?></textarea>
-               <div class="invalid-feedback">Please enter some notes or close the editor.</div>
+               <div class="invalid-feedback"><?= lang('App.enter_notes_hint') ?></div>
             </div>
          </div>
          <div class="modal-footer"> <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> <i class="ri-close-circle-fill me-1"></i>Close </button> <button type="submit" class="btn btn-primary"> <i class="ri-save-3-line me-1"></i> Update </button> </div>
@@ -239,7 +239,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editBookingModalLabel">
-          <i class="ri-edit-2-line me-2"></i>Edit Booking
+          <i class="ri-edit-2-line me-2"></i><?= lang('App.edit_booking') ?>
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -263,37 +263,37 @@ echo generateBreadcrumb($breadcrumb_links);
           </div>
 
           <div class="col-12 col-md-6">
-            <label for="edit_appointment_date" class="form-label">Appointment Date</label>
+            <label for="edit_appointment_date" class="form-label"><?= lang('App.appointment_date') ?></label>
             <input type="date" class="form-control" id="edit_appointment_date" name="appointment_date" value="<?= esc($booking['appointment_date'] ?? '') ?>">
           </div>
           <div class="col-12 col-md-6">
-            <label for="edit_appointment_time" class="form-label">Appointment Time</label>
+            <label for="edit_appointment_time" class="form-label"><?= lang('App.appointment_time') ?></label>
             <input type="time" class="form-control" id="edit_appointment_time" name="appointment_time" value="<?= esc($booking['appointment_time'] ?? '') ?>">
           </div>
 
           <div class="col-12 col-md-6">
-            <label for="edit_duration" class="form-label">Duration (mins)</label>
+            <label for="edit_duration" class="form-label"><?= lang('App.duration_mins') ?></label>
             <input type="number" min="0" class="form-control" id="edit_duration" name="duration" value="<?= esc($booking['duration'] ?? '') ?>">
           </div>
           <div class="col-12 col-md-6">
-            <label for="edit_attendees" class="form-label">Attendees</label>
+            <label for="edit_attendees" class="form-label"><?= lang('App.attendees') ?></label>
             <input type="number" min="1" class="form-control" id="edit_attendees" name="number_of_attendees" value="<?= esc($booking['number_of_attendees'] ?? '') ?>">
           </div>
 
           <div class="col-12 col-md-6">
-            <label for="edit_payment_status" class="form-label">Payment Status</label>
+            <label for="edit_payment_status" class="form-label"><?= lang('App.payment_status') ?></label>
             <?php $payStatus = $booking['payment_status'] ?? 'Unpaid'; ?>
             <select class="form-select" id="edit_payment_status" name="payment_status">
               <?=getDataGroupOptions($payStatus, "BookingFormPaymentStatus")?>
             </select>
           </div>
           <div class="col-12 col-md-6">
-            <label for="edit_payment_amount" class="form-label">Payment Amount</label>
+            <label for="edit_payment_amount" class="form-label"><?= lang('App.payment_amount') ?></label>
             <input type="number" step="0.01" min="0" class="form-control" id="edit_payment_amount" name="payment_amount" value="<?= esc($booking['payment_amount'] ?? '') ?>">
           </div>
 
           <div class="col-12 col-md-6">
-            <label for="edit_confirmation_code" class="form-label">Confirmation Code</label>
+            <label for="edit_confirmation_code" class="form-label"><?= lang('App.confirmation_code') ?></label>
             <input type="text" class="form-control" id="edit_confirmation_code" name="confirmation_code" value="<?= esc($booking['confirmation_code'] ?? '') ?>">
           </div>
           <div class="col-12 col-md-6">
@@ -311,10 +311,10 @@ echo generateBreadcrumb($breadcrumb_links);
 
         </div> </div> <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-          <i class="ri-close-circle-fill me-1"></i>Close
+          <i class="ri-close-circle-fill me-1"></i><?= lang('App.close') ?>
         </button>
         <button type="submit" class="btn btn-primary">
-          <i class="ri-save-3-line me-1"></i> Save Changes
+          <i class="ri-save-3-line me-1"></i> <?= lang('App.save_changes') ?>
         </button>
       </div>
       <?php echo form_close(); ?>

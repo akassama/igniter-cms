@@ -82,7 +82,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <small class="text-muted">(<?= lang('App.group_filter_hint') ?>)</small>
                 </label>
                 <select class="form-select" aria-label="group" id="group" name="group">
-                    <option value="">Select group</option>
+                    <option value=""><?= lang('App.select_group') ?></option>
                     <?=getDataGroupOptions(null, "Page")?>
                 </select>
                 <!-- Error -->

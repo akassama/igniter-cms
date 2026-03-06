@@ -90,7 +90,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="data_type" class="form-label"><?= lang('App.data_type') ?></label>
                 <select class="form-select" id="data_type" name="data_type">
-                    <option value="">Select data_type</option>
+                    <option value=""><?= lang('App.select_data_type') ?></option>
                     <option value="Text"><?= lang('App.text') ?></option>
                     <option value="Textarea"><?= lang('App.textarea') ?></option>
                     <option value="Code"><?= lang('App.code') ?></option>

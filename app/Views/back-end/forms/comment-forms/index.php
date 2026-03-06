@@ -173,7 +173,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editCommentModalLabel">
-          <i class="ri-edit-2-line me-2"></i>Edit Comment
+          <i class="ri-edit-2-line me-2"></i> <?= lang('App.edit_comment') ?>
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -184,7 +184,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row g-3">
           <input type="hidden" name="comment_form_id" id="com_id">
             <div class="col-12 col-md-12">
-                <label for="com_comment" class="form-label">Comment</label>
+                <label for="com_comment" class="form-label"><?= lang('App.comment') ?></label>
                 <textarea class="form-control" id="com_comment" name="comment" maxlength="100" required></textarea>
             </div>
         </div>
@@ -192,10 +192,10 @@ echo generateBreadcrumb($breadcrumb_links);
 
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-          <i class="ri-close-circle-fill me-1"></i> Close
+          <i class="ri-close-circle-fill me-1"></i> <?= lang('App.close') ?>
         </button>
         <button type="submit" class="btn btn-primary">
-          <i class="ri-save-3-line me-1"></i> Save Changes
+          <i class="ri-save-3-line me-1"></i> <?= lang('App.save_changes') ?>
         </button>
       </div>
 

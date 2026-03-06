@@ -1,13 +1,13 @@
 <script>
     function deleteBackup(tableName, pkName, pkValue, filePath, returnUrl) {
         Swal.fire({
-            title: 'Are you sure you want to remove this backup?',
+            title: <?= json_encode(lang('App.confirm_remove_backup')) ?>,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No'
+            confirmButtonText: <?= json_encode(lang('App.yes')) ?>,
+            cancelButtonText: <?= json_encode(lang('App.no')) ?>
         }).then((result) => {
             if (result.isConfirmed) {
                 // Create the form element

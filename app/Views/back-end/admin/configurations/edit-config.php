@@ -126,7 +126,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="default_value" class="form-label">Default Value <?=$readonlyLabel?></label>
+                <label for="default_value" class="form-label"><?= lang('App.default_value') ?> <?=$readonlyLabel?></label>
                 <input type="text" class="form-control" id="default_value" name="default_value" value="<?= $config_data['default_value'] ?>" <?=$readonlyInputs?>>
                 <!-- Error -->
                 <?php if($validation->getError('default_value')) {?>
@@ -140,7 +140,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
             
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="custom_class" class="form-label">Custom Class <?=$readonlyLabel?></label>
+                <label for="custom_class" class="form-label"><?= lang('App.custom_class') ?> <?=$readonlyLabel?></label>
                 <input type="text" class="form-control" id="custom_class" name="custom_class" value="<?= $config_data['custom_class'] ?>" <?=$readonlyInputs?>>
                 <!-- Error -->
                 <?php if($validation->getError('custom_class')) {?>
@@ -170,7 +170,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="search_terms" class="form-label">
-                    Search Terms <?=$readonlyLabel?>
+                    <?= lang('App.search_terms') ?> <?=$readonlyLabel?>
                 </label>
                 <textarea rows="1" class="form-control tags-input" id="search_terms" name="search_terms" <?=$readonlyInputs?>><?= $config_data['search_terms'] ?></textarea>
                 <!-- Error -->

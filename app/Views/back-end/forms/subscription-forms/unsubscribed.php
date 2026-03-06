@@ -12,7 +12,7 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.forms'), 'url' => '/account/forms'),
-    array('title' => 'Subscription Forms (Unsubscribed)')
+    array('title' => lang('App.subscription_forms_unsubscribed'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,7 +20,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Subscription Forms (Unsubscribed)</h3>
+        <h3><?= lang('App.subscription_forms_unsubscribed') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
 
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div>
                     <a href="<?= base_url('account/forms/subscription-forms'); ?>" 
                     class="btn btn-sm btn-outline-secondary">
-                        <i class="ri-notification-2-fill text-success me-1"></i> View Subscribed
+                        <i class="ri-notification-2-fill text-success me-1"></i> <?= lang('App.view_subscribed') ?>
                     </a>
                 </div>
             </div>
@@ -53,7 +53,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.status') ?></th>
                             <th><?= lang('App.ip') ?></th>
                             <th><?= lang('App.country') ?></th>
-                            <th>Unsubscribed At</th>
+                            <th><?= lang('App.unsubscribed_at') ?></th>
                             <th><?= lang('App.created_on') ?></th>
                             <th><?= lang('App.actions') ?></th>
                         </tr>

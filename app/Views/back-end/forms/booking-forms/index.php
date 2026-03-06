@@ -12,7 +12,7 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.forms'), 'url' => '/account/forms'),
-    array('title' => 'Booking Forms')
+    array('title' => lang('App.booking_forms'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>

@@ -122,14 +122,14 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="position-relative">
                     <button class="btn btn-sm btn-info copy-modal-btn position-absolute top-0 end-0 m-2 z-10" 
                             data-clipboard-target="#file-content-display">
-                        <i class="ri-file-copy-line"></i> Copy Code
+                        <i class="ri-file-copy-line"></i> <?= lang('App.copy_code') ?>
                     </button>
                     <pre id="file-content-display" 
                          style="background-color: #f8f9fa; padding: 15px; border: 1px solid #dee2e6; border-radius: 0.25rem; max-height: 70vh; overflow: auto; white-space: pre-wrap; word-wrap: break-word;"></pre>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= lang('App.close') ?></button>
             </div>
         </div>
     </div>

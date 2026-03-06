@@ -44,7 +44,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="country" class="form-label"><?= lang('App.country') ?></label>
                 <select class="form-select" aria-label="Block Reason" id="country" name="country">
-                    <option value="">Select country</option>
+                    <option value=""><?= lang('App.select_country') ?></option>
                     <?=getCountrySelectOptions(set_value('country'))?>
                 </select>
                 <!-- Error -->

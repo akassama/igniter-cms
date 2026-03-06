@@ -74,9 +74,9 @@ echo generateBreadcrumb($breadcrumb_links);
             <?php
                 $isCurrentUser = ($sessionEmail == $user_data['email']);
                 $statusOptions = [
-                    ['value' => '0', 'label' => 'Inactive'],
-                    ['value' => '1', 'label' => 'Active'],
-                    ['value' => '2', 'label' => 'Closed']
+                    ['value' => '0', 'label' => lang('App.inactive')],
+                    ['value' => '1', 'label' => lang('App.active')],
+                    ['value' => '2', 'label' => lang('App.closed')]
                 ];
             ?>
             <div class="col-sm-12 col-md-6 mb-3">
@@ -115,7 +115,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <input type="text" class="form-control" id="role" name="role" minlength="6" maxlength="20" value="<?= $user_data['role'] ?>" readonly />
                 <?php else : ?>
                     <select class="form-select" id="role" name="role" required>
-                        <option value="">Select role</option>
+                        <option value=""><?= lang('App.select_role') ?></option>
                         <?php foreach (config('CustomConfig')->userRoles as $key => $value): ?>
                             <option value="<?= $value ?>" <?= ($user_data['role'] == $value) ? 'selected' : '' ?>><?= $value ?></option>
                         <?php endforeach; ?>
@@ -219,7 +219,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="password_change_required" class="form-label"><?= lang('App.password_change_required') ?></label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="password_change_required" name="password_change_required" value="1" <?= ($user_data['password_change_required'] == '1') ? 'checked' : '' ?>>
-                    <label class="form-check-label small" for="password_change_required">Toggle to set as required</label>
+                    <label class="form-check-label small" for="password_change_required"><?= lang('App.toggle_required_hint') ?></label>
                 </div>
                 <!-- Error -->
                 <?php if($validation->getError('password_change_required')) {?>

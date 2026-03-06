@@ -59,7 +59,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="api_key" class="form-label">API Key <small>(<?= lang('App.read_only') ?>)</small> </label>
+                <label for="api_key" class="form-label"><?= lang('App.api_key') ?> <small>(<?= lang('App.read_only') ?>)</small> </label>
                 <input type="text" class="form-control" id="api_key" name="api_key" value="<?= $api_key_data['api_key'] ?>" maxlength="100" required readonly>
                 <!-- Error -->
                 <?php if($validation->getError('api_key')) {?>

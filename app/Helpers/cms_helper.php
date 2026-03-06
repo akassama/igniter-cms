@@ -125,16 +125,16 @@ if (!function_exists('getUserStatusLabel')) {
 if (!function_exists('getUserStatusOnly')) {
     function getUserStatusOnly($status) {
         if($status == '0'){
-            return "Inactive";
+            return lang('App.inactive');
         }
         else if($status == '1'){
-            return "Active";
+            return lang('App.active');
         }
         else if($status == '2'){
-            return "Closed";
+            return lang('App.closed');
         }
         else {
-            return "NA";
+            return lang('App.not_applicable');
         }
     }
 }

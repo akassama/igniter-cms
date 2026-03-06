@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Conctact Messages<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.contact_messages') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -20,14 +20,14 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Contact Form Messages</h3>
+        <h3><?= lang('App.manage_contact_messages') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <i class="ri-grid-line me-1"></i>
-                    Contact Messages
+                    <?= lang('App.contact_messages') ?>
                     <span class="badge rounded-pill bg-dark">
                         <?= $total_contact_form_submissions ?>
                     </span>
@@ -36,7 +36,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div>
                     <a href="<?= base_url('account/forms/contact-forms/archived'); ?>" 
                     class="btn btn-sm btn-outline-secondary">
-                        <i class="ri-archive-fill me-1"></i> View Archived
+                        <i class="ri-archive-fill me-1"></i> <?= lang('App.view_archived') ?>
                     </a>
                 </div>
             </div>

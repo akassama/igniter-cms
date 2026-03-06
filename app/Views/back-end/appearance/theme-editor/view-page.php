@@ -21,7 +21,7 @@ $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.appearance'), 'url' => '/account/appearance'),
     array('title' => lang('App.theme_editor'), 'url' => '/account/appearance/theme-editor'),
-    array('title' => 'Edit View Page File')
+    array('title' => lang('App.edit_view_page_file'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>

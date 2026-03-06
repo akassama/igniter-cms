@@ -36,7 +36,7 @@
             <h1 class="headline"><?= lang('Errors.whoops') ?></h1>
             <p class="lead"><?= lang('Errors.weHitASnag') ?></p>
             
-            <a href="<?= base_url()?>" class="btn btn-primary btn-lg mt-4">Go Back to Home</a>
+            <a href="<?= base_url()?>" class="btn btn-primary btn-lg mt-4"><?= lang('App.go_back_home') ?></a>
         </div>
     </div>
 </div>

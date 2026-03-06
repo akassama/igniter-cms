@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Unapproved Comments<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.unapproved_comments') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -12,7 +12,7 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.forms'), 'url' => '/account/forms'),
-    array('title' => 'Comment Forms (Unapproved)')
+    array('title' => lang('App.comment_forms_unapproved'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,7 +20,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Comment Forms (Unapproved)</h3>
+        <h3><?= lang('App.comment_forms_unapproved') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
 
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div>
                     <a href="<?= base_url('account/forms/comment-forms'); ?>" 
                     class="btn btn-sm btn-outline-secondary">
-                        <i class="ri-chat-3-fill text-success me-1"></i> View All
+                        <i class="ri-chat-3-fill text-success me-1"></i> <?= lang('App.view_all') ?>
                     </a>
                 </div>
             </div>
@@ -81,7 +81,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             if(!empty($comment['page_url'])){
                                                 ?>
                                                     <a href="<?= $comment['page_url']; ?>" target="_blank" class="td-none fw-bold" data-bs-toggle="tooltip" title="<?= $comment['page_url']; ?>">
-                                                        <i class="ri-link-m"></i> View Page
+                                                        <i class="ri-link-m"></i> <?= lang('App.view_page') ?>
                                                     </a>
                                                 <?php
                                             }

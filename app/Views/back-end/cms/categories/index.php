@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Categories<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_categories') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -20,18 +20,18 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Categories</h3>
+        <h3><?= lang('App.manage_categories') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/cms/categories/new-category')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Category
+            <i class="ri-add-fill"></i> <?= lang('App.new_category') ?>
         </a>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Categories
+                <?= lang('App.categories') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_categories ?>
                 </span>

@@ -82,10 +82,10 @@
                                 <small class="text-muted">
                                     <?= lang('App.version') ?> <?= esc($plugin['version']) ?> | 
                                     <?= lang('App.by') ?> <?= esc($plugin['author']) ?> | 
-                                    <a href="#!" class="view-details" data-slug="<?= esc($plugin['slug']) ?>" data-bs-toggle="modal" data-bs-target="#pluginModalId">View details</a>
+                                    <a href="#!" class="view-details" data-slug="<?= esc($plugin['slug']) ?>" data-bs-toggle="modal" data-bs-target="#pluginModalId"><?= lang('App.view_details') ?></a>
                                 </small>
                                 <?php if ($updateAvailable == "1"): ?>
-                                    |  <a href="<?=base_url('account/plugins/install-plugins?q='.$plugin['slug'])?>" class="me-1 text-success">Update Available</a>
+                                    |  <a href="<?=base_url('account/plugins/install-plugins?q='.$plugin['slug'])?>" class="me-1 text-success"><?= lang('App.update_available') ?></a>
                                 <?php endif; ?>
                             </td>
                             <td>
@@ -93,12 +93,12 @@
                                     <a href="<?=base_url('account/plugins/manage/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-primary me-1 mb-1"><?= lang('App.manage') ?></a>
                                 <?php endif; ?>
                                 <?php if ($pluginStatus == "0"): ?>
-                                    <a href="<?=base_url('account/plugins/activate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-success me-1 mb-1">Activate</a>
+                                    <a href="<?=base_url('account/plugins/activate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-success me-1 mb-1"><?= lang('App.activate') ?></a>
                                 <?php elseif ($pluginStatus == "1"): ?>
-                                    <a href="<?=base_url('account/plugins/deactivate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-warning text-dark me-1 mb-1">Deactivate</a>
+                                    <a href="<?=base_url('account/plugins/deactivate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-warning text-dark me-1 mb-1"><?= lang('App.deactivate') ?></a>
                                 <?php endif; ?>
 
-                                <a href="#!" class="btn btn-sm btn-outline-danger me-1 mb-1" onclick="confirmDelete('<?=$plugin['name']?>', '<?=$plugin['slug']?>')">Delete</a>
+                                <a href="#!" class="btn btn-sm btn-outline-danger me-1 mb-1" onclick="confirmDelete('<?=$plugin['name']?>', '<?=$plugin['slug']?>')"><?= lang('App.delete') ?></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -124,7 +124,7 @@
             // Delete Plugin Data Prompt
             function deletePluginData() {
                 Swal.fire({
-                    title: 'Remove Plugin Data',
+                    title: <?= json_encode(lang('App.remove_plugin_data')) ?>,
                     html: `
                         <div class="form-check mb-2">
                             <input class="form-check-input" type="checkbox" id="manualInputToggle">
@@ -205,14 +205,14 @@
             // Confirm Delete functionality
             function confirmDelete(pluginName, pluginSlug) {
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: `Are you sure you want to delete the plugin and its data? (${pluginName})`,
+                    title: <?= json_encode(lang('App.are_you_sure')) ?>,
+                    text: `<?= lang('App.confirm_delete_plugin') ?> (${pluginName})`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#dc3545',
                     cancelButtonColor: '#6c757d',
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'Cancel',
+                    confirmButtonText: <?= json_encode(lang('App.yes')) ?>,
+                    cancelButtonText: <?= json_encode(lang('App.cancel')) ?>,
                     reverseButtons: true,
                     customClass: {
                         popup: 'swal-custom'
@@ -257,7 +257,7 @@
                             }
                         },
                         error: function() {
-                            $('#plugin-instructions-div').html('<p>Failed to load instructions. Please try again.</p>');
+                            $('#plugin-instructions-div').html('<p><?= lang('App.failed_load_instructions') ?>.</p>');
                         }
                     });
                 });
@@ -283,7 +283,7 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?= lang('App.close') ?></button>
       </div>
     </div>
   </div>

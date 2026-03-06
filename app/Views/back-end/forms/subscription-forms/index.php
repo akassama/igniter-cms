@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>View Subscriptions<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.subscriptions') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -12,7 +12,7 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.forms'), 'url' => '/account/forms'),
-    array('title' => 'Subscription Forms')
+    array('title' => lang('App.subscription_forms'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div>
                     <a href="<?= base_url('account/forms/subscription-forms/unsubscribed'); ?>" 
                     class="btn btn-sm btn-outline-secondary">
-                        <i class="ri-notification-off-line text-danger me-1"></i> View Unsubscribed
+                        <i class="ri-notification-off-line text-danger me-1"></i> <?= lang('App.view_unsubscribed') ?>
                     </a>
                 </div>
             </div>
@@ -54,7 +54,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.ip') ?></th>
                             <th><?= lang('App.country') ?></th>
                             <th><?= lang('App.status') ?></th>
-                            <th>Created</th>
+                            <th><?= lang('App.created_on') ?></th>
                             <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
@@ -149,7 +149,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editSubscriberModalLabel">
-          <i class="ri-edit-2-line me-2"></i>Edit Subscriber
+          <i class="ri-edit-2-line me-2"></i><?= lang('App.edit_subscriber') ?>
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -163,7 +163,7 @@ echo generateBreadcrumb($breadcrumb_links);
           <div class="col-12 col-md-6">
             <label for="sub_email" class="form-label"><?= lang('App.email') ?></label>
             <input type="email" class="form-control" id="sub_email" name="email" maxlength="255" required>
-            <div class="invalid-feedback">Please enter a valid email.</div>
+            <div class="invalid-feedback"><?= lang('App.input_required') ?></div>
           </div>
           <div class="col-12 col-md-6">
             <label for="sub_phone" class="form-label"><?= lang('App.phone') ?></label>
@@ -179,7 +179,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <select class="form-select" id="sub_status" name="status" required>
               <?=getDataGroupOptions(null, "SubscriptionFormFomrStatus")?>
             </select>
-            <div class="invalid-feedback">Please select a status.</div>
+            <div class="invalid-feedback"><?= lang('App.input_required') ?></div>
           </div>
           
           <div class="col-12 col-md-6">
@@ -195,10 +195,10 @@ echo generateBreadcrumb($breadcrumb_links);
 
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-          <i class="ri-close-circle-fill me-1"></i> Close
+          <i class="ri-close-circle-fill me-1"></i> <?= lang('App.close') ?>
         </button>
         <button type="submit" class="btn btn-primary">
-          <i class="ri-save-3-line me-1"></i> Save Changes
+          <i class="ri-save-3-line me-1"></i> <?= lang('App.save_changes') ?>
         </button>
       </div>
 

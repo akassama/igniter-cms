@@ -46,7 +46,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 mb-3">
-                        <label for="featured_image" class="form-label">Featured Image</label>
+                        <label for="featured_image" class="form-label"><?= lang('App.featured_image') ?></label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="featured_image" name="featured_image" value="<?= $blog_data['featured_image'] ?>" readonly>
                             <button class="btn btn-dark" type="button">

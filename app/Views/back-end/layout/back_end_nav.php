@@ -44,13 +44,13 @@
 
         // Show a confirmation modal
         Swal.fire({
-            title: 'Are you sure you want to sign out?',
+            title: <?= json_encode(lang('App.confirm_sign_out')) ?>,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No'
+            confirmButtonText: <?= json_encode(lang('App.yes')) ?>,
+            cancelButtonText: <?= json_encode(lang('App.no')) ?>
         }).then((result) => {
             if (result.isConfirmed) {
                 // Redirect to the sign-out link

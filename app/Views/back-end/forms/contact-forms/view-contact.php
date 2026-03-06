@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>View Contact Messages<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.view_contact_message') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -12,8 +12,8 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.forms'), 'url' => '/account/forms'),
-    array('title' => 'Contact Forms', 'url' => '/account/forms/contact-forms'),
-    array('title' => 'View Contact Form')
+    array('title' => lang('App.contact_forms'), 'url' => '/account/forms/contact-forms'),
+    array('title' => lang('App.view_contact_form'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,25 +21,25 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>View Contact Message</h3>
+        <h3><?= lang('App.view_contact_message') ?></h3>
     </div>
     <form action="#" method="post">
         <div class="col-12 bg-light rounded p-4">
             <div class="row">
                 <div class="col-12 mb-3">
                     <a class="text-dark td-none mr-1 email-subscriber float-start" href="mailto:<?= $contact_message_data['email']; ?>">
-                        <i class="h5 ri-reply-fill"></i> Reply
+                        <i class="h5 ri-reply-fill"></i> <?= lang('App.reply') ?>
                     </a>
                     <div class="form-check form-switch float-end">
                         <input class="form-check-input" type="checkbox" role="switch" id="read_status" name="read_status" value="1" <?= $contact_message_data['is_read'] == 0 ? 'checked' : ''; ?>
                             hx-post="<?=base_url()?>/htmx/set-message-read-status"
                             hx-trigger="click, changed delay:250ms">
-                        <label class="form-check-label" for="read_status">Mark as Read/Unread</label>
+                        <label class="form-check-label" for="read_status"><?= lang('App.mark_read_unread') ?></label>
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-6 mb-3">
-                    <label for="site_id" class="form-label">Site ID</label>
+                    <label for="site_id" class="form-label"><?= lang('App.site_id') ?></label>
                     <input type="text" class="form-control" id="site_id" name="site_id" value="<?= $contact_message_data['site_id'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-6 mb-3">
@@ -60,11 +60,11 @@ echo generateBreadcrumb($breadcrumb_links);
                     <input type="text" class="form-control" id="phone" name="phone" minlength="6" maxlength="20" value="<?= $contact_message_data['phone'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="subject" class="form-label">Subject</label>
+                    <label for="subject" class="form-label"><?= lang('App.subject') ?></label>
                     <input type="text" class="form-control" id="subject" name="subject" value="<?= $contact_message_data['subject'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="service" class="form-label">Service</label>
+                    <label for="service" class="form-label"><?= lang('App.service') ?></label>
                     <input type="text" class="form-control" id="service" name="service" value="<?= $contact_message_data['service'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-12 mb-3">
@@ -73,11 +73,11 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
 
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="company" class="form-label">Company</label>
+                    <label for="company" class="form-label"><?= lang('App.company') ?></label>
                     <input type="text" class="form-control" id="company" name="company" value="<?= $contact_message_data['company'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="website" class="form-label">Website</label>
+                    <label for="website" class="form-label"><?= lang('App.website') ?></label>
                     <input type="text" class="form-control" id="website" name="website" minlength="6" maxlength="20" value="<?= $contact_message_data['website'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
@@ -98,7 +98,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <input type="text" class="form-control" id="referrer" name="referrer" minlength="6" maxlength="20" value="<?= $contact_message_data['referrer'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="is_archived" class="form-label">Is Archived</label>
+                    <label for="is_archived" class="form-label"><?= lang('App.is_archived') ?></label>
                     <?php $isArchived = $contact_message_data['is_archived'] == 0 ? "No" : "Yes" ?>
                     <input type="text" class="form-control" id="is_archived" name="is_archived" minlength="6" maxlength="20" value="<?= $isArchived ?>" readonly>
                 </div>
@@ -159,7 +159,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editStatusModalLabel">
-          <i class="ri-edit-line me-2"></i>Edit Status
+          <i class="ri-edit-line me-2"></i><?= lang('App.edit_status') ?>
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -181,7 +181,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-            <i class="ri-close-circle-fill me-1"></i>Close
+            <i class="ri-close-circle-fill me-1"></i> <?= lang('App.close') ?>
           </button>
           <button type="submit" class="btn btn-primary">
             <i class="ri-save-3-line me-1"></i> <?= lang('App.update') ?>
@@ -198,7 +198,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editNotesModalLabel">
-          <i class="ri-edit-line me-2"></i>Edit Notes
+          <i class="ri-edit-line me-2"></i><?= lang('App.edit_notes') ?>
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -212,13 +212,13 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-12">
                 <label for="notesTextarea" class="form-label"><?= lang('App.notes') ?></label>
                 <textarea class="form-control" id="notesTextarea" name="notes" rows="8" required><?= esc($contact_message_data['notes']); ?></textarea>
-                <div class="invalid-feedback">Please enter some notes or close the editor.</div>
+                <div class="invalid-feedback"><?= lang('App.enter_notes_hint') ?></div>
             </div>
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-            <i class="ri-close-circle-fill me-1"></i>Close
+            <i class="ri-close-circle-fill me-1"></i> <?= lang('App.close') ?>
           </button>
           <button type="submit" class="btn btn-primary">
             <i class="ri-save-3-line me-1"></i> <?= lang('App.update') ?>

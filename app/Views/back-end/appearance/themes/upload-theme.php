@@ -44,7 +44,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="override_if_exists" name="override_if_exists" value="true" checked>
-                    <label for="override_if_exists" class="form-check-label">Override existing file</label>
+                    <label for="override_if_exists" class="form-check-label"><?= lang('App.override_existing') ?></label>
                 </div>
             </div>
 
