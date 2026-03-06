@@ -103,7 +103,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="col-sm-12 col-md-9">
                         <label for="link" class="form-label">
                             Link
-                            <span class="small text-muted">(Use '/' for internal links)</span>
+                            <span class="small text-muted">(<?= lang('App.internal_link_hint') ?>)</span>
                         </label>
                         <input type="text" class="form-control" id="link" name="link" value="<?= $content_block_data['link']; ?>" readonly>
                     </div>

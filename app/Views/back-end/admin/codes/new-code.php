@@ -13,7 +13,7 @@ $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => lang('App.codes'), 'url' => '/account/admin/codes'),
-    array('title' => 'New Code')
+    array('title' => lang('App.new_code'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -41,14 +41,14 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide code_for
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div id="existing-code-for-error">
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="code" class="form-label">
-                    Code
+                    <?= lang('App.code') ?>
                     <small><?= lang('app.script_style_hint') ?></small>
                 </label>
                 <textarea rows="4" class="form-control js-editor" id="code" name="code" required><?= set_value('code') ?></textarea>
@@ -59,7 +59,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide code
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div id="existing-config-error">
                 </div>

@@ -1,12 +1,12 @@
 <!-- include layout -->
 <?= $this->extend('front-end/layout/_layout') ?>
 
-<?= $this->section('title') ?>Sign-In<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.Login') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h2 class="text-center">Sign-In</h2>
+<h2 class="text-center"><?= lang('App.Login') ?></h2>
 <div class="row justify-content-center">
     <div class="col-md-4 col-sm-12 bg-light rounded p-4">
 
@@ -24,18 +24,18 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide an email
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="mb-2" x-data="{ showPassword: false }">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label"><?= lang('App.password') ?></label>
                 <div class="input-group">
                     <input x-bind:type="showPassword ? 'text' : 'password'" class="form-control" id="password" name="password" placeholder="enter password" required>
                     <span class="input-group-text" id="addon-wrapping" x-on:click="showPassword = !showPassword">
                         <i x-bind:class="{'ri-eye-fill text-dark': !showPassword, 'ri-eye-off-fill text-dark': showPassword}" id="eye-icon"></i>
                     </span>
                     <div class="invalid-feedback">
-                        Please provide a password
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
                 <!-- Error -->
@@ -47,7 +47,7 @@
             </div>
             <div class="mb-2">
                 <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me" value="true"> Remember me
+                    <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me" value="true"> <?= lang('App.remember_me') ?>
                 </label>
             </div>
             
@@ -60,7 +60,7 @@
 
             <div class="mb-2">
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Login</button>
+                    <button type="submit" class="btn btn-primary btn-block" id="submit-btn"><?= lang('App.Login') ?></button>
                 </div>
             </div>
             <div class="text-start mt-1">
@@ -73,7 +73,7 @@
 
                     <div class="my-2 text-center">
                         <p>
-                            Don't have an account? Register <a href="<?= base_url('/sign-up'); ?>">here</a>
+                            <?= lang('App.no_account') ?> <a href="<?= base_url('/sign-up'); ?>"><?= lang('App.register') ?></a>
                         </p>
                     </div>
                     
@@ -88,7 +88,7 @@
                                 <div class="google-btn-wrapper">
                                     <a href="<?= base_url('auth/google/login') ?>" class="google-signin-btn">
                                         <img src="https://ik.imagekit.io/oju3vfr0u/websites/igniter-cms/google.png" alt="Google logo">
-                                        Sign in with Google
+                                        <?= lang('App.sign_in_google') ?>
                                     </a>
                                 </div>
                             </div>

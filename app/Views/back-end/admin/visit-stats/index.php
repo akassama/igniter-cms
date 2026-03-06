@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Visit Stats<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.visit_stats') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -12,7 +12,7 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Visit Stats')
+    array('title' => lang('App.visit_stats'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,13 +20,13 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Visit Stats</h3>
+        <h3><?= lang('App.visit_stats') ?></h3>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Visit Stats
+                <?= lang('App.visit_stats') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_stats ?>
                 </span>
@@ -39,10 +39,10 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th>#</th>
                             <th><?= lang('App.ip') ?></th>
                             <th><?= lang('App.device') ?></th>
-                            <th>Browser</th>
+                            <th><?= lang('App.browser') ?></th>
                             <th><?= lang('App.url') ?></th>
-                            <th>User</th>
-                            <th><?= lang('App.os') ?></th>
+                            <th><?= lang('App.user') ?></th>
+                            <th><?= lang('App.operating_system') ?></th>
                             <th><?= lang('App.country') ?></th>
                             <th><?= lang('App.visit_date') ?></th>
                             <th><?= lang('App.actions') ?></th>
@@ -112,39 +112,40 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    Information Key (CDN/Proxy)
+                    <i class="ri-information-line me-1"></i>
+                    <?= lang('App.information_key_cdn') ?>
                 </div>
                 <div class="card-body">
                     <dl class="row">
                         <dt class="col-sm-3"><i class="ri-circle-fill text-muted"></i></dt>
-                        <dd class="col-sm-9">Local Device</dd>
+                        <dd class="col-sm-9"><?= lang('App.local_device') ?></dd>
 
                         <dt class="col-sm-3"><i class="ri-circle-fill text-primary"></i></dt>
-                        <dd class="col-sm-9">Cloudflare</dd>
+                        <dd class="col-sm-9"><?= lang('App.cloudflare') ?></dd>
 
                         <dt class="col-sm-3"><i class="ri-circle-fill text-teal"></i></dt>
-                        <dd class="col-sm-9">Microsoft Azure CDN</dd>
+                        <dd class="col-sm-9"><?= lang('App.azure_cdn') ?></dd>
 
                         <dt class="col-sm-3"><i class="ri-circle-fill text-orange"></i></dt>
-                        <dd class="col-sm-9">Google Cloud CDN</dd>
+                        <dd class="col-sm-9"><?= lang('App.google_cdn') ?></dd>
 
                         <dt class="col-sm-3"><i class="ri-circle-fill text-success"></i></dt>
-                        <dd class="col-sm-9">Fastly</dd>
+                        <dd class="col-sm-9"><?= lang('App.fastly') ?></dd>
 
                         <dt class="col-sm-3"><i class="ri-circle-fill text-info"></i></dt>
-                        <dd class="col-sm-9">Akamai</dd>
+                        <dd class="col-sm-9"><?= lang('App.akamai') ?></dd>
 
                         <dt class="col-sm-3"><i class="ri-circle-fill text-warning"></i></dt>
-                        <dd class="col-sm-9">Amazon CloudFront</dd>
+                        <dd class="col-sm-9"><?= lang('App.cloudfront') ?></dd>
 
                         <dt class="col-sm-3"><i class="ri-circle-fill text-danger"></i></dt>
-                        <dd class="col-sm-9">Sucuri</dd>
+                        <dd class="col-sm-9"><?= lang('App.sucuri') ?></dd>
 
                         <dt class="col-sm-3"><i class="ri-circle-fill text-secondary"></i></dt>
-                        <dd class="col-sm-9">NitroPack</dd>
+                        <dd class="col-sm-9"><?= lang('App.nitropack') ?></dd>
 
                         <dt class="col-sm-3"><i class="ri-checkbox-blank-circle-line text-dark"></i></i></dt>
-                        <dd class="col-sm-9">Unknown</dd>
+                        <dd class="col-sm-9"><?= lang('App.unknown') ?></dd>
                     </dl>
                 </div>
             </div>
@@ -161,12 +162,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <i class="ri-cpu-line"></i> AI Analysis
+                            <i class="ri-cpu-line"></i> <?= lang('App.ai_analysis') ?>
                         </button>
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <p><strong>Analyze this data with AI</strong> - This would use the most recent records for analysis (max 200)</p>
+                                <p><?= lang('App.ai_analysis_hint') ?></p>
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -174,7 +175,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             hx-post="<?=base_url()?>/htmx/get-visit-stats-analysis-via-ai"
                                             hx-trigger="click delay:250ms"
                                             hx-target="#analysis-div"
-                                            hx-swap="innerHTML" hx-indicator="#spinner"><i class="ri-robot-2-fill"></i> Analize With AI</button>
+                                            hx-swap="innerHTML" hx-indicator="#spinner"><i class="ri-robot-2-fill"></i> <?= lang('App.analyze_with_ai') ?></button>
                                         </div>
                                         <div id="analysis-div">
                                             <img  id="spinner" class="htmx-indicator" src="<?=base_url('public/uploads/default/loading.gif')?>" style="height: 75px"/>

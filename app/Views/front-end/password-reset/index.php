@@ -1,12 +1,12 @@
 <!-- include layout -->
 <?= $this->extend('front-end/layout/_layout') ?>
 
-<?= $this->section('title') ?>Reset Password<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.reset_password') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h2 class="text-center">Reset Your Password</h2>
+<h2 class="text-center"><?= lang('App.reset_your_password') ?></h2>
 <div class="row justify-content-center">
     <div class="col-md-4 col-sm-12 bg-light rounded p-4">
 
@@ -26,11 +26,11 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide password
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="mb-3">
-                <label for="password_confirm" class="form-label">Confirm New Password</label>
+                <label for="password_confirm" class="form-label"><?= lang('App.confirm_new_password') ?></label>
                 <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="repeat password" required>
                 <!-- Error -->
                 <?php if($validation->getError('password_confirm')) {?>
@@ -39,12 +39,12 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide password_confirm
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="mb-3">
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Reset Password</button>
+                    <button type="submit" class="btn btn-primary btn-block" id="submit-btn"><?= lang('App.reset_password') ?></button>
                 </div>
             </div>
         </form>

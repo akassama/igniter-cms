@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage API Keys</h3>
+        <h3><?= lang('App.manage_api_keys') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/admin/api-keys/new-api-key')?>" class="btn btn-outline-dark mx-1">
@@ -51,9 +51,9 @@ echo generateBreadcrumb($breadcrumb_links);
                         <tr>
                             <th>#</th>
                             <th><?= lang('App.api_key') ?></th>
-                            <th>Assigned To</th>
+                            <th><?= lang('App.assigned_to') ?></th>
                             <th><?= lang('App.status') ?></th>
-                            <th>Created On</th>
+                            <th><?= lang('App.created_on') ?></th>
                             <th><?= lang('App.created_by') ?></th>
                             <th><?= lang('App.updated_by') ?></th>
                             <th><?= lang('App.actions') ?></th>

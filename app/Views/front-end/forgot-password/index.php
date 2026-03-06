@@ -1,12 +1,12 @@
 <!-- include layout -->
 <?= $this->extend('front-end/layout/_layout') ?>
 
-<?= $this->section('title') ?>Forgot Password<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.forgot_password') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h2 class="text-center">Reset Your Password</h2>
+<h2 class="text-center"><?= lang('App.reset_your_password') ?></h2>
 <div class="row justify-content-center">
     <div class="col-md-4 col-sm-12 bg-light rounded p-4">
 
@@ -28,19 +28,19 @@
                         </div>
                     <?php }?>
                     <div class="invalid-feedback">
-                        Please provide an email
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
                 <span class="small text-muted">
-                    Enter your email and we'll send you a link to reset your password.
+                    <?= lang('App.forgot_password_hint') ?>
                 </span>
             </div>
             <div class="mb-3">
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Send My Reset Link</button>
+                    <button type="submit" class="btn btn-primary btn-block" id="submit-btn"><?= lang('App.send_reset_link') ?></button>
                 </div>
                 <div class="d-grid mt-2">
-                    <a href="<?= base_url('/sign-in'); ?>" class="btn btn-outline-dark btn-block" id="submit-btn">Wait, I remember!</a>
+                    <a href="<?= base_url('/sign-in'); ?>" class="btn btn-outline-dark btn-block" id="submit-btn"><?= lang('App.remember_password_link') ?></a>
                 </div>
             </div>
         </form>

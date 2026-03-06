@@ -64,12 +64,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <i class="ri-cpu-line"></i> AI Analysis
+                            <i class="ri-cpu-line"></i> <?= lang('App.ai_analysis') ?>
                         </button>
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <p><strong>Analyze this data with AI</strong> - This would use the log data for the analysis</p>
+                                <p><?= lang('App.ai_log_analysis_hint') ?></p>
                                 <div class="row">
                                     <div class="col-12">
                                         <form action="#!">

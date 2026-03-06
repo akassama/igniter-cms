@@ -38,7 +38,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide assigned_to
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
@@ -55,7 +55,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide status
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
@@ -68,7 +68,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide api_key
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 

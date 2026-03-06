@@ -714,7 +714,7 @@ updateTotalViewCount($currentPage, "page_id", $page_data['page_id']);
                         <?= getHoneypotInput() ?>
 
                         <div class="col-md-6">
-                            <label for="first_name" class="form-label visually-hidden"><?= lang('App.first_name') ?></label>
+                            <label for="first_name" class="form-label visually-hidden">First Name</label>
                             <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
                             <div class="invalid-feedback">
                                 Please provide your first name.
@@ -722,7 +722,7 @@ updateTotalViewCount($currentPage, "page_id", $page_data['page_id']);
                         </div>
 
                         <div class="col-md-6">
-                            <label for="last_name" class="form-label visually-hidden"><?= lang('App.last_name') ?></label>
+                            <label for="last_name" class="form-label visually-hidden">Last Name</label>
                             <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
                             <div class="invalid-feedback">
                                 Please provide your last name.

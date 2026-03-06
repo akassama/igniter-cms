@@ -515,15 +515,15 @@ if (typeof IntersectionObserver !== 'undefined') {
 
                 <div class="d-flex justify-content-between align-items-center mb-3 text-muted small">
                 <div>
-                    <strong>Author:</strong> 
+                    <strong><?= lang('App.author') ?>:</strong> 
                     <?php echo htmlspecialchars($news['created_by']); ?>
                 </div>
                 <div>
-                    <strong>Category:</strong> 
+                    <strong><?= lang('App.category') ?>:</strong> 
                     <?php echo htmlspecialchars($news['category']); ?>
                 </div>
                 <div>
-                    <strong>Published:</strong> 
+                    <strong><?= lang('App.published') ?>:</strong> 
                     <?= dateFormat($news['created_at'], 'M j, Y'); ?>
                 </div>
                 </div>
@@ -537,7 +537,7 @@ if (typeof IntersectionObserver !== 'undefined') {
                 <hr>
 
                 <div class="mb-3">
-                    <strong>Tags:</strong>
+                    <strong><?= lang('App.tags') ?>:</strong>
                     <?php
                         $blogTags = htmlspecialchars($news['tags']);
                         $tagsArray = explode(',', $blogTags);

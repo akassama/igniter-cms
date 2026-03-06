@@ -46,7 +46,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide code_for
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -62,7 +62,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide code
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 

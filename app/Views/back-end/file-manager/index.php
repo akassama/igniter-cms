@@ -1061,13 +1061,13 @@ function cifGenerateFileManagerTable(
         function confirmDelete(filePath, fileName) {
             Swal.fire({
                 title: 'Are you sure?',
-                text: `You are about to delete "${fileName}". This action cannot be undone!`,
+                text: `You are about to delete the file. This action cannot be undone! (${fileName})`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc3545',
                 cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel',
+                confirmButtonText: 'Yes',
+                cancelButtonText: <?= lang('App.cancel') ?>,
                 reverseButtons: true,
                 customClass: {
                     popup: 'swal-custom'

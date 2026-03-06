@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Comments<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.comments') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <i class="ri-grid-line me-1"></i>
-                    Comments
+                    <?= lang('App.comments') ?>
                     <span class="badge rounded-pill bg-dark">
                         <?= $total_comment_form_submissions ?>
                     </span>
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div>
                     <a href="<?= base_url('account/forms/comment-forms/unapproved'); ?>" 
                     class="btn btn-sm btn-outline-secondary">
-                        <i class="ri-chat-off-line text-danger me-1"></i> View Unapproved
+                        <i class="ri-chat-off-line text-danger me-1"></i> <?= lang('App.view_unapproved') ?>
                     </a>
                 </div>
             </div>
@@ -50,7 +50,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.name') ?></th>
                             <th><?= lang('App.email') ?></th>
                             <th><?= lang('App.comment') ?></th>
-                            <th>Page</th>
+                            <th><?= lang('App.page') ?></th>
                             <th><?= lang('App.ip') ?></th>
                             <th><?= lang('App.country') ?></th>
                             <th><?= lang('App.status') ?></th>
@@ -81,7 +81,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             if(!empty($comment['page_url'])){
                                                 ?>
                                                     <a href="<?= $comment['page_url']; ?>" target="_blank" class="td-none fw-bold" data-bs-toggle="tooltip" title="<?= $comment['page_url']; ?>">
-                                                        <i class="ri-link-m"></i> View Page
+                                                        <i class="ri-link-m"></i> <?=lang('App.view_page') ?>
                                                     </a>
                                                 <?php
                                             }

@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row">
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="config_for" class="form-label">Config For <small>(<?= lang('app.read_only') ?>)</small> </label>
+                <label for="config_for" class="form-label"><?= lang('App.config_for') ?><small>(<?= lang('app.read_only') ?>)</small> </label>
                 <input type="text" class="form-control" id="config_for" name="config_for" value="<?= $config_data['config_for'] ?>" required readonly>
                 <!-- Error -->
                 <?php if($validation->getError('config_for')) {?>
@@ -46,7 +46,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide config_for
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -59,7 +59,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 $encryptedLabel = strtolower($dataType) === "secret" ? "<small>(Encrtpted)</small>" : "";
             ?>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="config_value" class="form-label">Config value <?=$encryptedLabel?></label>
+                <label for="config_value" class="form-label"><?= lang('App.config_value') ?> <?=$encryptedLabel?></label>
                 
                 <?php if ($dataType === 'Text'): ?>
                     <input type="text" class="form-control <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" value="<?= $configValue ?>" required>
@@ -95,7 +95,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php }?>
                 
                 <div class="invalid-feedback">
-                    Please provide config_value
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
@@ -108,12 +108,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide description
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="group" class="form-label">Group <?=$readonlyLabel?></label>
+                <label for="group" class="form-label"><?= lang('App.group') ?> <?=$readonlyLabel?></label>
                 <input type="text" class="form-control" id="group" name="group" value="<?= $config_data['group'] ?>" <?=$readonlyInputs?>>
                 <!-- Error -->
                 <?php if($validation->getError('group')) {?>
@@ -122,7 +122,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide group
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
@@ -135,7 +135,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide default_value
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -149,7 +149,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide custom_class
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -165,7 +165,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide icon
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
@@ -180,7 +180,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide search_terms
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 

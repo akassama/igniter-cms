@@ -36,7 +36,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide plugin_file
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             

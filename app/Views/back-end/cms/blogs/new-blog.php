@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>New Blog<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.new_blog') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -12,8 +12,8 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.cms'), 'url' => '/account/cms'),
-    array('title' => 'Blogs', 'url' => '/account/cms/blogs'),
-    array('title' => 'New Blog')
+    array('title' => lang('App.blogs'), 'url' => '/account/cms/blogs'),
+    array('title' => lang('App.new_blog'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,7 +21,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>New Blog</h3>
+        <h3><?= lang('App.new_blog') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
@@ -41,7 +41,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide title
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -51,7 +51,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <span class="input-group-text"><?= base_url('/blog/'); ?></span>
                     <input type="text" class="form-control" id="slug" name="slug" value="<?= set_value('slug') ?>" required>
                     <div class="invalid-feedback">
-                        Please provide slug
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
                 <!-- Error -->
@@ -81,7 +81,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <i class="ri-image-fill"></i>
                             </button>
                             <div class="invalid-feedback">
-                                Please provide featured image
+                                <?= lang('App.input_required') ?>
                             </div>
                         </div>
                         <!-- Error -->
@@ -109,18 +109,18 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide content
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <label for="excerpt" class="form-label">Excerpt</label>
+                    <label for="excerpt" class="form-label"><?= lang('App.excerpt') ?></label>
                         <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
                         hx-post="<?=base_url()?>/htmx/get-excerpt-via-ai"
                         hx-trigger="click delay:250ms"
                         hx-target="#excerpt-div"
-                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> <?= lang('App.use_ai') ?></button>
                 </div>
                 <div id="excerpt-div">
                     <textarea class="form-control" id="excerpt" name="excerpt" ><?= set_value('excerpt') ?></textarea>
@@ -132,7 +132,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide excerpt
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -149,18 +149,18 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide category
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <div class="d-flex justify-content-between align-items-center">
-                <label for="tags" class="form-label">Tags</label>
+                <label for="tags" class="form-label"><?= lang('App.tags') ?></label>
                     <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
                     hx-post="<?=base_url()?>/htmx/get-tags-via-ai"
                     hx-trigger="click delay:250ms"
                     hx-target="#tags-div"
-                    hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                    hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> <?= lang('App.use_ai') ?></button>
                 </div>
                 <div id="tags-div" hx-on:htmx:after-settle="setTagsInput('tags')">
                     <textarea rows="1" class="form-control tags-input" id="tags" name="tags" required><?= set_value('tags') ?></textarea>
@@ -172,7 +172,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide tags
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -180,9 +180,9 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="status" class="form-label"><?= lang('App.status') ?></label>
                 <select class="form-select" id="status" name="status" required>
                     <option value=""><?= lang('App.select_status') ?></option>
-                    <option value="0">Unpublished</option>
-                    <option value="1">Published</option>
-                    <option value="2">Schedule</option>
+                    <option value="0"><?= lang('App.unpublished') ?></option>
+                    <option value="1"><?= lang('App.published') ?></option>
+                    <option value="2"><?= lang('App.schedule') ?></option>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('status')) {?>
@@ -191,7 +191,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide status
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -208,7 +208,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide author
+                   <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -222,7 +222,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide scheduled_date_time
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <script>
@@ -241,7 +241,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </script>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="is_featured" class="form-label">Featured</label>
+                <label for="is_featured" class="form-label"><?= lang('App.featured') ?></label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1">
                     <label class="form-check-label small" for="is_featured">Toggle to set as featured</label>
@@ -253,7 +253,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide is_featured
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -270,7 +270,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide is_breaking
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -279,7 +279,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                SEO Data
+                                <?= lang('App.seo_data') ?>
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -292,7 +292,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             hx-post="<?=base_url()?>/htmx/set-meta-title-via-ai"
                                             hx-trigger="click delay:250ms"
                                             hx-target="#meta-title-div"
-                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> <?= lang('App.use_ai') ?></button>
                                         </div>
                                         <div id="meta-title-div">
                                             <input type="text" class="form-control" id="meta_title" name="meta_title" value="<?= set_value('meta_title') ?>">
@@ -303,7 +303,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             </div>
                                         <?php }?>
                                         <div class="invalid-feedback">
-                                            Please provide meta_title
+                                            <?= lang('App.input_required') ?>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3">
@@ -313,7 +313,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             hx-post="<?=base_url()?>/htmx/set-meta-description-via-ai"
                                             hx-trigger="click delay:250ms"
                                             hx-target="#meta-description-div"
-                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> <?= lang('App.use_ai') ?></button>
                                         </div>
                                         <div id="meta-description-div">
                                             <textarea class="form-control" id="meta_description" name="meta_description" ><?= set_value('meta_description') ?></textarea>
@@ -324,7 +324,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             </div>
                                         <?php }?>
                                         <div class="invalid-feedback">
-                                            Please provide meta_description
+                                            <?= lang('App.input_required') ?>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3">
@@ -334,7 +334,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             hx-post="<?=base_url()?>/htmx/set-meta-keywords-via-ai"
                                             hx-trigger="click delay:250ms"
                                             hx-target="#meta-keywords-div"
-                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                                            hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> <?= lang('App.use_ai') ?></button>
                                         </div>
                                         <div id="meta-keywords-div" hx-on:htmx:after-settle="setTagsInput('meta_keywords')">
                                             <textarea rows="1" class="form-control tags-input" id="meta_keywords" name="meta_keywords"><?= set_value('meta_keywords') ?></textarea>
@@ -345,7 +345,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             </div>
                                         <?php }?>
                                         <div class="invalid-feedback">
-                                            Please provide meta_keywords
+                                            <?= lang('App.input_required') ?>
                                         </div>
                                     </div>
                                 </div>

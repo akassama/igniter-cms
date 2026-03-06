@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide title
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -48,7 +48,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         hx-post="<?=base_url()?>/htmx/get-blog-category-description-via-ai"
                         hx-trigger="click delay:250ms"
                         hx-target="#description-div"
-                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> <?= lang('App.use_ai') ?></button>
                 </div>
                 <div id="description-div">
                     <textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required><?= set_value('description') ?></textarea>
@@ -60,7 +60,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide description
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -80,7 +80,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide group
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -97,7 +97,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide parent
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -106,7 +106,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="col-sm-12 col-md-9">
                         <label for="link" class="form-label">
                             Link
-                            <span class="small text-muted">(Use '/' for internal links)</span>
+                            <span class="small text-muted">(<?= lang('App.internal_link_hint') ?>)</span>
                         </label>
                         <input type="text" class="form-control" id="link" name="link" value="<?= set_value('link') ?>">
                         <!-- Error -->
@@ -116,7 +116,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             </div>
                         <?php }?>
                         <div class="invalid-feedback">
-                            Please provide link
+                           <?= lang('App.input_required') ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3">
@@ -132,7 +132,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             </div>
                         <?php }?>
                         <div class="invalid-feedback">
-                            Please provide new_tab
+                            <?= lang('App.input_required') ?>
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide order
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -158,8 +158,8 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="status" class="form-label"><?= lang('App.status') ?></label>
                 <select class="form-select" id="status" name="status" required>
                     <option value=""><?= lang('App.select_status') ?></option>
-                    <option value="0">Unpublished</option>
-                    <option value="1">Published</option>
+                    <option value="0"><?= lang('App.unpublished') ?></option>
+                    <option value="1"><?= lang('App.published') ?></option>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('status')) {?>
@@ -168,7 +168,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide status
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 

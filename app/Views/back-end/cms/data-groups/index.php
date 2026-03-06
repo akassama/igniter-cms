@@ -12,7 +12,7 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.cms'), 'url' => '/account/cms'),
-    array('title' => 'Data Groups')
+    array('title' => lang('App.data_groups'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -31,7 +31,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Data Groups
+                <?= lang('App.data_groups') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_data_groups ?>
                 </span>

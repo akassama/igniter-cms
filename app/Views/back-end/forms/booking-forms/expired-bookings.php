@@ -11,7 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Forms', 'url' => '/account/forms'),
+    array('title' => lang('App.forms'), 'url' => '/account/forms'),
     array('title' => 'Expired Booking Forms')
 );
 echo generateBreadcrumb($breadcrumb_links);

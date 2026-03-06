@@ -2,12 +2,12 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Appearance<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.appearance') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h1 class="mt-4">Appearance</h1>
+<h1 class="mt-4"><?= lang('App.appearance') ?></h1>
 
 <?php
 // Breadcrumbs

@@ -35,7 +35,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php endforeach; ?>
             </ul>
         <?php else: ?>
-            <p>No results found.</p>
+            <p><?= lang('App.no_results_found') ?></p>
         <?php endif; ?>
     </div>
 </div>

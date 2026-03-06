@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Plugins<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_plugins') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -11,7 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Plugins', 'url' => '/account/plugins'),
+    array('title' => lang('App.plugins'), 'url' => '/account/plugins'),
     array('title' => 'Manage Plugin')
 );
 echo generateBreadcrumb($breadcrumb_links);

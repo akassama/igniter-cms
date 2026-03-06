@@ -11,8 +11,8 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Forms', 'url' => '/account/forms'),
-    array('title' => 'Contact Form Messages')
+    array('title' => lang('App.forms'), 'url' => '/account/forms'),
+    array('title' => lang('manage_archived_contact'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -53,7 +53,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.ip') ?></th>
                             <th><?= lang('App.country') ?></th>
                             <th><?= lang('App.status') ?></th>
-                            <th>Created</th>
+                            <th><?= lang('App.created_on') ?></th>
                             <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>

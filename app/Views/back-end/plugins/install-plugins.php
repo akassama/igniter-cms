@@ -11,7 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Plugins', 'url' => '/account/plugins'),
+    array('title' => lang('App.plugins'), 'url' => '/account/plugins'),
     array('title' => 'Install Plugins')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -27,7 +27,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="col-12 mb-4">
         <form class="d-flex" role="search" id="pluginSearchForm">
             <input class="form-control me-2" type="search" placeholder="Search plugins..." aria-label="Search" id="pluginSearch">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button class="btn btn-outline-success" type="submit"><?= lang('App.search') ?></button>
         </form>
     </div>
     

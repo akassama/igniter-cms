@@ -38,7 +38,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <tr>
                             <th>#</th>
                             <th><?= lang('App.created_by') ?></th>
-                            <th>Theme</th>
+                            <th><?= lang('App.theme') ?></th>
                             <th><?= lang('App.path') ?></th>
                             <th><?= lang('App.content') ?></th>
                             <th><?= lang('App.date_or_time') ?></th>
@@ -111,7 +111,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="contentModalLabel">View File Revision Content</h5>
+                <h5 class="modal-title" id="contentModalLabel"><?= lang('App.view_file_revision') ?></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

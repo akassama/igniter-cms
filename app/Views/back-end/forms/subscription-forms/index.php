@@ -11,7 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Forms', 'url' => '/account/forms'),
+    array('title' => lang('App.forms'), 'url' => '/account/forms'),
     array('title' => 'Subscription Forms')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -20,7 +20,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Subscription Forms</h3>
+        <h3><?= lang('App.subscription_forms') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
 
@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <i class="ri-grid-line me-1"></i>
-                    Subscribers
+                    <?= lang('App.subscribers') ?>
                     <span class="badge rounded-pill bg-dark">
                         <?= $total_subscription_form_submissions ?>
                     </span>

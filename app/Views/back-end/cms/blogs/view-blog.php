@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>View Blog<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.view_blog') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -12,8 +12,8 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.cms'), 'url' => '/account/cms'),
-    array('title' => 'Blogs', 'url' => '/account/cms/blogs'),
-    array('title' => 'View Blog')
+    array('title' => lang('App.blogs'), 'url' => '/account/cms/blogs'),
+    array('title' => lang('App.view_blog'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,7 +21,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>View Blog</h3>
+        <h3><?= lang('App.view_blog') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <div class="row">
@@ -58,7 +58,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="excerpt" class="form-label">Excerpt</label>
+                <label for="excerpt" class="form-label"><?= lang('App.excerpt') ?></label>
                 <textarea rows="1" class="form-control" id="excerpt" name="excerpt" readonly><?= $blog_data['excerpt'] ?></textarea>
             </div>
 
@@ -73,7 +73,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="tags" class="form-label">Tags</label>
+                <label for="tags" class="form-label"><?= lang('App.tags') ?></label>
                 <textarea rows="1" class="form-control tags-input" id="tags" name="tags" readonly><?= $blog_data['tags'] ?></textarea>
             </div>
 
@@ -83,7 +83,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="is_featured" class="form-label">Featured</label>
+                <label for="is_featured" class="form-label"><?= lang('App.featured') ?></label>
                 <input type="text" class="form-control" id="is_featured" name="is_featured" value="<?= ($blog_data['is_featured'] == '0') ? 'No' : 'Yes'?>" readonly>
             </div>
 
@@ -92,7 +92,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
-                            SEO Data
+                            <?= lang('App.seo_data') ?>
                         </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">

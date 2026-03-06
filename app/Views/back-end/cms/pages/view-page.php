@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>View Page<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.view_page') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -12,8 +12,8 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.cms'), 'url' => '/account/cms'),
-    array('title' => 'Pages', 'url' => '/account/cms/pages'),
-    array('title' => 'View Page')
+    array('title' => lang('App.pages'), 'url' => '/account/cms/pages'),
+    array('title' => lang('App.view_page'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,11 +21,11 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>View Page</h3>
+        <h3><?= lang('App.view_page') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <button class="btn btn-outline-dark mx-1" data-bs-toggle="modal" data-bs-target="#previewPageModal" data-page-url="<?= base_url($page_data['slug']) ?>">
-            <i class="ri-search-eye-line"></i> Preview Page
+            <i class="ri-search-eye-line"></i> <?= lang('App.preview_page') ?>
         </button>
     </div>
     <div class="col-12 bg-light rounded p-4">
@@ -63,7 +63,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                            SEO Data
+                            <?= lang('App.seo_data') ?>
                         </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">

@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>View User<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.view_user') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -20,8 +20,8 @@ $userRole = getUserRole($sessionEmail);
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Users', 'url' => '/account/admin/users'),
-    array('title' => 'View User')
+    array('title' => lang('App.users'), 'url' => '/account/admin/users'),
+    array('title' => lang('App.view_user'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -29,7 +29,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>View User</h3>
+        <h3><?= lang('App.view_user') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <div class="row">
@@ -75,23 +75,23 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="twitter_link" class="form-label">Twitter URL</label>
+                <label for="twitter_link" class="form-label"><?= lang('App.twitter_url') ?></label>
                 <input type="url" class="form-control" id="twitter_link" name="twitter_link" maxlength="250" value="<?= $user_data['twitter_link'] ?>" readonly>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="facebook_link" class="form-label">Facebook URL</label>
+                <label for="facebook_link" class="form-label"><?= lang('App.facebook_url') ?></label>
                 <input type="url" class="form-control" id="facebook_link" name="facebook_link" maxlength="250" value="<?= $user_data['facebook_link'] ?>" readonly>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="instagram_link" class="form-label">Instagram URL</label>
+                <label for="instagram_link" class="form-label"><?= lang('App.instagram_url') ?></label>
                 <input type="url" class="form-control" id="instagram_link" name="instagram_link" maxlength="250" value="<?= $user_data['instagram_link'] ?>" readonly>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="linkedin_link" class="form-label">LinkedIn URL</label>
+                <label for="linkedin_link" class="form-label"><?= lang('App.linkedin_url') ?></label>
                 <input type="url" class="form-control" id="linkedin_link" name="linkedin_link" maxlength="250" value="<?= $user_data['linkedin_link'] ?>" readonly>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="about_summary" class="form-label">About Summary</label>
+                <label for="about_summary" class="form-label"><?= lang('App.about_summary') ?></label>
                 <textarea rows="1" class="form-control" id="about_summary" name="about_summary" readonly><?= $user_data['about_summary'] ?></textarea>
             </div>
 

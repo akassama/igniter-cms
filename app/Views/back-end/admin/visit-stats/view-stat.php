@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>View Stat<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.view_stat') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -20,8 +20,8 @@ $userRole = getUserRole($sessionEmail);
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Visit Stats', 'url' => '/account/admin/visit-stats'),
-    array('title' => 'View Stat')
+    array('title' => lang('App.visit_stats'), 'url' => '/account/admin/visit-stats'),
+    array('title' => lang('App.view_stat'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -29,29 +29,29 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>View Stat</h3>
+        <h3><?= lang('App.view_stat') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <div class="row">
             <ul class="list-group mb-2">
-                <li class="list-group-item">Visit Stat ID: <span><?= $visit_data['site_stat_id'] ?></span></li>
-                <li class="list-group-item">Visit By: <span  data-bs-toggle="tooltip" data-bs-placement="top" title="User ID: <?= esc($visit_data['user_id']) ?>"><?= getActivityBy(esc($visit_data['user_id'])) ?></span></li>
+                <li class="list-group-item"><?= lang('App.visit_stat_id') ?>: <span><?= $visit_data['site_stat_id'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.visit_by') ?>: <span  data-bs-toggle="tooltip" data-bs-placement="top" title="User ID: <?= esc($visit_data['user_id']) ?>"><?= getActivityBy(esc($visit_data['user_id'])) ?></span></li>
                 <li class="list-group-item"><?= lang('App.ip') ?>: <span><?= $visit_data['ip_address'] ?></span></li>
-                <li class="list-group-item">Device Type: <span><?= $visit_data['device_type'] ?></span></li>
-                <li class="list-group-item">Browser Type: <span><?= $visit_data['browser_type'] ?></span></li>
-                <li class="list-group-item">Page Type: <span><?= $visit_data['page_type'] ?></span></li>
-                <li class="list-group-item">Page Visited ID: <span><?= $visit_data['page_visited_id'] ?></span></li>
-                <li class="list-group-item">Page Visited URL: <span><?= $visit_data['page_visited_url'] ?></span></li>
-                <li class="list-group-item">Referrer: <span><?= $visit_data['referrer'] ?></span></li>
-                <li class="list-group-item">Status Code: <span><?= $visit_data['status_code'] ?></span></li>
-                <li class="list-group-item">Session ID: <span><?= $visit_data['session_id'] ?></span></li>
-                <li class="list-group-item">Request Method: <span><?= $visit_data['request_method'] ?></span></li>
-                <li class="list-group-item">Operating System: <span><?= $visit_data['operating_system'] ?></span></li>
-                <li class="list-group-item">Country: <span><?= $visit_data['country'] ?></span></li>
-                <li class="list-group-item">Screen Resolution: <span><?= $visit_data['screen_resolution'] ?></span></li>
-                <li class="list-group-item">User Agent: <span><?= $visit_data['user_agent'] ?></span></li>
-                <li class="list-group-item">Other Params: <span><?= $visit_data['other_params'] ?></span></li>
-                <li class="list-group-item">Visit Date: <span><?= $visit_data['created_at'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.device_type') ?>: <span><?= $visit_data['device_type'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.browser_type') ?>: <span><?= $visit_data['browser_type'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.page_type') ?>: <span><?= $visit_data['page_type'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.page_visited_id') ?>: <span><?= $visit_data['page_visited_id'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.page_visited_url') ?>: <span><?= $visit_data['page_visited_url'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.referrer') ?>: <span><?= $visit_data['referrer'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.status_code') ?>: <span><?= $visit_data['status_code'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.session_id') ?>: <span><?= $visit_data['session_id'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.request_method') ?>: <span><?= $visit_data['request_method'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.operating_system') ?>: <span><?= $visit_data['operating_system'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.country') ?>: <span><?= $visit_data['country'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.screen_resolution') ?>: <span><?= $visit_data['screen_resolution'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.user_agent') ?>: <span><?= $visit_data['user_agent'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.other_params') ?>: <span><?= $visit_data['other_params'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.visit_date') ?>: <span><?= $visit_data['created_at'] ?></span></li>
             </ul>
             <div class="mb-3">
                 <a href="<?= base_url('/account/admin/visit-stats') ?>" class="btn btn-outline-danger">

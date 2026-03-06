@@ -41,7 +41,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide title
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -51,7 +51,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <span class="input-group-text"><?= base_url('/'); ?></span>
                     <input type="text" class="form-control" id="slug" name="slug" value="<?= $page_data['slug'] ?>" required>
                     <div class="invalid-feedback">
-                        Please provide slug
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
                 <!-- Error -->
@@ -72,13 +72,13 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide content
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="group" class="form-label">
-                    Group
+                    <?= lang('App.group') ?>
                     <small class="text-muted">(<?= lang('App.group_filter_hint') ?>)</small>
                 </label>
                 <select class="form-select" aria-label="group" id="group" name="group">
@@ -92,7 +92,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide group
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -100,8 +100,8 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="status" class="form-label"><?= lang('App.status') ?></label>
                 <select class="form-select" id="status" name="status" required>
                     <option value=""><?= lang('App.select_status') ?></option>
-                    <option value="0" <?= ($page_data['status'] == '0') ? 'selected' : '' ?>>Unpublished</option>
-                    <option value="1" <?= ($page_data['status'] == '1') ? 'selected' : '' ?>>Published</option>
+                    <option value="0" <?= ($page_data['status'] == '0') ? 'selected' : '' ?>><?= lang('App.unpublished') ?></option>
+                    <option value="1" <?= ($page_data['status'] == '1') ? 'selected' : '' ?>><?= lang('App.published') ?></option>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('status')) {?>
@@ -110,7 +110,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide status
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -119,7 +119,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                            SEO Data
+                            <?= lang('App.seo_data') ?>
                         </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -137,7 +137,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             </div>
                                         <?php }?>
                                         <div class="invalid-feedback">
-                                            Please provide meta_title
+                                            <?= lang('App.input_required') ?>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3">
@@ -152,7 +152,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             </div>
                                         <?php }?>
                                         <div class="invalid-feedback">
-                                            Please provide meta_description
+                                            <?= lang('App.input_required') ?>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3">
@@ -167,7 +167,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             </div>
                                         <?php }?>
                                         <div class="invalid-feedback">
-                                            Please provide meta_keywords
+                                            <?= lang('App.input_required') ?>
                                         </div>
                                     </div>
                                 </div>

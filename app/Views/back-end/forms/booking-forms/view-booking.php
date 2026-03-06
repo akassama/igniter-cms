@@ -28,7 +28,7 @@ $countryText = !empty($booking['country']) ? getCountryTextName($booking['countr
 
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Forms', 'url' => '/account/forms'),
+    array('title' => lang('App.forms'), 'url' => '/account/forms'),
     array('title' => 'Booking Forms', 'url' => '/account/forms/booking-forms'),
     array('title' => 'View Booking')
 );
@@ -47,7 +47,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="col-12 mb-3">
                     <?php if (!empty($booking['email'])): ?>
                         <a class="text-dark td-none mr-1 float-start" href="mailto:<?= esc($booking['email']); ?>">
-                            <i class="h5 ri-reply-fill"></i> Email
+                            <i class="h5 ri-reply-fill"></i> <?= lang('App.email') ?>
                         </a>
                     <?php endif; ?>
 
@@ -67,7 +67,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             data-bs-toggle="modal"
                             data-bs-target="#editBookingModal"
                             aria-controls="editBookingModal">
-                        <i class="ri-edit-2-line me-1"></i> Edit
+                        <i class="ri-edit-2-line me-1"></i> <?= lang('App.edit') ?>
                     </button>
 
                     <?php if (!empty($status)): ?>
@@ -177,7 +177,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <!-- Notes -->
                 <div class="col-sm-12 col-md-12 mb-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <label for="notes" class="form-label mb-0">Notes</label>
+                        <label for="notes" class="form-label mb-0"><?= lang('App.notes') ?></label>
 
                         <!-- Edit Notes button -->
                         <button type="button"
@@ -185,7 +185,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 data-bs-toggle="modal"
                                 data-bs-target="#editNotesModal"
                                 aria-controls="editNotesModal">
-                            <i class="ri-edit-line me-1"></i> Edit
+                            <i class="ri-edit-line me-1"></i> <?= lang('App.edit') ?>
                         </button>
                     </div>
 
@@ -202,7 +202,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="mb-3 mt-3">
                     <a href="<?= base_url('/account/forms/booking-forms') ?>" class="btn btn-outline-danger">
                         <i class="ri-arrow-left-fill"></i>
-                        Back
+                        <?= lang('App.back') ?>
                     </a>
                 </div>
             </div>
@@ -222,7 +222,7 @@ echo generateBreadcrumb($breadcrumb_links);
          <div class="modal-body">
             <input type="hidden" name="booking_form_id" value="<?= esc($booking['booking_form_id'] ?? '') ?>"> 
             <div class="col-12">
-               <label for="notesTextarea" class="form-label">Notes</label> 
+               <label for="notesTextarea" class="form-label"><?= lang('App.notes') ?></label> 
                <textarea class="form-control" id="notesTextarea" name="notes" rows="8" required><?= esc($booking['notes'] ?? '') ?></textarea>
                <div class="invalid-feedback">Please enter some notes or close the editor.</div>
             </div>
@@ -305,7 +305,7 @@ echo generateBreadcrumb($breadcrumb_links);
           </div>
 
           <div class="col-12">
-            <label for="edit_notes" class="form-label">Notes</label>
+            <label for="edit_notes" class="form-label"><?= lang('App.notes') ?></label>
             <textarea class="form-control" id="edit_notes" name="notes" rows="6"><?= esc($booking['notes'] ?? '') ?></textarea>
           </div>
 

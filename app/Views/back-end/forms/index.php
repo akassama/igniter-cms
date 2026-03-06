@@ -2,18 +2,18 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Contact Forms<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.contact_forms') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h1 class="mt-4">Forms</h1>
+<h1 class="mt-4"><?= lang('App.forms') ?></h1>
 
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Forms')
+    array('title' => lang('App.forms'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -23,7 +23,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card bg-dark text-white mb-4">
             <div class="card-body border-bottom">
                 <i class="ri-mail-send-fill"></i>
-                Contact Forms
+                <?= lang('App.contact_forms') ?>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="<?= base_url('/account/forms/contact-forms'); ?>"><?= lang('App.view_details') ?></a>
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card bg-dark text-white mb-4">
             <div class="card-body border-bottom">
                 <i class="ri-chat-3-line"></i>
-                Comment Forms
+                <?= lang('App.comment_forms') ?>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="<?= base_url('/account/forms/comment-forms'); ?>"><?= lang('App.view_details') ?></a>
@@ -51,7 +51,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card bg-dark text-white mb-4">
             <div class="card-body border-bottom">
                 <i class="ri-calendar-check-fill"></i>
-                Booking Forms
+                <?= lang('App.booking_forms') ?>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="<?= base_url('/account/forms/booking-forms'); ?>"><?= lang('App.view_details') ?></a>
@@ -65,7 +65,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card bg-dark text-white mb-4">
             <div class="card-body border-bottom">
                 <i class="ri-rss-fill"></i>
-                Subscription Forms
+                <?= lang('App.subscription_forms') ?>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="<?= base_url('/account/forms/subscription-forms'); ?>"><?= lang('App.view_details') ?></a>

@@ -32,7 +32,7 @@ echo generateBreadcrumb($breadcrumb_links);
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/admin/codes/new-code')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Code
+            <i class="ri-add-fill"></i> <?= lang('App.new_code') ?>
         </a>
     </div>
     <div class="col-12">

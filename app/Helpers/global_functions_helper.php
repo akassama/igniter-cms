@@ -917,13 +917,13 @@ if(!function_exists('getRecentActivityLogs'))
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Activity By</th>
-                        <th>Activity Type</th>
-                        <th>Activity</th>
-                        <th><?= lang('App.ip') ?></th>
-                        <th><?= lang('App.device') ?></th>
-                        <th><?= lang('App.country') ?></th>
-                        <th><?= lang('App.date_or_time') ?></th>
+                        <th>". lang('App.activity_by')."</th>
+                        <th>". lang('App.activity_type')."</th>
+                        <th>". lang('App.activity')."</th>
+                        <th>". lang('App.ip')."</th>
+                        <th>". lang('App.device')."</th>
+                        <th>". lang('App.country')."</th>
+                        <th>". lang('App.date_or_time')."</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -1026,14 +1026,14 @@ if(!function_exists('getRecentVisitStats'))
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th><?= lang('App.ip') ?></th>
-                        <th><?= lang('App.device') ?></th>
-                        <th>Browser</th>
-                        <th><?= lang('App.url') ?></th>
-                        <th>User</th>
-                        <th><?= lang('App.os') ?></th>
-                        <th><?= lang('App.country') ?></th>
-                        <th><?= lang('App.visit_date') ?></th>
+                        <th>". lang('App.ip') ."</th>
+                        <th>". lang('App.device') ."</th>
+                        <th>". lang('App.browser') ."</th>
+                        <th>". lang('App.url') ."</th>
+                        <th>". lang('App.user') ."</th>
+                        <th>". lang('App.operating_system') ."</th>
+                        <th>". lang('App.country') ."</th>
+                        <th>". lang('App.visit_date') ."</th>
                     </tr>
                     </thead>
                     <tbody>

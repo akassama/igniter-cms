@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Page File Editor<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.page_file_editor') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -32,7 +32,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <h3><?= lang('App.file_editor') ?></h3>
         <button type="button" class="btn btn-outline-dark float-start" data-bs-toggle="modal" data-bs-target="#blocksModal">
             <i class="ri-layout-grid-line"></i>
-            Page Blocks
+            <?= lang('App.page_blocks') ?>
         </button>
         <button class="btn btn-dark my-1 float-end" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
             <i class="ri-image-fill"></i> <?= lang('App.file_manager') ?>

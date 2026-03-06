@@ -1,6 +1,6 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
-<?= $this->section('title') ?>Themes<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.themes') ?><?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
 
@@ -10,7 +10,7 @@ $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.appearance'), 'url' => '/account/appearance'),
     array('title' => lang('App.themes'), 'url' => '/account/appearance/themes'),
-    array('title' => 'New Theme')
+    array('title' => lang('App.new_theme'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -19,7 +19,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="row my-4">
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="h3 mb-0">Add New Theme</h1>
+                <h1 class="h3 mb-0"><?= lang('App.new_theme') ?></h1>
                 <div>
                     <a href="<?=base_url('/account/appearance/themes/install-themes')?>" class="btn btn-outline-dark mx-1">
                         <i class="ri-restart-line"></i> Refresh Page
@@ -39,7 +39,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <i class="ri-search-line"></i>
                             </span>
                             <input class="form-control border-start-0 ps-0" type="search" placeholder="Search themes..." aria-label="Search" id="themeSearch" minlength="2" required>
-                            <button class="btn btn-primary" type="submit">Search</button>
+                            <button class="btn btn-primary" type="submit"><?= lang('App.search') ?></button>
                         </div>
                     </form>
                 </div>

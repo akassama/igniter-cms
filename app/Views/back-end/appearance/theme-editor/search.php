@@ -31,7 +31,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="col-12">
         <h3><?= lang('App.file_editor') ?></h3>
         <button class="btn btn-outline-dark mx-1" data-bs-toggle="modal" data-bs-target="#previewPageModal" data-page-url="<?= base_url('/search?q=the') ?>">
-            <i class="ri-search-eye-line"></i> Preview Page
+            <i class="ri-search-eye-line"></i> <?= lang('App.preview_page') ?>
         </button>
         <button class="btn btn-dark my-1 float-end" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
             <i class="ri-image-fill"></i> <?= lang('App.file_manager') ?>

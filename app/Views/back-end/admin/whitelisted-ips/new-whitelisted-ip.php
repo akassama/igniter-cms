@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>New Whitelisted IP<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.new_whitelisted_ip') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -12,8 +12,8 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
-    array('title' => 'Whitelisted IP Addresses', 'url' => '/account/admin/whitelisted-ips'),
-    array('title' => 'New Whitelisted IP')
+    array('title' => lang('App.whitelisted_ips'), 'url' => '/account/admin/whitelisted-ips'),
+    array('title' => lang('App.new_whitelisted_ip'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,7 +21,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>New Whitelisted IP</h3>
+        <h3><?= lang('App.new_whitelisted_ip') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide ip_address
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -51,7 +51,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide reason
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 

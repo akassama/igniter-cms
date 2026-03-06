@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide name
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div id="existing-theme-name-error">
                 </div>
@@ -55,7 +55,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     <?php }?>
                     <div class="invalid-feedback">
-                        Please provide path
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide default color
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div class="mt-2" id="set-default-color-name">
                 </div>
@@ -94,7 +94,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide heading color
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div class="mt-2" id="set-heading-color-name">
                 </div>
@@ -114,7 +114,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide accent color
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div class="mt-2" id="set-accent-color-name">
                 </div>
@@ -134,7 +134,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide surface color
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div class="mt-2" id="set-surface-color-name">
                 </div>
@@ -154,7 +154,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide contrast color
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div class="mt-2" id="set-contrast-color-name">
                 </div>
@@ -174,7 +174,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide background color
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div class="mt-2" id="set-background-color-name">
                 </div>
@@ -184,7 +184,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="override_default_style" class="form-label"><?= lang('App.override_default_style') ?></label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="override_default_style" name="override_default_style" value="1" <?= ($theme_data['override_default_style'] == '1') ? 'checked' : '' ?>>
-                    <label class="form-check-label small" for="override_default_style">Toggle to override default style</label>
+                    <label class="form-check-label small" for="override_default_style"><?= lang('App.toggle_override_style') ?></label>
                 </div>
                 <!-- Error -->
                 <?php if($validation->getError('override_default_style')) {?>
@@ -193,7 +193,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide override_default_style
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -201,7 +201,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="use_static_theme_nav" class="form-label"><?= lang('App.use_static_navigation') ?></label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="use_static_theme_nav" name="use_static_theme_nav" value="1" <?= ($theme_data['use_static_theme_nav'] == '1') ? 'checked' : '' ?>>
-                    <label class="form-check-label small" for="use_static_theme_nav">Toggle to use static theme navigation</label>
+                    <label class="form-check-label small" for="use_static_theme_nav"><?= lang('App.toggle_static_nav') ?></label>
                 </div>
                 <!-- Error -->
                 <?php if($validation->getError('use_static_theme_nav')) {?>
@@ -210,7 +210,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide use_static_theme_nav
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -224,7 +224,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide category
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -238,7 +238,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide sub_category
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -255,7 +255,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide selected
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 

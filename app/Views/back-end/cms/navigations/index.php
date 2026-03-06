@@ -24,7 +24,7 @@ echo generateBreadcrumb($breadcrumb_links);
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/cms/navigations/new-navigation')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Navigation
+            <i class="ri-add-fill"></i> <?= lang('App.new_navigation') ?>
         </a>
     </div>
     <div class="col-12">

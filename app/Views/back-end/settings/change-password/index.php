@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Change Password<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.change_password') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -11,15 +11,15 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Settings', 'url' => '/account/settings'),
-    array('title' => 'Change Password')
+    array('title' => lang('App.settings'), 'url' => '/account/settings'),
+    array('title' => lang('App.change_password'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Change Password</h3>
+        <h3><?= lang('App.change_password') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
@@ -43,12 +43,12 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     <?php }?>
                     <div class="invalid-feedback">
-                        Please provide current_password
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
 
                 <div class="col-12 mb-3">
-                    <label for="new_password" class="form-label">New Password</label>
+                    <label for="new_password" class="form-label"><?= lang('App.confirm_new_password') ?></label>
                     <input type="password" class="form-control" id="new_password" name="new_password" value="" required>
                     <!-- Error -->
                     <?php if($validation->getError('new_password')) {?>
@@ -57,12 +57,12 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     <?php }?>
                     <div class="invalid-feedback">
-                        Please provide new_password
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
 
                 <div class="col-12 mb-3">
-                    <label for="repeat_password" class="form-label">Repeat Password</label>
+                    <label for="repeat_password" class="form-label"><?= lang('App.repeat_password') ?></label>
                     <input type="password" class="form-control" id="repeat_password" name="repeat_password" value="" required>
                     <!-- Error -->
                     <?php if($validation->getError('repeat_password')) {?>
@@ -71,7 +71,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     <?php }?>
                     <div class="invalid-feedback">
-                        Please provide repeat_password
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
             </div>

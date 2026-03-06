@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Edit Content Block<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.edit_content_block') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -11,8 +11,8 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Content Blocks', 'url' => '/account/content-blocks'),
-    array('title' => 'Edit Content Block')
+    array('title' => lang('App.content_blocks'), 'url' => '/account/content-blocks'),
+    array('title' => lang('App.edit_content_block'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,7 +20,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Edit Content Block</h3>
+        <h3><?= lang('App.edit_content_block') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
@@ -36,7 +36,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide identifier
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -50,7 +50,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide title
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -64,7 +64,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide description
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -78,7 +78,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide content
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -94,7 +94,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide icon
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -117,7 +117,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <i class="ri-image-fill"></i>
                             </button>
                             <div class="invalid-feedback">
-                                Please provide image
+                                <?= lang('App.input_required') ?>
                             </div>
                         </div>
                         <!-- Error -->
@@ -133,14 +133,14 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-12">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 mb-3">
-                        <label for="video" class="form-label">Video</label>
+                        <label for="video" class="form-label"><?= lang('App.video') ?></label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="video" name="video" value="<?= $content_block_data['video'] ?>" placeholder="select video">
                             <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                                 <i class="ri-video-fill"></i>
                             </button>
                             <div class="invalid-feedback">
-                                Please provide video
+                                <?= lang('App.input_required') ?>
                             </div>
                         </div>
                         <!-- Error -->
@@ -156,14 +156,14 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-12">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 mb-3">
-                        <label for="file" class="form-label">File</label>
+                        <label for="file" class="form-label"><?= lang('App.file') ?></label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="file" name="file" value="<?= $content_block_data['file'] ?>" placeholder="select file">
                             <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
                                 <i class="ri-file-fill"></i>
                             </button>
                             <div class="invalid-feedback">
-                                Please provide file
+                                <?= lang('App.input_required') ?>
                             </div>
                         </div>
                         <!-- Error -->
@@ -181,7 +181,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="col-sm-12 col-md-9">
                         <label for="link" class="form-label">
                             Link
-                            <span class="small text-muted">(Use '/' for internal links)</span>
+                            <span class="small text-muted">(<?= lang('App.internal_link_hint') ?>)</span>
                         </label>
                         <input type="text" class="form-control" id="link" name="link" value="<?= $content_block_data['link']; ?>">
                         <!-- Error -->
@@ -191,7 +191,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             </div>
                         <?php }?>
                         <div class="invalid-feedback">
-                            Please provide link
+                            <?= lang('App.input_required') ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3">
@@ -207,7 +207,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             </div>
                         <?php }?>
                         <div class="invalid-feedback">
-                            Please provide new_tab
+                            <?= lang('App.input_required') ?>
                         </div>
                     </div>
                 </div>
@@ -225,13 +225,13 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide a order
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="group" class="form-label">
-                    Group
+                    <?= lang('App.group') ?>
                 </label>
                 <select class="form-select" aria-label="group" id="group" name="group">
                     <option value="">Select group</option>
@@ -244,7 +244,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide a group
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -269,7 +269,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             </div>
                                         <?php endif; ?>
                                         <div class="invalid-feedback">
-                                            Please provide custom field <?= $i ?>
+                                            <?= lang('App.input_required') ?> <?= $i ?>
                                         </div>
                                     </div>
                                 <?php endfor; ?>

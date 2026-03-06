@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>New Navigation<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.new_navigation') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -13,7 +13,7 @@ $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.cms'), 'url' => '/account/cms'),
     array('title' => 'Navigations', 'url' => '/account/cms/navigations'),
-    array('title' => 'New Navigation')
+    array('title' => lang('App.new_navigation'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,7 +21,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>New Navigation</h3>
+        <h3><?= lang('App.new_navigation') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide title
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -48,7 +48,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         hx-post="<?=base_url()?>/htmx/get-navigation-description-via-ai"
                         hx-trigger="click delay:250ms"
                         hx-target="#description-div"
-                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> <?= lang('App.use_ai') ?></button>
                 </div>
                 <div id="description-div">
                     <textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required><?= set_value('description') ?></textarea>
@@ -60,7 +60,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide description
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -71,7 +71,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         hx-post="<?=base_url()?>/htmx/get-remix-icon-via-ai"
                         hx-trigger="click delay:250ms"
                         hx-target="#icon-div"
-                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> <?= lang('App.use_ai') ?></button>
                 </div>
                 <div id="icon-div">
                     <input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="<?= htmlspecialchars(set_value('icon')) ?>" placeholder="E.g. ri-user-line">
@@ -83,13 +83,13 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide icon
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-4 mb-3">
                 <label for="group" class="form-label">
-                    Group
+                    <?= lang('App.group') ?>
                     <small class="text-muted">(<?= lang('App.group_filter_hint') ?>)</small>
                 </label>
                 <select class="form-select" aria-label="group" id="group" name="group">
@@ -103,7 +103,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide group
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -119,7 +119,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide order
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -136,7 +136,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide parent
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -144,8 +144,8 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="status" class="form-label"><?= lang('App.status') ?></label>
                 <select class="form-select" id="status" name="status" required>
                     <option value=""><?= lang('App.select_status') ?></option>
-                    <option value="0">Unpublished</option>
-                    <option value="1">Published</option>
+                    <option value="0"><?= lang('App.unpublished') ?></option>
+                    <option value="1"><?= lang('App.published') ?></option>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('status')) {?>
@@ -154,7 +154,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide status
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -171,7 +171,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide link
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 

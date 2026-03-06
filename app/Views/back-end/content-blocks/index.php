@@ -23,14 +23,14 @@ echo generateBreadcrumb($breadcrumb_links);
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/content-blocks/new-content-block')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Content Block
+            <i class="ri-add-fill"></i> <?= lang('App.new_content_block') ?>
         </a>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Content Blocks
+                <?= lang('App.content_blocks') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_content_blocks ?>
                 </span>

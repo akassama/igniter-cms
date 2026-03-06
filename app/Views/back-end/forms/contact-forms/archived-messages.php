@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Archived Contact Messages<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.archived_contact_messages') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -11,8 +11,8 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Forms', 'url' => '/account/forms'),
-    array('title' => 'Archived Contact Form Messages')
+    array('title' => lang('App.forms'), 'url' => '/account/forms'),
+    array('title' => lang('App.archived_contact_messages'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,14 +20,14 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Archived Contact Form Messages</h3>
+        <h3><?= lang('App.manage_archived_contact') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <i class="ri-grid-line me-1"></i>
-                    Archived Contact Messages
+                    <?= lang('App.archived_contact_messages') ?>
                     <span class="badge rounded-pill bg-dark">
                         <?= $total_contact_form_submissions ?>
                     </span>
@@ -36,7 +36,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div>
                     <a href="<?= base_url('account/forms/contact-forms'); ?>" 
                     class="btn btn-sm btn-outline-secondary">
-                        <i class="ri-archive-fill me-1"></i> View Inbox
+                        <i class="ri-archive-fill me-1"></i> <?= lang('App.view_inbox') ?>
                     </a>
                 </div>
             </div>

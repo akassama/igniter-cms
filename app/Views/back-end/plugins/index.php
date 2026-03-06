@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Plugins<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_plugins') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -11,27 +11,27 @@
    // Breadcrumbs
    $breadcrumb_links = array(
        array('title' => lang('App.dashboard'), 'url' => '/account'),
-       array('title' => 'Plugins')
+       array('title' => lang('App.manage_plugins'))
    );
    echo generateBreadcrumb($breadcrumb_links);
    ?>
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Plugins</h3>
+        <h3><?= lang('App.manage_plugins') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-between my-2">
         <div>
             <a href="#!" class="btn btn-outline-danger mx-1"  onclick="deletePluginData()">
-                <i class="ri-upload-2-fill"></i> Remove Plugin Data
+                <i class="ri-upload-2-fill"></i> <?= lang('App.remove_plugin_data') ?>
             </a>
         </div>
         <div>
             <a href="<?=base_url('/account/plugins/upload-plugin')?>" class="btn btn-outline-success mx-1">
-                <i class="ri-upload-2-fill"></i> Upload Plugin
+                <i class="ri-upload-2-fill"></i> <?= lang('App.upload_plugin') ?>
             </a>
             <a href="<?=base_url('/account/plugins/install-plugins')?>" class="btn btn-outline-dark mx-1">
-                <i class="ri-add-fill"></i> Add Plugin
+                <i class="ri-add-fill"></i> <?= lang('App.add_plugin') ?>
             </a>
         </div>
     </div>
@@ -80,8 +80,8 @@
                             <td>
                                 <p><?= esc($plugin['description']) ?></p>
                                 <small class="text-muted">
-                                    Version <?= esc($plugin['version']) ?> | 
-                                    By <?= esc($plugin['author']) ?> | 
+                                    <?= lang('App.version') ?> <?= esc($plugin['version']) ?> | 
+                                    <?= lang('App.by') ?> <?= esc($plugin['author']) ?> | 
                                     <a href="#!" class="view-details" data-slug="<?= esc($plugin['slug']) ?>" data-bs-toggle="modal" data-bs-target="#pluginModalId">View details</a>
                                 </small>
                                 <?php if ($updateAvailable == "1"): ?>
@@ -90,7 +90,7 @@
                             </td>
                             <td>
                                 <?php if ($pluginStatus == "1"): ?>
-                                    <a href="<?=base_url('account/plugins/manage/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-primary me-1 mb-1">Manage</a>
+                                    <a href="<?=base_url('account/plugins/manage/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-primary me-1 mb-1"><?= lang('App.manage') ?></a>
                                 <?php endif; ?>
                                 <?php if ($pluginStatus == "0"): ?>
                                     <a href="<?=base_url('account/plugins/activate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-success me-1 mb-1">Activate</a>
@@ -206,7 +206,7 @@
             function confirmDelete(pluginName, pluginSlug) {
                 Swal.fire({
                     title: 'Are you sure?',
-                    text: `Are you sure you want to delete the "${pluginName}" plugin and its data?`,
+                    text: `Are you sure you want to delete the plugin and its data? (${pluginName})`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#dc3545',

@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Edit User<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.edit_user') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -21,7 +21,7 @@ $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.admin'), 'url' => '/account/admin'),
     array('title' => lang('App.users'), 'url' => '/account/admin/users'),
-    array('title' => 'Edit User')
+    array('title' => lang('App.edit_user'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -29,7 +29,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Edit User</h3>
+        <h3><?= lang('App.edit_user') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
@@ -45,7 +45,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide first name
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
@@ -58,7 +58,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide last name
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
@@ -101,7 +101,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <?= $validation->getError('status'); ?>
                         </div>
                     <?php endif; ?>
-                    <div class="invalid-feedback">Please provide status</div>
+                    <div class="invalid-feedback"><?= lang('App.input_required') ?></div>
                 <?php endif; ?>
             </div>
 
@@ -126,7 +126,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <?= $validation->getError('role'); ?>
                         </div>
                     <?php endif; ?>
-                    <div class="invalid-feedback">Please provide role</div>
+                    <div class="invalid-feedback"><?= lang('App.input_required') ?></div>
                 <?php endif; ?>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
@@ -144,12 +144,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide profile_picture
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="twitter_link" class="form-label">Twitter URL</label>
+                <label for="twitter_link" class="form-label"><?= lang('App.twitter_url') ?></label>
                 <input type="url" class="form-control" id="twitter_link" name="twitter_link" maxlength="250" value="<?= $user_data['twitter_link'] ?>">
                 <!-- Error -->
                 <?php if($validation->getError('twitter_link')) {?>
@@ -158,11 +158,11 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide twitter_link
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="facebook_link" class="form-label">Facebook URL</label>
+                <label for="facebook_link" class="form-label"><?= lang('App.facebook_url') ?></label>
                 <input type="url" class="form-control" id="facebook_link" name="facebook_link" maxlength="250" value="<?= $user_data['facebook_link'] ?>">
                 <!-- Error -->
                 <?php if($validation->getError('facebook_link')) {?>
@@ -171,11 +171,11 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide facebook_link
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="instagram_link" class="form-label">Instagram URL</label>
+                <label for="instagram_link" class="form-label"><?= lang('App.instagram_url') ?></label>
                 <input type="url" class="form-control" id="instagram_link" name="instagram_link" maxlength="250" value="<?= $user_data['instagram_link'] ?>">
                 <!-- Error -->
                 <?php if($validation->getError('instagram_link')) {?>
@@ -184,11 +184,11 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide instagram_link
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="linkedin_link" class="form-label">LinkedIn URL</label>
+                <label for="linkedin_link" class="form-label"><?= lang('App.linkedin_url') ?></label>
                 <input type="url" class="form-control" id="linkedin_link" name="linkedin_link" maxlength="250" value="<?= $user_data['linkedin_link'] ?>">
                 <!-- Error -->
                 <?php if($validation->getError('linkedin_link')) {?>
@@ -197,12 +197,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide linkedin_link
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="about_summary" class="form-label">About Summary</label>
+                <label for="about_summary" class="form-label"><?= lang('App.about_summary') ?></label>
                 <textarea rows="1" class="form-control" id="about_summary" name="about_summary" maxlength="500"><?= $user_data['about_summary'] ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('about_summary')) {?>
@@ -211,12 +211,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide about_summary
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="password_change_required" class="form-label">Password Change Required</label>
+                <label for="password_change_required" class="form-label"><?= lang('App.password_change_required') ?></label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="password_change_required" name="password_change_required" value="1" <?= ($user_data['password_change_required'] == '1') ? 'checked' : '' ?>>
                     <label class="form-check-label small" for="password_change_required">Toggle to set as required</label>
@@ -228,7 +228,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide password_change_required
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 

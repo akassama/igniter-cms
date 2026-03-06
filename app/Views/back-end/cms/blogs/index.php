@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Blogs<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_blogs') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -12,7 +12,7 @@
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.cms'), 'url' => '/account/cms'),
-    array('title' => 'Blogs')
+    array('title' => lang('App.blogs'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,18 +20,18 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Blogs</h3>
+        <h3><?= lang('App.manage_blogs') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/cms/blogs/new-blog')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Blog
+            <i class="ri-add-fill"></i> <?= lang('App.new_blog') ?>
         </a>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Blogs
+                <?= lang('App.blogs') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_blogs ?>
                 </span>

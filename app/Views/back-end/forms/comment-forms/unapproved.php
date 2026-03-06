@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <i class="ri-grid-line me-1"></i>
-                    Unapproved
+                    <?= lang('App.Unapproved') ?>
                     <span class="badge rounded-pill bg-dark">
                         <?= $total_comment_form_submissions ?>
                     </span>
@@ -50,7 +50,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.name') ?></th>
                             <th><?= lang('App.email') ?></th>
                             <th><?= lang('App.comment') ?></th>
-                            <th>Page</th>
+                            <th><?= lang('App.page') ?></th>
                             <th><?= lang('App.ip') ?></th>
                             <th><?= lang('App.country') ?></th>
                             <th><?= lang('App.status') ?></th>

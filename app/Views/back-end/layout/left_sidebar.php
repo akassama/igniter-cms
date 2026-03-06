@@ -258,7 +258,7 @@ $userRole = getUserRole($sessionEmail);
                     <?= $sessionName ?> (<?=$userRole?>)
                 </span>
                 <br/>
-                <span class="small">Version <?=env("APP_VERSION")?></span>
+                <span class="small"><?= lang('App.version') ?> <?=env("APP_VERSION")?></span>
             </div>
         </nav>
     </div>     

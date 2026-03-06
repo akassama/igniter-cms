@@ -53,7 +53,7 @@ echo generateBreadcrumb($breadcrumb_links);
         if(!empty($missingPlugins)){
             ?>
                 <div class="alert alert-danger">
-                    The active theme (<strong><?=$currentTheme?></strong>) requires the following missing plugins: 
+                    The active theme requires the following missing plugins (<strong><?=$currentTheme?></strong>): 
                     <strong><?= implode(", ", $missingPlugins); ?></strong>. 
                     Please install and activate these plugins to ensure proper functionality of the theme.
                 </div>
@@ -75,7 +75,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="card-body">
                         <h5 class="card-title">
                             <?php if($theme['selected'] == "1"): ?>
-                                <span class="text-muted">Active:</span> 
+                                <span class="text-muted"><?=lang('App.active')?>:</span> 
                             <?php endif; ?>
                             <?= $theme['name']; ?>
                         </h5>
@@ -93,7 +93,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <?php if ($theme['deletable'] == 1 && $theme['selected'] !== "1"): ?>
                                 <a href="#!" 
                                 onclick="deleteTheme('<?=$theme['path']?>', '<?= $theme['theme_id'] ?>')" 
-                                class="btn btn-sm btn-outline-danger ms-auto">Delete</a>
+                                class="btn btn-sm btn-outline-danger ms-auto"><?=lang('App.delete')?></a>
                             <?php endif; ?>
                         </div>
                         
@@ -111,7 +111,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php else: ?>
             <div class="col-12">
                 <div class="alert alert-info">
-                    No themes found. <a href="<?=base_url('/account/appearance/themes/install-themes')?>" class="alert-link">Add your first theme</a>.
+                    No themes found. <a href="<?=base_url('/account/appearance/themes/install-themes')?>" class="alert-link">Add your first theme</a>
                 </div>
             </div>
         <?php endif; ?>

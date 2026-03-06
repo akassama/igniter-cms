@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Unsubscribed<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.unsubscribed') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -11,7 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Forms', 'url' => '/account/forms'),
+    array('title' => lang('App.forms'), 'url' => '/account/forms'),
     array('title' => 'Subscription Forms (Unsubscribed)')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <i class="ri-grid-line me-1"></i>
-                    Unsubscribed
+                    <?= lang('App.unsubscribed') ?>
                     <span class="badge rounded-pill bg-dark">
                         <?= $total_subscription_form_submissions ?>
                     </span>
@@ -54,7 +54,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.ip') ?></th>
                             <th><?= lang('App.country') ?></th>
                             <th>Unsubscribed At</th>
-                            <th>Created</th>
+                            <th><?= lang('App.created_on') ?></th>
                             <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>

@@ -48,7 +48,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 $configValue = getConfigData($config_data['config_for']);
             ?>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="config_value" class="form-label">Config value</label>
+                <label for="config_value" class="form-label"><?= lang('App.config_value') ?></label>
                 
                 <?php if ($dataType === 'Text'): ?>
                     <input type="text" class="form-control" id="config_value" name="config_value" value="<?= $configValue ?>" readonly>

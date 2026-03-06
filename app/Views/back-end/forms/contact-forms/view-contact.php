@@ -11,7 +11,7 @@
 // Breadcrumbs
 $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
-    array('title' => 'Forms', 'url' => '/account/forms'),
+    array('title' => lang('App.forms'), 'url' => '/account/forms'),
     array('title' => 'Contact Forms', 'url' => '/account/forms/contact-forms'),
     array('title' => 'View Contact Form')
 );
@@ -90,11 +90,11 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
 
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="user_agent" class="form-label">User Agent</label>
+                    <label for="user_agent" class="form-label"><?= lang('App.user_agent') ?></label>
                     <input type="text" class="form-control" id="user_agent" name="user_agent" value="<?= $contact_message_data['user_agent'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="referrer" class="form-label">Referrer</label>
+                    <label for="referrer" class="form-label"><?= lang('App.referrer') ?></label>
                     <input type="text" class="form-control" id="referrer" name="referrer" minlength="6" maxlength="20" value="<?= $contact_message_data['referrer'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
@@ -112,14 +112,14 @@ echo generateBreadcrumb($breadcrumb_links);
                                 data-bs-toggle="modal"
                                 data-bs-target="#editStatusModal"
                                 aria-controls="editStatusModal">
-                            <i class="ri-edit-line me-1"></i> Edit
+                            <i class="ri-edit-line me-1"></i> <?= lang('App.edit') ?>
                         </button>
                     </div>
                     <input type="text" class="form-control" id="status" name="status" minlength="6" maxlength="20" value="<?= $contact_message_data['status'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-12 mb-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <label for="notes" class="form-label mb-0">Notes</label>
+                        <label for="notes" class="form-label mb-0"><?= lang('App.notes') ?></label>
 
                         <!-- Edit button opens modal -->
                         <button type="button"
@@ -127,7 +127,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 data-bs-toggle="modal"
                                 data-bs-target="#editNotesModal"
                                 aria-controls="editNotesModal">
-                            <i class="ri-edit-line me-1"></i> Edit
+                            <i class="ri-edit-line me-1"></i> <?= lang('App.edit') ?>
                         </button>
                     </div>
 
@@ -145,7 +145,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="mb-3 mt-3">
                     <a href="<?= base_url('/account/forms/contact-forms') ?>" class="btn btn-outline-danger">
                         <i class="ri-arrow-left-fill"></i>
-                        Back
+                        <?= lang('App.back') ?>
                     </a>
                 </div>
             </div>
@@ -184,7 +184,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <i class="ri-close-circle-fill me-1"></i>Close
           </button>
           <button type="submit" class="btn btn-primary">
-            <i class="ri-save-3-line me-1"></i> Update
+            <i class="ri-save-3-line me-1"></i> <?= lang('App.update') ?>
           </button>
         </div>
       <?php echo form_close(); ?>
@@ -210,7 +210,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <!-- Notes textarea -->
             <div class="col-12">
-                <label for="notesTextarea" class="form-label">Notes</label>
+                <label for="notesTextarea" class="form-label"><?= lang('App.notes') ?></label>
                 <textarea class="form-control" id="notesTextarea" name="notes" rows="8" required><?= esc($contact_message_data['notes']); ?></textarea>
                 <div class="invalid-feedback">Please enter some notes or close the editor.</div>
             </div>
@@ -221,7 +221,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <i class="ri-close-circle-fill me-1"></i>Close
           </button>
           <button type="submit" class="btn btn-primary">
-            <i class="ri-save-3-line me-1"></i> Update
+            <i class="ri-save-3-line me-1"></i> <?= lang('App.update') ?>
           </button>
         </div>
       <?php echo form_close(); ?>

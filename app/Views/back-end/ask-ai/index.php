@@ -32,7 +32,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <textarea class="form-control" id="ai_question" name="ai_question" rows="2" 
                         placeholder="Ask me anything about your CMS, configurations, or technical issues..." required></textarea>
                     <div class="invalid-feedback">
-                        Please enter your question.
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
                 
@@ -60,7 +60,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                         <div class="card-body" id="ai-help-response-div">
                             <div class="ai-response-placeholder text-muted">
-                                <p class="mb-0">Your AI response will appear here after you ask a question.</p>
+                                <p class="mb-0"><?= lang('App.ai_response_wait') ?></p>
                                 <img  id="spinner" class="htmx-indicator" src="<?=base_url('public/uploads/default/loading.gif')?>" style="height: 75px"/>
                             </div>
                         </div>

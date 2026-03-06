@@ -13,7 +13,7 @@ $breadcrumb_links = array(
     array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => lang('App.appearance'), 'url' => '/account/appearance'),
     array('title' => lang('App.themes'), 'url' => '/account/appearance/themes'),
-    array('title' => 'New Theme')
+    array('title' => lang('App.new_theme'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide theme_file
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             

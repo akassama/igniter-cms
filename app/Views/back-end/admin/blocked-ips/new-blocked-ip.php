@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide ip_address
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -54,7 +54,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide country
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -68,7 +68,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide block_start_time
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
@@ -81,14 +81,14 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide block_end_time
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="reason" class="form-label"><?= lang('App.reason') ?></label>
                 <select class="form-select" aria-label="Block Reason" id="reason" name="reason" required>
-                    <option value="">Select reason</option>
+                    <option value=""><?= lang('App.select_reason') ?></option>
                     <option value="too_many_failed_logins" <?= set_select('reason', 'too_many_failed_logins');?>><?= lang('App.too_many_failed_logins') ?></option>
                     <option value="suspicious_activity" <?= set_select('reason', 'suspicious_activity');?>><?= lang('App.suspicious_activity') ?></option>
                     <option value="malicious_traffic" <?= set_select('reason', 'malicious_traffic');?>><?= lang('App.malicious_traffic') ?></option>
@@ -109,7 +109,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide reason
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -123,7 +123,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide notes
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -137,7 +137,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide page_visited_url
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 

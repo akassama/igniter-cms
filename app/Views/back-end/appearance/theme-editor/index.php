@@ -13,7 +13,7 @@ $customConfig = config('CustomConfig');
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Edit Theme Files<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.edit_theme_files') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -31,10 +31,10 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <div class="col-12">
         <h3>
-            Edit Theme Files
+            <?= lang('App.edit_theme_files') ?>
         </h3>
         <h6 class="float-start">
-            Theme: <?=getCurrentTheme()?>
+            <?= lang('App.theme') ?>: <?=getCurrentTheme()?>
         </h6>
     </div>
     <div class="col-12">
@@ -168,7 +168,6 @@ echo generateBreadcrumb($breadcrumb_links);
         </div>
     </div>
 </div>
-
 
 <!-- end main content -->
 <?= $this->endSection() ?>

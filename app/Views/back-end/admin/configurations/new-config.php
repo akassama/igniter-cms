@@ -41,13 +41,13 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide config_for
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div id="existing-config-error">
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="config_value" class="form-label">Config Value</label>
+                <label for="config_value" class="form-label"><?= lang('App.config_value') ?></label>
                 <input type="text" class="form-control" id="config_value" name="config_value" value="<?= set_value('config_value') ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('config_value')) {?>
@@ -56,7 +56,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide config_value
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
@@ -69,7 +69,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide description
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -83,7 +83,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide group
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -104,7 +104,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide data_type
+                   <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -118,7 +118,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide options
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -132,7 +132,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide default_value
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -146,7 +146,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide custom_class
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -157,7 +157,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         hx-post="<?=base_url()?>/htmx/get-remix-icon-via-ai"
                         hx-trigger="click delay:250ms"
                         hx-target="#icon-div"
-                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> <?= lang('App.use_ai') ?></button>
                 </div>
                 <div id="icon-div">
                     <input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="<?= htmlspecialchars(set_value('icon')) ?>" placeholder="E.g. ri-user-line">
@@ -169,7 +169,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide icon
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
@@ -182,7 +182,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide search_terms
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 

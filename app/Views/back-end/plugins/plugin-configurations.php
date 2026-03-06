@@ -108,7 +108,7 @@ function editSwalModal(pluginConfig_id, configValue, configKey) {
             </form>
         `,
         showCancelButton: true,
-        confirmButtonText: 'Update',
+        confirmButtonText: <?= lang('App.update') ?>,
         cancelButtonText: 'Cancel',
         confirmButtonColor: '#28a745',
         cancelButtonColor: '#6c757d',
