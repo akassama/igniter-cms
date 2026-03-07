@@ -29,44 +29,14 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row align-items-center mb-4">
             <?php
             $config = config('App');
-            $currentLocale = service('request')->getLocale();
+            $currentLocale = getCurrentLocale();
             $supportedLocales = $config->supportedLocales;
-
-            // Locale names for display
-            $localeNames = [
-                'en' => 'English',
-                'fr' => 'Français',
-                'es' => 'Español',
-                'ar' => 'العربية',
-                'zh' => '中文',
-                'ru' => 'Русский',
-                'de' => 'Deutsch',
-                'hi' => 'हिन्दी',
-                'pt' => 'Português',
-                'bn' => 'বাংলা',
-                'ja' => '日本語',
-            ];
-
-            // Locale flag names
-            $localeFlagNames = [
-                'en' => 'fi-gb',
-                'fr' => 'fi-fr',
-                'es' => 'fi-es',
-                'ar' => 'fi-sa', 
-                'zh' => 'fi-cn',
-                'ru' => 'fi-ru',
-                'de' => 'fi-de',
-                'hi' => 'fi-in',
-                'pt' => 'fi-pt',
-                'bn' => 'fi-bd',
-                'ja' => 'fi-jp',
-            ];
             ?>
             <div class="col-auto">
                 <span class="text-muted me-2"><?= lang('App.current_locale') ?>:</span>
                 <span class="fw-bold text-primary">
-                    <i class="fi <?= $localeFlagNames[$currentLocale] ?? 'fi-placeholder' ?> me-1"></i>
-                    <?= $localeNames[$currentLocale] ?? $currentLocale ?>
+                    <i class="fi <?= getLocaleFlagClass($currentLocale) ?> me-1"></i>
+                    <?= getLocaleDisplayName($currentLocale) ?>
                 </span>
             </div>
 
@@ -81,8 +51,8 @@ echo generateBreadcrumb($breadcrumb_links);
                             <li>
                                 <a class="dropdown-item d-flex align-items-center <?= ($locale == $currentLocale) ? 'active' : '' ?>"
                                    href="<?= base_url('language/switch/' . $locale) ?>">
-                                    <i class="fi <?= $localeFlagNames[$locale] ?? 'fi-placeholder' ?> me-2"></i>
-                                    <span><?= $localeNames[$locale] ?? $locale ?></span>
+                                    <i class="fi <?= getLocaleFlagClass($locale) ?> me-2"></i>
+                                    <span><?= getLocaleDisplayName($locale) ?></span>
                                     <?php if ($locale == $currentLocale): ?>
                                         <i class="ri-check-line ms-auto"></i>
                                     <?php endif; ?>
@@ -92,6 +62,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </ul>
                 </div>
             </div>
+
         </div>
 
         <hr class="my-4">

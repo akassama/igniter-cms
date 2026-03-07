@@ -21,7 +21,7 @@ class HtmxController extends BaseController
         if(!empty($userEmail)){
             if (recordExists($tableName, $primaryKey, $userEmail)) {
                 // Record already exists
-                echo '<span class="text-danger">User with email ('.$userEmail.') already exists</span>';
+                echo '<span class="text-danger">User with email already exists ('.$userEmail.')</span>';
             }
         }
 
@@ -43,7 +43,7 @@ class HtmxController extends BaseController
         if(!empty($username)){
             if (recordExists($tableName, $primaryKey, $username)) {
                 // Record already exists
-                echo '<span class="text-danger">User with username ('.$username.') already exists</span>';
+                echo '<span class="text-danger">User with username already exists ('.$username.')</span>';
             }
         }
 
@@ -110,7 +110,7 @@ class HtmxController extends BaseController
         if(!empty($configFor)){
             if (recordExists($tableName, $primaryKey, $configFor)) {
                 // Record already exists
-                echo '<span class="text-danger">Config for ('.$configFor.') already exists</span>';
+                echo '<span class="text-danger">Config for this key already exists ('.$configFor.')</span>';
             }
         }
 
