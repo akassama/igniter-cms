@@ -56,7 +56,7 @@ class FormsController extends BaseController
         $contactMessage = $contactMessagesModel->where('contact_form_id', $contactMessageId)->first();
 
         if (!$contactMessage) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/forms/contact-forms');
         }
@@ -272,7 +272,7 @@ class FormsController extends BaseController
 
         // If not found, show 404
         if (!$booking) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/forms/booking-forms');
         }

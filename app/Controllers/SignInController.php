@@ -71,7 +71,7 @@ class SignInController extends BaseController
                 // Check if user status is active
                 if ($user['status'] != 1) {
                     // Login failed: Redirect back to login page with user not active error message
-                    $pendingActivationMsg = config('CustomConfig')->pendingActivationMsg;
+                    $pendingActivationMsg = lang('App.pending_activation_msg');
                     session()->setFlashdata('errorAlert', $pendingActivationMsg);
                     return redirect()->to('/sign-in');
                 }
@@ -108,7 +108,7 @@ class SignInController extends BaseController
                 session()->remove('failed_login_attempts');
 
                 // Redirect to dashboard
-                $loginSuccessMsg = config('CustomConfig')->loginSuccessMsg;
+                $loginSuccessMsg = lang('App.login_success_msg');
                 session()->setFlashdata('toastrSuccessAlert', $loginSuccessMsg);
 
                 // Log activity
@@ -149,7 +149,7 @@ class SignInController extends BaseController
                     session()->remove('failed_login_attempts');
 
                     // Set a flash message
-                    $tooManyFailedLogins = config('CustomConfig')->tooManyFailedLogins;
+                    $tooManyFailedLogins = lang('App.too_many_failed_logins');
                     session()->setFlashdata('errorAlert', $tooManyFailedLogins);
 
                     // Log activity
@@ -159,7 +159,7 @@ class SignInController extends BaseController
                 }
 
                 // Login failed: Redirect back to login page with an error message
-                $wrongCredentialsMsg = config('CustomConfig')->wrongCredentialsMsg;
+                $wrongCredentialsMsg = lang('App.wrong_credentials_msg');
                 session()->setFlashdata('errorAlert', $wrongCredentialsMsg);
 
                 // Log activity

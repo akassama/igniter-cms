@@ -76,7 +76,7 @@ class SettingsController extends BaseController
             $builder->update($data);
 
             // Record updated successfully. Redirect to dashboard
-            $editSuccessMsg = str_replace('[Record]', 'User', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'User', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $editSuccessMsg);
 
             //log activity
@@ -86,7 +86,7 @@ class SettingsController extends BaseController
         }
         else{
             $data['validation'] = $this->validator;
-            $errorMsg = config('CustomConfig')->missingRequiredInputsMsg;
+            $errorMsg = lang('App.missing_inputs_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
@@ -144,7 +144,7 @@ class SettingsController extends BaseController
             if (!$userData)
             {
                 //show current password not valid
-                $errorMsg = config('CustomConfig')->currentPasswordMissMatch;
+                $errorMsg = lang('App.current_password_error');
                 session()->setFlashdata('errorAlert', $errorMsg);
                 return view('back-end/settings/change-password/index', $data);
             }
@@ -152,7 +152,7 @@ class SettingsController extends BaseController
             //check if new passwords match
             if($newPassword != $repeatPassword)
             {
-                $errorMsg = config('CustomConfig')->currentNewPasswordMissMatch;
+                $errorMsg = lang('App.new_password_mismatch_msg');
                 session()->setFlashdata('errorAlert', $errorMsg);
                 return view('back-end/settings/change-password/index', $data);
             }
@@ -168,7 +168,7 @@ class SettingsController extends BaseController
             $builder->update($data);
 
             // Record updated successfully. Redirect to dashboard
-            $editSuccessMsg = str_replace('[Record]', 'Password', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Password', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $editSuccessMsg);
 
             //log activity
@@ -178,7 +178,7 @@ class SettingsController extends BaseController
         }
         else{
             $data['validation'] = $this->validator;
-            $errorMsg = config('CustomConfig')->missingRequiredInputsMsg;
+            $errorMsg = lang('App.missing_inputs_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity

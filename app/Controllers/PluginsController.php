@@ -106,7 +106,7 @@ class PluginsController extends BaseController
             // Update plugin config
             $db = \Config\Database::connect();
             $db->query("UPDATE plugin_configs SET config_value = ? WHERE id = ?", [$configValue, $pluginId]);
-            $editSuccessMsg = str_replace('[Record]', 'Plugin Config', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Plugin Config', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin config ' . $configKey . ' updated.', $actionUrl, null, null, json_encode($previousData), null);
         } catch (\Exception $e) {
@@ -314,7 +314,7 @@ class PluginsController extends BaseController
                 // Check if plugin directory already exists using the slug
                 if (is_dir($pluginDir)) {
                     if (!$override) {
-                        $alreadyExistMsg = config('CustomConfig')->alreadyExistMsg;
+                        $alreadyExistMsg = lang('App.already_exist_msg');
                         $alreadyExistMsg = str_replace('[Record]', 'Plugin', $alreadyExistMsg);
                         session()->setFlashdata('errorAlert', $alreadyExistMsg);
                         logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Plugin already exists (using slug): ' . $pluginSlug, $actionUrl, null, null, json_encode($previousData), null);
@@ -506,7 +506,7 @@ class PluginsController extends BaseController
                     }
 
                     // Success
-                    $createSuccessMsg = str_replace('[Record]', 'Plugin', config('CustomConfig')->createSuccessMsg);
+                    $createSuccessMsg = str_replace('[Record]', 'Plugin', lang('App.create_success_msg'));
                     session()->setFlashdata('successAlert', $createSuccessMsg);
                     logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin uploaded and processed (using slug): ' . $pluginSlug, $actionUrl, null, null, json_encode($previousData), null);
 
@@ -573,7 +573,7 @@ class PluginsController extends BaseController
 
 
         } else {
-            $errorMsg = $pluginFile->getErrorString() ?: config('CustomConfig')->errorMsg;
+            $errorMsg = $pluginFile->getErrorString() ?: lang('App.error_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to upload plugin: ' . $errorMsg, $actionUrl, null, null, json_encode($previousData), null);
             return redirect()->to('/account/plugins/upload-plugin');

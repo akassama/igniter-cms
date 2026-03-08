@@ -84,12 +84,12 @@ class CMSController extends BaseController
 
         if ($blogsModel->createBlog($data)) {
             $insertedId = $blogsModel->getInsertID();
-            $createSuccessMsg = str_replace('[Record]', 'Blog', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Blog', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::BLOG_CREATION, 'Blog created: with id' . $insertedId, $actionUrl, get_class($blogsModel), $insertedId, json_encode($previousData), null);
             return redirect()->to('/account/cms/blogs');
         } else {
-            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            session()->setFlashdata('errorAlert', lang('App.error_msg'));
             logActivity($loggedInUserId, ActivityTypes::FAILED_BLOG_CREATION, 'Failed to create blog with title: ' . $data['title'], $actionUrl, get_class($blogsModel), null, json_encode($previousData), null);
             return view('back-end/cms/blogs/new-blog');
         }
@@ -100,7 +100,7 @@ class CMSController extends BaseController
         $tableName = 'blogs';
         //Check if record exists
         if (!recordExists($tableName, "blog_id", $blogId)) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/cms/blogs');
         }
@@ -115,7 +115,7 @@ class CMSController extends BaseController
         $tableName = 'blogs';
         //Check if record exists
         if (!recordExists($tableName, "blog_id", $blogId)) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/cms/blogs');
         }
@@ -167,12 +167,12 @@ class CMSController extends BaseController
         ];
 
         if ($blogsModel->updateBlog($blogId, $data)) {
-            $editSuccessMsg = str_replace('[Record]', 'Blog', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Blog', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::BLOG_UPDATE, 'Blog updated with id: ' . $blogId, $actionUrl, get_class($blogsModel), $blogId, json_encode($previousData), null);
             return redirect()->to('/account/cms/blogs');
         } else {
-            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            session()->setFlashdata('errorAlert', lang('App.error_msg'));
             logActivity($loggedInUserId, ActivityTypes::FAILED_BLOG_UPDATE, 'Failed to update blog with id: ' . $blogId, $actionUrl, get_class($blogsModel), $blogId, json_encode($previousData), null);
             return redirect()->to('/account/cms/edit-blog/' . $blogId);
         }
@@ -226,12 +226,12 @@ class CMSController extends BaseController
 
         if ($categoriesModel->createCategory($data)) {
             $insertedId = $categoriesModel->getInsertID();
-            $createSuccessMsg = str_replace('[Record]', 'Category', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Category', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::CATEGORY_CREATION, 'Category created with id: ' . $insertedId, $actionUrl, get_class($categoriesModel), $insertedId, json_encode($previousData), null);
             return redirect()->to('/account/cms/categories');
         } else {
-            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            session()->setFlashdata('errorAlert', lang('App.error_msg'));
             logActivity($loggedInUserId, ActivityTypes::FAILED_CATEGORY_CREATION, 'Failed to create category with title: ' . $data['title'], $actionUrl, get_class($categoriesModel), null, json_encode($previousData), null);
             return view('back-end/cms/categories/new-category');
         }
@@ -243,7 +243,7 @@ class CMSController extends BaseController
         $tableName = 'categories';
         //Check if record exists
         if (!recordExists($tableName, "category_id", $categoryId)) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/cms/categories');
         }
@@ -279,12 +279,12 @@ class CMSController extends BaseController
         ];
 
         if ($categoriesModel->updateCategory($categoryId, $data)) {
-            $editSuccessMsg = str_replace('[Record]', 'Category', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Category', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::CATEGORY_UPDATE, 'Category updated with id: ' . $categoryId, $actionUrl, get_class($categoriesModel), $categoryId, json_encode($previousData), json_encode($data));
             return redirect()->to('/account/cms/categories');
         } else {
-            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            session()->setFlashdata('errorAlert', lang('App.error_msg'));
             logActivity($loggedInUserId, ActivityTypes::FAILED_CATEGORY_UPDATE, 'Failed to update category with id: ' . $categoryId, $actionUrl, get_class($categoriesModel), $categoryId, json_encode($previousData), json_encode($data));
             return redirect()->to('/account/cms/edit-category/' . $categoryId);
         }
@@ -340,12 +340,12 @@ class CMSController extends BaseController
 
         if ($navigationsModel->createNavigation($data)) {
             $insertedId = $navigationsModel->getInsertID();
-            $createSuccessMsg = str_replace('[Record]', 'Navigation', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Navigation', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::NAVIGATION_CREATION, 'Navigation created with id: ' . $insertedId, $actionUrl, get_class($navigationsModel), $insertedId, json_encode($previousData), null);
             return redirect()->to('/account/cms/navigations');
         } else {
-            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            session()->setFlashdata('errorAlert', lang('App.error_msg'));
             logActivity($loggedInUserId, ActivityTypes::FAILED_NAVIGATION_CREATION, 'Failed to create navigation with title: ' . $data['title'], $actionUrl, get_class($navigationsModel), null, json_encode($previousData), null);
             return view('back-end/cms/navigations/new-navigation');
         }
@@ -356,7 +356,7 @@ class CMSController extends BaseController
         $tableName = 'navigations';
         //Check if record exists
         if (!recordExists($tableName, "navigation_id", $navigationId)) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/cms/navigations');
         }
@@ -371,7 +371,7 @@ class CMSController extends BaseController
         $tableName = 'navigations';
         //Check if record exists
         if (!recordExists($tableName, "navigation_id", $navigationId)) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/cms/navigations');
         }
@@ -409,12 +409,12 @@ class CMSController extends BaseController
         ];
 
         if ($navigationsModel->updateNavigation($navigationId, $data)) {
-            $editSuccessMsg = str_replace('[Record]', 'Navigation', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Navigation', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::NAVIGATION_UPDATE, 'Navigation updated with id: ' . $navigationId, $actionUrl, get_class($navigationsModel), $navigationId, json_encode($previousData), null);
             return redirect()->to('/account/cms/navigations');
         } else {
-            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            session()->setFlashdata('errorAlert', lang('App.error_msg'));
             logActivity($loggedInUserId, ActivityTypes::FAILED_NAVIGATION_UPDATE, 'Failed to update navigation with id: ' . $navigationId, $actionUrl, get_class($navigationsModel), null, json_encode($previousData), null);
             return redirect()->to('/account/cms/edit-navigation/' . $navigationId);
         }
@@ -469,12 +469,12 @@ class CMSController extends BaseController
 
         if ($pagesModel->createPage($data)) {
             $insertedId = $pagesModel->getInsertID();
-            $createSuccessMsg = str_replace('[Record]', 'Page', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Page', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::PAGE_CREATION, 'Page created with id: ' . $insertedId, $actionUrl, get_class($pagesModel), $insertedId, json_encode($previousData), null);
             return redirect()->to('/account/cms/pages');
         } else {
-            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            session()->setFlashdata('errorAlert', lang('App.error_msg'));
             logActivity($loggedInUserId, ActivityTypes::FAILED_PAGE_CREATION, 'Failed to create page with title: ' . $data['title'], $actionUrl, get_class($pagesModel), null, json_encode($previousData), null);
             return view('back-end/cms/pages/new-page');
         }
@@ -485,7 +485,7 @@ class CMSController extends BaseController
         $tableName = 'pages';
         //Check if record exists
         if (!recordExists($tableName, "page_id", $pageId)) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/cms/pages');
         }
@@ -500,7 +500,7 @@ class CMSController extends BaseController
         $tableName = 'pages';
         //Check if record exists
         if (!recordExists($tableName, "page_id", $pageId)) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/cms/pages');
         }
@@ -537,12 +537,12 @@ class CMSController extends BaseController
         ];
 
         if ($pagesModel->updatePage($pageId, $data)) {
-            $editSuccessMsg = str_replace('[Record]', 'Page', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Page', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $editSuccessMsg);
             logActivity($loggedInUserId, ActivityTypes::PAGE_UPDATE, 'Page updated with id: ' . $pageId, $actionUrl, get_class($pagesModel), $pageId, json_encode($previousData), null);
             return redirect()->to('/account/cms/pages');
         } else {
-            session()->setFlashdata('errorAlert', config('CustomConfig')->errorMsg);
+            session()->setFlashdata('errorAlert', lang('App.error_msg'));
             logActivity($loggedInUserId, ActivityTypes::FAILED_PAGE_UPDATE, 'Failed to update page with id: ' . $pageId, $actionUrl, get_class($pagesModel), null, json_encode($previousData), null);
             return redirect()->to('/account/cms/edit-page/' . $pageId);
         }
@@ -605,7 +605,7 @@ class CMSController extends BaseController
             $insertedId = $dataGroupsModel ->getInsertID();
     
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = str_replace('[Record]', 'Data Group', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Data Group', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
     
             //log activity
@@ -614,7 +614,7 @@ class CMSController extends BaseController
             return redirect()->to('/account/cms/data-groups');
         } else {
             // Failed to create record. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
+            $errorMsg = lang('App.error_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
     
             //log activity
@@ -632,7 +632,7 @@ class CMSController extends BaseController
         $dataGroup = $dataGroupsModel->where('data_group_id', $dataGroupId)->first();
     
         if (!$dataGroup) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/cms/data-groups');
         }
@@ -677,7 +677,7 @@ class CMSController extends BaseController
             $builder->update($data);
     
             // Record updated successfully. Redirect to dashboard
-            $editSuccessMsg = str_replace('[Record]', 'Data Group', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Data Group', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $editSuccessMsg);
     
             //log activity
@@ -687,7 +687,7 @@ class CMSController extends BaseController
         }
         else{
             $data['validation'] = $this->validator;
-            $errorMsg = config('CustomConfig')->missingRequiredInputsMsg;
+            $errorMsg = lang('App.missing_inputs_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
     
             //log activity

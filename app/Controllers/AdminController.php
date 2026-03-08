@@ -103,7 +103,7 @@ class AdminController extends BaseController
             $insertedId = $usersModel->getInsertID();
 
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = str_replace('[Record]', 'User', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'User', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -112,7 +112,7 @@ class AdminController extends BaseController
             return redirect()->to('/account/admin/users');
         } else {
             // Failed to create record. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
+            $errorMsg = lang('App.error_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
@@ -130,7 +130,7 @@ class AdminController extends BaseController
         $user = $usersModel->where('user_id', $userId)->first();
 
         if (!$user) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/admin/users');
         }
@@ -187,7 +187,7 @@ class AdminController extends BaseController
             $builder->update($data);
 
             // Record updated successfully. Redirect to dashboard
-            $createSuccessMsg = str_replace('[Record]', 'User', config('CustomConfig')->editSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'User', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -197,7 +197,7 @@ class AdminController extends BaseController
         }
         else{
             $data['validation'] = $this->validator;
-            $errorMsg = config('CustomConfig')->missingRequiredInputsMsg;
+            $errorMsg = lang('App.missing_inputs_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
@@ -215,7 +215,7 @@ class AdminController extends BaseController
         $user = $usersModel->where('user_id', $userId)->first();
 
         if (!$user) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/admin/users');
         }
@@ -285,7 +285,7 @@ class AdminController extends BaseController
             $insertedId = $apiKeysModel->getInsertID();
 
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = str_replace('[Record]', 'API Key', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'API Key', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -294,7 +294,7 @@ class AdminController extends BaseController
             return redirect()->to('/account/admin/api-keys');
         } else {
             // Failed to create record. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
+            $errorMsg = lang('App.error_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
@@ -312,7 +312,7 @@ class AdminController extends BaseController
         $apiKey = $apiKeysModel->where('api_id', $apiId)->first();
 
         if (!$apiKey) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/admin/api-keys');
         }
@@ -360,7 +360,7 @@ class AdminController extends BaseController
             $builder->update($data);
 
             // Record updated successfully. Redirect to dashboard
-            $editSuccessMsg = str_replace('[Record]', 'API Key', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'API Key', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $editSuccessMsg);
 
             //log activity
@@ -370,7 +370,7 @@ class AdminController extends BaseController
         }
         else{
             $data['validation'] = $this->validator;
-            $errorMsg = config('CustomConfig')->missingRequiredInputsMsg;
+            $errorMsg = lang('App.missing_inputs_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
@@ -448,7 +448,7 @@ class AdminController extends BaseController
             $insertedId = $configModel->getInsertID();
 
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = str_replace('[Record]', 'Configuration', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Configuration', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -457,7 +457,7 @@ class AdminController extends BaseController
             return redirect()->to('/account/admin/configurations');
         } else {
             // Failed to create record. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
+            $errorMsg = lang('App.error_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
@@ -475,7 +475,7 @@ class AdminController extends BaseController
         $configuration = $configModel->where('config_id', $configId)->first();
 
         if (!$configuration) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/admin/configurations');
         }
@@ -496,7 +496,7 @@ class AdminController extends BaseController
         $configuration = $configModel->where('config_id', $configId)->first();
 
         if (!$configuration) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/admin/configurations');
         }
@@ -554,7 +554,7 @@ class AdminController extends BaseController
             $builder->update($data);
 
             // Record updated successfully. Redirect to dashboard
-            $editSuccessMsg = str_replace('[Record]', 'Configuration', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Configuration', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $editSuccessMsg);
 
             //log activity
@@ -564,7 +564,7 @@ class AdminController extends BaseController
         }
         else{
             $data['validation'] = $this->validator;
-            $errorMsg = config('CustomConfig')->missingRequiredInputsMsg;
+            $errorMsg = lang('App.missing_inputs_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
@@ -631,7 +631,7 @@ class AdminController extends BaseController
             $insertedId = $codesModel->getInsertID();
     
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = str_replace('[Record]', 'Code', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Code', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
     
             //log activity
@@ -640,7 +640,7 @@ class AdminController extends BaseController
             return redirect()->to('/account/admin/codes');
         } else {
             // Failed to create record. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
+            $errorMsg = lang('App.error_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
     
             //log activity
@@ -658,7 +658,7 @@ class AdminController extends BaseController
         $codeuration = $codesModel->where('code_id', $codeId)->first();
     
         if (!$codeuration) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/admin/codes');
         }
@@ -703,7 +703,7 @@ class AdminController extends BaseController
             $builder->update($data);
     
             // Record updated successfully. Redirect to dashboard
-            $editSuccessMsg = str_replace('[Record]', 'Code', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Code', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $editSuccessMsg);
     
             //log activity
@@ -713,7 +713,7 @@ class AdminController extends BaseController
         }
         else{
             $data['validation'] = $this->validator;
-            $errorMsg = config('CustomConfig')->missingRequiredInputsMsg;
+            $errorMsg = lang('App.missing_inputs_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
     
             //log activity
@@ -749,7 +749,7 @@ class AdminController extends BaseController
         $activity = $activityLogsModel->where('activity_id', $activityId)->first();
 
         if (!$activity) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/admin/activity-logs');
         }
@@ -887,7 +887,7 @@ class AdminController extends BaseController
         $visit = $visitStatsModel->where('site_stat_id', $visitId)->first();
 
         if (!$visit) {
-            $errorMsg = config('CustomConfig')->notFoundMsg;
+            $errorMsg = lang('App.not_found_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/admin/visit-stats');
         }
@@ -961,7 +961,7 @@ class AdminController extends BaseController
             $insertedId = $blockedIPsModel->getInsertID();
 
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = str_replace('[Record]', 'Blocked IP', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Blocked IP', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -970,7 +970,7 @@ class AdminController extends BaseController
             return redirect()->to('/account/admin/blocked-ips');
         } else {
             // Failed to create record. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
+            $errorMsg = lang('App.error_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
@@ -1033,7 +1033,7 @@ class AdminController extends BaseController
             $insertedId = $whitelistedIPsModel->getInsertID();
 
             // Record created successfully. Redirect to dashboard
-            $createSuccessMsg = str_replace('[Record]', 'Whitelisted IP', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Whitelisted IP', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -1042,7 +1042,7 @@ class AdminController extends BaseController
             return redirect()->to('/account/admin/whitelisted-ips');
         } else {
             // Failed to create record. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
+            $errorMsg = lang('App.error_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
@@ -1150,7 +1150,7 @@ class AdminController extends BaseController
                 $insertedId = $backupsModel->getInsertID();
     
                 // Record created successfully. Redirect to view
-                $createSuccessMsg = str_replace('[Record]', 'Database Backup', config('CustomConfig')->createSuccessMsg);
+                $createSuccessMsg = str_replace('[Record]', 'Database Backup', lang('App.create_success_msg'));
                 session()->setFlashdata('successAlert', $createSuccessMsg);
     
                 //log activity
@@ -1159,7 +1159,7 @@ class AdminController extends BaseController
                 return redirect()->to('/account/admin/backups');
             } else {
                 // Failed to create record. Redirect to view
-                $errorMsg = config('CustomConfig')->errorMsg;
+                $errorMsg = lang('App.error_msg');
                 session()->setFlashdata('errorAlert', $errorMsg);
     
                 //log activity
@@ -1170,7 +1170,7 @@ class AdminController extends BaseController
             
         } catch (\Exception $e) { 
             // Set flash message and redirect
-            $errorMsg = config('CustomConfig')->errorMsg;
+            $errorMsg = lang('App.error_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             return redirect()->to('/account/admin/backups');

@@ -23,7 +23,7 @@ class SignUpController extends BaseController
         $allowRegistration = getConfigData("EnableRegistration");
         if(strtolower($allowRegistration) === "no"){
             // Not allowed to access signup page
-            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            $invalidAccessMsg = lang('App.invalid_access_msg');
             session()->setFlashdata('errorAlert', $invalidAccessMsg);
             return redirect()->to('/');
         }
@@ -49,7 +49,7 @@ class SignUpController extends BaseController
         $allowRegistration = getConfigData("EnableRegistration");
         if(strtolower($allowRegistration) === "no"){
             // Not allowed to access signup page
-            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            $invalidAccessMsg = lang('App.invalid_access_msg');
             session()->setFlashdata('errorAlert', $invalidAccessMsg);
             return redirect()->to('/');
         }
@@ -108,7 +108,7 @@ class SignUpController extends BaseController
             $insertedId = $usersModel->getInsertID();
 
             // User created successfully. Redirect to dashboard
-            $createSuccessMsg = str_replace('[Record]', 'Registration', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Registration', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -118,7 +118,7 @@ class SignUpController extends BaseController
 
         } else {
             // Failed to create user. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
+            $errorMsg = lang('App.error_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity

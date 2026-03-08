@@ -148,7 +148,7 @@
                         <div class="google-btn-wrapper">
                             <a href="<?= base_url('auth/google/login') ?>" class="google-signin-btn">
                                 <img src="https://ik.imagekit.io/oju3vfr0u/websites/igniter-cms/google.png" alt="Google logo">
-                                <span><?= lang('App.sign_up_with_google') ?></span>
+                                <span><?= lang('App.sign_in_google') ?></span>
                             </a>
                         </div>
                     </div>

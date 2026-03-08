@@ -1,12 +1,12 @@
 <!-- include layout -->
 <?= $this->extend('front-end/layout/_layout') ?>
 
-<?= $this->section('title') ?><?= lang('App.Login') ?><?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.login') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h2 class="text-center"><?= lang('App.Login') ?></h2>
+<h2 class="text-center"><?= lang('App.login') ?></h2>
 <div class="row justify-content-center">
     <div class="col-md-4 col-sm-12 bg-light rounded p-4">
 
@@ -60,7 +60,7 @@
 
             <div class="mb-2">
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary btn-block" id="submit-btn"><?= lang('App.Login') ?></button>
+                    <button type="submit" class="btn btn-primary btn-block" id="submit-btn"><?= lang('App.login') ?></button>
                 </div>
             </div>
             <div class="text-start mt-1">

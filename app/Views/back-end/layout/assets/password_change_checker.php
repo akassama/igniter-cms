@@ -6,6 +6,6 @@ $isPasswordChangeURL = strtolower($currentUrl) == strtolower(base_url('/account/
 if(passwordChangeRequired() && !$isPasswordChangeURL && !boolval(env('DEMO_MODE', "false"))){
     $changePasswordTextLink = strtolower(base_url('/account/settings/change-password'));
     $changePasswordTextLink = strtolower($currentUrl) == $changePasswordTextLink ? "" : "<a href='".$changePasswordTextLink."'>".lang('App.change_password_here')."</a>";
-    $passwordResetRequiredMsg = config('CustomConfig')->passwordResetRequiredMsg;
+    $passwordResetRequiredMsg = lang('App.password_reset_req_msg');
     echo "<div class='alert alert-danger mt-2'>".$passwordResetRequiredMsg." ".$changePasswordTextLink."</div>";
 }

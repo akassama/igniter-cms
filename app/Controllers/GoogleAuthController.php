@@ -29,7 +29,7 @@ class GoogleAuthController extends BaseController
         // Check if registration is enabled
         $allowRegistration = getConfigData("EnableRegistration");
         if(strtolower($allowRegistration) === "no"){
-            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            $invalidAccessMsg = lang('App.invalid_access_msg');
             session()->setFlashdata('errorAlert', $invalidAccessMsg);
             return redirect()->to('/');
         }
@@ -115,7 +115,7 @@ class GoogleAuthController extends BaseController
     {
         // Check if user status is active
         if ($user['status'] != 1) {
-            session()->setFlashdata('errorAlert', config('CustomConfig')->pendingActivationMsg);
+            session()->setFlashdata('errorAlert', lang('App.pending_activation_msg'));
             return redirect()->to('/sign-in');
         }
 

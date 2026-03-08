@@ -27,7 +27,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php
             //check if password change is required and display message
             if(passwordChangeRequired() && !boolval(env('DEMO_MODE', "false"))){
-                $passwordResetRequiredMsg = config('CustomConfig')->passwordResetRequiredMsg;
+                $passwordResetRequiredMsg = lang('App.password_reset_req_msg');
                 echo "<div class='alert alert-danger'>".$passwordResetRequiredMsg."</div>";
             }
         ?>

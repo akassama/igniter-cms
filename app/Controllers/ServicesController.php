@@ -61,7 +61,7 @@ class ServicesController extends BaseController
                 }
             }
 
-            $createSuccessMsg = str_replace('[Record]', 'Data', config('CustomConfig')->deleteSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Data', lang('App.delete_success_msg'));
             session()->setFlashdata('toastrSuccessAlert', $createSuccessMsg);
 
             //log activity
@@ -71,7 +71,7 @@ class ServicesController extends BaseController
             return redirect()->to($returnUrl);
         }
         catch (\Exception $e){
-            $errorMsg = config('CustomConfig')->exceptionMsg;
+            $errorMsg = lang('App.exception_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
@@ -132,7 +132,7 @@ class ServicesController extends BaseController
                 }
             }
 
-            $createSuccessMsg = str_replace('[Record]', 'Data', config('CustomConfig')->deleteSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Data', lang('App.delete_success_msg'));
             session()->setFlashdata('toastrSuccessAlert', $createSuccessMsg);
 
             //log activity
@@ -142,7 +142,7 @@ class ServicesController extends BaseController
             return redirect()->to($returnUrl);
         }
         catch (\Exception $e){
-            $errorMsg = config('CustomConfig')->exceptionMsg;
+            $errorMsg = lang('App.exception_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
@@ -196,7 +196,7 @@ class ServicesController extends BaseController
             } 
           }
 
-          $createSuccessMsg = str_replace('[Record]', 'Data', config('CustomConfig')->deleteSuccessMsg);
+          $createSuccessMsg = str_replace('[Record]', 'Data', lang('App.delete_success_msg'));
           session()->setFlashdata('toastrSuccessAlert', $createSuccessMsg);
 
           //log activity
@@ -206,7 +206,7 @@ class ServicesController extends BaseController
           return redirect()->to($returnUrl);
       }
       catch (\Exception $e){
-          $errorMsg = config('CustomConfig')->exceptionMsg;
+          $errorMsg = lang('App.exception_msg');
           session()->setFlashdata('errorAlert', $errorMsg);
 
           //log activity

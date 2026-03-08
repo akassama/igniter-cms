@@ -86,7 +86,7 @@ class FormRequestsController extends BaseController
             $contactMessagesModel->createContactFormSubmission($data);
 
             // Record created successfully.
-            $contactMessageSuccessful = config('CustomConfig')->contactMessageSuccessful;
+            $contactMessageSuccessful = lang('App.contact_success_msg');
             session()->setFlashdata('successAlert', $contactMessageSuccessful);
 
             //log activity
@@ -137,7 +137,7 @@ class FormRequestsController extends BaseController
         } catch(Exception $e) {
 
             // Failed to create record.
-            $contactMessageFailed = config('CustomConfig')->contactMessageFailed;
+            $contactMessageFailed = lang('App.contact_failed_msg');
             session()->setFlashdata('errorAlert', $contactMessageFailed);
 
             //log activity
@@ -216,7 +216,7 @@ class FormRequestsController extends BaseController
             $updateWhereClause = "email = '$email'";
             $result = updateRecordColumn($tableName, $updateColumn, $updateWhereClause);
 
-            $infoMsg = str_replace('[Record]', 'Email', config('CustomConfig')->alreadyExistMsg). " Your subscription has been re-activated.";
+            $infoMsg = str_replace('[Record]', 'Email', lang('App.already_exist_msg')). " Your subscription has been re-activated.";
             session()->setFlashdata('infoAlert', $infoMsg);
             if (!empty($returnUrl)) {
                 return redirect()->to($returnUrl);
@@ -246,7 +246,7 @@ class FormRequestsController extends BaseController
             ];
             $subscriptionModel->createSubscriptionSubmission($data);
 
-            $subscriptionSuccessful = config('CustomConfig')->subscriptionSuccessful ?? 'Subscription received. Please check your email to confirm.';
+            $subscriptionSuccessful = lang('App.subscription_success_msg') ?? 'Subscription received. Please check your email to confirm.';
             session()->setFlashdata('successAlert', $subscriptionSuccessful);
 
             logActivity($email, ActivityTypes::SUBSCRIPTION_FORM_SUBMISSION, 'Subscription request received for: ' . $email);
@@ -308,7 +308,7 @@ class FormRequestsController extends BaseController
             }
             return $this->response->setStatusCode(200)->setJSON(['message' => 'Subscription recorded. Please confirm via email.']);
         } catch (Exception $e) {
-            $subscriptionFailed = config('CustomConfig')->subscriptionFailed ?? 'Failed to process subscription.';
+            $subscriptionFailed = lang('App.subscription_failed_msg') ?? 'Failed to process subscription.';
             session()->setFlashdata('errorAlert', $subscriptionFailed);
             logActivity($email, ActivityTypes::FAILED_SUBSCRIPTION_FORM_SUBMISSION, 'Failed to process subscription for: ' . $email);
 
@@ -420,7 +420,7 @@ class FormRequestsController extends BaseController
             $bookingModel->createBookingSubmission($data);
 
             // Success message
-            $bookingSuccessful = config('CustomConfig')->bookingSuccessful ?? 'Booking request received. We’ll contact you soon.';
+            $bookingSuccessful = lang('App.booking_success_msg') ?? 'Booking request received. We’ll contact you soon.';
             session()->setFlashdata('successAlert', $bookingSuccessful);
 
             // Log activity
@@ -491,7 +491,7 @@ class FormRequestsController extends BaseController
             return $this->response->setStatusCode(200)->setJSON(['message' => 'Booking request submitted successfully.']);
 
         } catch (Exception $e) {
-            $bookingFailed = config('CustomConfig')->bookingFailed ?? 'Failed to process booking request.';
+            $bookingFailed = lang('App.booking_failed_msg') ?? 'Failed to process booking request.';
             session()->setFlashdata('errorAlert', $bookingFailed);
             logActivity($email ?? 'unknown', ActivityTypes::FAILED_BOOKING_FORM_SUBMISSION, 'Booking submission failed: ' . $e->getMessage());
 
@@ -593,7 +593,7 @@ class FormRequestsController extends BaseController
             $commentsModel->createComment($data);
 
             // Success flash
-            $commentSuccessful = config('CustomConfig')->commentSuccessful
+            $commentSuccessful = lang('App.comment_success_msg')
                 ?? 'Thanks! Your comment has been received.';
             session()->setFlashdata('successAlert', $commentSuccessful);
 
@@ -671,7 +671,7 @@ class FormRequestsController extends BaseController
             return $this->response->setStatusCode(200)->setJSON(['message' => 'Comment submitted successfully.']);
 
         } catch (\Exception $e) {
-            $commentFailed = config('CustomConfig')->commentFailed ?? 'Failed to submit comment.';
+            $commentFailed = lang('App.comment_failed_msg') ?? 'Failed to submit comment.';
             session()->setFlashdata('errorAlert', $commentFailed);
 
             logActivity(
