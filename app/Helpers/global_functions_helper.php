@@ -1493,8 +1493,11 @@ if (! function_exists('isValidGeminiKey')) {
  * @return string The instruction for AI to respond in the specified language
  */
 if (!function_exists('getAILanguageInstruction')) {
-    function getAILanguageInstruction($locale = 'en')
+    function getAILanguageInstruction()
     {
+        // Get current locale
+        $locale = getCurrentLocale();
+        
         // Map of locale codes to language instructions
         $languageInstructions = [
             'en' => 'Provide your response in English language.',
