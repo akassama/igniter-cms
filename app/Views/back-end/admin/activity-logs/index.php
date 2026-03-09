@@ -40,7 +40,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.activity_by') ?></th>
                             <th><?= lang('App.activity_type') ?></th>
                             <th><?= lang('App.activity') ?></th>
-                            <th><?= lang('App.ip') ?></th>
+                            <th><?= lang('App.ip_address') ?></th>
                             <th><?= lang('App.device') ?></th>
                             <th><?= lang('App.country') ?></th>
                             <th><?= lang('App.date_or_time') ?></th>

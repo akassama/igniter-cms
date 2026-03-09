@@ -81,7 +81,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <input type="text" class="form-control" id="website" name="website" minlength="6" maxlength="20" value="<?= $contact_message_data['website'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
-                    <label for="ip_address" class="form-label"><?= lang('App.ip') ?></label>
+                    <label for="ip_address" class="form-label"><?= lang('App.ip_address') ?></label>
                     <input type="text" class="form-control" id="ip_address" name="ip_address" minlength="6" maxlength="20" value="<?= $contact_message_data['ip_address'] ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">

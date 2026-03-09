@@ -55,6 +55,7 @@ class AppModules extends Migration
         //insert default records
         //----------------------
         $data = [
+            //DASHBOARD
             [
                 'app_module_id' => getGUID(),
                 'module_name'    => 'Dashboard',
@@ -63,6 +64,7 @@ class AppModules extends Migration
                 'module_link'    => 'account/dashboard',
                 'module_search_terms' => 'dashboard,home,overview'
             ],
+            //SETTINGS
             [
                 'app_module_id' => getGUID(),
                 'module_name'  => 'Account Details',
@@ -79,7 +81,15 @@ class AppModules extends Migration
                 'module_link'    => 'account/settings/change-password',
                 'module_search_terms' => 'password,security,change'
             ],
-            //Themes
+            [
+                'app_module_id' => getGUID(),
+                'module_name'  => 'Language',
+                'module_description'  => 'Update language preference',
+                'module_roles'    => 'Admin,Manager,User',
+                'module_link'    => 'account/settings/language',
+                'module_search_terms' => 'language,locale,translation'
+            ],
+            //THEMES
             [
                 'app_module_id' => getGUID(),
                 'module_name'  => 'Themes',
@@ -96,7 +106,7 @@ class AppModules extends Migration
                 'module_link'    => 'account/appearance/theme-editor',
                 'module_search_terms' => 'themes,appearance,design,the files'
             ],
-            //Plugins
+            //PLUGINS
             [
                 'app_module_id' => getGUID(),
                 'module_name'  => 'Plugins',
@@ -113,7 +123,7 @@ class AppModules extends Migration
                 'module_link'    => 'account/plugins/configurations',
                 'module_search_terms' => 'extension,plugins,package,configurations'
             ],
-            //Admin
+            //ADMIN
             [
                 'app_module_id' => getGUID(),
                 'module_name'  => 'Admin',
@@ -252,7 +262,7 @@ class AppModules extends Migration
                 'module_link'    => 'account/cms/data-groups',
                 'module_search_terms' => 'data,content,data-groups'
             ],
-            //Content Blocks 
+            //CONTENT BLOCKS
             [
                 'app_module_id' => getGUID(),
                 'module_name'  => 'Content Blocks',
@@ -270,7 +280,7 @@ class AppModules extends Migration
                 'module_link'    => 'account/ask-ai',
                 'module_search_terms' => 'artificial intelligence,chat gpt,claude, gemini, deepseek'
             ],
-            //Contact Forms
+            //CONTACT FORMS
             [
                 'app_module_id' => getGUID(),
                 'module_name'  => 'Forms',

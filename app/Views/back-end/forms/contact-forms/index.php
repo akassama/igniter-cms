@@ -50,7 +50,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.form_name') ?></th>
                             <th><?= lang('App.name') ?></th>
                             <th><?= lang('App.email') ?></th>
-                            <th><?= lang('App.ip') ?></th>
+                            <th><?= lang('App.ip_address') ?></th>
                             <th><?= lang('App.country') ?></th>
                             <th><?= lang('App.status') ?></th>
                             <th><?= lang('App.created_on') ?></th>

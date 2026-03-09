@@ -20,13 +20,13 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3><?= lang('App.activity_logs') ?></h3>
+        <h3><?= lang('App.theme_revisions') ?></h3>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                <?= lang('App.activities') ?>
+                <?= lang('App.theme_revisions') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_revisions ?>
                 </span>

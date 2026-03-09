@@ -36,7 +36,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <ul class="list-group mb-2">
                 <li class="list-group-item"><?= lang('App.visit_stat_id') ?>: <span><?= $visit_data['site_stat_id'] ?></span></li>
                 <li class="list-group-item"><?= lang('App.visit_by') ?>: <span  data-bs-toggle="tooltip" data-bs-placement="top" title="User ID: <?= esc($visit_data['user_id']) ?>"><?= getActivityBy(esc($visit_data['user_id'])) ?></span></li>
-                <li class="list-group-item"><?= lang('App.ip') ?>: <span><?= $visit_data['ip_address'] ?></span></li>
+                <li class="list-group-item"><?= lang('App.ip_address') ?>: <span><?= $visit_data['ip_address'] ?></span></li>
                 <li class="list-group-item"><?= lang('App.device_type') ?>: <span><?= $visit_data['device_type'] ?></span></li>
                 <li class="list-group-item"><?= lang('App.browser_type') ?>: <span><?= $visit_data['browser_type'] ?></span></li>
                 <li class="list-group-item"><?= lang('App.page_type') ?>: <span><?= $visit_data['page_type'] ?></span></li>

@@ -242,7 +242,7 @@ $errorId = uniqid('error', true);
                                 <td><?= esc($request->getMethod()) ?></td>
                             </tr>
                             <tr>
-                                <td><?= lang('App.ip') ?></td>
+                                <td><?= lang('App.ip_address') ?></td>
                                 <td><?= esc($request->getIPAddress()) ?></td>
                             </tr>
                             <tr>

@@ -166,7 +166,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <input type="text" class="form-control" id="confirmation_code" value="<?= esc($booking['confirmation_code'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-4 mb-3">
-                    <label for="ip_address" class="form-label"><?= lang('App.ip') ?></label>
+                    <label for="ip_address" class="form-label"><?= lang('App.ip_address') ?></label>
                     <input type="text" class="form-control" id="ip_address" value="<?= esc($booking['ip_address'] ?? '') ?>" readonly>
                 </div>
                 <div class="col-sm-12 col-md-4 mb-3">

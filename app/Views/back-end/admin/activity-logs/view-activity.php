@@ -158,7 +158,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <td><span class="badge bg-secondary"><?= esc($activity['activity_id']) ?></span></td>
                                     </tr>
                                     <tr>
-                                        <td><strong><?= lang('App.ip') ?>:</strong></td>
+                                        <td><strong><?= lang('App.ip_address') ?>:</strong></td>
                                         <td>
                                             <code><?= esc($activity['ip_address']) ?></code>
                                             <?php if(!empty($activity['country'])): ?>

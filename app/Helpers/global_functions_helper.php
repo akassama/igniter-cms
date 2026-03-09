@@ -920,7 +920,7 @@ if(!function_exists('getRecentActivityLogs'))
                         <th>". lang('App.activity_by')."</th>
                         <th>". lang('App.activity_type')."</th>
                         <th>". lang('App.activity')."</th>
-                        <th>". lang('App.ip')."</th>
+                        <th>". lang('App.ip_address')."</th>
                         <th>". lang('App.device')."</th>
                         <th>". lang('App.country')."</th>
                         <th>". lang('App.date_or_time')."</th>
@@ -1026,7 +1026,7 @@ if(!function_exists('getRecentVisitStats'))
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>". lang('App.ip') ."</th>
+                        <th>". lang('App.ip_address') ."</th>
                         <th>". lang('App.device') ."</th>
                         <th>". lang('App.browser') ."</th>
                         <th>". lang('App.url') ."</th>
@@ -1608,34 +1608,68 @@ if (!function_exists('getLocaleFlagNames')) {
     function getLocaleFlagNames()
     {
         return [
-            'en' => 'fi-gb',
-            'fr' => 'fi-fr',
-            'es' => 'fi-es',
-            'ar' => 'fi-sa', 
-            'zh' => 'fi-cn',
-            'ru' => 'fi-ru',
-            'de' => 'fi-de',
-            'hi' => 'fi-in',
-            'pt' => 'fi-pt',
-            'bn' => 'fi-bd',
-            'ja' => 'fi-jp',
-            'it' => 'fi-it',
-            'tr' => 'fi-tr',
-            'nl' => 'fi-nl',
-            'pl' => 'fi-pl',
-            'uk' => 'fi-ua',
-            'vi' => 'fi-vn',
-            'th' => 'fi-th',
-            'fa' => 'fi-ir',
-            'ro' => 'fi-ro',
-            'hu' => 'fi-hu',
-            'sv' => 'fi-se',
-            'cs' => 'fi-cz',
-            'el' => 'fi-gr',
-            'he' => 'fi-il',
-            'ko' => 'fi-kr',
-            'id' => 'fi-id',
-            'ms' => 'fi-my',
+            'af'  => 'fi-za', // Afrikaans -> South Africa
+            'am'  => 'fi-et', // Amharic -> Ethiopia
+            'ar'  => 'fi-sa', // Arabic -> Saudi Arabia
+            'az'  => 'fi-az', // Azerbaijani -> Azerbaijan
+            'be'  => 'fi-by', // Belarusian -> Belarus
+            'bg'  => 'fi-bg', // Bulgarian -> Bulgaria
+            'bn'  => 'fi-bd', // Bengali -> Bangladesh
+            'bs'  => 'fi-ba', // Bosnian -> Bosnia
+            'ca'  => 'fi-es-ct', // Catalan -> Catalonia (Spain)
+            'cs'  => 'fi-cz', // Czech -> Czech Republic
+            'da'  => 'fi-dk', // Danish -> Denmark
+            'de'  => 'fi-de', // German -> Germany
+            'el'  => 'fi-gr', // Greek -> Greece
+            'en'  => 'fi-gb', // English -> United Kingdom
+            'es'  => 'fi-es', // Spanish -> Spain
+            'et'  => 'fi-ee', // Estonian -> Estonia
+            'fa'  => 'fi-ir', // Persian -> Iran
+            'fi'  => 'fi-fi', // Finnish -> Finland
+            'fil' => 'fi-ph', // Filipino -> Philippines
+            'fr'  => 'fi-fr', // French -> France
+            'he'  => 'fi-il', // Hebrew -> Israel
+            'hi'  => 'fi-in', // Hindi -> India
+            'hr'  => 'fi-hr', // Croatian -> Croatia
+            'hu'  => 'fi-hu', // Hungarian -> Hungary
+            'hy'  => 'fi-am', // Armenian -> Armenia
+            'id'  => 'fi-id', // Indonesian -> Indonesia
+            'is'  => 'fi-is', // Icelandic -> Iceland
+            'it'  => 'fi-it', // Italian -> Italy
+            'ja'  => 'fi-jp', // Japanese -> Japan
+            'ka'  => 'fi-ge', // Georgian -> Georgia
+            'kk'  => 'fi-kz', // Kazakh -> Kazakhstan
+            'km'  => 'fi-kh', // Khmer -> Cambodia
+            'ko'  => 'fi-kr', // Korean -> South Korea
+            'lo'  => 'fi-la', // Lao -> Laos
+            'lt'  => 'fi-lt', // Lithuanian -> Lithuania
+            'lv'  => 'fi-lv', // Latvian -> Latvia
+            'mk'  => 'fi-mk', // Macedonian -> North Macedonia
+            'ml'  => 'fi-in', // Malayalam -> India
+            'mn'  => 'fi-mn', // Mongolian -> Mongolia
+            'ms'  => 'fi-my', // Malay -> Malaysia
+            'my'  => 'fi-mm', // Burmese -> Myanmar
+            'nb'  => 'fi-no', // Norwegian Bokmål -> Norway
+            'nl'  => 'fi-nl', // Dutch -> Netherlands
+            'pl'  => 'fi-pl', // Polish -> Poland
+            'pt'  => 'fi-pt', // Portuguese -> Portugal
+            'ro'  => 'fi-ro', // Romanian -> Romania
+            'ru'  => 'fi-ru', // Russian -> Russia
+            'sk'  => 'fi-sk', // Slovak -> Slovakia
+            'sl'  => 'fi-si', // Slovenian -> Slovenia
+            'sq'  => 'fi-al', // Albanian -> Albania
+            'sr'  => 'fi-rs', // Serbian -> Serbia
+            'sv'  => 'fi-se', // Swedish -> Sweden
+            'sw'  => 'fi-ke', // Swahili -> Kenya
+            'ta'  => 'fi-in', // Tamil -> India
+            'te'  => 'fi-in', // Telugu -> India
+            'th'  => 'fi-th', // Thai -> Thailand
+            'tr'  => 'fi-tr', // Turkish -> Turkey
+            'uk'  => 'fi-ua', // Ukrainian -> Ukraine
+            'ur'  => 'fi-pk', // Urdu -> Pakistan
+            'uz'  => 'fi-uz', // Uzbek -> Uzbekistan
+            'vi'  => 'fi-vn', // Vietnamese -> Vietnam
+            'zh'  => 'fi-cn', // Chinese -> China
         ];
     }
 }

@@ -51,7 +51,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.email') ?></th>
                             <th><?= lang('App.comment') ?></th>
                             <th><?= lang('App.page') ?></th>
-                            <th><?= lang('App.ip') ?></th>
+                            <th><?= lang('App.ip_address') ?></th>
                             <th><?= lang('App.country') ?></th>
                             <th><?= lang('App.status') ?></th>
                             <th><?= lang('App.created_at') ?></th>

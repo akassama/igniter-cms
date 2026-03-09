@@ -42,7 +42,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th><?= lang('App.ip') ?></th>
+                            <th><?= lang('App.ip_address') ?></th>
                             <th><?= lang('App.block_start_time') ?></th>
                             <th><?= lang('App.block_end_time') ?></th>
                             <th><?= lang('App.reason') ?></th>
