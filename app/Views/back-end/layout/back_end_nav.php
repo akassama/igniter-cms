@@ -19,7 +19,7 @@
     <!-- Navbar Search-->
     <form action="<?= base_url('search/modules') ?>" method="get" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
-            <input class="form-control" id="q" name="q" type="text" placeholder="<?= lang('App.search_for') ?>" aria-label="<?= lang('App.search_for') ?>" aria-describedby="btnNavbarSearch" minlength="2" required/>
+            <input class="form-control" id="q" name="q" type="text" placeholder="<?= lang('App.search_for') ?>" aria-label="<?= lang('App.search_for') ?>" aria-describedby="btnNavbarSearch" minlength="1" required/>
             <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="ri-search-line"></i></button>
         </div>
     </form>
