@@ -96,6 +96,8 @@ class AdminController extends BaseController
             'about_summary' => $this->request->getPost('about_summary'),
             'password_change_required' => $this->request->getPost('password_change_required') ?? false,
         ];
+        $cleanedUserData = $userData;
+        unset($cleanedUserData['password']);
 
         // Call createUser method from the UsersModel
         if ($usersModel->createUser($userData)) {
@@ -107,7 +109,7 @@ class AdminController extends BaseController
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::USER_CREATION, 'User created with id: ' . $insertedId, $actionUrl, get_class($usersModel), $insertedId, json_encode($previousData), json_encode($userData));
+            logActivity($loggedInUserId, ActivityTypes::USER_CREATION, 'User created with id: ' . $insertedId, $actionUrl, get_class($usersModel), $insertedId, json_encode($previousData), json_encode($cleanedUserData));
 
             return redirect()->to('/account/admin/users');
         } else {
@@ -116,7 +118,7 @@ class AdminController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_USER_CREATION, 'Failed to create user with email: ' . $this->request->getPost('email'), $actionUrl, get_class($usersModel), null, json_encode($userData));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_USER_CREATION, 'Failed to create user with email: ' . $this->request->getPost('email'), $actionUrl, get_class($usersModel), null, json_encode($cleanedUserData));
 
             return view('back-end/admin/users/new-user');
         }
@@ -164,6 +166,8 @@ class AdminController extends BaseController
         $data['user_data'] = $usersModel->where('user_id', $userId)->first();
         $actionUrl = $this->request->getUri()->getPath() . '/' . $userId;
         $previousData = $usersModel->find($userId);
+        $cleanedPreviousData = $previousData;
+        unset($cleanedPreviousData['password']);
 
         if($this->validate($rules)){
 
@@ -191,7 +195,7 @@ class AdminController extends BaseController
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::USER_UPDATE, 'User updated with id: ' . $userId, $actionUrl, get_class($usersModel), $userId, json_encode($previousData), json_encode($data));
+            logActivity($loggedInUserId, ActivityTypes::USER_UPDATE, 'User updated with id: ' . $userId, $actionUrl, get_class($usersModel), $userId, json_encode($cleanedPreviousData), json_encode($data));
 
             return redirect()->to('/account/admin/users');
         }
@@ -201,7 +205,7 @@ class AdminController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_USER_UPDATE, 'Failed to update user with id: ' . $userId, $actionUrl, get_class($usersModel), $userId, json_encode($previousData), json_encode($data));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_USER_UPDATE, 'Failed to update user with id: ' . $userId, $actionUrl, get_class($usersModel), $userId, json_encode($cleanedPreviousData), json_encode($data));
 
             return view('back-end/admin/users/edit-user', $data);
         }

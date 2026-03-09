@@ -30,12 +30,14 @@ logSiteStatistic(
 //check if suspicius activity and add to block ip
 if(isBlockedRoute($currentUrl)){
     //log ip as black listed
+    $activityBy = $ipAddress;
+    $actionUrl = $this->request->getUri()->getPath();
     $reason = ActivityTypes::BLOCKED_IP_SUSPICIOUS_ACTIVITY;
     $blockEndTime = date('Y-m-d H:i:s', strtotime(getConfigData("BlockedIPSuspensionPeriod")));
     addBlockedIPAdress($ipAddress, $country, $currentUrl, $blockEndTime, $reason);
 
     //log activity
-    logActivity("User IP: ".$ipAddress , $reason, 'Suspicious user activity with IP: ' . $ipAddress);
+    logActivity($activityBy, $reason, 'Suspicious user activity with IP: ' . $ipAddress, $actionUrl);
 }
 
 //check if blocked ip

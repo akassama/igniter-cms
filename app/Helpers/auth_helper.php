@@ -490,6 +490,7 @@ function validateCaptcha($returnUrl = null)
  */
 if (!function_exists('blockAndLogIPSpam')) {
     function blockAndLogIPSpam($reason): void {
+        $activityBy = $ipAddress;
         $ipAddress = getDeviceIP();
         $currentUrl = current_url();
         $country = getCountry();
@@ -499,7 +500,7 @@ if (!function_exists('blockAndLogIPSpam')) {
         addBlockedIPAdress($ipAddress, $country, $currentUrl, $blockEndTime, ActivityTypes::BLOCKED_IP_SPAMMING);
 
         // Log the activity
-        logActivity("User IP: " . $ipAddress, ActivityTypes::BLOCKED_IP_SPAMMING, $reason . ' with IP: ' . $ipAddress);
+        logActivity($activityBy, ActivityTypes::BLOCKED_IP_SPAMMING, $reason . ' with IP: ' . $ipAddress, $currentUrl);
 
         // Return a normal-looking 403 response
         header('HTTP/1.1 403 Forbidden');

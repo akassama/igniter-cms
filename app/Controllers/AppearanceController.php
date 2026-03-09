@@ -74,6 +74,9 @@ class AppearanceController extends BaseController
         $loggedInUserId = $this->session->get('user_id');
         $validation = \Config\Services::validation();
 
+        // Load the ThemesModel
+        $themesModel = new ThemesModel();
+
         // Validate the file upload
         $validation->setRules([
             'theme_file' => [
@@ -96,9 +99,6 @@ class AppearanceController extends BaseController
 
         $themeFile = $this->request->getFile('theme_file');
         $override = boolval($this->request->getPost('override_if_exists'));
-
-        // Load the ThemesModel
-        $themesModel = new ThemesModel();
 
         // Create temporary directory for extraction
         $tempDir = WRITEPATH . 'temp/theme_' . uniqid();
@@ -213,7 +213,7 @@ class AppearanceController extends BaseController
         $this->deleteDirectory($tempDir);
 
         // Theme uploaded successfully. Redirect to themes
-        $createSuccessMsg = str_replace('[Record]', 'Theme', lang('App.create_success_msg'));
+        $createSuccessMsg = str_replace('[Record]', 'Theme', config('CustomConfig')->createSuccessMsg);
         session()->setFlashdata('successAlert', $createSuccessMsg);
         return redirect()->to('/account/appearance/themes?tid='.$themeConfig['path']);
     }
@@ -226,7 +226,7 @@ class AppearanceController extends BaseController
         $themeData = $themesModel->where('theme_id', $themeId)->first();
     
         if (!$themeData) {
-            $errorMsg = lang('App.not_found_msg');
+            $errorMsg = config('CustomConfig')->notFoundMsg;
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/appearance/themes');
         }
@@ -300,7 +300,7 @@ class AppearanceController extends BaseController
             $builder->update($data);
     
             // Record updated successfully. Redirect to dashboard
-            $editSuccessMsg = str_replace('[Record]', 'Theme', lang('App.edit_success_msg'));
+            $editSuccessMsg = str_replace('[Record]', 'Theme', config('CustomConfig')->editSuccessMsg);
             session()->setFlashdata('successAlert', $editSuccessMsg);
     
             //log activity
@@ -310,7 +310,7 @@ class AppearanceController extends BaseController
         }
         else{
             $data['validation'] = $this->validator;
-            $errorMsg = lang('App.missing_inputs_msg');
+            $errorMsg = config('CustomConfig')->missingRequiredInputsMsg;
             session()->setFlashdata('errorAlert', $errorMsg);
     
             //log activity
@@ -331,7 +331,7 @@ class AppearanceController extends BaseController
         $themeData = $themesModel->where('theme_id', $themeId)->first();
     
         if (!$themeData) {
-            $errorMsg = lang('App.not_found_msg');
+            $errorMsg = config('CustomConfig')->notFoundMsg;
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/account/appearance/themes');
         }
@@ -350,7 +350,7 @@ class AppearanceController extends BaseController
         $result = updateRecordColumn("themes", $updateColumn, $updateWhereClause);
 
         // Record updated successfully. Redirect to dashboard
-        $editSuccessMsg = str_replace('[Record]', 'Theme', lang('App.edit_success_msg'));
+        $editSuccessMsg = str_replace('[Record]', 'Theme', config('CustomConfig')->editSuccessMsg);
         session()->setFlashdata('successAlert', $editSuccessMsg);
 
         $actionUrl = $this->request->getUri()->getPath() . '/' . $themeId;
@@ -419,7 +419,7 @@ class AppearanceController extends BaseController
             // Remove record from database
             deleteRecord($tableName, $pkName, $themeId);
 
-            $createSuccessMsg = lang('App.delete_success_msg');
+            $createSuccessMsg = config('CustomConfig')->deleteSuccessMsg;
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             // Log activity
