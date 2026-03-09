@@ -24,7 +24,7 @@ $sessionUserId = $session->get('user_id');
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?= lang('App.close') ?></button>
             </div>
         </div>
     </div>

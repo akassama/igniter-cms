@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Theme Revisions<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.theme_revisions') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,9 +10,9 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Appearance', 'url' => '/account/appearance'),
-    array('title' => 'Theme Revisions')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.appearance'), 'url' => '/account/appearance'),
+    array('title' => lang('App.theme_revisions'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,13 +20,13 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Activity Logs</h3>
+        <h3><?= lang('App.theme_revisions') ?></h3>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Activities
+                <?= lang('App.theme_revisions') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_revisions ?>
                 </span>
@@ -37,12 +37,12 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Created By</th>
-                            <th>Theme</th>
-                            <th>Path</th>
-                            <th>Content</th>
-                            <th>Date/Time</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.created_by') ?></th>
+                            <th><?= lang('App.theme') ?></th>
+                            <th><?= lang('App.path') ?></th>
+                            <th><?= lang('App.content') ?></th>
+                            <th><?= lang('App.date_or_time') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -96,7 +96,7 @@ echo generateBreadcrumb($breadcrumb_links);
             ?>
                 <!--Show pagination if more than 100 records-->
                 <div class="col-12 text-start">
-                    <p>Pagination</p>
+                    <p><?= lang('App.pagination') ?></p>
                     <?= $pager->links('default', 'bootstrap') ?>
                 </div>
             <?php
@@ -111,7 +111,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="contentModalLabel">View File Revision Content</h5>
+                <h5 class="modal-title" id="contentModalLabel"><?= lang('App.view_file_revision') ?></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -122,14 +122,14 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="position-relative">
                     <button class="btn btn-sm btn-info copy-modal-btn position-absolute top-0 end-0 m-2 z-10" 
                             data-clipboard-target="#file-content-display">
-                        <i class="ri-file-copy-line"></i> Copy Code
+                        <i class="ri-file-copy-line"></i> <?= lang('App.copy_code') ?>
                     </button>
                     <pre id="file-content-display" 
                          style="background-color: #f8f9fa; padding: 15px; border: 1px solid #dee2e6; border-radius: 0.25rem; max-height: 70vh; overflow: auto; white-space: pre-wrap; word-wrap: break-word;"></pre>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= lang('App.close') ?></button>
             </div>
         </div>
     </div>

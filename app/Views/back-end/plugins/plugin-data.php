@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Data<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_data') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -18,9 +18,9 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-     array('title' => 'Plugins', 'url' => '/account/plugins'),
-    array('title' => 'Plugin Data')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+     array('title' => lang('App.plugins'), 'url' => '/account/plugins'),
+    array('title' => lang('App.plugin_data'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -28,17 +28,17 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Plugin Data</h3>
+        <h3><?= lang('App.manage_plugin_data') ?></h3>
     </div>
     <div class="col-12">
         
         <div class="alert alert-warning">
-            <strong>Warning!</strong> This page allows direct access to your site plugin data settings. You can break things here. Please be cautious!.
+            <strong><?= lang('App.warning') ?></strong> <?= lang('App.plugin_safety_warning') ?>
         </div>
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Plugin Data
+                <?= lang('App.plugin_data') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_plugin_data ?>
                 </span>
@@ -49,10 +49,10 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Plugin Slug</th>
-                                <th class="w-50">Plugin Data</th>
-                                <th>Created At</th>
-                                <th>Actions</th>
+                                <th><?= lang('App.plugin_slug') ?></th>
+                                <th class="w-50"><?= lang('App.plugin_data') ?></th>
+                                <th><?= lang('App.created_at') ?></th>
+                                <th><?= lang('App.actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,8 +67,8 @@ echo generateBreadcrumb($breadcrumb_links);
                                             <div class="card">
                                             <div class="card-header">
                                                 <a class="collapsed btn" data-bs-toggle="collapse" href="#collapse-<?=$rowCount?>">
-                                                View Data
-                                            </a>
+                                                    <?= lang('App.view_data') ?>
+                                                </a>
                                             </div>
                                                 <div id="collapse-<?=$rowCount?>" class="collapse" data-bs-parent="#accordion">
                                                     <div class="card-body">
@@ -151,7 +151,7 @@ function editDataSwalModal(
     pluginData12
 ) {
     Swal.fire({
-        title: 'Edit Plugin Configuration',
+        title: <?= json_encode(lang('App.edit_plugin_config')) ?>,
         html: `
             <div class="swal-form-wrapper" style="text-align:left; max-height:65vh; overflow-y:auto;">
                 <form id="editPluginConfigForm" method="POST" action="<?= base_url('/account/plugins/update-plugin-dada') ?>">
@@ -165,7 +165,7 @@ function editDataSwalModal(
                         const index = i + 1;
                         return `
                             <div class="mb-3 text-start">
-                                <label for="plugin_data_${index}" class="form-label">Plugin Data ${index}</label>
+                                <label for="plugin_data_${index}" class="form-label"><?= lang('App.plugin_data') ?> ${index}</label>
                                 <input type="text" class="form-control" id="plugin_data_${index}" name="plugin_data_${index}" value="${value}">
                             </div>
                         `;

@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Themes<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_themes') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -18,22 +18,22 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Appearance')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.appearance'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
 
 <div class="container-fluid">
     <div class="col-12">
-        <h3>Manage Themes</h3>
+        <h3><?= lang('App.manage_themes') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/appearance/themes/upload-theme')?>" class="btn btn-outline-success mx-1">
-            <i class="ri-upload-2-fill"></i> Upload Theme
+            <i class="ri-upload-2-fill"></i> <?= lang('App.upload_theme') ?>
         </a>
         <a href="<?=base_url('/account/appearance/themes/install-themes')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> Add Theme
+            <i class="ri-add-fill"></i> <?= lang('App.add_theme') ?>
         </a>
     </div>
     
@@ -43,7 +43,7 @@ echo generateBreadcrumb($breadcrumb_links);
         if(empty($tableData)){
             ?>
                 <div class="alert alert-warning">
-                    No active theme selected. Your site will not display properly until you activate a theme.
+                    <?= lang('App.no_theme_selected_warning') ?>
                 </div>
             <?php
         }
@@ -53,9 +53,9 @@ echo generateBreadcrumb($breadcrumb_links);
         if(!empty($missingPlugins)){
             ?>
                 <div class="alert alert-danger">
-                    The active theme (<strong><?=$currentTheme?></strong>) requires the following missing plugins: 
+                    <?= lang('App.missing_plugins_warning') ?> (<strong><?=$currentTheme?></strong>): 
                     <strong><?= implode(", ", $missingPlugins); ?></strong>. 
-                    Please install and activate these plugins to ensure proper functionality of the theme.
+                    <?= lang('App.install_plugins_guidance') ?>
                 </div>
             <?php
         }
@@ -75,7 +75,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="card-body">
                         <h5 class="card-title">
                             <?php if($theme['selected'] == "1"): ?>
-                                <span class="text-muted">Active:</span> 
+                                <span class="text-muted"><?=lang('App.active')?>:</span> 
                             <?php endif; ?>
                             <?= $theme['name']; ?>
                         </h5>
@@ -84,7 +84,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <a href="<?=base_url('account/appearance/themes/activate/'.$theme['theme_id'])?>" 
                                 class="btn btn-sm btn-primary">Activate</a>
                             <?php else: ?>
-                                <span class="btn btn-sm btn-success disabled-btn disabled">Active</span>
+                                <span class="btn btn-sm btn-success disabled-btn disabled"><?= lang('App.active') ?></span>
                             <?php endif; ?>
                             
                             <a href="<?=base_url('account/appearance/themes/edit-theme/'.$theme['theme_id'])?>" 
@@ -93,7 +93,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <?php if ($theme['deletable'] == 1 && $theme['selected'] !== "1"): ?>
                                 <a href="#!" 
                                 onclick="deleteTheme('<?=$theme['path']?>', '<?= $theme['theme_id'] ?>')" 
-                                class="btn btn-sm btn-outline-danger ms-auto">Delete</a>
+                                class="btn btn-sm btn-outline-danger ms-auto"><?=lang('App.delete')?></a>
                             <?php endif; ?>
                         </div>
                         
@@ -111,7 +111,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php else: ?>
             <div class="col-12">
                 <div class="alert alert-info">
-                    No themes found. <a href="<?=base_url('/account/appearance/themes/install-themes')?>" class="alert-link">Add your first theme</a>.
+                    No themes found. <a href="<?=base_url('/account/appearance/themes/install-themes')?>" class="alert-link">Add your first theme</a>
                 </div>
             </div>
         <?php endif; ?>
@@ -121,13 +121,13 @@ echo generateBreadcrumb($breadcrumb_links);
 <script>
     function deleteTheme(themePath, themeId) {
         Swal.fire({
-            title: 'Are you sure you want to remove this theme?',
+            title: <?= json_encode(lang('App.confirm_remove_theme')) ?>,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No'
+            confirmButtonText: <?= json_encode(lang('App.yes')) ?>,
+            cancelButtonText: <?= json_encode(lang('App.no')) ?>
         }).then((result) => {
             if (result.isConfirmed) {
                 // Create the form element

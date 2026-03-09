@@ -9,6 +9,8 @@ use App\Libraries\EmailService;
 
 class ForgotPasswordController extends BaseController
 {
+    protected $emailService;
+    
     public function __construct()
     {
         $this->emailService = new EmailService();
@@ -66,16 +68,16 @@ class ForgotPasswordController extends BaseController
                     $result = $this->emailService->send($toEmail, $subject, $templateData);
 
                     if ($result) {
-                        $resetLinkMsg = config('CustomConfig')->resetLinkMsg;
+                        $resetLinkMsg = lang('App.reset_link_msg');
                         session()->setFlashdata('successAlert', $resetLinkMsg);
                         logActivity($userId, ActivityTypes::PASSWORD_RESET_SENT, 'Password reset link sent for user with id: ' . $userId);
                     } else {
-                        $errorMsg = config('CustomConfig')->errorMsg;
+                        $errorMsg = lang('App.error_msg');
                         session()->setFlashdata('errorAlert', "$errorMsg");
                         logActivity($userId, ActivityTypes::PASSWORD_RESET_FAILED, 'Failed to send reset link for user with id: ' . $userId);
                     }
                 } else {
-                    $nonExistingResetEmailMsg = config('CustomConfig')->nonExistingResetEmailMsg;
+                    $nonExistingResetEmailMsg = lang('App.non_existing_email_msg');
                     session()->setFlashdata('errorAlert', $nonExistingResetEmailMsg);
                 }
 

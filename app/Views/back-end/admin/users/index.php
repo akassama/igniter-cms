@@ -18,9 +18,9 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'Users')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
+    array('title' => lang('App.users'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -28,18 +28,18 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Users</h3>
+        <h3><?= lang('App.manage_users') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/admin/users/new-user')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New User
+            <i class="ri-add-fill"></i> <?= lang('App.new_user') ?>
         </a>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Users
+                <?= lang('App.users') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_users ?>
                 </span>
@@ -50,14 +50,14 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>Role</th>
-                            <th>Created</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.first_name') ?></th>
+                            <th><?= lang('App.last_name') ?></th>
+                            <th><?= lang('App.username') ?></th>
+                            <th><?= lang('App.email') ?></th>
+                            <th><?= lang('App.status') ?></th>
+                            <th><?= lang('App.role') ?></th>
+                            <th><?= lang('App.created_at') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>

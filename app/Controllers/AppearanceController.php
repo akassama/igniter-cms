@@ -74,6 +74,9 @@ class AppearanceController extends BaseController
         $loggedInUserId = $this->session->get('user_id');
         $validation = \Config\Services::validation();
 
+        // Load the ThemesModel
+        $themesModel = new ThemesModel();
+
         // Validate the file upload
         $validation->setRules([
             'theme_file' => [
@@ -87,16 +90,15 @@ class AppearanceController extends BaseController
             ]
         ]);
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
         if (!$validation->withRequest($this->request)->run()) {
-            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Validation failed: ' . implode(', ', $validation->getErrors()));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Validation failed: ' . implode(', ', $validation->getErrors()), $actionUrl, null, json_encode($previousData), null);
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
 
         $themeFile = $this->request->getFile('theme_file');
         $override = boolval($this->request->getPost('override_if_exists'));
-
-        // Load the ThemesModel
-        $themesModel = new ThemesModel();
 
         // Create temporary directory for extraction
         $tempDir = WRITEPATH . 'temp/theme_' . uniqid();
@@ -112,7 +114,7 @@ class AppearanceController extends BaseController
         $zip = new \ZipArchive();
         if ($zip->open($tempZipPath) !== TRUE) {
             $this->deleteDirectory($tempDir);
-            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Failed to open theme zip file');
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Failed to open theme zip file', $actionUrl, null, json_encode($previousData), null);
             return redirect()->back()->with('errorAlert', 'Failed to extract theme file');
         }
 
@@ -124,7 +126,7 @@ class AppearanceController extends BaseController
         $themeJsonPath = $tempDir . '/theme.json';
         if (!file_exists($themeJsonPath)) {
             $this->deleteDirectory($tempDir);
-            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Theme.json file not found');
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Theme.json file not found', $actionUrl, null, json_encode($previousData), null);
             return redirect()->back()->with('errorAlert', 'theme.json file not found in the theme package');
         }
 
@@ -132,7 +134,7 @@ class AppearanceController extends BaseController
         $themeConfig = json_decode(file_get_contents($themeJsonPath), true);
         if (json_last_error() !== JSON_ERROR_NONE || !isset($themeConfig['path'])) {
             $this->deleteDirectory($tempDir);
-            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Invalid theme.json format');
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Invalid theme.json format', $actionUrl, null, json_encode($previousData), null);
             return redirect()->back()->with('errorAlert', 'Invalid theme.json format');
         }
 
@@ -146,7 +148,7 @@ class AppearanceController extends BaseController
         $themeExists = recordExists($tableName, 'path', $themePath);
         if ($themeExists && !$override) {
             $this->deleteDirectory($tempDir);
-            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Theme already exists: ' . $themeName);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Theme already exists: ' . $themeName, $actionUrl, null, json_encode($previousData), null);
             return redirect()->back()->with('errorAlert', 'A theme with this path already exists. Enable override option to replace it.');
         }
 
@@ -199,11 +201,11 @@ class AppearanceController extends BaseController
                 deleteRecord($tableName, 'path', $themePath);
             }
             addRecord($tableName, $themesData);
-            logActivity($loggedInUserId, ActivityTypes::THEME_CREATION, 'Theme added to database: ' . $themeName);
+            logActivity($loggedInUserId, ActivityTypes::THEME_CREATION, 'Theme added to database: ' . $themeName, $actionUrl, null, json_encode($previousData), json_encode($themesData));
         } catch (\Exception $e) {
             $this->deleteDirectory($tempDir);
             session()->setFlashdata('errorAlert', 'Failed to update theme database');
-            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Database update failed: ' . $themeName . ' - ' . $e->getMessage());
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_CREATION, 'Database update failed: ' . $themeName . ' - ' . $e->getMessage(), $actionUrl, null, json_encode($previousData), null);
             return redirect()->to('/account/appearance/themes/upload-theme');
         }
 
@@ -253,6 +255,9 @@ class AppearanceController extends BaseController
     
         $themeId = $this->request->getPost('theme_id');
         $data['theme_data'] = $themesModel->where('theme_id', $themeId)->first();
+
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $themeId;
+        $previousData = $themesModel->where('theme_id', $themeId)->first();
     
         if($this->validate($rules)){       
 
@@ -299,7 +304,7 @@ class AppearanceController extends BaseController
             session()->setFlashdata('successAlert', $editSuccessMsg);
     
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::THEME_UPDATE, 'Theme updated with id: ' . $themeId);
+            logActivity($loggedInUserId, ActivityTypes::THEME_UPDATE, 'Theme updated with id: ' . $themeId, $actionUrl, get_class($themesModel), $themeId, json_encode($previousData), json_encode($data));
     
             return redirect()->to('/account/appearance/themes/edit-theme/'. $themeId);
         }
@@ -309,7 +314,7 @@ class AppearanceController extends BaseController
             session()->setFlashdata('errorAlert', $errorMsg);
     
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_UPDATE, 'Failed to update theme with name: ' . $this->request->getPost('name'));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_UPDATE, 'Failed to update theme with name: ' . $this->request->getPost('name'), $actionUrl, get_class($themesModel), $themeId, json_encode($previousData), json_encode($data));
     
             return view('back-end/appearance/themes/edit-theme', $data);
         }
@@ -348,8 +353,11 @@ class AppearanceController extends BaseController
         $editSuccessMsg = str_replace('[Record]', 'Theme', config('CustomConfig')->editSuccessMsg);
         session()->setFlashdata('successAlert', $editSuccessMsg);
 
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $themeId;
+        $previousData = $themesModel->where('theme_id', $themeId)->first();
+
         //log activity
-        logActivity($loggedInUserId, ActivityTypes::THEME_UPDATE, 'Theme with id: ' . $themeId. 'set as active.');
+        logActivity($loggedInUserId, ActivityTypes::THEME_UPDATE, 'Theme with id: ' . $themeId. 'set as active.', $actionUrl, get_class($themesModel), $themeId, json_encode($previousData), null);
 
         return redirect()->to('/account/appearance/themes');
     }
@@ -371,9 +379,13 @@ class AppearanceController extends BaseController
             return redirect()->to('/account/appearance/themes');
         }
 
+        
+        $themesModel = new ThemesModel();
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = $themesModel->where('theme_id', $themeId)->first();
+
         try {
             // First get theme data to check if it's deletable
-            $themesModel = new ThemesModel();
             $theme = $themesModel->where('theme_id', $themeId)->first();
             
             if (!$theme) {
@@ -411,7 +423,7 @@ class AppearanceController extends BaseController
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             // Log activity
-            logActivity($loggedInUserId, ActivityTypes::THEME_DELETION, 'User with id: ' . $loggedInUserId . ' deleted theme for table name: ' . $tableName .' with path: ' . $themePath);
+            logActivity($loggedInUserId, ActivityTypes::THEME_DELETION, 'User with id: ' . $loggedInUserId . ' deleted theme for table name: ' . $tableName .' with path: ' . $themePath, $actionUrl, get_class($themesModel), $themeId, json_encode($previousData), null);
 
             return redirect()->to('/account/appearance/themes');
         }
@@ -419,8 +431,8 @@ class AppearanceController extends BaseController
             $errorMsg = $e->getMessage();
             session()->setFlashdata('errorAlert', $errorMsg);
 
-            // Log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete theme for table name: ' . $tableName .' with path: ' . $themePath . '. Error: ' . $errorMsg);
+            // Log activity (use specific constant for theme deletion failure)
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_DELETION, 'User with id: ' . $loggedInUserId . ' failed to delete theme for table name: ' . $tableName .' with path: ' . $themePath . '. Error: ' . $errorMsg, $actionUrl, get_class($themesModel), $themeId, json_encode($previousData), null);
 
             return redirect()->to('/account/appearance/themes');
         }
@@ -802,6 +814,9 @@ class AppearanceController extends BaseController
         if (!is_file($fullFilePath)) {
             return redirect()->to('/account/appearance/theme-editor')->with('errorAlert', 'Theme file not found on the server.');
         }
+
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $fileId;
+        $previousData = null;
         
         // Read the content of the file from the filesystem
         $fileContent = file_get_contents($fullFilePath);
@@ -822,10 +837,14 @@ class AppearanceController extends BaseController
 
         // 4. Redirect with status
         if (!$fileSaved) {
+            // Log the error for debugging
+            logActivity($loggedInUserId, ActivityTypes::FAILED_THEME_REVISION_SAVE, 'Failed to save theme revision for file: ' . $filePathName, $actionUrl, get_class($revisionModel), $themeRevisionId, json_encode($previousData), json_encode($data));
             // Use $fileId for redirect since that's what's expected by the editor view
             return redirect()->to('/account/appearance/theme-editor/' . $fileId)->with('errorAlert', 'Failed to save the file version to the database.');
         }
 
+        // Log successful save        
+        logActivity($loggedInUserId, ActivityTypes::THEME_REVISION_SAVE, 'Saved theme revision for file: ' . $filePathName, $actionUrl, get_class($revisionModel), $themeRevisionId, json_encode($previousData), json_encode($data));
         return redirect()->to('/account/appearance/theme-editor/' . $fileId)->with('success', 'File version saved successfully.');
     }
 

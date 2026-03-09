@@ -2,16 +2,16 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Dashboard<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.dashboard') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h1 class="mt-4">Dashboard </h1>
+<h1 class="mt-4"><?= lang('App.dashboard') ?> </h1>
 <?php
     // Breadcrumbs
     $breadcrumb_links = array(
-        array('title' => 'Dashboard')
+        array('title' => lang('App.dashboard'))
     );
     echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -22,13 +22,13 @@
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-primary text-white mb-4">
                     <div class="card-body">
-                        Users
+                        <?= lang('App.users') ?>
                         <span class="badge rounded-pill bg-dark border border-light">
                             <?= getTotalRecords("users") ?>
                         </span>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="<?= base_url('/account/admin/users'); ?>">View Details</a>
+                        <a class="small text-white stretched-link" href="<?= base_url('/account/admin/users'); ?>"><?= lang('App.view_details') ?></a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
@@ -36,13 +36,13 @@
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-warning text-white mb-4">
                     <div class="card-body">
-                        Blogs
+                        <?= lang('App.blogs') ?>
                         <span class="badge rounded-pill bg-dark border border-light">
                             <?= getTotalRecords("blogs") ?>
                         </span>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="<?= base_url('/account/cms/blogs'); ?>">View Details</a>
+                        <a class="small text-white stretched-link" href="<?= base_url('/account/cms/blogs'); ?>"><?= lang('App.view_details') ?></a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
@@ -50,13 +50,13 @@
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-success text-white mb-4">
                     <div class="card-body">
-                        Pages
+                        <?= lang('App.pages') ?>
                         <span class="badge rounded-pill bg-dark border border-light">
                             <?= getTotalRecords("pages") ?>
                         </span>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="<?= base_url('/account/cms/pages'); ?>">View Details</a>
+                        <a class="small text-white stretched-link" href="<?= base_url('/account/cms/pages'); ?>"><?= lang('App.view_details') ?></a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
@@ -64,13 +64,13 @@
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-danger text-white mb-4">
                     <div class="card-body">
-                        Themes
+                        <?= lang('App.themes') ?>
                         <span class="badge rounded-pill bg-dark border border-light">
                             <?= getTotalRecords("themes") ?>
                         </span>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="<?= base_url('/account/appearance/themes'); ?>">View Details</a>
+                        <a class="small text-white stretched-link" href="<?= base_url('/account/appearance/themes'); ?>"><?= lang('App.view_details') ?></a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
@@ -81,22 +81,22 @@
         <div class="row">
             <div class="col-12">
                 <h4 class="text-start">
-                    Site Analytics
+                    <?= lang('App.site_analytics') ?>
                 </h4>
             </div>
             <div class="col-sm-12 col-xl-6">
                 <div class="card mb-4">
                     <div class="card-header fw-bold">
                         <i class="fas fa-chart-area me-1"></i>
-                        Recent Visits (Last 7 Days)
+                        <?= lang('App.recent_visits') ?> (<?= lang('App.last_7_days') ?>)
                     </div>
                     <div class="card-body position-relative">
                         <!-- Loading overlay -->
                         <div id="areaChartLoading" class="chart-loading-overlay">
                             <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Loading chart...</span>
+                                <span class="visually-hidden"><?= lang('App.loading_chart') ?></span>
                             </div>
-                            <p class="mt-2 mb-0">Loading chart data...</p>
+                            <p class="mt-2 mb-0"><?= lang('App.loading_chart_data') ?></p>
                         </div>
                         <canvas id="myAreaChart" width="100%" height="40"></canvas>
                     </div>
@@ -106,15 +106,15 @@
                 <div class="card mb-4">
                     <div class="card-header fw-bold">
                         <i class="fas fa-chart-bar me-1"></i>
-                        Recent Visits (Last 6 Months)
+                        <?= lang('App.recent_visits') ?> (<?= lang('App.last_6_months') ?>)
                     </div>
                     <div class="card-body position-relative">
                         <!-- Loading overlay -->
                         <div id="barChartLoading" class="chart-loading-overlay">
                             <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Loading chart...</span>
+                                <span class="visually-hidden"><?= lang('App.loading_chart') ?></span>
                             </div>
-                            <p class="mt-2 mb-0">Loading chart data...</p>
+                            <p class="mt-2 mb-0"><?= lang('App.loading_chart_data') ?></p>
                         </div>
                         <canvas id="myBarChart" width="100%" height="40"></canvas>
                     </div>
@@ -128,7 +128,7 @@
                 <div class="card mb-4">
                     <div class="card-header fw-bold">
                         <i class="fas fa-chart-area me-1"></i>
-                        Most Pages Visited
+                        <?= lang('App.most_pages_visited') ?>
                     </div>
                     <div class="card-body">
                         <?=getMostVisitedPages()?>
@@ -139,7 +139,7 @@
                 <div class="card mb-4">
                     <div class="card-header fw-bold">
                         <i class="fas fa-chart-bar me-1"></i>
-                        Top Browsers
+                        <?= lang('App.top_browsers') ?>
                     </div>
                     <div class="card-body">
                         <?=getTopBrowsers()?>
@@ -154,7 +154,7 @@
         <div class="card mb-4">
             <div class="card-header fw-bold">
                 <i class="fas fa-table me-1"></i>
-                Recent Posts
+                <?= lang('App.recent_posts') ?>
             </div>
             <div class="card-body">
                 <?=getRecentPosts()?>
@@ -185,7 +185,7 @@
                 ?>
                 <div class="card-header fw-bold">
                     <i class="fas fa-table me-1"></i>
-                    News Feed
+                    <?= lang('App.news_feed') ?>
                 </div>
                 <div class="card-body">
                     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -208,7 +208,7 @@
                                     </div>
                                     <div class="card-footer text-center">
                                         <a href="javascript:void(0)" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#blogModal-<?php echo htmlspecialchars($news['blog_id']); ?>">
-                                            View Details <i class="ri-expand-diagonal-2-line"></i>
+                                            <?= lang('App.view_details') ?> <i class="ri-expand-diagonal-2-line"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -515,15 +515,15 @@ if (typeof IntersectionObserver !== 'undefined') {
 
                 <div class="d-flex justify-content-between align-items-center mb-3 text-muted small">
                 <div>
-                    <strong>Author:</strong> 
+                    <strong><?= lang('App.author') ?>:</strong> 
                     <?php echo htmlspecialchars($news['created_by']); ?>
                 </div>
                 <div>
-                    <strong>Category:</strong> 
+                    <strong><?= lang('App.category') ?>:</strong> 
                     <?php echo htmlspecialchars($news['category']); ?>
                 </div>
                 <div>
-                    <strong>Published:</strong> 
+                    <strong><?= lang('App.published') ?>:</strong> 
                     <?= dateFormat($news['created_at'], 'M j, Y'); ?>
                 </div>
                 </div>
@@ -537,7 +537,7 @@ if (typeof IntersectionObserver !== 'undefined') {
                 <hr>
 
                 <div class="mb-3">
-                    <strong>Tags:</strong>
+                    <strong><?= lang('App.tags') ?>:</strong>
                     <?php
                         $blogTags = htmlspecialchars($news['tags']);
                         $tagsArray = explode(',', $blogTags);
@@ -550,7 +550,7 @@ if (typeof IntersectionObserver !== 'undefined') {
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= lang('App.close') ?></button>
             </div>
 
             </div>

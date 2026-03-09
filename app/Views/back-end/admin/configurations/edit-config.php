@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Edit Configuration<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.edit_configuration') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -18,10 +18,10 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'Configurations', 'url' => '/account/admin/configurations'),
-    array('title' => 'Edit Configuration')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
+    array('title' => lang('App.configurations'), 'url' => '/account/admin/configurations'),
+    array('title' => lang('App.edit_configuration'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -29,7 +29,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Edit Configuration</h3>
+        <h3><?= lang('App.edit_configuration') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row">
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="config_for" class="form-label">Config For <small>(read-only)</small> </label>
+                <label for="config_for" class="form-label"><?= lang('App.config_for') ?><small>(<?= lang('app.read_only') ?>)</small> </label>
                 <input type="text" class="form-control" id="config_for" name="config_for" value="<?= $config_data['config_for'] ?>" required readonly>
                 <!-- Error -->
                 <?php if($validation->getError('config_for')) {?>
@@ -46,20 +46,20 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide config_for
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <?php
                 $dataType = $config_data['data_type'];
                 $readonlyInputs = $config_data['deletable'] == 1 ? "" : "readonly";
-                $readonlyLabel = $config_data['deletable'] == 1 ? "" : "<small>(read-only)</small>";
+                $readonlyLabel = $config_data['deletable'] == 1 ? "" : "<small>(".lang('app.read_only').")</small>";
                 $options = $config_data['options'];
                 $configValue = getConfigData($config_data['config_for']);
                 $encryptedLabel = strtolower($dataType) === "secret" ? "<small>(Encrtpted)</small>" : "";
             ?>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="config_value" class="form-label">Config value <?=$encryptedLabel?></label>
+                <label for="config_value" class="form-label"><?= lang('App.config_value') ?> <?=$encryptedLabel?></label>
                 
                 <?php if ($dataType === 'Text'): ?>
                     <input type="text" class="form-control <?= $config_data['custom_class'] ?>" id="config_value" name="config_value" data-show-err="true" value="<?= $configValue ?>" required>
@@ -95,11 +95,11 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php }?>
                 
                 <div class="invalid-feedback">
-                    Please provide config_value
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label"><?= lang('App.description') ?></label>
                 <textarea rows="1" class="form-control" id="description" name="description" maxlength="500"><?= $config_data['description'] ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('description')) {?>
@@ -108,12 +108,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide description
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="group" class="form-label">Group <?=$readonlyLabel?></label>
+                <label for="group" class="form-label"><?= lang('App.group') ?> <?=$readonlyLabel?></label>
                 <input type="text" class="form-control" id="group" name="group" value="<?= $config_data['group'] ?>" <?=$readonlyInputs?>>
                 <!-- Error -->
                 <?php if($validation->getError('group')) {?>
@@ -122,11 +122,11 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide group
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="default_value" class="form-label">Default Value <?=$readonlyLabel?></label>
+                <label for="default_value" class="form-label"><?= lang('App.default_value') ?> <?=$readonlyLabel?></label>
                 <input type="text" class="form-control" id="default_value" name="default_value" value="<?= $config_data['default_value'] ?>" <?=$readonlyInputs?>>
                 <!-- Error -->
                 <?php if($validation->getError('default_value')) {?>
@@ -135,12 +135,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide default_value
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="custom_class" class="form-label">Custom Class <?=$readonlyLabel?></label>
+                <label for="custom_class" class="form-label"><?= lang('App.custom_class') ?> <?=$readonlyLabel?></label>
                 <input type="text" class="form-control" id="custom_class" name="custom_class" value="<?= $config_data['custom_class'] ?>" <?=$readonlyInputs?>>
                 <!-- Error -->
                 <?php if($validation->getError('custom_class')) {?>
@@ -149,13 +149,13 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide custom_class
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="icon" class="form-label">
-                    Icon <?=$readonlyLabel?>
+                    <?= lang('app.icon') ?> <?=$readonlyLabel?>
                 </label>
                 <input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="<?= htmlspecialchars($config_data['icon']) ?>" placeholder="E.g. ri-user-line" <?=$readonlyInputs?>>
                 <!-- Error -->
@@ -165,12 +165,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide icon
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
                 <label for="search_terms" class="form-label">
-                    Search Terms <?=$readonlyLabel?>
+                    <?= lang('App.search_terms') ?> <?=$readonlyLabel?>
                 </label>
                 <textarea rows="1" class="form-control tags-input" id="search_terms" name="search_terms" <?=$readonlyInputs?>><?= $config_data['search_terms'] ?></textarea>
                 <!-- Error -->
@@ -180,7 +180,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide search_terms
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -196,7 +196,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/admin/configurations') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

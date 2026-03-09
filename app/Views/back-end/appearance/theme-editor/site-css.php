@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Site CSS File Editor<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.site_css_editor') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -18,10 +18,10 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Appearance', 'url' => '/account/appearance'),
-    array('title' => 'Theme Editor', 'url' => '/account/appearance/theme-editor'),
-    array('title' => 'Edit Site CSS File')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.appearance'), 'url' => '/account/appearance'),
+    array('title' => lang('App.theme_editor'), 'url' => '/account/appearance/theme-editor'),
+    array('title' => lang('App.site_css_editor'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -29,9 +29,9 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>File Editor</h3>
+        <h3><?= lang('App.file_editor') ?></h3>
         <button class="btn btn-dark my-1 float-end" type="button" data-bs-toggle="modal" data-bs-target="#ciFileManagerModal">
-            <i class="ri-image-fill"></i> File Manager
+            <i class="ri-image-fill"></i> <?= lang('App.file_manager') ?>
         </button>
     </div>
     <div class="col-12">  
@@ -41,19 +41,19 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>
                         <a href="<?= base_url('/account/appearance/theme-editor') ?>" class="btn btn-outline-danger">
-                            <i class="ri-arrow-left-fill"></i> Back
+                            <i class="ri-arrow-left-fill"></i> <?= lang('App.back') ?>
                         </a>
                     </div>
                     <div>
                         <i class="ri-file-edit-line"></i>
-                        Editing <?='.../Views/front-end/themes/'.getCurrentTheme().'/search/'.$siteCSSFilename?>
+                        <?= lang('App.editing') ?> <?='.../Views/front-end/themes/'.getCurrentTheme().'/search/'.$siteCSSFilename?>
                     </div>
                     <div>
                         <a href="<?= base_url('account/appearance/theme-editor/save-version?id=site-css') ?>" class="btn btn-outline-secondary me-2" id="saveVersionBtn">
-                            <i class="ri-history-line"></i> Save Version
+                            <i class="ri-history-line"></i> <?= lang('App.save_version') ?>
                         </a>
                         <button type="submit" class="btn btn-outline-primary">
-                            <i class="ri-save-line"></i> Save File
+                            <i class="ri-save-line"></i> <?= lang('App.save_file') ?>
                         </button>
                     </div>
                 </div>

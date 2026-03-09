@@ -1,12 +1,12 @@
 <!-- include layout -->
 <?= $this->extend('front-end/layout/_layout') ?>
 
-<?= $this->section('title') ?>Sign-Up<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.sign_up') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h2 class="text-center">Sign-Up</h2>
+<h2 class="text-center"><?= lang('App.sign_up') ?></h2>
 <div class="row justify-content-center">
     <div class="col-md-6 col-sm-12 bg-light rounded p-4">
 
@@ -16,7 +16,7 @@
             <?= csrf_field() ?>
             <?=getHoneypotInput()?>
             <div class="mb-3">
-                <label for="first_name" class="form-label">First Name</label>
+                <label for="first_name" class="form-label"><?= lang('App.first_name') ?></label>
                 <input type="text" class="form-control" id="first_name" name="first_name" placeholder="first name" required>
                 <!-- Error -->
                 <?php if($validation->getError('first_name')) {?>
@@ -25,11 +25,11 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide first name
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="mb-3">
-                <label for="last_name" class="form-label">Last Name</label>
+                <label for="last_name" class="form-label"><?= lang('App.last_name') ?></label>
                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder="last name" required>
                 <!-- Error -->
                 <?php if($validation->getError('last_name')) {?>
@@ -38,11 +38,11 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide last name
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label"><?= lang('App.username') ?></label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="username" required
                        hx-post="<?=base_url()?>/htmx/check-user-username-exists"
                        hx-trigger="keyup, changed delay:250ms"
@@ -55,13 +55,13 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide your username
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div id="existing-username-error">
                 </div>
             </div>
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label"><?= lang('App.email') ?></label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required
                        hx-post="<?=base_url()?>/htmx/check-user-email-exists"
                        hx-trigger="keyup, changed delay:250ms"
@@ -74,14 +74,14 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide an email
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div id="existing-user-email-error">
                 </div>
             </div>
             <div class="mb-3">
                 <div x-data="{ showPassword: false }">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label"><?= lang('App.password') ?></label>
                     <div class="input-group mb-3">
                         <input x-bind:type="showPassword ? 'text' : 'password'" class="form-control" id="password" name="password" placeholder="enter password" required
                                hx-post="<?=base_url()?>/htmx/check-password-is-valid"
@@ -92,7 +92,7 @@
                             <i x-bind:class="{'ri-eye-fill text-dark': !showPassword, 'ri-eye-off-fill text-dark': showPassword}" id="eye-icon"></i>
                         </span>
                         <div class="invalid-feedback">
-                            Please provide a password
+                            <?= lang('App.input_required') ?>
                         </div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="repeat_password" class="form-label">Repeat Password</label>
+                <label for="repeat_password" class="form-label"><?= lang('App.repeat_password') ?></label>
                 <input type="password" class="form-control" id="repeat_password" name="repeat_password" placeholder="re-enter password" required
                        hx-post="<?=base_url()?>/htmx/check-passwords-match"
                        hx-trigger="keyup[target.value.length > 2], changed delay:250ms"
@@ -119,27 +119,12 @@
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please re-type password
+                    <?= lang('App.input_required') ?>
                 </div>
                 <div id="password-match-error">
                 </div>
             </div>
-            <?php if (!empty($captcha_image)) { ?>
-                <div class="mb-3">
-                    <label for="captcha" class="form-label">Captcha</label>
-                    <img loading="lazy" src="<?= $captcha_image ?>" alt="CAPTCHA" class="mb-2">
-                    <input type="text" class="form-control" id="captcha" name="captcha" required>
-                    <input type="hidden" name="captcha_session" value="<?= session('captcha') ?>">
-                    <?php if ($validation->getError('captcha')) { ?>
-                        <div class='alert alert-danger mt-2'>
-                            <?= $error = $validation->getError('captcha'); ?>
-                        </div>
-                    <?php } ?>
-                    <div class="invalid-feedback">
-                        Please enter the captcha
-                    </div>
-                </div>
-            <?php } ?>
+            <?= renderCaptcha()?>
             
             <div class="mb-3">
                 <div class="d-grid">
@@ -148,7 +133,7 @@
             </div>
             <div class="my-2">
                 <p>
-                    Already have an account? Login <a href="<?= base_url('/sign-in'); ?>">here</a>
+                    <?= lang('App.already_have_account') ?> <a href="<?= base_url('/sign-in'); ?>"><?= lang('App.login') ?></a>
                 </p>
             </div>
 
@@ -160,9 +145,10 @@
                             <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
                         </div>
 
-                        <div class="text-center">
-                            <a href="<?= base_url('auth/google/login') ?>" class="btn btn-danger btn-block w-100 mb-2">
-                                <i class="ri-google-fill"></i> Sign in with Google
+                        <div class="google-btn-wrapper">
+                            <a href="<?= base_url('auth/google/login') ?>" class="google-signin-btn">
+                                <img src="https://ik.imagekit.io/oju3vfr0u/websites/igniter-cms/google.png" alt="Google logo">
+                                <span><?= lang('App.sign_in_google') ?></span>
                             </a>
                         </div>
                     </div>

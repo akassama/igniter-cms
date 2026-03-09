@@ -1060,14 +1060,14 @@ function cifGenerateFileManagerTable(
         // SweetAlert2 Delete Confirmation with actual deletion
         function confirmDelete(filePath, fileName) {
             Swal.fire({
-                title: 'Are you sure?',
-                text: `You are about to delete "${fileName}". This action cannot be undone!`,
+                title: <?= json_encode(lang('App.are_you_sure')) ?>,
+                text: <?= lang('App.action_undone_warning') ?> + ` (${fileName})`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc3545',
                 cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel',
+                confirmButtonText: <?= json_encode(lang('App.yes')) ?>,
+                cancelButtonText: <?= json_encode(lang('App.cancel')) ?>,
                 reverseButtons: true,
                 customClass: {
                     popup: 'swal-custom'
@@ -1087,8 +1087,8 @@ function cifGenerateFileManagerTable(
                     .then(data => {
                         if (data.success) {
                             Swal.fire({
-                                title: 'Deleted!',
-                                text: data.message || `"${fileName}" has been deleted successfully.`,
+                                title: <?= json_encode(lang('App.deleted_title')) ?>,
+                                text: data.message || `"${fileName}" - <?= lang('App.record_deleted_msg') ?>`,
                                 icon: 'success',
                                 timer: 2000,
                                 showConfirmButton: false
@@ -1097,7 +1097,7 @@ function cifGenerateFileManagerTable(
                             refreshFileList();
                         } else {
                             Swal.fire({
-                                title: 'Error!',
+                                title: <?= json_encode(lang('App.error')) ?>,
                                 text: data.message || `Failed to delete "${fileName}".`,
                                 icon: 'error',
                                 timer: 2000,
@@ -1107,7 +1107,7 @@ function cifGenerateFileManagerTable(
                     })
                     .catch(error => {
                         Swal.fire({
-                            title: 'Error!',
+                            title: <?= json_encode(lang('App.error')) ?>,
                             text: `An error occurred while deleting "${fileName}".`,
                             icon: 'error',
                             timer: 2000,

@@ -23,14 +23,14 @@ class SignUpController extends BaseController
         $allowRegistration = getConfigData("EnableRegistration");
         if(strtolower($allowRegistration) === "no"){
             // Not allowed to access signup page
-            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            $invalidAccessMsg = lang('App.invalid_access_msg');
             session()->setFlashdata('errorAlert', $invalidAccessMsg);
             return redirect()->to('/');
         }
         
         //get use captcha config
-        $useCaptcha = env('USE_CAPTCHA', "No");
-        if(strtolower($useCaptcha) === "yes"){
+        $useCaptcha = env('USE_CAPTCHA', false);
+        if($useCaptcha){
             // Generate captcha
             $builder = new CaptchaBuilder;
             $builder->build();
@@ -49,7 +49,7 @@ class SignUpController extends BaseController
         $allowRegistration = getConfigData("EnableRegistration");
         if(strtolower($allowRegistration) === "no"){
             // Not allowed to access signup page
-            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            $invalidAccessMsg = lang('App.invalid_access_msg');
             session()->setFlashdata('errorAlert', $invalidAccessMsg);
             return redirect()->to('/');
         }
@@ -74,9 +74,8 @@ class SignUpController extends BaseController
         }
 
         //get use captcha config
-        $useCaptcha = env('USE_CAPTCHA', "No");
-
-        if(strtolower($useCaptcha) === "yes"){
+        $useCaptcha = env('USE_CAPTCHA', false);
+        if($useCaptcha){
             $captcha = $this->request->getPost('captcha');
             $captchaSession = session('captcha');
             // Verify captcha.
@@ -93,6 +92,7 @@ class SignUpController extends BaseController
             'username' => $this->request->getPost('username'),
             'email' => $this->request->getPost('email'),
             'password' => $this->request->getPost('password'),
+            'is_social_login' => false,
             'profile_picture'=> null,
             'twitter_link'=> null,
             'facebook_link'=> null,
@@ -108,7 +108,7 @@ class SignUpController extends BaseController
             $insertedId = $usersModel->getInsertID();
 
             // User created successfully. Redirect to dashboard
-            $createSuccessMsg = str_replace('[Record]', 'Registration', config('CustomConfig')->createSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Registration', lang('App.create_success_msg'));
             session()->setFlashdata('successAlert', $createSuccessMsg);
 
             //log activity
@@ -118,7 +118,7 @@ class SignUpController extends BaseController
 
         } else {
             // Failed to create user. Redirect to dashboard
-            $errorMsg = config('CustomConfig')->errorMsg;
+            $errorMsg = lang('App.error_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
@@ -127,5 +127,4 @@ class SignUpController extends BaseController
             return view('front-end/sign-up/index');
         }
     }
-
 }

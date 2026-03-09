@@ -390,9 +390,9 @@
             <ul>
             <li><a href="#" data-block-id="block-heading">Heading</a></li>
             <li><a href="#" data-block-id="block-text">Text</a></li>
-            <li><a href="#" data-block-id="block-image">Image</a></li>
+            <li><a href="#" data-block-id="block-image"><?= lang('App.image') ?></a></li>
             <li><a href="#" data-block-id="block-video">Video</a></li>
-            <li><a href="#" data-block-id="block-link">Link</a></li>
+            <li><a href="#" data-block-id="block-link"><?= lang('App.link') ?></a></li>
             </ul>
 
             <h6><i class="bi bi-ui-checks"></i>Forms & Inputs</h6>

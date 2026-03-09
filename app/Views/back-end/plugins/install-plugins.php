@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Install Plugins<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.install_plugins') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,9 +10,9 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Plugins', 'url' => '/account/plugins'),
-    array('title' => 'Install Plugins')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.plugins'), 'url' => '/account/plugins'),
+    array('title' => lang('App.install_plugins'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,14 +20,14 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Install Plugins</h3>
+        <h3><?= lang('App.install_plugins') ?></h3>
     </div>
     
     <!-- Search Form -->
     <div class="col-12 mb-4">
         <form class="d-flex" role="search" id="pluginSearchForm">
-            <input class="form-control me-2" type="search" placeholder="Search plugins..." aria-label="Search" id="pluginSearch">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input class="form-control me-2" type="search" placeholder="<?= lang('App.search') ?>  <?= lang('App.plugins') ?>" aria-label="Search" id="pluginSearch">
+            <button class="btn btn-outline-success" type="submit"><?= lang('App.search') ?></button>
         </form>
     </div>
     
@@ -66,7 +66,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
                                 <?php if (!empty($plugin['is_paid']) && $plugin['is_paid'] === true): ?>
                                     <span class="badge bg-warning text-dark">
-                                        <i class="ri-vip-crown-line me-1"></i> Premium
+                                        <i class="ri-vip-crown-line me-1"></i> <?= lang('App.premium') ?>
                                     </span>
                                 <?php endif; ?>
                             </div>
@@ -97,14 +97,14 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <?php if (!empty($plugin['is_paid']) && $plugin['is_paid'] === true): ?>
                                     <!-- If the plugin is paid -->
                                     <a href="<?= esc($plugin['payment_url']) ?>" class="btn btn-sm btn-primary" title="Buy Now" target="_blank">
-                                        <i class="ri-shopping-cart-line"></i> Purchase Plugin
+                                        <i class="ri-shopping-cart-line"></i> <?= lang('App.purchase_plugin') ?>
                                     </a>
                                 <?php else: ?>
                                     <!-- If the plugin is free -->
                                     <a href="<?= esc($plugin['download_url']) ?>" download class="btn btn-sm btn-success download-icon-btn" 
                                             data-plugin-name="<?= esc($plugin['name']) ?>"
                                             data-download-url="<?= esc($plugin['download_url']) ?>">
-                                        <i class="ri-download-line"></i> Download
+                                        <i class="ri-download-line"></i> <?= lang('App.download') ?>
                                     </a>
                                 <?php endif; ?>
                             </div>

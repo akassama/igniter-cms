@@ -10,8 +10,8 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.cms'), 'url' => '/account/cms'),
     array('title' => 'Pages')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -24,14 +24,14 @@ echo generateBreadcrumb($breadcrumb_links);
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/cms/pages/new-page')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Page
+            <i class="ri-add-fill"></i> <?= lang('App.new_page') ?>
         </a>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Pages
+                <?= lang('App.pages') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_pages ?>
                 </span>
@@ -43,13 +43,13 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Title</th>
-                            <th>Slug</th>
-                            <th>Group</th>
-                            <th>Status</th>
-                            <th>Author</th>
-                            <th>Views</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.title') ?></th>
+                            <th><?= lang('App.slug') ?></th>
+                            <th><?= lang('App.group') ?></th>
+                            <th><?= lang('App.status') ?></th>
+                            <th><?= lang('App.author') ?></th>
+                            <th><?= lang('App.views') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>

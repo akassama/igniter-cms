@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Content Blocks')
 );
 echo generateBreadcrumb($breadcrumb_links);
@@ -23,14 +23,14 @@ echo generateBreadcrumb($breadcrumb_links);
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/content-blocks/new-content-block')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Content Block
+            <i class="ri-add-fill"></i> <?= lang('App.new_content_block') ?>
         </a>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Content Blocks
+                <?= lang('App.content_blocks') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_content_blocks ?>
                 </span>
@@ -42,14 +42,14 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Identifier</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Author</th>
-                            <th>Order</th>
-                            <th>Icon</th>
-                            <th>Link</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.identifier') ?></th>
+                            <th><?= lang('App.title') ?></th>
+                            <th><?= lang('App.description') ?></th>
+                            <th><?= lang('App.author') ?></th>
+                            <th><?= lang('App.order') ?></th>
+                            <th><?= lang('App.icon') ?></th>
+                            <th><?= lang('App.link') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>

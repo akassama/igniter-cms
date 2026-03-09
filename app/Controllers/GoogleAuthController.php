@@ -29,7 +29,7 @@ class GoogleAuthController extends BaseController
         // Check if registration is enabled
         $allowRegistration = getConfigData("EnableRegistration");
         if(strtolower($allowRegistration) === "no"){
-            $invalidAccessMsg = config('CustomConfig')->invalidAccessMsg;
+            $invalidAccessMsg = lang('App.invalid_access_msg');
             session()->setFlashdata('errorAlert', $invalidAccessMsg);
             return redirect()->to('/');
         }
@@ -115,7 +115,7 @@ class GoogleAuthController extends BaseController
     {
         // Check if user status is active
         if ($user['status'] != 1) {
-            session()->setFlashdata('errorAlert', config('CustomConfig')->pendingActivationMsg);
+            session()->setFlashdata('errorAlert', lang('App.pending_activation_msg'));
             return redirect()->to('/sign-in');
         }
 
@@ -128,6 +128,7 @@ class GoogleAuthController extends BaseController
             'email' => $user['email'],
             'role' => $user['role'],
             'upload_directory' => $user['upload_directory'],
+            'is_social_login' => $user['is_social_login'],
             'is_logged_in' => TRUE
         ]);
 
@@ -164,6 +165,7 @@ class GoogleAuthController extends BaseController
             'facebook_link' => null,
             'instagram_link' => null,
             'linkedin_link' => null,
+            'is_social_login' => true,
             'password_change_required' => false
         ];
 
@@ -197,6 +199,7 @@ class GoogleAuthController extends BaseController
                 'email' => $newUser['email'],
                 'role' => $newUser['role'],
                 'upload_directory' => $newUser['upload_directory'],
+                'is_social_login' => $newUser['is_social_login'],
                 'is_logged_in' => TRUE
             ]);
 

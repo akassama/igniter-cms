@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Comments<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.comments') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,9 +10,9 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Forms', 'url' => '/account/forms'),
-    array('title' => 'Comment Forms')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.forms'), 'url' => '/account/forms'),
+    array('title' => lang('App.comment_forms'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,7 +20,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Comment Forms</h3>
+        <h3><?= lang('App.comment_forms') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
 
@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <i class="ri-grid-line me-1"></i>
-                    Comments
+                    <?= lang('App.comments') ?>
                     <span class="badge rounded-pill bg-dark">
                         <?= $total_comment_form_submissions ?>
                     </span>
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div>
                     <a href="<?= base_url('account/forms/comment-forms/unapproved'); ?>" 
                     class="btn btn-sm btn-outline-secondary">
-                        <i class="ri-chat-off-line text-danger me-1"></i> View Unapproved
+                        <i class="ri-chat-off-line text-danger me-1"></i> <?= lang('App.view_unapproved') ?>
                     </a>
                 </div>
             </div>
@@ -47,15 +47,15 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Comment</th>
-                            <th>Page</th>
-                            <th>IP</th>
-                            <th>Country</th>
-                            <th>Status</th>
-                            <th>Created</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.name') ?></th>
+                            <th><?= lang('App.email') ?></th>
+                            <th><?= lang('App.comment') ?></th>
+                            <th><?= lang('App.page') ?></th>
+                            <th><?= lang('App.ip_address') ?></th>
+                            <th><?= lang('App.country') ?></th>
+                            <th><?= lang('App.status') ?></th>
+                            <th><?= lang('App.created_at') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -81,7 +81,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             if(!empty($comment['page_url'])){
                                                 ?>
                                                     <a href="<?= $comment['page_url']; ?>" target="_blank" class="td-none fw-bold" data-bs-toggle="tooltip" title="<?= $comment['page_url']; ?>">
-                                                        <i class="ri-link-m"></i> View Page
+                                                        <i class="ri-link-m"></i> <?=lang('App.view_page') ?>
                                                     </a>
                                                 <?php
                                             }
@@ -91,8 +91,8 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <?= $comment['ip_address']; ?>
                                     </td>
                                     <td>
-                                        <span class="fi fi-<?= strtolower(esc($comment['country'])) ?>"></span>
-                                        <?= esc($comment['country']) ?>
+                                        <span class="fi fi-<?= strtolower(esc((string)$comment['country'])) ?>"></span>
+                                        <?= esc((string)$comment['country']) ?>
                                     </td>
                                     <!-- Status badge (read-only visual) with icon -->
                                     <?php
@@ -173,7 +173,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editCommentModalLabel">
-          <i class="ri-edit-2-line me-2"></i>Edit Comment
+          <i class="ri-edit-2-line me-2"></i> <?= lang('App.edit_comment') ?>
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -184,7 +184,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row g-3">
           <input type="hidden" name="comment_form_id" id="com_id">
             <div class="col-12 col-md-12">
-                <label for="com_comment" class="form-label">Comment</label>
+                <label for="com_comment" class="form-label"><?= lang('App.comment') ?></label>
                 <textarea class="form-control" id="com_comment" name="comment" maxlength="100" required></textarea>
             </div>
         </div>
@@ -192,10 +192,10 @@ echo generateBreadcrumb($breadcrumb_links);
 
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-          <i class="ri-close-circle-fill me-1"></i> Close
+          <i class="ri-close-circle-fill me-1"></i> <?= lang('App.close') ?>
         </button>
         <button type="submit" class="btn btn-primary">
-          <i class="ri-save-3-line me-1"></i> Save Changes
+          <i class="ri-save-3-line me-1"></i> <?= lang('App.save_changes') ?>
         </button>
       </div>
 

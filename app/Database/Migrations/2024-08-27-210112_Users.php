@@ -89,6 +89,11 @@ class Users extends Migration
                 'constraint' => '255',
                 'default' => generateUserDirectory('user'),
             ],
+            'is_social_login' => [
+                'type' => 'BOOLEAN',
+                'default' => false,
+                'null' => true,
+            ],
             'password_change_required' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
@@ -142,6 +147,7 @@ class Users extends Migration
                 'linkedin_link'    => 'https://www.linkedin.com/in/?admin-user',
                 'about_summary'    => 'Hello! I\'m Admin User, the administrator of this platform. With a strong background in managing and overseeing operations, I ensure everything runs smoothly. You can connect with me on social media through the links provided. I\'m here to help and support our community!',
                 'upload_directory' => "admin_8J0IM",
+                'is_social_login' => false,
                 'password_change_required' => true
             ],
         ];

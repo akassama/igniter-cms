@@ -54,12 +54,13 @@ class SiteStatsFilter implements FilterInterface
         //check if suspicius activity and add to block ip
         if(isBlockedRoute($pageVisitedUrl)){
             //log ip as black listed
+            $activityBy = $ipAddress;
             $reason = ActivityTypes::BLOCKED_IP_SUSPICIOUS_ACTIVITY;
             $blockEndTime = date('Y-m-d H:i:s', strtotime(getConfigData("BlockedIPSuspensionPeriod")));
             addBlockedIPAdress($ipAddress, $country, $pageVisitedUrl, $blockEndTime, $reason);
 
             //log activity
-            logActivity("User IP: ".$ipAddress , $reason, 'Suspicious user activity with IP: ' . $ipAddress);
+            logActivity($activityBy, $reason, 'Suspicious user activity with IP: ' . $ipAddress, $currentUrl);
         }
 
         //check if blocked ip

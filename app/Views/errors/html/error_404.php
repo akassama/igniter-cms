@@ -30,12 +30,14 @@ logSiteStatistic(
 //check if suspicius activity and add to block ip
 if(isBlockedRoute($currentUrl)){
     //log ip as black listed
+    $activityBy = $ipAddress;
+    $actionUrl = $this->request->getUri()->getPath();
     $reason = ActivityTypes::BLOCKED_IP_SUSPICIOUS_ACTIVITY;
     $blockEndTime = date('Y-m-d H:i:s', strtotime(getConfigData("BlockedIPSuspensionPeriod")));
     addBlockedIPAdress($ipAddress, $country, $currentUrl, $blockEndTime, $reason);
 
     //log activity
-    logActivity("User IP: ".$ipAddress , $reason, 'Suspicious user activity with IP: ' . $ipAddress);
+    logActivity($activityBy, $reason, 'Suspicious user activity with IP: ' . $ipAddress, $actionUrl);
 }
 
 //check if blocked ip
@@ -80,10 +82,10 @@ if(isBlockedIP($ipAddress)){
 <div class="container text-center error-container">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-            <h1 class="headline">404 - PAGE NOT FOUND!</h1>
-            <p class="lead">The page you are looking for was moved, removed or might never existed.</p>
+            <h1 class="headline"><?= lang('App.error_404_title') ?></h1>
+            <p class="lead"><?= lang('App.error_404_desc') ?></p>
             
-            <a href="<?= base_url()?>" class="btn btn-primary btn-lg mt-4">Go Back to Home</a>
+            <a href="<?= base_url()?>" class="btn btn-primary btn-lg mt-4"><?= lang('App.go_back_home') ?></a>
         </div>
     </div>
     <div class="row text-center mt-5">

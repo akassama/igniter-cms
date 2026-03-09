@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>View Subscriptions<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.subscriptions') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,9 +10,9 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Forms', 'url' => '/account/forms'),
-    array('title' => 'Subscription Forms')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.forms'), 'url' => '/account/forms'),
+    array('title' => lang('App.subscription_forms'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,7 +20,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Subscription Forms</h3>
+        <h3><?= lang('App.subscription_forms') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
 
@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <i class="ri-grid-line me-1"></i>
-                    Subscribers
+                    <?= lang('App.subscribers') ?>
                     <span class="badge rounded-pill bg-dark">
                         <?= $total_subscription_form_submissions ?>
                     </span>
@@ -37,7 +37,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div>
                     <a href="<?= base_url('account/forms/subscription-forms/unsubscribed'); ?>" 
                     class="btn btn-sm btn-outline-secondary">
-                        <i class="ri-notification-off-line text-danger me-1"></i> View Unsubscribed
+                        <i class="ri-notification-off-line text-danger me-1"></i> <?= lang('App.view_unsubscribed') ?>
                     </a>
                 </div>
             </div>
@@ -47,15 +47,15 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Form Name</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>IP</th>
-                            <th>Country</th>
-                            <th>Status</th>
-                            <th>Created</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.form_name') ?></th>
+                            <th><?= lang('App.name') ?></th>
+                            <th><?= lang('App.email') ?></th>
+                            <th><?= lang('App.status') ?></th>
+                            <th><?= lang('App.ip_address') ?></th>
+                            <th><?= lang('App.country') ?></th>
+                            <th><?= lang('App.status') ?></th>
+                            <th><?= lang('App.created_on') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -87,7 +87,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <?= $subscriber['ip_address']; ?>
                                     </td>
                                     <td>
-                                        <span class="fi fi-<?= strtolower(esc($subscriber['country'])) ?>"></span>
+                                        <span class="fi fi-<?= strtolower((string)$subscriber['country']) ?>"></span>
                                         <?= esc($subscriber['country']) ?>
                                     </td>
                                     <!-- Status badge (read-only visual) with icon -->
@@ -149,7 +149,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editSubscriberModalLabel">
-          <i class="ri-edit-2-line me-2"></i>Edit Subscriber
+          <i class="ri-edit-2-line me-2"></i><?= lang('App.edit_subscriber') ?>
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -161,33 +161,33 @@ echo generateBreadcrumb($breadcrumb_links);
           <input type="hidden" name="subscription_form_id" id="sub_id">
 
           <div class="col-12 col-md-6">
-            <label for="sub_email" class="form-label">Email</label>
+            <label for="sub_email" class="form-label"><?= lang('App.email') ?></label>
             <input type="email" class="form-control" id="sub_email" name="email" maxlength="255" required>
-            <div class="invalid-feedback">Please enter a valid email.</div>
+            <div class="invalid-feedback"><?= lang('App.input_required') ?></div>
           </div>
           <div class="col-12 col-md-6">
-            <label for="sub_phone" class="form-label">Phone</label>
+            <label for="sub_phone" class="form-label"><?= lang('App.phone') ?></label>
             <input type="text" class="form-control" id="sub_phone" name="phone" maxlength="50">
           </div>
 
           <div class="col-12 col-md-6">
-            <label for="sub_name" class="form-label">Name</label>
+            <label for="sub_name" class="form-label"><?= lang('App.name') ?></label>
             <input type="text" class="form-control" id="sub_name" name="name" maxlength="255">
           </div>
           <div class="col-12 col-md-6">
-            <label for="sub_status" class="form-label">Status</label>
+            <label for="sub_status" class="form-label"><?= lang('App.status') ?></label>
             <select class="form-select" id="sub_status" name="status" required>
               <?=getDataGroupOptions(null, "SubscriptionFormFomrStatus")?>
             </select>
-            <div class="invalid-feedback">Please select a status.</div>
+            <div class="invalid-feedback"><?= lang('App.input_required') ?></div>
           </div>
           
           <div class="col-12 col-md-6">
-            <label for="sub_first_name" class="form-label">First Name</label>
+            <label for="sub_first_name" class="form-label"><?= lang('App.first_name') ?></label>
             <input type="text" class="form-control" id="sub_first_name" name="first_name" maxlength="100">
           </div>
           <div class="col-12 col-md-6">
-            <label for="sub_last_name" class="form-label">Last Name</label>
+            <label for="sub_last_name" class="form-label"><?= lang('App.last_name') ?></label>
             <input type="text" class="form-control" id="sub_last_name" name="last_name" maxlength="100">
           </div>
         </div>
@@ -195,10 +195,10 @@ echo generateBreadcrumb($breadcrumb_links);
 
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-          <i class="ri-close-circle-fill me-1"></i> Close
+          <i class="ri-close-circle-fill me-1"></i> <?= lang('App.close') ?>
         </button>
         <button type="submit" class="btn btn-primary">
-          <i class="ri-save-3-line me-1"></i> Save Changes
+          <i class="ri-save-3-line me-1"></i> <?= lang('App.save_changes') ?>
         </button>
       </div>
 

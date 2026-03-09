@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Archived Contact Messages<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.archived_contact_messages') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,9 +10,9 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Forms', 'url' => '/account/forms'),
-    array('title' => 'Archived Contact Form Messages')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.forms'), 'url' => '/account/forms'),
+    array('title' => lang('App.archived_contact_messages'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,14 +20,14 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Archived Contact Form Messages</h3>
+        <h3><?= lang('App.manage_archived_contact') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <i class="ri-grid-line me-1"></i>
-                    Archived Contact Messages
+                    <?= lang('App.archived_contact_messages') ?>
                     <span class="badge rounded-pill bg-dark">
                         <?= $total_contact_form_submissions ?>
                     </span>
@@ -36,7 +36,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div>
                     <a href="<?= base_url('account/forms/contact-forms'); ?>" 
                     class="btn btn-sm btn-outline-secondary">
-                        <i class="ri-archive-fill me-1"></i> View Inbox
+                        <i class="ri-archive-fill me-1"></i> <?= lang('App.view_inbox') ?>
                     </a>
                 </div>
             </div>
@@ -47,14 +47,14 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Form Name</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>IP</th>
-                            <th>Country</th>
-                            <th>Status</th>
-                            <th>Created</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.form_name') ?></th>
+                            <th><?= lang('App.name') ?></th>
+                            <th><?= lang('App.email') ?></th>
+                            <th><?= lang('App.ip_address') ?></th>
+                            <th><?= lang('App.country') ?></th>
+                            <th><?= lang('App.status') ?></th>
+                            <th><?= lang('App.created_at') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -91,8 +91,8 @@ echo generateBreadcrumb($breadcrumb_links);
                                     </td>
                                     <td>
                                         <a class="text-dark td-none" href="<?=base_url('account/forms/contact-forms/view-contact/'.$contact_message['contact_form_id'])?>">
-                                            <span class="fi fi-<?= strtolower(esc($contact_message['country'])) ?>"></span>
-                                            <?= esc($contact_message['country']) ?>
+                                            <span class="fi fi-<?= strtolower(esc((string)$contact_message['country'])) ?>"></span>
+                                            <?= esc((string)$contact_message['country']) ?>
                                         </a>
                                     </td>
                                     <!-- Status badge (read-only visual) with icon -->

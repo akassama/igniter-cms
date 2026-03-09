@@ -36,6 +36,9 @@ class ServicesController extends BaseController
         $childTables = $this->request->getPost('child_table');
         $returnUrl = $this->request->getPost('return_url');
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
+
         //show demo message
         if(boolval(env('DEMO_MODE', "false"))){
             $errorMsg = "Action not available in the demo mode.";
@@ -58,21 +61,21 @@ class ServicesController extends BaseController
                 }
             }
 
-            $createSuccessMsg = str_replace('[Record]', 'Data', config('CustomConfig')->deleteSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Data', lang('App.delete_success_msg'));
             session()->setFlashdata('toastrSuccessAlert', $createSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::DELETE_LOG, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue);
+            logActivity($loggedInUserId, ActivityTypes::DELETE_LOG, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue, $actionUrl, $tableName, $pkValue, json_encode($previousData), null);
 
             //return
             return redirect()->to($returnUrl);
         }
-        catch (Exception $e){
-            $errorMsg = config('CustomConfig')->exceptionMsg;
+        catch (\Exception $e){
+            $errorMsg = lang('App.exception_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete record for table name: ' . $tableName .' with id: ' . $pkValue);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete record for table name: ' . $tableName .' with id: ' . $pkValue, $actionUrl, $tableName, $pkValue, json_encode($previousData), null);
 
             return redirect()->to($returnUrl);
         }
@@ -94,6 +97,9 @@ class ServicesController extends BaseController
         $childTables = $this->request->getPost('child_table');
         $filePath = $this->request->getPost('file_path');
         $returnUrl = $this->request->getPost('return_url');
+
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
 
         //show demo message
         if(boolval(env('DEMO_MODE', "false"))){
@@ -126,21 +132,21 @@ class ServicesController extends BaseController
                 }
             }
 
-            $createSuccessMsg = str_replace('[Record]', 'Data', config('CustomConfig')->deleteSuccessMsg);
+            $createSuccessMsg = str_replace('[Record]', 'Data', lang('App.delete_success_msg'));
             session()->setFlashdata('toastrSuccessAlert', $createSuccessMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FILE_DELETION, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue);
+            logActivity($loggedInUserId, ActivityTypes::FILE_DELETION, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue, $actionUrl, $tableName, $pkValue, json_encode($previousData), null);
 
             //return
             return redirect()->to($returnUrl);
         }
-        catch (Exception $e){
-            $errorMsg = config('CustomConfig')->exceptionMsg;
+        catch (\Exception $e){
+            $errorMsg = lang('App.exception_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
 
             //log activity
-            logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete record for table name: ' . $tableName .' with id: ' . $pkValue);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete record for table name: ' . $tableName .' with id: ' . $pkValue, $actionUrl, $tableName, $pkValue, json_encode($previousData), null);
 
             return redirect()->to($returnUrl);
         }
@@ -163,6 +169,9 @@ class ServicesController extends BaseController
       $pkValue = $this->request->getPost('pk_value');
       $fileName = $this->request->getPost('file_path');
       $returnUrl = $this->request->getPost('return_url');
+
+      $actionUrl = $this->request->getUri()->getPath();
+      $previousData = null;
 
       //show demo message
       if(boolval(env('DEMO_MODE', "false"))){
@@ -187,21 +196,21 @@ class ServicesController extends BaseController
             } 
           }
 
-          $createSuccessMsg = str_replace('[Record]', 'Data', config('CustomConfig')->deleteSuccessMsg);
+          $createSuccessMsg = str_replace('[Record]', 'Data', lang('App.delete_success_msg'));
           session()->setFlashdata('toastrSuccessAlert', $createSuccessMsg);
 
           //log activity
-          logActivity($loggedInUserId, ActivityTypes::FILE_DELETION, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue);
+          logActivity($loggedInUserId, ActivityTypes::FILE_DELETION, 'User with id: ' . $loggedInUserId . ' deleted record for table name: ' . $tableName .' with id: ' . $pkValue, $actionUrl, $tableName, $pkValue, json_encode($previousData), null);
 
           //return
           return redirect()->to($returnUrl);
       }
-      catch (Exception $e){
-          $errorMsg = config('CustomConfig')->exceptionMsg;
+      catch (\Exception $e){
+          $errorMsg = lang('App.exception_msg');
           session()->setFlashdata('errorAlert', $errorMsg);
 
           //log activity
-          logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete record for table name: ' . $tableName .' with id: ' . $pkValue);
+          logActivity($loggedInUserId, ActivityTypes::FAILED_DELETE_LOG, 'User with id: ' . $loggedInUserId . ' failed to delete record for table name: ' . $tableName .' with id: ' . $pkValue, $actionUrl, $tableName, $pkValue, json_encode($previousData), null);
 
           return redirect()->to($returnUrl);
       }
@@ -245,7 +254,7 @@ class ServicesController extends BaseController
             // Return a successful response (HTTP 200 OK)
             http_response_code(200);
             echo json_encode(['success' => true, 'message' => 'Record(s) successfully removed.']);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             // Return an error response (HTTP 500 Internal Server Error)
             http_response_code(500);
             echo json_encode(['success' => false, 'message' => 'An error occurred while removing the record(s).']);

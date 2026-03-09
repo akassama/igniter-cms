@@ -2,7 +2,7 @@
     <!--Alert Success-->
     <script>
         swal.fire({
-            title: 'Success!',
+            title: <?= json_encode(lang('App.success')) ?>,
             text: '<?= session()->getFlashdata('successAlert') ?>',
             icon: 'success',
             confirmButtonColor: '#28a745',
@@ -15,7 +15,7 @@
     <!--Alert Error-->
     <script>
         swal.fire({
-            title: 'Errror!',
+            title: <?= json_encode(lang('App.error')) ?>,
             text: '<?= session()->getFlashdata('errorAlert') ?>',
             icon: 'error',
             confirmButtonColor: '#dc3545',
@@ -28,7 +28,7 @@
     <!--Alert Warning-->
     <script>
         swal.fire({
-            title: 'Warning!',
+            title: <?= json_encode(lang('App.warning')) ?>,
             text: '<?= session()->getFlashdata('warningAlert') ?>',
             icon: 'warning',
             confirmButtonColor: '#ffc107',
@@ -41,7 +41,7 @@
     <!--Alert Info-->
     <script>
         swal.fire({
-            title: 'Info!',
+            title: <?= json_encode(lang('App.info')) ?>,
             text: '<?= session()->getFlashdata('infoAlert') ?>',
             icon: 'info',
             confirmButtonColor: '#54B4D3',

@@ -240,8 +240,8 @@ if (!function_exists('getHoneypotInput')) {
 if (!function_exists('renderCaptcha')) {
     function renderCaptcha()
     {
-        $useCaptcha = env('USE_CAPTCHA', "No");
-        if (strtolower($useCaptcha) !== "yes") return "";
+        $useCaptcha = env('USE_CAPTCHA', false);
+        if (!$useCaptcha) return "";
 
         $types = explode(',', strtolower(env('CAPTCHA_TYPE', 'recaptcha')));
         foreach ($types as $type) {
@@ -411,8 +411,8 @@ if (!function_exists('renderCaptcha')) {
  */
 function validateCaptcha($returnUrl = null)
 {
-    $useCaptcha = env('USE_CAPTCHA', "No");
-    if (strtolower($useCaptcha) !== "yes") return true;
+    $useCaptcha = env('USE_CAPTCHA', false);
+    if (!$useCaptcha) return true;
 
     $types = explode(',', strtolower(env('CAPTCHA_TYPE', 'recaptcha')));
 
@@ -490,6 +490,7 @@ function validateCaptcha($returnUrl = null)
  */
 if (!function_exists('blockAndLogIPSpam')) {
     function blockAndLogIPSpam($reason): void {
+        $activityBy = $ipAddress;
         $ipAddress = getDeviceIP();
         $currentUrl = current_url();
         $country = getCountry();
@@ -499,7 +500,7 @@ if (!function_exists('blockAndLogIPSpam')) {
         addBlockedIPAdress($ipAddress, $country, $currentUrl, $blockEndTime, ActivityTypes::BLOCKED_IP_SPAMMING);
 
         // Log the activity
-        logActivity("User IP: " . $ipAddress, ActivityTypes::BLOCKED_IP_SPAMMING, $reason . ' with IP: ' . $ipAddress);
+        logActivity($activityBy, ActivityTypes::BLOCKED_IP_SPAMMING, $reason . ' with IP: ' . $ipAddress, $currentUrl);
 
         // Return a normal-looking 403 response
         header('HTTP/1.1 403 Forbidden');

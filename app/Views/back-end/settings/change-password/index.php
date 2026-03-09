@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Change Password<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.change_password') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,16 +10,16 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Settings', 'url' => '/account/settings'),
-    array('title' => 'Change Password')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.settings'), 'url' => '/account/settings'),
+    array('title' => lang('App.change_password'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Change Password</h3>
+        <h3><?= lang('App.change_password') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
@@ -27,14 +27,14 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php
             //check if password change is required and display message
             if(passwordChangeRequired() && !boolval(env('DEMO_MODE', "false"))){
-                $passwordResetRequiredMsg = config('CustomConfig')->passwordResetRequiredMsg;
+                $passwordResetRequiredMsg = lang('App.password_reset_req_msg');
                 echo "<div class='alert alert-danger'>".$passwordResetRequiredMsg."</div>";
             }
         ?>
         <div class="row">
             <div class="col-8 offset-2">
                 <div class="col-12 mb-3">
-                    <label for="current_password" class="form-label">Current Password</label>
+                    <label for="current_password" class="form-label"><?= lang('App.current_password') ?></label>
                     <input type="password" class="form-control" id="current_password" name="current_password" value="" required>
                     <!-- Error -->
                     <?php if($validation->getError('current_password')) {?>
@@ -43,12 +43,12 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     <?php }?>
                     <div class="invalid-feedback">
-                        Please provide current_password
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
 
                 <div class="col-12 mb-3">
-                    <label for="new_password" class="form-label">New Password</label>
+                    <label for="new_password" class="form-label"><?= lang('App.confirm_new_password') ?></label>
                     <input type="password" class="form-control" id="new_password" name="new_password" value="" required>
                     <!-- Error -->
                     <?php if($validation->getError('new_password')) {?>
@@ -57,12 +57,12 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     <?php }?>
                     <div class="invalid-feedback">
-                        Please provide new_password
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
 
                 <div class="col-12 mb-3">
-                    <label for="repeat_password" class="form-label">Repeat Password</label>
+                    <label for="repeat_password" class="form-label"><?= lang('App.repeat_password') ?></label>
                     <input type="password" class="form-control" id="repeat_password" name="repeat_password" value="" required>
                     <!-- Error -->
                     <?php if($validation->getError('repeat_password')) {?>
@@ -71,7 +71,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     <?php }?>
                     <div class="invalid-feedback">
-                        Please provide repeat_password
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3">
                 <a href="<?= base_url('/account/settings') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

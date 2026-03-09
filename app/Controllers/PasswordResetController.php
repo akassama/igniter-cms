@@ -10,7 +10,7 @@ class PasswordResetController extends Controller
     public function index($token)
     {
         if (!isValidResetToken($token)) {
-            $invalidResetLinkMsg = config('CustomConfig')->invalidResetLinkMsg;
+            $invalidResetLinkMsg = lang('App.invalid_reset_link_msg');
             session()->setFlashdata('errorAlert', $invalidResetLinkMsg);
             return redirect()->to('/forgot-password');
         }
@@ -44,7 +44,7 @@ class PasswordResetController extends Controller
             $password = $this->request->getPost('password');
 
             if (!isValidResetToken($token)) {
-                $invalidResetLinkMsg = config('CustomConfig')->invalidResetLinkMsg;
+                $invalidResetLinkMsg = lang('App.invalid_reset_link_msg');
                 session()->setFlashdata('errorAlert', $invalidResetLinkMsg);
                 return redirect()->to('/forgot-password');
             }
@@ -66,7 +66,7 @@ class PasswordResetController extends Controller
 
                 logActivity($user['user_id'], ActivityTypes::PASSWORD_RESET_SUCCESS, 'Password reset successful for user with id: '. $user['user_id']);
 
-                $passwordResetSuccessfulMsg = config('CustomConfig')->passwordResetSuccessfulMsg;
+                $passwordResetSuccessfulMsg = lang('App.password_reset_success_msg');
                 session()->setFlashdata('successAlert', $passwordResetSuccessfulMsg);
 
                 return redirect()->to('/sign-in');
@@ -74,7 +74,7 @@ class PasswordResetController extends Controller
         }
 
         $token = $this->request->getPost('token');
-        $passwordResetFailedMsg = config('CustomConfig')->passwordResetFailedMsg;
+        $passwordResetFailedMsg = lang('App.password_reset_failed_msg');
         session()->setFlashdata('errorAlert', $passwordResetFailedMsg);
         if(!empty($token)){
             return redirect()->to('/password-reset/' .$token);

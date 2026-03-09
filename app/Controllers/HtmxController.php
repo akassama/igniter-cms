@@ -21,7 +21,7 @@ class HtmxController extends BaseController
         if(!empty($userEmail)){
             if (recordExists($tableName, $primaryKey, $userEmail)) {
                 // Record already exists
-                echo '<span class="text-danger">User with email ('.$userEmail.') already exists</span>';
+                echo '<span class="text-danger">User with email already exists ('.$userEmail.')</span>';
             }
         }
 
@@ -43,7 +43,7 @@ class HtmxController extends BaseController
         if(!empty($username)){
             if (recordExists($tableName, $primaryKey, $username)) {
                 // Record already exists
-                echo '<span class="text-danger">User with username ('.$username.') already exists</span>';
+                echo '<span class="text-danger">User with username already exists ('.$username.')</span>';
             }
         }
 
@@ -110,7 +110,7 @@ class HtmxController extends BaseController
         if(!empty($configFor)){
             if (recordExists($tableName, $primaryKey, $configFor)) {
                 // Record already exists
-                echo '<span class="text-danger">Config for ('.$configFor.') already exists</span>';
+                echo '<span class="text-danger">Config for this key already exists ('.$configFor.')</span>';
             }
         }
 
@@ -178,7 +178,7 @@ class HtmxController extends BaseController
         $title = $this->request->getPost('title');
         $baseUrl = base_url();
         $slug = generateBlogTitleSlug($title);
-        $slugInput = '<span class="input-group-text">'.$baseUrl.'blog/</span><input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required><div class="invalid-feedback">Please provide slug</div>';
+        $slugInput = '<span class="input-group-text">'.$baseUrl.'blog/</span><input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required><div class="invalid-feedback">'.lang('App.input_required').'</div>';
         echo $slugInput;
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
@@ -190,7 +190,7 @@ class HtmxController extends BaseController
         $title = $this->request->getPost('title');
         $baseUrl = base_url();
         $slug = generatePageTitleSlug($title);
-        $slugInput = '<span class="input-group-text">'.$baseUrl.'</span><input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required><div class="invalid-feedback">Please provide slug</div>';
+        $slugInput = '<span class="input-group-text">'.$baseUrl.'</span><input type="text" class="form-control" id="slug" name="slug" value="'.$slug.'" required><div class="invalid-feedback">'.lang('App.input_required').'</div>';
         echo $slugInput;
 
         //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
@@ -323,7 +323,9 @@ class HtmxController extends BaseController
         }
 
         $blogDescription = getTextSummary(strip_tags($blogDescription), 500);
-        $prompt = "Write a blog for the following.\n\Blog Description:\n$blogDescription";
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
+        $prompt = "Write a blog for the following.\n\Blog Description:\n$blogDescription\n\n$languageInstruction";
 
         $content = makeGeminiCall($prompt, "html");
 
@@ -344,7 +346,9 @@ class HtmxController extends BaseController
         }
 
         $content = getTextSummary(strip_tags($content), 1000);
-        $prompt = "From the following content, extract a concise, engaging, and SEO-friendly excerpt (max 1,000 characters). Return only the excerpt.\n\nContent:\n$content";
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
+        $prompt = "From the following content, extract a concise, engaging, and SEO-friendly excerpt (max 1,000 characters). Return only the excerpt.\n\nContent:\n$content\n\n$languageInstruction";
 
         $excerpt = makeGeminiCall($prompt);
 
@@ -370,7 +374,9 @@ class HtmxController extends BaseController
             return '<textarea rows="1" class="form-control tags-input" id="tags" name="meta_description" required></textarea>';
         }
 
-        $prompt = "Generate a list of SEO-friendly meta keywords for the page titled '$title' with description '$description'. Focus on relevance and conciseness. Return only comma-separated keywords.";
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
+        $prompt = "Generate a list of SEO-friendly meta keywords for the page titled '$title' with description '$description'. Focus on relevance and conciseness. Return only comma-separated keywords.\n\n$languageInstruction";
         $keywords = makeGeminiCall($prompt);
 
         $returnInput = '<textarea rows="1" class="form-control tags-input" id="tags" name="tags" required>'.$keywords.'</textarea>';
@@ -393,7 +399,9 @@ class HtmxController extends BaseController
             return '<input type="text" class="form-control" id="meta_title" name="meta_title" value="">';
         }
 
-        $prompt = "Generate an SEO-friendly meta title for the page titled '$title'. Keep it under 60 characters, compelling, and relevant. Return only the title";
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
+        $prompt = "Generate an SEO-friendly meta title for the page titled '$title'. Keep it under 60 characters, compelling, and relevant. Return only the title.\n\n$languageInstruction";
         $siteName = getConfigData("SiteName");
         $siteAddress = getConfigData("SiteAddress");
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$siteName', Company Address: '$siteAddress'. If not needed, ignore.";
@@ -419,7 +427,9 @@ class HtmxController extends BaseController
             return '<textarea class="form-control" id="meta_description" name="meta_description"></textarea>';
         }
 
-        $prompt = "Generate an SEO-friendly meta description for the page titled '$title'. Summarize the content in under 160 characters, ensuring clarity and engagement. Return only the description.";
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
+        $prompt = "Generate an SEO-friendly meta description for the page titled '$title'. Summarize the content in under 160 characters, ensuring clarity and engagement. Return only the description.\n\n$languageInstruction";
         $siteName = getConfigData("SiteName");
         $siteAddress = getConfigData("SiteAddress");
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$siteName', Company Address: '$siteAddress'. If not needed, ignore.";
@@ -446,7 +456,9 @@ class HtmxController extends BaseController
             return '<textarea class="form-control" id="meta_keywords" name="meta_keywords"></textarea>';
         }
 
-        $prompt = "Generate a list of SEO-friendly meta keywords for the page titled '$title' with description '$description'. Focus on relevance and conciseness. Return only comma-separated keywords.";
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
+        $prompt = "Generate a list of SEO-friendly meta keywords for the page titled '$title' with description '$description'. Focus on relevance and conciseness. Return only comma-separated keywords.\n\n$languageInstruction";
         $keywords = makeGeminiCall($prompt);
 
         $returnInput = '<textarea rows="1" class="form-control" id="meta_keywords" name="meta_keywords">'.$keywords.'</textarea>';
@@ -469,7 +481,9 @@ class HtmxController extends BaseController
             return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required></textarea>';
         }
 
-        $prompt = "Generate a clear, SEO-friendly description for the blog category titled '$title'. Explain its purpose in under 160 characters. Return only the description.";
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
+        $prompt = "Generate a clear, SEO-friendly description for the blog category titled '$title'. Explain its purpose in under 160 characters. Return only the description.\n\n$languageInstruction";
         $description = makeGeminiCall($prompt);
 
         $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
@@ -492,7 +506,9 @@ class HtmxController extends BaseController
             return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required></textarea>';
         }
 
-        $prompt = "Generate a clear, SEO-friendly description for the page navigation titled '$title'. Explain its purpose in under 160 characters. Return only the description.";
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
+        $prompt = "Generate a clear, SEO-friendly description for the page navigation titled '$title'. Explain its purpose in under 160 characters. Return only the description.\n\n$languageInstruction";
         $description = makeGeminiCall($prompt);
 
         $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
@@ -516,7 +532,9 @@ class HtmxController extends BaseController
             return '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required></textarea>';
         }
 
-        $prompt = "Generate a concise, SEO-friendly description for the content block titled '$title'. Explain its purpose in 1-2 sentences. Return only the description text.";
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
+        $prompt = "Generate a concise, SEO-friendly description for the content block titled '$title'. Explain its purpose in 1-2 sentences. Return only the description text.\n\n$languageInstruction";
         $description = makeGeminiCall($prompt);
 
         $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
@@ -544,7 +562,9 @@ class HtmxController extends BaseController
             return '<textarea rows="1" class="form-control" id="about_summary" name="about_summary" maxlength="500">'.$aboutSummary.'</textarea>';
         }
 
-        $prompt = "Create a professional bio for $name ($role). Include expertise and social links ($socialLinks) in 4-5 sentences. Return only the bio text.";
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
+        $prompt = "Create a professional bio for $name ($role). Include expertise and social links ($socialLinks) in 4-5 sentences. Return only the bio text.\n\n$languageInstruction";
         $siteName = getConfigData("SiteName");
         $siteAddress = getConfigData("SiteAddress");
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$siteName', Company Address: '$siteAddress'. If not needed, ignore.";
@@ -574,6 +594,8 @@ class HtmxController extends BaseController
             return '<input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="" placeholder="E.g. ri-user-line">';
         }
 
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
         $prompt = "Based on the title '$title', provide the most relevant Remix Icon text representation. Ensure the response contains only the icon text (e.g., 'ri-user-line', 'ri-loop-left-fill', etc.), with no explanations or additional options.";
         $icon = makeGeminiCall($prompt);
 
@@ -594,6 +616,8 @@ class HtmxController extends BaseController
             return '';
         }
 
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
         $prompt = "Analyze these website activity logs and provide a security-focused report in HTML format. Structure the response EXACTLY as follows:
 
         <div class=\"security-analysis\">
@@ -619,7 +643,7 @@ class HtmxController extends BaseController
         4. Potential brute force attacks
         5. Administrative action anomalies
 
-        Return ONLY the HTML formatted as shown above - no additional text, explanations, or commentary. Use the exact same HTML structure with your analysis of this log data:
+        Return ONLY the HTML formatted as shown above - no additional text, explanations, or commentary. Use the exact same HTML structure with your analysis of this log data.\n\n$languageInstruction:
         " . $activityLogs;
 
         $analysis = makeGeminiCall($prompt);
@@ -639,6 +663,8 @@ class HtmxController extends BaseController
             return '<div class="alert alert-info">No error logs found</div>';
         }
 
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
         $prompt = "Analyze these error logs and provide a concise HTML report with:
             1. A summary table of error types/counts
             2. List of critical errors with explanations
@@ -665,7 +691,7 @@ class HtmxController extends BaseController
                 <li>[Suggested Action]</li>
             </ol>
             </div>
-
+            \n\n$languageInstruction
             Analyze these logs:
             " . $errorLogs;
 
@@ -686,6 +712,8 @@ class HtmxController extends BaseController
             return '';
         }
 
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
         $prompt = "Analyze these website visit statistics and provide a comprehensive report in HTML format. Structure the response EXACTLY as follows:
 
     <div class=\"visit-analysis\">
@@ -734,6 +762,8 @@ class HtmxController extends BaseController
     4. Repeated visits from same IP/user agent
     5. Unusual screen resolutions or session behaviors
 
+    \n\n$languageInstruction
+
     Return ONLY the HTML formatted as shown above - no additional text, explanations, or commentary. Use the exact same structure with your analysis of this visit stats data:
     " . $visitStats;
 
@@ -758,6 +788,8 @@ class HtmxController extends BaseController
 
             $question = $this->request->getPost('ai_question');
 
+            // Get language instruction
+            $languageInstruction = getAILanguageInstruction();
             $prompt = "Here is a question about Igniter CMS.\n Question: '$question'. Provide the answer to the question and structure the response EXACTLY as follows:
             <div class=\"row response-text\">
                 <h4 class=\"text-primary mb-2\">'$question'</h4>
@@ -773,6 +805,8 @@ class HtmxController extends BaseController
             2. Use the documentation site (https://docs.ignitercms.com/), the GitHub repo (https://docs.ignitercms.com/) and the website (https://docs.ignitercms.com/) to look for potential answers.
             3. Use knowledge from CodeIgniter and PHP to also provide possible answers.
 
+            \n\n$languageInstruction
+
             Return ONLY the HTML formatted as shown above - no additional text, explanations, or commentary. You can include images if needed (for images use: <img src='[image-url]' class='img-fluid'>). Use the exact same structure with answer.";
 
             $answer = makeGeminiCall($prompt);
@@ -785,7 +819,7 @@ class HtmxController extends BaseController
         }
 
         //catch exception
-        catch(Exception $e) {
+        catch(\Exception $e) {
             echo '<div class="ai-response-placeholder text-muted"><p class="mb-0"><strong>An Error Occurred!<strong> <br/>Your AI response will appear here after you ask a question.</p></div>';
             exit();
         }

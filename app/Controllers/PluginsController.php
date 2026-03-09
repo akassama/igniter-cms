@@ -79,6 +79,11 @@ class PluginsController extends BaseController
         $configValue = $this->request->getPost('config_value');
         $configKey = $this->request->getPost('config_key');
 
+        $configModel = new PluginConfigModel();
+
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $pluginId;
+        $previousData = $configModel->where('plugin_id', $pluginId)->first();
+
         // Validate input
         $validation = \Config\Services::validation();
         $validation->setRules([
@@ -93,7 +98,7 @@ class PluginsController extends BaseController
             'config_value' => $configValue
         ])) {
             session()->setFlashdata('errorAlert', 'Invalid input: ' . implode(', ', $validation->getErrors()));
-            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin config update failed: Invalid input');
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin config update failed: Invalid input', $actionUrl, null, null, json_encode($previousData), null);
             return redirect()->to('/account/plugins/configurations');
         }
 
@@ -101,12 +106,12 @@ class PluginsController extends BaseController
             // Update plugin config
             $db = \Config\Database::connect();
             $db->query("UPDATE plugin_configs SET config_value = ? WHERE id = ?", [$configValue, $pluginId]);
-            $editSuccessMsg = str_replace('[Record]', 'Plugin Config', config('CustomConfig')->editSuccessMsg);
+            $editSuccessMsg = str_replace('[Record]', 'Plugin Config', lang('App.edit_success_msg'));
             session()->setFlashdata('successAlert', $editSuccessMsg);
-            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin config ' . $configKey . ' updated.');
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin config ' . $configKey . ' updated.', $actionUrl, null, null, json_encode($previousData), null);
         } catch (\Exception $e) {
             session()->setFlashdata('errorAlert', 'Failed to update plugin config: ' . $e->getMessage());
-            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin config ' . $configKey . ' update failed: ' . $e->getMessage());
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin config ' . $configKey . ' update failed: ' . $e->getMessage(), $actionUrl, null, null, json_encode($previousData), null);
         }
         return redirect()->to('/account/plugins/configurations');
     }
@@ -130,6 +135,8 @@ class PluginsController extends BaseController
         // Get logged-in user id
         $loggedInUserId = $this->session->get('user_id');
 
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $pluginKey;
+        $previousData = null; 
         try {
             // Use for any return parameter
             $urlParameter = trim($this->request->getPost('plugin_url_parameter'));
@@ -164,10 +171,10 @@ class PluginsController extends BaseController
             // Set flash message
             session()->setFlashdata('successAlert', 'Settings saved successfully.');
 
-            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, "Plugin data for {$pluginKey} updated.");
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, "Plugin data for {$pluginKey} updated.", $actionUrl, null, null, json_encode($previousData), null);
         } catch (\Exception $e) {
             // Log error
-            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, "Plugin update data for {$pluginKey} failed: {$e->getMessage()}");
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, "Plugin update data for {$pluginKey} failed: {$e->getMessage()}", $actionUrl, null, null, json_encode($previousData), null);
             log_message('error', "Failed to update data for plugin: {$pluginKey} - {$e->getMessage()}");
             session()->setFlashdata('errorAlert', 'Failed to save settings: ' . $e->getMessage());
         }
@@ -203,6 +210,9 @@ class PluginsController extends BaseController
         $loggedInUserId = $this->session->get('user_id');
         $validation = \Config\Services::validation();
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
+
         // Validate the file upload
         $validation->setRules([
             'plugin_file' => [
@@ -217,7 +227,7 @@ class PluginsController extends BaseController
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
-            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Validation failed: ' . implode(', ', $validation->getErrors()));
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Validation failed: ' . implode(', ', $validation->getErrors()), $actionUrl, null, null, json_encode($previousData), null);
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
 
@@ -235,10 +245,10 @@ class PluginsController extends BaseController
                 $tempFilename = $pluginFile->getRandomName(); // Use a random name for security
                 $pluginFile->move($uploadPath, $tempFilename); // Move the file
                 $tempPath = $uploadPath . $tempFilename; // Get the full path
-                logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin file moved to temp: ' . $tempPath);
+                logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin file moved to temp: ' . $tempPath, $actionUrl, null, null, json_encode($previousData), null);
             } catch (\Exception $e) {
                 session()->setFlashdata('errorAlert', 'Failed to move uploaded file');
-                logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to move uploaded file: ' . $e->getMessage());
+                logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to move uploaded file: ' . $e->getMessage(), $actionUrl, null, null, json_encode($previousData), null);
                 return redirect()->to('/account/plugins/upload-plugin');
             }
 
@@ -267,7 +277,7 @@ class PluginsController extends BaseController
                                 if (preg_match('/^[a-zA-Z0-9_-]+$/', $pluginSlug)) {
                                     break; // Found a valid slug, exit loop
                                 } else {
-                                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Invalid slug format in plugin.json: ' . $pluginSlug);
+                                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Invalid slug format in plugin.json: ' . $pluginSlug, $actionUrl, null, null, json_encode($previousData), null);
                                     $zip->close();
                                     session()->setFlashdata('errorAlert', 'Invalid slug format found in plugin.json.');
                                     if (file_exists($tempPath)) {
@@ -276,7 +286,7 @@ class PluginsController extends BaseController
                                     return redirect()->to('/account/plugins/upload-plugin');
                                 }
                             } else {
-                                logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Invalid or missing slug in plugin.json');
+                                logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Invalid or missing slug in plugin.json', $actionUrl, null, null, json_encode($previousData), null);
                                 $zip->close();
                                 session()->setFlashdata('errorAlert', 'Invalid or missing slug in plugin.json.');
                                 if (file_exists($tempPath)) {
@@ -291,7 +301,7 @@ class PluginsController extends BaseController
 
                 if ($pluginSlug === null) {
                     session()->setFlashdata('errorAlert', 'plugin.json with a valid "slug" is required in the plugin ZIP file.');
-                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'plugin.json with slug not found in archive: ' . $pluginFile->getName());
+                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'plugin.json with slug not found in archive: ' . $pluginFile->getName(), $actionUrl, null, null, json_encode($previousData), null);
                     if (file_exists($tempPath)) {
                         unlink($tempPath);
                     }
@@ -304,10 +314,10 @@ class PluginsController extends BaseController
                 // Check if plugin directory already exists using the slug
                 if (is_dir($pluginDir)) {
                     if (!$override) {
-                        $alreadyExistMsg = config('CustomConfig')->alreadyExistMsg;
+                        $alreadyExistMsg = lang('App.already_exist_msg');
                         $alreadyExistMsg = str_replace('[Record]', 'Plugin', $alreadyExistMsg);
                         session()->setFlashdata('errorAlert', $alreadyExistMsg);
-                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Plugin already exists (using slug): ' . $pluginSlug);
+                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Plugin already exists (using slug): ' . $pluginSlug, $actionUrl, null, null, json_encode($previousData), null);
                         if (file_exists($tempPath)) {
                             unlink($tempPath);
                         }
@@ -319,10 +329,10 @@ class PluginsController extends BaseController
                         if (!$this->deleteDirectory($pluginDir)) {
                             throw new \Exception('Failed to delete existing plugin directory');
                         }
-                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Existing plugin directory deleted (using slug): ' . $pluginSlug);
+                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Existing plugin directory deleted (using slug): ' . $pluginSlug, $actionUrl, null, null, json_encode($previousData), null);
                     } catch (\Exception $e) {
                         session()->setFlashdata('errorAlert', 'Failed to delete existing plugin directory');
-                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to delete directory (using slug): ' . $pluginSlug . ' - ' . $e->getMessage());
+                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to delete directory (using slug): ' . $pluginSlug . ' - ' . $e->getMessage(), $actionUrl, null, null, json_encode($previousData), null);
                         if (file_exists($tempPath)) {
                             unlink($tempPath);
                         }
@@ -334,7 +344,7 @@ class PluginsController extends BaseController
                 if (!is_dir(APPPATH . 'Plugins')) {
                     if (!mkdir(APPPATH . 'Plugins', 0755, true)) {
                         session()->setFlashdata('errorAlert', 'Failed to create Plugins directory');
-                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to create Plugins directory');
+                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to create Plugins directory', $actionUrl, null, null, json_encode($previousData), null);
                         if (file_exists($tempPath)) {
                             unlink($tempPath);
                         }
@@ -362,7 +372,7 @@ class PluginsController extends BaseController
                             // Log this but don't fail the entire process, as extraction was successful.
                             log_message('warning', 'Failed to delete temporary archive: ' . $tempPath);
                         }
-                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin extracted to directory (using slug): ' . $pluginDir);
+                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin extracted to directory (using slug): ' . $pluginDir, $actionUrl, null, null, json_encode($previousData), null);
                     } catch (\Exception $e) {
                         if ($zip->status !== ZipArchive::ER_NOZIP) { // Only close if it was opened
                             $zip->close();
@@ -373,7 +383,7 @@ class PluginsController extends BaseController
                             unlink($tempPath);
                         }
                         session()->setFlashdata('errorAlert', 'Failed during extraction: ' . $e->getMessage()); // Show specific error
-                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Extraction failed (using slug): ' . $pluginSlug . ' - ' . $e->getMessage());
+                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Extraction failed (using slug): ' . $pluginSlug . ' - ' . $e->getMessage(), $actionUrl, null, null, json_encode($previousData), null);
                         return redirect()->to('/account/plugins/upload-plugin');
                     }
 
@@ -385,7 +395,7 @@ class PluginsController extends BaseController
                             unlink($tempPath);
                         }
                         session()->setFlashdata('errorAlert', 'Invalid plugin structure - manage.php not found. Make sure the plugin is at the root of the ZIP file.');
-                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Invalid plugin structure (using slug): ' . $pluginSlug);
+                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Invalid plugin structure (using slug): ' . $pluginSlug, $actionUrl, null, null, json_encode($previousData), null);
                         return redirect()->to('/account/plugins/upload-plugin');
                     }
 
@@ -410,7 +420,7 @@ class PluginsController extends BaseController
                                 unlink($tempPath);
                             }
                             session()->setFlashdata('errorAlert', 'Error parsing plugin database script: ' . $e->getMessage());
-                            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Error parsing database.php for plugin (using slug): ' . $pluginSlug . ' - ' . $e->getMessage());
+                            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Error parsing database.php for plugin (using slug): ' . $pluginSlug . ' - ' . $e->getMessage(), $actionUrl, null, null, json_encode($previousData), null);
                             return redirect()->to('/account/plugins/upload-plugin');
                         }
                         // --- END CRITICAL SECURITY ---
@@ -429,7 +439,7 @@ class PluginsController extends BaseController
                                     // Drop existing table if override is true
                                     // And execute the query.
                                     $db->query("DROP TABLE IF EXISTS `$tableName`"); // Use backticks for table name
-                                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Dropped existing table: ' . $tableName);
+                                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Dropped existing table: ' . $tableName, $actionUrl, null, null, json_encode($previousData), null);
                                 } else {
                                     // If CREATE TABLE syntax is unexpected, reject it.
                                     throw new \Exception('Invalid or unrecognized CREATE TABLE statement in database.php.');
@@ -445,7 +455,7 @@ class PluginsController extends BaseController
                                             throw new \Exception('Disallowed SQL command detected in createTablesQuery: ' . substr($query, 0, 50) . '...');
                                         }
                                         $db->query($query);
-                                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed create table query for plugin (using slug): ' . $pluginSlug);
+                                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed create table query for plugin (using slug): ' . $pluginSlug, $actionUrl, null, null, json_encode($previousData), null);
                                     }
                                 }
                             }
@@ -461,7 +471,7 @@ class PluginsController extends BaseController
                                             throw new \Exception('Disallowed SQL command detected in createTableDataQuery: ' . substr($query, 0, 50) . '...');
                                         }
                                         $db->query($query);
-                                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed insert table data query for plugin (using slug): ' . $pluginSlug);
+                                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed insert table data query for plugin (using slug): ' . $pluginSlug, $actionUrl, null, null, json_encode($previousData), null);
                                     }
                                 }
                             }
@@ -470,7 +480,7 @@ class PluginsController extends BaseController
                             if (!empty($createConfigQuery)) {
                                 // Ensure pluginKey (which is the slug) is correctly escaped for the DELETE query
                                 $db->query("DELETE FROM plugin_configs WHERE plugin_slug = ?", [$pluginKey]);
-                                logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Deleted existing plugin_configs for plugin (using slug): ' . $pluginKey);
+                                logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Deleted existing plugin_configs for plugin (using slug): ' . $pluginKey, $actionUrl, null, null, json_encode($previousData), null);
 
                                 $queries = array_filter(array_map('trim', explode(';', $createConfigQuery)));
                                 foreach ($queries as $query) {
@@ -479,7 +489,7 @@ class PluginsController extends BaseController
                                             throw new \Exception('Disallowed SQL command detected in createConfigQuery: ' . substr($query, 0, 50) . '...');
                                         }
                                         $db->query($query);
-                                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed config query for plugin (using slug): ' . $pluginSlug);
+                                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Executed config query for plugin (using slug): ' . $pluginSlug, $actionUrl, null, null, json_encode($previousData), null);
                                     }
                                 }
                             }
@@ -490,15 +500,15 @@ class PluginsController extends BaseController
                                 unlink($tempPath);
                             }
                             session()->setFlashdata('errorAlert', 'Failed to execute database queries: ' . $e->getMessage()); // Display specific error
-                            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Database query failed for plugin (using slug): ' . $pluginSlug . ' - ' . $e->getMessage());
+                            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Database query failed for plugin (using slug): ' . $pluginSlug . ' - ' . $e->getMessage(), $actionUrl, null, null, json_encode($previousData), null);
                             return redirect()->to('/account/plugins/upload-plugin');
                         }
                     }
 
                     // Success
-                    $createSuccessMsg = str_replace('[Record]', 'Plugin', config('CustomConfig')->createSuccessMsg);
+                    $createSuccessMsg = str_replace('[Record]', 'Plugin', lang('App.create_success_msg'));
                     session()->setFlashdata('successAlert', $createSuccessMsg);
-                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin uploaded and processed (using slug): ' . $pluginSlug);
+                    logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin uploaded and processed (using slug): ' . $pluginSlug, $actionUrl, null, null, json_encode($previousData), null);
 
                     // Load plugin.json (already read earlier, but re-read from the extracted file for safety if needed)
                     $loadPlugins = "";
@@ -529,14 +539,14 @@ class PluginsController extends BaseController
                             deleteRecord($tableName, 'plugin_key', $pluginSlug);
                         }
                         addRecord($tableName, $pluginsData);
-                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin added to database (using slug): ' . $pluginSlug);
+                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_CREATION, 'Plugin added to database (using slug): ' . $pluginSlug, $actionUrl, null, null, json_encode($previousData), null);
                     } catch (\Exception $e) {
                         $this->deleteDirectory($pluginDir); // Rollback: delete extracted files
                         if (file_exists($tempPath)) {
                             unlink($tempPath);
                         }
                         session()->setFlashdata('errorAlert', 'Failed to update plugin database record.');
-                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Database record update failed (using slug): ' . $pluginSlug . ' - ' . $e->getMessage());
+                        logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Database record update failed (using slug): ' . $pluginSlug . ' - ' . $e->getMessage(), $actionUrl, null, null, json_encode($previousData), null);
                         return redirect()->to('/account/plugins/upload-plugin');
                     }
 
@@ -547,7 +557,7 @@ class PluginsController extends BaseController
                         unlink($tempPath); // Ensure temp file is removed
                     }
                     session()->setFlashdata('errorAlert', 'Failed to re-open plugin archive for extraction. It might be corrupted or not a valid ZIP file.');
-                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to re-open plugin archive (using slug): ' . $pluginSlug);
+                    logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to re-open plugin archive (using slug): ' . $pluginSlug, $actionUrl, null, null, json_encode($previousData), null);
                     return redirect()->to('/account/plugins/upload-plugin');
                 }
 
@@ -557,15 +567,15 @@ class PluginsController extends BaseController
                     unlink($tempPath); // Ensure temp file is removed
                 }
                 session()->setFlashdata('errorAlert', 'Failed to open plugin archive. It might be corrupted or not a valid ZIP file.');
-                logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to open plugin archive (for reading plugin.json): ' . $pluginFile->getName());
+                logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to open plugin archive (for reading plugin.json): ' . $pluginFile->getName(), $actionUrl, null, null, json_encode($previousData), null);
                 return redirect()->to('/account/plugins/upload-plugin');
             }
 
 
         } else {
-            $errorMsg = $pluginFile->getErrorString() ?: config('CustomConfig')->errorMsg;
+            $errorMsg = $pluginFile->getErrorString() ?: lang('App.error_msg');
             session()->setFlashdata('errorAlert', $errorMsg);
-            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to upload plugin: ' . $errorMsg);
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_CREATION, 'Failed to upload plugin: ' . $errorMsg, $actionUrl, null, null, json_encode($previousData), null);
             return redirect()->to('/account/plugins/upload-plugin');
         }
     }
@@ -574,15 +584,17 @@ class PluginsController extends BaseController
     {
         // Get logged-in user id
         $loggedInUserId = $this->session->get('user_id');
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $pluginSlug;
+        $previousData = null;
         try {
             //activate plugin
             $updateColumn =  "'status' = '1'";
             $updateWhereClause = "plugin_key = '$pluginSlug'";
             $result = updateRecordColumn("plugins", $updateColumn, $updateWhereClause);
-            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin ' . $pluginSlug . ' activated.');
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin ' . $pluginSlug . ' activated.', $actionUrl, null, null, json_encode($previousData), null);
         } catch (\Exception $e) {
             session()->setFlashdata('errorAlert', 'Failed to activate plugin');
-            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin ' . $pluginSlug . ' activation failed: - ' . $e->getMessage());
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin ' . $pluginSlug . ' activation failed: - ' . $e->getMessage(), $actionUrl, null, null, json_encode($previousData), null);
         }
         return redirect()->to('/account/plugins');
     }
@@ -591,15 +603,17 @@ class PluginsController extends BaseController
     {
         // Get logged-in user id
         $loggedInUserId = $this->session->get('user_id');
+        $actionUrl = $this->request->getUri()->getPath() . '/' . $pluginSlug;
+        $previousData = null;
         try {
             //deactivate plugin
             $updateColumn =  "'status' = '0'";
             $updateWhereClause = "plugin_key = '$pluginSlug'";
             $result = updateRecordColumn("plugins", $updateColumn, $updateWhereClause);
-            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin ' . $pluginSlug . ' deactivated.');
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_UPDATE, 'Plugin ' . $pluginSlug . ' deactivated.', $actionUrl, null, null, json_encode($previousData), null);
         } catch (\Exception $e) {
             session()->setFlashdata('errorAlert', 'Failed to deactivate plugin');
-            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin ' . $pluginSlug . ' deactivation failed: - ' . $e->getMessage());
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'Plugin ' . $pluginSlug . ' deactivation failed: - ' . $e->getMessage(), $actionUrl, null, null, json_encode($previousData), null);
         }
         return redirect()->to('/account/plugins');
     }
@@ -610,9 +624,12 @@ class PluginsController extends BaseController
         $loggedInUserId = $this->session->get('user_id');
         $pluginKey = $this->request->getPost('plugin_key');
 
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
+
         if (empty($pluginKey)) {
             session()->setFlashdata('errorAlert', 'No plugin key provided');
-            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'No plugin key provided');
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_UPDATE, 'No plugin key provided', $actionUrl, null, null, json_encode($previousData), null);
             return redirect()->to('/account/plugins');
         }
 
@@ -638,33 +655,33 @@ class PluginsController extends BaseController
 
                     foreach ($tableNames as $tableName) {
                         $db->query("DROP TABLE IF EXISTS `$tableName`");
-                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_DELETION, 'Dropped table: ' . $tableName . ' for plugin: ' . $pluginKey);
+                        logActivity($loggedInUserId, ActivityTypes::PLUGIN_DELETION, 'Dropped table: ' . $tableName . ' for plugin: ' . $pluginKey, $actionUrl, null, null, json_encode($previousData), null);
                     }
                 }
             }
 
             // Delete plugin_configs entries
             $db->query("DELETE FROM plugin_configs WHERE plugin_slug = ?", [$pluginKey]);
-            logActivity($loggedInUserId, ActivityTypes::PLUGIN_DELETION, 'Deleted plugin_configs for: ' . $pluginKey);
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_DELETION, 'Deleted plugin_configs for: ' . $pluginKey, $actionUrl, null, null, json_encode($previousData), null);
 
             // Delete plugin record
             deleteRecord("plugins", "plugin_key", $pluginKey);
-            logActivity($loggedInUserId, ActivityTypes::PLUGIN_DELETION, 'Deleted plugin record: ' . $pluginKey);
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_DELETION, 'Deleted plugin record: ' . $pluginKey, $actionUrl, null, null, json_encode($previousData), null);
 
             // Delete plugin directory
             if (is_dir($pluginDir)) {
                 if (!$this->deleteDirectory($pluginDir)) {
                     throw new \Exception('Failed to delete plugin directory');
                 }
-                logActivity($loggedInUserId, ActivityTypes::PLUGIN_DELETION, 'Deleted plugin directory: ' . $pluginDir);
+                logActivity($loggedInUserId, ActivityTypes::PLUGIN_DELETION, 'Deleted plugin directory: ' . $pluginDir, $actionUrl, null, null, json_encode($previousData), null);
             }
 
             session()->setFlashdata('successAlert', 'Plugin ' . $pluginKey . ' deleted successfully');
-            logActivity($loggedInUserId, ActivityTypes::PLUGIN_DELETION, 'Plugin ' . $pluginKey . ' deleted.');
+            logActivity($loggedInUserId, ActivityTypes::PLUGIN_DELETION, 'Plugin ' . $pluginKey . ' deleted.', $actionUrl, null, null, json_encode($previousData), null);
 
         } catch (\Exception $e) {
             session()->setFlashdata('errorAlert', 'Failed to delete plugin: ' . $e->getMessage());
-            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_DELETION, 'Plugin ' . $pluginKey . ' deletion failed: ' . $e->getMessage());
+            logActivity($loggedInUserId, ActivityTypes::FAILED_PLUGIN_DELETION, 'Plugin ' . $pluginKey . ' deletion failed: ' . $e->getMessage(), $actionUrl, null, null, json_encode($previousData), null);
         }
 
         return redirect()->to('/account/plugins');

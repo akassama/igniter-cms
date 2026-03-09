@@ -1,8 +1,44 @@
-
 .social-login-divider:after,
 .social-login-divider:before {
     content: "";
     flex: 1;
     height: 1px;
     background: #eee;
+}
+
+.google-signin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 40px;
+    color: #444;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.google-signin-btn:hover {
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    text-decoration: none;
+    color: #444;
+}
+
+.google-signin-btn img {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+}
+
+.google-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }

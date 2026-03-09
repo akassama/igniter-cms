@@ -10,7 +10,7 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
     array('title' => 'Content Blocks', 'url' => '/account/content-blocks'),
     array('title' => 'New Content Block')
 );
@@ -27,7 +27,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/content-blocks/new-content-block'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="identifier" class="form-label">Identifier</label>
+                <label for="identifier" class="form-label"><?= lang('App.identifier') ?></label>
                 <input type="text" class="form-control title-text" id="identifier" name="identifier" data-show-err="true" maxlength="250" value="<?= set_value('identifier') ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('identifier')) {?>
@@ -36,12 +36,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide identifier
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label"><?= lang('App.title') ?></label>
                 <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= set_value('title') ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('title')) {?>
@@ -50,18 +50,18 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide title
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <label for="description" class="form-label">Description</label>
+                    <label for="description" class="form-label"><?= lang('App.description') ?></label>
                         <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
                         hx-post="<?=base_url()?>/htmx/get-content-block-description-via-ai"
                         hx-trigger="click delay:250ms"
                         hx-target="#description-div"
-                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> <?= lang('App.use_ai') ?></button>
                 </div>
                 <div id="description-div">
                     <textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required><?= set_value('description') ?></textarea>
@@ -73,12 +73,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide description
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="content" class="form-label">Content</label>
+                <label for="content" class="form-label"><?= lang('App.content') ?></label>
                 <textarea rows="1" class="form-control content-editor" id="content" name="content"><?= set_value('content') ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('content')) {?>
@@ -87,18 +87,18 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide content
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
             <div class="col-sm-12 col-md-12 mb-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <label for="icon" class="form-label">Icon</label>
+                    <label for="icon" class="form-label"><?= lang('App.icon') ?></label>
                         <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
                         hx-post="<?=base_url()?>/htmx/get-remix-icon-via-ai"
                         hx-trigger="click delay:250ms"
                         hx-target="#icon-div"
-                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> Use AI</button>
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> <?= lang('App.use_ai') ?></button>
                 </div>
                 <div id="icon-div">
                     <input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="<?= htmlspecialchars(set_value('icon')) ?>" placeholder="E.g. ri-user-line">
@@ -110,7 +110,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide icon
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -122,7 +122,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 mb-3">
-                        <label for="image" class="form-label">Image</label>
+                        <label for="image" class="form-label"><?= lang('App.image') ?></label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="image" name="image" value="<?= set_value('image') ?>" placeholder="select image"
                             hx-post="<?=base_url()?>/htmx/set-image-display"
@@ -133,7 +133,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <i class="ri-image-fill"></i>
                             </button>
                             <div class="invalid-feedback">
-                                Please provide image
+                               <?= lang('App.input_required') ?>
                             </div>
                         </div>
                         <!-- Error -->
@@ -156,7 +156,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <i class="ri-video-fill"></i>
                             </button>
                             <div class="invalid-feedback">
-                                Please provide video
+                                <?= lang('App.input_required') ?>
                             </div>
                         </div>
                         <!-- Error -->
@@ -179,7 +179,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <i class="ri-file-fill"></i>
                             </button>
                             <div class="invalid-feedback">
-                                Please provide file
+                                <?= lang('App.input_required') ?>
                             </div>
                         </div>
                         <!-- Error -->
@@ -196,8 +196,8 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="row">
                     <div class="col-sm-12 col-md-9">
                         <label for="link" class="form-label">
-                            Link
-                            <span class="small text-muted">(Use '/' for internal links)</span>
+                            <?= lang('App.link') ?>
+                            <span class="small text-muted">(<?= lang('App.internal_link_hint') ?>)</span>
                         </label>
                         <input type="text" class="form-control" id="link" name="link" value="<?= set_value('link') ?>">
                         <!-- Error -->
@@ -207,11 +207,11 @@ echo generateBreadcrumb($breadcrumb_links);
                             </div>
                         <?php }?>
                         <div class="invalid-feedback">
-                            Please provide link
+                           <?= lang('App.input_required') ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3">
-                        <label for="new_tab" class="form-label">New Tab</label>
+                        <label for="new_tab" class="form-label"><?= lang('App.new_tab') ?></label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="new_tab" name="new_tab" value="1">
                             <label class="form-check-label small" for="new_tab">Toggle to open as new tab</label>
@@ -223,7 +223,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             </div>
                         <?php }?>
                         <div class="invalid-feedback">
-                            Please provide new_tab
+                            <?= lang('App.input_required') ?>
                         </div>
                     </div>
                 </div>
@@ -231,7 +231,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="order" class="form-label">
-                    Order
+                     <?= lang('App.order') ?>
                 </label>
                 <input type="text" class="form-control integer-plus-only" id="order" name="order" data-show-err="true" maxlength="2" value="<?= set_value('order') ?>">
                 <!-- Error -->
@@ -241,7 +241,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide order
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -250,7 +250,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     Group
                 </label>
                 <select class="form-select" aria-label="group" id="group" name="group">
-                    <option value="">Select group</option>
+                    <option value=""><?= lang('App.select_group') ?></option>
                     <?=getDataGroupOptions(null, "ContentBlock")?>
                 </select>
                 <!-- Error -->
@@ -260,7 +260,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide group
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -285,7 +285,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             </div>
                                         <?php endif; ?>
                                         <div class="invalid-feedback">
-                                            Please provide custom field <?= $i ?>
+                                            <?= lang('App.input_required') ?> <?= $i ?>
                                         </div>
                                     </div>
                                 <?php endfor; ?>
@@ -303,7 +303,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/content-blocks') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_submit_buttons.php'); ?>
             </div>

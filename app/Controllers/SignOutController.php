@@ -19,9 +19,11 @@ class SignOutController extends BaseController
     {
         helper('cookie');
         $loggedInUserId = $this->session->get('user_id');
+        $actionUrl = $this->request->getUri()->getPath();
+        $previousData = null;
 
         // log activity
-        logActivity($loggedInUserId, ActivityTypes::USER_LOGOUT, 'User with id: ' . $loggedInUserId . ' logged out.');
+        logActivity($loggedInUserId, ActivityTypes::USER_LOGOUT, 'User with id: ' . $loggedInUserId . ' logged out.', $actionUrl, null, null, json_encode($previousData), null);
 
         // remove all session data
         session()->destroy();

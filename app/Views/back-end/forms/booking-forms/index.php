@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Bookings<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_bookings') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,9 +10,9 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Forms', 'url' => '/account/forms'),
-    array('title' => 'Booking Forms')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.forms'), 'url' => '/account/forms'),
+    array('title' => lang('App.booking_forms'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,14 +20,14 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Bookings</h3>
+        <h3><?= lang('App.manage_bookings') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <i class="ri-grid-line me-1"></i>
-                    Bookings
+                    <?= lang('App.bookings') ?>
                     <span class="badge rounded-pill bg-dark">
                         <?= $total_booking_form_submissions ?>
                     </span>
@@ -36,7 +36,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div>
                     <a href="<?= base_url('account/forms/booking-forms/expired-bookings'); ?>" 
                     class="btn btn-sm btn-outline-secondary">
-                        <i class="ri-calendar-close-fill text-danger me-1"></i> Expired Bookings
+                        <i class="ri-calendar-close-fill text-danger me-1"></i> <?= lang('App.expired_bookings') ?>
                     </a>
                 </div>
             </div>
@@ -47,17 +47,17 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Form Name</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>No. of Attendees</th>
-                                <th>Message</th>
-                                <th>Status</th>
-                                <th>Created</th>
-                                <th>Actions</th>
+                                <th><?= lang('App.form_name') ?></th>
+                                <th><?= lang('App.name') ?></th>
+                                <th><?= lang('App.email') ?></th>
+                                <th><?= lang('App.phone') ?></th>
+                                <th><?= lang('App.date') ?></th>
+                                <th><?= lang('App.time') ?></th>
+                                <th><?= lang('App.no_of_attendees') ?></th>
+                                <th><?= lang('App.message') ?></th>
+                                <th><?= lang('App.status') ?></th>
+                                <th><?= lang('App.created_at') ?></th>
+                                <th><?= lang('App.actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>

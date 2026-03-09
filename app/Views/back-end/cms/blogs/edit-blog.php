@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Edit Blog<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.edit_blog') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,10 +10,10 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
-    array('title' => 'Blogs', 'url' => '/account/cms/blogs'),
-    array('title' => 'Edit Blog')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.cms'), 'url' => '/account/cms'),
+    array('title' => lang('App.blogs'), 'url' => '/account/cms/blogs'),
+    array('title' => lang('App.edit_blog'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,14 +21,14 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Edit Blog</h3>
+        <h3><?= lang('App.edit_blog') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
         <?php echo form_open(base_url('account/cms/blogs/edit-blog'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label"><?= lang('App.title') ?></label>
                 <input type="text" class="form-control title-text" id="title" name="title" data-show-err="true" maxlength="250" value="<?= $blog_data['title'] ?>" required>
                 <!-- Error -->
                 <?php if($validation->getError('title')) {?>
@@ -37,17 +37,17 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide title
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="slug" class="form-label">Slug</label>
+                <label for="slug" class="form-label"><?= lang('App.slug') ?></label>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><?= base_url('/blog/'); ?></span>
                     <input type="text" class="form-control" id="slug" name="slug" value="<?= $blog_data['slug'] ?>" required>
                     <div class="invalid-feedback">
-                        Please provide slug
+                        <?= lang('App.input_required') ?>
                     </div>
                 </div>
                 <!-- Error -->
@@ -66,7 +66,7 @@ echo generateBreadcrumb($breadcrumb_links);
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 mb-3">
-                        <label for="featured_image" class="form-label">Featured Image</label>
+                        <label for="featured_image" class="form-label"><?= lang('App.featured_image') ?></label>
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" id="featured_image" name="featured_image" value="<?= $blog_data['featured_image'] ?>" placeholder="select featured image"
                             hx-post="<?=base_url()?>/htmx/set-image-display"
@@ -77,7 +77,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                 <i class="ri-image-fill"></i>
                             </button>
                             <div class="invalid-feedback">
-                                Please provide featured image
+                                <?= lang('App.input_required') ?>
                             </div>
                         </div>
                         <!-- Error -->
@@ -91,7 +91,7 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="content" class="form-label">Content</label>
+                <label for="content" class="form-label"><?= lang('App.content') ?></label>
                 <textarea rows="1" class="form-control content-editor" id="content" name="content" required><?= $blog_data['content'] ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('content')) {?>
@@ -100,12 +100,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide content
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="excerpt" class="form-label">Excerpt</label>
+                <label for="excerpt" class="form-label"><?= lang('App.excerpt') ?></label>
                 <textarea rows="1" class="form-control" id="excerpt" name="excerpt"><?= $blog_data['excerpt'] ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('excerpt')) {?>
@@ -114,14 +114,14 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide excerpt
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="category" class="form-label">Category</label>
+                <label for="category" class="form-label"><?= lang('App.category') ?></label>
                 <select class="form-select" id="category" name="category" required>
-                    <option value="">Select category</option>
+                    <option value=""><?= lang('App.select_category') ?></option>
                     <?= getBlogCategorySelectOptions($blog_data['category']) ?>
                 </select>
                 <!-- Error -->
@@ -131,12 +131,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide category
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="tags" class="form-label">Tags</label>
+                <label for="tags" class="form-label"><?= lang('App.tags') ?></label>
                 <textarea rows="1" class="form-control tags-input" id="tags" name="tags" required><?= $blog_data['tags'] ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('tags')) {?>
@@ -145,17 +145,17 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide tags
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="status" class="form-label">Status</label>
+                <label for="status" class="form-label"><?= lang('App.status') ?></label>
                 <select class="form-select" id="status" name="status" required>
-                    <option value="">Select status</option>
-                    <option value="0" <?= ($blog_data['status'] == '0') ? 'selected' : '' ?>>Unpublished</option>
-                    <option value="1" <?= ($blog_data['status'] == '1') ? 'selected' : '' ?>>Published</option>
-                    <option value="2" <?= ($blog_data['status'] == '2') ? 'selected' : '' ?>>Schedule</option>
+                    <option value=""><?= lang('App.select_status') ?></option>
+                    <option value="0" <?= ($blog_data['status'] == '0') ? 'selected' : '' ?>><?= lang('App.unpublished') ?></option>
+                    <option value="1" <?= ($blog_data['status'] == '1') ? 'selected' : '' ?>><?= lang('App.published') ?></option>
+                    <option value="2" <?= ($blog_data['status'] == '2') ? 'selected' : '' ?>><?= lang('App.schedule') ?></option>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('status')) {?>
@@ -164,14 +164,14 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide status
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="author" class="form-label">Author</label>
+                <label for="author" class="form-label"><?= lang('App.author') ?></label>
                 <select class="form-select" id="author" name="author" required>
-                    <option value="">Select author</option>
+                    <option value=""><?= lang('App.select_author') ?></option>
                     <?= getUserSelectOptions($blog_data['author']) ?>
                 </select>
                 <!-- Error -->
@@ -181,7 +181,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide author
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -195,7 +195,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide scheduled_date_time
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             <script>
@@ -214,10 +214,10 @@ echo generateBreadcrumb($breadcrumb_links);
             </script>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="is_featured" class="form-label">Featured</label>
+                <label for="is_featured" class="form-label"><?= lang('App.featured') ?></label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1" <?= ($blog_data['is_featured'] == '1') ? 'checked' : '' ?>>
-                    <label class="form-check-label small" for="is_featured">Toggle to set as featured</label>
+                    <label class="form-check-label small" for="is_featured"><?= lang('App.toggle_featured_hint') ?></label>
                 </div>
                 <!-- Error -->
                 <?php if($validation->getError('is_featured')) {?>
@@ -226,15 +226,15 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide is_featured
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="is_breaking" class="form-label">Breaking</label>
+                <label for="is_breaking" class="form-label"><?= lang('App.breaking') ?></label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="is_breaking" name="is_breaking" value="1" <?= ($blog_data['is_breaking'] == '1') ? 'checked' : '' ?>>
-                    <label class="form-check-label small" for="is_breaking">Toggle to set as breaking</label>
+                    <label class="form-check-label small" for="is_breaking"><?= lang('App.toggle_breaking_hint') ?></label>
                 </div>
                 <!-- Error -->
                 <?php if($validation->getError('is_breaking')) {?>
@@ -243,7 +243,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide is_breaking
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -252,14 +252,14 @@ echo generateBreadcrumb($breadcrumb_links);
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                            SEO Data
+                            <?= lang('App.seo_data') ?>
                         </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <div class="row">
                                     <div class="col-12 mb-3">
-                                        <label for="meta_title" class="form-label">Meta Title</label>
+                                        <label for="meta_title" class="form-label"><?= lang('App.meta_title') ?></label>
                                         <input type="text" class="form-control" id="meta_title" name="meta_title" value="<?= $blog_data['meta_title'] ?>">
                                         <!-- Error -->
                                         <?php if($validation->getError('meta_title')) {?>
@@ -268,11 +268,11 @@ echo generateBreadcrumb($breadcrumb_links);
                                             </div>
                                         <?php }?>
                                         <div class="invalid-feedback">
-                                            Please provide meta_title
+                                            <?= lang('App.input_required') ?>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3">
-                                        <label for="meta_description" class="form-label">Meta Description</label>
+                                        <label for="meta_description" class="form-label"><?= lang('App.meta_description') ?></label>
                                         <textarea type="text" class="form-control" id="meta_description" name="meta_description"><?= $blog_data['meta_description'] ?></textarea>
                                         <!-- Error -->
                                         <?php if($validation->getError('meta_description')) {?>
@@ -281,11 +281,11 @@ echo generateBreadcrumb($breadcrumb_links);
                                             </div>
                                         <?php }?>
                                         <div class="invalid-feedback">
-                                            Please provide meta_description
+                                            <?= lang('App.input_required') ?>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3 mt-3">
-                                        <label for="meta_keywords" class="form-label">Meta Keywords</label>
+                                        <label for="meta_keywords" class="form-label"><?= lang('App.meta_keywords') ?></label>
                                         <input type="text" class="form-control tags-input" id="meta_keywords" name="meta_keywords" value="<?= $blog_data['meta_keywords'] ?>">
                                         <!-- Error -->
                                         <?php if($validation->getError('meta_keywords')) {?>
@@ -294,7 +294,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                             </div>
                                         <?php }?>
                                         <div class="invalid-feedback">
-                                            Please provide meta_keywords
+                                            <?= lang('App.input_required') ?>
                                         </div>
                                     </div>
                                 </div>
@@ -313,7 +313,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/cms/blogs') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

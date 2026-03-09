@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Edit Category<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.edit_category') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,10 +10,10 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
-    array('title' => 'Categories', 'url' => '/account/cms/categories'),
-    array('title' => 'Edit Category')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.cms'), 'url' => '/account/cms'),
+    array('title' => lang('App.categories'), 'url' => '/account/cms/categories'),
+    array('title' => lang('App.edit_category'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -21,14 +21,14 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Edit Category</h3>
+        <h3><?= lang('App.edit_category') ?></h3>
     </div>
     <div class="col-12 bg-light rounded p-4">
         <?php $validation = \Config\Services::validation(); ?>
         <?php echo form_open(base_url('account/cms/categories/edit-category'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label"><?= lang('App.title') ?></label>
                 <input type="text" class="form-control alphanumeric-plus-space" id="title" name="title" data-show-err="true" maxlength="100" value="<?= $category_data['title'] ?>" maxlength="50" required>
                 <!-- Error -->
                 <?php if($validation->getError('title')) {?>
@@ -37,12 +37,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide a title
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label"><?= lang('App.description') ?></label>
                 <textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required><?= $category_data['description'] ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('description')) {?>
@@ -51,17 +51,17 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide description
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="group" class="form-label">
-                    Group
-                    <small class="text-muted">(Optional - use this if you want to filter data by group)</small>
+                    <?= lang('App.group') ?>
+                    <small class="text-muted">(<?= lang('App.group_filter_hint') ?>)</small>
                 </label>
                 <select class="form-select" aria-label="group" id="group" name="group">
-                    <option value="">Select group</option>
+                    <option value=""><?= lang('App.select_group') ?></option>
                     <?=getDataGroupOptions($category_data['group'], "Category")?>
                 </select>
                 <!-- Error -->
@@ -71,14 +71,14 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide group
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="parent" class="form-label">Parent</label>
+                <label for="parent" class="form-label"><?= lang('App.parent') ?></label>
                 <select class="form-select" id="parent" name="parent">
-                    <option value="">Select parent</option>
+                    <option value=""><?= lang('App.select_parent') ?></option>
                     <?= getBlogCategorySelectOptions($category_data['parent']) ?>
                 </select>
                 <!-- Error -->
@@ -88,7 +88,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide parent
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -96,8 +96,8 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="row">
                     <div class="col-sm-12 col-md-9">
                         <label for="link" class="form-label">
-                            Link
-                            <span class="small text-muted">(Use '/' for internal links)</span>
+                            <?= lang('App.link') ?>
+                            <span class="small text-muted">(<?= lang('App.internal_link_hint') ?>)</span>
                         </label>
                         <input type="text" class="form-control" id="link" name="link" value="<?= $category_data['link'] ?>">
                         <!-- Error -->
@@ -107,11 +107,11 @@ echo generateBreadcrumb($breadcrumb_links);
                             </div>
                         <?php }?>
                         <div class="invalid-feedback">
-                            Please provide link
+                            <?= lang('App.input_required') ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3">
-                        <label for="new_tab" class="form-label">New Tab</label>
+                        <label for="new_tab" class="form-label"><?= lang('App.new_tab') ?></label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="new_tab" name="new_tab" value="1" <?= ($category_data['new_tab'] == '1') ? 'checked' : '' ?>>
                             <label class="form-check-label small" for="new_tab">Toggle to open as new tab</label>
@@ -123,7 +123,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             </div>
                         <?php }?>
                         <div class="invalid-feedback">
-                            Please provide new_tab
+                            <?= lang('App.input_required') ?>
                         </div>
                     </div>
                 </div>
@@ -131,7 +131,7 @@ echo generateBreadcrumb($breadcrumb_links);
 
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="order" class="form-label">
-                    Order
+                     <?= lang('App.order') ?>
                 </label>
                 <input type="text" class="form-control integer-plus-only" id="order" name="order" data-show-err="true" maxlength="2" maxlength="2" value="<?= $category_data['order'] ?>">
                 <!-- Error -->
@@ -141,16 +141,16 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide order
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="status" class="form-label">Status</label>
+                <label for="status" class="form-label"><?= lang('App.status') ?></label>
                 <select class="form-select" id="status" name="status" required>
-                    <option value="">Select status</option>
-                    <option value="0" <?= ($category_data['status'] == '0') ? 'selected' : '' ?>>Unpublished</option>
-                    <option value="1" <?= ($category_data['status'] == '1') ? 'selected' : '' ?>>Published</option>
+                    <option value=""><?= lang('App.select_status') ?></option>
+                    <option value="0" <?= ($category_data['status'] == '0') ? 'selected' : '' ?>><?= lang('App.unpublished') ?></option>
+                    <option value="1" <?= ($category_data['status'] == '1') ? 'selected' : '' ?>><?= lang('App.published') ?></option>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('status')) {?>
@@ -159,7 +159,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide status
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -172,7 +172,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/cms/categories') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

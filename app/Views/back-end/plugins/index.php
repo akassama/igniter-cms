@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Plugins<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_plugins') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,28 +10,28 @@
 <?php
    // Breadcrumbs
    $breadcrumb_links = array(
-       array('title' => 'Dashboard', 'url' => '/account'),
-       array('title' => 'Plugins')
+       array('title' => lang('App.dashboard'), 'url' => '/account'),
+       array('title' => lang('App.manage_plugins'))
    );
    echo generateBreadcrumb($breadcrumb_links);
    ?>
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Plugins</h3>
+        <h3><?= lang('App.manage_plugins') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-between my-2">
         <div>
             <a href="#!" class="btn btn-outline-danger mx-1"  onclick="deletePluginData()">
-                <i class="ri-upload-2-fill"></i> Remove Plugin Data
+                <i class="ri-upload-2-fill"></i> <?= lang('App.remove_plugin_data') ?>
             </a>
         </div>
         <div>
             <a href="<?=base_url('/account/plugins/upload-plugin')?>" class="btn btn-outline-success mx-1">
-                <i class="ri-upload-2-fill"></i> Upload Plugin
+                <i class="ri-upload-2-fill"></i> <?= lang('App.upload_plugin') ?>
             </a>
             <a href="<?=base_url('/account/plugins/install-plugins')?>" class="btn btn-outline-dark mx-1">
-                <i class="ri-add-fill"></i> Add Plugin
+                <i class="ri-add-fill"></i> <?= lang('App.add_plugin') ?>
             </a>
         </div>
     </div>
@@ -58,13 +58,13 @@
                         <input class="form-check-input" type="checkbox" id="select-all">
                     </th>
                     <th>
-                        Plugin
+                        <?= lang('App.plugin') ?>
                     </th>
                     <th>
-                        Description
+                        <?= lang('App.description') ?>
                     </th>
                     <th>
-                        Actions
+                        <?= lang('App.actions') ?>
                     </th>
                 </tr>
                 </thead>
@@ -80,32 +80,32 @@
                             <td>
                                 <p><?= esc($plugin['description']) ?></p>
                                 <small class="text-muted">
-                                    Version <?= esc($plugin['version']) ?> | 
-                                    By <?= esc($plugin['author']) ?> | 
-                                    <a href="#!" class="view-details" data-slug="<?= esc($plugin['slug']) ?>" data-bs-toggle="modal" data-bs-target="#pluginModalId">View details</a>
+                                    <?= lang('App.version') ?> <?= esc($plugin['version']) ?> | 
+                                    <?= lang('App.by') ?> <?= esc($plugin['author']) ?> | 
+                                    <a href="#!" class="view-details" data-slug="<?= esc($plugin['slug']) ?>" data-bs-toggle="modal" data-bs-target="#pluginModalId"><?= lang('App.view_details') ?></a>
                                 </small>
                                 <?php if ($updateAvailable == "1"): ?>
-                                    |  <a href="<?=base_url('account/plugins/install-plugins?q='.$plugin['slug'])?>" class="me-1 text-success">Update Available</a>
+                                    |  <a href="<?=base_url('account/plugins/install-plugins?q='.$plugin['slug'])?>" class="me-1 text-success"><?= lang('App.update_available') ?></a>
                                 <?php endif; ?>
                             </td>
                             <td>
                                 <?php if ($pluginStatus == "1"): ?>
-                                    <a href="<?=base_url('account/plugins/manage/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-primary me-1 mb-1">Manage</a>
+                                    <a href="<?=base_url('account/plugins/manage/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-primary me-1 mb-1"><?= lang('App.manage') ?></a>
                                 <?php endif; ?>
                                 <?php if ($pluginStatus == "0"): ?>
-                                    <a href="<?=base_url('account/plugins/activate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-success me-1 mb-1">Activate</a>
+                                    <a href="<?=base_url('account/plugins/activate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-success me-1 mb-1"><?= lang('App.activate') ?></a>
                                 <?php elseif ($pluginStatus == "1"): ?>
-                                    <a href="<?=base_url('account/plugins/deactivate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-warning text-dark me-1 mb-1">Deactivate</a>
+                                    <a href="<?=base_url('account/plugins/deactivate-plugin/'.$plugin['slug'])?>" class="btn btn-sm btn-outline-warning text-dark me-1 mb-1"><?= lang('App.deactivate') ?></a>
                                 <?php endif; ?>
 
-                                <a href="#!" class="btn btn-sm btn-outline-danger me-1 mb-1" onclick="confirmDelete('<?=$plugin['name']?>', '<?=$plugin['slug']?>')">Delete</a>
+                                <a href="#!" class="btn btn-sm btn-outline-danger me-1 mb-1" onclick="confirmDelete('<?=$plugin['name']?>', '<?=$plugin['slug']?>')"><?= lang('App.delete') ?></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
          <?php else : ?>
-            <p>No plugins are currently available.</p>
+            <p><?= lang('App.no_plugins_available') ?></p>
          <?php endif; ?>
 
          <!-- jQuery for "Select All" and Modal Content Loading -->
@@ -124,7 +124,7 @@
             // Delete Plugin Data Prompt
             function deletePluginData() {
                 Swal.fire({
-                    title: 'Remove Plugin Data',
+                    title: <?= json_encode(lang('App.remove_plugin_data')) ?>,
                     html: `
                         <div class="form-check mb-2">
                             <input class="form-check-input" type="checkbox" id="manualInputToggle">
@@ -205,14 +205,14 @@
             // Confirm Delete functionality
             function confirmDelete(pluginName, pluginSlug) {
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: `Are you sure you want to delete the "${pluginName}" plugin and its data?`,
+                    title: <?= json_encode(lang('App.are_you_sure')) ?>,
+                    text: `<?= lang('App.confirm_delete_plugin') ?> (${pluginName})`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#dc3545',
                     cancelButtonColor: '#6c757d',
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'Cancel',
+                    confirmButtonText: <?= json_encode(lang('App.yes')) ?>,
+                    cancelButtonText: <?= json_encode(lang('App.cancel')) ?>,
                     reverseButtons: true,
                     customClass: {
                         popup: 'swal-custom'
@@ -257,7 +257,7 @@
                             }
                         },
                         error: function() {
-                            $('#plugin-instructions-div').html('<p>Failed to load instructions. Please try again.</p>');
+                            $('#plugin-instructions-div').html('<p><?= lang('App.failed_load_instructions') ?>.</p>');
                         }
                     });
                 });
@@ -283,7 +283,7 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?= lang('App.close') ?></button>
       </div>
     </div>
   </div>

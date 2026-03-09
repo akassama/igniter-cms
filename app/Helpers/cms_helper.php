@@ -102,10 +102,10 @@ if (!function_exists('getUserStatus')) {
 if (!function_exists('getUserStatusLabel')) {
     function getUserStatusLabel($status) {
         if($status == '0'){
-            return "<span class='badge bg-secondary'>Inactive</span>";
+            return "<span class='badge bg-secondary'><?= lang('App.inactive') ?></span>";
         }
         else if($status == '1'){
-            return "<span class='badge bg-success'>Active</span>";
+            return "<span class='badge bg-success'><?= lang('App.active') ?></span>";
         }
         else if($status == '2'){
             return "<span class='badge bg-danger'>Closed</span>";
@@ -125,16 +125,16 @@ if (!function_exists('getUserStatusLabel')) {
 if (!function_exists('getUserStatusOnly')) {
     function getUserStatusOnly($status) {
         if($status == '0'){
-            return "Inactive";
+            return lang('App.inactive');
         }
         else if($status == '1'){
-            return "Active";
+            return lang('App.active');
         }
         else if($status == '2'){
-            return "Closed";
+            return lang('App.closed');
         }
         else {
-            return "NA";
+            return lang('App.not_applicable');
         }
     }
 }
@@ -1689,7 +1689,7 @@ if(!function_exists('getCountryTextName')){
  * @return {bool} Returns true if the activity was successfully logged, false otherwise.
  */
 if (!function_exists('logActivity')) {
-    function logActivity($activityBy, $activityType, $activityDetails = '')
+    function logActivity($activityBy, $activityType, $activityDetails = '', $url='', $auditableType = '', $auditableId = '', $oldValues = '', $newValues = '')
     {
         $activityLogsModel = new ActivityLogsModel();
 
@@ -1698,13 +1698,18 @@ if (!function_exists('logActivity')) {
             $db->transStart(); // Start transaction
 
             $data = [
-                'activity_id' => uniqid(), // Generate a unique ID
+                'activity_id' => getGUID(), // Generate a unique ID
                 'activity_by' => $activityBy,
                 'activity_type' => $activityType,
                 'activity' => ActivityTypes::getDescription($activityType) . ($activityDetails ? ': ' . $activityDetails : ''),
                 'ip_address' => getIPAddress(),
                 'country' => getCountry(getIPAddress()),
                 'device' => getUserDevice(),
+                'url' => $url,
+                'auditable_type' => $auditableType,
+                'auditable_id' => $auditableId,
+                'old_values' => $oldValues,
+                'new_values' => $newValues,
                 'created_at' => date('Y-m-d H:i:s')
             ];
 
@@ -1965,7 +1970,7 @@ if(!function_exists('getNavigationParentSelectOptions'))
         $selected = "";
         foreach ($query->getResult() as $row) {
             $selected = $row->navigation_id == $navigationId ? "selected" : "";
-            echo "<option value='$row->navigation_id' $selected>$row->title</option>";
+            echo "<option value='$row->navigation_id' $selected>$row->title ?></option>";
         }
     }
 }
@@ -2230,12 +2235,12 @@ if(!function_exists('getRecentPosts'))
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Image</th>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Author</th>
-                        <th>Post Date</th>
+                        <th>".lang('App.image')."</th>
+                        <th>".lang('App.title')."</th>
+                        <th>".lang('App.category')."</th>
+                        <th>".lang('App.status')."</th>
+                        <th>".lang('App.author')."</th>
+                        <th>".lang('App.post_date')."</th>
                     </tr>
                 </thead>
             <tbody>";
@@ -2382,7 +2387,7 @@ if (!function_exists('getMostVisitedPages')) {
                 <thead>
                     <tr>
                         <th>Page</th>
-                        <th>Views</th>
+                        <th><?= lang('App.views') ?></th>
                     </tr>
                 </thead>
             <tbody>";

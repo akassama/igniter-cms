@@ -49,6 +49,7 @@ class Filters extends BaseFilters
         'demoCheckFilter'   => \App\Filters\DemoCheckFilter::class,
         'featureCheckFilter'   => \App\Filters\FeatureCheckFilter::class,
         'pluginsFilter' => \App\Filters\PluginsFilter::class,
+        'language'      => \App\Filters\LanguageFilter::class,
     ];
 
     /**
@@ -87,6 +88,7 @@ class Filters extends BaseFilters
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
+            'language',
         ],
         'after' => [
             // 'honeypot',
@@ -94,6 +96,7 @@ class Filters extends BaseFilters
             // Custom Optimization
             'cacheFilter' => ['except' => ['account/*', 'user/*', 'admin/*', 'dashboard/*']], // Don't cache admin pages
             'compressionFilter',
+            'toolbar',
         ],
     ];
 

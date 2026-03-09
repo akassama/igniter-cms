@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Configurations<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_configurations') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -18,9 +18,9 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'Configurations')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
+    array('title' => lang('App.configurations'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -28,18 +28,18 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Configurations</h3>
+        <h3><?= lang('App.manage_configurations') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/admin/configurations/new-config')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Configuration
+            <i class="ri-add-fill"></i> <?= lang('App.new_configuration') ?>
         </a>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Configurations
+                <?= lang('App.configurations') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_configurations ?>
                 </span>
@@ -50,13 +50,13 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Config For</th>
-                                <th>Value</th>
-                                <th>Group</th>
-                                <th>Last Modified</th>
-                                <th>Created By</th>
-                                <th>Updated By</th>
-                                <th>Actions</th>
+                                <th><?= lang('App.config_for') ?></th>
+                                <th><?= lang('App.value') ?></th>
+                                <th><?= lang('App.group') ?></th>
+                                <th><?= lang('App.last_modified') ?></th>
+                                <th><?= lang('App.created_by') ?></th>
+                                <th><?= lang('App.updated_by') ?></th>
+                                <th><?= lang('App.actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>

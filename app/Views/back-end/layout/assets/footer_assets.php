@@ -91,7 +91,7 @@ $demoMode = isset($_GET['demo']) && $_GET['demo'] === 'true';
     // Show demo message
     Swal.fire({
         title: 'Warning!',
-        text: 'You are a demo user and not authorised for this action.',
+        text: '<?= lang('App.demo_user_restriction') ?>',
         icon: 'warning',
         confirmButtonColor: '#ffc107',
         timer: 5000
@@ -105,7 +105,7 @@ $(document).ready(function(){
     //Show demo message
     swal.fire({
         title: 'Warning!',
-        text: 'You are a demo user and not authorised for this action.',
+        text: '<?= lang('App.demo_user_restriction') ?>',
         icon: 'warning',
         confirmButtonColor: '#ffc107',
         timer: 5000

@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Categories<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_categories') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,9 +10,9 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
-    array('title' => 'Categories')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.cms'), 'url' => '/account/cms'),
+    array('title' => lang('App.categories'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,18 +20,18 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Categories</h3>
+        <h3><?= lang('App.manage_categories') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/cms/categories/new-category')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Category
+            <i class="ri-add-fill"></i> <?= lang('App.new_category') ?>
         </a>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Categories
+                <?= lang('App.categories') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_categories ?>
                 </span>
@@ -43,16 +43,16 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Order</th>
-                            <th>Status</th>
-                            <th>Link</th>
-                            <th>New Tab</th>
-                            <th>Group</th>
-                            <th>Created By</th>
-                            <th>Updated By</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.title') ?></th>
+                            <th><?= lang('App.description') ?></th>
+                            <th><?= lang('App.order') ?></th>
+                            <th><?= lang('App.status') ?></th>
+                            <th><?= lang('App.link') ?></th>
+                            <th><?= lang('App.new_tab') ?></th>
+                            <th><?= lang('App.group') ?></th>
+                            <th><?= lang('App.created_by') ?></th>
+                            <th><?= lang('App.updated_by') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>

@@ -131,6 +131,9 @@ class ActivityTypes
     const THEME_UPDATE = 'theme_updated';
     const FAILED_THEME_UPDATE = 'failed_theme_update';
     const THEME_DELETION = 'theme_delete';
+    const FAILED_THEME_DELETION = 'failed_theme_deletion';
+    const THEME_REVISION_SAVE = 'theme_revision_saved';
+    const FAILED_THEME_REVISION_SAVE = 'failed_theme_revision_save';
 
     // BLOCKED IP REASONS
     const BLOCKED_IP_CREATION = 'blocked_ip_created';
@@ -158,6 +161,7 @@ class ActivityTypes
     const PLUGIN_UPDATE = 'plugin_updated';
     const FAILED_PLUGIN_UPDATE = 'failed_plugin_update';
     const PLUGIN_DELETION = 'plugin_delete';
+    const FAILED_PLUGIN_DELETION = 'failed_plugin_deletion';
 
     // CONTACT FORM LOGS
     const CONTACT_FORM_SUBMISSION = 'contact_form_submitted';
@@ -325,6 +329,9 @@ class ActivityTypes
             self::THEME_UPDATE => 'Theme Updated',
             self::FAILED_THEME_UPDATE => 'Theme Update Failed',
             self::THEME_DELETION => 'Theme Deletion',
+            self::FAILED_THEME_DELETION => 'Theme Deletion Failed',
+            self::THEME_REVISION_SAVE => 'Theme Revision Saved',
+            self::FAILED_THEME_REVISION_SAVE => 'Failed to Save Theme Revision',
 
             // BLOCKED IP REASONS
             self::BLOCKED_IP_CREATION => 'Blocked IP Created',
@@ -351,7 +358,8 @@ class ActivityTypes
             self::FAILED_PLUGIN_CREATION => 'Plugin Creation Failed',
             self::PLUGIN_UPDATE => 'Plugin Updated',
             self::FAILED_PLUGIN_UPDATE => 'Plugin Update Failed',
-            self::PLUGIN_CREATION => 'Plugin Deletion',
+            self::PLUGIN_DELETION => 'Plugin Deleted',
+            self::FAILED_PLUGIN_DELETION => 'Plugin Deletion Failed',
 
             // Contact Form
             self::CONTACT_FORM_SUBMISSION => 'Contact Form Submitted',

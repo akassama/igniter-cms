@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>View Configuration<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.view_configuration') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -18,10 +18,10 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'Configurations', 'url' => '/account/admin/configurations'),
-    array('title' => 'View Configuration')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
+    array('title' => lang('App.configurations'), 'url' => '/account/admin/configurations'),
+    array('title' => lang('App.view_configuration'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -29,7 +29,7 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>View Configuration</h3>
+        <h3><?= lang('App.view_configuration') ?></h3>
         <p>
             <?= $config_data['description'] ?>
         </p>
@@ -38,7 +38,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="row">
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="config_for" class="form-label">Config For <small>(read-only)</small> </label>
+                <label for="config_for" class="form-label"><?= lang('App.config_for') ?> <small>(<?= lang('app.read_only') ?>)</small> </label>
                 <input type="text" class="form-control" id="config_for" name="config_for" value="<?= $config_data['config_for'] ?>" readonly>
             </div>
 
@@ -48,7 +48,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 $configValue = getConfigData($config_data['config_for']);
             ?>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="config_value" class="form-label">Config value</label>
+                <label for="config_value" class="form-label"><?= lang('App.config_value') ?></label>
                 
                 <?php if ($dataType === 'Text'): ?>
                     <input type="text" class="form-control" id="config_value" name="config_value" value="<?= $configValue ?>" readonly>
@@ -77,20 +77,20 @@ echo generateBreadcrumb($breadcrumb_links);
                 <?php endif; ?>
             </div>
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label"><?= lang('App.description') ?></label>
                 <textarea rows="1" class="form-control" id="description" name="description" readonly><?= $config_data['description'] ?></textarea>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="group" class="form-label">Group</label>
+                <label for="group" class="form-label"><?= lang('App.group') ?></label>
                 <input type="text" class="form-control" id="group" name="group" value="<?= $config_data['group'] ?>" readonly>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="default_value" class="form-label">Default Value</label>
+                <label for="default_value" class="form-label"><?= lang('App.default_value') ?></label>
                 <input type="text" class="form-control" id="default_value" name="default_value" value="<?= $config_data['default_value'] ?>" readonly>
             </div>
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="custom_class" class="form-label">Custom Class</label>
+                <label for="custom_class" class="form-label"><?= lang('App.custom_class') ?></label>
                 <input type="text" class="form-control" id="custom_class" name="custom_class" value="<?= $config_data['custom_class'] ?>" readonly>
             </div>
 
@@ -106,7 +106,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/admin/configurations') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
             </div>
         </div>

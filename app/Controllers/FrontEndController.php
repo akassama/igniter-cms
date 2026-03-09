@@ -14,7 +14,8 @@ use App\Constants\ActivityTypes;
 
 class FrontEndController extends BaseController
 {
-    private SimpleCacheService $cacheService;
+    protected $emailService;
+    protected $curlrequest;
 
     public function __construct()
     {
@@ -32,7 +33,7 @@ class FrontEndController extends BaseController
 
         // Check if record exists
         if (!recordExists($tableName, "slug", $slug)) {
-            $errorMsg = str_replace('[Record]', 'Home page', config('CustomConfig')->notFoundMsg);
+            $errorMsg = str_replace('[Record]', 'Home page', lang('App.not_found_msg'));
 
             // Render a simple text string with inline CSS
             return "<!DOCTYPE html>
@@ -126,7 +127,7 @@ class FrontEndController extends BaseController
         $blogStatus = getTableData($tableName, ['slug' => $slug], "status");
         //Check if record exists
         if (!recordExists($tableName, "slug", $slug) || $blogStatus != 1) {
-            $errorMsg = str_replace('[Record]', 'Blog', config('CustomConfig')->notFoundMsg);
+            $errorMsg = str_replace('[Record]', 'Blog', lang('App.not_found_msg'));
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/');
         }
@@ -152,7 +153,7 @@ class FrontEndController extends BaseController
         $pageStatus = getTableData($tableName, ['slug' => $slug], "status");
         //Check if record exists
         if (!recordExists($tableName, "slug", $slug) || $pageStatus != 1) {
-            $errorMsg = str_replace('[Record]', 'Page', config('CustomConfig')->notFoundMsg);
+            $errorMsg = str_replace('[Record]', 'Page', lang('App.not_found_msg'));
             session()->setFlashdata('errorAlert', $errorMsg);
             return redirect()->to('/');
         }

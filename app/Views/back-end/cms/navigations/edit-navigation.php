@@ -10,8 +10,8 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'CMS', 'url' => '/account/cms'),
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.cms'), 'url' => '/account/cms'),
     array('title' => 'Navigations', 'url' => '/account/cms/navigations'),
     array('title' => 'Edit Navigation')
 );
@@ -28,7 +28,7 @@ echo generateBreadcrumb($breadcrumb_links);
         <?php echo form_open(base_url('account/cms/navigations/edit-navigation'), 'method="post" class="row g-3 needs-validation save-changes" enctype="multipart/form-data" novalidate'); ?>
         <div class="row">
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label"><?= lang('App.title') ?></label>
                 <input type="text" class="form-control alphanumeric-plus-space" id="title" name="title" data-show-err="true" maxlength="100" value="<?= $navigation_data['title'] ?>" maxlength="50" required>
                 <!-- Error -->
                 <?php if($validation->getError('title')) {?>
@@ -37,12 +37,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide a title
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label"><?= lang('App.description') ?></label>
                 <textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required><?= $navigation_data['description'] ?></textarea>
                 <!-- Error -->
                 <?php if($validation->getError('description')) {?>
@@ -51,7 +51,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide description
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
@@ -67,17 +67,17 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide icon
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-4 mb-3">
                 <label for="group" class="form-label">
                     Group
-                    <small class="text-muted">(Optional - use this if you want to filter data by group)</small>
+                    <small class="text-muted">(<?= lang('App.group_filter_hint') ?>)</small>
                 </label>
                 <select class="form-select" aria-label="group" id="group" name="group">
-                    <option value="">Select group</option>
+                    <option value=""><?= lang('App.select_group') ?></option>
                     <?=getDataGroupOptions($navigation_data['group'], "Navigation")?>
                 </select>
                 <!-- Error -->
@@ -87,13 +87,13 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide a group
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-4 mb-3">
                 <label for="order" class="form-label">
-                    Order
+                     <?= lang('App.order') ?>
                 </label>
                 <input type="text" class="form-control integer-plus-only" id="order" name="order" data-show-err="true" maxlength="2" value="<?= $navigation_data['order'] ?>">
                 <!-- Error -->
@@ -103,14 +103,14 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide a order
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
             
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="parent" class="form-label">Parent</label>
+                <label for="parent" class="form-label"><?= lang('App.parent') ?></label>
                 <select class="form-select" id="parent" name="parent">
-                    <option value="">Select parent (optional)</option>
+                    <option value=""><?= lang('App.select_parent') ?> (<?= lang('app.optional') ?>)</option>
                     <?= getNavigationParentSelectOptions($navigation_data['parent']) ?>
                 </select>
                 <!-- Error -->
@@ -120,16 +120,16 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide a parent
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="status" class="form-label">Status</label>
+                <label for="status" class="form-label"><?= lang('App.status') ?></label>
                 <select class="form-select" id="status" name="status" required>
-                    <option value="">Select status</option>
-                    <option value="0" <?= ($navigation_data['status'] == '0') ? 'selected' : '' ?>>Unpublished</option>
-                    <option value="1" <?= ($navigation_data['status'] == '1') ? 'selected' : '' ?>>Published</option>
+                    <option value=""><?= lang('App.select_status') ?></option>
+                    <option value="0" <?= ($navigation_data['status'] == '0') ? 'selected' : '' ?>><?= lang('App.unpublished') ?></option>
+                    <option value="1" <?= ($navigation_data['status'] == '1') ? 'selected' : '' ?>><?= lang('App.published') ?></option>
                 </select>
                 <!-- Error -->
                 <?php if($validation->getError('status')) {?>
@@ -138,12 +138,12 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide status
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
-                <label for="link" class="form-label">Link</label>
+                <label for="link" class="form-label"><?= lang('App.link') ?></label>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><?= base_url('/'); ?></span>
                     <input type="text" class="form-control" id="link" name="link" value="<?= $navigation_data['link'] ?>" required>
@@ -155,7 +155,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </div>
                 <?php }?>
                 <div class="invalid-feedback">
-                    Please provide a link
+                    <?= lang('App.input_required') ?>
                 </div>
             </div>
 
@@ -168,7 +168,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="mb-3 mt-3">
                 <a href="<?= base_url('/account/cms/navigations') ?>" class="btn btn-outline-danger">
                     <i class="ri-arrow-left-fill"></i>
-                    Back
+                    <?= lang('App.back') ?>
                 </a>
                 <?= $this->include('back-end/_shared/_edit_buttons.php'); ?>
             </div>

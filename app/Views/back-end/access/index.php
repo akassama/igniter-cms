@@ -2,18 +2,18 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Access Denied<?= $this->endSection() ?>
+<?= $this->section('title') ?><?=lang('App.access_denied');?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h1 class="mt-4">Access Denied</h1>
+<h1 class="mt-4"><?=lang('App.access_denied');?></h1>
 
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Access Denied')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.access_denied'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -22,11 +22,11 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="col-12">
         <div class="card p-2 mb-4">
             <p class="text-danger">
-                Access Denied
+                <i class="ri-error-warning-line me-2"></i> <?=lang('App.access_denied');?>
             </p>
-            <p>You do not have permission to access this page.</p>
-            <p>Please contact your administrator if you believe this is a mistake.</p>
-            <a href="<?= base_url('/account'); ?>">Go Back to Dashboard</a>
+            <p><?=lang('App.contact_admin_error');?></p>
+            <p><?=lang('App.contact_admin_error');?></p>
+            <a href="<?= base_url('/account'); ?>"><?=lang('App.go_to_dashboard');?></a>
         </div>
     </div>
 </div>

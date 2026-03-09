@@ -766,7 +766,7 @@ updateTotalViewCount($currentPage, "page_id", $page_data['page_id']);
                         </div>
 
                         <div class="col-12">
-                            <label for="message" class="form-label visually-hidden">Additional details (optional)</label>
+                            <label for="message" class="form-label visually-hidden">Additional details (<?= lang('app.optional') ?>)</label>
                             <textarea class="form-control" id="message" name="message" rows="3" placeholder="Additional details (optional)"></textarea>
                         </div>
 

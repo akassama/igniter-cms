@@ -917,13 +917,13 @@ if(!function_exists('getRecentActivityLogs'))
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Activity By</th>
-                        <th>Activity Type</th>
-                        <th>Activity</th>
-                        <th>IP Address</th>
-                        <th>Device</th>
-                        <th>Country</th>
-                        <th>Date/Time</th>
+                        <th>". lang('App.activity_by')."</th>
+                        <th>". lang('App.activity_type')."</th>
+                        <th>". lang('App.activity')."</th>
+                        <th>". lang('App.ip_address')."</th>
+                        <th>". lang('App.device')."</th>
+                        <th>". lang('App.country')."</th>
+                        <th>". lang('App.date_or_time')."</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -1026,14 +1026,14 @@ if(!function_exists('getRecentVisitStats'))
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>IP</th>
-                        <th>Device</th>
-                        <th>Browser</th>
-                        <th>URL</th>
-                        <th>User</th>
-                        <th>OS</th>
-                        <th>Country</th>
-                        <th>Visit Date</th>
+                        <th>". lang('App.ip_address') ."</th>
+                        <th>". lang('App.device') ."</th>
+                        <th>". lang('App.browser') ."</th>
+                        <th>". lang('App.url') ."</th>
+                        <th>". lang('App.user') ."</th>
+                        <th>". lang('App.operating_system') ."</th>
+                        <th>". lang('App.country') ."</th>
+                        <th>". lang('App.visit_date') ."</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -1486,6 +1486,54 @@ if (! function_exists('isValidGeminiKey')) {
     }
 }
 
+/**
+ * Get AI language instruction based on locale
+ * 
+ * @param string $locale The locale code (e.g., 'en', 'ar', 'fr')
+ * @return string The instruction for AI to respond in the specified language
+ */
+if (!function_exists('getAILanguageInstruction')) {
+    function getAILanguageInstruction()
+    {
+        // Get current locale
+        $locale = getCurrentLocale();
+        
+        // Map of locale codes to language instructions
+        $languageInstructions = [
+            'en' => 'Provide your response in English language.',
+            'ar' => 'Provide your response in Arabic language. قدم ردك باللغة العربية.',
+            'fr' => 'Provide your response in French language. Fournissez votre réponse en français.',
+            'es' => 'Provide your response in Spanish language. Proporcione su respuesta en español.',
+            'de' => 'Provide your response in German language. Geben Sie Ihre Antwort auf Deutsch.',
+            'zh' => 'Provide your response in Chinese language. 请用中文提供您的回答。',
+            'hi' => 'Provide your response in Hindi language. कृपया हिंदी में उत्तर दें।',
+            'pt' => 'Provide your response in Portuguese language. Forneça sua resposta em português.',
+            'bn' => 'Provide your response in Bengali language. অনুগ্রহ করে বাংলায় আপনার উত্তর দিন।',
+            'ja' => 'Provide your response in Japanese language. 日本語で回答を提供してください。',
+            'ur' => 'Provide your response in Urdu language. براہ کرم اردو میں جواب دیں۔',
+            'id' => 'Provide your response in Indonesian language. Berikan jawaban Anda dalam bahasa Indonesia.',
+            'tr' => 'Provide your response in Turkish language. Lütfen cevabınızı Türkçe olarak verin.',
+            'it' => 'Provide your response in Italian language. Fornisci la tua risposta in italiano.',
+            'nl' => 'Provide your response in Dutch language. Geef uw antwoord in het Nederlands.',
+            'pl' => 'Provide your response in Polish language. Proszę udzielić odpowiedzi w języku polskim.',
+            'uk' => 'Provide your response in Ukrainian language. Будь ласка, надайте відповідь українською мовою.',
+            'vi' => 'Provide your response in Vietnamese language. Vui lòng cung cấp câu trả lời bằng tiếng Việt.',
+            'th' => 'Provide your response in Thai language. กรุณาให้คำตอบเป็นภาษาไทย',
+            'fa' => 'Provide your response in Persian language. لطفاً پاسخ خود را به زبان فارسی ارائه دهید.',
+            'ro' => 'Provide your response in Romanian language. Vă rugăm să furnizați răspunsul în limba română.',
+            'hu' => 'Provide your response in Hungarian language. Kérjük, válaszát magyar nyelven adja meg.',
+            'sv' => 'Provide your response in Swedish language. Vänligen ge ditt svar på svenska.',
+            'cs' => 'Provide your response in Czech language. Odpovězte prosím v češtině.',
+            'el' => 'Provide your response in Greek language. Παρακαλώ δώστε την απάντησή σας στα ελληνικά.',
+            'he' => 'Provide your response in Hebrew language. אנא ספק את תשובתך בעברית.',
+            'ko' => 'Provide your response in Korean language. 한국어로 답변을 제공해주세요.',
+            'ms' => 'Provide your response in Malay language. Sila berikan jawapan anda dalam bahasa Melayu.',
+        ];
+        
+        // Return instruction for the given locale, or English if not found
+        return $languageInstructions[$locale] ?? $languageInstructions['en'];
+    }
+}
 
 /**
  * Sanitize/Clean user input for search queries
@@ -1507,5 +1555,186 @@ if (!function_exists('sanitizeSearchInput')) {
 
         // Trim whitespace
         return trim($input);
+    }
+}
+
+/**
+ * Get all locale display names
+ * 
+ * @return array
+ */
+if (!function_exists('getLocaleNames')) {
+    function getLocaleNames()
+    {
+        return [
+            'en' => 'English',
+            'fr' => 'Français',
+            'es' => 'Español',
+            'ar' => 'العربية',
+            'zh' => '中文',
+            'ru' => 'Русский',
+            'de' => 'Deutsch',
+            'hi' => 'हिन्दी',
+            'pt' => 'Português',
+            'bn' => 'বাংলা',
+            'ja' => '日本語',
+            'it' => 'Italiano',
+            'tr' => 'Türkçe',
+            'nl' => 'Nederlands',
+            'pl' => 'Polski',
+            'uk' => 'Українська',
+            'vi' => 'Tiếng Việt',
+            'th' => 'ไทย',
+            'fa' => 'فارسی',
+            'ro' => 'Română',
+            'hu' => 'Magyar',
+            'sv' => 'Svenska',
+            'cs' => 'Čeština',
+            'el' => 'Ελληνικά',
+            'he' => 'עברית',
+            'ko' => '한국어',
+            'id' => 'Bahasa Indonesia',
+            'ms' => 'Bahasa Melayu',
+        ];
+    }
+}
+
+/**
+ * Get all locale flag class names
+ * 
+ * @return array
+ */
+if (!function_exists('getLocaleFlagNames')) {
+    function getLocaleFlagNames()
+    {
+        return [
+            'af'  => 'fi-za', // Afrikaans -> South Africa
+            'am'  => 'fi-et', // Amharic -> Ethiopia
+            'ar'  => 'fi-sa', // Arabic -> Saudi Arabia
+            'az'  => 'fi-az', // Azerbaijani -> Azerbaijan
+            'be'  => 'fi-by', // Belarusian -> Belarus
+            'bg'  => 'fi-bg', // Bulgarian -> Bulgaria
+            'bn'  => 'fi-bd', // Bengali -> Bangladesh
+            'bs'  => 'fi-ba', // Bosnian -> Bosnia
+            'ca'  => 'fi-es-ct', // Catalan -> Catalonia (Spain)
+            'cs'  => 'fi-cz', // Czech -> Czech Republic
+            'da'  => 'fi-dk', // Danish -> Denmark
+            'de'  => 'fi-de', // German -> Germany
+            'el'  => 'fi-gr', // Greek -> Greece
+            'en'  => 'fi-gb', // English -> United Kingdom
+            'es'  => 'fi-es', // Spanish -> Spain
+            'et'  => 'fi-ee', // Estonian -> Estonia
+            'fa'  => 'fi-ir', // Persian -> Iran
+            'fi'  => 'fi-fi', // Finnish -> Finland
+            'fil' => 'fi-ph', // Filipino -> Philippines
+            'fr'  => 'fi-fr', // French -> France
+            'he'  => 'fi-il', // Hebrew -> Israel
+            'hi'  => 'fi-in', // Hindi -> India
+            'hr'  => 'fi-hr', // Croatian -> Croatia
+            'hu'  => 'fi-hu', // Hungarian -> Hungary
+            'hy'  => 'fi-am', // Armenian -> Armenia
+            'id'  => 'fi-id', // Indonesian -> Indonesia
+            'is'  => 'fi-is', // Icelandic -> Iceland
+            'it'  => 'fi-it', // Italian -> Italy
+            'ja'  => 'fi-jp', // Japanese -> Japan
+            'ka'  => 'fi-ge', // Georgian -> Georgia
+            'kk'  => 'fi-kz', // Kazakh -> Kazakhstan
+            'km'  => 'fi-kh', // Khmer -> Cambodia
+            'ko'  => 'fi-kr', // Korean -> South Korea
+            'lo'  => 'fi-la', // Lao -> Laos
+            'lt'  => 'fi-lt', // Lithuanian -> Lithuania
+            'lv'  => 'fi-lv', // Latvian -> Latvia
+            'mk'  => 'fi-mk', // Macedonian -> North Macedonia
+            'ml'  => 'fi-in', // Malayalam -> India
+            'mn'  => 'fi-mn', // Mongolian -> Mongolia
+            'ms'  => 'fi-my', // Malay -> Malaysia
+            'my'  => 'fi-mm', // Burmese -> Myanmar
+            'nb'  => 'fi-no', // Norwegian Bokmål -> Norway
+            'nl'  => 'fi-nl', // Dutch -> Netherlands
+            'pl'  => 'fi-pl', // Polish -> Poland
+            'pt'  => 'fi-pt', // Portuguese -> Portugal
+            'ro'  => 'fi-ro', // Romanian -> Romania
+            'ru'  => 'fi-ru', // Russian -> Russia
+            'sk'  => 'fi-sk', // Slovak -> Slovakia
+            'sl'  => 'fi-si', // Slovenian -> Slovenia
+            'sq'  => 'fi-al', // Albanian -> Albania
+            'sr'  => 'fi-rs', // Serbian -> Serbia
+            'sv'  => 'fi-se', // Swedish -> Sweden
+            'sw'  => 'fi-ke', // Swahili -> Kenya
+            'ta'  => 'fi-in', // Tamil -> India
+            'te'  => 'fi-in', // Telugu -> India
+            'th'  => 'fi-th', // Thai -> Thailand
+            'tr'  => 'fi-tr', // Turkish -> Turkey
+            'uk'  => 'fi-ua', // Ukrainian -> Ukraine
+            'ur'  => 'fi-pk', // Urdu -> Pakistan
+            'uz'  => 'fi-uz', // Uzbek -> Uzbekistan
+            'vi'  => 'fi-vn', // Vietnamese -> Vietnam
+            'zh'  => 'fi-cn', // Chinese -> China
+        ];
+    }
+}
+
+/**
+ * Get display name for a specific locale
+ * 
+ * @param string $locale
+ * @return string
+ */
+if (!function_exists('getLocaleDisplayName')) {
+    function getLocaleDisplayName($locale)
+    {
+        $localeNames = getLocaleNames();
+        return $localeNames[$locale] ?? ucfirst($locale);
+    }
+}
+
+/**
+ * Get flag class for a specific locale
+ * 
+ * @param string $locale
+ * @return string
+ */
+if (!function_exists('getLocaleFlagClass')) {
+    function getLocaleFlagClass($locale)
+    {
+        $localeFlagNames = getLocaleFlagNames();
+        return $localeFlagNames[$locale] ?? 'fi-placeholder';
+    }
+}
+
+/**
+ * Get current locale from request or session
+ * 
+ * @return string
+ */
+if (!function_exists('getCurrentLocale')) {
+    function getCurrentLocale()
+    {
+        $request = service('request');
+        $session = session();
+        
+        // Try to get from request first
+        $locale = $request->getLocale();
+        
+        // If not, try session
+        if (!$locale) {
+            $locale = $session->get('locale');
+        }
+        
+        // Default to English
+        return $locale ?: 'en';
+    }
+}
+
+/**
+ * Get supported locales from config
+ * 
+ * @return array
+ */
+if (!function_exists('getSupportedLocales')) {
+    function getSupportedLocales()
+    {
+        $config = config('App');
+        return $config->supportedLocales;
     }
 }

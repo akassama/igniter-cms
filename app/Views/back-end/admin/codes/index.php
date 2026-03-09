@@ -10,7 +10,7 @@ $userRole = getUserRole($sessionEmail);
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Codes<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_codes') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -18,9 +18,9 @@ $userRole = getUserRole($sessionEmail);
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'Codes')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
+    array('title' => lang('App.codes'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -28,18 +28,18 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Codes</h3>
+        <h3><?= lang('App.manage_codes') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/admin/codes/new-code')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Code
+            <i class="ri-add-fill"></i> <?= lang('App.new_code') ?>
         </a>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Codes
+                <?= lang('App.codes') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_codes ?>
                 </span>
@@ -50,11 +50,11 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Code For</th>
-                            <th>Last Modified</th>
-                            <th>Created By</th>
-                            <th>Updated By</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.code_for') ?></th>
+                            <th><?= lang('App.last_modified') ?></th>
+                            <th><?= lang('App.created_by') ?></th>
+                            <th><?= lang('App.updated_by') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>

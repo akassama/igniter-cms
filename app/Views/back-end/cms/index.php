@@ -2,18 +2,18 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>CMS<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.cms') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
 
-<h1 class="mt-4">CMS</h1>
+<h1 class="mt-4"><?= lang('App.cms') ?></h1>
 
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'CMS')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.cms'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -23,10 +23,10 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card bg-dark text-white mb-4">
             <div class="card-body border-bottom">
                 <i class="ri-newspaper-fill"></i>
-                Blogs
+                <?= lang('App.blogs') ?>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/cms/blogs'); ?>">View Details</a>
+                <a class="small text-white stretched-link" href="<?= base_url('/account/cms/blogs'); ?>"><?= lang('App.view_details') ?></a>
                 <div class="small text-white"><i class="ri-arrow-right-circle-line h5"></i></div>
             </div>
         </div>
@@ -35,10 +35,10 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card bg-dark text-white mb-4">
             <div class="card-body border-bottom">
                 <i class="ri-menu-search-line"></i>
-                Categories
+                <?= lang('App.categories') ?>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/cms/categories'); ?>">View Details</a>
+                <a class="small text-white stretched-link" href="<?= base_url('/account/cms/categories'); ?>"><?= lang('App.view_details') ?></a>
                 <div class="small text-white"><i class="ri-arrow-right-circle-line h5"></i></div>
             </div>
         </div>
@@ -47,10 +47,10 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card bg-dark text-white mb-4">
             <div class="card-body border-bottom">
                 <i class="ri-link"></i>
-                Navigations
+                <?= lang('App.navigations') ?>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/cms/navigations'); ?>">View Details</a>
+                <a class="small text-white stretched-link" href="<?= base_url('/account/cms/navigations'); ?>"><?= lang('App.view_details') ?></a>
                 <div class="small text-white"><i class="ri-arrow-right-circle-line h5"></i></div>
             </div>
         </div>
@@ -59,10 +59,10 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card bg-dark text-white mb-4">
             <div class="card-body border-bottom">
                 <i class="ri-article-line"></i>
-                Pages
+                <?= lang('App.pages') ?>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/cms/pages'); ?>">View Details</a>
+                <a class="small text-white stretched-link" href="<?= base_url('/account/cms/pages'); ?>"><?= lang('App.view_details') ?></a>
                 <div class="small text-white"><i class="ri-arrow-right-circle-line h5"></i></div>
             </div>
         </div>
@@ -71,10 +71,10 @@ echo generateBreadcrumb($breadcrumb_links);
         <div class="card bg-dark text-white mb-4">
             <div class="card-body border-bottom">
                 <i class="ri-database-line"></i>
-                Data Groups
+                <?= lang('App.data_groups') ?>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/cms/data-groups'); ?>">View Details</a>
+                <a class="small text-white stretched-link" href="<?= base_url('/account/cms/data-groups'); ?>"><?= lang('App.view_details') ?></a>
                 <div class="small text-white"><i class="ri-arrow-right-circle-line h5"></i></div>
             </div>
         </div>

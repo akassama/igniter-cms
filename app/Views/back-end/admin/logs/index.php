@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Logs<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.logs') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,9 +10,9 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'Logs')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
+    array('title' => lang('App.logs'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,13 +20,13 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Logs</h3>
+        <h3><?= lang('App.logs') ?></h3>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                Logs
+                <?= lang('App.logs') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_logs ?>
                 </span>
@@ -36,11 +36,11 @@ echo generateBreadcrumb($breadcrumb_links);
                     <table class="table table-bordered datatable">
                         <thead>
                             <tr>
-                                <th>File</th>
-                                <th>Level</th>
-                                <th>Timestamp</th>
-                                <th>Message</th>
-                                <th>Actions</th>
+                                <th><?= lang('App.file') ?></th>
+                                <th><?= lang('App.level') ?></th>
+                                <th><?= lang('App.timestamp') ?></th>
+                                <th><?= lang('App.message') ?></th>
+                                <th><?= lang('App.actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,7 +74,7 @@ echo generateBreadcrumb($breadcrumb_links);
             ?>
                 <!--Show pagination if more than 100 records-->
                 <div class="col-12 text-start">
-                    <p>Pagination</p>
+                    <p><?= lang('App.pagination') ?></p>
                     <?= $pager ?>
                 </div>
             <?php

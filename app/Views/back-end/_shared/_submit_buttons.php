@@ -1,6 +1,6 @@
 <?php 
 $demoMode = boolval(env('DEMO_MODE', "false"));
-$submitLabel = $submitLabel ?? 'Submit'; // Fallback to 'Submit' if not passed
+$submitLabel = $submitLabel ?? lang('App.submit'); // Fallback to 'Submit' if not passed
 ?>
 
 <?php if ($demoMode): ?>

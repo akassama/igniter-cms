@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Manage Plugins<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.manage_plugins') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,16 +10,16 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Plugins', 'url' => '/account/plugins'),
-    array('title' => 'Manage Plugin')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.plugins'), 'url' => '/account/plugins'),
+    array('title' => lang('App.manage_plugin'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Manage Plugin - <?=$pluginName?></h3>
+        <h3><?= lang('App.manage_plugin') ?> - <?=$pluginName?></h3>
     </div>
     <!--Content-->
     <div class="col-12">
@@ -27,7 +27,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <?php if ($pluginManageFile): ?>
                 <?php include($pluginManageFile); ?>
             <?php else: ?>
-                <div class="alert alert-info">No management interface available for this plugin.</div>
+                <div class="alert alert-info"><?= lang('App.no_plugin_interface') ?></div>
             <?php endif; ?>
         </div>
     </div>

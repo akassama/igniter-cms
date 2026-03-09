@@ -2,7 +2,7 @@
 <?= $this->extend('back-end/layout/_layout') ?>
 
 <!-- page title -->
-<?= $this->section('title') ?>Blocked IP's<?= $this->endSection() ?>
+<?= $this->section('title') ?><?= lang('App.blocked_ips') ?><?= $this->endSection() ?>
 
 <!-- begin main content -->
 <?= $this->section('content') ?>
@@ -10,9 +10,9 @@
 <?php
 // Breadcrumbs
 $breadcrumb_links = array(
-    array('title' => 'Dashboard', 'url' => '/account'),
-    array('title' => 'Admin', 'url' => '/account/admin'),
-    array('title' => 'Blocked IP Addresses')
+    array('title' => lang('App.dashboard'), 'url' => '/account'),
+    array('title' => lang('App.admin'), 'url' => '/account/admin'),
+    array('title' => lang('App.blocked_ips'))
 );
 echo generateBreadcrumb($breadcrumb_links);
 ?>
@@ -20,18 +20,18 @@ echo generateBreadcrumb($breadcrumb_links);
 <div class="row">
     <!--Content-->
     <div class="col-12">
-        <h3>Blocked IP Addresses</h3>
+        <h3><?= lang('App.blocked_ips') ?></h3>
     </div>
     <div class="col-12 d-flex justify-content-end mb-2">
         <a href="<?=base_url('/account/admin/blocked-ips/new-blocked-ip')?>" class="btn btn-outline-dark mx-1">
-            <i class="ri-add-fill"></i> New Blocked IP
+            <i class="ri-add-fill"></i> <?= lang('App.new_blocked_ip') ?>
         </a>
     </div>
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
                 <i class="ri-grid-line me-1"></i>
-                    Blocked IP Addresses
+                    <?= lang('App.blocked_ips') ?>
                 <span class="badge rounded-pill bg-dark">
                     <?= $total_blocked_ips ?>
                 </span>
@@ -42,15 +42,15 @@ echo generateBreadcrumb($breadcrumb_links);
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>IP</th>
-                            <th>Block Start Time</th>
-                            <th>Block End Time</th>
-                            <th>Reason</th>
-                            <th>Notes</th>
-                            <th>URL</th>
-                            <th>Country</th>
-                            <th>Visit Date</th>
-                            <th>Actions</th>
+                            <th><?= lang('App.ip_address') ?></th>
+                            <th><?= lang('App.block_start_time') ?></th>
+                            <th><?= lang('App.block_end_time') ?></th>
+                            <th><?= lang('App.reason') ?></th>
+                            <th><?= lang('App.notes') ?></th>
+                            <th><?= lang('App.url') ?></th>
+                            <th><?= lang('App.country') ?></th>
+                            <th><?= lang('App.visit_date') ?></th>
+                            <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -66,7 +66,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td><?= esc($blocked_ip['notes']) ?></td>
                                     <td><?= esc($blocked_ip['page_visited_url']) ?></td>
                                     <td>
-                                        <span class="fi fi-<?= strtolower(esc($blocked_ip['country'])) ?>"></span>
+                                        <span class="fi fi-<?= strtolower((string)esc($blocked_ip['country'])) ?>"></span>
                                         <?= esc($blocked_ip['country']) ?>
                                     </td>
                                     <td><?= esc($blocked_ip['created_at']) ?></td>
@@ -94,7 +94,7 @@ echo generateBreadcrumb($breadcrumb_links);
             ?>
                 <!--Show pagination if more than 100 records-->
                 <div class="col-12 text-start">
-                    <p>Pagination</p>
+                    <p><?= lang('App.pagination') ?></p>
                     <?= $pager->links('default', 'bootstrap') ?>
                 </div>
             <?php
