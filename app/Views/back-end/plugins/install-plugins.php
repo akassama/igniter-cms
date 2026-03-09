@@ -26,7 +26,7 @@ echo generateBreadcrumb($breadcrumb_links);
     <!-- Search Form -->
     <div class="col-12 mb-4">
         <form class="d-flex" role="search" id="pluginSearchForm">
-            <input class="form-control me-2" type="search" placeholder="<?= lang('App.search') ?> plugins..." aria-label="Search" id="pluginSearch">
+            <input class="form-control me-2" type="search" placeholder="<?= lang('App.search') ?>  <?= lang('App.plugins') ?>" aria-label="Search" id="pluginSearch">
             <button class="btn btn-outline-success" type="submit"><?= lang('App.search') ?></button>
         </form>
     </div>

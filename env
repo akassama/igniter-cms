@@ -177,7 +177,7 @@ GOOGLE_REDIRECT_URI = http://localhost/igniter-cms/auth/google/callback
 # OTHER SETTINGS
 #--------------------------------------------------------------------
 APP_NAME = "Igniter CMS App"
-APP_VERSION = 2.9.3
+APP_VERSION = 2.9.6
 APP_KEY=your-app-id
 APP_API_KEY = "default"
 DEMO_MODE = false

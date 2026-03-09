@@ -98,7 +98,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <div class="d-flex justify-content-between align-items-center">
                     <label for="content" class="form-label"><?= lang('App.content') ?></label>
                     <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn" data-bs-toggle="modal" data-bs-target="#blogPromptModal">
-                        <i class="ri-robot-2-fill"></i> Write With AI
+                        <i class="ri-robot-2-fill"></i> <?= lang('App.write_with_ai') ?>
                     </button>
                 </div>
                 <textarea rows="1" class="form-control content-editor" id="content" name="content" required><?= set_value('content') ?></textarea>
@@ -139,7 +139,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="category" class="form-label"><?= lang('App.category') ?></label>
                 <select class="form-select" id="category" name="category" required>
-                    <option value="">Select category</option>
+                    <option value=""><?= lang('App.select_category') ?></option>
                     <?= getBlogCategorySelectOptions() ?>
                 </select>
                 <!-- Error -->
@@ -198,7 +198,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="author" class="form-label"><?= lang('App.author') ?></label>
                 <select class="form-select" id="author" name="author" required>
-                    <option value="">Select author</option>
+                    <option value=""><?= lang('App.select_author') ?></option>
                     <?= getUserSelectOptions() ?>
                 </select>
                 <!-- Error -->
@@ -244,7 +244,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="is_featured" class="form-label"><?= lang('App.featured') ?></label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1">
-                    <label class="form-check-label small" for="is_featured">Toggle to set as featured</label>
+                    <label class="form-check-label small" for="is_featured"><?= lang('App.toggle_featured_hint') ?></label>
                 </div>
                 <!-- Error -->
                 <?php if($validation->getError('is_featured')) {?>
@@ -258,10 +258,10 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="is_breaking" class="form-label">Breaking</label>
+                <label for="is_breaking" class="form-label"><?= lang('App.breaking') ?></label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="is_breaking" name="is_breaking" value="1">
-                    <label class="form-check-label small" for="is_breaking">Toggle to set as breaking</label>
+                    <label class="form-check-label small" for="is_breaking"><?= lang('App.toggle_breaking_hint') ?></label>
                 </div>
                 <!-- Error -->
                 <?php if($validation->getError('is_breaking')) {?>
@@ -383,18 +383,18 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">AI Blog Generator</h4>
+                <h4 class="modal-title"><?= lang('App.ai_blog_generator') ?></h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
                 <form id="blogGeneratorForm">
                     <div class="mb-3">
-                        <label for="blog_description" class="form-label">Describe your blog topic</label>
+                        <label for="blog_description" class="form-label"><?= lang('App.describe_blog_topic') ?></label>
                         <textarea class="form-control" id="blog_description" name="blog_description" rows="4" 
                                   placeholder="e.g. A travel guide about the hidden gems in Kyoto..."
                                   oninput="validateInput()"></textarea>
-                        <div id="char-count" class="form-text text-danger">Minimum 10 characters required.</div>
+                        <div id="char-count" class="form-text text-danger"><?= lang('App.min_char_required') ?></div>
                     </div>
 
                     <button type="button" class="btn btn-primary w-100 mb-4 use-ai-btn" id="generate-blog-button"
@@ -403,14 +403,14 @@ echo generateBreadcrumb($breadcrumb_links);
                             hx-target="#content-div"
                             hx-include="#blog_description"
                             hx-swap="innerHTML" hx-indicator="#spinner" disabled>
-                        <i class="ri-robot-2-fill"></i> Generate Blog
+                        <i class="ri-robot-2-fill"></i> <?= lang('App.generate_blog') ?>
                     </button>
                 </form>
 
                 <hr>
 
                 <div class="position-relative p-3 border rounded bg-light" style="min-height: 200px;">
-                    <label class="text-muted small fw-bold">Generated Content:</label>
+                    <label class="text-muted small fw-bold"><?= lang('App.generated_content') ?>:</label>
                     
                     <button type="button" 
                             class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2" 
@@ -420,7 +420,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     </button>
 
                     <div id="content-div" class="mt-2 text-dark">
-                        Your generated blog post will appear here...
+                        <?= lang('App.gen_blog_placeholder') ?>
                         <img  id="spinner" class="htmx-indicator" src="<?=base_url('public/uploads/default/loading.gif')?>" style="height: 75px"/>
                     </div>
                 </div>

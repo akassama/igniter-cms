@@ -121,7 +121,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="category" class="form-label"><?= lang('App.category') ?></label>
                 <select class="form-select" id="category" name="category" required>
-                    <option value="">Select category</option>
+                    <option value=""><?= lang('App.select_category') ?></option>
                     <?= getBlogCategorySelectOptions($blog_data['category']) ?>
                 </select>
                 <!-- Error -->
@@ -171,7 +171,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="author" class="form-label"><?= lang('App.author') ?></label>
                 <select class="form-select" id="author" name="author" required>
-                    <option value="">Select author</option>
+                    <option value=""><?= lang('App.select_author') ?></option>
                     <?= getUserSelectOptions($blog_data['author']) ?>
                 </select>
                 <!-- Error -->
@@ -217,7 +217,7 @@ echo generateBreadcrumb($breadcrumb_links);
                 <label for="is_featured" class="form-label"><?= lang('App.featured') ?></label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1" <?= ($blog_data['is_featured'] == '1') ? 'checked' : '' ?>>
-                    <label class="form-check-label small" for="is_featured">Toggle to set as featured</label>
+                    <label class="form-check-label small" for="is_featured"><?= lang('App.toggle_featured_hint') ?></label>
                 </div>
                 <!-- Error -->
                 <?php if($validation->getError('is_featured')) {?>
@@ -231,10 +231,10 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-6 mb-3">
-                <label for="is_breaking" class="form-label">Breaking</label>
+                <label for="is_breaking" class="form-label"><?= lang('App.breaking') ?></label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="is_breaking" name="is_breaking" value="1" <?= ($blog_data['is_breaking'] == '1') ? 'checked' : '' ?>>
-                    <label class="form-check-label small" for="is_breaking">Toggle to set as breaking</label>
+                    <label class="form-check-label small" for="is_breaking"><?= lang('App.toggle_breaking_hint') ?></label>
                 </div>
                 <!-- Error -->
                 <?php if($validation->getError('is_breaking')) {?>

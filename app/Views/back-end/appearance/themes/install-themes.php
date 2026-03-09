@@ -38,7 +38,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <span class="input-group-text bg-transparent border-end-0">
                                 <i class="ri-search-line"></i>
                             </span>
-                            <input class="form-control border-start-0 ps-0" type="search" placeholder="Search themes..." aria-label="Search" id="themeSearch" minlength="2" required>
+                            <input class="form-control border-start-0 ps-0" type="search" placeholder="<?= lang('App.search') ?> <?= lang('App.themes') ?>" aria-label="Search" id="themeSearch" minlength="2" required>
                             <button class="btn btn-primary" type="submit"><?= lang('App.search') ?></button>
                         </div>
                     </form>

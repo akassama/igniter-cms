@@ -56,7 +56,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.email') ?></th>
                             <th><?= lang('App.status') ?></th>
                             <th><?= lang('App.role') ?></th>
-                            <th>Created</th>
+                            <th><?= lang('App.created_at') ?></th>
                             <th><?= lang('App.actions') ?></th>
                         </tr>
                         </thead>
