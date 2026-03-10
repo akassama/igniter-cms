@@ -216,9 +216,10 @@ if (!function_exists('getHoneypotInput')) {
         $timestampKey = getConfigData("TimestampKey");
 
         // Generate the honeypot input
-        $honeypotInput = '<input type="text" name="' . $honeypotKey . '" ' .
+        $honeypotInput = '<input type="hidden" name="' . $honeypotKey . '" ' .
             'id="' . $honeypotKey . '" ' .
             'class="' . $randomClass . '" ' .
+            'value="" ' .
             'autocomplete="off" ' .
             'tabindex="-1" ' .
             'style="position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0,0,0,0) !important;white-space:nowrap !important;border:0 !important;">';
@@ -490,8 +491,8 @@ function validateCaptcha($returnUrl = null)
  */
 if (!function_exists('blockAndLogIPSpam')) {
     function blockAndLogIPSpam($reason): void {
-        $activityBy = $ipAddress;
         $ipAddress = getDeviceIP();
+        $activityBy = $ipAddress;
         $currentUrl = current_url();
         $country = getCountry();
         $blockEndTime = date('Y-m-d H:i:s', strtotime(getConfigData("BlockedIPSuspensionPeriod")));

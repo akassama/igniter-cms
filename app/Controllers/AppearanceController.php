@@ -329,6 +329,7 @@ class AppearanceController extends BaseController
     
         // Fetch the data based on the id
         $themeData = $themesModel->where('theme_id', $themeId)->first();
+        $previousData = $themesModel->where('theme_id', $themeId)->first();
     
         if (!$themeData) {
             $errorMsg = config('CustomConfig')->notFoundMsg;
@@ -354,7 +355,6 @@ class AppearanceController extends BaseController
         session()->setFlashdata('successAlert', $editSuccessMsg);
 
         $actionUrl = $this->request->getUri()->getPath() . '/' . $themeId;
-        $previousData = $themesModel->where('theme_id', $themeId)->first();
 
         //log activity
         logActivity($loggedInUserId, ActivityTypes::THEME_UPDATE, 'Theme with id: ' . $themeId. 'set as active.', $actionUrl, get_class($themesModel), $themeId, json_encode($previousData), null);

@@ -32,7 +32,7 @@ class SignInController extends BaseController
         $honeypotInput = $this->request->getPost(getConfigData("HoneypotKey"));
         $submittedTimestamp = $this->request->getPost(getConfigData("TimestampKey"));
         //Honeypot validator - Validate the inputs
-        #validateHoneypotInput($honeypotInput, $submittedTimestamp);
+        validateHoneypotInput($honeypotInput, $submittedTimestamp);
 
         // Get use captcha config
         $useCaptcha = env('USE_CAPTCHA', false);
