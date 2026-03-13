@@ -191,4 +191,4 @@ THEMES_API_ENDPOINT = https://api.ignitercms.com/api-service/get-themes/
 PLUGINS_API_ENDPOINT = https://api.ignitercms.com/api-service/get-plugins/
 # Cron security key - CHANGE THIS!
 CRON_SECRET_KEY = "your-strong-secret-key-here-12345"
-
+ENABLE_IP_BLOCKING = true

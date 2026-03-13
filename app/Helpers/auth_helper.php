@@ -11,6 +11,11 @@ use App\Constants\ActivityTypes;
  */
 if (!function_exists('validateHoneypotInput')) {
     function validateHoneypotInput($honeypotInput, $submittedTimestamp): void {
+        $enableHoneypotInput = getConfigData("EnableHoneypotInput");
+        if (strtolower($enableHoneypotInput) !== "yes") {
+            return;
+        }
+
         // Check if the honeypot field is filled (indicating bot activity)
         if (!empty($honeypotInput)) {
             blockAndLogIPSpam("Honeypot field filled");
@@ -145,6 +150,10 @@ if(!function_exists('addBlockedIPAdress'))
 {
     function addBlockedIPAdress($ipAddress, $country, $url, $blockEndTime, $reason)
     {
+        if (env('ENABLE_IP_BLOCKING') !== true) {
+            return;
+        }
+
         $tableNameBlocked = "blocked_ips";
         $tableNameWhitelisted  = "whitelisted_ips";
         $newBlackListData = [
@@ -210,6 +219,10 @@ if (!function_exists('isBlockedIP')) {
  */
 if (!function_exists('getHoneypotInput')) {
     function getHoneypotInput(): string {
+        $enableHoneypotInput = getConfigData("EnableHoneypotInput");
+        if (strtolower($enableHoneypotInput) !== "yes") {
+            return "";
+        }
         // Add a random class name to make it harder for bots to identify
         $randomClass = 'field_' . bin2hex(random_bytes(8));
         $honeypotKey = getConfigData("HoneypotKey");
@@ -491,6 +504,10 @@ function validateCaptcha($returnUrl = null)
  */
 if (!function_exists('blockAndLogIPSpam')) {
     function blockAndLogIPSpam($reason): void {
+        if (env('ENABLE_IP_BLOCKING') !== true) {
+            return;
+        }
+
         $ipAddress = getDeviceIP();
         $activityBy = $ipAddress;
         $currentUrl = current_url();

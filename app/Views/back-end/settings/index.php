@@ -43,6 +43,18 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
         </div>
     </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-dark text-white mb-4">
+            <div class="card-body border-bottom">
+                <i class="ri-translate"></i>
+                <?= lang('App.language') ?>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" href="<?= base_url('/account/settings/language'); ?>"><?= lang('App.view_details') ?></a>
+                <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- end main content -->

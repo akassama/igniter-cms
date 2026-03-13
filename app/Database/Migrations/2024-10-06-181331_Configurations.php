@@ -305,6 +305,22 @@ class Configurations extends Migration
             ],
             [
                 'config_id' => getGUID(),
+                'config_for' => 'EnableHoneypotInput',
+                'config_value' => 'Yes',
+                'group' => 'security',
+                'data_type' => 'Select',
+                'options' => 'Yes,No',
+                'default_value' => 'No',
+                'deletable' => 0,
+                'description' => 'Enable or disable the honeypot input for bot detection.',
+                'created_by' => getGUID(getDefaultAdminGUID()),
+                'updated_by' => null,
+                'custom_class' => '',
+                'icon' => 'ri-shield-keyhole-fill',
+                'search_terms' => 'honeypot,bot detection,spam,security, block ip'
+            ],
+            [
+                'config_id' => getGUID(),
                 'config_for' => 'HoneypotKey',
                 'config_value' => 'igniter_hpot_val',
                 'group' => 'security',
