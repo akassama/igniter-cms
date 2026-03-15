@@ -1,3 +1,8 @@
+<?php
+$session = session();
+$sessionIsSocialLogin = $session->get('is_social_login');
+?>
+
 <!-- include layout -->
 <?= $this->extend('back-end/layout/_layout') ?>
 
@@ -31,18 +36,20 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-dark text-white mb-4">
-            <div class="card-body border-bottom">
-                <i class="ri-shield-keyhole-fill"></i>
-                <?= lang('App.change_password') ?>
-            </div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?= base_url('/account/settings/change-password'); ?>"><?= lang('App.view_details') ?></a>
-                <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
+    <?php if (!$sessionIsSocialLogin): ?>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-dark text-white mb-4">
+                <div class="card-body border-bottom">
+                    <i class="ri-shield-keyhole-fill"></i>
+                    <?= lang('App.change_password') ?>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="<?= base_url('/account/settings/change-password'); ?>"><?= lang('App.view_details') ?></a>
+                    <div class="small text-white"><i class="ri-arrow-right-circle-fill h5"></i></div>
+                </div>
             </div>
         </div>
-    </div>
+    <?php endif; ?>
     <div class="col-xl-3 col-md-6">
         <div class="card bg-dark text-white mb-4">
             <div class="card-body border-bottom">
