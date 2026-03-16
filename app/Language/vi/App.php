@@ -322,6 +322,7 @@ return [
     'device_type'           => 'Loại thiết bị',
     'browser_type'          => 'Loại trình duyệt',
     'browser'               => 'Trình duyệt',
+    'sessions'              => 'Phiên',
     'page_type'             => 'Loại trang',
     'page_visited_id'       => 'ID trang đã truy cập',
     'page_visited_url'      => 'URL trang đã truy cập',

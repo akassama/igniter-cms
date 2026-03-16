@@ -2310,8 +2310,8 @@ if (!function_exists('getTopBrowsers')) {
         echo "<table class='table simple-datatable table-bordered w-100'>
                 <thead>
                     <tr>
-                        <th>Browser</th>
-                        <th>Sessions</th>
+                        <th>".lang('App.browser')."</th>
+                        <th>".lang('App.sessions')."</th>
                     </tr>
                 </thead>
             <tbody>";
@@ -2386,8 +2386,8 @@ if (!function_exists('getMostVisitedPages')) {
         echo "<table class='table simple-datatable table-bordered w-100'>
                 <thead>
                     <tr>
-                        <th>Page</th>
-                        <th><?= lang('App.views') ?></th>
+                        <th>".lang('App.image')."</th>
+                        <th>".lang('App.views')."</th>
                     </tr>
                 </thead>
             <tbody>";

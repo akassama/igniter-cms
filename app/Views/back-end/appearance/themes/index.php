@@ -88,7 +88,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <?php endif; ?>
                             
                             <a href="<?=base_url('account/appearance/themes/edit-theme/'.$theme['theme_id'])?>" 
-                            class="btn btn-sm btn-outline-secondary">Customize</a>
+                            class="btn btn-sm btn-outline-secondary"><?=lang('App.customize')?></a>
                             
                             <?php if ($theme['deletable'] == 1 && $theme['selected'] !== "1"): ?>
                                 <a href="#!" 
