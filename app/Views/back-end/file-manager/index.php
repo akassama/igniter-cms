@@ -702,7 +702,14 @@ function cifGenerateFileManagerTable(
                 <div class="file-manager-actions">
                     <div class="row align-items-center">
                         <div class="col-md-8">
-                            <a class="btn btn-outline-dark" href="<?=previous_url()?>" role="button">
+                            <?php
+                                $previousUrl = previous_url();
+                                if ($previousUrl === base_url('account/file-manager')) {
+                                    // Ensure the previous URL is within the same domain for security
+                                    $previousUrl = base_url('account');
+                                }
+                            ?>
+                            <a class="btn btn-outline-dark" href="<?= $previousUrl ?>" role="button">
                                 <i class="ri-arrow-left-fill"></i>
                                 <?=lang('App.back')?>
                             </a>
@@ -791,7 +798,7 @@ function cifGenerateFileManagerTable(
                         <input type="file" class="form-control" id="uploadInput" multiple accept="*/*">
                         <div class="form-text">
                             <?=lang('App.select_multiple_files')?> <br>
-                            <?=lang('App.maximum_size')?>: <?= round(env("CI_FM_MAX_UPLOAD_SIZE", 10000000) / (1024 * 1024)) ?>MB per file. <br>
+                            <?=lang('App.maximum_size')?>: <?= round(env("CI_FM_MAX_UPLOAD_SIZE", 10000000) / (1024 * 1024)) ?><?=lang('App.mb_per_file')?> <br>
                             <?=lang('App.allowed_types')?>: <?= str_replace(',', ', ', env('CI_FM_ALLOWED_UPLOAD_TYPES', 'jpg, png')) ?>
                         </div>
                     </div>
@@ -1061,7 +1068,7 @@ function cifGenerateFileManagerTable(
         function confirmDelete(filePath, fileName) {
             Swal.fire({
                 title: <?= json_encode(lang('App.are_you_sure')) ?>,
-                text: `You are about to delete file: "${fileName}". This action cannot be undone!`,
+                text: `<?= lang('App.delete_confirm'); ?> "${fileName}". <?= lang('App.undone_action') ?>`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc3545',
@@ -1087,8 +1094,8 @@ function cifGenerateFileManagerTable(
                     .then(data => {
                         if (data.success) {
                             Swal.fire({
-                                title: 'Deleted!',
-                                text: data.message || `"${fileName}" - File has been deleted successfully.`,
+                                title: <?= json_encode(lang('App.deleted_title')) ?>,
+                                text: data.message || `"${fileName}" - <?= lang('App.delete_success') ?>`,
                                 icon: 'success',
                                 timer: 2000,
                                 showConfirmButton: false
@@ -1097,7 +1104,7 @@ function cifGenerateFileManagerTable(
                             refreshFileList();
                         } else {
                             Swal.fire({
-                                title: 'Error!',
+                                title: <?= json_encode(lang('App.error')) ?>,
                                 text: data.message || `Failed to delete "${fileName}".`,
                                 icon: 'error',
                                 timer: 2000,
@@ -1107,8 +1114,8 @@ function cifGenerateFileManagerTable(
                     })
                     .catch(error => {
                         Swal.fire({
-                            title: 'Error!',
-                            text: `An error occurred while deleting "${fileName}".`,
+                            title: <?= json_encode(lang('App.error')) ?>,
+                            text: `<?= lang('App.delete_error') ?> "${fileName}".`,
                             icon: 'error',
                             timer: 2000,
                             showConfirmButton: false
@@ -1133,10 +1140,10 @@ function cifGenerateFileManagerTable(
 
             try {
                 document.execCommand('copy');
-                toastr.success('Copied to clipboard!', 'Success');
+                toastr.success('<?= lang('App.copied_to_clipboard') ?>', 'Success');
             } catch (err) {
-                toastr.error('Failed to copy URL', 'Error');
-                console.error('Copy failed:', err);
+                toastr.error('<?= lang('App.failed_to_copy_url') ?>', 'Error');
+                console.error('<?= lang('App.copy_failed') ?>:', err);
             }
 
             document.body.removeChild(tempInput);
@@ -1156,10 +1163,10 @@ function cifGenerateFileManagerTable(
 
             try {
                 document.execCommand('copy');
-                toastr.success('Copied to clipboard!', 'Success');
+                toastr.success('<?= lang('App.copied_to_clipboard') ?>', 'Success');
             } catch (err) {
-                toastr.error('Failed to copy URL', 'Error');
-                console.error('Copy failed:', err);
+                toastr.error('<?= lang('App.failed_to_copy_url') ?>', 'Error');
+                console.error('<?= lang('App.copy_failed') ?>:', err);
             }
 
             document.body.removeChild(tempInput);
@@ -1197,7 +1204,7 @@ function cifGenerateFileManagerTable(
             const allowedTypes = "<?= env('CI_FM_ALLOWED_UPLOAD_TYPES', 'jpg,jpeg,png') ?>".toLowerCase().split(',');
 
             if (files.length === 0) {
-                toastr.warning('Please select at least one file to upload.', 'No Files Selected');
+                toastr.warning('<?= lang('App.select_file_upload') ?>', '<?= lang('App.no_files_selected') ?>');
                 return;
             }
 
@@ -1210,7 +1217,7 @@ function cifGenerateFileManagerTable(
                 // Size validation
                 if (file.size > maxUploadSize) {
                     toastr.error(
-                        `"${file.name}" - File exceeds the maximum upload size of ${formatBytes(maxUploadSize)}.`, 
+                        `"${file.name}" - <?= lang('App.exceeds_max_size') ?> ${formatBytes(maxUploadSize)}.`, 
                         'File Too Large'
                     );
                     hasInvalidFiles = true;
@@ -1220,8 +1227,8 @@ function cifGenerateFileManagerTable(
                 // File type validation
                 if (!allowedTypes.includes(fileExt)) {
                     toastr.error(
-                        `"${file.name}" - File has an invalid file type (${fileExt}). Allowed types: ${allowedTypes.join(', ')}`,
-                        'Invalid File Type'
+                        `"${file.name}" - <?= lang('App.invalid_type_error') ?> (${fileExt}). Allowed types: ${allowedTypes.join(', ')}`,
+                        '<?= lang('App.invalid_file_type') ?>'
                     );
                     hasInvalidFiles = true;
                 }
@@ -1265,21 +1272,21 @@ function cifGenerateFileManagerTable(
                     const response = JSON.parse(this.responseText);
                     
                     if (response.success) {
-                        toastr.success(`Successfully uploaded ${response.uploaded_count} file(s)!`, 'Upload Complete');
+                        toastr.success(`Successfully uploaded ${response.uploaded_count} file(s)!`, '<?= lang('App.upload_complete') ?>');
                         refreshFileList();
                     } else {
                         let errorMsg = response.message || 'Error uploading files';
                         if (response.errors && response.errors.length) {
                             errorMsg += ': ' + response.errors.join('; ');
                         }
-                        toastr.error(errorMsg, 'Upload Failed');
+                        toastr.error(errorMsg, '<?= lang('App.upload_failed') ?>');
                     }
                 } catch (e) {
                     let errorMsg = 'Error processing upload response';
                     if (this.status === 413) {
                         errorMsg = 'File too large. Server rejected the upload.';
                     }
-                    toastr.error(errorMsg, 'Upload Failed');
+                    toastr.error(errorMsg, '<?= lang('App.upload_failed') ?>');
                     console.error('Error:', e, 'Response:', this.responseText);
                 }
                 
@@ -1288,7 +1295,7 @@ function cifGenerateFileManagerTable(
             });
 
             xhr.addEventListener('error', function() {
-                toastr.error('An error occurred during upload', 'Upload Failed');
+                toastr.error('An error occurred during upload', '<?= lang('App.upload_failed') ?>');
                 console.error('Upload error:', this.status, this.statusText);
             });
 
@@ -1342,12 +1349,12 @@ function cifGenerateFileManagerTable(
             const checkedBoxes = document.querySelectorAll('tbody input[type="checkbox"]:checked');
             
             if (!selectedAction) {
-                toastr.warning('Please select a bulk action.', 'No Action Selected');
+                toastr.warning('Please select a bulk action.', '<?= lang('App.no_action_selected') ?>');
                 return;
             }
             
             if (checkedBoxes.length === 0) {
-                toastr.warning('Please select at least one item.', 'No Items Selected');
+                toastr.warning('Please select at least one item.', '<?= lang('App.no_items_selected') ?>');
                 return;
             }
             
@@ -1363,16 +1370,16 @@ function cifGenerateFileManagerTable(
 
             if (selectedAction === 'delete') {
                 Swal.fire({
-                    title: 'Delete Selected Items?',
+                    title:  <?= json_encode(lang('App.confirm_bulk_delete')) ?>,
                     html: `You are about to delete <strong>${filesToDelete.length}</strong> item(s):<br><br>` +
                         filesToDelete.map(file => `• ${file.name}`).join('<br>') +
-                        '<br><br>This action cannot be undone!',
+                        '<br><br><?= lang('App.undone_action') ?>',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#dc3545',
                     cancelButtonColor: '#6c757d',
-                    confirmButtonText: `Yes, delete ${filesToDelete.length} item(s)!`,
-                    cancelButtonText: 'Cancel',
+                    confirmButtonText: `<?= lang('App.yes') ?>, delete ${filesToDelete.length} item(s)!`,
+                    cancelButtonText: '<?= lang('App.cancel') ?>',
                     reverseButtons: true
                 }).then(async (result) => {
                     if (result.isConfirmed) {
