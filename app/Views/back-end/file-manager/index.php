@@ -428,20 +428,20 @@ function cifGenerateFileManagerTable(
                         <th style="width: 50px;">
                             <input type="checkbox" class="form-check-input" id="select-all">
                         </th>
-                        <th style="width: 50px;">Thumb</th>
+                        <th style="width: 50px;">'.lang('App.thumb').'</th>
                         <th>
                             <i class="ri-file-line me-1"></i>
                             Name
                         </th>
-                        <th style="width: 100px;">Size</th>
-                        <th style="width: 100px;">Type</th>
-                        <th style="width: 120px;">Owner</th>
-                        <th style="width: 180px;">Created</th>
-                        <th style="width: 100px;">Dimensions</th>
-                        <th style="width: 150px;">Tags</th>
-                        <th style="width: 180px;">Last Modified</th>
-                        <th style="width: 100px;">Permissions</th>
-                        <th style="width: 200px;">Actions</th>
+                        <th style="width: 100px;">'.lang('App.size').'</th>
+                        <th style="width: 100px;">'.lang('App.type').'</th>
+                        <th style="width: 120px;">'.lang('App.owner').'</th>
+                        <th style="width: 180px;">'.lang('App.created').'</th>
+                        <th style="width: 100px;">'.lang('App.dimensions').'</th>
+                        <th style="width: 150px;">'.lang('App.tags').'</th>
+                        <th style="width: 180px;">'.lang('App.last_modified').'</th>
+                        <th style="width: 100px;">'.lang('App.permissions').'</th>
+                        <th style="width: 200px;">'.lang('App.actions').'</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -467,7 +467,7 @@ function cifGenerateFileManagerTable(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CI File Manager</title>
+    <title><?=lang('App.ci_file_manager')?></title>
     
     <?php
         // CSS Assets
@@ -694,7 +694,7 @@ function cifGenerateFileManagerTable(
                 <div class="file-manager-header">
                     <h2 class="mb-0">
                         <i class="ri-folder-line me-2"></i>
-                        CI File Manager
+                        <?=lang('App.ci_file_manager')?>
                     </h2>
                 </div>
                 
@@ -702,14 +702,14 @@ function cifGenerateFileManagerTable(
                 <div class="file-manager-actions">
                     <div class="row align-items-center">
                         <div class="col-md-8">
-                            <a class="btn btn-outline-dark" href="<?=base_url('account')?>" role="button">
-                                <i class="ri-dashboard-2-fill"></i>
-                                Dashboard
+                            <a class="btn btn-outline-dark" href="<?=previous_url()?>" role="button">
+                                <i class="ri-arrow-left-fill"></i>
+                                <?=lang('App.back')?>
                             </a>
                             <div class="btn-group btn-group-custom me-3" role="group">
                                 <button type="button" class="btn btn-primary" data-tippy-content="Upload new file" onclick="showUploadModal()">
                                     <i class="ri-upload-cloud-line me-1"></i>
-                                    Upload File
+                                    <?=lang('App.upload_file')?>
                                 </button>
                             </div>
                         </div>
@@ -717,10 +717,10 @@ function cifGenerateFileManagerTable(
                             <div class="bulk-actions justify-content-md-end">
                                 <?php if (!boolval($filterQuery)): ?>
                                     <select class="form-select form-select-sm" style="width: auto;">
-                                        <option value="">Bulk Actions</option>
-                                        <option value="delete">Delete Selected</option>
+                                        <option value=""><?=lang('App.bulk_actions')?></option>
+                                        <option value="delete"><?=lang('App.delete_selected')?></option>
                                     </select>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="applyBulkAction()">Apply</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="applyBulkAction()"><?=lang('App.apply')?></button>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -755,19 +755,19 @@ function cifGenerateFileManagerTable(
                     <div class="d-flex gap-4 flex-wrap">
                         <div class="stats-item">
                             <i class="ri-database-line"></i>
-                            <span>Total File Size: <span class="stats-value"><?= $totalFileSize ?></span></span>
+                            <span><?=lang('App.total_file_size')?>: <span class="stats-value"><?= $totalFileSize ?></span></span>
                         </div>
                         <div class="stats-item">
                             <i class="ri-file-line"></i>
-                            <span>File(s): <span class="stats-value"><?= $totalFiles ?></span></span>
+                            <span><?=lang('App.files_count')?>: <span class="stats-value"><?= $totalFiles ?></span></span>
                         </div>
                         <div class="stats-item">
                             <i class="ri-folder-line"></i>
-                            <span>Folder(s): <span class="stats-value"><?= $totalFolders ?></span></span>
+                            <span><?=lang('App.folders_count')?>: <span class="stats-value"><?= $totalFolders ?></span></span>
                         </div>
                     </div>
                     <div class="text-muted">
-                        <small>Last Updated: <?=$lastUpdated?></small>
+                        <small><?=lang('App.last_updated')?>: <?=$lastUpdated?></small>
                     </div>
                 </div>
             </div>
@@ -781,7 +781,7 @@ function cifGenerateFileManagerTable(
                 <div class="modal-header">
                     <h5 class="modal-title" id="uploadFileModalLabel">
                         <i class="ri-upload-cloud-line me-2"></i>
-                        Upload Files
+                        <?=lang('App.upload_file')?>s
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -790,19 +790,19 @@ function cifGenerateFileManagerTable(
                         <label for="uploadInput" class="form-label">Select Files</label>
                         <input type="file" class="form-control" id="uploadInput" multiple accept="*/*">
                         <div class="form-text">
-                            You can select multiple files. <br>
-                            Maximum size: <?= round(env("CI_FM_MAX_UPLOAD_SIZE", 10000000) / (1024 * 1024)) ?>MB per file. <br>
-                            Allowed types: <?= str_replace(',', ', ', env('CI_FM_ALLOWED_UPLOAD_TYPES', 'jpg, png')) ?>
+                            <?=lang('App.select_multiple_files')?> <br>
+                            <?=lang('App.maximum_size')?>: <?= round(env("CI_FM_MAX_UPLOAD_SIZE", 10000000) / (1024 * 1024)) ?>MB per file. <br>
+                            <?=lang('App.allowed_types')?>: <?= str_replace(',', ', ', env('CI_FM_ALLOWED_UPLOAD_TYPES', 'jpg, png')) ?>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="uploadTags" class="form-label">Tags (comma-separated)</label>
+                        <label for="uploadTags" class="form-label"><?=lang('App.tags')?> (<?=lang('App.comma_separated_hint')?>)</label>
                         <input type="text" class="form-control" id="uploadTags" name="uploadTags" placeholder="e.g., project, important, draft">
                     </div>
                     <!-- Upload Progress (hidden by default) -->
                     <div id="uploadProgress" class="d-none">
                         <div class="mb-2">
-                            <small class="text-muted">Uploading files...</small>
+                            <small class="text-muted"><?=lang('App.uploading_files')?></small>
                         </div>
                         <div class="progress mb-2">
                             <div class="progress-bar" role="progressbar" style="width: 0%"></div>
@@ -817,16 +817,16 @@ function cifGenerateFileManagerTable(
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="overwriteFiles" name="overwriteFiles">
                             <label class="form-check-label" for="overwriteFiles">
-                                Overwrite existing files
+                                <?=lang('App.overwrite_existing')?>
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?=lang('App.cancel')?></button>
                     <button type="button" class="btn btn-primary" onclick="startUpload()">
                         <i class="ri-upload-line me-1"></i>
-                        Upload Files
+                        <?=lang('App.upload_file')?>s
                     </button>
                 </div>
             </div>
@@ -846,11 +846,11 @@ function cifGenerateFileManagerTable(
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="modal-edit-file-name" class="form-label">File Name</label>
+                        <label for="modal-edit-file-name" class="form-label"><?=lang('App.file_name')?></label>
                         <input type="text" class="form-control" id="modal-edit-file-name" name="modal-edit-file-name" value="">
                     </div>
                     <div class="mb-3">
-                        <label for="modal-edit-file-tags" class="form-label">Tags (comma-separated)</label>
+                        <label for="modal-edit-file-tags" class="form-label"><?=lang('App.tags')?> (<?=lang('App.comma_separated_hint')?>)</label>
                         <input type="text" class="form-control" id="modal-edit-file-tags" name="modal-edit-file-tags" placeholder="e.g., project, important, draft">
                     </div>
                     <div class="d-none">
@@ -859,10 +859,10 @@ function cifGenerateFileManagerTable(
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?=lang('App.cancel')?></button>
                     <button type="button" class="btn btn-primary" id="editFileModalButton">
                         <i class="ri-save-line me-1"></i>
-                        Save Changes
+                        <?=lang('App.save_changes')?>
                     </button>
                 </div>
             </div>
@@ -1061,7 +1061,7 @@ function cifGenerateFileManagerTable(
         function confirmDelete(filePath, fileName) {
             Swal.fire({
                 title: <?= json_encode(lang('App.are_you_sure')) ?>,
-                text: <?= lang('App.action_undone_warning') ?> + ` (${fileName})`,
+                text: `You are about to delete file: "${fileName}". This action cannot be undone!`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc3545',
@@ -1087,8 +1087,8 @@ function cifGenerateFileManagerTable(
                     .then(data => {
                         if (data.success) {
                             Swal.fire({
-                                title: <?= json_encode(lang('App.deleted_title')) ?>,
-                                text: data.message || `"${fileName}" - <?= lang('App.record_deleted_msg') ?>`,
+                                title: 'Deleted!',
+                                text: data.message || `"${fileName}" - File has been deleted successfully.`,
                                 icon: 'success',
                                 timer: 2000,
                                 showConfirmButton: false
@@ -1097,7 +1097,7 @@ function cifGenerateFileManagerTable(
                             refreshFileList();
                         } else {
                             Swal.fire({
-                                title: <?= json_encode(lang('App.error')) ?>,
+                                title: 'Error!',
                                 text: data.message || `Failed to delete "${fileName}".`,
                                 icon: 'error',
                                 timer: 2000,
@@ -1107,7 +1107,7 @@ function cifGenerateFileManagerTable(
                     })
                     .catch(error => {
                         Swal.fire({
-                            title: <?= json_encode(lang('App.error')) ?>,
+                            title: 'Error!',
                             text: `An error occurred while deleting "${fileName}".`,
                             icon: 'error',
                             timer: 2000,
@@ -1210,7 +1210,7 @@ function cifGenerateFileManagerTable(
                 // Size validation
                 if (file.size > maxUploadSize) {
                     toastr.error(
-                        `"${file.name}" exceeds the maximum upload size of ${formatBytes(maxUploadSize)}.`, 
+                        `"${file.name}" - File exceeds the maximum upload size of ${formatBytes(maxUploadSize)}.`, 
                         'File Too Large'
                     );
                     hasInvalidFiles = true;
@@ -1220,7 +1220,7 @@ function cifGenerateFileManagerTable(
                 // File type validation
                 if (!allowedTypes.includes(fileExt)) {
                     toastr.error(
-                        `"${file.name}" has an invalid file type (${fileExt}). Allowed types: ${allowedTypes.join(', ')}`,
+                        `"${file.name}" - File has an invalid file type (${fileExt}). Allowed types: ${allowedTypes.join(', ')}`,
                         'Invalid File Type'
                     );
                     hasInvalidFiles = true;
