@@ -11,6 +11,11 @@ use App\Constants\ActivityTypes;
  */
 if (!function_exists('validateHoneypotInput')) {
     function validateHoneypotInput($honeypotInput, $submittedTimestamp): void {
+        $enableHoneypotInput = getConfigData("EnableHoneypotInput");
+        if (strtolower($enableHoneypotInput) !== "yes") {
+            return;
+        }
+
         // Check if the honeypot field is filled (indicating bot activity)
         if (!empty($honeypotInput)) {
             blockAndLogIPSpam("Honeypot field filled");
@@ -145,6 +150,10 @@ if(!function_exists('addBlockedIPAdress'))
 {
     function addBlockedIPAdress($ipAddress, $country, $url, $blockEndTime, $reason)
     {
+        if (env('ENABLE_IP_BLOCKING') !== true) {
+            return;
+        }
+
         $tableNameBlocked = "blocked_ips";
         $tableNameWhitelisted  = "whitelisted_ips";
         $newBlackListData = [
@@ -210,15 +219,20 @@ if (!function_exists('isBlockedIP')) {
  */
 if (!function_exists('getHoneypotInput')) {
     function getHoneypotInput(): string {
+        $enableHoneypotInput = getConfigData("EnableHoneypotInput");
+        if (strtolower($enableHoneypotInput) !== "yes") {
+            return "";
+        }
         // Add a random class name to make it harder for bots to identify
         $randomClass = 'field_' . bin2hex(random_bytes(8));
         $honeypotKey = getConfigData("HoneypotKey");
         $timestampKey = getConfigData("TimestampKey");
 
         // Generate the honeypot input
-        $honeypotInput = '<input type="text" name="' . $honeypotKey . '" ' .
+        $honeypotInput = '<input type="hidden" name="' . $honeypotKey . '" ' .
             'id="' . $honeypotKey . '" ' .
             'class="' . $randomClass . '" ' .
+            'value="" ' .
             'autocomplete="off" ' .
             'tabindex="-1" ' .
             'style="position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0,0,0,0) !important;white-space:nowrap !important;border:0 !important;">';
@@ -490,8 +504,12 @@ function validateCaptcha($returnUrl = null)
  */
 if (!function_exists('blockAndLogIPSpam')) {
     function blockAndLogIPSpam($reason): void {
-        $activityBy = $ipAddress;
+        if (env('ENABLE_IP_BLOCKING') !== true) {
+            return;
+        }
+
         $ipAddress = getDeviceIP();
+        $activityBy = $ipAddress;
         $currentUrl = current_url();
         $country = getCountry();
         $blockEndTime = date('Y-m-d H:i:s', strtotime(getConfigData("BlockedIPSuspensionPeriod")));

@@ -100,6 +100,12 @@ class SettingsController extends BaseController
     {
         // Access session data in this method
         $userId = $this->session->get('user_id');
+        $sessionIsSocialLogin = $this->session->get('is_social_login');
+
+        if($sessionIsSocialLogin)
+        {
+            return redirect()->to('/account/settings');
+        }
 
         $usersModel = new UsersModel();
 

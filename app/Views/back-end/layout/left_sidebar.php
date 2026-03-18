@@ -3,6 +3,7 @@ $session = session();
 // Get session data
 $sessionName = $session->get('first_name').' '.$session->get('last_name');
 $sessionEmail = $session->get('email');
+$sessionIsSocialLogin = $session->get('is_social_login');
 $userRole = getUserRole($sessionEmail);
 ?>
 
@@ -160,9 +161,11 @@ $userRole = getUserRole($sessionEmail);
                                 <a class="nav-link <?= (str_contains(current_url(), 'account/settings/update-details')) ? 'active' : ''; ?>" href="<?= base_url('/account/settings/update-details'); ?>">
                                     <i class="ri-arrow-drop-right-fill"></i> <?= lang('App.update_details') ?>
                                 </a>
-                                <a class="nav-link <?= (str_contains(current_url(), 'account/settings/change-password')) ? 'active' : ''; ?>" href="<?= base_url('/account/settings/change-password'); ?>">
-                                    <i class="ri-arrow-drop-right-fill"></i> <?= lang('App.change_password') ?>
-                                </a>
+                                <?php if(!$sessionIsSocialLogin): ?>
+                                    <a class="nav-link <?= (str_contains(current_url(), 'account/settings/change-password')) ? 'active' : ''; ?>" href="<?= base_url('/account/settings/change-password'); ?>">
+                                        <i class="ri-arrow-drop-right-fill"></i> <?= lang('App.change_password') ?>
+                                    </a>
+                                <?php endif; ?>
                                 <a class="nav-link <?= (str_contains(current_url(), 'account/settings/language')) ? 'active' : ''; ?>" href="<?= base_url('/account/settings/language'); ?>">
                                     <i class="ri-arrow-drop-right-fill"></i> <?= lang('App.language') ?>
                                 </a>

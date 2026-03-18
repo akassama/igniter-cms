@@ -489,74 +489,76 @@ if (typeof IntersectionObserver !== 'undefined') {
 </style>
 
 
-<!--Display Modals -->
-<?php foreach ($newsFeed as $news) { ?>
-    <div class="modal fade" id="blogModal-<?php echo htmlspecialchars($news['blog_id']); ?>" tabindex="-1" aria-labelledby="#blogModal-<?php echo htmlspecialchars($news['blog_id']); ?>" aria-hidden="true" style="height: 100%">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-            <div class="modal-content">
+<?php if (!empty($newsFeed)): ?>
+    <!--Display Modals -->
+    <?php foreach ($newsFeed as $news) { ?>
+        <div class="modal fade" id="blogModal-<?php echo htmlspecialchars($news['blog_id']); ?>" tabindex="-1" aria-labelledby="#blogModal-<?php echo htmlspecialchars($news['blog_id']); ?>" aria-hidden="true" style="height: 100%">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                <div class="modal-content">
 
-            <div class="modal-header">
-                <h2 class="modal-title">
-                    <?php echo htmlspecialchars($news['title']); ?>
-                </h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-                
-                <div class="text-center mb-4">
-                <img 
-                    src="<?php echo htmlspecialchars($news['featured_image']); ?>" 
-                    alt="<?php echo htmlspecialchars($news['title']); ?>" 
-                    class="img-fluid rounded shadow-sm"
-                    style="max-height: 400px; object-fit: cover; width: 100%;"
-                >
+                <div class="modal-header">
+                    <h2 class="modal-title">
+                        <?php echo htmlspecialchars($news['title']); ?>
+                    </h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center mb-3 text-muted small">
-                <div>
-                    <strong><?= lang('App.author') ?>:</strong> 
-                    <?php echo htmlspecialchars($news['created_by']); ?>
-                </div>
-                <div>
-                    <strong><?= lang('App.category') ?>:</strong> 
-                    <?php echo htmlspecialchars($news['category']); ?>
-                </div>
-                <div>
-                    <strong><?= lang('App.published') ?>:</strong> 
-                    <?= dateFormat($news['created_at'], 'M j, Y'); ?>
-                </div>
-                </div>
-                
-                <hr>
+                <div class="modal-body">
+                    
+                    <div class="text-center mb-4">
+                    <img 
+                        src="<?php echo htmlspecialchars($news['featured_image']); ?>" 
+                        alt="<?php echo htmlspecialchars($news['title']); ?>" 
+                        class="img-fluid rounded shadow-sm"
+                        style="max-height: 400px; object-fit: cover; width: 100%;"
+                    >
+                    </div>
 
-                <div id="blog-content">
-                    <?= $news['content']; ?>
+                    <div class="d-flex justify-content-between align-items-center mb-3 text-muted small">
+                    <div>
+                        <strong><?= lang('App.author') ?>:</strong> 
+                        <?php echo htmlspecialchars($news['created_by']); ?>
+                    </div>
+                    <div>
+                        <strong><?= lang('App.category') ?>:</strong> 
+                        <?php echo htmlspecialchars($news['category']); ?>
+                    </div>
+                    <div>
+                        <strong><?= lang('App.published') ?>:</strong> 
+                        <?= dateFormat($news['created_at'], 'M j, Y'); ?>
+                    </div>
+                    </div>
+                    
+                    <hr>
+
+                    <div id="blog-content">
+                        <?= $news['content']; ?>
+                    </div>
+
+                    <hr>
+
+                    <div class="mb-3">
+                        <strong><?= lang('App.tags') ?>:</strong>
+                        <?php
+                            $blogTags = htmlspecialchars($news['tags']);
+                            $tagsArray = explode(',', $blogTags);
+                            foreach ($tagsArray as $tag) {
+                                echo "<span class='badge bg-secondary me-1'>$tag</span>";
+                            }
+                        ?>
+                    </div>
+
                 </div>
 
-                <hr>
-
-                <div class="mb-3">
-                    <strong><?= lang('App.tags') ?>:</strong>
-                    <?php
-                        $blogTags = htmlspecialchars($news['tags']);
-                        $tagsArray = explode(',', $blogTags);
-                        foreach ($tagsArray as $tag) {
-                            echo "<span class='badge bg-secondary me-1'>$tag</span>";
-                        }
-                    ?>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= lang('App.close') ?></button>
                 </div>
 
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= lang('App.close') ?></button>
-            </div>
-
+                </div>
             </div>
         </div>
-    </div>
-<?php } ?>
+    <?php } ?>
+<?php endif; ?>
 
 <!-- end main content -->
 <?= $this->endSection() ?>
