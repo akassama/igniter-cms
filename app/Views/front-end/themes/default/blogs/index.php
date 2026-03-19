@@ -37,7 +37,7 @@ $currentPage = "blogs";
         <!-- Pagination -->
         <?php if ($total_blogs > intval(env('PAGINATE_LOW', 20))): ?>
             <div class="text-center mt-5">
-                <?= $pager->links('default', 'bootstrap_pagination') ?>
+                <?= $pager->links('default', 'bootstrap') ?>
             </div>
         <?php endif; ?>
     </div>
