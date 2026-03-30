@@ -3989,19 +3989,38 @@ if (!function_exists('renderBlogsGrid')) {
             overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
         }
         .bg-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
-        .bg-image {
+        .bg-image-wrapper {
+            position: relative;
             width: 100%;
-            height: 220px;
-            object-fit: cover;
-            display: block;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio (you can change this to 75% for 4:3 or 100% for square) */
+            overflow: hidden;
+            background: <?=$default_color?>10;
+        }
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image covers the area without distortion */
+            object-position: center; /* Centers the image */
+            transition: transform 0.3s ease;
+        }
+        .bg-card:hover .bg-image {
+            transform: scale(1.05); /* Optional: subtle zoom effect on hover */
         }
         .bg-content {
             padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         .bg-meta {
             display: flex;
@@ -4017,6 +4036,7 @@ if (!function_exists('renderBlogsGrid')) {
             border-radius: 6px;
             font-size: 0.875rem;
             font-weight: 500;
+            white-space: nowrap;
         }
         .bg-date {
             color: <?=$default_color?>;
@@ -4036,6 +4056,7 @@ if (!function_exists('renderBlogsGrid')) {
             color: <?=$default_color?>;
             margin: 0 0 1.5rem 0;
             line-height: 1.5;
+            flex: 1;
         }
         .bg-button {
             display: inline-flex;
@@ -4050,6 +4071,7 @@ if (!function_exists('renderBlogsGrid')) {
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            align-self: flex-start;
         }
         .bg-button:hover {
             background: <?=$accent_color?>;
@@ -4065,6 +4087,43 @@ if (!function_exists('renderBlogsGrid')) {
             font-size: 1.1em;
             line-height: 1;
         }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bg-image-wrapper {
+                padding-top: 66.67%; /* Slightly taller on mobile (3:2 ratio) */
+            }
+            .bg-content {
+                padding: 1rem;
+            }
+            .bg-title {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Optional: Add loading placeholder */
+        .bg-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, <?=$default_color?>10, <?=$default_color?>20, <?=$default_color?>10);
+            animation: shimmer 1.5s infinite;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .bg-image[src=""] + .bg-image-wrapper::before,
+        .bg-image:not([src]) + .bg-image-wrapper::before {
+            opacity: 1;
+        }
         </style>
 
         <div class="bg-container">
@@ -4072,11 +4131,15 @@ if (!function_exists('renderBlogsGrid')) {
                 <?php if ($blogs): ?>
                     <?php foreach ($blogs as $blog): ?>
                         <div class="bg-card">
-                            <a href="<?= base_url('blog/' . $blog['slug']) ?>">
-                                <img src="<?= getImageUrl($blog['featured_image'] ?? getDefaultImagePath()) ?>" 
-                                     class="bg-image" 
-                                     alt="<?= esc($blog['title']) ?>">
-                            </a>
+                            <div class="bg-image-wrapper">
+                                <a href="<?= base_url('blog/' . $blog['slug']) ?>" class="bg-image-link">
+                                    <img src="<?= getImageUrl($blog['featured_image'] ?? getDefaultImagePath()) ?>" 
+                                         class="bg-image" 
+                                         alt="<?= esc($blog['title']) ?>"
+                                         loading="lazy"
+                                         onerror="this.src='<?= getDefaultImagePath() ?>'">
+                                </a>
+                            </div>
                             <div class="bg-content">
                                 <div class="bg-meta">
                                     <span class="bg-category">
