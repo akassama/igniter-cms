@@ -236,16 +236,15 @@ class FrontEndController extends BaseController
                 'blogsSearchResults' => null,
                 'pagesSearchResults' => null
             ];
-    
+
             try {
                 // Load the models
                 $blogsModel = new BlogsModel();
                 $pagesModel = new PagesModel();
-    
+
                 if (strcasecmp($type, 'category') === 0) {
                     try {
                         // Blogs search
-                        $whereClause = ['title' => $searchQuery];
                         $categoryId = searchTableData('categories', 'title', $searchQuery, 'category_id') ?? "not-found";           
                         $data['blogsSearchResults'] = $blogsModel
                             ->groupStart()
@@ -260,7 +259,7 @@ class FrontEndController extends BaseController
                         log_message('error', 'Category search error: ' . $e->getMessage());
                     }
                 }
-    
+
                 if (strcasecmp($type, 'tag') === 0) {
                     try {
                         // Blogs search
@@ -277,53 +276,82 @@ class FrontEndController extends BaseController
                         log_message('error', 'Tag search error: ' . $e->getMessage());
                     }
                 }
-    
+
                 if (strcasecmp($type, 'author') === 0) {
                     try {
-                        // Blogs search
-                        //get $userId from $searchQuery
-                        $userId = getUserIdFromName($searchQuery) ?? "not-found";
+                        // Try to find user ID from the search query
+                        $userId = getUserIdFromName($searchQuery) ?? null;
+                        
+                        // Build search conditions for blogs
+                        $blogsModel->groupStart();
+                        
+                        // Search by created_by if we found a matching user ID
+                        if ($userId) {
+                            $blogsModel->orWhere('created_by', $userId);
+                        }
+                        
+                        // Search by author column (exact match or partial)
+                        // Using OR LIKE for partial matching
+                        $blogsModel->orLike('author', $searchQuery);
+                        
+                        // Also try to match if search query is part of the author name
+                        // This helps when searching for "John" and author is "John Doe"
+                        $blogsModel->orLike('author', $searchQuery);
+                        
+                        $blogsModel->groupEnd();
+                        
                         $data['blogsSearchResults'] = $blogsModel
-                            ->groupStart()
-                                ->like('created_by', $userId)
-                            ->groupEnd()
                             ->where('status', '1')
                             ->orderBy('created_at', 'DESC')
                             ->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))
                             ->findAll();
+                            
                     } catch (\Exception $e) {
                         $data['blogsSearchResults'] = null;
                         log_message('error', 'Author blogs search error: ' . $e->getMessage());
                     }
-    
+
                     try {
-                        // Pages search
+                        // Build search conditions for pages
+                        $pagesModel->groupStart();
+                        
+                        // Search by created_by if we found a matching user ID
+                        if ($userId) {
+                            $pagesModel->orWhere('created_by', $userId);
+                        }
+                        
+                        // Search by author column
+                        $pagesModel->orLike('author', $searchQuery);
+                        
+                        // Partial match for author name
+                        $pagesModel->orLike('author', $searchQuery);
+                        
+                        $pagesModel->groupEnd();
+                        
                         $data['pagesSearchResults'] = $pagesModel
-                            ->groupStart()
-                                ->like('created_by', $userId)
-                            ->groupEnd()
                             ->where('status', '1')
                             ->orderBy('created_at', 'DESC')
                             ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
                             ->findAll();
+                            
                     } catch (\Exception $e) {
                         $data['pagesSearchResults'] = null;
                         log_message('error', 'Author pages search error: ' . $e->getMessage());
                     }
                 }
-    
+
             } catch (\Exception $e) {
                 log_message('error', 'Model initialization error: ' . $e->getMessage());
                 // All results already initialized as null
             }
-    
+
             return view('front-end/themes/'.getCurrentTheme().'/search/filter', [
                 "searchQuery" => $searchQuery,
                 'blogsSearchResults' => $data['blogsSearchResults'],
                 'pagesSearchResults' => $data['pagesSearchResults'],
-                'type' => $type // Add this line
+                'type' => $type
             ]);
-    
+
         } catch (\Exception $e) {
             log_message('error', 'Search filter error: ' . $e->getMessage());
             // Return view with all null results

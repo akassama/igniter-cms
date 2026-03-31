@@ -196,7 +196,7 @@ OPENROUTER_MODEL       = minimax/minimax-m2.5  # Any model slug from https://ope
 # OTHER SETTINGS
 #--------------------------------------------------------------------
 APP_NAME = "Igniter CMS App"
-APP_VERSION = 2.9.7
+APP_VERSION = 2.9.8
 APP_KEY=your-app-id
 APP_API_KEY = "default"
 DEMO_MODE = false
