@@ -360,6 +360,30 @@ class HtmxController extends BaseController
         exit();
     }
 
+    
+    ## CONTENT AI SUMMARY ##  
+    public function getAISummaryAI()
+    {
+        $content = $this->request->getPost('content');
+        if(empty($content)){
+            $content = $this->request->getPost('title');
+        }
+
+        $content = getTextSummary(strip_tags($content), 1000);
+        // Get language instruction
+        $languageInstruction = getAILanguageInstruction();
+        $prompt = "From the following content, generate a concise, factual summary (1-3 sentences) that serves as a ready-to-use snippet for AI. Return only the summary.\n\nContent:\n$content\n\n$languageInstruction";
+
+        $aiSummary = makeAICall($prompt);
+
+        $aiSummaryInput = '<textarea class="form-control" id="ai_summary" name="ai_summary">'.$aiSummary.'</textarea>';
+        
+        echo preg_replace('/\s*\R\s*/', ' ', trim($aiSummaryInput));
+
+        //Exit to prevent bug: Uncaught RangeError: Maximum call stack size exceeded
+        exit();
+    }
+
     ## TAGS LIST ##
     public function setTagsAI()
     {

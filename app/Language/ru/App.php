@@ -378,6 +378,7 @@ return [
     'generated_content'   => 'Сгенерированный контент',
     'your_question'       => 'Ваш вопрос',
     'ai_response'         => 'Ответ ИИ',
+    'ai_summary'          => 'AI-дайджест',
 
     // --- General Actions & UI Labels ---
     'new'                 => 'Новый',

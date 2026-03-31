@@ -379,6 +379,7 @@ return [
     'generated_content'   => 'المحتوى المُنشأ',
     'your_question'       => 'سؤالك',
     'ai_response'         => 'رد الذكاء الاصطناعي',
+    'ai_summary'          => 'ملخص الذكاء الاصطناعي',
 
     // --- General Actions & UI Labels --- (إجراءات عامة وعلامات الواجهة)
     'new'                 => 'جديد',

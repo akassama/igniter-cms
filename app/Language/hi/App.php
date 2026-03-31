@@ -379,6 +379,7 @@ return [
     'generated_content'   => 'जनरेट की गई सामग्री',
     'your_question'       => 'आपका प्रश्न',
     'ai_response'         => 'एआई प्रतिक्रिया',
+    'ai_summary'          => 'एआई सारांश',
 
     // --- General Actions & UI Labels ---
     'new'                  => 'नया',

@@ -33,6 +33,10 @@ class Blogs extends Migration
             'content' => [
                 'type' => 'TEXT',
             ],
+            'ai_summary' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
             'category' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,

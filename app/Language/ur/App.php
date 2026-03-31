@@ -379,6 +379,7 @@ return [
     'generated_content'   => 'تیار کردہ مواد',
     'your_question'       => 'آپ کا سوال',
     'ai_response'         => 'AI جواب',
+    'ai_summary'          => 'مصنوعی ذہانت کا خلاصہ',
 
     // --- General Actions & UI Labels ---
     'new'                  => 'نیا',

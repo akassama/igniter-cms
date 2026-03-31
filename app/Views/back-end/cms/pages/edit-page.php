@@ -76,6 +76,20 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
+            <div class="col-sm-12 col-md-12 mb-3">
+                <label for="ai_summary" class="form-label"><?= lang('App.ai_summary') ?></label>
+                <textarea rows="1" class="form-control" id="ai_summary" name="ai_summary"><?= $page_data['ai_summary'] ?></textarea>
+                <!-- Error -->
+                <?php if($validation->getError('ai_summary')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('ai_summary'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    <?= lang('App.input_required') ?>
+                </div>
+            </div>
+
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="group" class="form-label">
                     <?= lang('App.group') ?>

@@ -379,6 +379,7 @@ return [
     'generated_content'     => 'Nội dung đã tạo',
     'your_question'         => 'Câu hỏi của bạn',
     'ai_response'           => 'Phản hồi từ AI',
+    'ai_summary'            => 'Tóm tắt bằng AI',
 
     // --- General Actions & UI Labels ---
     'new'                   => 'Mới',

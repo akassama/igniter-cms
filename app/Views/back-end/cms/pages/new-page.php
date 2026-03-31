@@ -76,6 +76,29 @@ echo generateBreadcrumb($breadcrumb_links);
                 </div>
             </div>
 
+            <div class="col-sm-12 col-md-12 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label for="ai_summary" class="form-label"><?= lang('App.ai_summary') ?></label>
+                        <button type="button" class="btn btn-secondary btn-sm mb-1 use-ai-btn"
+                        hx-post="<?=base_url()?>/htmx/get-ai-summary-via-ai"
+                        hx-trigger="click delay:250ms"
+                        hx-target="#ai-summary-div"
+                        hx-swap="innerHTML"><i class="ri-robot-2-fill"></i> <?= lang('App.use_ai') ?></button>
+                </div>
+                <div id="ai-summary-div">
+                    <textarea class="form-control" id="ai_summary" name="ai_summary" ><?= set_value('ai_summary') ?></textarea>
+                </div>
+                <!-- Error -->
+                <?php if($validation->getError('ai_summary')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('ai_summary'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    <?= lang('App.input_required') ?>
+                </div>
+            </div>
+
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="group" class="form-label">
                     Group

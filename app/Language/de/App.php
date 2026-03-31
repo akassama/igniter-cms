@@ -379,6 +379,7 @@ return [
     'generated_content'     => 'Generierter Inhalt',
     'your_question'         => 'Ihre Frage',
     'ai_response'           => 'KI-Antwort',
+    'ai_summary'            => 'KI-Zusammenfassung',
 
     // --- General Actions & UI Labels ---
     'new'                   => 'Neu',

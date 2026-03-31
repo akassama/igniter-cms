@@ -379,6 +379,7 @@ return [
     'generated_content'   => '生成的内容',
     'your_question'       => '您的问题',
     'ai_response'         => 'AI回复',
+    'ai_summary'          => 'AI 摘要',
 
     // --- General Actions & UI Labels ---
     'new'                  => '新建',

@@ -30,7 +30,8 @@ class BlogsModel extends Model
         'featured_image',
         'excerpt',
         'content',
-        'category', 
+        'category',
+        'ai_summary',
         'tags', 
         'is_featured',
         'is_breaking',
@@ -95,6 +96,7 @@ class BlogsModel extends Model
             'featured_image' => $param['featured_image'],
             'excerpt' => $param['excerpt'],
             'content' => $param['content'],
+            'ai_summary' => $param['ai_summary'],
             'category' => $param['category'],
             'tags' => $param['tags'],
             'is_featured' => $param['is_featured'],
@@ -127,6 +129,7 @@ class BlogsModel extends Model
         $existingBlog['featured_image'] = $param['featured_image'];
         $existingBlog['excerpt'] = $param['excerpt'];
         $existingBlog['content'] = $param['content'];
+        $existingBlog['ai_summary'] = $param['ai_summary'];
         $existingBlog['created_by'] = $param['created_by'];
         $existingBlog['updated_by'] = $param['updated_by'];
         $existingBlog['category'] = $param['category'];

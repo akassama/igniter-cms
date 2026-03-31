@@ -379,6 +379,7 @@ return [
     'generated_content'   => 'Konten yang Dihasilkan',
     'your_question'       => 'Pertanyaan Anda',
     'ai_response'         => 'Respons AI',
+    'ai_summary'          => 'Ringkasan AI',
 
     // --- General Actions & UI Labels ---
     'new'                 => 'Baru',
