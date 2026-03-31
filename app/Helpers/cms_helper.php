@@ -3340,19 +3340,37 @@ if (!function_exists('renderSearchResults')) {
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         .sr-blog-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.12);
         }
-        .sr-blog-image {
+        .sr-image-wrapper {
             width: 100%;
             height: 200px;
+            overflow: hidden;
+            background: <?=$default_color?>10;
+            position: relative;
+        }
+        .sr-blog-image {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+            object-position: center;
             display: block;
+            transition: transform 0.3s ease;
+        }
+        .sr-blog-card:hover .sr-blog-image {
+            transform: scale(1.05);
         }
         .sr-blog-content {
             padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         .sr-blog-meta {
             display: flex;
@@ -3368,10 +3386,14 @@ if (!function_exists('renderSearchResults')) {
             border-radius: 6px;
             font-size: 0.875rem;
             font-weight: 500;
+            display: inline-block;
         }
         .sr-blog-date {
             color: <?=$default_color?>;
             font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
         }
         .sr-blog-title {
             font-size: 1.125rem;
@@ -3384,6 +3406,7 @@ if (!function_exists('renderSearchResults')) {
             color: <?=$default_color?>;
             margin: 0 0 1.25rem 0;
             line-height: 1.5;
+            flex: 1;
         }
         .sr-button {
             display: inline-block;
@@ -3396,6 +3419,7 @@ if (!function_exists('renderSearchResults')) {
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
+            align-self: flex-start;
         }
         .sr-button:hover {
             background: <?=$accent_color?>;
@@ -3445,6 +3469,13 @@ if (!function_exists('renderSearchResults')) {
         .sr-highlight {
             color: <?=$accent_color?>;
             font-weight: 600;
+        }
+        
+        /* Responsive adjustment for mobile */
+        @media (max-width: 768px) {
+            .sr-image-wrapper {
+                height: 180px;
+            }
         }
         </style>
 
@@ -3510,11 +3541,15 @@ if (!function_exists('renderSearchResults')) {
                         <div class="sr-blog-grid">
                             <?php foreach ($blogsSearchResults as $blog): ?>
                                 <div class="sr-blog-card">
-                                    <a href="<?= base_url('blog/' . $blog['slug']) ?>">
-                                        <img src="<?= getImageUrl($blog['featured_image'] ?? getDefaultImagePath()) ?>"
-                                             class="sr-blog-image"
-                                             alt="<?= esc($blog['title']) ?>">
-                                    </a>
+                                    <div class="sr-image-wrapper">
+                                        <a href="<?= base_url('blog/' . $blog['slug']) ?>">
+                                            <img src="<?= getImageUrl($blog['featured_image'] ?? getDefaultImagePath()) ?>"
+                                                 class="sr-blog-image"
+                                                 alt="<?= esc($blog['title']) ?>"
+                                                 loading="lazy"
+                                                 onerror="this.src='<?= getDefaultImagePath() ?>'">
+                                        </a>
+                                    </div>
                                     <div class="sr-blog-content">
                                         <div class="sr-blog-meta">
                                             <span class="sr-blog-category">
@@ -3719,19 +3754,37 @@ if (!function_exists('renderFilterSearchResults')) {
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         .fr-blog-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.12);
         }
+        .fr-image-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: <?=$default_color?>10;
+            position: relative;
+        }
         .fr-blog-image {
             width: 100%;
-            height: 180px;
+            height: 100%;
             object-fit: cover;
+            object-position: center;
             display: block;
+            transition: transform 0.3s ease;
+        }
+        .fr-blog-card:hover .fr-blog-image {
+            transform: scale(1.05);
         }
         .fr-blog-content {
             padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         .fr-blog-meta {
             display: flex;
@@ -3747,10 +3800,14 @@ if (!function_exists('renderFilterSearchResults')) {
             border-radius: 6px;
             font-size: 0.875rem;
             font-weight: 500;
+            display: inline-block;
         }
         .fr-blog-date {
             color: <?=$default_color?>;
             font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
         }
         .fr-blog-title {
             font-size: 1.125rem;
@@ -3763,6 +3820,7 @@ if (!function_exists('renderFilterSearchResults')) {
             color: <?=$default_color?>;
             margin: 0 0 1.25rem 0;
             line-height: 1.5;
+            flex: 1;
         }
         .fr-button {
             display: inline-block;
@@ -3775,6 +3833,7 @@ if (!function_exists('renderFilterSearchResults')) {
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
+            align-self: flex-start;
         }
         .fr-button:hover {
             background: <?=$accent_color?>;
@@ -3828,6 +3887,13 @@ if (!function_exists('renderFilterSearchResults')) {
         .fr-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        /* Responsive adjustment for mobile */
+        @media (max-width: 768px) {
+            .fr-image-wrapper {
+                height: 180px;
+            }
         }
         </style>
 
@@ -3903,11 +3969,15 @@ if (!function_exists('renderFilterSearchResults')) {
                         <div class="fr-blog-grid">
                             <?php foreach ($blogsSearchResults as $blog): ?>
                                 <div class="fr-blog-card">
-                                    <a href="<?= base_url('blog/' . $blog['slug']) ?>">
-                                        <img src="<?= getImageUrl($blog['featured_image'] ?? getDefaultImagePath()) ?>"
-                                             class="fr-blog-image"
-                                             alt="<?= esc($blog['title']) ?>">
-                                    </a>
+                                    <div class="fr-image-wrapper">
+                                        <a href="<?= base_url('blog/' . $blog['slug']) ?>">
+                                            <img src="<?= getImageUrl($blog['featured_image'] ?? getDefaultImagePath()) ?>"
+                                                 class="fr-blog-image"
+                                                 alt="<?= esc($blog['title']) ?>"
+                                                 loading="lazy"
+                                                 onerror="this.src='<?= getDefaultImagePath() ?>'">
+                                        </a>
+                                    </div>
                                     <div class="fr-blog-content">
                                         <div class="fr-blog-meta">
                                             <span class="fr-blog-category">
@@ -3989,19 +4059,38 @@ if (!function_exists('renderBlogsGrid')) {
             overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
         }
         .bg-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
-        .bg-image {
+        .bg-image-wrapper {
+            position: relative;
             width: 100%;
-            height: 220px;
-            object-fit: cover;
-            display: block;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio (you can change this to 75% for 4:3 or 100% for square) */
+            overflow: hidden;
+            background: <?=$default_color?>10;
+        }
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image covers the area without distortion */
+            object-position: center; /* Centers the image */
+            transition: transform 0.3s ease;
+        }
+        .bg-card:hover .bg-image {
+            transform: scale(1.05); /* Optional: subtle zoom effect on hover */
         }
         .bg-content {
             padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         .bg-meta {
             display: flex;
@@ -4017,6 +4106,7 @@ if (!function_exists('renderBlogsGrid')) {
             border-radius: 6px;
             font-size: 0.875rem;
             font-weight: 500;
+            white-space: nowrap;
         }
         .bg-date {
             color: <?=$default_color?>;
@@ -4036,6 +4126,7 @@ if (!function_exists('renderBlogsGrid')) {
             color: <?=$default_color?>;
             margin: 0 0 1.5rem 0;
             line-height: 1.5;
+            flex: 1;
         }
         .bg-button {
             display: inline-flex;
@@ -4050,6 +4141,7 @@ if (!function_exists('renderBlogsGrid')) {
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            align-self: flex-start;
         }
         .bg-button:hover {
             background: <?=$accent_color?>;
@@ -4065,6 +4157,43 @@ if (!function_exists('renderBlogsGrid')) {
             font-size: 1.1em;
             line-height: 1;
         }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bg-image-wrapper {
+                padding-top: 66.67%; /* Slightly taller on mobile (3:2 ratio) */
+            }
+            .bg-content {
+                padding: 1rem;
+            }
+            .bg-title {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Optional: Add loading placeholder */
+        .bg-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, <?=$default_color?>10, <?=$default_color?>20, <?=$default_color?>10);
+            animation: shimmer 1.5s infinite;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .bg-image[src=""] + .bg-image-wrapper::before,
+        .bg-image:not([src]) + .bg-image-wrapper::before {
+            opacity: 1;
+        }
         </style>
 
         <div class="bg-container">
@@ -4072,11 +4201,15 @@ if (!function_exists('renderBlogsGrid')) {
                 <?php if ($blogs): ?>
                     <?php foreach ($blogs as $blog): ?>
                         <div class="bg-card">
-                            <a href="<?= base_url('blog/' . $blog['slug']) ?>">
-                                <img src="<?= getImageUrl($blog['featured_image'] ?? getDefaultImagePath()) ?>" 
-                                     class="bg-image" 
-                                     alt="<?= esc($blog['title']) ?>">
-                            </a>
+                            <div class="bg-image-wrapper">
+                                <a href="<?= base_url('blog/' . $blog['slug']) ?>" class="bg-image-link">
+                                    <img src="<?= getImageUrl($blog['featured_image'] ?? getDefaultImagePath()) ?>" 
+                                         class="bg-image" 
+                                         alt="<?= esc($blog['title']) ?>"
+                                         loading="lazy"
+                                         onerror="this.src='<?= getDefaultImagePath() ?>'">
+                                </a>
+                            </div>
                             <div class="bg-content">
                                 <div class="bg-meta">
                                     <span class="bg-category">

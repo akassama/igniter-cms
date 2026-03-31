@@ -378,6 +378,7 @@ return [
     'generated_content'   => 'তৈরিকৃত কনটেন্ট',
     'your_question'       => 'আপনার প্রশ্ন',
     'ai_response'         => 'AI এর উত্তর',
+    'ai_summary'          => 'এআই সারাংশ',
 
     // --- General Actions & UI Labels ---
     'new'                  => 'নতুন',

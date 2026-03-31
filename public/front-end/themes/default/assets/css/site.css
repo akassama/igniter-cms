@@ -876,6 +876,20 @@ footer.bg-dark .mt-4 a:hover i {
   color: var(--accent-color);
 }
 
+/* ************ Blogs Section ************ */
+.blogs-section .card-img-top {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    object-position: center;
+}
+
+@media (max-width: 768px) {
+    .blogs-section .card-img-top {
+        height: 180px;
+    }
+}
+
 /* ************ Blog Details Page ************ */
 #blog-details {
   background-color: var(--background-color);

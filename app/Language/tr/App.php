@@ -379,6 +379,7 @@ return [
     'generated_content'   => 'Oluşturulan İçerik',
     'your_question'       => 'Sorunuz',
     'ai_response'         => 'AI Yanıtı',
+    'ai_summary'          => 'Yapay Zeka Özeti',
 
     // --- General Actions & UI Labels ---
     'new'                  => 'Yeni',

@@ -262,7 +262,7 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
     }
 
 
-    if (isFeatureEnabled('FEATURE_ASK_AI') && isValidGeminiKey()) {
+    if (isFeatureEnabled('FEATURE_ASK_AI') && isValidAIKey()) {
         //Ask AI
         $routes->get('ask-ai', 'AIController::index');
     }
@@ -321,6 +321,7 @@ $routes->group('htmx', function($routes) {
     $routes->post('set-meta-title-via-ai', 'HtmxController::setMetaTitleAI');
     $routes->post('set-meta-description-via-ai', 'HtmxController::setSiteTitleAI');
     $routes->post('set-meta-keywords-via-ai', 'HtmxController::setMetaKeywordsAI');
+    $routes->post('get-ai-summary-via-ai', 'HtmxController::getAISummaryAI');
 
     #Blog Categories#
     $routes->post('get-blog-category-description-via-ai', 'HtmxController::getBlogCategoryDescriptionAI');

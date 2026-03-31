@@ -379,6 +379,7 @@ return [
     'generated_content'   => '生成されたコンテンツ',
     'your_question'       => '質問',
     'ai_response'         => 'AIの回答',
+    'ai_summary'          => 'AI要約',
 
     // --- 一般的なアクションとUIラベル (General Actions & UI Labels) ---
     'new'                  => '新規',

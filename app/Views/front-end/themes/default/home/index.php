@@ -789,7 +789,7 @@ updateTotalViewCount($currentPage, "page_id", $page_data['page_id']);
     </section>
 
     <!-- Blog Section -->
-    <section class="py-5 bg-light">
+    <section class="py-5 bg-light blogs-section">
         <div class="container">
             <div class="row justify-content-center mb-5">
                 <div class="col-lg-8 text-center">

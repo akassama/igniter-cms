@@ -49,6 +49,11 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
+                <label for="ai_summary" class="form-label"><?= lang('App.ai_summary') ?></label>
+                <textarea rows="1" class="form-control" id="ai_summary" name="ai_summary" readonly><?= $page_data['ai_summary'] ?></textarea>
+            </div>
+
+            <div class="col-sm-12 col-md-12 mb-3">
                 <label for="status" class="form-label"><?= lang('App.group') ?></label>
                 <input type="text" class="form-control" id="group" name="group" value="<?= $page_data['group'] ?>" readonly>
             </div>

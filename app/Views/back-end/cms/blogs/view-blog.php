@@ -63,6 +63,11 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
+                <label for="ai_summary" class="form-label"><?= lang('App.ai_summary') ?></label>
+                <textarea rows="1" class="form-control" id="ai_summary" name="ai_summary" readonly><?= $blog_data['ai_summary'] ?></textarea>
+            </div>
+
+            <div class="col-sm-12 col-md-12 mb-3">
                 <label for="content" class="form-label"><?= lang('App.content') ?></label>
                 <div class="border border-dark rounded p-2" id="content" name="content"><?= $blog_data['content'] ?></div>
             </div>

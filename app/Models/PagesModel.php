@@ -28,6 +28,7 @@ class PagesModel extends Model
         'title',
         'slug',
         'content',
+        'ai_summary',
         'group',
         'status',
         'is_home_page',
@@ -88,6 +89,7 @@ class PagesModel extends Model
             'title' => $param['title'],
             'slug' => $param['slug'],
             'content' => $param['content'],
+            'ai_summary' => $param['ai_summary'],
             'group' => $param['group'],
             'status' => $param['status'],
             'author' => $param['author'],
@@ -112,6 +114,7 @@ class PagesModel extends Model
         $existingPage['title'] = $param['title'];
         $existingPage['slug'] = $param['slug'];
         $existingPage['content'] = $param['content'];
+        $existingPage['ai_summary'] = $param['ai_summary'];
         $existingPage['group'] = $param['group'];
         $existingPage['status'] = $param['status'];
         $existingPage['author'] = $param['author'];

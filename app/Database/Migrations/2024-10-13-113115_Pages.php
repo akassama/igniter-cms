@@ -45,6 +45,10 @@ class Pages extends Migration
             'content' => [
                 'type' => 'TEXT',
             ],
+            'ai_summary' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
             'author' => [
                 'type' => 'VARCHAR',
                 'constraint' => 50,

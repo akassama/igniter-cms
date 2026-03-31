@@ -378,6 +378,7 @@ return [
     'generated_content' => 'Contenido Generado',
     'your_question' => 'Tu Pregunta',
     'ai_response' => 'Respuesta de la IA',
+    'ai_summary' => 'Resumen de IA',
 
     // --- General Actions & UI Labels ---
     'new' => 'Nuevo',
