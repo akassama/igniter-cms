@@ -238,7 +238,7 @@ $userRole = getUserRole($sessionEmail);
                             </div>
                         <?php endif; ?>
 
-                        <?php if (isFeatureEnabled('FEATURE_ASK_AI') && isValidGeminiKey()): ?>
+                        <?php if (isFeatureEnabled('FEATURE_ASK_AI') && isValidAIKey()): ?>
                             <!--Aks AI Feature Nav Links-->
                             <a class="nav-link <?= (str_contains(current_url(), 'account/ask-ai')) ? 'active' : ''; ?>" href="<?= base_url('/account/ask-ai'); ?>" id="askAiButton">
                                 <div class="sb-nav-link-icon"><i class="ri-chat-ai-line h5"></i></div>

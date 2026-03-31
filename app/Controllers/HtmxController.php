@@ -327,7 +327,7 @@ class HtmxController extends BaseController
         $languageInstruction = getAILanguageInstruction();
         $prompt = "Write a blog for the following.\n\Blog Description:\n$blogDescription\n\n$languageInstruction";
 
-        $content = makeGeminiCall($prompt, "html");
+        $content = makeAICall($prompt, "html");
 
         $contentDiv = '<div id="content-div" class="mt-2 text-dark" style="white-space: pre-wrap;">'.$content.'</div>';
         
@@ -350,7 +350,7 @@ class HtmxController extends BaseController
         $languageInstruction = getAILanguageInstruction();
         $prompt = "From the following content, extract a concise, engaging, and SEO-friendly excerpt (max 1,000 characters). Return only the excerpt.\n\nContent:\n$content\n\n$languageInstruction";
 
-        $excerpt = makeGeminiCall($prompt);
+        $excerpt = makeAICall($prompt);
 
         $excerptInput = '<textarea class="form-control" id="excerpt" name="excerpt">'.$excerpt.'</textarea>';
         
@@ -377,7 +377,7 @@ class HtmxController extends BaseController
         // Get language instruction
         $languageInstruction = getAILanguageInstruction();
         $prompt = "Generate a list of SEO-friendly meta keywords for the page titled '$title' with description '$description'. Focus on relevance and conciseness. Return only comma-separated keywords.\n\n$languageInstruction";
-        $keywords = makeGeminiCall($prompt);
+        $keywords = makeAICall($prompt);
 
         $returnInput = '<textarea rows="1" class="form-control tags-input" id="tags" name="tags" required>'.$keywords.'</textarea>';
         echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
@@ -405,7 +405,7 @@ class HtmxController extends BaseController
         $siteName = getConfigData("SiteName");
         $siteAddress = getConfigData("SiteAddress");
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$siteName', Company Address: '$siteAddress'. If not needed, ignore.";
-        $metaTitle = makeGeminiCall($prompt." ".$companyInfo);
+        $metaTitle = makeAICall($prompt." ".$companyInfo);
 
         $returnInput = '<input type="text" class="form-control" id="meta_title" name="meta_title" value="'.$metaTitle.'">';
         echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
@@ -433,7 +433,7 @@ class HtmxController extends BaseController
         $siteName = getConfigData("SiteName");
         $siteAddress = getConfigData("SiteAddress");
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$siteName', Company Address: '$siteAddress'. If not needed, ignore.";
-        $description = makeGeminiCall($prompt." ".$companyInfo);
+        $description = makeAICall($prompt." ".$companyInfo);
 
         $returnInput = '<textarea class="form-control" id="meta_description" name="meta_description">'.$description.'</textarea>';
         echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
@@ -459,7 +459,7 @@ class HtmxController extends BaseController
         // Get language instruction
         $languageInstruction = getAILanguageInstruction();
         $prompt = "Generate a list of SEO-friendly meta keywords for the page titled '$title' with description '$description'. Focus on relevance and conciseness. Return only comma-separated keywords.\n\n$languageInstruction";
-        $keywords = makeGeminiCall($prompt);
+        $keywords = makeAICall($prompt);
 
         $returnInput = '<textarea rows="1" class="form-control" id="meta_keywords" name="meta_keywords">'.$keywords.'</textarea>';
         echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
@@ -484,7 +484,7 @@ class HtmxController extends BaseController
         // Get language instruction
         $languageInstruction = getAILanguageInstruction();
         $prompt = "Generate a clear, SEO-friendly description for the blog category titled '$title'. Explain its purpose in under 160 characters. Return only the description.\n\n$languageInstruction";
-        $description = makeGeminiCall($prompt);
+        $description = makeAICall($prompt);
 
         $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
         echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
@@ -509,7 +509,7 @@ class HtmxController extends BaseController
         // Get language instruction
         $languageInstruction = getAILanguageInstruction();
         $prompt = "Generate a clear, SEO-friendly description for the page navigation titled '$title'. Explain its purpose in under 160 characters. Return only the description.\n\n$languageInstruction";
-        $description = makeGeminiCall($prompt);
+        $description = makeAICall($prompt);
 
         $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
         echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
@@ -535,7 +535,7 @@ class HtmxController extends BaseController
         // Get language instruction
         $languageInstruction = getAILanguageInstruction();
         $prompt = "Generate a concise, SEO-friendly description for the content block titled '$title'. Explain its purpose in 1-2 sentences. Return only the description text.\n\n$languageInstruction";
-        $description = makeGeminiCall($prompt);
+        $description = makeAICall($prompt);
 
         $returnInput = '<textarea rows="1" class="form-control" id="description" name="description" maxlength="500" required>'.$description.'</textarea>';
         echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
@@ -568,7 +568,7 @@ class HtmxController extends BaseController
         $siteName = getConfigData("SiteName");
         $siteAddress = getConfigData("SiteAddress");
         $companyInfo = "\nIf needed, here is the Company Information. Company Name: '$siteName', Company Address: '$siteAddress'. If not needed, ignore.";
-        $summary = makeGeminiCall($prompt." ".$companyInfo);
+        $summary = makeAICall($prompt." ".$companyInfo);
 
         $returnInput = '<textarea rows="1" class="form-control" id="about_summary" name="about_summary" maxlength="500">'.$summary.'</textarea>';
         echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
@@ -597,7 +597,7 @@ class HtmxController extends BaseController
         // Get language instruction
         $languageInstruction = getAILanguageInstruction();
         $prompt = "Based on the title '$title', provide the most relevant Remix Icon text representation. Ensure the response contains only the icon text (e.g., 'ri-user-line', 'ri-loop-left-fill', etc.), with no explanations or additional options.";
-        $icon = makeGeminiCall($prompt);
+        $icon = makeAICall($prompt);
 
         $returnInput = '<input type="text" class="form-control" id="icon" name="icon" maxlength="100" value="'.$icon.'" placeholder="E.g. ri-user-line">';
         echo preg_replace('/\s*\R\s*/', ' ', trim($returnInput));
@@ -646,7 +646,7 @@ class HtmxController extends BaseController
         Return ONLY the HTML formatted as shown above - no additional text, explanations, or commentary. Use the exact same HTML structure with your analysis of this log data.\n\n$languageInstruction:
         " . $activityLogs;
 
-        $analysis = makeGeminiCall($prompt);
+        $analysis = makeAICall($prompt);
         
         // Clean response
         echo $analysis;
@@ -695,7 +695,7 @@ class HtmxController extends BaseController
             Analyze these logs:
             " . $errorLogs;
 
-        $analysis = makeGeminiCall($prompt);
+        $analysis = makeAICall($prompt);
         
         // Clean response
         echo $analysis;
@@ -767,7 +767,7 @@ class HtmxController extends BaseController
     Return ONLY the HTML formatted as shown above - no additional text, explanations, or commentary. Use the exact same structure with your analysis of this visit stats data:
     " . $visitStats;
 
-        $analysis = makeGeminiCall($prompt);
+        $analysis = makeAICall($prompt);
 
         // Clean response
         echo $analysis;
@@ -809,7 +809,7 @@ class HtmxController extends BaseController
 
             Return ONLY the HTML formatted as shown above - no additional text, explanations, or commentary. You can include images if needed (for images use: <img src='[image-url]' class='img-fluid'>). Use the exact same structure with answer.";
 
-            $answer = makeGeminiCall($prompt);
+            $answer = makeAICall($prompt);
 
             // Clean response
             $answer = preg_replace('/```html/', '', $answer);

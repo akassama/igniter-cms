@@ -173,6 +173,25 @@ GOOGLE_CLIENT_ID     = my-google-client-id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET = my-google-client-secret
 GOOGLE_REDIRECT_URI = http://localhost/igniter-cms/auth/google/callback
 
+# AI SETTINGS
+AI_KNOWLEDGE_BASE_URL = https://api.ignitercms.com/api-service/get-ai-knowledge-base/
+ACTIVE_AI_MODEL = groq      # Options: groq, gemini, cerebras, openrouter
+
+GEMINI_REQUEST_URL    = https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent
+GEMINI_REQUEST_KEY    = your-gemini-api-key
+
+GROQ_REQUEST_URL      = https://api.groq.com/openai/v1/chat/completions
+GROQ_REQUEST_KEY      = your-groq-api-key
+GROQ_MODEL            = llama-3.3-70b-versatile       # Or any model slug from https://console.groq.com/docs/models
+
+CEREBRAS_REQUEST_URL  = https://api.cerebras.ai/v1/chat/completions
+CEREBRAS_REQUEST_KEY  = your-cerebras-api-key
+CEREBRAS_MODEL        = llama3.1-8b     # Or any model slug from https://inference-docs.cerebras.ai/models/overview
+
+OPENROUTER_REQUEST_URL = https://openrouter.ai/api/v1/chat/completions
+OPENROUTER_REQUEST_KEY = your-openrouter-api-key
+OPENROUTER_MODEL       = minimax/minimax-m2.5  # Any model slug from https://openrouter.ai/models
+
 #--------------------------------------------------------------------
 # OTHER SETTINGS
 #--------------------------------------------------------------------
@@ -182,9 +201,6 @@ APP_KEY=your-app-id
 APP_API_KEY = "default"
 DEMO_MODE = false
 NEWS_FEED_URL = https://api.ignitercms.com/api-service/get-news-feed
-AI_KNOWLEDGE_BASE_URL = https://api.ignitercms.com/api-service/get-ai-knowledge-base/
-GEMINI_REQUEST_URL = https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent
-GEMINI_REQUEST_KEY = your-gemini-key
 PLUGIN_API_REQUEST_KEY = plugin-api-request-key
 REMEMBER_ME_COOKIE = "__ci_token"
 THEMES_API_ENDPOINT = https://api.ignitercms.com/api-service/get-themes/

@@ -1327,126 +1327,315 @@ function isDate($date) {
     return (bool)strtotime($date);
 }
 
+// ============================================================
+// AI HELPER FUNCTIONS
+// ============================================================
+
+
 /**
- * Makes a request to Gemini API and returns plain text response.
- *
- * @param string $prompt The input prompt for the AI.
- * @param bool $formatResponse Format response by remoming markdown.
- * @return string|null Plain text response or null if failed.
+ * Shared internal cURL helper used by all AI model handlers.
+ * Returns decoded JSON array on success, or an ['_curl_error' => '...'] array on failure.
+ */
+if (!function_exists('_aiCurlRequest')) {
+    function _aiCurlRequest(string $url, array $postData, array $headers): array
+    {
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_URL            => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => json_encode($postData),
+            CURLOPT_HTTPHEADER     => $headers,
+            CURLOPT_SSL_VERIFYPEER => false, // Set true in production
+            CURLOPT_TIMEOUT        => 30,
+        ]);
+
+        $raw = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            $error = curl_error($ch);
+            curl_close($ch);
+            log_message('error', "[AI] cURL Error: $error");
+            return ['_curl_error' => "cURL Error: $error"];
+        }
+
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if (empty($raw)) {
+            return ['_curl_error' => "Empty response from API (HTTP $httpCode)."];
+        }
+
+        $decoded = json_decode($raw, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return ['_curl_error' => "Invalid JSON response: " . substr($raw, 0, 200)];
+        }
+
+        return $decoded;
+    }
+}
+
+/**
+ * Makes a request to the Gemini API.
  */
 if (!function_exists('makeGeminiCall')) {
-    function makeGeminiCall($prompt, $formatResponse = true)
+    function makeGeminiCall(string $prompt, $formatResponse = true): string
     {
-        // 1. Pull correct keys from .env
-        $baseUrl = env('GEMINI_REQUEST_URL'); 
-        $apiKey = env('GEMINI_REQUEST_KEY');
+        $baseUrl = env('GEMINI_REQUEST_URL');
+        $apiKey  = env('GEMINI_REQUEST_KEY');
 
         if (empty($baseUrl) || empty($apiKey)) {
-            return "Configuration Error: API Key or URL missing.";
+            return "Configuration Error: Gemini API Key or URL missing.";
         }
 
         $postData = [
             "contents" => [
                 [
-                    "parts" => [
-                        ["text" => $prompt]
-                    ]
+                    "parts" => [["text" => $prompt]]
                 ]
             ]
         ];
 
-        $ch = curl_init();
-        curl_setopt_array($ch, [
-            CURLOPT_URL            => $baseUrl,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => json_encode($postData),
-            CURLOPT_HTTPHEADER     => [
-                'Content-Type: application/json',
-                'x-goog-api-key: ' . $apiKey // Pass the key as a header, not in the URL
-            ],
-            // Recommended: Keep this true in production for security!
-            CURLOPT_SSL_VERIFYPEER => false, 
+        $response = _aiCurlRequest($baseUrl, $postData, [
+            'Content-Type: application/json',
+            'x-goog-api-key: ' . $apiKey,
         ]);
 
-        $response = curl_exec($ch);
-        
-        // Check for cURL errors
-        if (curl_errno($ch)) {
-            $error_msg = curl_error($ch);
-            curl_close($ch);
-            return "CURL Error: " . $error_msg;
-        }
-        
-        curl_close($ch);
-
-        if (!$response) return null;
-
-        $json = json_decode($response, true);
-        
-        // Check if API returned an error message
-        if (isset($json['error'])) {
-            return "API Error: " . ($json['error']['message'] ?? 'Unknown error');
+        // Surface cURL-level errors
+        if (isset($response['_curl_error'])) {
+            return $response['_curl_error'];
         }
 
-        $returnData = $json['candidates'][0]['content']['parts'][0]['text'] ?? null;
-        if($formatResponse){
-            return formatAiResponse($returnData);
+        // Surface Gemini API-level errors
+        if (isset($response['error'])) {
+            $msg     = $response['error']['message'] ?? 'Unknown error';
+            $status  = $response['error']['status']  ?? '';
+            $code    = $response['error']['code']    ?? '';
+            return "Gemini API Error [$code $status]: $msg";
         }
-        return $returnData;
+
+        // Check for blocked/empty candidates
+        if (empty($response['candidates'])) {
+            $blockReason = $response['promptFeedback']['blockReason'] ?? null;
+            return $blockReason
+                ? "Gemini blocked the request: $blockReason"
+                : "Gemini returned no candidates. Raw: " . json_encode($response);
+        }
+
+        $finishReason = $response['candidates'][0]['finishReason'] ?? '';
+        if ($finishReason === 'SAFETY') {
+            return "Gemini blocked the response due to safety filters.";
+        }
+
+        $text = $response['candidates'][0]['content']['parts'][0]['text'] ?? null;
+
+        if (is_null($text)) {
+            return "Gemini Error: Could not extract text. Raw: " . json_encode($response['candidates'][0]);
+        }
+
+        return $formatResponse ? formatAiResponse($text, $formatResponse) : $text;
     }
 }
 
 /**
- * Formats AI response by removing unnecessary metadata and enhancing formatting.
+ * Makes a request to the Groq API (OpenAI-compatible).
+ */
+if (!function_exists('makeGroqCall')) {
+    function makeGroqCall(string $prompt, $formatResponse = true): string
+    {
+        $baseUrl = env('GROQ_REQUEST_URL');
+        $apiKey  = env('GROQ_REQUEST_KEY');
+        $model   = env('GROQ_MODEL', 'llama3-8b-8192');
+
+        if (empty($baseUrl) || empty($apiKey)) {
+            return "Configuration Error: Groq API Key or URL missing.";
+        }
+
+        $postData = [
+            "model"    => $model,
+            "messages" => [
+                ["role" => "user", "content" => $prompt]
+            ]
+        ];
+
+        $response = _aiCurlRequest($baseUrl, $postData, [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey,
+        ]);
+
+        if (isset($response['_curl_error'])) {
+            return $response['_curl_error'];
+        }
+
+        if (isset($response['error'])) {
+            $msg  = $response['error']['message'] ?? 'Unknown error';
+            $type = $response['error']['type']    ?? '';
+            return "Groq API Error [$type]: $msg";
+        }
+
+        $text = $response['choices'][0]['message']['content'] ?? null;
+
+        if (is_null($text)) {
+            return "Groq Error: Could not extract text. Raw: " . json_encode($response);
+        }
+
+        return $formatResponse ? formatAiResponse($text, $formatResponse) : $text;
+    }
+}
+
+/**
+ * Makes a request to the Cerebras API (OpenAI-compatible).
+ */
+if (!function_exists('makeCerebrasCall')) {
+    function makeCerebrasCall(string $prompt, $formatResponse = true): string
+    {
+        $baseUrl = env('CEREBRAS_REQUEST_URL', 'https://api.cerebras.ai/v1/chat/completions');
+        $apiKey  = env('CEREBRAS_REQUEST_KEY');
+        $model   = env('CEREBRAS_MODEL', 'llama3.1-8b');
+
+        if (empty($baseUrl) || empty($apiKey)) {
+            return "Configuration Error: Cerebras API Key or URL missing.";
+        }
+
+        $postData = [
+            "model"       => $model,
+            "stream"      => false,
+            "messages"    => [
+                ["role" => "user", "content" => $prompt]
+            ],
+            "temperature" => 0.7,
+            "max_tokens"  => -1,
+            "top_p"       => 1
+        ];
+
+        $response = _aiCurlRequest($baseUrl, $postData, [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey,
+        ]);
+
+        if (isset($response['_curl_error'])) {
+            return $response['_curl_error'];
+        }
+
+        if (isset($response['error'])) {
+            $msg  = $response['error']['message'] ?? 'Unknown error';
+            $type = $response['error']['type']    ?? '';
+            return "Cerebras API Error [$type]: $msg";
+        }
+
+        $finishReason = $response['choices'][0]['finish_reason'] ?? '';
+        if ($finishReason === 'length') {
+            log_message('warning', '[AI] Cerebras response truncated: max_tokens limit reached.');
+        }
+
+        $text = $response['choices'][0]['message']['content'] ?? null;
+
+        if (is_null($text)) {
+            return "Cerebras Error: Could not extract text. Raw: " . json_encode($response);
+        }
+
+        return $formatResponse ? formatAiResponse($text, $formatResponse) : $text;
+    }
+}
+
+/**
+ * Makes a request to the OpenRouter API (OpenAI-compatible).
+ */
+if (!function_exists('makeOpenRouterCall')) {
+    function makeOpenRouterCall(string $prompt, $formatResponse = true): string
+    {
+        $baseUrl = env('OPENROUTER_REQUEST_URL', 'https://openrouter.ai/api/v1/chat/completions');
+        $apiKey  = env('OPENROUTER_REQUEST_KEY');
+        $model   = env('OPENROUTER_MODEL', 'minimax/minimax-m2.5');
+
+        if (empty($baseUrl) || empty($apiKey)) {
+            return "Configuration Error: OpenRouter API Key or URL missing.";
+        }
+
+        $postData = [
+            "model"    => $model,
+            "messages" => [
+                ["role" => "user", "content" => $prompt]
+            ]
+        ];
+
+        $response = _aiCurlRequest($baseUrl, $postData, [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $apiKey,
+        ]);
+
+        if (isset($response['_curl_error'])) {
+            return $response['_curl_error'];
+        }
+
+        if (isset($response['error'])) {
+            $msg  = $response['error']['message'] ?? 'Unknown error';
+            $code = $response['error']['code']    ?? '';
+            return "OpenRouter API Error [$code]: $msg";
+        }
+
+        $finishReason = $response['choices'][0]['finish_reason']        ?? '';
+        $nativeReason = $response['choices'][0]['native_finish_reason'] ?? '';
+
+        if ($finishReason === 'length' || $nativeReason === 'length') {
+            log_message('warning', '[AI] OpenRouter response truncated: token limit reached.');
+        }
+
+        // content is nested under message; reasoning field is intentionally ignored
+        $text = $response['choices'][0]['message']['content'] ?? null;
+
+        if (is_null($text)) {
+            return "OpenRouter Error: Could not extract text. Raw: " . json_encode($response);
+        }
+
+        return $formatResponse ? formatAiResponse($text, $formatResponse) : $text;
+    }
+}
+
+/**
+ * Formats AI response — removes markdown or converts to HTML.
  *
- * @param string|null $response The raw AI response
- * @return string|null Cleaned response in plain text or HTML format
+ * @param string|null    $response
+ * @param string|bool    $format  'html', 'text' (default), or false (raw)
+ * @return string|null
  */
 if (!function_exists('formatAiResponse')) {
-    function formatAiResponse($response, $format = "text")
+    function formatAiResponse(?string $response, $format = 'text'): ?string
     {
         if (empty($response)) return null;
 
-        // 1. Clean up Gemini's triple backtick code blocks (```markdown ... ```)
+        // Strip triple-backtick code fences
         $response = preg_replace('/```(?:markdown|html|json)?\n?|```/', '', $response);
         $response = trim($response);
 
-        // 2. Handle Plain Text format
         if ($format === 'text') {
-            $response = preg_replace('/\*\*(.*?)\*\*/', '$1', $response); // Remove Bold stars
-            $response = preg_replace('/^#+\s+/m', '', $response);        // Remove Headers
-            $response = preg_replace('/^\s*[\*\-]\s+/m', '• ', $response); // Bullets to dots
+            $response = preg_replace('/\*\*(.*?)\*\*/', '$1', $response);
+            $response = preg_replace('/^#+\s+/m', '', $response);
+            $response = preg_replace('/^\s*[\*\-]\s+/m', '• ', $response);
             return nl2br($response);
         }
 
-        // 3. Handle HTML format (The "Raw" Parser)
         if ($format === 'html') {
-            // Headings: # Header -> <h1>Header</h1>
-            $response = preg_replace_callback('/^#{1,6} (.*)$/m', function ($matches) {
-                $level = strlen(explode(' ', $matches[0])[0]);
-                return "<h$level>" . trim($matches[1]) . "</h$level>";
+            // Headings: ## Title -> <h2>Title</h2>
+            $response = preg_replace_callback('/^(#{1,6})\s+(.*)$/m', function ($m) {
+                $level = strlen($m[1]);
+                return "<h$level>" . trim($m[2]) . "</h$level>";
             }, $response);
 
-            // Bold: **text** -> <strong>text</strong>
+            // Bold and italic
             $response = preg_replace('/\*\*(.*?)\*\*/', '<strong>$1</strong>', $response);
-
-            // Italics: *text* or _text_ -> <em>text</em>
             $response = preg_replace('/\*([^\*]+)\*/', '<em>$1</em>', $response);
 
-            // Unordered Lists: * item -> <li>item</li> (wrapped in <ul>)
-            $response = preg_replace_callback('/^[\*\-]\s+(.*)$/m', function($matches) {
-                return "<ul><li>" . trim($matches[1]) . "</li></ul>";
-            }, $response);
-            
-            // Clean up multiple <ul> tags created by the line-by-line regex
-            $response = str_replace("</ul>\n<ul>", "", $response);
+            // Unordered list items
+            $response = preg_replace_callback('/^[\*\-]\s+(.*)$/m', fn($m) =>
+                "<ul><li>" . trim($m[1]) . "</li></ul>", $response);
+            $response = str_replace("</ul>\n<ul>", '', $response);
 
-            // Horizontal Rule: --- -> <hr>
+            // Horizontal rule
             $response = preg_replace('/^---$/m', '<hr>', $response);
 
-            // Paragraphs: Wrap blocks of text separated by double newlines
-            // (Only if not already an HTML tag)
+            // Wrap bare text lines in <p> tags
             $lines = explode("\n", $response);
             foreach ($lines as &$line) {
                 $line = trim($line);
@@ -1457,32 +1646,57 @@ if (!function_exists('formatAiResponse')) {
             return implode("\n", $lines);
         }
 
-        return $response; // Return raw markdown for 'markdown' format
+        return $response; // 'markdown' or false — return as-is
     }
 }
 
 /**
- * Checks if the GEMINI_REQUEST_KEY in the .env file is valid.
- * * @return bool
+ * Unified AI call dispatcher. Reads ACTIVE_AI_MODEL from .env.
  */
-if (! function_exists('isValidGeminiKey')) {
-    function isValidGeminiKey(): bool
+if (!function_exists('makeAICall')) {
+    function makeAICall(string $prompt, $formatResponse = true): string
     {
-        $apiKey = env('GEMINI_REQUEST_KEY');
+        $activeModel = strtolower(env('ACTIVE_AI_MODEL', 'gemini'));
 
-        if (empty($apiKey)) {
-            return false;
+        switch ($activeModel) {
+            case 'groq':
+                return makeGroqCall($prompt, $formatResponse);
+            case 'cerebras':
+                return makeCerebrasCall($prompt, $formatResponse);
+            case 'openrouter':
+                return makeOpenRouterCall($prompt, $formatResponse);
+            case 'gemini':
+            default:
+                return makeGeminiCall($prompt, $formatResponse);
         }
+    }
+}
 
-        /**
-         * Pattern Breakdown:
-         * ^AIza       - Must start with 'AIza' (Standard for Google Cloud/AI keys)
-         * [a-zA-Z0-9_-] - Allows letters, numbers, underscores, and hyphens
-         * {35}        - Expects 35 more characters (39 total)
-         */
-        $pattern = '/^AIza[a-zA-Z0-9_-]{35}$/';
+/**
+ * Validates the active model's API key based on ACTIVE_AI_MODEL.
+ *
+ * @return bool
+ */
+if (!function_exists('isValidAIKey')) {
+    function isValidAIKey(): bool
+    {
+        $activeModel = strtolower(env('ACTIVE_AI_MODEL', 'gemini'));
 
-        return (bool) preg_match($pattern, $apiKey);
+        switch ($activeModel) {
+            case 'groq':
+                $key = env('GROQ_REQUEST_KEY', '');
+                return (bool) preg_match('/^gsk_[a-zA-Z0-9]{52}$/', $key);
+
+            case 'cerebras':
+                $key = env('CEREBRAS_REQUEST_KEY', '');
+                // Cerebras keys start with "csk-" followed by alphanumeric characters
+                return (bool) preg_match('/^csk-[a-zA-Z0-9]{48}$/', $key);
+
+            case 'gemini':
+            default:
+                $key = env('GEMINI_REQUEST_KEY', '');
+                return (bool) preg_match('/^AIza[a-zA-Z0-9_-]{35}$/', $key);
+        }
     }
 }
 

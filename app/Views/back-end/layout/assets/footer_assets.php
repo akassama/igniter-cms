@@ -124,7 +124,7 @@ $(document).ready(function(){
 
 <!-- Check for enabling or disabling AI integration -->
 <?php $enableGeminiAI = getConfigData("EnableGeminiAI"); ?>
-<?php if(strtolower($enableGeminiAI) !== "yes" || !isValidGeminiKey()):?>
+<?php if(strtolower($enableGeminiAI) !== "yes" || !isValidAIKey()):?>
 <script>
     //diabale AI buttons
     setTimeout(function (){
