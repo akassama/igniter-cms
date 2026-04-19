@@ -38,26 +38,16 @@ if (!function_exists('validateHoneypotInput')) {
 /**
  * Checks if any of the blocked paths exist in the given URL.
  *
- * This function normalizes the URL path, converts both the URL path and the
- * blocked paths to lowercase, and then uses `strpos()` for a case-insensitive
- * search.  It returns `true` if any of the blocked paths are found in the URL,
- * and `false` otherwise.
+ * This version avoids false positives by matching full path segments
+ * instead of doing loose substring matching.
  *
  * @param string $url The URL to check.
  * @return bool True if the URL contains a blocked path, false otherwise.
  */
-if(!function_exists('isBlockedRoute'))
-{
+if (!function_exists('isBlockedRoute')) {
     function isBlockedRoute(string $url): bool
     {
-        /**
-         * Array of paths that are considered suspicious or blocked.
-         * These paths might indicate an attempt to access sensitive files,
-         * exploit vulnerabilities, or gain unauthorized access.
-         *
-         * @var array<string>
-         */
-        $black_listed_paths = array(
+        $black_listed_paths = [
             "wp-settings.php", "wp-login.php", "setup-config.php", "wp-admin/", "wordpress/", //Wordpress files
             ".env", ".git/", ".svn/",  // Sensitive directories/files
             "config.php", "configuration.php", "db.php", "database.php", // Common config files
@@ -75,65 +65,47 @@ if(!function_exists('isBlockedRoute'))
             "xmlrpc.php", // XML-RPC (can be exploited)
             "composer.json", "package.json", // Information about project dependencies
             ".sql", "sql_dump", "database_dump", "db_backup", "backup.sql.gz", "backup.sql.zip", "backup.sql.tar", // SQL paths
-            "CFIDE/administrator" //other
-        );
-    
-        /**
-         * Extracts the path part from the URL.
-         * If parsing fails, the original URL is used.
-         * Leading and trailing slashes are removed for consistency.
-         *
-         * @var string|null
-         */
+            "cfide/administrator" //other
+        ];
+
+        
+
+        // Extract path
         $url_path = parse_url($url, PHP_URL_PATH);
         if ($url_path === null) {
             $url_path = $url;
         }
-        $url_path = trim($url_path, '/');
-    
-        /**
-         * Converts the URL path to lowercase for case-insensitive comparison.
-         *
-         * @var string
-         */
-        $url_path_lower = strtolower($url_path);
-    
-        /**
-         * Iterates through the blocked paths and checks if any of them
-         * are present in the URL path.
-         *
-         * @var string $blocked_path
-         */
+
+        // Normalize
+        $url_path = trim(strtolower($url_path), '/');
+
+        // Break into segments
+        $segments = explode('/', $url_path);
+
         foreach ($black_listed_paths as $blocked_path) {
-            /**
-             * Removes leading and trailing slashes from the blocked path
-             * for consistency.
-             *
-             * @var string
-             */
-            $blocked_path = trim($blocked_path, '/');
-    
-            /**
-             * Converts the blocked path to lowercase for case-insensitive
-             * comparison.
-             *
-             * @var string
-             */
-            $blocked_path_lower = strtolower($blocked_path);
-    
-            /**
-             * Checks if the blocked path is found in the URL path.
-             * If a match is found, the function immediately returns `true`.
-             */
-            if (strpos($url_path_lower, $blocked_path_lower) !== false) {
+            $blocked = strtolower(trim($blocked_path, '/'));
+
+            // Handle multi-level paths like "admin/login"
+            if (str_contains($blocked, '/')) {
+                if (str_contains($url_path, $blocked)) {
+                    return true;
+                }
+                continue;
+            }
+
+            // Match exact segment (prevents "bombshell" issue)
+            if (in_array($blocked, $segments, true)) {
                 return true;
             }
+
+            // Match file endings (e.g., config.php, .env)
+            foreach ($segments as $segment) {
+                if ($segment === $blocked || str_ends_with($segment, $blocked)) {
+                    return true;
+                }
+            }
         }
-    
-        /**
-         * If no match is found after checking all blocked paths, the function
-         * returns `false`.
-         */
+
         return false;
     }
 }
