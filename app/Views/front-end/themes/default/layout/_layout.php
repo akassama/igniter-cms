@@ -282,7 +282,7 @@ $adminBar = renderAdminBar();
     <!-- Glightbox.js JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.3.1/js/glightbox.min.js"></script>
     <!-- CountUp JS -->
-    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.8.0/dist/countUp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.8.0/dist/countUp.umd.js"></script>
     <!--ImagesLoaded CDN-->
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <!--SweetAlert2 CDN-->

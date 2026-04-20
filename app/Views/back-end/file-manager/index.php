@@ -887,7 +887,8 @@ function cifGenerateFileManagerTable(
         echo AssetManager::includeJs('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js');
         echo AssetManager::includeJs('https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.22.1/sweetalert2.all.min.js');
         echo AssetManager::includeJs('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js');
-        echo AssetManager::includeJs('https://cdnjs.cloudflare.com/ajax/libs/tippy.js/6.3.7/tippy-bundle.umd.min.js');
+        echo AssetManager::includeJs('https://unpkg.com/@popperjs/core@2');
+        echo AssetManager::includeJs('https://unpkg.com/tippy.js@6');
         echo AssetManager::includeJs('https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js');
         echo AssetManager::includeJs('https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js');
     ?>

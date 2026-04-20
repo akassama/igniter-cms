@@ -1,3 +1,17 @@
+// Catch selector errors
+(function() {
+    const originalQuerySelector = Element.prototype.querySelector;
+    Element.prototype.querySelector = function(selector) {
+        try {
+            return originalQuerySelector.call(this, selector);
+        } catch(e) {
+            console.warn('Invalid selector:', selector);
+            return null;
+        }
+    };
+})();
+
+
 /**
  * Scroll to Top Button and Smooth Navigation
  */
@@ -217,70 +231,90 @@ document.addEventListener("DOMContentLoaded", () => {
  * Product Details Page
  */
 document.addEventListener("DOMContentLoaded", function () {
-  const thumbnailSwiper = new Swiper(".thumbnailSwiper", {
-    slidesPerView: 4,
-    spaceBetween: 10,
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-    breakpoints: {
-      576: {
-        slidesPerView: 4,
-        spaceBetween: 10,
+  // Only initialize Swiper if the thumbnailSwiper element exists
+  const thumbnailSwiperElement = document.querySelector(".thumbnailSwiper");
+  if (thumbnailSwiperElement) {
+    const thumbnailSwiper = new Swiper(".thumbnailSwiper", {
+      slidesPerView: 4,
+      spaceBetween: 10,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
       },
-      768: {
-        slidesPerView: 4,
-        spaceBetween: 15,
+      breakpoints: {
+        576: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 15,
+        },
+        992: {
+          slidesPerView: 4,
+          spaceBetween: 20,
+        },
       },
-      992: {
-        slidesPerView: 4,
-        spaceBetween: 20,
-      },
-    },
-  });
-
-  const lightbox = GLightbox({
-    selector: ".glightbox",
-  });
-
-  document.querySelectorAll(".thumbnail-item img").forEach((thumb) => {
-    thumb.addEventListener("click", function () {
-      const mainImg = document.getElementById("mainProductImage");
-      const newSrc = this.src.replace("200x200", "800x800");
-      mainImg.src = newSrc;
-
-      const parentLink = mainImg.parentElement;
-      parentLink.setAttribute("href", newSrc);
-
-      document.querySelectorAll(".thumbnail-item").forEach((item) => {
-        item.classList.remove("active");
-      });
-      this.parentElement.classList.add("active");
     });
-  });
+  }
 
-  document
-    .getElementById("incrementQty")
-    .addEventListener("click", function () {
-      const qtyInput = document.getElementById("productQty");
+  // Only initialize GLightbox if the selector exists
+  if (document.querySelector(".glightbox")) {
+    const lightbox = GLightbox({
+      selector: ".glightbox",
+    });
+  }
+
+  // Only add thumbnail click listeners if thumbnails exist
+  const thumbnails = document.querySelectorAll(".thumbnail-item img");
+  if (thumbnails.length > 0) {
+    thumbnails.forEach((thumb) => {
+      thumb.addEventListener("click", function () {
+        const mainImg = document.getElementById("mainProductImage");
+        if (mainImg) {
+          const newSrc = this.src.replace("200x200", "800x800");
+          mainImg.src = newSrc;
+
+          const parentLink = mainImg.parentElement;
+          if (parentLink) {
+            parentLink.setAttribute("href", newSrc);
+          }
+        }
+
+        document.querySelectorAll(".thumbnail-item").forEach((item) => {
+          item.classList.remove("active");
+        });
+        this.parentElement.classList.add("active");
+      });
+    });
+  }
+
+  // Add null checks for quantity buttons
+  const incrementBtn = document.getElementById("incrementQty");
+  const decrementBtn = document.getElementById("decrementQty");
+  const qtyInput = document.getElementById("productQty");
+
+  if (incrementBtn && qtyInput) {
+    incrementBtn.addEventListener("click", function () {
       qtyInput.value = parseInt(qtyInput.value) + 1;
     });
+  }
 
-  document
-    .getElementById("decrementQty")
-    .addEventListener("click", function () {
-      const qtyInput = document.getElementById("productQty");
+  if (decrementBtn && qtyInput) {
+    decrementBtn.addEventListener("click", function () {
       if (parseInt(qtyInput.value) > 1) {
         qtyInput.value = parseInt(qtyInput.value) - 1;
       }
     });
+  }
 
-  document.getElementById("productQty").addEventListener("change", function () {
-    if (parseInt(this.value) < 1 || isNaN(parseInt(this.value))) {
-      this.value = 1;
-    }
-  });
+  if (qtyInput) {
+    qtyInput.addEventListener("change", function () {
+      if (parseInt(this.value) < 1 || isNaN(parseInt(this.value))) {
+        this.value = 1;
+      }
+    });
+  }
 });
 
 /**

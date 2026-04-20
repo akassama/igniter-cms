@@ -249,6 +249,13 @@ const barChartData = {
 <!-- Chart Initialization Script -->
 <script>
 function initializeCharts() {
+    // Check if Chart is available
+    if (typeof Chart === 'undefined') {
+        console.warn('Chart.js not loaded yet, retrying...');
+        setTimeout(initializeCharts, 200);
+        return;
+    }
+    
     // Set chart defaults
     Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#292b2c';
@@ -435,12 +442,16 @@ if (typeof IntersectionObserver !== 'undefined') {
         });
     });
 
-    // Observe both chart containers
-    const areaChartContainer = document.querySelector('#myAreaChart').closest('.card-body');
-    const barChartContainer = document.querySelector('#myBarChart').closest('.card-body');
+    // Observe both chart containers (add null check)
+    const areaChartCanvas = document.querySelector('#myAreaChart');
+    const barChartCanvas = document.querySelector('#myBarChart');
     
-    if (areaChartContainer) chartObserver.observe(areaChartContainer);
-    if (barChartContainer) chartObserver.observe(barChartContainer);
+    if (areaChartCanvas && areaChartCanvas.closest('.card-body')) {
+        chartObserver.observe(areaChartCanvas.closest('.card-body'));
+    }
+    if (barChartCanvas && barChartCanvas.closest('.card-body')) {
+        chartObserver.observe(barChartCanvas.closest('.card-body'));
+    }
 }
 </script>
 
