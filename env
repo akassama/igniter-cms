@@ -81,6 +81,7 @@ QUERY_LIMIT_200 = 200
 QUERY_LIMIT_500 = 500
 QUERY_LIMIT_MAX = 1000
 QUERY_LIMIT_ULTRA_MAX = 10000
+QUERY_LIMIT_HYPER_MAX = 100000
 
 #--------------------------------------------------------------------
 # Paginations
@@ -207,4 +208,4 @@ THEMES_API_ENDPOINT = https://api.ignitercms.com/api-service/get-themes/
 PLUGINS_API_ENDPOINT = https://api.ignitercms.com/api-service/get-plugins/
 # Cron security key - CHANGE THIS!
 CRON_SECRET_KEY = "your-strong-secret-key-here-12345"
-ENABLE_IP_BLOCKING = true
+ENABLE_IP_BLOCKING = false
