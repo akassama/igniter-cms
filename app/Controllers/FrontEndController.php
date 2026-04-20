@@ -385,7 +385,7 @@ class FrontEndController extends BaseController
             $sitemapData[$key] = $model->select('slug, updated_at, created_at')
                 ->where('status', '1') // Only active records
                 ->orderBy('created_at', 'DESC')
-                ->limit(intval(env('QUERY_LIMIT_HIGH', 50))) 
+                ->limit(intval(env('QUERY_LIMIT_200', 200))) 
                 ->findAll();
         }
 
