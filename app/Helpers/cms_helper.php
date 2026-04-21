@@ -2608,14 +2608,16 @@ if (!function_exists('getRecentPostIds')) {
 /**
  * Get trending post IDs based on views in last 48 hours
  * 
- * @param int $total Number of posts to return
+ * @param int $hoursAgo Number of hours ago to consider (default: 48)
+ * @param int $skip Number of posts to skip (for pagination)
+ * @param int $take Number of posts to return
  * @return array Array of blog IDs with highest views
  */
 if (!function_exists('getRecentTrendingPostIds')) {
-    function getRecentTrendingPostIds($skip = 0, $take = 6)
+    function getRecentTrendingPostIds($hoursAgo = 48, $skip = 0, $take = 6)
     {
         $blogsModel = new BlogsModel();
-        $date = new \DateTime('48 hours ago');
+        $date = new \DateTime("{$hoursAgo} hours ago");
         
         return $blogsModel->select('blog_id')
                          ->where('status', 1)
@@ -2629,14 +2631,15 @@ if (!function_exists('getRecentTrendingPostIds')) {
 /**
  * Get trending category IDs based on post views in last 48 hours
  * 
+ * @param int $hoursAgo Number of hours ago to consider (default: 48)
  * @param int $total Number of categories to return
  * @return array Array of category IDs with view counts
  */
 if (!function_exists('getRecentTrendingPostCategoriesIds')) {
-    function getRecentTrendingPostCategoriesIds($total = 5)
+    function getRecentTrendingPostCategoriesIds($hoursAgo = 48, $total = 5)
     {
         $blogsModel = new BlogsModel();
-        $date = new \DateTime('48 hours ago');
+        $date = new \DateTime("{$hoursAgo} hours ago");
         
         return $blogsModel->select('category as category_id, SUM(total_views) as total_views')
                          ->where('status', 1)
@@ -2645,6 +2648,26 @@ if (!function_exists('getRecentTrendingPostCategoriesIds')) {
                          ->orderBy('total_views', 'DESC')
                          ->findAll($total);
     }
+}
+
+
+/**
+ * Get trending posts from the past number of days
+ * 
+ * @param int $days Number of days to consider (default: 7)
+ * @param int $limit Number of posts to return (default: 5)
+ * @return array Array of trending blog posts
+ */
+function getTrendingPostsByDays($days = 7, $limit = 5)
+{
+    $blogsModel = new \App\Models\BlogsModel();
+    
+    return $blogsModel
+        ->where('status', 1)
+        ->where('created_at >=', date('Y-m-d H:i:s', strtotime("-{$days} days")))
+        ->orderBy('total_views', 'DESC')
+        ->limit($limit)
+        ->findAll();
 }
 
 /**
