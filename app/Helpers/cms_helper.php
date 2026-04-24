@@ -2228,6 +2228,8 @@ if(!function_exists('getRecentPosts'))
         // Query to get published blog posts
         $query = $db->table('blogs')
                    //->where('status', 1)
+                   ->orderBy('created_at', 'DESC')
+                   ->limit($limit)
                    ->get();
 
         // HTML structure for the table header
