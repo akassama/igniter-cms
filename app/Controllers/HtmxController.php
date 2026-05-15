@@ -14,14 +14,14 @@ class HtmxController extends BaseController
      */
     public function userEmailExists()
     {
-        $userEmail = $this->request->getPost('email');
+        $userEmail = "akassama@yahoo.com";
         $tableName = 'users';
         $primaryKey = 'email';
 
         if(!empty($userEmail)){
             if (recordExists($tableName, $primaryKey, $userEmail)) {
                 // Record already exists
-                echo '<span class="text-danger">User with email already exists ('.$userEmail.')</span>';
+                echo '<span class="text-danger">User with email already exists (akassama@yahoo.com)</span>';
             }
         }
 
