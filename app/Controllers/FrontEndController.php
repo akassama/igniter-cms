@@ -414,7 +414,15 @@ class FrontEndController extends BaseController
         foreach ($sitemapData as $type => $items) {
             foreach ($items as $item) {
                 $url = strtolower($type) === "page" ? base_url("/{$item['slug']}") : base_url("/{$type}/{$item['slug']}");
-                $lastmod = !empty($item['updated_at']) ? $item['updated_at'] : $item['created_at'];
+
+                // 1. Get the raw date string from the database
+                $rawLastmod = !empty($item['updated_at']) ? $item['updated_at'] : $item['created_at'];
+                
+                // 2. Convert the database date to W3C Datetime format (ISO 8601)
+                // strtotime() parses the DB string into a Unix timestamp, 
+                // and date('c') formats it exactly like your static URLs.
+                $lastmod = date('c', strtotime($rawLastmod));
+
                 $priority = $this->calculatePriority($type);
 
                 $xml .= $this->generateUrlXml($url, $lastmod, $priority);
