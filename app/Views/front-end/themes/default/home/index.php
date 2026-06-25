@@ -7,8 +7,8 @@ $currentPage = "pages";
 
 //update view count
 updateTotalViewCount($currentPage, "page_id", $page_data['page_id']);
-?>
 
+?>
 <!-- include theme layout -->
 <?= $this->extend('front-end/themes/'.$theme.'/layout/_layout') ?>
 

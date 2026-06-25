@@ -64,12 +64,11 @@ echo generateBreadcrumb($breadcrumb_links);
     <div class="row">
         <?php if($themes): ?>
             <?php foreach($themes as $theme): ?>
-            <div class="col-md-3 mb-4" id="theme-<?= str_replace('/', '', $theme['path']); ?>">
+            <div class="col-md-4 mb-4" id="theme-<?= str_replace('/', '', $theme['path']); ?>">
                 <div class="card h-100 border border-2 border-<?= $theme['selected'] == "1" ? 'success' : 'light' ?>">
-                    <div class="card-img-top ratio ratio-4x3 bg-light overflow-hidden border-bottom">
+                    <div class="card-img-top ratio ratio-16x9 bg-light overflow-hidden border-bottom">
                         <a href="<?= $theme['theme_url']; ?>" target="_blank">
-                            <img loading="lazy" src="<?= base_url('/public/front-end/themes/'.$theme['path'].'/assets/images/preview.png'); ?>" 
-                                alt="<?= $theme['name']; ?>" class="img-fluid w-100 h-100 object-fit-cover">
+                            <img loading="lazy" src="<?= base_url('/public/front-end/themes/'.$theme['path'].'/assets/images/preview.png'); ?>" alt="<?= $theme['name']; ?>" class="img-fluid w-100 h-100 theme-preview-img">
                         </a>
                     </div>
                     <div class="card-body">
@@ -207,6 +206,12 @@ document.addEventListener('DOMContentLoaded', function() {
     .highlight-theme > .card {
         border-color: #d13f13 !important;
         border-width: 2px !important;
+    }
+
+    .theme-preview-img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
     }
 </style>
 
