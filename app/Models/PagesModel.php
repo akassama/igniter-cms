@@ -26,6 +26,7 @@ class PagesModel extends Model
     protected $allowedFields    = [
         'page_id',
         'title',
+        'description',
         'slug',
         'content',
         'ai_summary',
@@ -87,6 +88,7 @@ class PagesModel extends Model
         $data = [
             'page_id' => $pageId,
             'title' => $param['title'],
+            'description' => $param['description'],
             'slug' => $param['slug'],
             'content' => $param['content'],
             'ai_summary' => $param['ai_summary'],
@@ -112,6 +114,7 @@ class PagesModel extends Model
 
         // Update the fields
         $existingPage['title'] = $param['title'];
+        $existingPage['description'] = $param['description'];
         $existingPage['slug'] = $param['slug'];
         $existingPage['content'] = $param['content'];
         $existingPage['ai_summary'] = $param['ai_summary'];

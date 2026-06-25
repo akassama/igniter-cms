@@ -457,6 +457,7 @@ class CMSController extends BaseController
         $previousData = null;
         $data = [
             'title' => $this->request->getPost('title'),
+            'description' => $this->request->getPost('description'),
             'slug' => $this->request->getPost('slug'),
             'content' => $this->request->getPost('content'),     
             'ai_summary' => $this->request->getPost('ai_summary'),
@@ -527,6 +528,7 @@ class CMSController extends BaseController
         $previousData = $pagesModel->find($pageId);
         $data = [
             'title' => $this->request->getPost('title'),
+            'description' => $this->request->getPost('description'),
             'slug' => $this->request->getPost('slug'),
             'content' => $this->request->getPost('content'),
             'ai_summary' => $this->request->getPost('ai_summary'),

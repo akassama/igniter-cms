@@ -17,6 +17,11 @@ class Pages extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'description' => [
+                'type' => 'VARCHAR',
+                'constraint' => '1000',
+                'null' => true,
+            ],
             'slug' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
@@ -92,6 +97,7 @@ class Pages extends Migration
             [
                 'page_id' => getGUID("f7a8d40d-6b97-4c0b-a532-f535ac4c4af1"),
                 'title' => 'Home',
+                'description' => 'This is the homepage of the application.',
                 'slug' => 'home',
                 'group' => 'home',
                 'is_home_page' => 1,
@@ -107,6 +113,7 @@ class Pages extends Migration
             [
                 'page_id' => getGUID("a1b2c3d4-e5f6-7890-1234-567890abcdef"),
                 'title' => 'Cookie Policy',
+                'description' => 'Cookie Policy explains how we use cookies on our website.',
                 'slug' => 'cookie-policy',
                 'group' => 'general',
                 'is_home_page' => 0,
@@ -122,6 +129,7 @@ class Pages extends Migration
             [
                 'page_id' => getGUID("fedcba98-7654-3210-0fed-cba987654321"),
                 'title' => 'Privacy Policy',
+                'description' => 'Privacy Policy describes how we collect, use, and share your personal information.',
                 'slug' => 'privacy-policy',
                 'group' => 'general',
                 'is_home_page' => 0,
