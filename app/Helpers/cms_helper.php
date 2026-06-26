@@ -102,13 +102,13 @@ if (!function_exists('getUserStatus')) {
 if (!function_exists('getUserStatusLabel')) {
     function getUserStatusLabel($status) {
         if($status == '0'){
-            return "<span class='badge bg-secondary'><?= lang('App.inactive') ?></span>";
+            return "<span class='badge bg-secondary'>".lang('App.inactive')."</span>";
         }
         else if($status == '1'){
-            return "<span class='badge bg-success'><?= lang('App.active') ?></span>";
+            return "<span class='badge bg-success'>".lang('App.active')."</span>";
         }
         else if($status == '2'){
-            return "<span class='badge bg-danger'>Closed</span>";
+            return "<span class='badge bg-danger'>".lang('App.closed')."</span>";
         }
         else {
             return "<span class='badge bg-danger'>NA</span>";

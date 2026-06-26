@@ -71,7 +71,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                     <td>
                                         <?= $api_key['assigned_to']; ?>
                                     </td>
-                                    <td><?= $api_key['status'] == "1" ? "<span class='badge bg-success'><?= lang('App.active') ?></span>" : "<span class='badge bg-secondary'><?= lang('App.inactive') ?></span>" ?></td>
+                                    <td><?= $api_key['status'] == "1" ? "<span class='badge bg-success'>".lang('App.active')."</span>" : "<span class='badge bg-secondary'>".lang('App.inactive')."</span>" ?></td>
                                     <td><?= dateFormat($api_key['created_at']) ?></td>
                                     <td><?= getActivityBy(esc($api_key['created_by']) , ""); ?></td>
                                     <td><?= getActivityBy(esc($api_key['updated_by']) , ""); ?></td>
