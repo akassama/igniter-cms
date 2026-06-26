@@ -11,6 +11,7 @@ use App\Models\PagesModel;
 use App\Libraries\EmailService;
 use Gregwar\Captcha\CaptchaBuilder;
 use App\Constants\ActivityTypes;
+use App\Models\UsersModel;
 
 class FrontEndController extends BaseController
 {
@@ -183,40 +184,75 @@ class FrontEndController extends BaseController
         // Load the models
         $blogsModel = new BlogsModel();
         $pagesModel = new PagesModel();
+        $usersModel = new UsersModel(); // Load UsersModel to find authors
         
         $data["searchQuery"] = $searchQuery;
         
-        // Blogs search
-        $data['blogsSearchResults'] = $blogsModel
-            ->groupStart()
-                ->like('title', $searchQuery)
-                ->orLike('excerpt', $searchQuery)
-                ->orLike('content', $searchQuery)
-                ->orLike('author', $searchQuery)
-                ->orLike('meta_title', $searchQuery)
-                ->orLike('meta_description', $searchQuery)
-                ->orLike('meta_keywords', $searchQuery)
-                ->orLike('tags', $searchQuery)
-            ->groupEnd()
-            ->where('status', '1')
-            ->orderBy('created_at', 'DESC')
-            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
-            ->findAll();
+        // 1. Find matching user IDs based on the search query
+        $searchWords = array_filter(explode(' ', trim($searchQuery)));
         
-        // Pages search
-        $data['pagesSearchResults'] = $pagesModel
-            ->groupStart()
-                ->like('title', $searchQuery)
-                ->orLike('content', $searchQuery)
-                ->orLike('author', $searchQuery)
-                ->orLike('meta_title', $searchQuery)
-                ->orLike('meta_keywords', $searchQuery)
-                ->orLike('meta_description', $searchQuery)
-            ->groupEnd()
+        if (!empty($searchWords)) {
+            $usersModel->groupStart();
+            foreach ($searchWords as $word) {
+                $usersModel->orLike('first_name', $word)
+                           ->orLike('last_name', $word)
+                           ->orLike('username', $word);
+            }
+            $usersModel->groupEnd()
+                       ->where('status', '1'); // Only search active users
+                       
+            $matchingUsers = $usersModel->findAll();
+        } else {
+            $matchingUsers = [];
+        }
+            
+        // Extract just the user_id (GUID) column into an array
+        $authorIds = array_column($matchingUsers, 'user_id');
+        
+        // 2. Blogs search
+        // Start the query group and add text conditions
+        $blogsModel->groupStart()
+            ->like('title', $searchQuery)
+            ->orLike('excerpt', $searchQuery)
+            ->orLike('content', $searchQuery)
+            ->orLike('author', $searchQuery) //incase using author as text
+            ->orLike('meta_title', $searchQuery)
+            ->orLike('meta_description', $searchQuery)
+            ->orLike('meta_keywords', $searchQuery)
+            ->orLike('tags', $searchQuery);
+            
+        // Conditionally add the author OR WHERE clause
+        if (!empty($authorIds)) {
+            $blogsModel->orWhereIn('author', $authorIds);
+        }
+        
+        // Close the group and apply remaining conditions
+        $blogsModel->groupEnd()
             ->where('status', '1')
             ->orderBy('created_at', 'DESC')
-            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
-            ->findAll();
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)));
+            
+        // Execute the query
+        $data['blogsSearchResults'] = $blogsModel->findAll();
+        
+        // 3. Pages search
+        $pagesModel->groupStart()
+            ->like('title', $searchQuery)
+            ->orLike('content', $searchQuery)
+            ->orLike('meta_title', $searchQuery)
+            ->orLike('meta_keywords', $searchQuery)
+            ->orLike('meta_description', $searchQuery);
+            
+        if (!empty($authorIds)) {
+            $pagesModel->orWhereIn('author', $authorIds);
+        }
+        
+        $pagesModel->groupEnd()
+            ->where('status', '1')
+            ->orderBy('created_at', 'DESC')
+            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)));
+            
+        $data['pagesSearchResults'] = $pagesModel->findAll();
         
         // Log activity
         logActivity(null, ActivityTypes::SEARCH, 'Search made for: ' . $searchQuery);
@@ -280,62 +316,60 @@ class FrontEndController extends BaseController
                 }
 
                 if (strcasecmp($type, 'author') === 0) {
-                    try {
-                        // Try to find user ID from the search query
-                        $userId = getUserIdFromName($searchQuery) ?? null;
-                        
-                        // Build search conditions for blogs
-                        $blogsModel->groupStart();
-                        
-                        // Search by created_by if we found a matching user ID
-                        if ($userId) {
-                            $blogsModel->orWhere('created_by', $userId);
+                    // 1. Find matching user IDs based on the search query (Done once for both blogs and pages)
+                    $usersModel = new \App\Models\UsersModel();
+                    $searchWords = array_filter(explode(' ', trim($searchQuery)));
+                    
+                    $authorIds = [];
+                    if (!empty($searchWords)) {
+                        $usersModel->groupStart();
+                        foreach ($searchWords as $word) {
+                            $usersModel->orLike('first_name', $word)
+                                       ->orLike('last_name', $word)
+                                       ->orLike('username', $word);
                         }
-                        
-                        // Search by author column (exact match or partial)
-                        // Using OR LIKE for partial matching
-                        $blogsModel->orLike('author', $searchQuery);
-                        
-                        // Also try to match if search query is part of the author name
-                        // This helps when searching for "John" and author is "John Doe"
-                        $blogsModel->orLike('author', $searchQuery);
-                        
-                        $blogsModel->groupEnd();
-                        
-                        $data['blogsSearchResults'] = $blogsModel
-                            ->where('status', '1')
-                            ->orderBy('created_at', 'DESC')
-                            ->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)))
-                            ->findAll();
-                            
+                        $usersModel->groupEnd()
+                                   ->where('status', '1'); // Only search active users
+                                   
+                        $matchingUsers = $usersModel->findAll();
+                        $authorIds = array_column($matchingUsers, 'user_id');
+                    }
+
+                    // 2. Blogs search
+                    try {
+                        if (!empty($authorIds)) {
+                            $blogsModel->groupStart()
+                                ->whereIn('author', $authorIds)
+                                ->orWhereIn('created_by', $authorIds);
+                            $blogsModel->groupEnd()
+                                ->where('status', '1')
+                                ->orderBy('created_at', 'DESC')
+                                ->limit(intval(env('QUERY_LIMIT_VERY_HIGH', 100)));
+                                
+                            $data['blogsSearchResults'] = $blogsModel->findAll();
+                        } else {
+                            $data['blogsSearchResults'] = [];
+                        }
                     } catch (\Exception $e) {
                         $data['blogsSearchResults'] = null;
                         log_message('error', 'Author blogs search error: ' . $e->getMessage());
                     }
 
+                    // 3. Pages search
                     try {
-                        // Build search conditions for pages
-                        $pagesModel->groupStart();
-                        
-                        // Search by created_by if we found a matching user ID
-                        if ($userId) {
-                            $pagesModel->orWhere('created_by', $userId);
+                        if (!empty($authorIds)) {
+                            $pagesModel->groupStart()
+                                ->whereIn('author', $authorIds)
+                                ->orWhereIn('created_by', $authorIds);
+                            $pagesModel->groupEnd()
+                                ->where('status', '1')
+                                ->orderBy('created_at', 'DESC')
+                                ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)));
+                                
+                            $data['pagesSearchResults'] = $pagesModel->findAll();
+                        } else {
+                            $data['pagesSearchResults'] = [];
                         }
-                        
-                        // Search by author column
-                        $pagesModel->orLike('author', $searchQuery);
-                        
-                        // Partial match for author name
-                        $pagesModel->orLike('author', $searchQuery);
-                        
-                        $pagesModel->groupEnd();
-                        
-                        $data['pagesSearchResults'] = $pagesModel
-                            ->where('status', '1')
-                            ->orderBy('created_at', 'DESC')
-                            ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))
-                            ->findAll();
-                            
                     } catch (\Exception $e) {
                         $data['pagesSearchResults'] = null;
                         log_message('error', 'Author pages search error: ' . $e->getMessage());
