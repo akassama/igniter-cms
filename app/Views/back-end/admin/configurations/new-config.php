@@ -72,7 +72,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <?= lang('App.input_required') ?>
                 </div>
             </div>
-            
+
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="group" class="form-label"><?= lang('App.group') ?></label>
                 <input type="text" class="form-control" id="group" name="group" value="<?= set_value('group') ?>">
@@ -107,7 +107,7 @@ echo generateBreadcrumb($breadcrumb_links);
                    <?= lang('App.input_required') ?>
                 </div>
             </div>
-            
+
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="options" class="form-label">Options</label>
                 <input type="text" class="form-control" id="options" name="options" value="<?= set_value('options') ?>">
@@ -121,7 +121,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <?= lang('App.input_required') ?>
                 </div>
             </div>
-            
+
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="default_value" class="form-label"><?= lang('App.default_value') ?></label>
                 <input type="text" class="form-control" id="default_value" name="default_value" value="<?= set_value('default_value') ?>">
@@ -135,7 +135,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <?= lang('App.input_required') ?>
                 </div>
             </div>
-            
+
             <div class="col-sm-12 col-md-6 mb-3">
                 <label for="custom_class" class="form-label"><?= lang('App.custom_class') ?></label>
                 <input type="text" class="form-control" id="custom_class" name="custom_class" value="<?= set_value('custom_class') ?>">
@@ -149,7 +149,7 @@ echo generateBreadcrumb($breadcrumb_links);
                     <?= lang('App.input_required') ?>
                 </div>
             </div>
-            
+
             <div class="col-sm-12 col-md-6 mb-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <label for="icon" class="form-label"><?= lang('App.icon') ?></label>

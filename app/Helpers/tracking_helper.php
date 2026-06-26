@@ -286,10 +286,16 @@ if (!function_exists('logSiteStatistic')) {
         $userAgent,
         $otherParams = null
     ) {
+        $request = \Config\Services::request();
         $statId = getGUID();
         $db = \Config\Database::connect();
         $tableName = "site_stats";
         $logVisit = shouldLogVisit($pageVisitedUrl);
+
+        // Prepare bot data        
+        $agent = $request->getUserAgent();
+        $isBot = $agent->isRobot();
+        $botName = $isBot ? $agent->getRobot() : null;
 
         try {
             $db->transStart(); // Start transaction
@@ -324,6 +330,8 @@ if (!function_exists('logSiteStatistic')) {
                     'country' => $country,
                     'screen_resolution' => $screenResolution,
                     'user_agent' => $userAgent,
+                    'is_bot'       => $isBot ? 1 : 0,
+                    'bot_name'     => $botName,
                     'other_params' => $otherParams
                 ];
 

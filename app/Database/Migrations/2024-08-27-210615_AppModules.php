@@ -186,7 +186,7 @@ class AppModules extends Migration
                 'app_module_id' => getGUID(),
                 'module_name'  => 'Theme Editor',
                 'module_description'  => 'Manage theme files',
-                'module_roles'    => 'Admin,Manager,User',
+                'module_roles'    => 'Admin',
                 'module_link'    => 'account/appearance/theme-editor',
                 'module_search_terms' => 'theme,editor,files,thème,éditeur,fichiers,editor de temas,archivos,محرر السمات,ملفات,থিম সম্পাদক,ফাইল,themen-editor,dateien,थीम संपादक,फ़ाइलें,editor temi,file,テーマエディター,ファイル,editor de temas,arquivos,редактор тем,файлы,tema düzenleyici,dosyalar,تھیم ایڈیٹر,فائلیں,trình chỉnh sửa chủ đề,tệp,主题编辑器,文件'
             ],
@@ -195,7 +195,7 @@ class AppModules extends Migration
                 'app_module_id' => getGUID(),
                 'module_name'  => 'Theme Revisions',
                 'module_description'  => 'Manage theme revisions',
-                'module_roles'    => 'Admin,Manager,User',
+                'module_roles'    => 'Admin',
                 'module_link'    => 'account/appearance/theme-editor/revisions',
                 'module_search_terms' => 'themes,revisions,versions,thèmes,révisions,versions,revisiones,versiones,مراجعات السمات,إصدارات,থিম সংশোধন,সংস্করণ,themen-revisionen,versionen,थीम संशोधन,संस्करण,revisioni temi,versioni,テーマリビジョン,バージョン,revisões de temas,versões,ревізії тем,версії,tema revizyonları,sürümler,تھیم نظرثانی,ورژن,chủ đề sửa đổi,phiên bản,主题修订,版本'
             ],

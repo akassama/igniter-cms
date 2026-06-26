@@ -184,7 +184,10 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('appearance/themes/activate/(:any)', 'AppearanceController::activateTheme/$1');
         $routes->post('appearance/themes/remove-theme', 'AppearanceController::removeTheme');
 
-        if (isFeatureEnabled('FEATURE_THEME_EDITOR')) {
+        $session = session();
+        $sessionEmail = $session->get('email');
+        $userRole = getUserRole($sessionEmail);
+        if (isFeatureEnabled('FEATURE_THEME_EDITOR') && ($userRole == "Admin")) {
             #####============================= THEME FILE EDITOR =============================#####
             #THEME FILE EDITORS
             $routes->get('appearance/theme-editor', 'AppearanceController::viewFiles');

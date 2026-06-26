@@ -46,6 +46,20 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
+                <label for="description" class="form-label"><?= lang('App.description') ?></label>
+                <textarea rows="1" class="form-control" id="description" name="description"><?= set_value('description') ?></textarea>
+                <!-- Error -->
+                <?php if($validation->getError('description')) {?>
+                    <div class='text-danger mt-2'>
+                        <?= $error = $validation->getError('description'); ?>
+                    </div>
+                <?php }?>
+                <div class="invalid-feedback">
+                    <?= lang('App.input_required') ?>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 mb-3">
                 <label for="slug" class="form-label"><?= lang('App.slug') ?></label>
                 <div class="input-group mb-3" id="slug-div">
                     <span class="input-group-text"><?= base_url('/'); ?></span>

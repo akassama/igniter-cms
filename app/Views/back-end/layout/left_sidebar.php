@@ -136,7 +136,7 @@ $userRole = getUserRole($sessionEmail);
                                 <a class="nav-link <?= (str_contains(current_url(), 'account/appearance/themes')) ? 'active' : ''; ?>" href="<?= base_url('/account/appearance/themes'); ?>">
                                     <i class="ri-arrow-drop-right-fill"></i> <?= lang('App.themes') ?>
                                 </a>
-                                <?php if (isFeatureEnabled('FEATURE_THEME_EDITOR')): ?>
+                                <?php if (isFeatureEnabled('FEATURE_THEME_EDITOR') && ($userRole == "Admin")): ?>
                                     <a class="nav-link <?= (str_contains(current_url(), 'account/appearance/theme-editor')) ? 'active' : ''; ?>" href="<?= base_url('/account/appearance/theme-editor'); ?>">
                                         <i class="ri-arrow-drop-right-fill"></i> <?= lang('App.theme_editor') ?>
                                     </a>

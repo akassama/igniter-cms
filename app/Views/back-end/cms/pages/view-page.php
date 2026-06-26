@@ -36,6 +36,11 @@ echo generateBreadcrumb($breadcrumb_links);
             </div>
 
             <div class="col-sm-12 col-md-12 mb-3">
+                <label for="description" class="form-label"><?= lang('App.description') ?></label>
+                <textarea rows="1" class="form-control" id="description" name="description" readonly><?= $page_data['description'] ?></textarea>
+            </div>
+
+            <div class="col-sm-12 col-md-12 mb-3">
                 <label for="slug" class="form-label"><?= lang('App.slug') ?></label>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><?= base_url('/'); ?></span>

@@ -44,6 +44,7 @@ echo generateBreadcrumb($breadcrumb_links);
                             <th><?= lang('App.user') ?></th>
                             <th><?= lang('App.operating_system') ?></th>
                             <th><?= lang('App.country') ?></th>
+                            <th><?= lang('App.is_bot') ?></th>
                             <th><?= lang('App.visit_date') ?></th>
                             <th><?= lang('App.actions') ?></th>
                         </tr>
@@ -71,6 +72,7 @@ echo generateBreadcrumb($breadcrumb_links);
                                         <span class="fi fi-<?= strtolower((string)esc($visit['country'])) ?>"></span>
                                         <?= esc($visit['country']) ?>
                                     </td>
+                                    <td><?= $visit['is_bot'] ? 'Yes (' . esc($visit['bot_name']) . ')' : 'No' ?></td>
                                     <td><?= esc($visit['created_at']) ?></td>
                                     <td>
                                         <div class="row text-center p-1">
