@@ -332,6 +332,8 @@ return [
     'request_method'       => '请求方法',
     'operating_system'     => '操作系统',
     'country'              => '国家',
+    'is_bot'               => '是否为机器人',
+    'bot_name'             => '机器人名称',
     'screen_resolution'    => '屏幕分辨率',
     'user_agent'           => '用户代理',
     'other_params'         => '其他参数',

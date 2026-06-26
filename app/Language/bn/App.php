@@ -331,6 +331,8 @@ return [
     'request_method'        => 'রিকোয়েস্ট মেথড',
     'operating_system'      => 'অপারেটিং সিস্টেম',
     'country'               => 'দেশ',
+    'is_bot'               => 'বট কিনা',
+    'bot_name'             => 'বটের নাম',
     'screen_resolution'     => 'স্ক্রিন রেজোলিউশন',
     'user_agent'            => 'ইউজার এজেন্ট',
     'other_params'          => 'অন্যান্য প্যারামিটার',

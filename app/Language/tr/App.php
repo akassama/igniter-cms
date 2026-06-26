@@ -332,6 +332,8 @@ return [
     'request_method'       => 'İstek Metodu',
     'operating_system'     => 'İşletim Sistemi',
     'country'              => 'Ülke',
+    'is_bot'               => 'Bot mu',
+    'bot_name'             => 'Bot Adı',
     'screen_resolution'    => 'Ekran Çözünürlüğü',
     'user_agent'           => 'Kullanıcı Aracısı',
     'other_params'         => 'Diğer Parametreler',

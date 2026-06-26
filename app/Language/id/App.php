@@ -332,6 +332,8 @@ return [
     'request_method'      => 'Metode Permintaan',
     'operating_system'    => 'Sistem Operasi',
     'country'             => 'Negara',
+    'is_bot'               => 'Apakah Bot',
+    'bot_name'             => 'Nama Bot',
     'screen_resolution'   => 'Resolusi Layar',
     'user_agent'          => 'Agen Pengguna',
     'other_params'        => 'Parameter Lain',

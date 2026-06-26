@@ -40,6 +40,8 @@ class SiteStatsModel extends Model
         'country',
         'screen_resolution',
         'user_agent',
+        'is_bot',
+        'bot_name',
         'other_params'
     ];
 
@@ -94,6 +96,8 @@ class SiteStatsModel extends Model
             'country' => $param['country'],
             'screen_resolution' => $param['screen_resolution'],
             'user_agent' => $param['user_agent'],
+            'is_bot' => $param['is_bot'],
+            'bot_name' => $param['bot_name'],
             'other_params' => $param['other_params']
         ];
         $this->save($data);

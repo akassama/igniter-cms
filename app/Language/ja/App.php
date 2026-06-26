@@ -332,6 +332,8 @@ return [
     'request_method'       => 'リクエストメソッド',
     'operating_system'     => 'OS',
     'country'              => '国',
+    'is_bot'               => 'Bot判定',
+    'bot_name'             => 'Bot名',
     'screen_resolution'    => '画面解像度',
     'user_agent'           => 'ユーザーエージェント',
     'other_params'         => 'その他のパラメータ',

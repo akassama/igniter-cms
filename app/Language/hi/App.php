@@ -332,6 +332,8 @@ return [
     'request_method'       => 'अनुरोध विधि',
     'operating_system'     => 'ऑपरेटिंग सिस्टम',
     'country'              => 'देश',
+    'is_bot'               => 'क्या बॉट है',
+    'bot_name'             => 'बॉट का नाम',
     'screen_resolution'    => 'स्क्रीन रिज़ॉल्यूशन',
     'user_agent'           => 'यूजर एजेंट',
     'other_params'         => 'अन्य पैरामीटर',

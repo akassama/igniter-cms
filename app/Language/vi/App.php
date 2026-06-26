@@ -332,6 +332,8 @@ return [
     'request_method'        => 'Phương thức yêu cầu',
     'operating_system'      => 'Hệ điều hành',
     'country'               => 'Quốc gia',
+    'is_bot'               => 'Là Bot',
+    'bot_name'             => 'Tên Bot',
     'screen_resolution'     => 'Độ phân giải màn hình',
     'user_agent'            => 'User Agent',
     'other_params'          => 'Tham số khác',

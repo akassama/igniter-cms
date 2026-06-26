@@ -332,6 +332,8 @@ return [
     'request_method'       => 'درخواست کا طریقہ',
     'operating_system'     => 'آپریٹنگ سسٹم',
     'country'              => 'ملک',
+    'is_bot'               => 'کیا بوٹ ہے',
+    'bot_name'             => 'بوٹ کا نام',
     'screen_resolution'    => 'اسکرین ریزولوشن',
     'user_agent'           => 'صارف ایجنٹ',
     'other_params'         => 'دیگر پیرامیٹرز',

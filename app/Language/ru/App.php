@@ -331,6 +331,8 @@ return [
     'request_method'      => 'Метод запроса',
     'operating_system'    => 'ОС',
     'country'             => 'Страна',
+    'is_bot'               => 'Это бот',
+    'bot_name'             => 'Имя бота',
     'screen_resolution'   => 'Разрешение экрана',
     'user_agent'          => 'User-Agent',
     'other_params'        => 'Другие параметры',

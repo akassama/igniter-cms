@@ -331,6 +331,8 @@ return [
     'request_method' => 'Método de Solicitud',
     'operating_system' => 'Sistema Operativo',
     'country' => 'País',
+    'is_bot'               => 'Es un bot',
+    'bot_name'             => 'Nombre del bot',
     'screen_resolution' => 'Resolución de Pantalla',
     'user_agent' => 'User Agent',
     'other_params' => 'Otros Parámetros',

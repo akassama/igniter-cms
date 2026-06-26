@@ -332,6 +332,8 @@ return [
     'request_method'        => 'طريقة الطلب',
     'operating_system'      => 'نظام التشغيل',
     'country'               => 'الدولة',
+    'is_bot'               => 'هل هو بوت',
+    'bot_name'             => 'اسم البوت',
     'screen_resolution'     => 'دقة الشاشة',
     'user_agent'            => 'وكيل المستخدم',
     'other_params'          => 'معاملات أخرى',

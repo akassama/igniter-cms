@@ -82,6 +82,17 @@ class SiteStats extends Migration
                 'type' => 'TEXT',
                 'null' => true,
             ],
+            'is_bot' => [
+                'type'       => 'TINYINT',
+                'constraint' => 1,
+                'default'    => 0,
+                'null'       => false,
+            ],
+            'bot_name' => [
+                'type' => 'VARCHAR',
+                'constraint' => 150,
+                'null' => true,
+            ],
             'other_params' => [
                 'type' => 'TEXT',
                 'null' => true,
@@ -111,6 +122,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "375 x 812",
                 'user_agent' => "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
                 'other_params' => json_encode(['source' => 'direct']),
+                'is_bot' => false,
                 'created_at' => date('Y-m-d H:i:s')
             ],
             [
@@ -131,6 +143,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-d H:i:s', strtotime('-1 day'))
             ],
             [
@@ -151,6 +164,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-d H:i:s', strtotime('-2 day'))
             ],
             [
@@ -171,6 +185,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-d H:i:s', strtotime('-3 day'))
             ],
             [
@@ -191,6 +206,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (iPad; CPU OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-d H:i:s', strtotime('-4 day'))
             ],
             [
@@ -211,6 +227,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) OPT/15.6",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-d H:i:s', strtotime('-5 day'))
             ],
             [
@@ -231,6 +248,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36 Edge/130.0.0.0",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-d H:i:s', strtotime('-6 day'))
             ],
             [
@@ -251,6 +269,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-01 00:00:00', strtotime('-1 month'))
             ],
             [
@@ -271,6 +290,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-01 00:00:00', strtotime('-2 months'))
             ],
             [
@@ -291,6 +311,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-01 00:00:00', strtotime('-3 months'))
             ],
             [
@@ -311,6 +332,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-01 00:00:00', strtotime('-3 months'))
             ],
             [
@@ -331,6 +353,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-01 00:00:00', strtotime('-4 months'))
             ],
             [
@@ -351,6 +374,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-01 00:00:00', strtotime('-5 months'))
             ],
             [
@@ -371,6 +395,7 @@ class SiteStats extends Migration
                 'screen_resolution' => "1280 x 591",
                 'user_agent' => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
                 'other_params' => null,
+                'is_bot' => false,
                 'created_at' => date('Y-m-01 00:00:00', strtotime('-6 months'))
             ]
         ];
