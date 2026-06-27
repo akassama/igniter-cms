@@ -22,6 +22,8 @@ $navigationsModel = new \App\Models\NavigationsModel();
 $topNavLists = $navigationsModel->where('group', 'top_nav')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
 $footerNavLists = $navigationsModel->where('group', 'footer_nav')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
 $servicesNavLists = $navigationsModel->where('group', 'services')->orderBy('order', 'ASC')->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)))->findAll();
+
+$currentPageSlug = !empty($page_slug) ? $page_slug : "home";
 ?>
 
 <?= $this->include('front-end/themes/'.$theme.'/includes/_functions.php'); ?>

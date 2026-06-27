@@ -97,7 +97,8 @@ class FrontEndController extends BaseController
         $pageId = getTableData($tableName, $whereClause, 'page_id');
         $pagesModel = new PagesModel();
         $data = [
-            'page_data' => $pagesModel->find($pageId)
+            'page_data' => $pagesModel->find($pageId),
+            'page_slug' => 'home'
         ];
 
         //load home view
@@ -161,9 +162,11 @@ class FrontEndController extends BaseController
 
         $whereClause = ['slug' => $slug];
         $pageId = getTableData($tableName, $whereClause, 'page_id');
+        $currentPageSlug = !empty($slug) ? $slug : "home";
         $pagesModel = new PagesModel();
         $data = [
-            'page_data' => $pagesModel->find($pageId)
+            'page_data' => $pagesModel->find($pageId),
+            'page_slug' => $currentPageSlug
         ];
         return view('front-end/themes/'.getCurrentTheme().'/pages/view-page', $data);
     }
