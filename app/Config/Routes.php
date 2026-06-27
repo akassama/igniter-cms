@@ -165,7 +165,7 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('settings/update-details', 'SettingsController::updateDetails');
         $routes->post('settings/update-details/update-user', 'SettingsController::updateUser');
         $routes->get('settings/change-password', 'SettingsController::changePassword');
-        $routes->post('settings/change-password/update-password', 'SettingsController::updatePassword');    
+        $routes->post('settings/change-password/update-password', 'SettingsController::updatePassword');
         $routes->get('settings/language', 'SettingsController::language');
     }
 
@@ -184,9 +184,14 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('appearance/themes/activate/(:any)', 'AppearanceController::activateTheme/$1');
         $routes->post('appearance/themes/remove-theme', 'AppearanceController::removeTheme');
 
-        $session = session();
-        $sessionEmail = $session->get('email');
-        $userRole = getUserRole($sessionEmail);
+        // Safely bypass database queries if this file is loaded via CLI/migrations
+        $userRole = 'User';
+        if (!is_cli()) {
+            $session = session();
+            $sessionEmail = $session->get('email');
+            $userRole = getUserRole($sessionEmail);
+        }
+
         if (isFeatureEnabled('FEATURE_THEME_EDITOR') && ($userRole == "Admin")) {
             #####============================= THEME FILE EDITOR =============================#####
             #THEME FILE EDITORS
@@ -222,19 +227,19 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('admin/activity-logs/view-activity/(:any)', 'AdminController::viewActivity/$1');
         $routes->get('admin/logs', 'AdminController::viewLogFiles', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/logs/view-log/(:any)', 'AdminController::viewLogData/$1');
-        
+
         #VISIT STATS
         $routes->get('admin/visit-stats', 'AdminController::viewStats', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/visit-stats/view-stat/(:any)', 'AdminController::viewStat/$1');
         $routes->get('admin/blocked-ips', 'AdminController::blockedIps', ['filter' => 'adminRoleFilter']);
-        
+
         #IP MANAGEMENT
         $routes->get('admin/blocked-ips/new-blocked-ip', 'AdminController::newBlockedIP', ['filter' => 'adminRoleFilter']);
         $routes->post('admin/blocked-ips/new-blocked-ip', 'AdminController::addBlockedIP');
         $routes->get('admin/whitelisted-ips', 'AdminController::whitelistedIps', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/whitelisted-ips/new-whitelisted-ip', 'AdminController::newWhitelistedIP', ['filter' => 'adminRoleFilter']);
         $routes->post('admin/whitelisted-ips/new-whitelisted-ip', 'AdminController::addWhitelistedIP');
-        
+
         #CONFIGURATIONS
         $routes->get('admin/configurations', 'AdminController::configurations', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/configurations/new-config', 'AdminController::newConfiguration', ['filter' => 'adminRoleFilter']);
@@ -242,26 +247,26 @@ if (isFeatureEnabled('FEATURE_BACK_END')) {
         $routes->get('admin/configurations/view-config/(:any)', 'AdminController::viewConfiguration/$1', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/configurations/edit-config/(:any)', 'AdminController::editConfiguration/$1', ['filter' => 'adminRoleFilter']);
         $routes->post('admin/configurations/edit-config', 'AdminController::updateConfiguration');
-        
+
         #CODES
         $routes->get('admin/codes', 'AdminController::codes', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/codes/new-code', 'AdminController::newCode', ['filter' => 'adminRoleFilter']);
         $routes->post('admin/codes/new-code', 'AdminController::addCode');
         $routes->get('admin/codes/edit-code/(:any)', 'AdminController::editCode/$1', ['filter' => 'adminRoleFilter']);
         $routes->post('admin/codes/edit-code', 'AdminController::updateCode');
-        
+
         #API-KEYS
         $routes->get('admin/api-keys', 'AdminController::apiKeys', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/api-keys/new-api-key', 'AdminController::newApiKey', ['filter' => 'adminRoleFilter']);
         $routes->post('admin/api-keys/new-api-key', 'AdminController::addApiKey');
         $routes->get('admin/api-keys/edit-api-key/(:any)', 'AdminController::editApiKey/$1', ['filter' => 'adminRoleFilter']);
         $routes->post('admin/api-keys/edit-api-key', 'AdminController::updateApiKey');
-        
+
         #BACKUPS
         $routes->get('admin/backups', 'AdminController::backups', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/backups/generate-db-backup', 'AdminController::generateDbBackup', ['filter' => 'adminRoleFilter']);
         $routes->get('admin/backups/download-db/(:any)', 'AdminController::downloadDbBackup/$1', ['filter' => 'adminRoleFilter']);
-        $routes->get('admin/backups/download-public-folder-backup', 'AdminController::downloadPublicFolderBackup', ['filter' => 'adminRoleFilter']);        
+        $routes->get('admin/backups/download-public-folder-backup', 'AdminController::downloadPublicFolderBackup', ['filter' => 'adminRoleFilter']);
     }
 
 
@@ -394,13 +399,13 @@ $routes->group('api-form', ['filter' => ['corsFilter']],  function($routes) {
     if (isFeatureEnabled('FEATURE_FRONT_END')) {
 	    // Add Contact Message
         $routes->post('send-contact-message', 'FormRequestsController::sendContactMessage');
-        
+
         // Add Subscription
         $routes->post('add-subscriber', 'FormRequestsController::addSubscription');
-        
+
         // Add Booking
         $routes->post('add-booking', 'FormRequestsController::addBooking');
-        
+
         // Add Comment
         $routes->post('add-comment', 'FormRequestsController::addComment');
     }
@@ -421,7 +426,7 @@ if(strtolower($frontEndFormat) === "mvc")
         #Blogs
         $routes->get('/blog/(:any)', 'FrontEndController::getBlogDetails/$1', ['filter' => ['siteStatsFilter','pluginsFilter']]);
         $routes->get('/blog', function() {
-            return redirect()->to('/blogs'); 
+            return redirect()->to('/blogs');
         });
         $routes->get('/blogs', 'FrontEndController::getBlogs', ['filter' => ['siteStatsFilter','pluginsFilter']]);
 
