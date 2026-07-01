@@ -22,7 +22,7 @@ CI_ENVIRONMENT = development
 
 # app.baseURL = ''
 # If you have trouble with `.`, you could also use `_`.
-# app_baseURL = 'http://localhost/igniter-cms/'
+# app_baseURL = 'https://localhost/igniter-cms/'
 # app.forceGlobalSecureRequests = false
 # app.CSPEnabled = false
 
