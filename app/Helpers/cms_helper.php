@@ -3226,6 +3226,7 @@ if (!function_exists('loadSiteIcons')) {
 
 /**
  * Renders posts, and pages search results in grid with theme-agnostic styling
+ * Relies entirely on global CSS variables set in the layout's :root
  *
  * @param string $searchQuery search query text
  * @param array $blogsSearchResults Array of blog posts
@@ -3239,32 +3240,26 @@ if (!function_exists('renderSearchResults')) {
         $noResults = empty($blogsSearchResults) && empty($pagesSearchResults);
         $totalResults = (!$noResults) ? (count($blogsSearchResults ?? []) + count($pagesSearchResults ?? [])) : 0;
 
-        // Get theme colors
-        $theme = getCurrentTheme();
-        $default_color = getThemeData($theme, "default_color");
-        $heading_color = getThemeData($theme, "heading_color");
-        $accent_color = getThemeData($theme, "accent_color");
-        $surface_color = getThemeData($theme, "surface_color");
-        $contrast_color = getThemeData($theme, "contrast_color");
-        $background_color = getThemeData($theme, "background_color");
+        // No PHP color fetching needed! We inherit everything from the layout's :root variables.
         
         ob_start();
         ?>
         <style>
+        /* ===== Search Results Styles ===== */
         .sr-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 1rem;
             font-family: system-ui, -apple-system, sans-serif;
-            color: <?=$default_color?>;
+            color: var(--default-color);
         }
         .sr-grid {
             display: grid;
             gap: 2rem;
         }
         .sr-card {
-            background: <?=$surface_color?>;
-            border: 1px solid <?=$default_color?>20;
+            background: var(--surface-color);
+            border: 1px solid color-mix(in srgb, var(--default-color) 12.5%, transparent); /* Replicates 20 hex alpha */
             border-radius: 12px;
             padding: 2rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -3281,12 +3276,12 @@ if (!function_exists('renderSearchResults')) {
         .sr-title {
             font-size: 2.5rem;
             font-weight: 700;
-            color: <?=$heading_color?>;
+            color: var(--heading-color);
             margin: 0 0 1rem 0;
         }
         .sr-subtitle {
             font-size: 1.25rem;
-            color: <?=$default_color?>;
+            color: var(--default-color);
             margin: 0;
         }
         .sr-section {
@@ -3295,10 +3290,10 @@ if (!function_exists('renderSearchResults')) {
         .sr-section-title {
             font-size: 1.5rem;
             font-weight: 600;
-            color: <?=$heading_color?>;
+            color: var(--heading-color);
             margin: 0 0 1.5rem 0;
             padding-bottom: 0.75rem;
-            border-bottom: 2px solid <?=$default_color?>30;
+            border-bottom: 2px solid color-mix(in srgb, var(--default-color) 18.75%, transparent); /* Replicates 30 hex alpha */
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -3309,8 +3304,8 @@ if (!function_exists('renderSearchResults')) {
         }
         .sr-list-item {
             display: block;
-            background: <?=$surface_color?>;
-            border: 1px solid <?=$default_color?>20;
+            background: var(--surface-color);
+            border: 1px solid color-mix(in srgb, var(--default-color) 12.5%, transparent);
             border-radius: 8px;
             padding: 1.5rem;
             text-decoration: none;
@@ -3318,13 +3313,13 @@ if (!function_exists('renderSearchResults')) {
             transition: all 0.3s ease;
         }
         .sr-list-item:hover {
-            border-color: <?=$default_color?>;
-            background: <?=$background_color?>;
+            border-color: var(--default-color);
+            background: var(--background-color);
             transform: translateX(4px);
         }
         .sr-item-header {
             display: flex;
-            justify-content: between;
+            justify-content: space-between; /* Fixed from 'between' */
             align-items: start;
             margin-bottom: 0.75rem;
             gap: 1rem;
@@ -3332,12 +3327,12 @@ if (!function_exists('renderSearchResults')) {
         .sr-item-title {
             font-size: 1.125rem;
             font-weight: 600;
-            color: <?=$heading_color?>;
+            color: var(--heading-color);
             margin: 0;
             flex: 1;
         }
         .sr-badge {
-            background: <?=$accent_color?>;
+            background: var(--accent-color);
             color: white;
             padding: 0.25rem 0.75rem;
             border-radius: 6px;
@@ -3345,12 +3340,12 @@ if (!function_exists('renderSearchResults')) {
             font-weight: 500;
         }
         .sr-item-desc {
-            color: <?=$default_color?>;
+            color: var(--default-color);
             margin: 0 0 0.5rem 0;
             line-height: 1.5;
         }
         .sr-item-url {
-            color: <?=$default_color?>;
+            color: var(--default-color);
             font-size: 0.875rem;
             margin: 0;
         }
@@ -3360,8 +3355,8 @@ if (!function_exists('renderSearchResults')) {
             gap: 1.5rem;
         }
         .sr-blog-card {
-            background: <?=$surface_color?>;
-            border: 1px solid <?=$default_color?>20;
+            background: var(--surface-color);
+            border: 1px solid color-mix(in srgb, var(--default-color) 12.5%, transparent);
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
@@ -3377,7 +3372,7 @@ if (!function_exists('renderSearchResults')) {
             width: 100%;
             height: 200px;
             overflow: hidden;
-            background: <?=$default_color?>10;
+            background: color-mix(in srgb, var(--default-color) 6.25%, transparent); /* Replicates 10 hex alpha */
             position: relative;
         }
         .sr-blog-image {
@@ -3405,7 +3400,7 @@ if (!function_exists('renderSearchResults')) {
             flex-wrap: wrap;
         }
         .sr-blog-category {
-            background: <?=$default_color?>;
+            background: var(--default-color);
             color: white;
             padding: 0.25rem 0.75rem;
             border-radius: 6px;
@@ -3414,7 +3409,7 @@ if (!function_exists('renderSearchResults')) {
             display: inline-block;
         }
         .sr-blog-date {
-            color: <?=$default_color?>;
+            color: var(--default-color);
             font-size: 0.875rem;
             display: flex;
             align-items: center;
@@ -3423,19 +3418,19 @@ if (!function_exists('renderSearchResults')) {
         .sr-blog-title {
             font-size: 1.125rem;
             font-weight: 600;
-            color: <?=$heading_color?>;
+            color: var(--heading-color);
             margin: 0 0 0.75rem 0;
             line-height: 1.4;
         }
         .sr-blog-excerpt {
-            color: <?=$default_color?>;
+            color: var(--default-color);
             margin: 0 0 1.25rem 0;
             line-height: 1.5;
             flex: 1;
         }
         .sr-button {
             display: inline-block;
-            background: <?=$default_color?>;
+            background: var(--default-color);
             color: white;
             padding: 0.75rem 1.5rem;
             border-radius: 8px;
@@ -3447,25 +3442,23 @@ if (!function_exists('renderSearchResults')) {
             align-self: flex-start;
         }
         .sr-button:hover {
-            background: <?=$accent_color?>;
+            background: var(--accent-color);
             transform: translateY(-1px);
         }
         .sr-button-outline {
             background: transparent;
-            border: 2px solid <?=$default_color?>;
-            color: <?=$default_color?>;
+            border: 2px solid var(--default-color);
+            color: var(--default-color);
         }
         .sr-button-outline:hover {
-            background: <?=$default_color?>;
+            background: var(--default-color);
             color: white;
         }
-        .sr-form {
-            width: 100%;
-        }
+        .sr-form { width: 100%; }
         .sr-input {
             width: 100%;
             padding: 1rem;
-            border: 2px solid <?=$default_color?>30;
+            border: 2px solid color-mix(in srgb, var(--default-color) 18.75%, transparent);
             border-radius: 8px;
             font-size: 1rem;
             margin-bottom: 1.5rem;
@@ -3473,71 +3466,46 @@ if (!function_exists('renderSearchResults')) {
         }
         .sr-input:focus {
             outline: none;
-            border-color: <?=$default_color?>;
+            border-color: var(--default-color);
         }
-        .sr-icon {
-            font-size: 1.2em;
-            line-height: 1;
-        }
-        .sr-icon-large {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-        .sr-center {
-            text-align: center;
-        }
-        .sr-count {
-            color: <?=$accent_color?>;
-            font-weight: 600;
-        }
-        .sr-highlight {
-            color: <?=$accent_color?>;
-            font-weight: 600;
-        }
+        .sr-icon { font-size: 1.2em; line-height: 1; }
+        .sr-icon-large { font-size: 3rem; margin-bottom: 1rem; display: block; }
+        .sr-center { text-align: center; }
+        .sr-count { color: var(--accent-color); font-weight: 600; }
+        .sr-highlight { color: var(--accent-color); font-weight: 600; }
         
-        /* Responsive adjustment for mobile */
         @media (max-width: 768px) {
-            .sr-image-wrapper {
-                height: 180px;
-            }
+            .sr-image-wrapper { height: 180px; }
         }
         </style>
 
         <div class="sr-container">
             <?php if ($noResults): ?>
-                <!-- No Results Found -->
                 <div class="sr-header">
                     <h1 class="sr-title">No Results Found</h1>
                     <p class="sr-subtitle">Sorry, we couldn't find any content matching "<strong><?= esc($searchQuery) ?></strong>".</p>
                 </div>
-
-                <!-- Search Suggestion Card -->
                 <div class="sr-grid">
                     <div class="sr-card sr-center">
                         <span class="sr-icon sr-icon-large"><i class="ri-heart-fill text-danger"></i></span>
-                        <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: <?=$heading_color?>;">Not the results you were looking for?</h2>
-                        <p style="margin: 0 0 2rem 0; color: <?=$default_color?>;">Help us improve your search experience by telling us what you were looking for.</p>
+                        <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: var(--heading-color);">Not the results you were looking for?</h2>
+                        <p style="margin: 0 0 2rem 0; color: var(--default-color);">Help us improve your search experience by telling us what you were looking for.</p>
                         <form action="<?= base_url('search') ?>" method="get" class="sr-form">
                             <input type="text" name="q" class="sr-input" placeholder="What were you searching for?" value="<?= esc($searchQuery) ?>" required>
                             <button type="submit" class="sr-button">Search Again</button>
                         </form>
                     </div>
                 </div>
-
             <?php else: ?>
-                <!-- Search Header -->
                 <div class="sr-header">
                     <h1 class="sr-title">Search Results for "<span class="sr-highlight"><?= esc($searchQuery) ?></span>"</h1>
                     <p class="sr-subtitle"><span class="sr-count"><?= $totalResults ?></span> result(s) found</p>
                 </div>
 
-                <!-- Pages Results -->
                 <?php if (!empty($pagesSearchResults)): ?>
                     <div class="sr-section">
                         <h2 class="sr-section-title">
-                            <span class="sr-icon"><i class="ri-file-line"></i></span>
-                            Pages
+                            <span class="sr-icon"><i class="ri-file-line"></i></span> Pages
                         </h2>
                         <div class="sr-list">
                             <?php foreach ($pagesSearchResults as $page): ?>
@@ -3556,12 +3524,10 @@ if (!function_exists('renderSearchResults')) {
                     </div>
                 <?php endif; ?>
 
-                <!-- Blogs Results -->
                 <?php if (!empty($blogsSearchResults)): ?>
                     <div class="sr-section">
                         <h2 class="sr-section-title">
-                            <span class="sr-icon"><i class="ri-newspaper-line"></i></span>
-                            Blog Posts
+                            <span class="sr-icon"><i class="ri-newspaper-line"></i></span> Blog Posts
                         </h2>
                         <div class="sr-blog-grid">
                             <?php foreach ($blogsSearchResults as $blog): ?>
@@ -3597,19 +3563,17 @@ if (!function_exists('renderSearchResults')) {
                     </div>
                 <?php endif; ?>
 
-                <!-- Feedback Section -->
                 <div class="sr-section">
                     <div class="sr-card sr-center">
                         <span class="sr-icon sr-icon-large"><i class="ri-search-line"></i></span>
-                        <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: <?=$heading_color?>;">Not what you were looking for?</h2>
-                        <p style="margin: 0 0 2rem 0; color: <?=$default_color?>;">Help us improve your search experience.</p>
+                        <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: var(--heading-color);">Not what you were looking for?</h2>
+                        <p style="margin: 0 0 2rem 0; color: var(--default-color);">Help us improve your search experience.</p>
                         <form action="<?= base_url('search') ?>" method="get" class="sr-form">
                             <input type="text" name="q" class="sr-input" placeholder="Try a different search term" value="<?= esc($searchQuery) ?>">
                             <button type="submit" class="sr-button">Search Again</button>
                         </form>
                     </div>
                 </div>
-
             <?php endif; ?>
         </div>
         <?php
@@ -3619,6 +3583,7 @@ if (!function_exists('renderSearchResults')) {
 
 /**
  * Renders filtered posts, and pages search results in grid with theme-agnostic styling
+ * Relies entirely on global CSS variables set in the layout's :root
  *
  * @param string $searchQuery search query text
  * @param array $blogsSearchResults Array of blog posts
@@ -3629,7 +3594,6 @@ if (!function_exists('renderSearchResults')) {
 if (!function_exists('renderFilterSearchResults')) {
     function renderFilterSearchResults($searchQuery, $blogsSearchResults, $pagesSearchResults, $type = '')
     {
-        // Check if all search result arrays are empty
         $noResults = empty($blogsSearchResults) && empty($pagesSearchResults);
         $totalResults = (!$noResults) ? (count($blogsSearchResults ?? []) + count($pagesSearchResults ?? [])) : 0;
         
@@ -3641,27 +3605,19 @@ if (!function_exists('renderFilterSearchResults')) {
             default => '&#128193;' // 📁
         };
 
-        // Get theme colors
-        $theme = getCurrentTheme();
-        $default_color = getThemeData($theme, "default_color");
-        $heading_color = getThemeData($theme, "heading_color");
-        $accent_color = getThemeData($theme, "accent_color");
-        $surface_color = getThemeData($theme, "surface_color");
-        $contrast_color = getThemeData($theme, "contrast_color");
-        $background_color = getThemeData($theme, "background_color");
-        
         ob_start();
         ?>
         <style>
+        /* ===== Filtered Results Styles ===== */
         .fr-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 1rem;
             font-family: system-ui, -apple-system, sans-serif;
-            color: <?=$default_color?>;
+            color: var(--default-color);
         }
         .fr-header {
-            background: <?=$default_color?>;
+            background: var(--default-color);
             color: white;
             border-radius: 12px;
             padding: 2.5rem;
@@ -3678,38 +3634,23 @@ if (!function_exists('renderFilterSearchResults')) {
             margin-bottom: 1rem;
             font-weight: 500;
         }
-        .fr-title {
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin: 0 0 0.5rem 0;
-            color: white;
-        }
-        .fr-subtitle {
-            font-size: 1.125rem;
-            margin: 0;
-            opacity: 0.9;
-            color: white;
-        }
-        .fr-highlight {
-            color: #FFD700;
-            font-weight: 600;
-        }
-        .fr-section {
-            margin-bottom: 3rem;
-        }
+        .fr-title { font-size: 2.25rem; font-weight: 700; margin: 0 0 0.5rem 0; color: white; }
+        .fr-subtitle { font-size: 1.125rem; margin: 0; opacity: 0.9; color: white; }
+        .fr-highlight { color: #FFD700; font-weight: 600; }
+        .fr-section { margin-bottom: 3rem; }
         .fr-section-title {
             font-size: 1.5rem;
             font-weight: 600;
-            color: <?=$heading_color?>;
+            color: var(--heading-color);
             margin: 0 0 1.5rem 0;
             padding-bottom: 0.75rem;
-            border-bottom: 2px solid <?=$default_color?>30;
+            border-bottom: 2px solid color-mix(in srgb, var(--default-color) 18.75%, transparent);
             display: flex;
             align-items: center;
             gap: 0.75rem;
         }
         .fr-count {
-            background: <?=$accent_color?>;
+            background: var(--accent-color);
             color: white;
             padding: 0.25rem 0.75rem;
             border-radius: 12px;
@@ -3717,14 +3658,11 @@ if (!function_exists('renderFilterSearchResults')) {
             font-weight: 500;
             margin-left: auto;
         }
-        .fr-list {
-            display: grid;
-            gap: 1rem;
-        }
+        .fr-list { display: grid; gap: 1rem; }
         .fr-list-item {
             display: block;
-            background: <?=$surface_color?>;
-            border: 1px solid <?=$default_color?>20;
+            background: var(--surface-color);
+            border: 1px solid color-mix(in srgb, var(--default-color) 12.5%, transparent);
             border-radius: 8px;
             padding: 1.5rem;
             text-decoration: none;
@@ -3732,50 +3670,32 @@ if (!function_exists('renderFilterSearchResults')) {
             transition: all 0.3s ease;
         }
         .fr-list-item:hover {
-            border-color: <?=$default_color?>;
-            background: <?=$background_color?>;
+            border-color: var(--default-color);
+            background: var(--background-color);
             transform: translateX(4px);
         }
         .fr-item-header {
             display: flex;
-            justify-content: between;
+            justify-content: space-between; /* Fixed from 'between' */
             align-items: start;
             margin-bottom: 0.75rem;
             gap: 1rem;
         }
-        .fr-item-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: <?=$heading_color?>;
-            margin: 0;
-            flex: 1;
-        }
+        .fr-item-title { font-size: 1.125rem; font-weight: 600; color: var(--heading-color); margin: 0; flex: 1; }
         .fr-badge {
-            background: <?=$default_color?>;
+            background: var(--default-color);
             color: white;
             padding: 0.25rem 0.75rem;
             border-radius: 6px;
             font-size: 0.875rem;
             font-weight: 500;
         }
-        .fr-item-desc {
-            color: <?=$default_color?>;
-            margin: 0 0 0.5rem 0;
-            line-height: 1.5;
-        }
-        .fr-item-url {
-            color: <?=$default_color?>;
-            font-size: 0.875rem;
-            margin: 0;
-        }
-        .fr-blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
+        .fr-item-desc { color: var(--default-color); margin: 0 0 0.5rem 0; line-height: 1.5; }
+        .fr-item-url { color: var(--default-color); font-size: 0.875rem; margin: 0; }
+        .fr-blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
         .fr-blog-card {
-            background: <?=$surface_color?>;
-            border: 1px solid <?=$default_color?>20;
+            background: var(--surface-color);
+            border: 1px solid color-mix(in srgb, var(--default-color) 12.5%, transparent);
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
@@ -3783,43 +3703,20 @@ if (!function_exists('renderFilterSearchResults')) {
             flex-direction: column;
             height: 100%;
         }
-        .fr-blog-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-        }
+        .fr-blog-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
         .fr-image-wrapper {
             width: 100%;
             height: 200px;
             overflow: hidden;
-            background: <?=$default_color?>10;
+            background: color-mix(in srgb, var(--default-color) 6.25%, transparent);
             position: relative;
         }
-        .fr-blog-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        .fr-blog-card:hover .fr-blog-image {
-            transform: scale(1.05);
-        }
-        .fr-blog-content {
-            padding: 1.5rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .fr-blog-meta {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
+        .fr-blog-image { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform 0.3s ease; }
+        .fr-blog-card:hover .fr-blog-image { transform: scale(1.05); }
+        .fr-blog-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+        .fr-blog-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
         .fr-blog-category {
-            background: <?=$default_color?>;
+            background: var(--default-color);
             color: white;
             padding: 0.25rem 0.75rem;
             border-radius: 6px;
@@ -3827,29 +3724,12 @@ if (!function_exists('renderFilterSearchResults')) {
             font-weight: 500;
             display: inline-block;
         }
-        .fr-blog-date {
-            color: <?=$default_color?>;
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-        .fr-blog-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: <?=$heading_color?>;
-            margin: 0 0 0.75rem 0;
-            line-height: 1.4;
-        }
-        .fr-blog-excerpt {
-            color: <?=$default_color?>;
-            margin: 0 0 1.25rem 0;
-            line-height: 1.5;
-            flex: 1;
-        }
+        .fr-blog-date { color: var(--default-color); font-size: 0.875rem; display: flex; align-items: center; gap: 0.25rem; }
+        .fr-blog-title { font-size: 1.125rem; font-weight: 600; color: var(--heading-color); margin: 0 0 0.75rem 0; line-height: 1.4; }
+        .fr-blog-excerpt { color: var(--default-color); margin: 0 0 1.25rem 0; line-height: 1.5; flex: 1; }
         .fr-button {
             display: inline-block;
-            background: <?=$default_color?>;
+            background: var(--default-color);
             color: white;
             padding: 0.75rem 1.5rem;
             border-radius: 8px;
@@ -3860,71 +3740,38 @@ if (!function_exists('renderFilterSearchResults')) {
             transition: all 0.3s ease;
             align-self: flex-start;
         }
-        .fr-button:hover {
-            background: <?=$accent_color?>;
-            transform: translateY(-1px);
-        }
-        .fr-button-outline {
-            background: transparent;
-            border: 2px solid <?=$default_color?>;
-            color: <?=$default_color?>;
-        }
-        .fr-button-outline:hover {
-            background: <?=$default_color?>;
-            color: white;
-        }
-        .fr-form {
-            width: 100%;
-        }
+        .fr-button:hover { background: var(--accent-color); transform: translateY(-1px); }
+        .fr-button-outline { background: transparent; border: 2px solid var(--default-color); color: var(--default-color); }
+        .fr-button-outline:hover { background: var(--default-color); color: white; }
+        .fr-form { width: 100%; }
         .fr-input {
             width: 100%;
             padding: 1rem;
-            border: 2px solid <?=$default_color?>30;
+            border: 2px solid color-mix(in srgb, var(--default-color) 18.75%, transparent);
             border-radius: 8px;
             font-size: 1rem;
             margin-bottom: 1.5rem;
             transition: border-color 0.3s ease;
         }
-        .fr-input:focus {
-            outline: none;
-            border-color: <?=$default_color?>;
-        }
-        .fr-icon {
-            font-size: 1.2em;
-            line-height: 1;
-        }
-        .fr-icon-large {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-        .fr-center {
-            text-align: center;
-        }
+        .fr-input:focus { outline: none; border-color: var(--default-color); }
+        .fr-icon { font-size: 1.2em; line-height: 1; }
+        .fr-icon-large { font-size: 3rem; margin-bottom: 1rem; display: block; }
+        .fr-center { text-align: center; }
         .fr-card {
-            background: <?=$surface_color?>;
-            border: 1px solid <?=$default_color?>20;
+            background: var(--surface-color);
+            border: 1px solid color-mix(in srgb, var(--default-color) 12.5%, transparent);
             border-radius: 12px;
             padding: 2rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
         }
-        .fr-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-        }
+        .fr-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
         
-        /* Responsive adjustment for mobile */
-        @media (max-width: 768px) {
-            .fr-image-wrapper {
-                height: 180px;
-            }
-        }
+        @media (max-width: 768px) { .fr-image-wrapper { height: 180px; } }
         </style>
 
         <div class="fr-container">
             <?php if ($noResults): ?>
-                <!-- No Results Found -->
                 <div class="fr-header">
                     <div class="fr-type-indicator">
                         <span class="fr-icon"><?= $typeIcon ?></span>
@@ -3933,22 +3780,18 @@ if (!function_exists('renderFilterSearchResults')) {
                     <h1 class="fr-title">No <?= $typeLabel ?> Results Found</h1>
                     <p class="fr-subtitle">No content found for "<strong><?= esc($searchQuery) ?></strong>" in <?= strtolower($typeLabel) ?>.</p>
                 </div>
-
-                <!-- Feedback Card -->
                 <div class="fr-section">
                     <div class="fr-card fr-center">
                         <span class="fr-icon fr-icon-large"><i class="ri-filter-line"></i></span>
-                        <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: <?=$heading_color?>;">Refine Your Search</h2>
-                        <p style="margin: 0 0 2rem 0; color: <?=$default_color?>;">Try a different <?= strtolower($typeLabel) ?> or search with different criteria.</p>
+                        <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: var(--heading-color);">Refine Your Search</h2>
+                        <p style="margin: 0 0 2rem 0; color: var(--default-color);">Try a different <?= strtolower($typeLabel) ?> or search with different criteria.</p>
                         <form action="<?= base_url('search') ?>" method="get" class="fr-form">
                             <input type="text" name="q" class="fr-input" placeholder="Try a different keyword" value="<?= esc($searchQuery) ?>">
                             <button type="submit" class="fr-button">Search Again</button>
                         </form>
                     </div>
                 </div>
-
             <?php else: ?>
-                <!-- Search Header -->
                 <div class="fr-header">
                     <div class="fr-type-indicator">
                         <span class="fr-icon"><?= $typeIcon ?></span>
@@ -3958,12 +3801,10 @@ if (!function_exists('renderFilterSearchResults')) {
                     <p class="fr-subtitle"><?= $totalResults ?> result(s) found in <?= strtolower($typeLabel) ?></p>
                 </div>
 
-                <!-- Pages Results -->
                 <?php if (!empty($pagesSearchResults)): ?>
                     <div class="fr-section">
                         <h2 class="fr-section-title">
-                            <span class="fr-icon"><i class="ri-file-line"></i></span>
-                            Pages
+                            <span class="fr-icon"><i class="ri-file-line"></i></span> Pages
                             <span class="fr-count"><?= count($pagesSearchResults) ?> result(s) found</span>
                         </h2>
                         <div class="fr-list">
@@ -3983,12 +3824,10 @@ if (!function_exists('renderFilterSearchResults')) {
                     </div>
                 <?php endif; ?>
 
-                <!-- Blogs Results -->
                 <?php if (!empty($blogsSearchResults)): ?>
                     <div class="fr-section">
                         <h2 class="fr-section-title">
-                            <span class="fr-icon"><i class="ri-newspaper-line"></i></span>
-                            Blog Posts
+                            <span class="fr-icon"><i class="ri-newspaper-line"></i></span> Blog Posts
                             <span class="fr-count"><?= count($blogsSearchResults) ?> result(s) found</span>
                         </h2>
                         <div class="fr-blog-grid">
@@ -4025,19 +3864,17 @@ if (!function_exists('renderFilterSearchResults')) {
                     </div>
                 <?php endif; ?>
 
-                <!-- Final Feedback Section -->
                 <div class="fr-section">
                     <div class="fr-card fr-center">
                         <span class="fr-icon fr-icon-large"><i class="ri-filter-line"></i></span>
-                        <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: <?=$heading_color?>;">Need Different Results?</h2>
-                        <p style="margin: 0 0 2rem 0; color: <?=$default_color?>;">Try searching with different criteria or browse all content.</p>
+                        <h2 style="font-size: 1.75rem; margin: 0 0 1rem 0; color: var(--heading-color);">Need Different Results?</h2>
+                        <p style="margin: 0 0 2rem 0; color: var(--default-color);">Try searching with different criteria or browse all content.</p>
                         <form action="<?= base_url('search') ?>" method="get" class="fr-form">
                             <input type="text" name="q" class="fr-input" placeholder="Search again..." value="<?= esc($searchQuery) ?>">
                             <button type="submit" class="fr-button">Search</button>
                         </form>
                     </div>
                 </div>
-
             <?php endif; ?>
         </div>
         <?php
@@ -4048,6 +3885,7 @@ if (!function_exists('renderFilterSearchResults')) {
 
 /**
  * Renders blog posts grid with theme-agnostic styling
+ * Relies entirely on global CSS variables set in the layout's :root
  * 
  * @param array $blogs Array of blog posts
  * @param string $emptyMessage Message to display when no blogs found
@@ -4056,18 +3894,10 @@ if (!function_exists('renderFilterSearchResults')) {
 if (!function_exists('renderBlogsGrid')) {
     function renderBlogsGrid($blogs, $emptyMessage = 'No blog posts available at the moment.') 
     {
-        // Get theme colors
-        $theme = getCurrentTheme();
-        $default_color = getThemeData($theme, "default_color");
-        $heading_color = getThemeData($theme, "heading_color");
-        $accent_color = getThemeData($theme, "accent_color");
-        $surface_color = getThemeData($theme, "surface_color");
-        $contrast_color = getThemeData($theme, "contrast_color");
-        $background_color = getThemeData($theme, "background_color");
-        
         ob_start();
         ?>
         <style>
+        /* ===== Blog Grid Styles ===== */
         .bg-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -4078,8 +3908,9 @@ if (!function_exists('renderBlogsGrid')) {
             gap: 2rem;
         }
         .bg-card {
-            background: <?=$surface_color?>;
-            border: 1px solid <?=$default_color?>20;
+            background: var(--surface-color);
+            /* color-mix replicates the <=$default_color?>20 transparency */
+            border: 1px solid color-mix(in srgb, var(--default-color) 12.5%, transparent);
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
@@ -4094,9 +3925,10 @@ if (!function_exists('renderBlogsGrid')) {
         .bg-image-wrapper {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio (you can change this to 75% for 4:3 or 100% for square) */
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
             overflow: hidden;
-            background: <?=$default_color?>10;
+            /* color-mix replicates the <=$default_color?>10 transparency */
+            background: color-mix(in srgb, var(--default-color) 6.25%, transparent);
         }
         .bg-image {
             position: absolute;
@@ -4104,12 +3936,12 @@ if (!function_exists('renderBlogsGrid')) {
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures image covers the area without distortion */
-            object-position: center; /* Centers the image */
+            object-fit: cover; 
+            object-position: center; 
             transition: transform 0.3s ease;
         }
         .bg-card:hover .bg-image {
-            transform: scale(1.05); /* Optional: subtle zoom effect on hover */
+            transform: scale(1.05); 
         }
         .bg-content {
             padding: 1.5rem;
@@ -4125,7 +3957,7 @@ if (!function_exists('renderBlogsGrid')) {
             flex-wrap: wrap;
         }
         .bg-category {
-            background: <?=$accent_color?>;
+            background: var(--accent-color);
             color: white;
             padding: 0.375rem 0.75rem;
             border-radius: 6px;
@@ -4134,7 +3966,7 @@ if (!function_exists('renderBlogsGrid')) {
             white-space: nowrap;
         }
         .bg-date {
-            color: <?=$default_color?>;
+            color: var(--default-color);
             font-size: 0.875rem;
             display: flex;
             align-items: center;
@@ -4143,12 +3975,12 @@ if (!function_exists('renderBlogsGrid')) {
         .bg-title {
             font-size: 1.25rem;
             font-weight: 600;
-            color: <?=$heading_color?>;
+            color: var(--heading-color);
             margin: 0 0 1rem 0;
             line-height: 1.4;
         }
         .bg-excerpt {
-            color: <?=$default_color?>;
+            color: var(--default-color);
             margin: 0 0 1.5rem 0;
             line-height: 1.5;
             flex: 1;
@@ -4157,7 +3989,7 @@ if (!function_exists('renderBlogsGrid')) {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: <?=$default_color?>;
+            background: var(--default-color);
             color: white;
             padding: 0.75rem 1.25rem;
             border-radius: 8px;
@@ -4169,13 +4001,13 @@ if (!function_exists('renderBlogsGrid')) {
             align-self: flex-start;
         }
         .bg-button:hover {
-            background: <?=$accent_color?>;
+            background: var(--accent-color);
             transform: translateY(-1px);
         }
         .bg-empty {
             text-align: center;
             padding: 3rem 2rem;
-            color: <?=$default_color?>;
+            color: var(--default-color);
             grid-column: 1 / -1;
         }
         .bg-icon {
@@ -4204,7 +4036,12 @@ if (!function_exists('renderBlogsGrid')) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, <?=$default_color?>10, <?=$default_color?>20, <?=$default_color?>10);
+            /* Shimmer gradient using transparentized CSS variables */
+            background: linear-gradient(90deg, 
+                color-mix(in srgb, var(--default-color) 6.25%, transparent), 
+                color-mix(in srgb, var(--default-color) 12.5%, transparent), 
+                color-mix(in srgb, var(--default-color) 6.25%, transparent)
+            );
             animation: shimmer 1.5s infinite;
             opacity: 0;
             pointer-events: none;
@@ -4269,6 +4106,7 @@ if (!function_exists('renderBlogsGrid')) {
 
 /**
  * Renders blog post content with theme-agnostic styling
+ * Relies entirely on global CSS variables set in the layout's :root
  * 
  * @param array $blog_data Blog post data
  * @return string HTML content
@@ -4276,113 +4114,27 @@ if (!function_exists('renderBlogsGrid')) {
 if (!function_exists('renderBlogContent')) {
     function renderBlogContent($blog_data) 
     {
-        // Get theme colors
-        $theme = getCurrentTheme();
-        $default_color = getThemeData($theme, "default_color");
-        $heading_color = getThemeData($theme, "heading_color");
-        $accent_color = getThemeData($theme, "accent_color");
-        $surface_color = getThemeData($theme, "surface_color");
-        $contrast_color = getThemeData($theme, "contrast_color");
-        $background_color = getThemeData($theme, "background_color");
-        
         ob_start();
         ?>
         <style>
-        .bc-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .bc-header {
-            margin-bottom: 2rem;
-        }
-        .bc-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: <?=$heading_color?>;
-            margin: 0 0 1.5rem 0;
-            line-height: 1.2;
-        }
-        .bc-meta {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            color: <?=$default_color?>;
-            font-size: 0.95rem;
-        }
-        .bc-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .bc-author {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-            color: inherit;
-            transition: color 0.3s ease;
-        }
-        .bc-author:hover {
-            color: <?=$default_color?>;
-        }
-        .bc-author-image {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .bc-category {
-            background: <?=$default_color?>;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background 0.3s ease;
-            display: inline-block;
-        }
-        .bc-category:hover {
-            background: <?=$accent_color?>;
-        }
-        .bc-image {
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            display: block;
-        }
-        .bc-content {
-            color: <?=$heading_color?>;
-            line-height: 1.7;
-            font-size: 1.1rem;
-        }
-        .bc-content h2, .bc-content h3, .bc-content h4 {
-            color: <?=$heading_color?>;
-            margin: 2rem 0 1rem 0;
-        }
-        .bc-content p {
-            margin-bottom: 1.5rem;
-        }
-        .bc-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin: 1.5rem 0;
-        }
-        .bc-content blockquote {
-            border-left: 4px solid <?=$default_color?>;
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            font-style: italic;
-            color: <?=$default_color?>;
-        }
-        .bc-icon {
-            font-size: 1.1em;
-            line-height: 1;
-        }
+        /* ===== Blog Content Styles ===== */
+        .bc-container { max-width: 800px; margin: 0 auto; }
+        .bc-header { margin-bottom: 2rem; }
+        .bc-title { font-size: 2.5rem; font-weight: 700; color: var(--heading-color); margin: 0 0 1.5rem 0; line-height: 1.2; }
+        .bc-meta { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; color: var(--default-color); font-size: 0.95rem; }
+        .bc-meta-item { display: flex; align-items: center; gap: 0.5rem; }
+        .bc-author { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; transition: color 0.3s ease; }
+        .bc-author:hover { color: var(--default-color); }
+        .bc-author-image { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+        .bc-category { background: var(--default-color); color: white; padding: 0.5rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 500; transition: background 0.3s ease; display: inline-block; }
+        .bc-category:hover { background: var(--accent-color); }
+        .bc-image { width: 100%; max-height: 500px; object-fit: cover; border-radius: 12px; margin-bottom: 2rem; display: block; }
+        .bc-content { color: var(--heading-color); line-height: 1.7; font-size: 1.1rem; }
+        .bc-content h2, .bc-content h3, .bc-content h4 { color: var(--heading-color); margin: 2rem 0 1rem 0; }
+        .bc-content p { margin-bottom: 1.5rem; }
+        .bc-content img { max-width: 100%; height: auto; border-radius: 8px; margin: 1.5rem 0; }
+        .bc-content blockquote { border-left: 4px solid var(--default-color); padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: var(--default-color); }
+        .bc-icon { font-size: 1.1em; line-height: 1; }
         </style>
 
         <div class="bc-container">
@@ -4407,7 +4159,6 @@ if (!function_exists('renderBlogContent')) {
                     <?php $categoryName = !empty($blog_data['category']) ? getBlogCategoryName($blog_data['category']) : ""; ?>
                     <?php if ($categoryName): ?>
                         <a class="bc-category" href="<?= base_url('/search/filter/?type=category&key='.$categoryName) ?>">
-                            <!-- <span class="bc-icon"><i class="ri-tag-line"></i></span> -->
                             <?= $categoryName?>
                         </a>
                     <?php endif; ?>
@@ -4431,6 +4182,7 @@ if (!function_exists('renderBlogContent')) {
 
 /**
  * Renders blog sidebar widgets with theme-agnostic styling
+ * Relies entirely on global CSS variables set in the layout's :root
  * 
  * @param array $categories Array of categories
  * @param array $blogs Array of recent blog posts
@@ -4440,21 +4192,13 @@ if (!function_exists('renderBlogContent')) {
 if (!function_exists('renderBlogSidebar')) {
     function renderBlogSidebar($categories = [], $blogs = [], $blog_data = []) 
     {
-        // Get theme colors
-        $theme = getCurrentTheme();
-        $default_color = getThemeData($theme, "default_color");
-        $heading_color = getThemeData($theme, "heading_color");
-        $accent_color = getThemeData($theme, "accent_color");
-        $surface_color = getThemeData($theme, "surface_color");
-        $contrast_color = getThemeData($theme, "contrast_color");
-        $background_color = getThemeData($theme, "background_color");
-        
         ob_start();
         ?>
         <style>
+        /* ===== Blog Sidebar Styles ===== */
         .bs-widget {
-            background: <?=$surface_color?>;
-            border: 1px solid <?=$default_color?>20;
+            background: var(--surface-color);
+            border: 1px solid color-mix(in srgb, var(--default-color) 12.5%, transparent);
             border-radius: 12px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
@@ -4463,153 +4207,59 @@ if (!function_exists('renderBlogSidebar')) {
         .bs-title {
             font-size: 1.25rem;
             font-weight: 600;
-            color: <?=$heading_color?>;
+            color: var(--heading-color);
             margin: 0 0 1.25rem 0;
             padding-bottom: 0.75rem;
-            border-bottom: 2px solid <?=$default_color?>20;
+            border-bottom: 2px solid color-mix(in srgb, var(--default-color) 12.5%, transparent);
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-        .bs-search-form {
-            display: flex;
-            gap: 0.5rem;
-        }
+        .bs-search-form { display: flex; gap: 0.5rem; }
         .bs-search-input {
             flex: 1;
             padding: 0.75rem;
-            border: 2px solid <?=$default_color?>30;
+            border: 2px solid color-mix(in srgb, var(--default-color) 18.75%, transparent);
             border-radius: 8px;
             font-size: 1rem;
             transition: border-color 0.3s ease;
         }
-        .bs-search-input:focus {
-            outline: none;
-            border-color: <?=$default_color?>;
-        }
-        .bs-search-button {
-            background: <?=$default_color?>;
-            color: white;
-            border: none;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        .bs-search-button:hover {
-            background: <?=$accent_color?>;
-        }
-        .bs-categories-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        .bs-category-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .bs-category-item {
-            margin-bottom: 0.75rem;
-        }
-        .bs-category-link {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: <?=$default_color?>;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            padding: 0.25rem 0;
-        }
-        .bs-category-link:hover {
-            color: <?=$default_color?>;
-        }
+        .bs-search-input:focus { outline: none; border-color: var(--default-color); }
+        .bs-search-button { background: var(--default-color); color: white; border: none; padding: 0.75rem 1rem; border-radius: 8px; cursor: pointer; transition: background 0.3s ease; }
+        .bs-search-button:hover { background: var(--accent-color); }
+        .bs-categories-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .bs-category-list { list-style: none; padding: 0; margin: 0; }
+        .bs-category-item { margin-bottom: 0.75rem; }
+        .bs-category-link { display: flex; justify-content: space-between; align-items: center; color: var(--default-color); text-decoration: none; transition: color 0.3s ease; padding: 0.25rem 0; }
+        .bs-category-link:hover { color: var(--default-color); }
         .bs-category-count {
-            background: <?=$default_color?>20;
-            color: <?=$default_color?>;
+            background: color-mix(in srgb, var(--default-color) 12.5%, transparent);
+            color: var(--default-color);
             padding: 0.25rem 0.5rem;
             border-radius: 4px;
             font-size: 0.875rem;
             font-weight: 500;
         }
-        .bs-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        .bs-tag {
-            background: <?=$heading_color?>;
-            color: white;
-            padding: 0.5rem 0.75rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
-        }
-        .bs-tag:hover {
-            background: <?=$default_color?>;
-            transform: translateY(-1px);
-        }
-        .bs-recent-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .bs-recent-item {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid <?=$default_color?>15;
-        }
-        .bs-recent-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-        .bs-recent-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 6px;
-            flex-shrink: 0;
-        }
-        .bs-recent-content {
-            flex: 1;
-        }
-        .bs-recent-title {
-            margin: 0 0 0.5rem 0;
-        }
-        .bs-recent-title a {
-            color: <?=$heading_color?>;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            line-height: 1.3;
-            transition: color 0.3s ease;
-        }
-        .bs-recent-title a:hover {
-            color: <?=$default_color?>;
-        }
-        .bs-recent-meta {
-            color: <?=$default_color?>;
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .bs-icon {
-            font-size: 1.1em;
-            line-height: 1;
-        }
+        .bs-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .bs-tag { background: var(--heading-color); color: white; padding: 0.5rem 0.75rem; border-radius: 6px; text-decoration: none; font-size: 0.875rem; transition: all 0.3s ease; }
+        .bs-tag:hover { background: var(--default-color); transform: translateY(-1px); }
+        .bs-recent-list { list-style: none; padding: 0; margin: 0; }
+        .bs-recent-item { display: flex; gap: 1rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid color-mix(in srgb, var(--default-color) 8.25%, transparent); /* Replicates 15 hex alpha */ }
+        .bs-recent-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .bs-recent-image { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+        .bs-recent-content { flex: 1; }
+        .bs-recent-title { margin: 0 0 0.5rem 0; }
+        .bs-recent-title a { color: var(--heading-color); text-decoration: none; font-size: 0.95rem; font-weight: 500; line-height: 1.3; transition: color 0.3s ease; }
+        .bs-recent-title a:hover { color: var(--default-color); }
+        .bs-recent-meta { color: var(--default-color); font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; }
+        .bs-icon { font-size: 1.1em; line-height: 1; }
         </style>
 
         <div class="bs-sidebar">
             <!-- Search Widget -->
             <div class="bs-widget">
                 <h3 class="bs-title">
-                    <span class="bs-icon"><i class="ri-search-line"></i></span>
-                    Search
+                    <span class="bs-icon"><i class="ri-search-line"></i></span> Search
                 </h3>
                 <form action="<?= base_url('search') ?>" method="get" class="bs-search-form">
                     <input type="text" name="q" class="bs-search-input" placeholder="Enter search term..." minlength="2" required />
@@ -4623,8 +4273,7 @@ if (!function_exists('renderBlogSidebar')) {
             <?php if ($categories): ?>
                 <div class="bs-widget">
                     <h3 class="bs-title">
-                        <span class="bs-icon"><i class="ri-tag-line"></i></span>
-                        Categories
+                        <span class="bs-icon"><i class="ri-tag-line"></i></span> Categories
                     </h3>
                     <div class="bs-categories-grid">
                         <?php
@@ -4665,8 +4314,7 @@ if (!function_exists('renderBlogSidebar')) {
             <?php if (!empty($blog_data['tags'])): ?>
                 <div class="bs-widget">
                     <h3 class="bs-title">
-                        <span class="bs-icon"><i class="ri-price-tag-line"></i></span>
-                        Tags
+                        <span class="bs-icon"><i class="ri-price-tag-line"></i></span> Tags
                     </h3>
                     <div class="bs-tags">
                         <?php
@@ -4686,8 +4334,7 @@ if (!function_exists('renderBlogSidebar')) {
             <?php if ($blogs): ?>
                 <div class="bs-widget">
                     <h3 class="bs-title">
-                        <span class="bs-icon"><i class="ri-newspaper-line"></i></span>
-                        Recent Posts
+                        <span class="bs-icon"><i class="ri-newspaper-line"></i></span> Recent Posts
                     </h3>
                     <ul class="bs-recent-list">
                         <?php foreach ($blogs as $blog): ?>
