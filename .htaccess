@@ -16,17 +16,20 @@ Options -Indexes
 	# http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
 	# RewriteBase /
 
-	# Redirect Trailing Slashes...
+	# 1. Strip WWW if present (e.g., www.karantaa.com -> karantaa.com)
+	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+	RewriteRule ^ %{ENV:Protocols}://%1%{REQUEST_URI} [R=301,L]
+
+	# 2. Force HTTPS globally 
+	RewriteCond %{HTTPS} off
+	RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+	# 3. Redirect Trailing Slashes...
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_URI} (.+)/$
 	RewriteRule ^ %1 [L,R=301]
 
-	# Rewrite "www.example.com -> example.com"
-	RewriteCond %{HTTPS} !=on
-	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-	RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
-
-	# Checks to see if the user is attempting to access a valid file,
+	# 4. Checks to see if the user is attempting to access a valid file,
 	# such as an image or css document, if this isn't true it sends the
 	# request to the front controller, index.php
 	RewriteCond %{REQUEST_FILENAME} !-f
@@ -47,4 +50,3 @@ Options -Indexes
 # Disable server signature start
 ServerSignature Off
 # Disable server signature end
-

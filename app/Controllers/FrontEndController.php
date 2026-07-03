@@ -97,7 +97,8 @@ class FrontEndController extends BaseController
         $pageId = getTableData($tableName, $whereClause, 'page_id');
         $pagesModel = new PagesModel();
         $data = [
-            'page_data' => $pagesModel->find($pageId)
+            'page_data' => $pagesModel->find($pageId),
+            'page_slug' => 'home'
         ];
 
         //load home view
@@ -116,7 +117,8 @@ class FrontEndController extends BaseController
         $data = [
             'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->paginate(intval(env('PAGINATE_LOW', 20))),
             'pager' => $blogsModel->pager,
-            'total_blogs' => $blogsModel->pager->getTotal()
+            'total_blogs' => $blogsModel->pager->getTotal(),
+            'page_slug' => 'blogs'
         ];
 
         return view('front-end/themes/'.getCurrentTheme().'/blogs/index', $data);
@@ -141,6 +143,7 @@ class FrontEndController extends BaseController
             'blog_data' => $blogsModel->find($blogId),
             'blogs' => $blogsModel->where('status', '1')->orderBy('created_at', 'DESC')->limit(intval(env('QUERY_LIMIT_LOW', 6)))->findAll(),
             'categories' => $categoriesModel->orderBy('title', 'ASC')->findAll(),
+            'page_slug' => 'blogs'
         ];
         return view('front-end/themes/'.getCurrentTheme().'/blogs/view-blog', $data);
     }
@@ -161,9 +164,11 @@ class FrontEndController extends BaseController
 
         $whereClause = ['slug' => $slug];
         $pageId = getTableData($tableName, $whereClause, 'page_id');
+        $currentPageSlug = !empty($slug) ? $slug : "home";
         $pagesModel = new PagesModel();
         $data = [
-            'page_data' => $pagesModel->find($pageId)
+            'page_data' => $pagesModel->find($pageId),
+            'page_slug' => $currentPageSlug
         ];
         return view('front-end/themes/'.getCurrentTheme().'/pages/view-page', $data);
     }
@@ -253,6 +258,8 @@ class FrontEndController extends BaseController
             ->limit(intval(env('QUERY_LIMIT_DEFAULT', 25)));
             
         $data['pagesSearchResults'] = $pagesModel->findAll();
+        $data["page_slug"] = 'search';
+        
         
         // Log activity
         logActivity(null, ActivityTypes::SEARCH, 'Search made for: ' . $searchQuery);
@@ -385,7 +392,8 @@ class FrontEndController extends BaseController
                 "searchQuery" => $searchQuery,
                 'blogsSearchResults' => $data['blogsSearchResults'],
                 'pagesSearchResults' => $data['pagesSearchResults'],
-                'type' => $type
+                'type' => $type,
+                'page_slug' => 'search'
             ]);
 
         } catch (\Exception $e) {
