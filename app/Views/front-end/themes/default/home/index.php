@@ -1,5 +1,5 @@
 <?php
-// This is to get current theme
+// This is to get  theme
 $theme = getCurrentTheme();
 
 //page settings
