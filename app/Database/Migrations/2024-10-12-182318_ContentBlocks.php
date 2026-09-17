@@ -32,7 +32,7 @@ class ContentBlocks extends Migration
                 'default' => null,
             ],
             'content' => [
-                'type' => 'TEXT',
+                'type' => 'LONGTEXT',
             ],
             'icon' => [
                 'type' => 'VARCHAR',

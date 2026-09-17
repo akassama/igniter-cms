@@ -48,7 +48,7 @@ class Pages extends Migration
                 'null' => true,
             ],
             'content' => [
-                'type' => 'TEXT',
+                'type' => 'LONGTEXT',
             ],
             'ai_summary' => [
                 'type' => 'TEXT',

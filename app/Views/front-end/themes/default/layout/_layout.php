@@ -1,5 +1,5 @@
 <?php
-// Get current default theme
+// Get current theme
 $theme = getCurrentTheme();
 
 $siteName = getConfigData("SiteName");
