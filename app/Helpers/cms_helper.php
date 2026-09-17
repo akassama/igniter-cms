@@ -4116,26 +4116,66 @@ if (!function_exists('renderBlogContent')) {
     {
         ob_start();
         ?>
-        <style>
-        /* ===== Blog Content Styles ===== */
-        .bc-container { max-width: 800px; margin: 0 auto; }
-        .bc-header { margin-bottom: 2rem; }
-        .bc-title { font-size: 2.5rem; font-weight: 700; color: var(--heading-color); margin: 0 0 1.5rem 0; line-height: 1.2; }
-        .bc-meta { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; color: var(--default-color); font-size: 0.95rem; }
-        .bc-meta-item { display: flex; align-items: center; gap: 0.5rem; }
-        .bc-author { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; transition: color 0.3s ease; }
-        .bc-author:hover { color: var(--default-color); }
-        .bc-author-image { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
-        .bc-category { background: var(--default-color); color: white; padding: 0.5rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 500; transition: background 0.3s ease; display: inline-block; }
-        .bc-category:hover { background: var(--accent-color); }
-        .bc-image { width: 100%; max-height: 500px; object-fit: cover; border-radius: 12px; margin-bottom: 2rem; display: block; }
-        .bc-content { color: var(--heading-color); line-height: 1.7; font-size: 1.1rem; }
-        .bc-content h2, .bc-content h3, .bc-content h4 { color: var(--heading-color); margin: 2rem 0 1rem 0; }
-        .bc-content p { margin-bottom: 1.5rem; }
-        .bc-content img { max-width: 100%; height: auto; border-radius: 8px; margin: 1.5rem 0; }
-        .bc-content blockquote { border-left: 4px solid var(--default-color); padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: var(--default-color); }
-        .bc-icon { font-size: 1.1em; line-height: 1; }
-        </style>
+		<style>
+		/* ===== Blog Content Styles ===== */
+		.bc-container { max-width: 800px; margin: 0 auto; }
+		.bc-header { margin-bottom: 2rem; }
+		.bc-title { font-size: 2.5rem; font-weight: 700; color: var(--heading-color); margin: 0 0 1.5rem 0; line-height: 1.2; }
+		.bc-meta { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; color: var(--default-color); font-size: 0.95rem; }
+		.bc-meta-item { display: flex; align-items: center; gap: 0.5rem; }
+		.bc-author { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; transition: color 0.3s ease; }
+		.bc-author:hover { color: var(--default-color); }
+		.bc-author-image { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+		.bc-category { background: var(--default-color); color: white; padding: 0.5rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 500; transition: background 0.3s ease; display: inline-block; }
+		.bc-category:hover { background: var(--accent-color); }
+		.bc-image { width: 100%; max-height: 500px; object-fit: cover; border-radius: 12px; margin-bottom: 2rem; display: block; }
+
+		.bc-content {
+			color: var(--heading-color);
+			line-height: 1.7;
+			font-size: 1.1rem;
+			text-align: justify;
+			text-justify: inter-word;
+			hyphens: auto;
+			-webkit-hyphens: auto;
+			overflow-wrap: break-word;
+			word-wrap: break-word;
+		}
+		.bc-content p,
+		.bc-content li {
+			text-align: justify;
+			hyphens: auto;
+			-webkit-hyphens: auto;
+			overflow-wrap: break-word;
+		}
+		.bc-content h2,
+		.bc-content h3,
+		.bc-content h4 {
+			color: var(--heading-color);
+			margin: 2rem 0 1rem 0;
+			text-align: left;
+			hyphens: none;
+		}
+		.bc-content p { margin-bottom: 1.5rem; }
+		.bc-content img { max-width: 100%; height: auto; border-radius: 8px; margin: 1.5rem 0; }
+		.bc-content blockquote {
+			border-left: 4px solid var(--default-color);
+			padding-left: 1.5rem;
+			margin: 2rem 0;
+			font-style: italic;
+			color: var(--default-color);
+			text-align: left;
+			hyphens: none;
+		}
+		.bc-content pre,
+		.bc-content code {
+			text-align: left;
+			hyphens: none;
+			overflow-wrap: normal;
+			word-break: normal;
+		}
+		.bc-icon { font-size: 1.1em; line-height: 1; }
+		</style>
 
         <div class="bc-container">
             <article>
