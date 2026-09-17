@@ -92,6 +92,98 @@ updateTotalViewCount($currentPage, "page_id", $page_data['page_id']);
             </div>
         </div>
     </section>
+    
+    <style>
+            .block-heading-content {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fdfdfd;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            }
+            .block-heading-content h1 {
+            font-family: 'Georgia', serif;
+            color: #2c3e50;
+            font-size: 2.8em;
+            margin: 0;
+            padding: 10px 0;
+            border-bottom: 2px solid #a8dadc;
+            display: inline-block;
+            line-height: 1.2;
+            }
+            .block-heading-content p {
+            margin-top: 15px;
+            font-size: 1.1em;
+            color: #555;
+            }
+        </style>
+        <section class="block-heading-content" id="block-heading-example">
+            <h1>Page Title Here</h1>
+            <p>A compelling subtitle to introduce your content.</p>
+        </section>
+    
+    <style>
+            .section-clients-2-content {
+            padding: 50px 20px;
+            background-color: #fefefe;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            }
+            .section-clients-2-content h2 { font-size: 2.5em; margin-bottom: 20px; color: #343a40; }
+            .section-clients-2-content p { font-size: 1.1em; margin-bottom: 40px; color: #666; max-width: 800px; margin-left: auto; margin-right: auto; }
+            .section-clients-2-content .client-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; align-items: center; }
+            .section-clients-2-content .client-logo-item img { max-height: 70px; width: auto; opacity: 0.8; transition: opacity 0.3s ease; }
+            .section-clients-2-content .client-logo-item img:hover { opacity: 1; }
+        </style>
+        <section class="section-clients-2-content" id="clients-section-2-example">
+            <h2>Trusted by Leading Companies</h2>
+            <p>We're proud to work with businesses of all sizes, helping them achieve their goals and drive success.</p>
+            <div class="client-logos">
+            <div class="client-logo-item"><img src="https://assets.aktools.net/image-stocks/clients/clients-1.svg" alt="Client I Logo"></div>
+            <div class="client-logo-item"><img src="https://assets.aktools.net/image-stocks/clients/clients-2.svg" alt="Client J Logo"></div>
+            <div class="client-logo-item"><img src="https://assets.aktools.net/image-stocks/clients/clients-3.svg" alt="Client K Logo"></div>
+            <div class="client-logo-item"><img src="https://assets.aktools.net/image-stocks/clients/clients-4.svg" alt="Client L Logo"></div>
+            <div class="client-logo-item"><img src="https://assets.aktools.net/image-stocks/clients/clients-5.svg" alt="Client M Logo"></div>
+            <div class="client-logo-item"><img src="https://assets.aktools.net/image-stocks/clients/clients-6.svg" alt="Client N Logo"></div>
+            <div class="client-logo-item"><img src="https://assets.aktools.net/image-stocks/clients/clients-7.svg" alt="Client O Logo"></div>
+            <div class="client-logo-item"><img src="https://assets.aktools.net/image-stocks/clients/clients-8.svg" alt="Client P Logo"></div>
+            </div>
+        </section>
+        
+        <style>
+            .block-video-content {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            background-color: #000;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            }
+            .block-video-content video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure video covers area */
+            }
+            .block-video-caption {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #555;
+            }
+        </style>
+        <section class="block-video-content" id="block-video-example">
+            <video controls loop muted playsinline>
+            <source src="https://assets.aktools.net/image-stocks/videos/video-1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+            <p class="block-video-caption">A sample video from aktools.net.</p>
+        </section>
 
     <!-- About Section -->
     <section id="about" class="about section py-5">
@@ -361,6 +453,62 @@ updateTotalViewCount($currentPage, "page_id", $page_data['page_id']);
             </div>
         </div>
     </section>
+    
+    <style>
+            .section-hero-3-content {
+            position: relative;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            border-radius: 8px;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            }
+            .section-hero-3-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1;
+            }
+            .section-hero-3-content .hero-bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            }
+            .section-hero-3-content .hero-content-overlay {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: auto;
+            }
+            .section-hero-3-content h1 { font-size: 4em; margin-bottom: 25px; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+            .section-hero-3-content p { font-size: 1.5em; margin-bottom: 40px; line-height: 1.7; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
+            .section-hero-3-content .btn-warning { background-color: #ffc107; border-color: #ffc107; color: #333; padding: 15px 40px; font-size: 1.2em; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; }
+            .section-hero-3-content .btn-warning:hover { background-color: #e0a800; border-color: #d39e00; color: #222; transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
+        </style>
+        <section class="section-hero-3-content" id="hero-section-3-example">
+            <video autoplay loop muted playsinline poster="https://assets.aktools.net/image-stocks/hero-carousels/hero-carousel-2.jpg" class="hero-bg-video">
+                <source src="https://assets.aktools.net/image-stocks/videos/video-2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-content-overlay">
+                <h1>Experience Innovation in Motion</h1>
+                <p>Captivating visuals and dynamic storytelling to elevate your brand to new heights.</p>
+                <button class="btn btn-warning">Watch Our Story</button>
+            </div>
+        </section>
 
     <!-- Testimonials Section -->
     <section class="py-5 bg-light">
@@ -417,6 +565,74 @@ updateTotalViewCount($currentPage, "page_id", $page_data['page_id']);
             </div>
         </div>
     </section>
+    
+    <style>
+            .section-services-2-content {
+            padding: 50px 20px;
+            background-color: #f7faff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            }
+            .section-services-2-content h2 { font-size: 2.5em; margin-bottom: 30px; color: #007bff; }
+            .section-services-2-content .service-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            justify-content: center;
+            }
+            .section-services-2-content .service-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            }
+            .section-services-2-content .service-card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); }
+            .section-services-2-content .service-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            }
+            .section-services-2-content .service-card-body {
+            padding: 20px;
+            }
+            .section-services-2-content .service-card-body h3 { font-size: 1.5em; color: #333; margin-bottom: 10px; }
+            .section-services-2-content .service-card-body p { font-size: 0.95em; color: #666; line-height: 1.5; }
+            .section-services-2-content .service-card-body a { color: #007bff; text-decoration: none; font-weight: 500; display: inline-block; margin-top: 10px; }
+            .section-services-2-content .service-card-body a:hover { text-decoration: underline; }
+        </style>
+        <section class="section-services-2-content" id="services-section-2-example">
+            <h2>What We Offer</h2>
+            <div class="service-cards-grid">
+            <div class="service-card">
+                <img src="https://assets.aktools.net/image-stocks/services/services-1.jpg" alt="Service Image 1">
+                <div class="service-card-body">
+                <h3>Strategy & Consulting</h3>
+                <p>Expert guidance to define your digital roadmap and achieve business objectives.</p>
+                <a href="#">Learn More</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="https://assets.aktools.net/image-stocks/services/services-2.jpg" alt="Service Image 2">
+                <div class="service-card-body">
+                <h3>Data Analytics</h3>
+                <p>Transforming raw data into actionable insights for informed decision-making.</p>
+                <a href="#">Learn More</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="https://assets.aktools.net/image-stocks/services/services-3.jpg" alt="Service Image 3">
+                <div class="service-card-body">
+                <h3>Mobile App Development</h3>
+                <p>Building high-performance, user-friendly mobile applications for all platforms.</p>
+                <a href="#">Learn More</a>
+                </div>
+            </div>
+            </div>
+        </section>
 
     <!-- Portfolio Section -->
     <section id="portfolio" class="py-5">

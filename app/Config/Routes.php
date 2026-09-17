@@ -60,7 +60,7 @@ $routes->get('language/switch/(:any)', 'LanguageController::switch/$1');
 //ACCOUNT
 $routes->group('account', ['filter' => ['authFilter', 'demoCheckFilter', 'featureCheckFilter:FEATURE_BACK_END']], function($routes) {
 //BACK_ENABLED_ENABLED
-if (isFeatureEnabled('FEATURE_BACK_END')) {
+if (isFeatureEnabled('FEATURE_BACK_END') ) {
     //DASHBOARD
     $routes->get('dashboard', 'DashboardController::index');
 

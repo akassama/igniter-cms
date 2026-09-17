@@ -31,7 +31,7 @@ class Blogs extends Migration
                 'constraint' => 500,
             ],
             'content' => [
-                'type' => 'TEXT',
+                'type' => 'LONGTEXT',
             ],
             'ai_summary' => [
                 'type' => 'TEXT',
