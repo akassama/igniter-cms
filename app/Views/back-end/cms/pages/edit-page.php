@@ -208,6 +208,7 @@ echo generateBreadcrumb($breadcrumb_links);
             <!--hidden inputs -->
             <div class="col-12">
                 <input type="hidden" class="form-control" id="page_id" name="page_id" value="<?= $page_data['page_id']; ?>" />
+                <input type="hidden" class="form-control" id="created_by" name="created_by" value="<?= $page_data['created_by']; ?>" />
             </div>
 
             <div class="mb-3">
