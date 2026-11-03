@@ -180,33 +180,36 @@ function cifGetFileTags($path, $metadata_file) {
 
 function cifActionLinks($extension, $file_name, $file_path, $file_preview_url, $filterQuery = false) {
     if (strtolower($extension) !== "folder") {
-
-        // Escape backslashes for JavaScript compatibility
-        $escaped_path = str_replace('\\', '\\\\', $file_path);
-        $escaped_file_preview_url = str_replace('\\', '\\\\', $file_preview_url);
-        $escaped_full_url = $escaped_file_preview_url.$file_name;
         $base_url = base_url();
-        $relative_url_path = str_replace($base_url,"",$escaped_full_url);
+        $relative_url_path = str_replace($base_url, "", $file_preview_url . $file_name);
+
+        // Safely encode strings for JavaScript within HTML attributes.
+        // json_encode properly escapes quotes, backslashes, and control characters.
+        // htmlspecialchars ensures the resulting JSON string is safe for HTML attributes.
+        $js_file_path = htmlspecialchars(json_encode($file_path), ENT_QUOTES, 'UTF-8');
+        $js_file_name = htmlspecialchars(json_encode($file_name), ENT_QUOTES, 'UTF-8');
+        $js_file_preview_url = htmlspecialchars(json_encode($file_preview_url), ENT_QUOTES, 'UTF-8');
+        $js_relative_url_path = htmlspecialchars(json_encode($relative_url_path), ENT_QUOTES, 'UTF-8');
 
         $editFileIconBtn = '';
         $deleteFileIconBtn = '';
         if (!boolval($filterQuery)){
-            $editFileIconBtn = '<button class="action-btn edit" data-bs-toggle="tooltip" title="Edit file/tags" onclick="showEditModal(\'' . $escaped_path . '\', \'' . $file_name . '\')">
+            $editFileIconBtn = '<button class="action-btn edit" data-bs-toggle="tooltip" title="Edit file/tags" onclick="showEditModal(' . $js_file_path . ', ' . $js_file_name . ')">
                         <i class="ri-edit-line"></i>
                     </button>';
-            $deleteFileIconBtn = '<button class="action-btn delete" data-bs-toggle="tooltip" title="Delete file" onclick="confirmDelete(\'' . $escaped_path . '\', \'' . $file_name . '\')">
+            $deleteFileIconBtn = '<button class="action-btn delete" data-bs-toggle="tooltip" title="Delete file" onclick="confirmDelete(' . $js_file_path . ', ' . $js_file_name . ')">
                                     <i class="ri-delete-bin-line"></i>
                                 </button>';
         }
 
         return ''.$editFileIconBtn.'
-                <button class="action-btn link" data-bs-toggle="tooltip" title="Get relative link" onclick="copyRelativeFilePath(\'' . $relative_url_path . '\')">
+                <button class="action-btn link" data-bs-toggle="tooltip" title="Get relative link" onclick="copyRelativeFilePath(' . $js_relative_url_path . ')">
                     <i class="ri-link"></i>
                 </button>
-                <button class="action-btn link" data-bs-toggle="tooltip" title="Get link" onclick="copyFilePath(\'' . $escaped_file_preview_url . '\', \'' . $file_name . '\')">
+                <button class="action-btn link" data-bs-toggle="tooltip" title="Get link" onclick="copyFilePath(' . $js_file_preview_url . ', ' . $js_file_name . ')">
                     <i class="ri-external-link-line"></i>
                 </button>
-                <button class="action-btn download" data-bs-toggle="tooltip" title="Download file" onclick="downloadFileUrl(\'' . $escaped_file_preview_url . '\', \'' . $file_name . '\')">
+                <button class="action-btn download" data-bs-toggle="tooltip" title="Download file" onclick="downloadFileUrl(' . $js_file_preview_url . ', ' . $js_file_name . ')">
                     <i class="ri-download-2-line"></i>
                 </button>
                 '.$deleteFileIconBtn.'';
